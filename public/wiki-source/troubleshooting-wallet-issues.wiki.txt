@@ -1,0 +1,23 @@
+This article covers some tactics for '''troubleshooting wallet issues''' to address incorrect balance showing, missing transactions, and other strange inconsistencies.
+
+__TOC__
+
+= Re-sync SPV chain =
+
+The SPV file is a collection of data from the Bitcoin blockchain that tells Bisq your wallet’s balances. All data in the file is available on the Bitcoin network. Resyncing this file just forces Bisq to resync with the Bitcoin network and fetch the data it needs to determine your wallet state again.
+
+See how to initiate an SPV resync [[Resyncing_SPV_file|here]].
+
+= Restore a wallet backup =
+
+If issues persist, you can try to restore a wallet backup file from the <code>btc_mainnet/wallet/backup/backups_bisq_BTC_wallet/</code> folder of your [[Data_directory|data directory]].
+
+This folder holds your most recent wallet backups made on a rolling basis. Replace the <code>bisq_BTC.wallet</code> file in <code>btc_mainnet/wallet/</code> with a recent wallet backup file and rename it to <code>bisq_BTC.wallet</code>. You will also need to resync the SPV chain when restoring a backup, so be sure to also delete <code>bisq.spvchain</code>.
+
+Start Bisq and see if your issue is fixed. If not, repeat with another wallet backup file.
+
+= Switch to a new data directory =
+
+If neither re-syncing the SPV chain nor restoring a wallet backup solves the issue, you might have a corrupted wallet. 
+
+In this case, it’s best to [[Create_a_new_wallet_for_your_data_directory|create a new wallet]].<!-- BISQ VERSION: general -->

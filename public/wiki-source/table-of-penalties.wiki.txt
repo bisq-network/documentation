@@ -1,0 +1,79 @@
+'''Penalties''' help enforce the [[Trading_rules|Bisq Trading Rules]], ensuring the process is as safe and fair as possible. The penalties detailed on this page apply specifically to trading protocols that utilize '''[[Security deposit|security deposits]]''' as their primary security mechanism. Protocols that do not use security deposits, like [[Bisq 2|Bisq Easy]] which relies on [[Reputation]], will have different consequences or mechanisms for handling rule violations.
+
+Penalties are calculated as a percentage of the trade amount and are deducted '''primarily''' from the offending peer's [[Security deposit|security deposit]]. During the [[Dispute_Resolution_in_Bisq_1|dispute resolution process]], this amount may be offered as compensation to the counterparty. ''(Note: See below regarding 100% penalties potentially affecting the trade amount as well).''
+
+'''Important Notes:'''
+* The actual penalty applied is '''up to''' the maximum percentage listed below, considering the [[Security deposit|security deposit]] size and the [[Mediator]]'s discretion.
+* 100% penalties represent serious violations and usually mean losing the entire [[Security deposit|security deposit]] '''and potentially the trade amount itself'''.
+* Penalties are '''not cumulative'''; if multiple violations occur, the single highest applicable penalty percentage is typically used.
+* Peers experiencing issues are encouraged to communicate via [[Dispute_Resolution_in_Bisq_1|trader chat]]. If mutually agreed, they can suggest a specific penalty amount to the [[Mediator]].
+* To incentivize resolution via mediation, any penalty proposal will generally leave the penalized peer with at least 5% of the trade amount (deducted from the deposit), encouraging acceptance over costly [[Arbitration|arbitration]].
+
+__TOC__
+
+== Trade Penalties ==
+
+=== Penalties Applicable to Either Trader ===
+These penalties can apply to either the BTC Buyer or the BTC Seller, depending on who commits the violation in a protocol using security deposits.
+{| class="wikitable" style="width: 100%;"
+|-
+! style="width: 15%;" | Max Penalty (%) !! style="width: 85%;" | Violation Description
+|-
+| style="text-align:center;" | 100 || Fraud attempt (e.g., unauthorized debiting of peer's account, malicious code tampering).
+|-
+| style="text-align:center;" | 50 || Attempting to solicit off-platform communication by including contact information in offer details (e.g., in 'additional information' field for [[Cash by mail|Cash by Mail]] or [[Face-to-face (payment method)|Face-to-Face]] offers).
+|-
+| style="text-align:center;" | 25 || Not responding to [[Mediator]] inquiries within 48 hours during an active dispute resolution process.
+|-
+| style="text-align:center;" | 25 || Contacting trading peer outside of Bisq [[Dispute_Resolution_in_Bisq_1|trader chat]] without prior consent or a clear, necessary reason related to completing the payment.
+|-
+| style="text-align:center;" | 20 || Cancelling an accepted trade without a valid reason according to [[Trading_rules|Trading Rules]].
+|-
+| style="text-align:center;" | 20 || Requesting payment be sent to, or insisting on paying from, a different account/name than agreed in the trade details, without [[Mediator]] approval.
+|-
+| style="text-align:center;" | 10 || Requiring excessive personal data from the counterparty beyond what is strictly necessary for the chosen payment method (e.g., demanding ID copies, proof of address unless intrinsic to the method like [[Cash by mail|Cash by Mail]]).
+|-
+| style="text-align:center;" | 10 || Abusive or disrespectful behavior towards the trading peer, [[Mediator]], or [[Arbitration|Arbitrator]] during the dispute process.
+|}
+
+=== Penalties Applicable Specifically to the BTC Buyer ===
+These penalties apply only to the trader buying BTC (sending fiat or altcoins) in a protocol using security deposits.
+{| class="wikitable" style="width: 100%;"
+|-
+! style="width: 15%;" | Max Penalty (%) !! style="width: 85%;" | Violation Description
+|-
+| style="text-align:center;" | 100 || Payment chargeback after trade completion.
+|-
+| style="text-align:center;" | 25 || Using Bitcoin-related terms (e.g., "BTC", "Bisq", "Bitcoin") in payment references/notes.
+|-
+| style="text-align:center;" | 25 || Paying from an account with a significantly different name (indicating a likely third party). ''Note: Seller may cancel trade without penalty.''
+|-
+| style="text-align:center;" | 20 || Payment sent is 72+ hours late (beyond the trade period).
+|-
+| style="text-align:center;" | 15 || Payment sent is 48-72 hours late.
+|-
+| style="text-align:center;" | 15 || Paying from an account with the correct name but different account details (e.g., wrong bank/account number) than specified for the payment method. ''Note: Seller may cancel trade without penalty.''
+|-
+| style="text-align:center;" | 10 || Payment sent is 24-48 hours late.
+|-
+| style="text-align:center;" | 10 || Using a similar but incorrect payment method that causes issues (e.g., sending via standard SWIFT when SEPA was agreed).
+|-
+| style="text-align:center;" | 10 || Paying the wrong fiat amount. ''Note: Buyer usually has the option to correct the amount within the trade window. Seller may cancel trade without penalty if not corrected promptly.''
+|-
+| style="text-align:center;" | 10 || Using an unagreed payment reference/memo, including potentially problematic neutral terms or the Trade ID itself.
+|-
+| style="text-align:center;" | 10 || Delayed altcoin payment due to Buyer choosing an extremely low network fee. ''Note: Penalty may be reduced if Buyer uses transaction acceleration techniques (RBF, CPFP).''
+|-
+| style="text-align:center;" | 5 || Payment sent is up to 24 hours late.
+|}
+
+=== Penalties Applicable Specifically to the BTC Seller ===
+These penalties apply only to the trader selling BTC (receiving fiat or altcoins) in a protocol using security deposits.
+{| class="wikitable" style="width: 100%;"
+|-
+! style="width: 15%;" | Max Penalty (%) !! style="width: 85%;" | Violation Description
+|-
+| style="text-align:center;" | 25 || Incorrect data in fiat account setup, used as-is by the buyer, causes buyer's bank to intervene (penalty amount depends on the nature of the bank's intervention)
+|-
+| style="text-align:center;" | 15 || BTC is released significantly outside the expected timeframe after payment confirmation, without valid reason.
+|}<!-- BISQ VERSION: bisq2 -->

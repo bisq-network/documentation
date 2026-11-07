@@ -1,0 +1,24 @@
+The '''Roles Maintainer''' documents changes to [[roles]] and role processes, assigning and unassigning people to roles as necessary.
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/28
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/roles-maintainers @bisq-network/roles-maintainers]
+
+== Duties ==
+* Maintain and enforce [[Roles | roles processes]]
+* Report monthly on the Roles Maintainer issue
+
+== Rights ==
+* Write access to the [https://github.com/bisq-network/roles bisq-network/roles] repository
+
+
+== Bonding ==
+N/A
+
+[[Category:Roles]]
+
+[[Category:Maintainer]]<!-- BISQ VERSION: general -->

@@ -1,0 +1,71 @@
+Bisq will '''connect to [[Installing_your_own_Bitcoin_node|your local Bitcoin node]]''' if it finds it upon starting up. This article contains the requirements for this to work correctly.
+
+You can also specify the addresses of particular Bitcoin nodes in <code>Settings</code> > <code>Network Info</code>.
+
+__TOC__
+
+= General node settings =
+
+The <code>bitcoin.conf</code> file needs to contain the following settings. You can copy and paste this block directly into your configuration file:
+
+<pre>
+server=1
+prune=0
+peerbloomfilters=1
+mempoolexpiry=24
+</pre>
+
+which in turn:
+* enables the block server mode
+* disables the pruning of old blocks
+* allows Bisq to run its SPV wallet
+* prevents Bisq from repeatedly losing connection to your node in case your wallet history has many transactions, by limiting the tx retention in the local mempool to 24hrs
+
+Multiple reports have been received, where any declination of the Ronin node just won't work, or will work once, only to stop working after the next reboot, requiring a restore to network provided nodes. We are not able to suggest a workaround, except involving Ronin support.
+
+= Connecting to a local Bitcoin node =
+
+If you're running a Bitcoin full node on the same machine as Bisq, Bisq should connect to your node on startup—it will look for Bitcoin Core or <code>bitcoind</code> running on <code>localhost</code> on port 8333.
+
+Just make sure to not be running any other Bitcoin-based altcoin nodes (like LTC) while starting Bisq.
+
+= Connecting to another Bitcoin node =
+
+By default, Bisq maximizes your privacy by connecting to nodes run by trusted Bisq contributors. 
+
+If you'd like to connect to another node, you can specify its address in <code>Settings</code> > <code>Network Info</code>. Bisq will validate the address and connect to the specified node the next time it starts.
+
+Bisq supports connecting to Bitcoin nodes with Tor v3 addresses: this is the easiest path to take, since you only have to fill in your node's onion address in settings.<br>
+If your node is on your local network, connecting directly to it rather than using Tor would reduce latency by a sensible degree. In order to do this:
+* make sure the node's firewall allows incoming connections on port 8333 from the local network
+* have Bitcoin daemon listen to <code>0.0.0.0</code> rather than <code>127.0.0.1</code> (add this line in bitcoin.conf: <code>bind=0.0.0.0</code>)
+* uncheck "Use Tor for Bitcoin network" under Settings>Network in Bisq application
+* fill in your node's local network <code>ipaddress:8333</code> in "Use custom bitcoin Core nodes" field
+
+= Troubleshooting =
+
+If you get into a state where Bisq is unable to connect, or stuck at SPV resync on the loading screen, you can revert to a provided node as follows. 
+
+For MacOS:
+<pre>
+/Applications/Bisq.app/Contents/MacOs/Bisq -btcNodes=ybryiy2k4p4pery4qseap4iu2rxput2akuvpvczwvg4eyfafcdsvyqid.onion:8333 -useTorForBtc=true
+</pre>
+
+For Linux:
+<pre>
+/opt/bisq/bin/Bisq -btcNodes=ybryiy2k4p4pery4qseap4iu2rxput2akuvpvczwvg4eyfafcdsvyqid.onion:8333 -useTorForBtc=true
+</pre>
+
+For Windows:
+<pre>
+%localappdata%\Bisq\Bisq.exe -btcNodes=ybryiy2k4p4pery4qseap4iu2rxput2akuvpvczwvg4eyfafcdsvyqid.onion:8333 -useTorForBtc=true
+</pre>
+
+After Bisq successfully started and synchronized by running it with that command, you should then go to Settings > Network info, and select again "Use provided Bitcoin Core nodes".
+
+
+Contributor nodes can be seen [https://github.com/bisq-network/bisq/blob/8d345000ee22350ff6d203d4dee8c52285b6d302/core/src/main/java/bisq/core/btc/nodes/BtcNodes.java#L51-L67 here in the Bisq code]. 
+
+[[Running_from_the_command_line|More info on running from the command line]].
+
+[[Command_line_options|More info on command line options]].<!-- BISQ VERSION: general -->

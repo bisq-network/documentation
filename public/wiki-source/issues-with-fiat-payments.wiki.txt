@@ -1,0 +1,46 @@
+== Issues with fiat payments and accounts ==
+
+Banks and fiat institutions (from now on, "banks") are third parties required to process payments, receive incoming payments into your account, and maintain your account active.
+
+A bank may, at any time, adopt the following measures:
+* close an account
+* freeze an account
+* refuse to allow a payment
+* refuse to accept a payment
+* hold an outgoing or incoming payment for an undisclosed amount of time
+* reverse a payment back to the sender's account out of the receiver's account
+* require detailed information about an outgoing payment and/or the receiver
+* require detailed information about an incoming payment and/or the sender
+
+The reason for any of the above events is often undisclosed, but all the above may interfere with fiat trades on Bisq.
+
+=== Possible outcomes of bank intervention ===
+
+The following general outcomes may consequently take place, usually after a dispute is opened:
+
+# fiat settlement takes place, even if after an increased delay, and the trade completes normally
+# fiat payment is returned to the sender, usually after a delay, and the trade is canceled
+# the transaction is held for an extended period of time, during which both traders must wait for a settlement on either side
+# one or both bank accounts are closed, and likewise traders must wait for a settlement
+# the payment is held midway and neither bank may be able to recover the fiat, leaving both traders out of that amount
+# the receiving bank reverses the incoming fiat payment (possibly together with those of other traders) after the trade was settled
+
+=== Interaction with Bisq settlement ===
+
+The dispute resolution of the multisig protocol of Bisq1 can adjust the bitcoin payout from the security deposit based on the outcome of the bank's intervention, but once the trade payout transaction has been published, the bitcoin settlement is final and any bank intervention happening after this point cannot be compensated from the security deposit.
+For example, if a trade settles with the bitcoin being released to the buyer, and at a later time the bitcoin seller's bank reverses incoming payments, the seller would be left without both the bitcoin and the fiat.
+
+In Bisq Easy there is no security deposit, so the seller will send the bitcoin amount only after the incoming payment is received in his account.
+In this case, it could also happen that the buyer's payment is held indefinitely without reaching the seller. The seller will not send the bitcoin, and the buyer will not receive the fiat payment back until the banking system settles the original payment.
+
+=== Evidence requirements in disputes ===
+
+It is worth noting that, once a mediator is involved, traders are required to provide quality evidence for their claims, usually in the form of PDF bank statements, emails from the bank, or video recordings of the bank account website, proving for example that a fiat transaction was reversed.
+
+=== Limits of Bisq intervention ===
+
+Bisq cannot refund either trader when bank intervention takes place after bitcoin settlement, nor especially can Bisq take action to release the bitcoin to a buyer whose fiat is indefinitely held or otherwise unreturned by banks, if the seller didn't receive the expected payment.
+
+=== Due diligence ===
+
+It is appropriate to verify with one's bank whether the aforementioned issues can occur, and what local laws apply.<!-- BISQ VERSION: general -->

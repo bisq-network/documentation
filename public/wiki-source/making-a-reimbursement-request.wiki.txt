@@ -1,0 +1,93 @@
+You might need to make a '''reimbursement request''' to the Bisq DAO if a disputed trade cannot be resolved through mediation. This article outlines the steps to make such a request.
+
+{{Admonition_Warn|If you have lost mining fees or trade fees as result of a failed trade please see: [[Failed Trades - Reimbursement of Trade Fees and Miner Fees]]}}
+
+__TOC__
+
+== To be eligible for reimbursement you must make you request within 3 months of the trade ==
+
+Reimbursement requests for trade can only considered by the Fee Reimbursement Agent if the user has opened a reimbursement request within 3 months of which ever is the latest; trade completing, trade failing, mediation summary proposed, arbitration summary received.
+
+If a user would like to submit a reimbursement past this date they must do so through submitting a reimbursement request directly from the DAO and include a reason why they have waited >3 months before submitting their reimbursement request. They would also be expected to do all the work required to put forward their case independently rather than have the Fee Reimbursement Agent / Support Team complete the necessary work on their behalf.
+
+== Ensure no further action can be taken to resolve the dispute ==
+
+Making a reimbursement request to the DAO should be a last resort. 
+
+First make sure to:
+
+* Contact your trade's counterparty through the chat in the Bisq program. Traders are not required to respond, but many do, so it's worth a try.
+* Request mediation in the Bisq program. Mediators typically respond quickly, but they can take up to 2 days to respond. If you don't hear back within 2 days, feel free to reach out to your mediator on Matrix. Bisq assigns mediators to trades randomly. To find out which mediator is assigned to your trade, see [[Finding your mediator|this article]].
+
+Your mediator will likely let you know if/when no further action can be taken on the dispute.
+
+== Escalate your case ==
+
+In order to make a reimbursement request, you need to publish the [[Arbitration#Time-Locked_Payout_Transaction|time-locked payout transaction]] signed at the start of your trade. This transaction sends ''all'' trade funds (yours and those of the counterparty) to arbitration.
+
+'''The only way to do this is to reject your mediator's suggestion in Bisq.''' 
+
+To access your mediator's suggestion, click the <code>View Proposed Resolution</code> button:
+
+[[File:View-mediator-suggestion.png|thumb|600px|left|Button to view mediator's suggested payout, so that you can reject it and enable arbitration.]]
+
+<div style="clear: both;"></div>
+
+== Obtain the transaction ID of your published time-locked transaction ==
+
+This transaction proves that your funds are no longer in the multisignature wallet, so it will be important to include this TXID in your reimbursement request (for others to verify).
+
+You'll find the transaction details in <code>Funds</code> > <code>Transactions</code>, and it will be titled "Refund collateral":
+
+[[File:Time-locked-payout-tx.png|thumb|600px|left|Where to find the time-locked payout TXID.]]
+
+<div style="clear: both;"></div>
+
+== Create an issue on GitHub ==
+
+Bisq DAO requests have 2 parts: (1) a GitHub issue with all proposal details and (2) a proposal in the Bisq DAO itself pointing to a GitHub issue.
+
+The GitHub issue needs to be made in Bisq's support repository. Voters cannot see the conversations you may have had with your counterparty and with your mediator, so your issue should include the circumstances of your dispute and all relevant details.
+
+[https://github.com/bisq-network/support/issues/new?title=Reimbursement%20for%20trade%20XXXXX&body=%3C!--%0A%0A**This%20is%20a%20template%20for%20reimbursement%20of%20disputed%20funds%20ONLY.**%0A%0AFor%20trade%20fee%20reimbursements%2C%20please%20use%20this%20this%20template%20instead%3A%0Ahttps%3A%2F%2Fgithub.com%2Fbisq-network%2Fsupport%2Fissues%2Fnew%3Fassignees%3D%26labels%3D%26template%3Dreimbursement-template.md%26title%3DFee%2Breimbursement%2Bfor%2Btrade%2BXXXXX%0A%0A1.%20Replace%20%22XXXXX%22%20in%20this%20issue%27s%20title%20with%20the%20first%20digits%20of%20your%20trade%20ID%20before%20the%20dash.%0A2.%20List%20the%20circumstances%20of%20your%20dispute%2C%20being%20careful%20not%20to%20reveal%20any%20sensitive%20information%20about%20your%20or%20the%20trade%27s%20counterparty.%20%0A%0AAt%20a%20minimum%2C%20this%20should%20include%3A%0A%0A*%20full%20trade%20ID%0A*%20dispute%20details%3A%20what%20happened%0A*%20GitHub%20handle%20of%20mediator%20who%20handled%20your%20case%20(you%20can%20find%20it%20here%3A%20https%3A%2F%2Fbisq.wiki%2FFinding_your_mediator)%0A*%20any%20other%20details%20that%20would%20help%20to%20convince%20bisq%20stakeholders%20that%20your%20request%20is%20a%20legitimate%20one%0A%0ASee%20further%20details%20on%20for%20making%20a%20reimbursement%20request%20here%3A%20https%3A%2F%2Fbisq.wiki%2FMaking_a_reimbursement_request%0A%0A--%3E Use this template to make your issue]. 
+
+The template recommends a list of items to include in your request, such as:
+
+* Full trade ID
+* Dispute details (what happened?)
+* GitHub handle (not Matrix handle!) of mediator who handled your case ([[Finding_your_mediator|here's how to find it]])
+* TXID of your time-locked payout transaction
+* Any other details that would help to convince Bisq stakeholders that your request is legitimate
+
+It's important that you tag your mediator so they are alerted of your request and can corroborate your claims. If your mediator doesn't reply to your issue within a couple of days, ping them on Matrix to make sure they saw it. Their explicit sign-off will be crucial for DAO voters to approve your request.
+
+'''Please make sure not to include any sensitive information (e.g., payment account details) of ''either'' trade party.'''
+
+== Submit your reimbursement request to the Bisq DAO ==
+
+Once you've created the issue, you'll need to make the corresponding proposal in the Bisq DAO so stakeholders can vote on it in the next voting phase.
+
+To make the proposal, simply go to <code>DAO</code> > <code>Governance</code> > <code>Make Proposal</code>, pick "Reimbursement request" in the drop-down, and fill in the details.
+
+'''Triple-check before hitting <code>Make Proposal</code>'''. Bisq DAO proposals are bitcoin transactions, so they cannot be reversed. You can delete a request and make a new one, if you really need to, but you will not get proposal fees back and you must delete before the end of the proposal phase in which the proposal was made.
+
+New proposals can only be made during the proposal phase of a DAO cycle. If the Bisq DAO is not in the proposal phase, you'll need to wait for the next proposal phase to begin in order to make your reimbursement request. You'll see when the next proposal phase will begin in <code>DAO</code> > <code>Governance</code> > <code>Make Proposal</code>. 
+
+[[File:Make-reimbursement-request-in-bisq-dao.png|600px|thumb|left|Creating reimbursement request proposal in the Bisq DAO.]]
+
+<div style="clear: both;"></div>
+
+== Add a comment to your GitHub reimbursement request with your BSQ transaction ID ==
+
+To ensure that someone else is not claiming for your reimbursement we ask that you post your reimbursement transaction ID as a comment on the GitHub issue.
+
+You can access your transaction ID in the Bisq application by visiting DAO > BSQ Wallet > Transactions
+
+Please copy your transaction ID and paste it as comment on your GitHub issue thus linking Bisq reimbursement request with the GitHub issue.
+
+
+== Sell your newly-issued BSQ for BTC ==
+
+Once the voting phases of the cycle are over, if your request was approved, you'll see your newly-issued BSQ in <code>DAO</code> > <code>BSQ Wallet</code>.
+
+If you'd like to exchange the BSQ for BTC this can be done on the BSQ/BTC market in the Bisq application.<!-- BISQ VERSION: bisq1 -->

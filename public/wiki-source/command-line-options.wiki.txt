@@ -1,0 +1,63 @@
+Specifying '''command line options''' can enable additional non-default settings when [[Running_from_the_command_line|running Bisq from the command line]].
+
+See a full list of available options [https://github.com/bisq-network/bisq/blob/master/common/src/main/java/bisq/common/config/Config.java#L57 in the code]. This article covers more notable ones for typical use cases.
+
+__TOC__
+
+== Specify a different data directory ==
+
+The default data directory Bisq uses is called "Bisq". All Bisq data is fully contained in it. The [[Data_directory#Default_locations|default path]] of this data directory varies based on your operating system. To change the default path too, [[#Specify_a_different_data_directory_path|see below]].
+
+You can specify a different data directory with <code>--appData=BisqTest</code> (change "BisqTest" to whatever you want; "Bisq" is the default) and Bisq will create a brand new data directory in the [[Data_directory#Default_locations|default path]] with a new wallet, keys, onion address, etc (or use the existing data directory with that name if it's already there).
+
+You can use this option to run more than one instance of Bisq at once, which can be helpful to send funds from one Bisq instance to another when [[Switching_to_a_new_data_directory#Send_funds|switching to a new data directory]].
+
+[[#Include_command-line_options_by_default|See below]] for a suggestion on including this option automatically without having to specify it every time.
+
+== Specify a different data directory path ==
+
+If you'd like to change the default path for the data directory altogether (e.g. to store the data directory on another drive), run Bisq with <code>--appDataDir=/external/hard/drive/path</code>.
+
+[[#Include_command-line_options_by_default|See below]] for a suggestion on including this option automatically without having to specify it every time.
+
+== Dump delayed payout transactions ==
+
+Add the <code>--dumpDelayedPayoutTxs=true</code> option to dump delayed payout transactions in the following files in your data directory, inside the <code>db</code> folder:
+
+# delayed_payout_txs_closed.json
+# delayed_payout_txs_pending.json
+# delayed_payout_txs_failed.json
+
+== Specify a Bitcoin node ==
+
+Sometimes Bisq cannot connect to the node specified in the interface at <code>Settings</code> > <code>Network Info</code>, so starting Bisq with <code>--btcNodes=<node address></code> can help.
+
+[[#Include_command-line_options_by_default|See below]] for a suggestion on including this option automatically without having to specify it every time.
+
+== See all Bisq trades ==
+
+See all Bisq trades by running the <code>--dumpStatistics=true</code> option. Then check out <code>btc_mainnet/db/trade_statistics.json</code>.
+
+[[#Include_command-line_options_by_default|See below]] for a suggestion on including this option automatically without having to specify it every time.
+
+== Include command-line options by default ==
+
+If there are certain options you'd like to include every time you start Bisq, you can make a script that specifies them for you. 
+
+For example, this script specifies an alternative data directory path on macOS:
+
+ #!/bin/bash
+ 
+ /Applications/Bisq.app/Contents/MacOS/Bisq --appDataDir=/external/hard/drive/path
+
+Replace the Bisq executable path above with the [[Running_from_the_command_line|one for your operating system]] and specify the options you want to include. Then put the script somewhere in your system path so you can easily call it.
+
+Optionally, consider making a dummy directory in the default location to prevent Bisq from accidentally launching in its default mode. To do this, create a directory named "Bisq" in the default [[Data_directory#Default_locations|data directory path]] for your operating system without any permissions.
+
+For example, on macOS:
+
+ $ cd ~/Library/Application\ Support/
+ $ mkdir Bisq
+ $ chmod 000 Bisq
+
+In this way, since the system won't have write access in the default location, launching Bisq normally will fail, reminding you to launch Bisq with your script.<!-- BISQ VERSION: general -->

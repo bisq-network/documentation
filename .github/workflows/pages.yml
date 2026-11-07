@@ -1,0 +1,47 @@
+name: Build and deploy documentation
+
+# Manual only. Running this workflow deploys to GitHub Pages.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DOCS_SITE: ${{ vars.DOCS_SITE || format('https://{0}.github.io', github.repository_owner) }}
+      DOCS_BASE: ${{ vars.DOCS_BASE || (github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name)) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Require a site origin
+        run: |
+          if [ -z "$DOCS_SITE" ]; then
+            echo "Set DOCS_SITE to the approved site origin before running this workflow." >&2
+            exit 1
+          fi
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

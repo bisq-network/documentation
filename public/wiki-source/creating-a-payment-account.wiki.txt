@@ -1,0 +1,53 @@
+'''Payment accounts''' indicate the method by which Bisq trades are to be settled. You must create a national currency account to trade bitcoin for national currencies or an altcoin account to trade altcoins for bitcoin.
+
+__TOC__
+
+== Creating a national currency account == 
+
+Before creating a national currency account, notice that we cannot take any offers. The buttons to take offers are disabled, and if we try to click any of them, Bisq will tell us we need to create a payment account first.
+
+[[File:BuyBitcoinscreen.png|thumb|left|500px]]
+
+<br clear=all>
+
+You can create a new national currency account in <code>Account</code> > <code>National Currency Accounts</code>. Pick the payment account type from the drop-down and fill out the form. For more details on the various payment methods Bisq offers, see [[Payment methods]].
+
+Bisq will ask you for information required to set up the account in Bisq. '''Recall that all the information you put in here is stored locally''', and only sent to your trading peer upon confirmation of the trade's deposit transaction. This is a stark contrast to typical exchange KYC, where personal information is stored in a central database honeypot indefinitely for various forms of harassment and surveillance.
+
+{{Admonition_Warn|Make sure all information you put in your payment account is correct, such that it matches what the other trader will see on their bank statement. '''Do NOT use fake names or initials.''' Doing so is a violation of [[Trading_rules#Do_not_confirm_payments_with_mismatching_details|trading rules]].
+
+Also: once you’ve created an account, you cannot edit its details (if you need to make a change, you’ll have to delete and add the account again). So make sure everything is correct the first time!}}
+
+[[File:Accountsetup.png|thumb|left|500px]]
+
+<br clear=all>
+
+You don’t need to edit the Salt field. Account name is a label you can set to make it easier to distinguish between other payment accounts you set up; only you will ever see, so there’s no right or wrong value for it.
+
+Once you're done, click <code>Save New Account</code>. Go back to the <code>Buy BTC</code> screen and you'll see that offers requiring the payment method you just configured will now be enabled:
+
+[[File:BuyBTC-accountenabled.png|thumb|left|500px]]
+
+<br clear=all>
+
+=== Notes ===
+
+If there are no offers in the payment method you prefer, don't hesitate to make your own offer. New Bisq peers come online all the time, and it only takes 2 to trade. Also, offer makers pay a lot less in fees!
+
+== Creating an altcoin account ==
+
+Creating an altcoin account is largely the same as creating a national currency account, but even simpler. 
+
+Navigate to the <code>Account</code> > <code>Altcoin Accounts</code>, click <code>Add New Account</code>, pick the altcoin you'd like to trade in the drop-down, and fill out the form.
+
+=== Special requirements ===
+
+Some altcoins have specific requirements. Monero, for example, requires that sellers be able to provide a transaction key in case of a dispute, which is not available in all XMR wallets. L-BTC buyers must use a wallet that shows the blinding key. '''Make sure to read any pop-ups carefully to make sure your trades go as smoothly as possible.'''
+
+=== Instant accounts ===
+
+By default, all altcoins trades on Bisq have trade periods of 1 day, but you can set up an Altcoins Instant account on Bisq for 1-hour trade periods. Just check the box in the payment account creation process. 
+
+[[File:Altcoin-instant-setup.png|500px|thumb|left|Check this box to set up an Altcoins Instant account.]]
+
+[[Category:Use Cases]]<!-- BISQ VERSION: general -->

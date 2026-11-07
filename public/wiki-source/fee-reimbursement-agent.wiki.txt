@@ -1,0 +1,32 @@
+The '''Fee Reimbursement Agent''' refunds traders who have lost fees on trades through software bugs. 
+
+For more information see: [[Failed Trades - Reimbursement of Trade Fees and Miner Fees]]
+
+Reimbursements are made with BTC. Traders seeking fee reimbursements must provide a screenshot and details of trades for which they wish fee reimbursements (more details are in the [https://github.com/bisq-network/support/issues/new?assignees=&labels=&template=reimbursement-template.md&title=Fee+reimbursement+for+trade+XXXXX issue template]).
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/76
+
+== Team ==
+<!-- link to this role's corresponding team at https://github.com/orgs/bisq-network/teams -->
+https://github.com/orgs/bisq-network/teams/fee-reimbursement-agents
+
+== Duties ==
+* Examine every Github proposal, verify that the taker and maker fee address are mentioned in the issue. then move to "ready" [https://github.com/bisq-network/support/projects/1 Lost fee reimbursements]
+* Ensure reimbursement request was submitted within 3 months of the trade completing as per the accepted proposal [https://github.com/bisq-network/proposals/issues/369 here]
+* When starting to process an individual issue, move it to "In progress". Then open the terminal.
+* Make a clone of the support repository.
+* Enter ./helpers/automate.sh
+* Add issue number, verify the information is correct.
+* Follow the next steps and publish. move issue to "staged"
+* Now make the reimbursement and close issue.
+
+== Rights ==
+<!-- list in bullet points all special privileges that owner(s) of this role are granted, e.g. repository access -->
+
+== Bonding ==
+<!-- indicate whether bonding is required for this role, and if so, how much -->
+
+[[Category:Roles]]<!-- BISQ VERSION: general -->

@@ -1,0 +1,109 @@
+'''Participating in a DAO voting cycle''' is something any stakeholder can do—Bisq trader, contributor, or anyone else who wants to help the project succeed.
+
+This article covers how to make a proposal and vote on other proposals, as well as how the BSQ token enables this process to be handled in a decentralized and trustless but meritocratic way.
+
+For a brief overview of how the Bisq DAO works at a high level, see the [[Introduction to the DAO|DAO introduction article]].
+
+__TOC__
+
+== Background ==
+
+As covered in the [[Introduction to the DAO]] article, the Bisq DAO's governance model helps achieve several functions for the Bisq project.
+
+This governance model is composed of voting cycles: periods of 4,679 blocks (approximately 1 month) made of 4 phases:
+# '''Proposal phase''', in which stakeholders submit compensation requests and other proposals requesting reimbursements for trading fees, changes in trading parameters, or changes in some other aspect of the Bisq project. After the proposal phase is over, there is a break of 150 blocks (about 1 day) to review and discuss proposals before voting begins.
+# '''Blind voting phase''', in which stakeholders cast their votes on submitted proposals. Votes are encrypted in this phase to prevent later voters from being influenced by earlier voters. Following the end of the blind voting phase, there is a break of 10 blocks to protect against reorgs.
+# '''Vote reveal phase''', in which each stakeholder sends the decryption key for their vote. Again, for protection against reorgs, there is a break of 10 blocks after this phase is over.
+# '''Vote result phase''', in which vote results are calculated and BSQ is issued accordingly.
+
+You can see approximate start and end dates for the current voting cycle at <code>DAO</code> > <code>Governance</code> > <code>Dashboard</code>.
+
+[[File:Show-dao-blocks.png|700px|thumb|left|DAO blocks and estimated calendar times.]]
+<div style="clear: both;"></div>
+
+== Acquire BSQ ==
+
+In order to participate in DAO voting, you will need BSQ. See how to acquire BSQ [[Paying_trading_fees_with_BSQ#Acquire_BSQ|in this article]].
+
+As of this writing, making a proposal costs 2 BSQ and casting a ballot (voting) costs 2 BSQ. You'll also need some plain BTC for transaction fees (each DAO action is a bitcoin transaction which requires mining fees to be paid), and if you will be [[Making_a_compensation_request|asking for compensation]] or reimbursement, you'll need to include some plain BTC to be colored into BTC (precise amount is 100 satoshis × [requested BSQ amount]).
+
+Keep this in mind when buying BSQ to get started for the first time, and make sure you have a BTC balance in your Bisq wallet that's sufficient for what you want to do.
+
+== Make a proposal ==
+
+{{Admonition_Note|Proposals can only be made during the proposal phase. If the voting cycle is in any other phase, you’ll need to wait for the proposal phase of the next voting cycle to make your proposal.}}
+{{Admonition_Note|The process for making a compensation request is largely the same as the process outlined here, but see [[Making a compensation request|this article]] for additional considerations.}}
+
+'''Please read [[Proposals|this article on proposals]] before submitting a proposal for voting.''' Bisq proposals tend to be for significant items, and proposals submitted to the DAO are typically for [[Proposals#Submit_to_the_DAO_.28if_needed.29|''controversial'' significant items]].
+
+In <code>DAO</code> > <code>Governance</code> > <code>Make Proposal</code>, you’ll find the form to make a new proposal. Pick the type of proposal you want to make from the dropdown, fill the form, and hit <code>Make Proposal</code>.
+* Make sure the GitHub handle you put in Bisq matches the GitHub handle on the issue. 
+* Also make sure to replace <code>#</code> with the GitHub proposal number. For example, if submitting proposal #999 with URL https://github.com/bisq-network/proposals/issues/999, the DAO proposal URL should be https://bisq.network/dao-proposals/999.
+
+{{Admonition_Warn|Beware that proposals cannot be edited after being submitted. If you need to make a change, you can delete the proposal and make a new one while the proposal phase is still active, but you’ll need to pay the proposal fee again. Once the proposal phase is over, proposals cannot be added or removed until the next proposal phase. }}
+
+Here's how making a generic proposal can look:
+
+[[File:Submit-generic-proposal.png|700px|thumb|left|Submit a generic proposal for DAO voting.]]
+<div style="clear: both;"></div>
+
+== Vote on proposals ==
+
+Once the proposal phase is over, after a short break, the voting phase starts.
+
+You can see all proposals in the current voting cycle in <code>DAO</code> > <code>Governance</code> > <code>Browse Open Proposals</code>.
+
+Click through each proposal to see more details, and then vote—it’s strongly recommended that you only accept or reject proposals you know well and have a strong opinion about.
+
+[[File:Vote-proposal.png|400px|thumb|left|Cast votes for proposals during the blind voting phase.]]
+<div style="clear: both;"></div>
+
+== Submit votes ==
+
+When you’re done selecting your votes, you will need to submit your votes.
+
+[[File:Vote-submit.png|400px|thumb|left|Select voting weight and submit all votes.]]
+
+All votes are submitted in a single ballot. Casting a ballot currently costs 2 BSQ + mining fees.
+
+In addition, to submit your votes, you need to specify a BSQ amount to use for '''voting stake'''. The more BSQ you stake for your vote, the more weight it will carry. This staked BSQ cannot be traded or otherwise transferred until your vote reveal transaction is published.
+
+The software has checks to prevent such BSQ from being spent, but if BSQ staked for voting is somehow spent, the corresponding vote will be rendered invalid.
+
+This is why, as you see in the screenshot to the left, it's advisable to use most (but not all) of your BSQ for the voting stake—we left some BSQ available for spending in case we need it for other purposes during the remainder of the voting cycle.
+
+<code>Vote weight from earned BSQ</code> is BSQ earned from contributing to Bisq: this BSQ is treated slightly differently from BSQ bought on the open market when determining a stakeholder’s voting weight.
+
+{{Admonition_Note|For more details on how voting weight is determined, see the [[DAO_user_reference#Voting_Stake|DAO user reference]].}}
+
+Once you’ve entered a voting stake, go ahead and click <code>Vote on all proposals</code>.
+
+== Reveal your vote == 
+
+After the blind voting phase is over, you must make sure Bisq goes back online at some point during the vote reveal phase to publish your vote reveal transaction.
+
+Bisq will publish the transaction automatically when it’s online, so you don’t have to actually do anything, and you’ll see a pop-up when the transaction is published.
+
+This transaction includes the key to decrypt your vote from the blind voting phase. It also includes a representation of all votes you’ve received from the network, which is used to determine a consensus of all votes cast on the network. See more details [[DAO_user_reference#Vote_Reveal_Phase|here]].
+
+'''Don’t forget this step! If your vote reveal transaction is not published, your vote cannot be decrypted, and so it cannot be counted.'''
+
+== Get vote results ==
+
+Once the vote reveal phase is over, results are calculated and the next voting cycle starts.
+
+You can see results of the last voting cycle in <code>DAO</code> > <code>Governance</code> > <code>Vote Results</code>.
+
+[[File:Dao-vote-results.png|700px|thumb|left|Submit a generic proposal for DAO voting.]]
+<div style="clear: both;"></div>
+
+== See DAO transactions on a block explorer ==
+
+Since DAO transactions are bitcoin transactions, you can see them on any bitcoin block explorer. But because transactions use BSQ (bitcoin colored in a way that only Bisq understands), ordinary bitcoin block explorers can’t recognize which bitcoin transactions are also BSQ transactions.
+
+Hence [https://explorer.bisq.network BSQ block explorers]. Whenever you do a Bisq DAO transaction, including paying trading fees with BSQ, you can see it on a BSQ block explorer.
+
+Here’s a screenshot of the past few BSQ transactions that took place at the end of Cycle 23:
+
+[[File:Mempool-dao-tx-list.png|700px|thumb|left|A listing of Bisq DAO transactions on mempool.space.]]
+<div style="clear: both;"></div><!-- BISQ VERSION: bisq1 -->

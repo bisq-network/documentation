@@ -1,0 +1,18 @@
+First download, install Bisq and create a backup (copy seed words - see [[How to back up your Bisq wallet seed]]).
+
+Now you can set up a [[fiat]] payment account, that you will use to pay or receive payments when trading on Bisq.
+
+1. Go to '''Account''' tab on Bisq
+
+2. Click on '''Add new Account'''
+
+3. Select '''Revolut''' as your payment method
+
+4. Input your Revolut user name. Select your currencies.
+
+5. Click on '''Save New Account'''.
+
+You can now go to '''Market''' tab and start buying and selling. See [[How to buy BTC on Bisq with EUR]].
+
+
+*For more short guides see [[Howto]]. You can also find support on '''[https://bisq.chat Matrix]'''.<!-- BISQ VERSION: general -->

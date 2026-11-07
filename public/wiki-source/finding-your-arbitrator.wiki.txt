@@ -1,0 +1,51 @@
+Here is a list of current Bisq arbitrators and their onion addresses, as well as how you can find the arbitrator for a specific Bisq trade.
+
+If you need to find your mediator see [[Finding your mediator|here]].
+
+__TOC__
+
+= Get in touch with your arbitrator =
+
+For open trades, you should be able to get in touch with your arbitrator through Bisq arbitration chat itself.
+
+If you cannot get in touch with your arbitrator on Bisq for 72 hours (sometimes Bisq message system fails), or the issue needs urgent attention, you can get in touch with them on the [[Matrix bisq.chat]] group.  Their Matrix handles and onion addresses are displayed in the headline for the #support channel as well.
+
+= How to find the arbitrator for a trade =
+
+== In Bisq 1 ==
+
+=== System message ===
+
+Go to 'Support > Arbitration' tab since arbitration begins.
+
+=== View contract in JSON ===
+
+Alternatively, you can look for your arbitrator since the trade starts:
+
+# Go to  <code>Portfolio > Open Trades</code>, <code>Portfolio > History</code>, or <code>Portfolio > Failed Trades</code> (depending on the status of your trade) 
+# Click the <code>i</code> icon next to the trade ID of the trade in question (it's on the very left in the first column)
+# In the pop-up that appears, toward the bottom, click <code>View Contract in JSON Format</code>.
+# Scroll down and you'll find <code>"refundAgentNodeAddress"</code> it is just below <code>"lockTime"</code> after the refundAgentNodeAddress you will see your arbitrators's onion address.
+
+This is the onion address of the arbitrator for your trade.
+
+= Matrix and onion addresses =
+
+{| class="wikitable"
+! Arbitrator 
+! TorV3 Address
+! GitHub Handle
+! Matrix Handle
+|-
+| ﻿refundagent2
+| 3z5jnirlccgxzoxc6zwkcgwj66bugvqplzf6z2iyd5oxifiaorhnanqd.onion:9999
+| [https://github.com/refund-agent2 refund-agent2]
+| [[Matrix bisq.chat |  @refund-agent2:unredacted.org]]
+|-
+| refundagent3
+| yjlcxr6rho6zkpecwdp3vlpduzcl7i6cbgaquvxqmvsbw3dnheus6qad.onion:9999
+| [https://github.com/refundagent3 refundagent3]
+| [[Matrix bisq.chat |  @refundagent3:imagisphe.re]]
+|}
+
+[[Category:Use Cases]]<!-- BISQ VERSION: bisq1 -->

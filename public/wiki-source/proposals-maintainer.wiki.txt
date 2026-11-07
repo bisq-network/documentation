@@ -1,0 +1,23 @@
+The '''Proposals Maintainer''' reviews and triages issues in the [https://github.com/bisq-network/proposals proposals repository]. 
+
+See [[Proposals]] for a more complete description of the proposals process.
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/30
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/proposals-maintainers @bisq-network/proposals-maintainers]
+
+== Duties ==
+* Enforce the [[Proposals#Processes | proposals process]], triaging issues as appropriate
+<!-- * Monitor the #proposals channel on [https://keybase.io/team/bisq Keybase] -->
+* Keep wiki pages about proposals processes and roles up-to-date
+* Write a monthly report on the [https://github.com/bisq-network/roles/issues/30 role issue]
+
+== Rights ==
+* Write access to the [https://github.com/bisq-network/proposals bisq-network/proposals] repository
+
+== Bonding ==
+Not required.
+
+[[Category:Roles]]<!-- BISQ VERSION: general -->

@@ -1,0 +1,13 @@
+Before '''encrypting your wallet''', your Bisq wallet files are stored on your machine's drive in ''plain text''. 
+
+This is not a good idea—anyone who gains access to your computer (whether by physically stealing it or by hacking it remotely) can gain access to your private keys and take your bitcoin.
+
+Setting a password encrypts your Bisq wallet files so they’re useless to anyone without the password.
+
+To set a password, go to <code>Account</code> > <code>Wallet Password</code> and enter a strong password. 
+
+'''Do not forget this password, as it cannot be reset.''' Bisq will ask for your password every time it starts, so if you do happen to forget it, the only way to open Bisq will be to restore your wallet from seed words.
+
+[[File:Set-wallet-password.png|600px|thumb|left|Setting a password for your Bisq wallet.]]
+
+[[Category:Use Cases]]<!-- BISQ VERSION: general -->

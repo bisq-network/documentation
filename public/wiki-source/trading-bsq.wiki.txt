@@ -1,0 +1,48 @@
+'''BSQ''' is the native token of the Bisq [[Introduction to the DAO|DAO]], used optionally for paying [[Trading fees|trading fees]] at a discount and required for certain [[Introduction to the DAO|governance]] functions like voting and making proposals. This page explains why you might want BSQ and how to obtain it.
+
+__TOC__
+
+== Why Obtain or Use BSQ? ==
+
+There are two main reasons users acquire and use [[BSQ]]:
+
+* '''For Traders:''' Using BSQ to pay trading fees provides a significant discount (target is ~50%, re-calibrated each DAO cycle (approximately monthly) - see [[Updating BSQ trading fees]]) compared to paying fees in BTC. See [[Paying trading fees with BSQ]].
+* '''For Contributors:''' BSQ is required to [[Participating in a DAO voting cycle|make proposals and vote]] in the Bisq DAO. Contributors also receive compensation for their work in BSQ, which they might then sell on the Bisq market for BTC. See [[Introduction to the DAO]].
+
+== How to Obtain BSQ (Recommended Method: Swaps) ==
+
+Since Bisq v1.8.0, the primary, recommended, and default method for trading between BTC and BSQ within the Bisq application is via '''[[BSQ swaps]]'''.
+
+* '''What are Swaps?''' [[BSQ swaps]] allow BSQ and BTC to be traded '''atomically''' in a single Bitcoin transaction. This makes the process:
+    * '''Trustless:''' No counterparty risk during the exchange.
+    * '''Instantaneous:''' The swap happens as soon as the transaction confirms on the blockchain.
+    * '''Cheaper:''' Involves significantly lower [[mining fees]] compared to the old multi-transaction protocol.
+    * '''Simpler:''' Does not require setting up a specific "BSQ payment account".
+* '''How to Swap:''' Simply go to the '''Create Offer''' or '''Buy / Sell BTC''' screens in Bisq and select BSQ as the counter-currency against BTC. You can then make or take offers just like any other market. Ensure you have sufficient BTC or BSQ in your [[BSQ#BSQ_Wallet|Bisq wallet]] to cover the trade amount and any fees.
+
+<gallery mode="packed" heights="180px">
+File:Bisq-v1-buy-bsq-offer-book.png|Offer book showing offers where you can '''buy''' BSQ with BTC (BSQ Swaps).
+File:Bisq-v1-sell-bsq-offer-book.png|Offer book showing offers where you can '''sell''' BSQ for BTC (BSQ Swaps).
+</gallery>
+
+For full technical details on how the swap protocol works, see the main '''[[BSQ swaps]]''' page.
+
+== Receiving BSQ ==
+If you need to receive BSQ (e.g., for contributor compensation, or from an external source), you can find your BSQ receiving address in the built-in Bisq wallet:
+# Go to the `DAO` tab.
+# Select the `BSQ wallet` sub-tab.
+# Click the `Receive` button/tab.
+# Your current BSQ receiving address will be displayed. Click the copy icon to copy it.
+
+[[File:Get-bsq-address.png|600px|thumb|left|Find your BSQ receiving address under DAO > BSQ Wallet > Receive.]]
+<div style="clear: both;"></div>
+
+{{Admonition_Warn|'''Important:''' BSQ tokens are colored coins based on Bitcoin. While stored in your Bisq Bitcoin wallet file, they should generally only be sent to/from addresses within the Bisq application wallet to avoid issues. Do not send BSQ directly to a non-Bisq Bitcoin wallet or exchange address.}}
+
+== Deprecated Trading Method ==
+
+Previously, BSQ was traded using a manual process similar to other [[Payment methods#Altcoin payment methods|altcoins]], requiring users to create a specific BSQ altcoin payment account. This method was deprecated in favor of [[BSQ swaps]] (introduced in v1.8.0) because swaps are faster, cheaper, more secure (atomic), and easier to use. The old method offers no advantages and should no longer be used.
+
+[[Category:Guides]]
+[[Category:DAO]]
+[[Category:BSQ]]<!-- BISQ VERSION: bisq1 -->

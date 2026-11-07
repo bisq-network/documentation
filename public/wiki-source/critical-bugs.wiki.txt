@@ -1,0 +1,51 @@
+This article explains what '''critical bugs''' are and covers the process for identifying and fixing them.
+
+__TOC__
+
+== What is a critical bug? ==
+
+A [[Glossary#Critical_bug|critical bug]] is any bug or other issue that:
+
+* impedes users from completing a [[Glossary#Core_use_case|core use case]] in Bisq, and/or
+* repeatedly lands users in support, and/or
+* puts user funds or privacy at risk
+
+Critical bugs are by definition among the most important and highest priority tasks that can be worked on. The goal is to have zero outstanding critical bugs at any given time. Bisq developers should therefore consider working on critical bugs ahead of anything else.
+
+== Infrastructure ==
+
+=== Board ===
+
+The critical bugs board can be found at https://github.com/orgs/bisq-network/projects/7.
+
+[[File:Critical Bugs Board.png|400px|right|thumb|Critical bugs board]]
+
+== Process ==
+
+=== Identification ===
+
+Bisq maintainers are notified of new issues as they arrive in the [https://github.com/bisq-network/bisq/issues Bisq repository] and should apply the <code>[https://github.com/bisq-network/bisq/labels/is%3Acritical is:critical]</code> label to any issue that fits the definition above.
+
+Immediately after labeling a critical bug, the Bisq maintainer should add that issue to the <code>To do</code> column of the board, sorting the issue according to its priority relative to the other issues in that column.
+
+=== Notification ===
+
+''Note (@cbeams): We may want to have maintainers add a comment to newly-indentified critical bugs mentioning <code>@bisq-network/bisq-devs</code> and <code>@bisq-network/support</code> so that those groups are made aware of the issue and are automatically subscribed to any updates on it. @ripcurlx to decide and update this section accordingly.''
+
+=== Assignment ===
+
+If you are a developer interested in working on a given critical bug, you should add a comment to the issue asking to be assigned to it. A Bisq maintainer will follow up with you and make the assignment as appropriate and will transition the issue to the <code>In progress</code> column of the board. You should then proceed to put together a pull request that fixes the bug as per the usual [[Development Process]].
+
+Once assigned to a critical bug, you should post comments on the issue indicating your progress and post [[standup]] updates about it each day you work on it. This allows other developers to help out if need be and keeps everyone in the loop. These updates also serve as documentation when you submit a compensation request for your work.
+
+If you stop working on a critical bug before it has been fixed, you should indicate that explicitly via comment on the issue so the maintainer can remove your assignment and transition the issue back to <code>To do</code> as appropriate.
+
+=== Compensation ===
+
+[[Glossary#Delivered|Delivered]] work on critical bugs is eligible for [[compensation]] under the Bisq DAO. In this case, delivered work could mean one of the following:
+
+* the bug was fixed and the associated pull request has been merged into master
+* the bug was investigated and a fix has been documented, but cannot be implemented due to an external dependency e.g.: a JDK / OpenJFX update is required.
+
+[[Category:Infrastructure]]
+[[Category:Processes]]<!-- BISQ VERSION: bisq1 -->

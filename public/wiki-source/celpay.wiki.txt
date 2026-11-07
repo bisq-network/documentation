@@ -1,0 +1,112 @@
+'''CelPay''' is a payment method added in Bisq v1.7.5. 
+
+CelPay is a peer to peer payment service run by Celsius is a popular saving / earning crypto service. 
+
+CelPay is a feature within the Celsius app that allows users to send payments to their Celsius contacts within the app or via a payment link. This can be used for Bisq users to send stable coins to eachother.
+
+The benefit of CelPay is that:
+
+* You are sending and receiving funds via a crypto app - no need for a bank 😃
+* You earn interest on your deposited stable coin funds
+* Not much info needed to send payment
+
+== Where can I find out more about CelPay? ==
+
+Here is a list of CelPay resources:
+
+* [https://celsius.network/ Celsius website]
+* [https://celsius.network/celpay/ Celpay website]
+* [https://www.youtube.com/watch?v=AS6IIsHb7bM Youtube explainer]
+* [https://support.celsius.network/hc/en-us/articles/360001938378-How-does-CelPay-work-Can-I-send-coins-to-non-Celsius-users- How does CelPay work?]
+
+== What countries are available for CelPay? ==
+
+Celsius is available in over 100 countries.
+
+== What currencies are available for CelPay? ==
+
+CelPay supports the following currencies:
+
+* USD Stablecoins; DAI, TrueUSD, USDC
+* CAD Stablecoins; TrueCAD
+* GBP Stablecoins; TrueGBP
+* HKD Stablecoins; TrueHKD
+* AUD Stablecoins; TrueAUD
+
+== What is the maximum trading duration for CelPay? ==
+
+The maximum trade time is 1 day. Generally CelPay transfers will be completed instantly.
+
+== What is the maximum BTC limit for an CelPay trade? ==
+
+{{MaxTradeSizeBisq1}}.
+
+== Is CelPay a payment method that can be signed? ==
+
+No, CelPay accounts do not require signing.
+
+== How do I set up a CelPay account? ==
+
+Vist the [https://celsius.network/ Celsius website] to set up an account. All Celsius accounts have access to CelPay.
+
+== How do I add CelPay as a payment method in Bisq? ==
+
+It is easy to add your CelPay account to Bisq.
+
+# Go to the top menu in Bisq and select Account. 
+# Then select National Currency Accounts. 
+# Click add new account
+# Select CelPay
+# Complete the details
+# Choose to use a custom account name this helps makes it easier for you to manage multiple payment methods in Bisq (this will be visible only to you, for example: CelPay
+# Click save new account
+
+Make sure all the details are correct when you add.
+
+== How do I buy BTC with my CelPay account? ==
+
+You can buy BTC with CelPay on Bisq in 2 waysː
+
+# Make an offer to buy BTC on the AUD, CAD, GBP, HKD, or USD market.
+# Take an offer to buy BTC on the AUD, CAD, GBP, HKD, or USD market.
+
+When the offer is confirmed Bisq will provide you with the BTC Sellers CelPay details for you to complete the payment. You should send payment immediately and confirm you have done so in Bisq by clicking 'payment started'. When you make payment it is sent to the BTC Seller by via a secure payment link for them to accept. Once accepted their account will be credited with the funds.
+
+BTC Buyer can send any matching currency stablecoin to the BTC Seller. 
+
+Once the BTC Seller receives your payment they will confirm in Bisq and your security deposit and your purchased trade amount will be available in your wallet.
+
+For more information please see the [https://support.celsius.network/hc/en-us/articles/360001938378-How-does-CelPay-work-Can-I-send-coins-to-non-Celsius-users- CelPay knowlegebase].
+
+== How do I sell BTC with my CelPay account? ==
+
+You can sell BTC with CelPay on Bisq in 2 waysː
+
+# Make an offer to sell BTC on the AUD, CAD, GBP, HKD, or USD market.
+# Take an offer to sell BTC on the AUD, CAD, GBP, HKD, or USD market.
+
+When the offer is confirmed Bisq will provide the BTC Buyer with your CelPay details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking 'payment started'.
+
+BTC Sellers should expect to receive any matching currency stablecoin to the BTC Buyer. It is possible for the BTC Buyer to send any matching currency stablecoin.
+
+When the BTC Buyer makers payment the BTC Seller will receive a payment via a secure payment link. BTC Sellers should check the email payment link contains the email address provided by the BTC Buyer.
+
+Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.
+
+For more information please see the [https://support.celsius.network/hc/en-us/articles/360001938378-How-does-CelPay-work-Can-I-send-coins-to-non-Celsius-users- CelPay knowlegebase].
+
+== Are there any limits for me to be aware of when using my CelPay account? ==
+
+You can send a maximum of $2,500 USD or other currency equivalent within a 24 hour period. Trades above CelPay account limits will likely have to take place over more than one day, or, be cancelled.
+
+== Are there any fees for me to be aware of when using my CelPay account? ==
+
+It is free to send and receive using CelPay.
+
+== How does dispute resolution when trading with CelPay? ==
+
+If a dispute occurs the mediator may ask the buyer to send them information showing that they made the payment of the correct amount to the BTC Seller within the correct time frame. 
+
+The mediator may ask the seller to send them information to prove their account details are correct, or in the case of the BTC Buyer making a payment late, or of the wrong amount. 
+
+For more information see [[dispute resolution]].<!-- BISQ VERSION: general -->

@@ -1,0 +1,17 @@
+= Backup strategies=
+
+== Manual backup ==
+
+Bisq1 has a manually triggered backup feature that saves a copy of the whole contents of the data directory to a selected location: [[backing up application data]]
+
+Bisq2 has a very similar feature that can be reached under Support > Resources > Backup, and works in a similar manner.
+
+
+== Built-in automatic backup ==
+
+Bisq2 extends the existing manual backup, and also provides a feature to create versioned backups: [[automatic backup]]
+
+
+== Custom automatic backup scripts ==
+
+A standalone script is also available to create versioned backups on Windows, MacOS and Linux, of the essential database files of both Bisq1 and Bisq2: [[automatic backup script]]<!-- BISQ VERSION: bisq2 -->

@@ -1,0 +1,16 @@
+---
+title: "Network status indicator"
+slug: "wiki/network-status-indicator"
+description: "Historical recovered Bisq Wiki article; source revision 3010"
+tableOfContents: false
+---
+
+<aside class="wiki-recovery-status" role="note"><p><strong>Recovered historical wiki article.</strong> This source text has not been verified as current product guidance. Missing templates and images are marked in place. <a href="../../">Reviewed guides</a> are available separately.</p></aside>
+
+<details class="wiki-source-provenance"><summary>Source, revision and attribution</summary><p>Source revision <a href="https://bisq.wiki/index.php?oldid=3010">3010</a>, dated 2022-08-23T21:19:27Z. Snapshot last successful ingest: 2026-10-18. Exported revision contributor: Jmacxx; full author history and licensing remain unresolved.</p><p><a href="../../wiki-source/network-status-indicator.wiki.txt" download>Download exact snapshot wikitext</a> · <a href="../../wiki-source/network-status-indicator.json">Source metadata</a></p><p>SHA-256: <code>87fc6db65ae9e2be76674a09085cc0c9c4c5fbf60e3f69e13b19af56d545cc57</code>. Ingest-added product classification comments are not original author metadata.</p></details>
+
+
+
+<div class="wiki-recovered-article" lang="en"><p>There is an icon in the bottom right footer bar to indicate the the status of the P2P network connection. It will be either red, yellow or green depending on the count and type of connections your node has. Hover over it with the mouse to see the connections detail, or click on it to get a popup description of the state.</p>&#10;<p><strong>Red</strong> - An error situation- there are no P2P network connections. This would usually indicate that your internet connection has broken. Check other network applications such as a web browser. Bisq cannot function properly in this state. To resolve the issue, see <a href="../troubleshooting-network-issues/">Troubleshooting network issues</a></p>&#10;<p><strong>Yellow</strong> - there are outbound but no inbound connections. Bisq can operate in this state, but it is sub-optimal. This is a normal state at application startup, until peers discover and connect to your node. However if it persists for several hours it could mean that inbound connections are blocked, the result being your offers would not be reachable. (Peers would be frustrated with the response "Maker_Offline" as a result of trying to take your offer). If this condition persists for more than a few hours, clear the Tor cache and restart Bisq after clicking on: Settings -&gt; Network Info -&gt; Open Tor Settings -&gt; <code class="wiki-source-code" id="source-code-1">[Delete outdated Tor files and shut down]</code>.</p>&#10;<p><strong>Green</strong> - the P2P connection is healthy, as you have a mix of outbound and inbound connections.</p>&#10;<p>This indicator has been created because some Bisq nodes get unknowingly stuck in a state of not accepting inbound connections, and therefore never getting any takers for their offers. If the status remains yellow for more than an hour, the Bisq node will do a self-ping test over Tor in order to check incoming connectivity. The yellow status indicator will start blinking to attract your attention if the issue does not get resolved.</p>&#10;</div>
+
+

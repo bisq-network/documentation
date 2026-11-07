@@ -1,0 +1,29 @@
+The '''Wiki Operator''' is in charge of the technical operation of this wiki: hosting, maintenance, administration, domain name, etc. See full duties below.
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/92
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/wiki-operators/members @bisq-network/wiki-operators]
+
+== Duties ==
+* Owning and renewing the bisq.wiki domain name
+* Administering bisq.wiki DNS records
+* Operating and administering the Mediawiki instance at bisq.wiki, including:
+** Adding and maintaining plugins
+** Daily Backups
+*** Full MySQL database dump
+*** Full filesystem archive of webroot
+*** Off-site mirror of backup
+* Triaging incoming issues to the bisq-network/wiki repository
+
+== Rights ==
+* Admin access to the bisq-network/wiki repository
+
+== Bonding ==
+Required but specifics are TBD.
+
+[[Category:Roles]]
+[[Category:Operator]]<!-- BISQ VERSION: general -->

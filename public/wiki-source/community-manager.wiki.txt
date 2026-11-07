@@ -1,0 +1,42 @@
+Community Managers keep an "ear to the ground"—monitoring Bisq chatter throughout key social channels, reactively and proactively managing the channels they follow.
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/95
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/community-managers @bisq-network/community-managers]
+
+== Duties ==
+
+* Follow social channels, keeping an eye out for posts explicitly mentioning Bisq as well as other posts that could be relevant to the project
+** Post notable findings in [https://matrix.to/#/#bisq.growth:bitcoin.kyoto #Growth] channel on [[Matrix_bisq.chat|bisq.chat]] .
+** Relevant topics include:
+*** key software updates
+*** user feedback
+*** opinions of the software
+*** prevalent support issues
+*** notable media mentions
+*** misinformation
+*** milestones
+*** competitor intelligence
+*** clever opportunities
+** Target channels: 
+*** Twitter
+*** reddit (/r/bitcoin, /r/monero, /r/bitcoinbeginners, /r/xmrtrader, /r/cryptocurrency)
+*** Telegram (bisq_p2p, monero, bitmonero)
+*** Bisq GitHub
+*** Bisq forum
+*** YouTube
+*** IRC and Matrix
+* Propagate any messaging relevant to current campaigns
+* Jump in to correct the record when inaccurate information is being disseminated
+* Join Bisq PULSE growth calls to discuss #pulse findings
+
+== Rights ==
+* Write access to the #growth channel on Matrix.
+
+== Bonding ==
+Not required.
+
+[[Category:Roles]]
+[[Category:Maintainer]]<!-- BISQ VERSION: general -->

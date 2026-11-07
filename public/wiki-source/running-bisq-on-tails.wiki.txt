@@ -1,0 +1,175 @@
+__TOC__
+
+== Overview ==
+Unlike most operating systems, [https://tails.boum.org/about/ Tails runs ''entirely'' in memory.] When Tails shuts down, memory contents are deleted, restoring the OS to its original state. Only files saved to the [https://tails.boum.org/doc/persistent_storage/ Persistent Storage] survive a reboot.
+
+Therefore, Bisq must be reinstalled (and configured) after every boot. More importantly, Bisq's [[data directory|default data directory]] must be relocated to the '''Persistent Storage''' so that your wallet, keys, etc. are not lost every time Tails shuts down.
+
+This is easy to automate with an installation script.
+
+== Preparations ==
+=== Configure Tails ===
+
+On the Tails [https://tails.boum.org/doc/first_steps/welcome_screen/ Welcome Screen:]
+* [https://tails.boum.org/doc/first_steps/welcome_screen/administration_password/ Set up an administration password.]
+* [https://tails.boum.org/doc/persistent_storage/create/ Create Persistent Storage.]
+
+Once Persistent Storage has been created, a settings window will open automatically. You can also open it from the desktop menu:  <code>Applications</code> > <code>Tails</code> > <code>Persistent Storage</code>.
+* Enable the '''Persistent Folder''' in the above settings.
+
+=== Configure the Persistent Folder ===
+
+* Create a directory to store the Bisq installer (and installation script):
+:<code>mkdir /home/amnesia/Persistent/bisq/</code>
+* Create a '''persistent data directory''' for your Bisq user data:
+:<code>mkdir /home/amnesia/Persistent/bisq/Bisq/</code>
+
+==== Import user data from backup ====
+
+{{Admonition_Warn|'''WARNING:''' Ensure that the [[#Configure_the_Persistent_Folder|persistent data directory]] is EMPTY before importing. Do NOT mix user data from different sessions.}}
+
+If you wish to import user data from a previous Bisq installation or backup, copy it into the [[#Configure_the_Persistent_Folder|persistent data directory]]:
+*<code>cp -ra /[backupdirectory]/bisq_backup_version001/. /home/amnesia/Persistent/bisq/Bisq/</code>
+
+'''N.B.''' The correct path to your <code>btc_mainnet</code> directory should now be:
+:<code>/home/amnesia/Persistent/bisq/Bisq/btc_mainnet</code>
+
+=== Download Bisq ===
+
+* [https://bisq.network/downloads/ Download] and [[Downloading_and_installing#Verify_installer_file|verify]] the Debian (.deb) version of the Bisq installer.
+* Move the installer file to the [[#Configure_the_Persistent_Folder|Bisq installer directory]]:
+:<code>mv /path/to/[yourdownload.deb] /home/amnesia/Persistent/bisq/</code>
+
+=== Create installation script ===
+
+'''NOTE:''' The script below will install Bisq, configure Tor, and redirect user data to the [[#Configure_the_Persistent_Folder|persistent data directory]] (by creating a 'symbolic link'). Every step in the script is explained via 'echo' commands.
+
+* Create a new script file:
+:<code>touch /home/amnesia/Persistent/bisq/install-bisq.sh</code>
+* Make the file executable:
+:<code>chmod +x /home/amnesia/Persistent/bisq/install-bisq.sh</code>
+* Edit the file, and save the script below.
+* On the second line, replace [yourdownload.deb] with the filename of the [[#Download_Bisq|Bisq installer you downloaded]].
+
+<pre>
+#!/bin/bash
+BisqInstaller=/home/amnesia/Persistent/bisq/[yourdownload.deb]
+DataDirectory=/home/amnesia/Persistent/bisq/Bisq
+
+echo "Install Bisq ..."
+dpkg -i $BisqInstaller
+echo "Change access rights of /var/run/tor/control.authcookie ..."
+chmod o+r /var/run/tor/control.authcookie
+echo "Create /etc/onion-grater.d/bisq.yml ..."
+echo "---
+- apparmor-profiles:
+    - '/opt/bisq/bin/Bisq'
+  users:
+    - 'amnesia'
+  commands:
+    AUTHCHALLENGE:
+      - 'SAFECOOKIE .*'
+    SETEVENTS:
+      - 'CIRC ORCONN INFO NOTICE WARN ERR HS_DESC HS_DESC_CONTENT'
+    GETINFO:
+      - pattern: 'status/bootstrap-phase'
+        response:
+          - pattern: '250-status/bootstrap-phase=*'
+            replacement: '250-status/bootstrap-phase=NOTICE BOOTSTRAP PROGRESS=100 TAG=done SUMMARY="Done"'
+      - 'net/listeners/socks'
+    ADD_ONION:
+      - pattern:     'NEW:(\S+) Port=9999,(\S+)'
+        replacement: 'NEW:{} Port=9999,{client-address}:{}'
+      - pattern:     '(\S+):(\S+) Port=9999,(\S+)'
+        replacement: '{}:{} Port=9999,{client-address}:{}'
+    DEL_ONION:
+      - '.+'
+    HSFETCH:
+      - '.+'
+  events:
+    CIRC:
+      suppress: true
+    ORCONN:
+      suppress: true
+    INFO:
+      suppress: true
+    NOTICE:
+      suppress: true
+    WARN:
+      suppress: true
+    ERR:
+      suppress: true
+    HS_DESC:
+      response:
+        - pattern:     '650 HS_DESC CREATED (\S+) (\S+) (\S+) \S+ (.+)'
+          replacement: '650 HS_DESC CREATED {} {} {} redacted {}'
+        - pattern:     '650 HS_DESC UPLOAD (\S+) (\S+) .*'
+          replacement: '650 HS_DESC UPLOAD {} {} redacted redacted'
+        - pattern:     '650 HS_DESC UPLOADED (\S+) (\S+) .+'
+          replacement: '650 HS_DESC UPLOADED {} {} redacted'
+        - pattern:     '650 HS_DESC REQUESTED (\S+) NO_AUTH'
+          replacement: '650 HS_DESC REQUESTED {} NO_AUTH'
+        - pattern:     '650 HS_DESC REQUESTED (\S+) NO_AUTH \S+ \S+'
+          replacement: '650 HS_DESC REQUESTED {} NO_AUTH redacted redacted'
+        - pattern:     '650 HS_DESC RECEIVED (\S+) NO_AUTH \S+ \S+'
+          replacement: '650 HS_DESC RECEIVED {} NO_AUTH redacted redacted'
+        - pattern:     '.*'
+          replacement: ''
+    HS_DESC_CONTENT:
+      suppress: true" > /etc/onion-grater.d/bisq.yml
+echo "Restart onion-grater service ..."
+systemctl restart onion-grater.service
+echo "Edit Bisq executable file ..."
+sed -i 's+Exec=/opt/bisq/bin/Bisq+Exec=/opt/bisq/bin/Bisq --torControlPort 951 --torControlCookieFile=/var/run/tor/control.authcookie --torControlUseSafeCookieAuth+' /usr/share/applications/bisq-Bisq.desktop
+echo "Redirect user data to Tails Persistent Storage ..."
+ln -s $DataDirectory /home/amnesia/.local/share/Bisq
+echo "Installation complete."
+</pre>
+
+== Run Bisq ==
+
+'''NOTE:''' Your user data is safely stored in the [[#Configure_the_Persistent_Folder|persistent data directory]]. However, the Bisq application is 'uninstalled' every time Tails shuts down.
+
+To install Bisq:
+
+* Connect to the Tor network, via the desktop menu:
+:<code>Applications</code> > <code>Internet</code> > <code>Tor Connection</code>
+* Run the [[#Create_installation_script|installation script]]:
+:<code>sudo sh /home/amnesia/Persistent/bisq/install-bisq.sh</code>
+
+Once Bisq has been installed, you can either start it from the desktop menu:
+*<code>Applications</code> > <code>Internet</code> > <code>Bisq</code>
+Or via terminal:
+*<code>/opt/bisq/bin/Bisq --torControlPort 951 --torControlCookieFile=/var/run/tor/control.authcookie --torControlUseSafeCookieAuth</code>
+
+== Maintenance ==
+=== Backup user data ===
+
+==== While Bisq is running ====
+
+You can [[Backing_up_application_data#While_Bisq_is_running|backup while Bisq is running]], as normal.
+
+==== While Bisq is closed ====
+
+You can also backup while Bisq is closed, by copying your user data to a backup location. However:
+
+{{Admonition_Warn|'''REMEMBER:''' Your user data is stored in the [[#Configure_the_Persistent_Folder|persistent data directory]], and '''NOT''' Bisq's [[data directory|default data directory]].
+
+'''WARNING:''' Only backup data into an EMPTY directory. Do NOT mix user data from different sessions.}}
+
+To backup, first create a new (empty) directory for the backup, then copy the [[#Configure_the_Persistent_Folder|persistent data directory]]. For example:
+*<code>mkdir /[backupdirectory]/bisq_backup_version001</code>
+*<code>cp -ra /home/amnesia/Persistent/bisq/Bisq/. /[backupdirectory]/bisq_backup_version001</code>
+
+=== Upgrade Bisq to the latest version ===
+
+{{Admonition_Warn|'''WARNING:''' Do not downgrade Bisq. Installing an older version could cause irreversible damage to Bisq data.
+
+'''NOTE''': Before upgrading, it is recommended to [[#Backup_user_data|backup your user data]].}}
+
+To upgrade Bisq:
+
+* [[#Download_Bisq|Download Bisq]] to <code>/home/amnesia/Persistent/bisq/</code>
+* Update the <code>BisqInstaller=</code> line of the [[#Create_installation_script|installation script]] with the filename of the new version.
+
+[[Category:Guides]]<!-- BISQ VERSION: general -->

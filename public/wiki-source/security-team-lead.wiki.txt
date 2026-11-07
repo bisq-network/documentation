@@ -1,0 +1,29 @@
+This article documents the ''Security Team Lead'' [[Role|role]].
+
+{{Admonition_Warn| The '''Security Team Lead''' is a now retired Bisq role. The below information is kept for prosperity.}}
+
+__TOC__
+
+== Issue ==
+* [https://github.com/bisq-network/roles/issues/108 Security Team Lead #108]
+
+== Team ==
+===github===
+* [https://github.com/orgs/bisq-network/teams/team-leads Team Leads team]
+* [https://github.com/orgs/bisq-network/teams/security Security Team] 
+===wiki===
+* [[Security_Team|Security Team]]
+
+== Duties ==
+<!-- list in bullet points each of the duties that owner(s) of this role must fulfill -->
+* Review Team's [[Compensation]] requests as per Process.
+* Maintain security roadmap and track efforts
+* Be official point of contact for reported security issues
+
+== Rights ==
+<!-- list in bullet points all special privileges that owner(s) of this role are granted, e.g. repository access -->
+
+== Bonding ==
+N/A
+
+[[Category:Roles]]<!-- BISQ VERSION: general -->

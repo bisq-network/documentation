@@ -1,0 +1,19 @@
+{
+  "title": "Face-to-face (payment method)",
+  "page_id": "379",
+  "revision_id": "3691",
+  "revision_timestamp": "2024-08-25T16:09:32Z",
+  "available_attribution": {
+    "username": "Pazza",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Face-to-face_(payment_method)",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3691",
+  "wikitext_sha256": "d7a91a5f714b43b44289e451852a86234d4dcdc137b50da8cb26033ab042b867",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/face-to-face-payment-method/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

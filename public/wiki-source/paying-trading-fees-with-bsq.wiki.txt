@@ -1,0 +1,59 @@
+'''Paying trade fees with BSQ''' enables traders to get a 50% discount on trading fees while compensating Bisq contributors.
+
+This article explains how to get BSQ and use it to pay for trading fees.
+
+__TOC__
+
+== Background ==
+
+Bisq's BSQ colored bitcoin token is different from most other exchange tokens: the primary reason it exists is to enable the decentralized operation and management of the Bisq network. That means no central wallets or accounts to accumulate funds, and no legal entity or leadership team to control strategy.
+
+For traders, BSQ offers discounted trading fees. This article covers how to buy BSQ and use it to get a discount on trading fees.
+
+== Acquire BSQ ==
+
+Although BSQ is [[BSQ technically bitcoin]], it’s [https://en.bitcoin.it/wiki/Colored_Coins colored bitcoin] that must be kept in a Bisq wallet, separate from plain bitcoin.
+
+To help you do this, and to avoid mistakes, Bisq automatically generates a separate BSQ wallet with addresses prefixed with a <code>B</code>—so you can be sure when you’re sending or receiving from a BSQ address.
+
+=== Retrieve your BSQ address ===
+
+You can find your BSQ wallet address in <code>DAO</code> > <code>BSQ wallet</code> > <code>Receive</code>.
+
+[[File:Bsq-wallet-address.png|700px|thumb|left|Get your BSQ address.]]
+<div style="clear: both;"></div>
+
+=== Create BSQ payment account ===
+
+To trade BSQ on Bisq, you need to set up an altcoin account using your BSQ address. If you're curious about Instant trades, check out [[Altcoins_Instant this article]].
+
+[[File:Add-new-bsq-account.png|700px|thumb|left|Use your BSQ address to create a BSQ payment account.]]
+<div style="clear: both;"></div>
+
+=== Make or take a BSQ offer ===
+
+Once you have a BSQ payment account set up, you can buy and sell BSQ.
+
+Pick an offer you like (or make an offer of your own) and complete the trade.
+
+[[File:Bsq-buy-offers.png|700px|thumb|left|Browse offers to buy BSQ.]]
+<div style="clear: both;"></div>
+
+== Use BSQ to pay trading fees ==
+
+Once you’ve got some BSQ, you can use it to pay trading fees.
+
+When you get to the <code>Take offer</code> screen where you confirm the trade amount, you’ll see a toggle for trading fees where you can select between BTC and BSQ trading fees.
+
+[[File:trading-fee-toggle.png|700px|thumb|left|Pick BSQ to pay trading fees on the make-offer or take-offer screen.]]
+<div style="clear: both;"></div>
+
+Pick the option you like better and complete the trade!
+
+{{Admonition Note|[[Trading_fees|Using BSQ to pay trading fees]] is about 50% cheaper then using plan bitcoin, and it also helps pay contributors for their work!}}
+
+== Beyond trading fees ==
+
+BSQ is also a core element of Bisq’s governance mechanism, allowing stakeholders (contributors, traders, and anyone else who uses or helps the project) to have a hand in crafting the strategy of the project through a voting process.
+
+Learn more in the [[Introduction_to_the_DAO|DAO introduction]] or [[Decentralized_autonomous_organization|DAO main page]].<!-- BISQ VERSION: general -->

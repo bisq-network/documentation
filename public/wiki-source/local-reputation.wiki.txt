@@ -1,0 +1,13 @@
+'''Local reputation''' is a count of how many trades you've done with a peer at a particular onion address. 
+
+The idea is that if a trade with a peer went well, it's reasonable to expect your next trade with that peer to go well too, creating a sort of rudimentary reputation indicator while maintaining anonymity.
+
+As you trade on Bisq, you will see a count appear on the avatars of users you've traded with.
+
+[[File:Local-reputation-closeup.png|100px|thumb|left|Local reputation on the offer book.]]
+
+You can reset your local reputation by deleting the <code>btc_mainnet/tor/hiddenservice</code> folder in your [[Data directory|data directory]]. Bisq will then generate a new onion address the next time it starts, causing you to look like a new trader to all peers on the network. 
+
+'''Do not delete this directory if you have any open offers, trades, or disputes—or you will become unreachable and unable to respond.'''
+
+See details on restoring your onion address (and thus, your local reputation) [[Restoring_application_data#Restore_onion_address|here]].<!-- BISQ VERSION: general -->

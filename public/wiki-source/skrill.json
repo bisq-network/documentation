@@ -1,0 +1,19 @@
+{
+  "title": "Skrill",
+  "page_id": "510",
+  "revision_id": "2498",
+  "revision_timestamp": "2021-11-21T19:02:37Z",
+  "available_attribution": {
+    "username": "Pazza",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Skrill",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=2498",
+  "wikitext_sha256": "0bbad75d4120953d8dbf5406f3921e9331e72b1b1f09f594acfcf5a262c73741",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/skrill/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

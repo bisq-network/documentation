@@ -1,0 +1,45 @@
+You may be experiencing '''network issues''' if you're stuck on Bisq's initial loading screen for a while. Often this results in a screen mentioning outdated Tor files and other Tor settings. This could occur for a number of reasons.
+
+__TOC__
+
+== Weak internet connection ==
+
+Bisq generally needs a strong, fast connection to work properly. Tethering on mobile connections can work but is known to cause issues.
+
+== 3/4 connection problem ==
+
+If Bisq stalls at step 3/4 of the startup sequence for more than 5 minutes it means the initial data download from seednodes has failed, or is taking too long.
+This can happen on weak or slow internet connections, or if Tor is having issues relaying the large data download to your node.
+Proposed mitigation is to clear the Tor cachefiles. (Close Bisq first). All files except <code>hiddenservice</code> can be deleted from <code>btc_mainnet/tor</code> beneath the [[https://bisq.wiki/Data_directory#Default_locations data directory]], they will be re-created as necessary at startup.  <code>hiddenservice</code> should be kept as it defines your onion address.
+
+See https://github.com/bisq-network/bisq/issues/2547#issuecomment-1016787843
+
+For a geekier approach, you can also try [[Manually_select_seednodes|manually choosing seednodes to connect to]]
+
+== Windows antivirus software ==
+
+Antivirus software is known to cause connection issues. Try turning it off to see if it helps Bisq to connect, and if it does, consider switching antivirus software or running Bisq on another operating system on which you don't need to run antivirus.
+
+== Being temporarily banned by the Tor network ==
+
+Trying to open Bisq too many times in a short timeframe can result in failing to connect to the Tor network. Simple wait 30-60 minutes and then try opening Bisq again.
+
+== Tor censorship ==
+
+In certain situations, Bisq may fail to start because your ISP or network provider is actively blocking Tor.
+
+Tor is tries to fight such obstacles by providing ''bridges''. Bridges help you connect to the Tor network through a less well-known node. If you know someone who runs a bridge, you can ask to use their bridge, or you can go to https://bridges.torproject.org/bridges to pick a bridge listed by the Tor Project.
+
+If you're in China, [[在中国运行Bisq_(Running_Bisq_in_China)|this method using SStap]] has worked to get around the Great Firewall.
+
+==Tor bridges that don't work ==
+
+Some network administrators try really hard to block all Tor activity on their network (universities are infamous for this) and will even sometimes block specific types of SSL traffic and handshakes.
+
+In these scenarios, consider using a VPN and then running Bisq from within the VPN tunnel.
+
+== Altcoin nodes running on the same computer ==
+
+Some forks of the Bitcoin repository (e.g., Litecoin, Dogecoin, etc) are known to cause issues with Bisq starting up. Bisq can sometimes recognize altcoin nodes as Bitcoin nodes, causing Bisq to try connecting to them and then failing when it finds no Bitcoin blocks.
+
+To solve this, switch altcoin nodes off, turn Bisq on and let it load completely. Then, turn the altcoin nodes back on.<!-- BISQ VERSION: general -->

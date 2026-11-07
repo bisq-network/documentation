@@ -1,0 +1,17 @@
+Bisq is designed and tested to work well on most user environments. This includes all major operating systems (Linux, macOS, Windows), as well as some more exotic ones ([[Running_Bisq_on_Qubes|Qubes]], [[Running_Bisq_on_Tails|Tails]]).
+
+However, in certain setups and in certain situations, Bisq may be slower than usual.
+
+If that is the case for you, here are a few performance tips for you to consider.
+
+== General Tips ==
+
+* Use the latest Bisq version
+* Expect a somewhat slower UI immediately upon opening Bisq, as long as Bisq is "Synchronizing DAO"
+** You can check if "Synchronizing DAO" is running in the bottom bar of the UI. If it is running, it will be shown as a progress bar.
+** Depending on the user's environment and hardware setup, this process ''may'' be resource intensive (high CPU usage, sluggish UI)
+** After this process is complete, Bisq should be faster and more responsive
+
+== macOS-specific Tips ==
+
+Avoid minimizing the Bisq app. In certain situations, macOS may try to allocate less resources to it (CPU, RAM), de-prioritize its threads, de-prioritize or interrupt open network connections, or attempt other optimizations to free up system resources.<!-- BISQ VERSION: general -->

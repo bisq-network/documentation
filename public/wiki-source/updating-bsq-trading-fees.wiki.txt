@@ -1,0 +1,32 @@
+'''Updating BSQ fees''' takes place every cycle to keep the BSQ [[trading fees]] at a 50% discount to BTC trading fees.
+
+The [[Compensation Maintainer]] takes the following steps to update BSQ trading fees.
+
+__TOC__
+
+== Determine new BSQ fees ==
+
+Three days before the end of proposal phase, the [[Compensation Maintainer]] shall:
+
+* Calculate BSQ trading fee discount [https://cryptpad.fr/sheet/#/2/sheet/view/khBDMTPxN9GkLPNYaLtyWFDmdXTnDygFeYZ--qngS1o/ on this spreadsheet] using the 30-day weighted average USD/BSQ price and live USD/BTC price at the time.
+** If existing BSQ discount is under 40% or over 60%, calculate new BSQ trading fees to restore a 50% discount. 
+** Update spreadsheet with new proposed fees. If there is no need for an update, leave the "New Fees" section blank.
+
+== Submit DAO parameter proposals ==
+
+Upon calculating the new BSQ fees, the [[Compensation Maintainer]] shall:
+
+* Create a new post on [https://github.com/bisq-network/proposals/ github proposals] with the title <code>BSQ trading fee update for Cycle X</code> indicating the new proposed trading fees and close the old post (or indicate in a comment at the already opened post if there will be no changes).
+* Submit DAO change parameter proposals for new BSQ trading fees and comment the corresponding TXIDs (if necessary).
+
+== Communicate changes ==
+
+Once DAO results are available, the [[Compensation Maintainer]] shall:
+
+* Update the [[trading fees]] page with new BSQ trading fees.
+
+== Reference ==
+
+Proposals [https://github.com/bisq-network/proposals/issues/173 #173] and [https://github.com/bisq-network/proposals/issues/365 #365] led to the development of this procedure.
+
+[[Category:Processes]]<!-- BISQ VERSION: general -->

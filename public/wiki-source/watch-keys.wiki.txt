@@ -1,0 +1,14 @@
+'''Watch keys''' or xpubs are useful to display your balance in case of Bisq wallet corruption '''without exposing private keys''' to an external wallet estimated by the Bisq [[wallet]].
+Go to <code>Account - Wallet Info</code> to find your watch keys.
+''Xpub'' is used to watch segwit (P2WPKH) addresses, and ''P2PKH'' or ''zpub'' is for legacy and BSQ addresses.
+
+[[File:Wallet - watchkeys.png|500px|thumb|left]]
+
+{{Admonition_Note|'''Don't import private keys to an external wallet.''' Use the [[emergency wallet]] instead.}}
+== Importing watch key to external wallet. ==
+
+Import the watch keys one by one to [http://electrum.org/ Electrum] or [https://samouraiwallet.com/sentinel Sentinel] to display your balance safely. 
+At Electrum, create a new <code>Standard wallet</code> through <code>Use Master Key</code> and paste the xpub or zpub, which is a string similar to  ''xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cfDfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz''. 
+Similar steps are required for Sentinel.
+
+[[Category:Guides]]<!-- BISQ VERSION: general -->

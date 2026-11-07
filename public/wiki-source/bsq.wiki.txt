@@ -1,0 +1,41 @@
+'''BSQ''' is the utility token of the Bisq [[Introduction to the DAO|DAO]], used for governance participation and optionally paying [[Trading fees|trading fees]] at a discount. Technically, it is implemented as '''colored''' bitcoin tokens. This means BSQ functions as a token layer on the Bitcoin blockchain, where specific satoshis represent BSQ units recognized as distinct from regular bitcoin '''only within the Bisq software wallet'''. The easiest way to obtain BSQ via trade is through [[BSQ_swaps|BSQ swaps]].
+
+__TOC__
+
+== BSQ Token ==
+
+{{BSQ_Token_Intro}}
+=== BSQ vs BTC ===
+
+You can observe the difference between a standard BTC transaction and a BSQ transaction (which is also a BTC transaction but interpreted differently by Bisq) using block explorers:
+* Example: [https://mempool.space/tx/0243f99c848de4f53cb29157d10bf1cdbfcf4219f84e9997dd3cac9244ab7242 View sample TX on a standard BTC block explorer]
+* Example: [https://mempool.space/bisq/tx/0243f99c848de4f53cb29157d10bf1cdbfcf4219f84e9997dd3cac9244ab7242 View the same sample TX on Bisq's BSQ explorer]
+
+=== BSQ Trading ===
+
+Because BSQ tokens are only recognized as having special properties by Bisq software, BSQ trading primarily takes place '''within the Bisq application''' using [[BSQ_swaps|BSQ swaps]].
+
+While BSQ fundamentally consists of bitcoin satoshis, it requires special handling. It should '''only be stored in and sent from the built-in Bisq wallet'''.
+
+{{Admonition_Warn|'''Do not attempt to send BSQ to a non-Bisq wallet''' (e.g., another Bitcoin wallet or an exchange) or create custom BSQ transactions manually. The rules for valid BSQ transactions are complex and enforced by the Bisq software. Errors can lead to the BSQ value being unrecognized or lost (becoming plain satoshis). The [[DAO_technical_overview|technical overview]] provides details, but the source code is the ultimate reference. Future software updates may also break custom implementations. '''Bisq cannot provide support for recovering BSQ sent outside the Bisq wallet ecosystem.'''}}
+
+=== BSQ Issuance ===
+
+BSQ was initially created in a genesis transaction in April 2019. Since then, new BSQ is '''only created through the Bisq DAO''' via approved compensation or reimbursement requests submitted by contributors. BSQ is 'burned' (destroyed) when used to pay trading fees. Learn more about the [[Introduction_to_the_DAO#Overview|BSQ issuance and burn dynamic]].
+
+{{Admonition_Note|'''BSQ is not an ICO token.''' It was never sold to raise capital. It functions purely as a utility token to enable decentralized governance and funding for the Bisq network, which has been operational since 2016.}}
+
+== BSQ Wallet ==
+
+BSQ is stored within the user's standard Bisq Bitcoin wallet file but is managed separately by the software to prevent accidental mixing with regular BTC.
+* '''Separate Balances:''' The UI shows distinct BTC and BSQ balances.
+* '''Separate Files (Internal):''' Wallet data for BTC and BSQ are stored in separate internal files within the [[Data directory]].
+* '''Address Prefix:''' BSQ addresses displayed in the UI are prefixed with a 'B' to distinguish them visually from standard BTC addresses.
+* '''Derivation Path:''' Bisq uses a unique BIP-44 [[Restoring_your_wallet_from_seed#Restoring_to_a_non-Bisq_wallet|derivation path]] for its wallets, making them generally incompatible with external wallet software for direct recovery (though BTC funds can be recovered using the seed phrase with specific steps).
+
+For user convenience, the BTC and BSQ wallets within Bisq share the same seed phrase.
+
+More technical details can be found in the [[DAO user reference]] and [[DAO technical overview]]. See also [[How_to_buy_BSQ_on_Bisq|how to buy BSQ]] using swaps.
+
+[[Category:DAO]]
+[[Category:BSQ]]<!-- BISQ VERSION: bisq1 -->

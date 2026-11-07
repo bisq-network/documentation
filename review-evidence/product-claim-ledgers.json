@@ -1,0 +1,1708 @@
+[
+  {
+    "source_titles": [
+      "Backup",
+      "Backing up application data",
+      "Backing up your wallet seed",
+      "Restoring application data",
+      "Restoring your wallet from seed",
+      "Create a new wallet for your data directory",
+      "Data directory"
+    ],
+    "claims": [
+      {
+        "claim": "Application backup and seed serve different recovery purposes; seed is no substitute for database and identity keys",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L2022-L2029",
+            "source_kind": "current_source",
+            "line_start": 2022,
+            "line_end": 2029
+          }
+        ]
+      },
+      {
+        "claim": "Backup now uses configured data directory and excludes selected Tor data; links/special files may be skipped",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "0afc853669931f51cd7f4eea7cff91f232be2ea88c1979bf0f1b60117c8dd970",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/backup/BackupView.java#L96-L98",
+            "source_kind": "current_source",
+            "line_start": 96,
+            "line_end": 98
+          },
+          {
+            "sha256": "0afc853669931f51cd7f4eea7cff91f232be2ea88c1979bf0f1b60117c8dd970",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/backup/BackupView.java#L168-L178",
+            "source_kind": "current_source",
+            "line_start": 168,
+            "line_end": 178
+          },
+          {
+            "sha256": "ec4b16dd36ec66e9133d91ab46b1a1ad3b2e6aeefdfa96943655de4fa48617c6",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/p2p/src/main/java/bisq/network/p2p/network/TorMode.java#L106-L109",
+            "source_kind": "current_source",
+            "line_start": 106,
+            "line_end": 109
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L2009-L2011",
+            "source_kind": "current_source",
+            "line_start": 2009,
+            "line_end": 2011
+          }
+        ]
+      },
+      {
+        "claim": "Backup screen lets user select destination/open application directory; backup not encrypted",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1998-L2005",
+            "source_kind": "current_source",
+            "line_start": 1998,
+            "line_end": 2005
+          }
+        ]
+      },
+      {
+        "claim": "Record seed and wallet date on paper; common seed for BTC and BSQ; never share secrets",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L2022-L2029",
+            "source_kind": "current_source",
+            "line_start": 2022,
+            "line_end": 2029
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L899-L899",
+            "source_kind": "current_source",
+            "line_start": 899,
+            "line_end": 899
+          }
+        ]
+      },
+      {
+        "claim": "Manual full-directory copy requires closing Bisq; encrypt backup and retain external copy",
+        "classification": "historical_safe_procedure",
+        "evidence": [
+          {
+            "sha256": "e99609f36d60cc27b304e566083d8487c5a85b33ba05f82eeb69a7e80cb38a18",
+            "source_url": "https://bisq.wiki/index.php?oldid=4058",
+            "source_kind": "historical_source",
+            "line_start": 25,
+            "line_end": 31
+          }
+        ]
+      },
+      {
+        "claim": "Restore full application backup with Bisq closed; retain old directory and do not alternate same identity across computers",
+        "classification": "historical_safe_procedure",
+        "evidence": [
+          {
+            "sha256": "add93a1b75e01680f3f7b9182c0049aefbae03e7fbb8e3dc07b9248b1d4a3fb0",
+            "source_url": "https://bisq.wiki/index.php?oldid=3955",
+            "source_kind": "historical_source",
+            "line_start": 9,
+            "line_end": 13
+          },
+          {
+            "sha256": "add93a1b75e01680f3f7b9182c0049aefbae03e7fbb8e3dc07b9248b1d4a3fb0",
+            "source_url": "https://bisq.wiki/index.php?oldid=3955",
+            "source_kind": "historical_source",
+            "line_start": 13,
+            "line_end": 15
+          }
+        ]
+      },
+      {
+        "claim": "Account export does not independently preserve signing status/identity; changing keys requires no active offers/trades/disputes",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "e99609f36d60cc27b304e566083d8487c5a85b33ba05f82eeb69a7e80cb38a18",
+            "source_url": "https://bisq.wiki/index.php?oldid=4058",
+            "source_kind": "historical_source",
+            "line_start": 37,
+            "line_end": 37
+          },
+          {
+            "sha256": "add93a1b75e01680f3f7b9182c0049aefbae03e7fbb8e3dc07b9248b1d4a3fb0",
+            "source_url": "https://bisq.wiki/index.php?oldid=3955",
+            "source_kind": "historical_source",
+            "line_start": 50,
+            "line_end": 50
+          }
+        ]
+      },
+      {
+        "claim": "Seed restore is emergency-only; use empty wallet,finish trades/close offers,backup before restore; restart/resync uninterrupted",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L2037-L2044",
+            "source_kind": "current_source",
+            "line_start": 2037,
+            "line_end": 2044
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3869",
+            "source_kind": "current_source",
+            "line_start": 3864,
+            "line_end": 3869
+          }
+        ]
+      },
+      {
+        "claim": "Seed restoration removes encryption; set new password afterward",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3872-L3875",
+            "source_kind": "current_source",
+            "line_start": 3872,
+            "line_end": 3875
+          }
+        ]
+      },
+      {
+        "claim": "Without date scan is longer; use recorded creation date rather than inventing recent date",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3875-L3879",
+            "source_kind": "current_source",
+            "line_start": 3875,
+            "line_end": 3879
+          }
+        ]
+      },
+      {
+        "claim": "Send BSQ before emptying BTC so mining fees can be paid",
+        "classification": "historical_safe_procedure",
+        "evidence": [
+          {
+            "sha256": "fc82249c4231cc67db9d1daa9e6e5a18d6a5b9c07ac25fa7a9658c583d4b681c",
+            "source_url": "https://bisq.wiki/index.php?oldid=3553",
+            "source_kind": "historical_source",
+            "line_start": 42,
+            "line_end": 43
+          }
+        ]
+      },
+      {
+        "claim": "Avoid external BSQ recovery because unsupported transactions can invalidate BSQ",
+        "classification": "historical_safe_procedure",
+        "evidence": [
+          {
+            "sha256": "9821ca11c70dec499492413fadfa7c6a5570b4e60169ae8dd3de248bed71b065",
+            "source_url": "https://bisq.wiki/index.php?oldid=1525",
+            "source_kind": "historical_source",
+            "line_start": 25,
+            "line_end": 25
+          }
+        ]
+      }
+    ],
+    "corrections": [
+      "Qualify older entire-directory Backup now claim: current backup omits specific Tor runtime data, skips links and special files.",
+      "Add current restore-removes-encryption warning.",
+      "Consolidate backup vs seed vs account export into one recovery decision flow."
+    ],
+    "omissions": [
+      "No unsupervised sig.key/UserPayload/SPV-chain replacement recipe.",
+      "No guessed derivation paths or default filesystem paths.",
+      "One inline backup image replaces five-image appendix."
+    ],
+    "unresolved": [
+      "Cross-machine and exceptional restoration procedures retain historical-source authority; supervised product-flow test pending.",
+      "External BTC wallet recovery not prescribed."
+    ],
+    "route": "/bisq-1/backup-and-recovery/",
+    "guide_sha256": "b7d45f98784a68369041dbbd90970d475af5769c2c0d04c66f27bfe7fb50f61c",
+    "checked_on": "2026-11-07",
+    "release": "v1.10.11",
+    "immutable_commit": "ea9d5dff90c99ac462f2b0a7bf9ef92683956619",
+    "source_title_mapping": [
+      {
+        "title": "Backup",
+        "revision_id": "4101",
+        "revision_timestamp": "2025-12-14T18:22:15Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4101",
+        "source_sha256": "49b57f236b20c72212c9033f3628bc4c3f81ecb7e5206f670cac72c25a008130"
+      },
+      {
+        "title": "Backing up application data",
+        "revision_id": "4058",
+        "revision_timestamp": "2025-08-03T17:21:21Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4058",
+        "source_sha256": "e99609f36d60cc27b304e566083d8487c5a85b33ba05f82eeb69a7e80cb38a18"
+      },
+      {
+        "title": "Backing up your wallet seed",
+        "revision_id": "1457",
+        "revision_timestamp": "2020-06-17T21:44:05Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=1457",
+        "source_sha256": "41237470836920631a15a2fba5d7f3691f7c9ee6fe22c44d28cafbbeb256d45b"
+      },
+      {
+        "title": "Restoring application data",
+        "revision_id": "3955",
+        "revision_timestamp": "2025-04-10T06:42:38Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=3955",
+        "source_sha256": "add93a1b75e01680f3f7b9182c0049aefbae03e7fbb8e3dc07b9248b1d4a3fb0"
+      },
+      {
+        "title": "Restoring your wallet from seed",
+        "revision_id": "1525",
+        "revision_timestamp": "2020-06-19T01:55:30Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=1525",
+        "source_sha256": "9821ca11c70dec499492413fadfa7c6a5570b4e60169ae8dd3de248bed71b065"
+      },
+      {
+        "title": "Create a new wallet for your data directory",
+        "revision_id": "3553",
+        "revision_timestamp": "2024-04-04T18:47:20Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=3553",
+        "source_sha256": "fc82249c4231cc67db9d1daa9e6e5a18d6a5b9c07ac25fa7a9658c583d4b681c"
+      },
+      {
+        "title": "Data directory",
+        "revision_id": "3999",
+        "revision_timestamp": "2025-05-01T19:01:16Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=3999",
+        "source_sha256": "4c8fd1462c7d447922a432a5c1d17685672aa4359b5523ee373490b5545feb6a"
+      }
+    ],
+    "review_status": "AI-assisted source comparison; root independently reviewed selected source sections; human/product-flow testing pending",
+    "guide_file": "src/content/docs/bisq-1/backup-and-recovery.md",
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending"
+  },
+  {
+    "source_titles": [
+      "Dispute Resolution in Bisq 1",
+      "Mediation",
+      "Arbitration",
+      "Table of penalties",
+      "User support"
+    ],
+    "claims": [
+      {
+        "claim": "Open affected trade,chat and keep sensitive credentials out of communication",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L894-L904",
+            "source_kind": "current_source",
+            "line_start": 894,
+            "line_end": 904
+          }
+        ]
+      },
+      {
+        "claim": "Support ticket shortcut and prompt are implemented",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "1d51c771da25558e4d83d5b7777e9a31d68c87134719ef985bf87325098b7961",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/pendingtrades/PendingTradesView.java#L266-L277",
+            "source_kind": "current_source",
+            "line_start": 266,
+            "line_end": 277
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L962-L962",
+            "source_kind": "current_source",
+            "line_start": 962,
+            "line_end": 962
+          }
+        ]
+      },
+      {
+        "claim": "Support screen contains mediator/arbitrator communication; cooperate/respond within48h",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1067-L1068",
+            "source_kind": "current_source",
+            "line_start": 1067,
+            "line_end": 1068
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L358-L359",
+            "source_kind": "current_source",
+            "line_start": 358,
+            "line_end": 359
+          }
+        ]
+      },
+      {
+        "claim": "Mediation proposes payout; each trader acceptance signs payout and both must accept",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1083-L1092",
+            "source_kind": "current_source",
+            "line_start": 1083,
+            "line_end": 1092
+          }
+        ]
+      },
+      {
+        "claim": "Escalation eligibility depends on displayed date/block height",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1091-L1092",
+            "source_kind": "current_source",
+            "line_start": 1091,
+            "line_end": 1092
+          }
+        ]
+      },
+      {
+        "claim": "Opening arbitration publishes delayed payout to Burning Men; direct reimbursement discretionary/notguaranteed",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L366-L368",
+            "source_kind": "current_source",
+            "line_start": 366,
+            "line_end": 368
+          }
+        ]
+      },
+      {
+        "claim": "Trader may submit DAO reimbursement request after disagreement or no direct refund",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L371-L371",
+            "source_kind": "current_source",
+            "line_start": 371,
+            "line_end": 371
+          }
+        ]
+      },
+      {
+        "claim": "Mediation/trader-chat not automatically shared with arbitrator",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1386-L1386",
+            "source_kind": "current_source",
+            "line_start": 1386,
+            "line_end": 1386
+          }
+        ]
+      },
+      {
+        "claim": "Use Matrix for application support; preserve data rather than unsafe resets",
+        "classification": "editorial_safety_guidance",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L2007-L2007",
+            "source_kind": "current_source",
+            "line_start": 2007,
+            "line_end": 2007
+          },
+          {
+            "sha256": "e99609f36d60cc27b304e566083d8487c5a85b33ba05f82eeb69a7e80cb38a18",
+            "source_url": "https://bisq.wiki/index.php?oldid=4058",
+            "source_kind": "historical_source",
+            "line_start": 11,
+            "line_end": 13
+          }
+        ]
+      }
+    ],
+    "corrections": [
+      "Explicit newer tradeRules.refund.body overrides older mediation popup that implies guaranteed payout.",
+      "Use client arbitration eligibility rather than a fixed waiting-time promise.",
+      "Remove penalty arithmetic and guaranteed-compensation language."
+    ],
+    "omissions": [
+      "No fixed penalty/refund percentages or promise of guaranteed recovery.",
+      "One mediation image; obsolete arbitration UI image omitted."
+    ],
+    "unresolved": [
+      "Live dispute UI not exercised.",
+      "Upstream popup contradiction remains and should be reviewed by maintainers."
+    ],
+    "route": "/bisq-1/dispute-help/",
+    "guide_sha256": "b740b32796338492bb1bf02108d941e500eebb830af15ae7f9ed2a8a6f548df7",
+    "checked_on": "2026-11-07",
+    "release": "v1.10.11",
+    "immutable_commit": "ea9d5dff90c99ac462f2b0a7bf9ef92683956619",
+    "source_title_mapping": [
+      {
+        "title": "Dispute Resolution in Bisq 1",
+        "revision_id": "4136",
+        "revision_timestamp": "2026-05-10T07:56:18Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4136",
+        "source_sha256": "7d55c7a9be9ae6515ebc2f0edefbf29d263aad50b24a3d95bf238a8f4aa3281b"
+      },
+      {
+        "title": "Mediation",
+        "revision_id": "3854",
+        "revision_timestamp": "2025-01-26T16:43:15Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=3854",
+        "source_sha256": "1f3c6b4b177b6deab5853aeb279cc502429452fbd1183d384449a6ae06661fa8"
+      },
+      {
+        "title": "Arbitration",
+        "revision_id": "4174",
+        "revision_timestamp": "2026-10-15T07:27:45Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4174",
+        "source_sha256": "d87d64fa66ac41fb71ade7fd2155ab105616441a2719109ede30424ba0642dec"
+      },
+      {
+        "title": "Table of penalties",
+        "revision_id": "4071",
+        "revision_timestamp": "2025-08-29T09:48:30Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4071",
+        "source_sha256": "a61f4d740abb6377233e76041d994f9e2a19e15212e0239cb9975cbcf69e845f"
+      },
+      {
+        "title": "User support",
+        "revision_id": "2930",
+        "revision_timestamp": "2022-02-26T17:30:51Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=2930",
+        "source_sha256": "6491615bfad9e07c63ab2729bc0deca4c497a516bb0f88eed9ea67c84aa5b1dd"
+      }
+    ],
+    "review_status": "AI-assisted source comparison; root independently reviewed selected source sections; human/product-flow testing pending",
+    "guide_file": "src/content/docs/bisq-1/dispute-help.md",
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending"
+  },
+  {
+    "source_titles": [
+      "Taking an offer",
+      "Creating a payment account",
+      "Trading rules",
+      "Security deposit",
+      "Trading costs",
+      "Trading fees"
+    ],
+    "claims": [
+      {
+        "claim": "Existing funds needed for security deposit,mining fee and trading fee; app breaks down funding and offers wallet/external options",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L637-L637",
+            "source_kind": "current_source",
+            "line_start": 637,
+            "line_end": 637
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L652-L652",
+            "source_kind": "current_source",
+            "line_start": 652,
+            "line_end": 652
+          }
+        ]
+      },
+      {
+        "claim": "Offer amount must fit range; offer can disappear before taking; accepted trade under Portfolio/Open trades",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L626-L627",
+            "source_kind": "current_source",
+            "line_start": 626,
+            "line_end": 627
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L656-L660",
+            "source_kind": "current_source",
+            "line_start": 656,
+            "line_end": 660
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L639-L639",
+            "source_kind": "current_source",
+            "line_start": 639,
+            "line_end": 639
+          }
+        ]
+      },
+      {
+        "claim": "Wait for deposit confirmation before payment; do not pay while seller account details missing",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L803-L803",
+            "source_kind": "current_source",
+            "line_start": 803,
+            "line_end": 803
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L850-L850",
+            "source_kind": "current_source",
+            "line_start": 850,
+            "line_end": 850
+          }
+        ]
+      },
+      {
+        "claim": "Pay agreed exact amount through specified external method; sender covers transfer fees",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L841-L841",
+            "source_kind": "current_source",
+            "line_start": 841,
+            "line_end": 841
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L355-L355",
+            "source_kind": "current_source",
+            "line_start": 355,
+            "line_end": 355
+          }
+        ]
+      },
+      {
+        "claim": "Payment reference blank by default;never TradeID/Bitcoin/BTC/Bisq; required reference own name or dash with alternate discussed",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L811-L814",
+            "source_kind": "current_source",
+            "line_start": 811,
+            "line_end": 814
+          }
+        ]
+      },
+      {
+        "claim": "Mark Payment started only after actual initiation",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L876-L878",
+            "source_kind": "current_source",
+            "line_start": 876,
+            "line_end": 878
+          }
+        ]
+      },
+      {
+        "claim": "Seller checks own account receipt,amount,sender identity; confirmation releases bitcoin",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L940-L941",
+            "source_kind": "current_source",
+            "line_start": 940,
+            "line_end": 941
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L959-L960",
+            "source_kind": "current_source",
+            "line_start": 959,
+            "line_end": 960
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L994-L994",
+            "source_kind": "current_source",
+            "line_start": 994,
+            "line_end": 994
+          }
+        ]
+      },
+      {
+        "claim": "Completed trades and transactions have specific history locations",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1010-L1010",
+            "source_kind": "current_source",
+            "line_start": 1010,
+            "line_end": 1010
+          }
+        ]
+      },
+      {
+        "claim": "Never share wallet secrets or move trade outside Bisq",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L899-L900",
+            "source_kind": "current_source",
+            "line_start": 899,
+            "line_end": 900
+          }
+        ]
+      }
+    ],
+    "corrections": [
+      "New single buyer path consolidates create-account/fund/take-offer/payment/completion articles.",
+      "Current payment-reference text overrides old TradeID instructions.",
+      "Use client funding/limit values instead of historic fixed numbers."
+    ],
+    "omissions": [
+      "Does not cover BSQ swaps,altcoin-specific proofs,cash receipts or Bisq Easy flow.",
+      "One contextual funding screenshot only."
+    ],
+    "unresolved": [
+      "End-to-end real desktop trade not executed."
+    ],
+    "route": "/bisq-1/first-trade/",
+    "guide_sha256": "8dd58a40fb2538aab42fdfbd66a80d8b5691a11bc73a61fb558c29e515aa7fec",
+    "checked_on": "2026-11-07",
+    "release": "v1.10.11",
+    "immutable_commit": "ea9d5dff90c99ac462f2b0a7bf9ef92683956619",
+    "source_title_mapping": [
+      {
+        "title": "Taking an offer",
+        "revision_id": "2073",
+        "revision_timestamp": "2021-03-14T11:04:44Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=2073",
+        "source_sha256": "6cd212064abbbd1c625384f8e6350e1f8df40fd5f576a5665a1ef80bdd4d7df9"
+      },
+      {
+        "title": "Creating a payment account",
+        "revision_id": "2166",
+        "revision_timestamp": "2021-04-16T22:06:46Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=2166",
+        "source_sha256": "61a7ae9e95997496e03865ba693dfb69794f891bb6a96cadb32ac639e60065b9"
+      },
+      {
+        "title": "Trading rules",
+        "revision_id": "4121",
+        "revision_timestamp": "2026-04-15T12:30:19Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4121",
+        "source_sha256": "619e8b3180b6e78c1d4cd0da99153e0ac8dbc9d0da69e58a5a9949d028870384"
+      },
+      {
+        "title": "Security deposit",
+        "revision_id": "3817",
+        "revision_timestamp": "2024-12-23T03:45:02Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=3817",
+        "source_sha256": "f53f75ce6422488d10ef22adbc261b727afaaa24ba67dfbf83ce32ee87bec6f2"
+      },
+      {
+        "title": "Trading costs",
+        "revision_id": "4176",
+        "revision_timestamp": "2026-10-15T15:23:28Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4176",
+        "source_sha256": "6916571109e28ada66044d6487cf1ac08ac9ee4e80be804cd19cee99ed78c6f8"
+      },
+      {
+        "title": "Trading fees",
+        "revision_id": "4175",
+        "revision_timestamp": "2026-10-15T15:20:51Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4175",
+        "source_sha256": "31d671cd0efe02f504119865ed34143879ec82cc7d48bf1b4faf2afa0a2af805"
+      }
+    ],
+    "review_status": "AI-assisted source comparison; root independently reviewed selected source sections; human/product-flow testing pending",
+    "guide_file": "src/content/docs/bisq-1/first-trade.md",
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending"
+  },
+  {
+    "source_titles": [
+      "Downloading and installing"
+    ],
+    "claims": [
+      {
+        "claim": "v1.10.11 is latest stable release at check time; security update required for trading",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "9172f0519de93a0cdf9e1ac0dd8cd908603ff839b906ed9f9d466b9d1908f966",
+            "source_url": "https://api.github.com/repos/bisq-network/bisq/releases/latest",
+            "source_kind": "current_source",
+            "line_start": 29,
+            "line_end": 34
+          },
+          {
+            "sha256": "475480665d72ca9ff149515c4219d2c4bdd40a58a5463d5604a2d2691a04821a",
+            "source_url": "https://github.com/bisq-network/bisq/releases/tag/v1.10.11",
+            "source_kind": "current_source",
+            "line_start": 5,
+            "line_end": 5
+          }
+        ]
+      },
+      {
+        "claim": "Platform packages and detached signatures are listed as release assets",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "9172f0519de93a0cdf9e1ac0dd8cd908603ff839b906ed9f9d466b9d1908f966",
+            "source_url": "https://api.github.com/repos/bisq-network/bisq/releases/latest",
+            "source_kind": "current_source",
+            "line_start": 331,
+            "line_end": 331
+          },
+          {
+            "sha256": "9172f0519de93a0cdf9e1ac0dd8cd908603ff839b906ed9f9d466b9d1908f966",
+            "source_url": "https://api.github.com/repos/bisq-network/bisq/releases/latest",
+            "source_kind": "current_source",
+            "line_start": 403,
+            "line_end": 403
+          },
+          {
+            "sha256": "9172f0519de93a0cdf9e1ac0dd8cd908603ff839b906ed9f9d466b9d1908f966",
+            "source_url": "https://api.github.com/repos/bisq-network/bisq/releases/latest",
+            "source_kind": "current_source",
+            "line_start": 151,
+            "line_end": 151
+          }
+        ]
+      },
+      {
+        "claim": "Expected published signing key E222AA02/full fingerprint agrees between release and website; only metadata inspected",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "6abcbbea814d61359d0432eea626c962acd29f6e0b7b98b6a0489ead67bc8550",
+            "source_url": "https://github.com/bisq-network/bisq/releases/download/v1.10.11/signingkey.asc",
+            "source_kind": "current_source",
+            "line_start": 1,
+            "line_end": 1
+          },
+          {
+            "sha256": "b0e4cd80339a075eecdd4551ca0c8b468b0a81b349d3a2a84ab266b5d77e104b",
+            "source_url": "https://github.com/bisq-network/bisq/releases/download/v1.10.11/E222AA02.asc",
+            "source_kind": "current_source",
+            "line_start": 2,
+            "line_end": 2
+          },
+          {
+            "sha256": "b0e4cd80339a075eecdd4551ca0c8b468b0a81b349d3a2a84ab266b5d77e104b",
+            "source_url": "https://bisq.network/pubkey/E222AA02.asc",
+            "source_kind": "current_source",
+            "line_start": 2,
+            "line_end": 2
+          },
+          {
+            "sha256": "706b0563e903933fb44bd4302e7237f182e41c1427ea781f922fca76719f1f22",
+            "source_url": "https://github.com/bisq-network/bisq/releases/download/v1.10.11/Bisq-64bit-1.10.11.deb.asc",
+            "source_kind": "current_source",
+            "line_start": 5,
+            "line_end": 5
+          }
+        ]
+      },
+      {
+        "claim": "Detached signature is supplied before installer; key trust differs from signature validity",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "cff41f16346499b03af46f00812f3cb6bf5dd16cf6d85253084be5f55f85167f",
+            "source_url": "https://www.gnupg.org/download/integrity_check.html",
+            "source_kind": "current_source",
+            "line_start": 131,
+            "line_end": 131
+          },
+          {
+            "sha256": "cff41f16346499b03af46f00812f3cb6bf5dd16cf6d85253084be5f55f85167f",
+            "source_url": "https://www.gnupg.org/download/integrity_check.html",
+            "source_kind": "current_source",
+            "line_start": 180,
+            "line_end": 180
+          }
+        ]
+      },
+      {
+        "claim": "macOS not notarized; exact quarantine command is release documented; Windows More info/Run anyway are release documented",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "475480665d72ca9ff149515c4219d2c4bdd40a58a5463d5604a2d2691a04821a",
+            "source_url": "https://github.com/bisq-network/bisq/releases/tag/v1.10.11",
+            "source_kind": "current_source",
+            "line_start": 61,
+            "line_end": 67
+          },
+          {
+            "sha256": "475480665d72ca9ff149515c4219d2c4bdd40a58a5463d5604a2d2691a04821a",
+            "source_url": "https://github.com/bisq-network/bisq/releases/tag/v1.10.11",
+            "source_kind": "current_source",
+            "line_start": 75,
+            "line_end": 77
+          }
+        ]
+      },
+      {
+        "claim": "Back up before updates and retain application data",
+        "classification": "editorial_safety_guidance_supported_by_historical_source",
+        "evidence": [
+          {
+            "sha256": "e99609f36d60cc27b304e566083d8487c5a85b33ba05f82eeb69a7e80cb38a18",
+            "source_url": "https://bisq.wiki/index.php?oldid=4058",
+            "source_kind": "historical_source",
+            "line_start": 11,
+            "line_end": 13
+          }
+        ]
+      }
+    ],
+    "corrections": [
+      "Replace recovery narrative with four installation tasks.",
+      "Use freshly checked latest release and immutable source commit.",
+      "Do not treat published signing metadata as installer cryptographic verification.",
+      "Retain fingerprint authentication and bad-signature/expiry stop conditions; no blanket ignore-GPG-errors advice."
+    ],
+    "omissions": [
+      "No unverified community/AUR/Tails/Qubes recipe.",
+      "Historical installer screenshots removed as redundant."
+    ],
+    "unresolved": [
+      "No installer binary signature verification performed.",
+      "No fresh OS installation walkthrough."
+    ],
+    "route": "/bisq-1/install-and-verify/",
+    "guide_sha256": "5c2966c580b54961ed6baed8034c8141029692d1a048b0635c6247da27bfa6e1",
+    "checked_on": "2026-11-07",
+    "release": "v1.10.11",
+    "immutable_commit": "ea9d5dff90c99ac462f2b0a7bf9ef92683956619",
+    "source_title_mapping": [
+      {
+        "title": "Downloading and installing",
+        "revision_id": "4151",
+        "revision_timestamp": "2026-06-12T07:43:10Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4151",
+        "source_sha256": "ce449b13bc7af98541ce8ff52af693b938e5b373429eb8386bdc963e564c1bc0"
+      }
+    ],
+    "review_status": "AI-assisted source comparison; root independently reviewed selected source sections; human/product-flow testing pending",
+    "guide_file": "src/content/docs/bisq-1/install-and-verify.md",
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending"
+  },
+  {
+    "source_titles": [
+      "Creating a payment account",
+      "Account limits",
+      "Payment methods",
+      "Backing up application data",
+      "Restoring application data"
+    ],
+    "claims": [
+      {
+        "claim": "National currency and altcoin accounts are distinct screens",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1727-L1728",
+            "source_kind": "current_source",
+            "line_start": 1727,
+            "line_end": 1728
+          }
+        ]
+      },
+      {
+        "claim": "Add selected payment method,required details,and save after input validation",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "d76d60c719fa8c4791d0afd31de5e13cfbb770206bc82a03584fec004a8931b4",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/fiataccounts/FiatAccountsView.java#L493-L496",
+            "source_kind": "current_source",
+            "line_start": 493,
+            "line_end": 496
+          },
+          {
+            "sha256": "61a7ae9e95997496e03865ba693dfb69794f891bb6a96cadb32ac639e60065b9",
+            "source_url": "https://bisq.wiki/index.php?oldid=2166",
+            "source_kind": "historical_source",
+            "line_start": 7,
+            "line_end": 10
+          }
+        ]
+      },
+      {
+        "claim": "Use agreed account/sender identity; mismatched sender names require dispute rather than release",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L959-L960",
+            "source_kind": "current_source",
+            "line_start": 959,
+            "line_end": 960
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L962-L962",
+            "source_kind": "current_source",
+            "line_start": 962,
+            "line_end": 962
+          }
+        ]
+      },
+      {
+        "claim": "Effective trade limit depends on method,currency,direction and account age/signing; avoid universal numeric table",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "1b0fce23408506e38487cb9b28fcc1ec41324b054d241a63c68d8ee78b7240fb",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L492",
+            "source_kind": "current_source",
+            "line_start": 475,
+            "line_end": 492
+          },
+          {
+            "sha256": "1b0fce23408506e38487cb9b28fcc1ec41324b054d241a63c68d8ee78b7240fb",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L558-L576",
+            "source_kind": "current_source",
+            "line_start": 558,
+            "line_end": 576
+          }
+        ]
+      },
+      {
+        "claim": "Eligible completed trade can sign account; waiting after creation is not equivalent to signing",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L432-L433",
+            "source_kind": "current_source",
+            "line_start": 432,
+            "line_end": 433
+          },
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L404-L406",
+            "source_kind": "current_source",
+            "line_start": 404,
+            "line_end": 406
+          }
+        ]
+      },
+      {
+        "claim": "Signing is not a guarantee; continue receipt verification",
+        "classification": "editorial_safety_guidance",
+        "evidence": [
+          {
+            "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L992-L992",
+            "source_kind": "current_source",
+            "line_start": 992,
+            "line_end": 992
+          }
+        ]
+      },
+      {
+        "claim": "Regular account export requires original signing identity for status restoration; do not change key with active trades",
+        "classification": "source_supported",
+        "evidence": [
+          {
+            "sha256": "e99609f36d60cc27b304e566083d8487c5a85b33ba05f82eeb69a7e80cb38a18",
+            "source_url": "https://bisq.wiki/index.php?oldid=4058",
+            "source_kind": "historical_source",
+            "line_start": 37,
+            "line_end": 37
+          },
+          {
+            "sha256": "add93a1b75e01680f3f7b9182c0049aefbae03e7fbb8e3dc07b9248b1d4a3fb0",
+            "source_url": "https://bisq.wiki/index.php?oldid=3955",
+            "source_kind": "historical_source",
+            "line_start": 50,
+            "line_end": 50
+          },
+          {
+            "sha256": "a3fe29efb6f4271978adb3ec4cb08351b96acfbdc83884e02f68fc8e54171b47",
+            "source_url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/PaymentAccountsView.java#L82-L84",
+            "source_kind": "current_source",
+            "line_start": 82,
+            "line_end": 84
+          }
+        ]
+      }
+    ],
+    "corrections": [
+      "Consolidate setup and limit explanations;show current-client limits instead of old values.",
+      "Do not tell users to use new export-to-Bisq2 functionality: source button remains hidden."
+    ],
+    "omissions": [
+      "No numeric per-method limit table,mandatory signing duration,or claim that all banks support each method.",
+      "No manual identity-key replacement steps."
+    ],
+    "unresolved": [
+      "Full account creation and signing UI walkthrough pending.",
+      "Provider-specific eligibility,terms and availability must be checked for the user actual method."
+    ],
+    "route": "/bisq-1/payment-accounts/",
+    "guide_sha256": "a6e6d424c8f89c220d075a751aebeda3692f2f9dc95cc8c2bfaed3f102fd5fee",
+    "checked_on": "2026-11-07",
+    "release": "v1.10.11",
+    "immutable_commit": "ea9d5dff90c99ac462f2b0a7bf9ef92683956619",
+    "source_title_mapping": [
+      {
+        "title": "Creating a payment account",
+        "revision_id": "2166",
+        "revision_timestamp": "2021-04-16T22:06:46Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=2166",
+        "source_sha256": "61a7ae9e95997496e03865ba693dfb69794f891bb6a96cadb32ac639e60065b9"
+      },
+      {
+        "title": "Account limits",
+        "revision_id": "4145",
+        "revision_timestamp": "2026-05-29T16:20:14Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4145",
+        "source_sha256": "49dd4cb790c9cf383525447a30e73d0363233e90ce8bcf5527fd17701eb1239d"
+      },
+      {
+        "title": "Payment methods",
+        "revision_id": "4146",
+        "revision_timestamp": "2026-05-29T16:26:50Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4146",
+        "source_sha256": "c7b907aa2efbb38408053c526fa43678e6c56393a0d4553c20284186ddbedda1"
+      },
+      {
+        "title": "Backing up application data",
+        "revision_id": "4058",
+        "revision_timestamp": "2025-08-03T17:21:21Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=4058",
+        "source_sha256": "e99609f36d60cc27b304e566083d8487c5a85b33ba05f82eeb69a7e80cb38a18"
+      },
+      {
+        "title": "Restoring application data",
+        "revision_id": "3955",
+        "revision_timestamp": "2025-04-10T06:42:38Z",
+        "original_revision_url": "https://bisq.wiki/index.php?oldid=3955",
+        "source_sha256": "add93a1b75e01680f3f7b9182c0049aefbae03e7fbb8e3dc07b9248b1d4a3fb0"
+      }
+    ],
+    "review_status": "AI-assisted source comparison; root independently reviewed selected source sections; human/product-flow testing pending",
+    "guide_file": "src/content/docs/bisq-1/payment-accounts.md",
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending"
+  },
+  {
+    "checked_date": "2026-11-07",
+    "release": "v2.1.15",
+    "commit": "cfe8ab251f2b6579f29e9955036afc33ba36861e",
+    "latest_release_confirmed_by_api": true,
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending",
+    "live_product_flow_or_recovery_rehearsal_performed": false,
+    "page_sha256": "4fecf00749dd81335e62fb54fdb0b3fd1e25820dde19569a38efc7b3646b0731",
+    "claims": [
+      {
+        "claim": "Backup button,location and unencrypted warning",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/support.properties#L19-L27",
+        "line_start": 19,
+        "line_end": 27,
+        "source_sha256": "1379437fac2e8187b8559995a47f4b41e34b42b1ca29362f1229dd363dc2b376",
+        "git_blob_sha1": "3ec5c8c0fa4a7e17984c0138b652d4d3f69639d3",
+        "exact_locator": "support.resources.backup.location.help=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Backup requests persistence before copy",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/support/resources/ResourcesController.java#L152-L171",
+        "line_start": 152,
+        "line_end": 171,
+        "source_sha256": "ec38d2b9e0451cc8a2da000a3c0f2454499594fd16e0bcf8fdd16c4b6096c519",
+        "git_blob_sha1": "4b12a3351989a54e7da70e5122fdc13399b8633b",
+        "exact_locator": "CompletableFuture.supplyAsync(persistenceService::persistAllClients",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Data-copy exclusions and plaintext external Tor credential warning",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/support/resources/ResourcesController.java#L224-L251",
+        "line_start": 224,
+        "line_end": 251,
+        "source_sha256": "ec38d2b9e0451cc8a2da000a3c0f2454499594fd16e0bcf8fdd16c4b6096c519",
+        "git_blob_sha1": "4b12a3351989a54e7da70e5122fdc13399b8633b",
+        "exact_locator": "Copies the data directory for a backup.",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Automatic retained snapshots described in current UI",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/support.properties#L28-L32",
+        "line_start": 28,
+        "line_end": 32,
+        "source_sha256": "1379437fac2e8187b8559995a47f4b41e34b42b1ca29362f1229dd363dc2b376",
+        "git_blob_sha1": "3ec5c8c0fa4a7e17984c0138b652d4d3f69639d3",
+        "exact_locator": "support.resources.backupSnapshot.description=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Automatic backup path remains under application data",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/persistence/src/main/java/bisq/persistence/backup/BackupService.java#L266-L278",
+        "line_start": 266,
+        "line_end": 278,
+        "source_sha256": "11dce9f9bb3d2f6c9fa6dcc9f6f885e74072902aeab4ad029e73f8f32ccc3036",
+        "git_blob_sha1": "b0599b6ba0387a31698487bc1211c2640e358ad1",
+        "exact_locator": "static Path resolveDirPath(",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Open actual application data directory through Resources",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/support/resources/ResourcesController.java#L131-L134",
+        "line_start": 131,
+        "line_end": 134,
+        "source_sha256": "ec38d2b9e0451cc8a2da000a3c0f2454499594fd16e0bcf8fdd16c4b6096c519",
+        "git_blob_sha1": "4b12a3351989a54e7da70e5122fdc13399b8633b",
+        "exact_locator": "void onOpenDataDir()",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Single instance prevents silent data/wallet corruption",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/application/src/main/java/bisq/application/ApplicationService.java#L345-L350",
+        "line_start": 345,
+        "line_end": 350,
+        "source_sha256": "78a399bdf167525838d5051075b90dc7c62b8188e80fb63e928711dd0f70528e",
+        "git_blob_sha1": "75887256bf57eeb5c1121e6b8eb88fdf8c8135ce",
+        "exact_locator": "on the same data directory corrupt",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Normal release disables developer mode",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop-app/src/main/resources/desktop.conf#L3-L5",
+        "line_start": 3,
+        "line_end": 5,
+        "source_sha256": "99153420abf5d37153cdc0dbcf1ec9401def7051de96f92fe5ad5438a1d618a0",
+        "git_blob_sha1": "062154ccb5d5213e79106f0921eae60e75416c70",
+        "exact_locator": "devMode=false",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "MuSig activation requires developer mode and setting",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L166-L170",
+        "line_start": 166,
+        "line_end": 170,
+        "source_sha256": "4c3b6f8206659ba7c50756f863062a2aa2acfe34ae73b160fb1e5644ad5784a2",
+        "git_blob_sha1": "ac3468e5f8c6768036dfd56b0d041af94c63f7bd",
+        "exact_locator": "muSigActivated.set(DevMode.isDevMode() && activated);",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Built-in Wallet visibility follows MuSig activation",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/left/LeftNavView.java#L190-L192",
+        "line_start": 190,
+        "line_end": 192,
+        "source_sha256": "7db3594e6b9c760701d327f4039fc05fdaac57c57e573014bc2c48331d4b9d1d",
+        "git_blob_sha1": "8c7863f5f8398736eb06daff30b4fd1dafb62759",
+        "exact_locator": "wallet.visibleProperty().bind(model.getIsMuSigActivated());",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Wallet restore callback unfinished; not a verified recovery flow",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/wallet/WalletController.java#L84-L86",
+        "line_start": 84,
+        "line_end": 86,
+        "source_sha256": "f143745fdd05c400420015e310e9a2714f1c4c8f6266acab0c19bfc16b825c17",
+        "git_blob_sha1": "865b02ed3925db93785292012638382455f57629",
+        "exact_locator": "void onRestoreWalletLinkClicked()",
+        "inference_from_implementation": false
+      }
+    ],
+    "original_title_mapping": [
+      {
+        "title": "Backup",
+        "revision_id": "4101",
+        "revision_timestamp": "2025-12-14T18:22:15Z",
+        "source_sha256": "49b57f236b20c72212c9033f3628bc4c3f81ecb7e5206f670cac72c25a008130"
+      },
+      {
+        "title": "Automatic backup",
+        "revision_id": "4096",
+        "revision_timestamp": "2025-12-14T18:07:41Z",
+        "source_sha256": "1394bf0f519d92ac9bfb2ab10e14fd28b5faa5ad877afa479dac907a49ffeb31"
+      },
+      {
+        "title": "Bisq 2 Wallet",
+        "revision_id": "3346",
+        "revision_timestamp": "2023-11-11T20:26:59Z",
+        "source_sha256": "8a2cc20cb4c58b85fb6fe7e723e3dca8624759d24ff4eaf3d625a7f22685d8ec"
+      }
+    ],
+    "inherited_source_handling": "Historical wikitext retained separately; current guide rewritten from pinned current sources. Original title mapping is provenance, not a current-fact guarantee.",
+    "source_limits": [
+      "Binary installers were not downloaded or cryptographically verified.",
+      "Actual destructive restore and real-money trade flows were not exercised."
+    ],
+    "guide_file": "src/content/docs/bisq-2/backup-and-recovery.md",
+    "guide_sha256": "4fecf00749dd81335e62fb54fdb0b3fd1e25820dde19569a38efc7b3646b0731"
+  },
+  {
+    "checked_date": "2026-11-07",
+    "release": "v2.1.15",
+    "commit": "cfe8ab251f2b6579f29e9955036afc33ba36861e",
+    "latest_release_confirmed_by_api": true,
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending",
+    "live_product_flow_or_recovery_rehearsal_performed": false,
+    "page_sha256": "c260358398767bb82a3dc1e51ec53225d3312cac6ddd7d8c71fefb21e331275a",
+    "claims": [
+      {
+        "claim": "Small-trade reputation model and risk",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L412-L416",
+        "line_start": 412,
+        "line_end": 416,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.tradeGuide.security.content=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Current cancellation,24-hour response,bank-fee and mediation rules",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L429-L437",
+        "line_start": 429,
+        "line_end": 437,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.tradeGuide.rules.content=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Current explicit payment-reference rule",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L910-L911",
+        "line_start": 910,
+        "line_end": 911,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.tradeState.info.buyer.phase2a.paymentReason=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Payment view actually displays this key",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/open_trades/trade_state/states/BuyerState2a.java#L149-L158",
+        "line_start": 149,
+        "line_end": 158,
+        "source_sha256": "1b83db9cbd4d4975b403293f84e4b9e935d3db71e4a3b1ae3404536eb057ad75",
+        "git_blob_sha1": "1b43b21f024c8347d1e03a6f4cf8aac274e41acc",
+        "exact_locator": "Label paymentReason = new Label",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Banned seller account blocks payment progression",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/open_trades/trade_state/states/BuyerState2a.java#L98-L110",
+        "line_start": 98,
+        "line_end": 110,
+        "source_sha256": "1b83db9cbd4d4975b403293f84e4b9e935d3db71e4a3b1ae3404536eb057ad75",
+        "git_blob_sha1": "1b43b21f024c8347d1e03a6f4cf8aac274e41acc",
+        "exact_locator": "Account data of ",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Seller must inspect own bank/provider account",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L955-L956",
+        "line_start": 955,
+        "line_end": 956,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.tradeState.info.seller.phase2b.info=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Actual seller confirmation action",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/open_trades/trade_state/states/SellerState2b.java#L69-L77",
+        "line_start": 69,
+        "line_end": 77,
+        "source_sha256": "feef5003625a058f7a21c29a2914af773aad553c8c9f2d1e502dd3177743d0f9",
+        "git_blob_sha1": "6c4dece9162f7ad1ce4cb3cd2460ced686bab1fb",
+        "exact_locator": "private void onConfirmFiatReceipt()",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Mediation context includes trade chat",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/TradesUtils.java#L150-L156",
+        "line_start": 150,
+        "line_end": 156,
+        "source_sha256": "7ab26ae39f04b526cb0111d43439c4354f8a507b88662dec26ff50f009b86b06",
+        "git_blob_sha1": "85765bad2463cfeca8dd2838663aba16b8783b4a",
+        "exact_locator": "The request carries the chat messages",
+        "inference_from_implementation": true
+      }
+    ],
+    "original_title_mapping": [
+      {
+        "title": "Bisq Easy",
+        "revision_id": "4112",
+        "revision_timestamp": "2026-03-19T20:38:36Z",
+        "source_sha256": "83c888aa99ff02b2ce436519afd7d5e77a4faad70add252e74f99697389697bd"
+      },
+      {
+        "title": "Reputation",
+        "revision_id": "4017",
+        "revision_timestamp": "2025-05-06T06:22:27Z",
+        "source_sha256": "d9c9117aaf48e06ed343571b1bcbcec4f7fb204f62f53e1c1d7982f0b674588f"
+      },
+      {
+        "title": "Dispute Resolution in Bisq 2",
+        "revision_id": "3843",
+        "revision_timestamp": "2025-01-15T23:00:04Z",
+        "source_sha256": "2ee72d6bd4eecea7bca4c48e4a7aeb87156ddf388a4fb467daa94ce1206eb932"
+      }
+    ],
+    "inherited_source_handling": "Historical wikitext retained separately; current guide rewritten from pinned current sources. Original title mapping is provenance, not a current-fact guarantee.",
+    "source_limits": [
+      "Binary installers were not downloaded or cryptographically verified.",
+      "Actual destructive restore and real-money trade flows were not exercised."
+    ],
+    "guide_file": "src/content/docs/bisq-2/bisq-easy-safety.md",
+    "guide_sha256": "c260358398767bb82a3dc1e51ec53225d3312cac6ddd7d8c71fefb21e331275a"
+  },
+  {
+    "checked_date": "2026-11-07",
+    "release": "v2.1.15",
+    "commit": "cfe8ab251f2b6579f29e9955036afc33ba36861e",
+    "latest_release_confirmed_by_api": true,
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending",
+    "live_product_flow_or_recovery_rehearsal_performed": false,
+    "page_sha256": "752ba41e26b8c81ee0899244349d39233153ca3be92aacef4d6fd1565a3c3c9b",
+    "claims": [
+      {
+        "claim": "BisqEasy guide expects a wallet controlled by recipient",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L459-L464",
+        "line_start": 459,
+        "line_end": 464,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.walletGuide.intro.content=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Wallet seed backup instructions exist in separate-wallet guide",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L473-L477",
+        "line_start": 473,
+        "line_end": 477,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.walletGuide.createWallet.content=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Buyer address or Lightning invoice exchanged before payment",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L423-L426",
+        "line_start": 423,
+        "line_end": 426,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.tradeGuide.process.steps=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Current main-chain completion text uses one confirmation",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L936-L938",
+        "line_start": 936,
+        "line_end": 938,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.tradeState.info.buyer.phase3b.info.MAIN_CHAIN=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Implementation checks transaction confirmation state",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/open_trades/trade_state/states/StateMainChain3b.java#L182-L187",
+        "line_start": 182,
+        "line_end": 187,
+        "source_sha256": "eee6a0faead756409eb012bbc88751be77dfca084a4db1a739dd63628ce19998",
+        "git_blob_sha1": "8e79a38a09a2e7c56930364c7101eae1e3a29ea2",
+        "exact_locator": "model.getIsConfirmed().set(tx.getStatus().isConfirmed());",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Normal release disables developer mode",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop-app/src/main/resources/desktop.conf#L3-L5",
+        "line_start": 3,
+        "line_end": 5,
+        "source_sha256": "99153420abf5d37153cdc0dbcf1ec9401def7051de96f92fe5ad5438a1d618a0",
+        "git_blob_sha1": "062154ccb5d5213e79106f0921eae60e75416c70",
+        "exact_locator": "devMode=false",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "MuSig activation requires developer mode and setting",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L166-L170",
+        "line_start": 166,
+        "line_end": 170,
+        "source_sha256": "4c3b6f8206659ba7c50756f863062a2aa2acfe34ae73b160fb1e5644ad5784a2",
+        "git_blob_sha1": "ac3468e5f8c6768036dfd56b0d041af94c63f7bd",
+        "exact_locator": "muSigActivated.set(DevMode.isDevMode() && activated);",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Built-in Wallet visibility follows MuSig activation",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/left/LeftNavView.java#L190-L192",
+        "line_start": 190,
+        "line_end": 192,
+        "source_sha256": "7db3594e6b9c760701d327f4039fc05fdaac57c57e573014bc2c48331d4b9d1d",
+        "git_blob_sha1": "8c7863f5f8398736eb06daff30b4fd1dafb62759",
+        "exact_locator": "wallet.visibleProperty().bind(model.getIsMuSigActivated());",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Wallet restore callback unfinished; not a verified recovery flow",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/wallet/WalletController.java#L84-L86",
+        "line_start": 84,
+        "line_end": 86,
+        "source_sha256": "f143745fdd05c400420015e310e9a2714f1c4c8f6266acab0c19bfc16b825c17",
+        "git_blob_sha1": "865b02ed3925db93785292012638382455f57629",
+        "exact_locator": "void onRestoreWalletLinkClicked()",
+        "inference_from_implementation": false
+      }
+    ],
+    "original_title_mapping": [
+      {
+        "title": "Bisq Easy",
+        "revision_id": "4112",
+        "revision_timestamp": "2026-03-19T20:38:36Z",
+        "source_sha256": "83c888aa99ff02b2ce436519afd7d5e77a4faad70add252e74f99697389697bd"
+      },
+      {
+        "title": "Bisq 2 Wallet",
+        "revision_id": "3346",
+        "revision_timestamp": "2023-11-11T20:26:59Z",
+        "source_sha256": "8a2cc20cb4c58b85fb6fe7e723e3dca8624759d24ff4eaf3d625a7f22685d8ec"
+      }
+    ],
+    "inherited_source_handling": "Historical wikitext retained separately; current guide rewritten from pinned current sources. Original title mapping is provenance, not a current-fact guarantee.",
+    "source_limits": [
+      "Binary installers were not downloaded or cryptographically verified.",
+      "Actual destructive restore and real-money trade flows were not exercised."
+    ],
+    "guide_file": "src/content/docs/bisq-2/first-trade.md",
+    "guide_sha256": "752ba41e26b8c81ee0899244349d39233153ca3be92aacef4d6fd1565a3c3c9b"
+  },
+  {
+    "checked_date": "2026-11-07",
+    "release": "v2.1.15",
+    "commit": "cfe8ab251f2b6579f29e9955036afc33ba36861e",
+    "latest_release_confirmed_by_api": true,
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending",
+    "live_product_flow_or_recovery_rehearsal_performed": false,
+    "page_sha256": "b0f9c4b6ba974763a9d2070e68ec5f52f7afe2a98baeabb8fcc01e29758c6288",
+    "claims": [
+      {
+        "claim": "Mediator request checks trade identity and asks confirmation",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/TradesUtils.java#L126-L161",
+        "line_start": 126,
+        "line_end": 161,
+        "source_sha256": "7ab26ae39f04b526cb0111d43439c4354f8a507b88662dec26ff50f009b86b06",
+        "git_blob_sha1": "85765bad2463cfeca8dd2838663aba16b8783b4a",
+        "exact_locator": "public static void requestMediation(",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "No mediator available or chat mismatch directs to support",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L1054-L1055",
+        "line_start": 1054,
+        "line_end": 1055,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "bisqEasy.mediation.request.feedback.noMediatorAvailable=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Current mediator cannot enforce or guarantee recovery",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L436-L437",
+        "line_start": 436,
+        "line_end": 437,
+        "source_sha256": "c5380bb30b22c9b9df7d1357865a16266a1d3b427ab8fd32054c401d85fcd4aa",
+        "git_blob_sha1": "3c9aa50023acebfa54e3b8bff9ee3a545646ee6d",
+        "exact_locator": "The mediator can help, but cannot enforce outcomes or guarantee recovery.",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Version information includes app and commit",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/support.properties#L53-L61",
+        "line_start": 53,
+        "line_end": 61,
+        "source_sha256": "1379437fac2e8187b8559995a47f4b41e34b42b1ca29362f1229dd363dc2b376",
+        "git_blob_sha1": "3ec5c8c0fa4a7e17984c0138b652d4d3f69639d3",
+        "exact_locator": "support.resources.localVersion.details=",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Sensitive backup may retain plaintext external Tor password",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/support/resources/ResourcesController.java#L238-L241",
+        "line_start": 238,
+        "line_end": 241,
+        "source_sha256": "ec38d2b9e0451cc8a2da000a3c0f2454499594fd16e0bcf8fdd16c4b6096c519",
+        "git_blob_sha1": "4b12a3351989a54e7da70e5122fdc13399b8633b",
+        "exact_locator": "It keeps external_tor.config",
+        "inference_from_implementation": false
+      },
+      {
+        "claim": "Anyone with seed words can spend wallet bitcoin",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/wallet.properties#L100-L101",
+        "line_start": 100,
+        "line_end": 101,
+        "source_sha256": "1859f760580202ed2e6130d718d98d672ef3af27951766ba5232dd2eea959503",
+        "git_blob_sha1": "a6c90f7e1c060219252fd8e60483abc753e0b068",
+        "exact_locator": "wallet.backupSeeds.endInfo=",
+        "inference_from_implementation": false
+      }
+    ],
+    "original_title_mapping": [
+      {
+        "title": "Dispute Resolution in Bisq 2",
+        "revision_id": "3843",
+        "revision_timestamp": "2025-01-15T23:00:04Z",
+        "source_sha256": "2ee72d6bd4eecea7bca4c48e4a7aeb87156ddf388a4fb467daa94ce1206eb932"
+      },
+      {
+        "title": "User support",
+        "revision_id": "2930",
+        "revision_timestamp": "2022-02-26T17:30:51Z",
+        "source_sha256": "6491615bfad9e07c63ab2729bc0deca4c497a516bb0f88eed9ea67c84aa5b1dd"
+      },
+      {
+        "title": "Support Agent",
+        "revision_id": "3944",
+        "revision_timestamp": "2025-03-16T04:39:28Z",
+        "source_sha256": "e1fe7ece7ca83fd94e19a179da3ee77fb52df53b301e8bbd8b2ee0246db36996"
+      }
+    ],
+    "inherited_source_handling": "Historical wikitext retained separately; current guide rewritten from pinned current sources. Original title mapping is provenance, not a current-fact guarantee.",
+    "source_limits": [
+      "Binary installers were not downloaded or cryptographically verified.",
+      "Actual destructive restore and real-money trade flows were not exercised."
+    ],
+    "guide_file": "src/content/docs/bisq-2/get-help.md",
+    "guide_sha256": "b0f9c4b6ba974763a9d2070e68ec5f52f7afe2a98baeabb8fcc01e29758c6288"
+  },
+  {
+    "checked_date": "2026-11-07",
+    "release": "v2.1.15",
+    "commit": "cfe8ab251f2b6579f29e9955036afc33ba36861e",
+    "latest_release_confirmed_by_api": true,
+    "status": "Source-checked draft; independent high-impact cross-review completed; maintainer/product-flow review pending",
+    "live_product_flow_or_recovery_rehearsal_performed": false,
+    "page_sha256": "2d3c25b2001d60d4f7705d217b9ceafadddaf417575b971086ec62e1af39b9e9",
+    "claims": [
+      {
+        "claim": "Standard current configuration is Bisq2, developer mode false",
+        "source_url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop-app/src/main/resources/desktop.conf#L2-L5",
+        "line_start": 2,
+        "line_end": 5,
+        "source_sha256": "99153420abf5d37153cdc0dbcf1ec9401def7051de96f92fe5ad5438a1d618a0",
+        "git_blob_sha1": "062154ccb5d5213e79106f0921eae60e75416c70",
+        "exact_locator": "appName=\"Bisq2\"",
+        "inference_from_implementation": false
+      }
+    ],
+    "original_title_mapping": [
+      {
+        "title": "Bisq 2",
+        "revision_id": "4152",
+        "revision_timestamp": "2026-06-12T07:44:05Z",
+        "source_sha256": "415f4d3828ad0d77d1ed967fbebe37619054da1f5933be9aa5de4296cb87dcaa"
+      },
+      {
+        "title": "Downloading and installing",
+        "revision_id": "4151",
+        "revision_timestamp": "2026-06-12T07:43:10Z",
+        "source_sha256": "ce449b13bc7af98541ce8ff52af693b938e5b373429eb8386bdc963e564c1bc0"
+      }
+    ],
+    "inherited_source_handling": "Historical wikitext retained separately; current guide rewritten from pinned current sources. Original title mapping is provenance, not a current-fact guarantee.",
+    "source_limits": [
+      "Binary installers were not downloaded or cryptographically verified.",
+      "Actual destructive restore and real-money trade flows were not exercised."
+    ],
+    "external_claims": [
+      {
+        "claim": "Current release requires security update and bundles sandboxed Tor",
+        "line_start": 3,
+        "line_end": 9,
+        "exact_locator": "This important security update",
+        "source_sha256": "59f99daf6e1aa411ee1e67f36daaae81c8451849522593f6636012928bcea865",
+        "source_url": "https://github.com/bisq-network/bisq2/releases/tag/v2.1.15",
+        "source_kind": "fresh_official_release_or_verification_source"
+      },
+      {
+        "claim": "Current separate network deadline",
+        "line_start": 23,
+        "line_end": 25,
+        "exact_locator": "All nodes must update to Bisq 2.1.14 or later",
+        "source_sha256": "59f99daf6e1aa411ee1e67f36daaae81c8451849522593f6636012928bcea865",
+        "source_url": "https://github.com/bisq-network/bisq2/releases/tag/v2.1.15",
+        "source_kind": "fresh_official_release_or_verification_source"
+      },
+      {
+        "claim": "macOS quarantine command names Bisq2.app",
+        "line_start": 35,
+        "line_end": 36,
+        "exact_locator": "sudo xattr -rd com.apple.quarantine /Applications/Bisq2.app",
+        "source_sha256": "59f99daf6e1aa411ee1e67f36daaae81c8451849522593f6636012928bcea865",
+        "source_url": "https://github.com/bisq-network/bisq2/releases/tag/v2.1.15",
+        "source_kind": "fresh_official_release_or_verification_source"
+      },
+      {
+        "claim": "Windows OS warning handling",
+        "line_start": 43,
+        "line_end": 45,
+        "exact_locator": "More info",
+        "source_sha256": "59f99daf6e1aa411ee1e67f36daaae81c8451849522593f6636012928bcea865",
+        "source_url": "https://github.com/bisq-network/bisq2/releases/tag/v2.1.15",
+        "source_kind": "fresh_official_release_or_verification_source"
+      },
+      {
+        "claim": "Detached signature before payload, trusted GnuPG required",
+        "line_start": 47,
+        "line_end": 50,
+        "exact_locator": "$ gpg --verify",
+        "source_sha256": "6d530dc1ec2eb3a6489133940f0d15aa53e26a5b26c4ff6cac88b4810925caf0",
+        "source_url": "https://www.gnupg.org/download/integrity_check.html",
+        "source_kind": "fresh_official_release_or_verification_source"
+      },
+      {
+        "claim": "Good signature still requires signer fingerprint authentication",
+        "line_start": 74,
+        "line_end": 79,
+        "exact_locator": "at the very least, you should compare the",
+        "source_sha256": "6d530dc1ec2eb3a6489133940f0d15aa53e26a5b26c4ff6cac88b4810925caf0",
+        "source_url": "https://www.gnupg.org/download/integrity_check.html",
+        "source_kind": "fresh_official_release_or_verification_source"
+      },
+      {
+        "claim": "Exact release signer pointer",
+        "line_start": 1,
+        "line_end": 1,
+        "exact_locator": "E222AA02",
+        "source_sha256": "09d2bb75b7af778c239002a8113ff3a77c1d5206a8ce63e84204c77c2c8f7e9d",
+        "source_url": "https://github.com/bisq-network/bisq2/releases/download/v2.1.15/signingkey.asc",
+        "source_kind": "fresh_official_release_or_verification_source"
+      }
+    ],
+    "guide_file": "src/content/docs/bisq-2/install-and-verify.md",
+    "guide_sha256": "2d3c25b2001d60d4f7705d217b9ceafadddaf417575b971086ec62e1af39b9e9"
+  }
+]

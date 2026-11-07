@@ -1,0 +1,19 @@
+== Warning ==
+Ask for help on [[User_support#Via_Matrix_bisq.chat|Matrix]] to make sure this is the best solution to your issue. Use under your own risk.
+
+== Backup ==
+
+Make a [[Backing up application data|backup]] of your Bisq data before using the emergency wallet.
+
+== Emergency wallet ==
+
+This tool allows you to send all funds to a BTC or BSQ address. It should be used only when Bisq wallet is corrupted.
+You can access to external wallet through shortkey <code>'Ctrl + e' or 'alt + e' or 'cmd + e'</code> for BTC, and <code>'Ctrl + b' or 'alt + b' or 'cmd + b'</code> for BSQ.
+
+[[File:Emergency Wallet.png|left]]
+<div style="clear: both;"></div>
+
+== Restore wallet from seed ==
+
+If the emergency wallet tool produces a transaction that fails to broadcast (you can see that at ''Funds > Transactions'') you can import private keys to a [[Switching_to_a_new_data_directory|new Bisq instance]] at ''Accounts > Wallet Seed - Restore wallet from seed''. 
+Importing seeds to an external wallet should be used only if this method fails, and is extremely recommended to report it to support.<!-- BISQ VERSION: general -->

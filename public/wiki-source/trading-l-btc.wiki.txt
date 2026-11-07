@@ -1,0 +1,63 @@
+'''L-BTC''', or Liquid Bitcoin, is a Confidential Asset, fully verifiable, and 1:1 backed BTC token created by [https://liquid.net/ Liquid], a federated sidechain pegged to the Bitcoin blockchain. Liquid is implemented by Elements, an open source, sidechain-capable blockchain platform based on the Bitcoin codebase created by Blockstream.
+
+A sidechain is a mechanism that allows tokens from one blockchain to be used securely in an independent blockchain which runs in parallel and uses a different set of rules, performance requirements, and security mechanisms. On a sidechain, one can move tokens back to the original chain through a two-way peg. Sidechains enable new functionality that may have security trade-offs or as a way to test new features that may not be ready to use on the parent blockchain. 
+
+These are some new functionalities that Liquid enables:
+
+* Confidential Transactions: hides the amount from the information displayed at the blockchain -- the most important feature for most Bisq users
+* Issued Assets: allows issuing tokenized fiat, securities, altcoins or digital collectibles
+* Federated consensus mechanism: allows 2- or 3-minute settlement times in normal conditions
+* In development: Schnorr signatures, which will improve network privacy and capacity
+
+All addresses in Liquid are blinded by default using Confidential Transactions. The asset and amount of a transaction is hidden to those watching the Liquid sidechain. Bisq users can mix their coins with all of Liquid federation BTC holdings just trading both assets.
+
+== Selling L-BTC ==
+
+Selling L-BTC is like selling any other [[altcoin]]. It just requires an [[Creating_a_payment_account#Creating_an_altcoin_account|L-BTC payment account]] in Bisq.
+
+== Buying L-BTC ==
+
+The trader ''receiving'' L-BTC (L-BTC buyer) must be able to generate proof of payment in case of a dispute. Otherwise, Confidential Transactions make it impossible for a third party to verify if a payment was made—so L-BTC buyers must be able to generate a transaction's blinding key for mediators or arbitrators in case of disputes.
+
+{{Admonition_Warn|Failing to provide the blinding key to a dispute agent will likely result in losing the dispute case.}}
+
+=== Generate blinding key ===
+
+'''Green Wallet and other custodial wallets can't generate blinding keys, so you must use Elements Core to receive L-BTC for Bisq trades.'''  
+
+Install the [https://github.com/ElementsProject/elements Elements Core full node software] (note that this does ''not'' require running a Bitcoin Core full node) and follow these steps:
+# Get the receiving L-BTC address
+# Open the GUI console window of your Elements Core full node, or use <code>elements-cli</code>
+# Type the command <code>dumpblindingkey <address></code>, where <code><address></code> is the receiving L-BTC address from step 1
+
+The Elements console will return the [https://elementsproject.org/elements-code-tutorial/confidential-transactions#blindingkey blinding key] in hex. This blinding key is what dispute agents will ask for in case an L-BTC trade ends up in dispute.
+
+== FAQ ==
+
+'''How is the price of L-BTC determined?'''
+
+L-BTC is a 1:1 BTC pegged token to Bitcoin, so high volatility is not expected. Buyers and sellers make their fixed price orders close to parity. There's no price feed with market % based prices for this market.
+
+'''Why not just use the peg-in and peg-out mechanism to exchange L-BTC and BTC?'''
+
+A peg-in transaction (BTC to L-BTC) requires 102 confirmations on the Bitcoin network (17 hours) before funds can be claimed on the Liquid Network. Peg-out requires approval from two-thirds 2/3 Liquid functionaries approval and it takes about 17-35 minutes to complete. Bisq offers private, easy and secure L-BTC on and off-ramp.
+
+== Guidance for dispute agents ==
+
+In order to verify L-BTC trades, install the Elements Core software on your computer from https://github.com/ElementsProject/elements/releases, and then:
+* Set <code>txindex=1</code> in <code>elements.conf</code> (neither L-BTC sender nor receiver need this setting)
+* Wait until Elements fully syncs to the Liquid blockchain
+
+=== Verifying a transaction ===
+
+Obtain information from trading peers:
+# Obtain the TXID for the L-BTC transaction (either trading peer can provide this information)
+# Obtain the Blinding Key for the receiving L-BTC address from the L-BTC buyer/receiver
+# Verify that both the L-BTC address and TXID are visible on https://blockstream.info/liquid
+
+Verify the transaction:
+# Open the GUI console window of your Elements Core full node, or use <code>elements-cli</code>
+# Type <code>importaddress <address></code>, where <code><address></code> is the L-BTC address of the L-BTC buyer/receiver. This will add the address to your wallet as “watch only” and rescan the entire Liquid blockchain. It might take an hour or longer to complete depending on your computer's power.
+# After scanning is complete, get details for the L-BTC transaction with <code>gettransaction <TXID> true</code>, where <code><TXID></code> is the L-BTC transaction ID. You should see a transaction object, but "details" will be empty since the blinding key is needed to reveal that information.
+# Import the blinding key with <code>importblindingkey <address> <blinding key></code>
+# Request transaction details again, and this time they should be visible: <code>gettransaction <TXID> true</code><!-- BISQ VERSION: general -->

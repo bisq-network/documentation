@@ -1,0 +1,19 @@
+{
+  "title": "Running Bisq on Tails",
+  "page_id": "155",
+  "revision_id": "3603",
+  "revision_timestamp": "2024-06-02T18:15:43Z",
+  "available_attribution": {
+    "username": "SuddenWhipVapor",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Running_Bisq_on_Tails",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3603",
+  "wikitext_sha256": "bb9ba023ae00bcfbe6264c654a86dfb9c9d336ceb2baf7302d046901e9678da2",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/running-bisq-on-tails/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

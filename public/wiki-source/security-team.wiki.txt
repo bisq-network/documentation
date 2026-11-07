@@ -1,0 +1,50 @@
+The Security Team is responsible for keeping an eye on Bisq's needs for security - hunt bugs, design counter measures, be a point of contact for security related topics.
+
+__TOC__
+
+== Roles ==
+* [[Security Team Lead]]
+
+==Infrastructure==
+
+===GitHub===
+
+====Team====
+
+[https://github.com/orgs/bisq-network/teams/security @bisq-network/security]
+
+====Repositories====
+* https://github.com/bisq-network/security
+
+=== Chat ===
+
+* TBD
+
+== Goals ==
+
+=== What does "security" in "Security Team" mean ===
+
+* Optimize information footprint
+* Hardening of the Bisq app, services, protocols, down to code
+
+=== Duties ===
+
+* Maintain an overview of Bisq from a security perspective
+* Find attack vectors
+* Design counter strategies
+* Act as a think-tank, consortium and knowledge base for security-related stuff
+* Firefighting
+* No feature implementation work, because that is the realm of either [[Dev Team]] or [[Ops Team]].
+
+=== Mode of operation ===
+
+Results and work of the security team might not be shared with the general public immediately. Simply because it makes no sense to publish a security vulnerability before it has been patched up. This is why the various channels of communication are invite-only.
+
+=== General Roadmap ===
+* Do security audits. Use appropriate tools to find vulnerabilities. Even leave the beaten path of Java if it is the reasonable thing to do.
+* Up testing efforts. Technical dept is causing all sorts of issues already. More test coverage might just reveal more vulnerabilities.
+* Implement means for a responsible disclosure process, either fed by the efforts of the security team or fed by external sources.
+* Create and maintain an overview of Bisq from a security perspective
+* Prioritize and design countermeasures to be implemented by the [[Dev Team]]/[[Ops Team]]
+
+[[Category:Teams]]<!-- BISQ VERSION: general -->

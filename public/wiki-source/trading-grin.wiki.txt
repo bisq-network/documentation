@@ -1,0 +1,112 @@
+'''[https://github.com/mimblewimble/grin/blob/master/doc/grin4bitcoiners.md GRIN]''' is a minimalistic, lightweight cryptocurrency, implementing the Mimblewimble protocol for a unique balance of privacy and scalability. 
+
+__TOC__
+
+== Buying GRIN ==
+
+Buying GRIN is like buying any other [[altcoin]]. It requires a GRIN [[Creating_a_payment_account#Creating_an_altcoin_account|payment account]] in Bisq.  The GRIN slatepack address to be used is issued by your GRIN wallet.
+
+When buying, you should keep your GRIN wallet open to receive the payment.  If that is not feasible, you can also receive GRIN by exchanging slatepack messages with the seller in trader chat.  More information about GRIN transactions can be found [https://docs.grin.mw/about-grin/transactions here].
+
+Once you have received the GRIN, you should confirm the receipt on Bisq so that escrowed BTC funds can be released to you and your peer.
+
+== Selling GRIN ==
+
+The trader ''selling'' GRIN (BTC buyer) will send GRIN to the counterparty's slatepack address using their wallet of choice once the Bisq trade deposit is confirmed.  
+
+The amount and recipient address is displayed on-screen when you are prompted to do the transfer.
+
+Example of sending using grin-wallet:
+<pre>./grin-wallet -r "https://grinnode.live:3413" send -d grin1dxnzk3gfnqz69va64ut7jafs7u72dtyswpzxekdgmlurkng9ctfqf9yqu5 10.123456789</pre>
+
+The GRIN ''buyer'' will confirm the trade in Bisq once they are satisfied that they received the correct amount of GRIN.
+
+You must be able to generate [https://docs.grin.mw/getting-started/wallet-handbook/#proof proof of payment] in case of a dispute.  Otherwise, Confidential Transactions make it impossible for a third party to verify if a payment was made. GRIN sellers must be able to generate a transaction's proof for mediators or arbitrators in case of disputes.  
+
+'''At this moment the only wallet capable of generating and verifying payment proofs is the [https://github.com/mimblewimble/grin-wallet/releases CLI wallet] developed by the GRIN core team.'''
+
+{{Admonition_Warn|Failing to provide the proof to a dispute agent will likely result in losing the dispute case.}}
+
+See how to generate payment proof below.
+
+== Generate payment proof ==
+
+Only the person sending the GRIN funds can create payment proof.
+
+First, list your transactions using <code>txs</code>, and look for the one you want to issue proof on.
+
+The command <code>export_proof</code> will generate a file containing information to prove the details to the recipient or a mediator.
+
+For the purpose of these examples, a public node provided by https://grinnode.live is used.  If you have access to your own node running locally, you can remove the -r option completely or change it to a different http endpoint.
+
+Example:
+
+<pre>
+    ./grin-wallet -r "https://grinnode.live:3413" txs
+
+    ./grin-wallet -r "https://grinnode.live:3413" export_proof -i 2 proof2.txt
+</pre>
+
+Contents of <code>proof2.txt</code>:
+
+    {
+      "amount": "10123456789",
+      "excess": "0924ca1b69531aa9abcf85ff7a2bf0d494bc1d85440339332fb62374aabaddf1d6",
+      "recipient_address": "grin1dxnzk3gfnqz69va64ut7jafs7u72dtyswpzxekdgmlurkng9ctfqf9yqu5",
+      "recipient_sig": "710d58fe9e728077dad9494c0d0e15ba5e883e863477aa471c753282a838d9c45966bc57d21f078c226576b6189b293eed3534b755674284a90bb99a128a7d02",
+      "sender_address": "grin1ephxt0u33rz9zpl7exer2awfr9s9ae28qsx7908q2zq03uv3sj7suqdule",
+      "sender_sig": "f054a71d5791532364b3267d44601531cdd6730e1eb487142ae798aa3de6e3551c4f756caec09d17901c5e6e08946f04d9d03d04af525567b6df14e25158160c"
+    }
+
+Send this proof file to a mediator in case of a dispute (e.g. payment not received, incorrect amount, etc).
+
+== Guidance for dispute agents ==
+
+There are two steps for verifying the correct payment was made. Note that there is no reason to verify a proof if the amount or recipient is wrong.
+
+<ol>
+<li>
+
+Check that the proof file supplied by the GRIN seller matches the details you have for the Bisq trade.
+
+This is just basic fact checking: did the sender proof show the correct recipient address and amount?
+
+Note that amounts are shown without a decimal place, and there are 9 digits after the decimal (e.g. <code>"amount": "10123456789"</code> means 10.123456789 GRIN).
+
+</li>
+<li>
+
+Run the <code>verify_proof</code> command to check that the transaction is recorded on the blockchain.
+
+In order to do this, you'll need grin-wallet installed on your PC.  
+
+Install the grin wallet software from https://github.com/mimblewimble/grin-wallet/releases, and then:
+
+<pre>./grin-wallet -r "https://grinnode.live:3413" init</pre>
+
+The wallet is just used as a tool to verify transactions.  You do not need a node, Tor, or a seedphrase for this.
+
+To verify, use the command <code>verify_proof</code> with the details provided by the GRIN seller, e.g.
+
+<pre>./grin-wallet -r "https://grinnode.live:3413" verify_proof ./proof2.txt</pre>
+
+Output:
+
+<pre>Payment proof's signatures are valid.
+Neither the proof's sender nor recipient address belongs to this wallet.
+Command 'verify_proof' completed successfully</pre>
+
+This proves that the amount was sent to the recipient address shown in the proof and recorded in the GRIN ledger.
+
+</li>
+</ol>
+
+== FAQ ==
+
+'''How is the price of GRIN determined?'''
+
+The price of GRIN is determined by the marketplace within Bisq.  
+
+Trade price is chosen by offer maker (which can be the buyer or seller).  Offers are by default arranged in the marketplace with the best prices shown at the top of the list.
+
+The last traded price is shown in at the top right of the screen as "Price of latest Bisq trade".<!-- BISQ VERSION: general -->

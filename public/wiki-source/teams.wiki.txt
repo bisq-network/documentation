@@ -1,0 +1,35 @@
+[[File:Teams.jpg|thumb]]
+
+Bisq is a [[FOSS]] project. Governance is decentralised through the [[DAO]]. Work is coordinated through a number of teams with some core members and other external contributors working with a particular team on a project basis. There is no CEO. True Names are not required. Anonymous and pseudonymous contributors are welcome.
+
+
+== List of Teams ==
+
+* 1. [[Ops Team]] is responsible for operating Bisq infrastructure nodes and other services with high availability, decentralized and censorship-resistant.
+* 2. [[Dev Team]] focused on developing and launching new Bisq releases.
+* 3. [[Support Team]] is responsible for providing support for Bisq users.
+* 4. [[Growth Team]] focused on promoting and growing Bisq, engaging with current and potential users to improve Bisq. 
+* 5. [[Security Team]] is responsible for keeping an eye on Bisq's needs for security - hunt bugs, design counter measures...
+* 6. [[Infrastructure Team]] is responsable for scaling infrastructure.
+* 7. [[Product Team]] focused on launching new products, frontends, etc.
+* 8. [[UX Team]] responsible for improving user experience and making Bisq easy to use.
+* 9. [[Projects Team]] coordinates projects developed by external contributors, creates bounties, etc.
+* 10. [[Decentralization Team]] guides the DAO to be more decentralised, guard against corporate capture, automate governance.
+* 11. [[Defense Team]] focused on legal, regulatory, privacy and other risks to contributors and the DAO.
+* 12. [[Financial Team]] is responsible for keeping the DAO profitable and markets liquid.
+
+== Limits on growth ==
+
+To avoid the bureaucratic decay that many startups and FOSS projects fall into once they exceed the '''Dunbar Number''' (~150) and horizontal communications become difficult, Bisq will limit the number of teams to a maximum of 12 and will make efforts to outsource as much work as possible to external contributors. This can be done on a per-project basis for some types of work, through bounties for one-off tasks or by opening it up to the market in an automatic way following the model of Bitcoin miners. Ideally 90% of work will require only in-team coordination. In theory each team could behave as an external contractor, being assigned work by the DAO and then presenting a compensation request when the work is completed, just as an external contractor would present the bill for services rendered.
+
+== Privacy and security ==
+
+Anonymity and pseudonymity are welcome at Bisq. Bisq is global and many countries have unfriendly regulations for Bitcoin, exchanges, DEX, FOSS, etc. Many countries do not respect [[Free Speech]] or [[Private Property]]. Contributors should be able to work for the Bisq DAO without requiring to endanger their privacy. This is another important reason to decentralise work and rely on external contributors that can complete a project, get paid and leave. [[Proof of work]] should be the standard for compensation and merit.
+
+== Control ==
+
+Experienced team members should take responsibility for control of new team members, external contributors and outsourced workers. They can exercise this control by commenting on and approving (or not) their compensation requests every cycle.
+
+== Recruitment ==
+
+There are no recruiters for Bisq. People interested in contributing for Bisq should check out the [[Contributor checklist|Contributor Checklist]].<!-- BISQ VERSION: general -->

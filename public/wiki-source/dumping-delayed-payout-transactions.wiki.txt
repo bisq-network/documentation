@@ -1,0 +1,29 @@
+If you or a mediator require additional information on failed, pending, or closed transactions, run Bisq with the <code>--dumpDelayedPayoutTxs=true</code> command line argument. 
+
+The instructions below contain specific commands for each of the major desktop operating systems you can copy and paste into a terminal.
+
+__TOC__
+
+== Commands to dump delayed payout transactions ==
+
+{{Run_with_command_line_options|<nowiki>--dumpDelayedPayoutTxs=true</nowiki>}}
+
+== Where to find the delayed payout files ==
+
+Shortly after running one of the commands above, you will find 3 newly-created files in your Bisq data directory:
+
+#<nowiki>delayed_payout_txs_closed.json</nowiki>
+#<nowiki>delayed_payout_txs_pending.json</nowiki>
+#<nowiki>delayed_payout_txs_failed.json</nowiki>
+
+The location of your data directory depends on what operating system you're using:
+
+{{Default_data_directory_locations}}
+
+== Next steps ==
+
+You can broadcast the DPT through any online tx broadcaster service, like that of [https://mempool.space/tx/push mempool.space].
+
+Publishing the DPT will enable the arbitration process, where communication with RefundAgent will be necessary in order to manage the dispute. Chances are that if you need to manually broadcast the DPT, you cannot communicate with RefundAgent through the normal arbitration chat, so you will have to contact him through matrix, [[Finding your arbitrator]]
+
+[[Category:Use Cases]]<!-- BISQ VERSION: general -->

@@ -1,0 +1,10 @@
+__TOC__
+
+=== Core use case ===
+a set of actions within Bisq required to successfully trade or manage funds
+
+=== Critical bug ===
+any issue that:
+* impedes a user from completing a [[#Core use case|core use case]], or
+* repeatedly lands users in support, or
+* puts user funds or privacy at risk<!-- BISQ VERSION: general -->

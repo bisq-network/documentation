@@ -1,0 +1,29 @@
+This article documents the ''Support Team Lead'' [[role]].
+
+__TOC__
+
+== Issue ==
+* [https://github.com/bisq-network/roles/issues/102 Support Team Lead #102]
+
+== Team ==
+===github===
+* [https://github.com/orgs/bisq-network/teams/team-leads Team Leads team]
+* [https://github.com/orgs/bisq-network/teams/support Support Team] 
+===wiki===
+* [[Support_Team|Support Team]]
+
+== Duties ==
+<!-- list in bullet points each of the duties that owner(s) of this role must fulfill -->
+* Review Team's [[Compensation]] requests as per Process.
+* Manage new internship proposals and evaluate their performance once the period is over.
+* Review and supervise the "on duty" schedule.
+* Lead the Weekly Support-Team calls.
+* Support Repository Maintainer.
+
+== Rights ==
+<!-- list in bullet points all special privileges that owner(s) of this role are granted, e.g. repository access -->
+
+== Bonding ==
+N/A
+
+[[Category:Roles]]<!-- BISQ VERSION: general -->

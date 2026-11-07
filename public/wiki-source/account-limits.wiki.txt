@@ -1,0 +1,178 @@
+Elevated '''account limits''' apply to fiat payment accounts in order to limit damage a malicious user can do while allowing honest users to start trading immediately with no KYC and utmost privacy.
+
+Altcoin accounts can trade 0.25 BTC right away (reduced from 0.5 BTC for security reasons), but all fiat payment account types have limits lower than 0.25 BTC to match their particular risk profiles (see [[Payment_methods#Fiat_payment_methods|this table]] for details). Some payment methods with chargeback risk implement a mechanism called ''account signing'' that restricts trading activity until a trader proves their integrity to further secure against foul play.
+
+To reduce the size of trades entering arbitration Bisq also sets new users trade limits to be 0.1 BTC. This is an additional limit to account limits but users can opt out of this limit at any time.
+
+__TOC__
+
+== Which payment accounts are affected ==
+
+Only fiat payment methods are affected by elevated account limits. Altcoin accounts are only affected by the new user limits which can be opted out if necessary for allow every altcoin account to trade up to 0.25 BTC right away upon creating a payment account in Bisq.
+
+All fiat payment methods in all markets limit total trade size depending on the payment method's risk profile (see [[Payment_methods#Fiat_payment_methods|this table]] for details).
+
+Despite these limitations, chargebacks can still be possible for certain payment methods. Bisq reduces this risk with a mechanism called '''account signing'''.
+
+Account signing only applies to payment accounts that meet ''both'' of the following conditions:
+* used in the following markets: USD, EUR, CAD, GBP, AUD, or BRL
+* is subject to chargeback risk: SEPA, SEPA Instant, Interac e-Transfer, Zelle, Revolut, Chase QuickPay, Popmoney, MoneyBeam, Uphold, and any kind of bank transfer
+
+This means that all payment accounts that deal in currencies not listed above do ''not'' require account signing, even if they are subject to chargeback risk.
+
+== Account aging ==
+
+[[File:See-account-age.png|400px|thumb|See account age in the offer book.]]
+
+Account age is no longer used to determine trade size limits for most payment methods. It is still measured, however, and you can see a payment account's age in the offer book before taking an offer, but we caution against using it as a measure of integrity. Older accounts are not ''necessarily'' safer.
+
+'''Practically, this means that all payment methods on Bisq have full selling capability from the moment they are created.''' Selling limits no longer phase in over time.
+
+Some payment methods implement a variation of account aging called account signing whereby limits are increased in stages over a period of 60 days after signing. More about this below.
+
+If you're interested, details on the <code>AccountAgeWitness</code> object that enables this aging mechanism are [https://docs.bisq.network/payment-account-age-witness.html here].
+
+== Account signing ==
+
+[[File:Account-signing-overview.png|thumb|right|A graphical overview of account signing.]]
+
+Account signing limits ''buying'' limits of risky fiat payment methods to {{MaxTradeSizeUnsigned}} until the trader has bought bitcoin from a seller with a signed payment account, and then gradually phases in full buying limits. Selling limits are unaffected.
+
+In a nutshell, this is how it works:
+* Payment account is created in Bisq for risky payment method
+** Buying is limited to {{MaxTradeSizeUnsigned}} BTC per trade until account is signed (see how [[#How_to_get_an_account_signed|below]])
+* 30 days after signing, buying limits are increased to 50% of maximum
+* 60 days after signing, maximum trade size is allowed
+
+Let's see how this works in practice by looking at an example. SEPA has a maximum trade size of 0.0624 BTC, and it requires account signing in order for to enable full trade limits. 
+
+First let's observe what happens if a new SEPA account is never signed. Notice how buying limits never increase beyond {{MaxTradeSizeUnsigned}}, but selling 0.0624 BTC is allowed from day 0.
+
+{| class="wikitable"
+! Time Since Creating SEPA Payment Account (Never Signed)
+! Maximum Trade Size (Buy) 
+! Maximum Trade Size (Sell) 
+|-
+| Day 0 
+| {{MaxTradeSizeUnsigned}} 
+| 0.0624 BTC 
+|-
+| Day 30 
+| {{MaxTradeSizeUnsigned}} 
+| 0.0624 BTC 
+|-
+| Day 60 
+| {{MaxTradeSizeUnsigned}} 
+| 0.0624 BTC 
+|-
+| Day 90 
+| {{MaxTradeSizeUnsigned}} 
+| 0.0624 BTC 
+|}
+
+If that SEPA account manages to get signed on the same day it's created, it will see its {{MaxTradeSizeUnsigned}} limit increased on Day 30. Selling limits are unaffected.
+
+{| class="wikitable"
+! Time Since Creating SEPA Payment Account 
+! Maximum Trade Size (Buy) 
+! Maximum Trade Size (Sell) 
+|-
+| Day 0 - Account Signed 
+| {{MaxTradeSizeUnsigned}} 
+| 0.0624 BTC 
+|-
+| Day 30 
+| 0.03125 BTC 
+| 0.0624 BTC 
+|-
+| Day 60 
+| 0.0624 BTC 
+| 0.0624 BTC 
+|-
+| Day 90 
+| 0.0624 BTC 
+| 0.0624 BTC 
+|}
+
+But if that SEPA account isn't signed until Day 30, it won't see its limits lifted until Day 60. Again, selling limits are unaffected.
+
+{| class="wikitable"
+! Time Since Creating SEPA Payment Account 
+! Maximum Trade Size (Buy) 
+! Maximum Trade Size (Sell) 
+|-
+| Day 0 
+| {{MaxTradeSizeUnsigned}} 
+| 0.0624 BTC 
+|-
+| Day 30 - Account Signed 
+| {{MaxTradeSizeUnsigned}}
+| 0.0624 BTC 
+|-
+| Day 60 
+| 0.0325 BTC 
+| 0.0624 BTC 
+|-
+| Day 90 
+| 0.0624 BTC 
+| 0.0624 BTC 
+|}
+
+=== How to get an account signed ===
+
+Payment accounts that require signing cannot buy more than {{MaxTradeSizeUnsigned}} until 30 days ''after'' they are signed. Accounts can be signed with the following two methods.
+
+==== Buying BTC ====
+To sign your account you have to buy BTC following these requirements:
+* trade amount is greater than or equal to {{MinTradeSizeToBeSigned}} BTC and lesser than or equal to {{MaxTradeSizeUnsigned}}
+* offer must be in a market that requires signing (USD, EUR, CAD, GBP, AUD, BRL)
+* seller's account must have been signed for over 30 days at the time of the signing trade
+
+Through taking an offer you can make sure that the offer fulfills the requirements to sign your account. Making an offer could not sign your account, because taker could be unable to sign your account (signed since less than 30 days, or unsigned). 
+
+The Bisq interface makes it easy to determine if an offer can help you get signed: simply '''look for buy offers with a check mark badge''':
+
+[[File:Good-bad-signing-asks.png|600px|thumb|left|Top offer won't get you signed. Bottom offer will get you signed.]]
+
+<div style="clear: both;"></div>
+
+In the image above, the offer on top does not have a check mark, but the offer on the bottom does. And it's a valid size (i.e., between {{MinTradeSizeToBeSigned}} BTC and {{MaxTradeSizeUnsigned}}), so taking that offer and successfully completing the trade will result in a signed account.
+
+You can see your payment account's limits and signing status at <code>Accounts</code> > <code>National Currency Accounts</code>. Pick an account and look toward the bottom:
+
+[[File:Payment-account-signing-status.png|600px|thumb|left|Where to see your payment account's limits and signing status.]]
+
+<div style="clear: both;"></div>
+
+==== With your own signed account ====
+
+Once you have a signed and fully matured payment account, any new payment account you create after it, that requires signing, will be self-signed as long as it uses the '''exact same name''' as your previously signed account. The payment account can be of a different type (e.g. a signed SEPA account can self-sign a SEPA Instant account), but a payment account created with a name that is even slightly different will not be self-signed. 
+
+Payment account types that don't require your full name cannot be self-signed (e.g. Revolut, which only requires an email address) and they cannot self-sign other payment accounts.
+
+Self-signed accounts are immediately signed, but limits are not immediately lifted. This is because they have an age of 0 days, so 30 days must pass for the {{MaxTradeSizeUnsigned}} limit to be lifted, and another 30 days must pass for full trading ability to take effect (see tables above).
+
+== Backing up and restoring payment accounts ==
+
+Once your payment accounts have accrued age and been signed, you won't want to give them up. With [[Backing_up_application_data|proper backups]], you won't have to—payment accounts can be restored if you ever have to remove/reinstall Bisq, move to another machine, etc.
+
+== User opt-out limits ==
+
+To reduce trades into arbitration for new users unfamiliar with Bisq, new users have a 0.1 BTC limit by default that can be opt-out of at any time. 
+
+To access this limit go to Settings > Preferences
+
+[[File:Trade limits.png|frameless|left|Trade limit setting in Bisq that can opted out of or changed at any time]]
+
+
+
+
+Shown above is the trade limit setting in Bisq that can opted out of or edited higher or lower at any time.
+
+If you opt of of this limit you will be given a pop up message informing you...
+
+{{Admonition_Warn|Trading limits are set to reduce risk of costly disputes and losing funds for new users. Raise trading limits at your own risk. Every trader has their own pace, but it's recommended to complete at least 5 trades before raising trade limits.
+
+By raising trading limits you acknowledge to be familiar with the basic use of Bisq, like [[Backing_up_application_data|backing up your data]], [[rading_rules|trading rules]], [[Dispute_resolution|dispute resolution]], [[Table_of_penalties|penalties]] and [[User_support|where to find support]].}}
+
+Account signing limits are still applied to buy BTC with most National Account payment methods to reduce chargeback risk.<!-- BISQ VERSION: general -->

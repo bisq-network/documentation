@@ -1,0 +1,24 @@
+== Updating Bisq ==
+
+Almost every [[Participating_in_a_DAO_voting_cycle#Background|Cycle]], a new Bisq version is released, with new features and bug fixes. It's highly recommended to keep Bisq updated to [https://github.com/bisq-network/bisq/releases/ last version], as not doing so could lead to bugs and other issues. <br>
+Updating Bisq simply requires to install the new version over the existing one. Before updating, it's recommended to make a [[Backing up application data|backup]].
+
+{{Admonition_Warn|Do not downgrade Bisq. Installing an older version could cause irreversible damage to Bisq data.}}
+
+== Notification ==
+
+To inform users that a new version is ready and eliminate the need to manually verify the downloaded files, a popup will appear when a new version is released. 
+[[File:Updating bisq popup.png|500px|thumb|left]]
+<div style="clear: both;"></div>
+
+Clicking on ''download installer and verify signature'' will download the files needed to install Bisq and will automatically verify that the signatures are correct. <br>
+The files to install Bisq should be ready at ''Downloads'' folder to be [[Downloading_and_installing|installed]].
+
+== Activate pre-release notifications ==
+
+Some users might want to help testing a pre-release version a in real environment. To be notified when a pre-release is ready, go to ''Settings'' and activate the ''Receive pre-release notifications'' toggle.
+
+
+[[Category:Use Cases]]
+
+<!--  https://github.com/bisq-network/bisq/pull/5108 --><!-- BISQ VERSION: general -->

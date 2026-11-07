@@ -1,0 +1,469 @@
+The biggest issues for users happen when data files are lost or corrupted, leading to missing or borked trades, or unrecoverable Delayed Payout Transactions.
+
+Having an automated backup solution helps covering that risk, by removing the need to manually run a backup after every application state change (mainly "offer created", "trade started", "trade completed").
+
+Issues could still happen when a critical event occurs right after a state change was saved to disk, and before an automated backup was taken, but there are strategies to mitigate that possibility, which will be discussed.
+
+__TOC__
+
+= Common requirements and backup strategy =
+
+All scripts require 7z compression (7-zip on Windows, p7zip-full on Linux, p7zip on MacOS).
+
+The provided code will backup all functional files in the data directory, leaving out non-unique files that the Bisq application will fetch/re-create autonomously, and compress them into a 7zip archive, keeping the number of last backups that you define, while deleting the oldest one(s) if the existing number of backups is higher.
+
+It is advised that you direct the backups to either an external drive, or a NAS, or an encrypted cloud storage.
+
+Depending on how bulletproof of a backup schedule you want, you can increase the number of backups to keep on disk to 10 or more (the size of each depends on the history of your instance, but it usually resides in a few tens of MB, often less) and the frequency the script runs with, for example every 1 or 2 hours.
+
+= Bisq1 =
+
+== Linux ==
+
+Create a <code>scripts</code> folder in your <code>home</code> directory, prepare an executable file and open it with an editor:
+
+<pre>
+cd ~
+mkdir -p scripts
+cd scripts
+touch bisq1backup
+chmod +x bisq1backup
+nano bisq1backup
+</pre>
+
+paste the following code in the file, and edit where needed:
+
+<pre>
+#!/bin/bash
+
+# ==== EDIT THE FOLLOWING ====
+SOURCE_DIR="/home/YOURUSERNAME/.local/share/Bisq/btc_mainnet"
+TARGET_FOLDER="/mnt/BACKUPS/BISQ1"
+BACKUP_COUNT=4
+# ============================
+
+ARCHIVE_ROOT="bisq1_backup_"
+BACKUP_FILE="${ARCHIVE_ROOT}$(date +%Y%m%d_%H%M%S).7z"
+ARCHIVE_PATH="${TARGET_FOLDER}/${BACKUP_FILE}"
+SELECTED_FILES=(
+"BsqSwapTrades"
+"BallotList"
+"DisputeList"
+"RefundDisputeList"
+"SequenceNumberMap"
+"MyVoteList"
+"OpenOffers"
+"MyBlindVoteList"
+"ClosedTrades"
+"MediationDisputeList"
+"MyProposalList"
+"MailboxMessageList"
+"AccountAgeWitnessStore"
+"PendingTrades"
+"MyProofOfBurnList"
+"PreferencesPayload"
+"UserPayload"
+"AddressEntryList"
+"FailedTrades"
+"MyReputationList"
+"TempProposalStore"
+"NavigationPath"
+"UnconfirmedBsqChangeOutputList"
+"IgnoredMailboxMap"
+"PeerList"
+"RemovedPayloadsMap"
+"TradeStatistics3Store"
+"SignedWitnessStore"
+)
+
+FOLDER_KEYS="keys"
+FOLDER_WALLET="wallet"
+FOLDER_TOR="tor/hiddenservice"
+
+FILE_LIST=$(mktemp)
+
+SUBFOLDER_DB_PATH="$SOURCE_DIR/db"
+for file in "${SELECTED_FILES[@]}"; do
+  if [ -f "$SUBFOLDER_DB_PATH/$file" ]; then
+    echo "$SUBFOLDER_DB_PATH/$file" >> "$FILE_LIST"
+  fi
+done
+
+for subfolder in "$FOLDER_KEYS" "$FOLDER_WALLET"; do
+  find "$SOURCE_DIR/$subfolder" -maxdepth 1 -type f >> "$FILE_LIST"
+done
+
+FOLDER_TOR_PATH="$SOURCE_DIR/$FOLDER_TOR"
+if [ -d "$FOLDER_TOR_PATH" ]; then
+  find "$FOLDER_TOR_PATH" -type f >> "$FILE_LIST"
+fi
+
+7z a -t7z -mx=9 -m0=lzma2 -mmt=on -spf "$ARCHIVE_PATH" @"$FILE_LIST"
+
+rm "$FILE_LIST"
+
+echo "Backup completed: $BACKUP_FILE"
+
+ARCHIVE_COUNT=$(find "${TARGET_FOLDER}" -maxdepth 1 -type f -name "${ARCHIVE_ROOT}*.7z" | wc -l)
+
+if [ "${ARCHIVE_COUNT}" -gt "${BACKUP_COUNT}" ]; then
+  echo "found ${ARCHIVE_COUNT} backups, removing oldest one(s)"
+  find "${TARGET_FOLDER}" -maxdepth 1 -type f -name "${ARCHIVE_ROOT}*.7z" | sort -r | tail -n +"${BACKUP_COUNT}" | xargs -I {} rm -f {}
+fi
+</pre>
+
+Lastly, edit the system <code>crontab</code> with
+ <code>crontab -e</code>
+and add the following line to have a backup taken every 8 hours:
+
+ <code>0 */8 * * * /home/YOURUSERNAME/scripts/bisq1backup > /tmp/bisq1backup.log</code>
+
+== Windows ==
+
+Create a scripts solder and a PowerShell script:
+
+* Open File Explorer and navigate to your user directory (e.g. C:\Users\YOURUSERNAME).
+* Create a folder named <code>scripts</code>.
+* Inside this folder, create a new file named <code>bisq1backup.ps1</code>.
+
+Right-click the script file and open it in Notepad, then paste and edit the following code.
+
+<pre>
+# ==== EDIT THE FOLLOWING ====
+$SOURCE_DIR = "C:\Users\YOURUSERNAME\AppData\Roaming\Bisq\btc_mainnet"
+$TARGET_FOLDER = "D:\BACKUPS\BISQ1"
+$BACKUP_COUNT = 4
+# ============================
+
+$ARCHIVE_ROOT = "bisq1_backup_"
+$timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+$BACKUP_FILE = "$ARCHIVE_ROOT$timestamp.7z"
+$ARCHIVE_PATH = Join-Path $TARGET_FOLDER $BACKUP_FILE
+
+$SELECTED_FILES = @(
+    "BsqSwapTrades",
+    "BallotList",
+    "DisputeList",
+    "RefundDisputeList",
+    "SequenceNumberMap",
+    "MyVoteList",
+    "OpenOffers",
+    "MyBlindVoteList",
+    "ClosedTrades",
+    "MediationDisputeList",
+    "MyProposalList",
+    "MailboxMessageList",
+    "AccountAgeWitnessStore",
+    "PendingTrades",
+    "MyProofOfBurnList",
+    "PreferencesPayload",
+    "UserPayload",
+    "AddressEntryList",
+    "FailedTrades",
+    "MyReputationList",
+    "TempProposalStore",
+    "NavigationPath",
+    "UnconfirmedBsqChangeOutputList",
+    "IgnoredMailboxMap",
+    "PeerList",
+    "RemovedPayloadsMap",
+    "TradeStatistics3Store",
+    "SignedWitnessStore"
+)
+
+$FOLDER_KEYS = "keys"
+$FOLDER_WALLET = "wallet"
+$FOLDER_TOR = "tor\hiddenservice"
+
+$FILE_LIST = [System.IO.Path]::GetTempFileName()
+
+$SUBFOLDER_DB_PATH = Join-Path $SOURCE_DIR "db"
+foreach ($file in $SELECTED_FILES) {
+    $path = Join-Path $SUBFOLDER_DB_PATH $file
+    if (Test-Path $path -PathType Leaf) {
+        Add-Content -Path $FILE_LIST -Value $path
+    }
+}
+
+foreach ($subfolder in @($FOLDER_KEYS, $FOLDER_WALLET)) {
+    $dir = Join-Path $SOURCE_DIR $subfolder
+    if (Test-Path $dir) {
+        Get-ChildItem -Path $dir -File | ForEach-Object {
+            Add-Content -Path $FILE_LIST -Value $_.FullName
+        }
+    }
+}
+
+$FOLDER_TOR_PATH = Join-Path $SOURCE_DIR $FOLDER_TOR
+if (Test-Path $FOLDER_TOR_PATH -PathType Container) {
+    Get-ChildItem -Path $FOLDER_TOR_PATH -File -Recurse | ForEach-Object {
+        Add-Content -Path $FILE_LIST -Value $_.FullName
+    }
+}
+
+& "C:\Program Files\7-Zip\7z.exe" a -t7z -mx=9 -m0=lzma2 -mmt=on -spf $ARCHIVE_PATH @"$FILE_LIST"
+
+Remove-Item $FILE_LIST
+
+Write-Output "Backup completed: $BACKUP_FILE"
+
+$backupFiles = Get-ChildItem -Path $TARGET_FOLDER -Filter "$ARCHIVE_ROOT*.7z" | Sort-Object LastWriteTime -Descending
+if ($backupFiles.Count -gt $BACKUP_COUNT) {
+    Write-Output "Found $($backupFiles.Count) backups, removing oldest one(s)"
+    $backupFiles | Select-Object -Skip $BACKUP_COUNT | ForEach-Object {
+        Remove-Item $_.FullName -Force
+    }
+}
+</pre>
+
+To run the script every 8 hours:
+* Open Task Scheduler.
+* Create a new task and give it a name (for example, "bisq1backup").
+* In the Triggers tab, set a new trigger to begin the task on a schedule, repeating every 8 hours.
+* In the Actions tab, add a new action:
+** Program/script: powershell.exe
+** Add arguments: -ExecutionPolicy Bypass -File "C:\Users\YOURUSERNAME\scripts\bisq1backup.ps1"
+*  Adjust settings as needed and save the task.
+
+== MacOS ==
+
+Open the Terminal and run:
+
+<pre>
+cd ~
+mkdir -p scripts
+cd scripts
+touch bisq1backup
+chmod +x bisq1backup
+nano bisq1backup
+</pre>
+
+Paste the following code and edit where needed:
+
+<pre>
+#!/bin/bash
+
+# ==== EDIT THE FOLLOWING ====
+SOURCE_DIR="/Users/YOURUSERNAME/Library/Application\ Support/Bisq/btc_mainnet"
+TARGET_FOLDER="/Volumes/BACKUPS/BISQ1"
+BACKUP_COUNT=4
+# ============================
+
+ARCHIVE_ROOT="bisq1_backup_"
+BACKUP_FILE="${ARCHIVE_ROOT}$(date +%Y%m%d_%H%M%S).7z"
+ARCHIVE_PATH="${TARGET_FOLDER}/${BACKUP_FILE}"
+SELECTED_FILES=(
+  "BsqSwapTrades"
+  "BallotList"
+  "DisputeList"
+  "RefundDisputeList"
+  "SequenceNumberMap"
+  "MyVoteList"
+  "OpenOffers"
+  "MyBlindVoteList"
+  "ClosedTrades"
+  "MediationDisputeList"
+  "MyProposalList"
+  "MailboxMessageList"
+  "AccountAgeWitnessStore"
+  "PendingTrades"
+  "MyProofOfBurnList"
+  "PreferencesPayload"
+  "UserPayload"
+  "AddressEntryList"
+  "FailedTrades"
+  "MyReputationList"
+  "TempProposalStore"
+  "NavigationPath"
+  "UnconfirmedBsqChangeOutputList"
+  "IgnoredMailboxMap"
+  "PeerList"
+  "RemovedPayloadsMap"
+  "TradeStatistics3Store"
+  "SignedWitnessStore"
+)
+
+FOLDER_KEYS="keys"
+FOLDER_WALLET="wallet"
+FOLDER_TOR="tor/hiddenservice"
+
+FILE_LIST=$(mktemp)
+
+SUBFOLDER_DB_PATH="${SOURCE_DIR}/db"
+for file in "${SELECTED_FILES[@]}"; do
+  if [ -f "${SUBFOLDER_DB_PATH}/$file" ]; then
+    echo "${SUBFOLDER_DB_PATH}/$file" >> "${FILE_LIST}"
+  fi
+done
+
+for subfolder in "${FOLDER_KEYS}" "${FOLDER_WALLET}"; do
+  find "${SOURCE_DIR}/${subfolder}" -maxdepth 1 -type f >> "${FILE_LIST}"
+done
+
+FOLDER_TOR_PATH="${SOURCE_DIR}/${FOLDER_TOR}"
+if [ -d "${FOLDER_TOR_PATH}" ]; then
+  find "${FOLDER_TOR_PATH}" -type f >> "${FILE_LIST}"
+fi
+
+7z a -t7z -mx=9 -m0=lzma2 -mmt=on -spf "${ARCHIVE_PATH}" @"${FILE_LIST}"
+
+rm "${FILE_LIST}"
+
+echo "Backup completed: ${BACKUP_FILE}"
+
+ARCHIVE_COUNT=$(find "${TARGET_FOLDER}" -maxdepth 1 -type f -name "${ARCHIVE_ROOT}*.7z" | wc -l)
+
+if [ "${ARCHIVE_COUNT}" -gt "${BACKUP_COUNT}" ]; then
+  echo "Found ${ARCHIVE_COUNT} backups, removing oldest one(s)"
+  find "${TARGET_FOLDER}" -maxdepth 1 -type f -name "${ARCHIVE_ROOT}*.7z" | sort -r | tail -n +"${BACKUP_COUNT}" | xargs -I {} rm -f {}
+fi
+</pre>
+
+To run the backup every 8 hours, edit your crontab using
+
+ <code>crontab -e</code>
+
+Then add the following line:
+
+ <code>0 */8 * * * /Users/YOURUSERNAME/scripts/bisq1backup > /tmp/bisq1backup.log 2>&1</code>
+
+= Bisq2 =
+
+== Linux ==
+
+Create a <code>scripts</code> folder in your <code>home</code> directory, prepare an executable file and open it with an editor:
+
+<pre>
+cd ~
+mkdir -p scripts
+cd scripts
+touch bisq2backup
+chmod +x bisq2backup
+nano bisq2backup
+</pre>
+
+paste the following code in the file, and edit where needed:
+
+<pre>
+#!/bin/bash
+
+# ==== EDIT THE FOLLOWING ====
+FOLDER_TO_BACKUP="/home/YOURUSERNAME/.local/share/Bisq2/db"
+TARGET_FOLDER="/mnt/BACKUPS/BISQ2"
+BACKUP_COUNT=4
+# ============================
+
+ARCHIVE_ROOT="bisq2_backup_"
+ARCHIVE_NAME="${ARCHIVE_ROOT}$(date +%Y%m%d_%H%M%S).7z"
+ARCHIVE_PATH="${TARGET_FOLDER}/${ARCHIVE_NAME}"
+
+
+7z a -t7z -mx=9 -mfb=64 -md=32m -ms=on -mmt=on "/tmp/${ARCHIVE_NAME}" "${FOLDER_TO_BACKUP}/private" "${FOLDER_TO_BACKUP}/settings"
+mv "/tmp/${ARCHIVE_NAME}" "${TARGET_FOLDER}"
+
+ARCHIVE_COUNT=$(find "${TARGET_FOLDER}" -maxdepth 1 -type f -name "${ARCHIVE_ROOT}*.7z" | wc -l)
+
+if [ "${ARCHIVE_COUNT}" -gt "${BACKUP_COUNT}" ]; then
+  echo "found ${ARCHIVE_COUNT} backups, removing oldest one(s)"
+  find "${TARGET_FOLDER}" -maxdepth 1 -type f -name "${ARCHIVE_ROOT}*.7z" | sort -r | tail -n +"${BACKUP_COUNT}" | xargs -I {} rm -f {}
+fi
+</pre>
+
+Lastly, edit the system <code>crontab</code> with
+ <code>crontab -e</code>
+and add the following line to have a backup taken every 8 hours:
+
+ <code>0 */8 * * * /home/YOURUSERNAME/scripts/bisq2backup > /tmp/bisq1backup.log</code>
+
+== Windows ==
+
+Create a scripts solder and a PowerShell script:
+
+* Open File Explorer and navigate to your user directory (e.g. C:\Users\YOURUSERNAME).
+* Create a folder named scripts.
+* Inside this folder, create a new file named bisq2backup.ps1.
+
+Right-click the script file and open it in Notepad, then paste and edit the following code.
+
+<pre>
+# ==== EDIT THE FOLLOWING ====
+$FolderToBackup = "C:\Users\YOURUSERNAME\AppData\Roaming\Bisq2\db"
+$TargetFolder   = "D:\BACKUPS\BISQ2"
+$BackupCount    = 4
+# ============================
+
+$ArchiveRoot = "bisq2_backup_"
+$Timestamp   = Get-Date -Format "yyyyMMdd_HHmmss"
+$ArchiveName = "$ArchiveRoot$Timestamp.7z"
+$TempArchive = Join-Path $env:TEMP $ArchiveName
+$FinalArchive = Join-Path $TargetFolder $ArchiveName
+
+& "C:\Program Files\7-Zip\7z.exe" a -t7z -mx=9 -mfb=64 -md=32m -ms=on -mmt=on "`"$TempArchive`"" "`"$FolderToBackup\private`"" "`"$FolderToBackup\settings`""
+
+Move-Item -Path $TempArchive -Destination $FinalArchive -Force
+
+$Archives = Get-ChildItem -Path $TargetFolder -Filter "$ArchiveRoot*.7z" | Sort-Object LastWriteTime -Descending
+
+if ($Archives.Count -gt $BackupCount) {
+    Write-Output "Found $($Archives.Count) backups, removing oldest one(s)"
+    $Archives | Select-Object -Skip $BackupCount | ForEach-Object {
+        Remove-Item $_.FullName -Force
+    }
+}
+</pre>
+
+To run the script every 8 hours:
+* Open Task Scheduler.
+* Create a new task and give it a name (for example, "bisq2backup").
+* In the Triggers tab, set a new trigger to begin the task on a schedule, repeating every 8 hours.
+* In the Actions tab, add a new action:
+** Program/script: powershell.exe
+** Add arguments: -ExecutionPolicy Bypass -File "C:\Users\YOURUSERNAME\scripts\bisq2backup.ps1"
+*  Adjust settings as needed and save the task.
+
+== MacOS ==
+
+Open the Terminal and run:
+
+<pre>
+cd ~
+mkdir -p scripts
+cd scripts
+touch bisq2backup
+chmod +x bisq2backup
+nano bisq2backup
+</pre>
+
+Paste the following code and edit where needed:
+
+<pre>
+#!/bin/bash
+
+# ==== EDIT THE FOLLOWING ====
+FOLDER_TO_BACKUP="/Users/YOURUSERNAME/Library/Application Support/Bisq2/db"
+TARGET_FOLDER="/Volumes/BACKUPS/BISQ2"
+BACKUP_COUNT=4
+# ============================
+
+ARCHIVE_ROOT="bisq2_backup_"
+ARCHIVE_NAME="${ARCHIVE_ROOT}$(date +%Y%m%d_%H%M%S).7z"
+ARCHIVE_PATH="${TARGET_FOLDER}/${ARCHIVE_NAME}"
+
+7z a -t7z -mx=9 -mfb=64 -md=32m -ms=on -mmt=on "/tmp/${ARCHIVE_NAME}" "${FOLDER_TO_BACKUP}/private" "${FOLDER_TO_BACKUP}/settings"
+mv "/tmp/${ARCHIVE_NAME}" "${ARCHIVE_PATH}"
+
+ARCHIVE_COUNT=$(find "${TARGET_FOLDER}" -maxdepth 1 -type f -name "${ARCHIVE_ROOT}*.7z" | wc -l)
+
+if [ "${ARCHIVE_COUNT}" -gt "${BACKUP_COUNT}" ]; then
+  echo "Found ${ARCHIVE_COUNT} backups, removing oldest one(s)"
+  find "${TARGET_FOLDER}" -maxdepth 1 -type f -name "${ARCHIVE_ROOT}*.7z" | sort -r | tail -n +"${BACKUP_COUNT}" | xargs -I {} rm -f {}
+fi
+</pre>
+
+To run the backup every 8 hours, edit your crontab using:
+
+ <code>crontab -e</code>
+
+Then add the following line:
+
+ <code>0 */8 * * * /Users/YOURUSERNAME/scripts/bisq2backup > /tmp/bisq2backup.log 2>&1</code><!-- BISQ VERSION: bisq2 -->

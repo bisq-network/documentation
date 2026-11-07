@@ -1,0 +1,69 @@
+Here is a list of current Bisq mediators and their onion addresses, as well as how you can find the mediator for a specific Bisq trade.
+
+If you need to find your arbitrator see [[Finding your arbitrator|here]].
+
+__TOC__
+
+= Get in touch with your mediator =
+
+For open trades, you should be able to get in touch with your mediator through Bisq mediation chat itself.
+
+If you cannot get in touch with your mediator on Bisq for 48 hours (sometimes Bisq message system fails), or the issue needs urgent attention, you can get in touch with them on the [[Matrix bisq.chat]] group.  Their Matrix handles and onion addresses are displayed in the headline for the #support channel as well.
+
+= How to find the mediator for a trade =
+
+== In Bisq 1 ==
+
+=== System message ===
+
+Go to 'Support > Mediation' tab since mediation begins.
+
+[[File:Finding mediator message system.png|400px|thumb|none]]
+
+=== View contract in JSON ===
+
+Alternatively, you can look for your mediator since the trade starts:
+
+# Go to  <code>Portfolio > Open Trades</code>, <code>Portfolio > History</code>, or <code>Portfolio > Failed Trades</code> (depending on the status of your trade) 
+# Click the <code>i</code> icon next to the trade ID of the trade in question (it's on the very left in the first column)
+# In the pop-up that appears, toward the bottom, click <code>DETAIL DATA</code>.
+# Ignore the <code>"mediatorNodeAddresses"</code> field, as this is the list of all active mediators when the trade started.
+# Scroll down and you'll find <code>"mediatorNodeAddress"</code> field with a single <code>"hostName"</code> for the onion address.
+
+This is the onion address of the mediator for your trade.
+
+== In Bisq 2 ==
+
+=== Bisq Easy ===
+The mediator for a Bisq Easy trade can be found by going to the "My Open Trades" tab. Trade details, including the assigned mediator, are displayed for each open trade.
+
+= Matrix and onion addresses =
+
+{| class="wikitable"
+! Mediator
+! TorV3 Address
+! GitHub Handle
+! Matrix Handle
+|-
+| luis3672
+| ivxrrbvtzsr7tpp22x6lcoo2fkxyzvq2efjvwv5fhnzcjhrzdz63srid.onion:9999
+| [https://github.com/luis3672 luis3672]
+| [[Matrix bisq.chat |  @luis3672:matrix.org]]
+|-
+| pazza83
+| e2whe6q34o5mnta7b2rai4uspmj5wxhnhvipjjohicx6sgekw47apjqd.onion:9999
+| [https://github.com/pazza83 pazza83]
+| [[Matrix bisq.chat |  @pazza83:matrix.org]]
+|-
+| solomon1923
+| 3fatfssmx5h4tx4vqoty6t3skqqg33djkibs3jmyf6fqlsmwzjjhluqd.onion:19610
+| [https://github.com/solomon1923 solomon1923]
+| [[Matrix bisq.chat |  @solomon1923:matrix.org]]
+|-
+| suddenwhipvapor
+| 5wmuzi76l4ogbdh6ahvdafzlebk4c3sp3q5njhz5h5qa5fwbalexa7id.onion:9999 (Bisq 1)<br>3rpfdd5z3mem4ucmk7ada3fgzn2escdxcg4cqp5ailvpz3yeht3gacyd.onion:27368 (Bisq 2)
+| [https://github.com/suddenwhipvapor suddenwhipvapor]
+| [[Matrix bisq.chat | @suddenwhipvapor:matrix.org]]
+|}
+
+[[Category:Use Cases]]<!-- BISQ VERSION: bisq2 -->

@@ -1,0 +1,19 @@
+{
+  "title": "Wiki Operator",
+  "page_id": "58",
+  "revision_id": "2212",
+  "revision_timestamp": "2021-04-28T01:50:19Z",
+  "available_attribution": {
+    "username": "Plebeian9000",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Wiki_Operator",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=2212",
+  "wikitext_sha256": "6dd64b3e18ceec92a65734e9fe3de4f1ce4c831dec7a27c24f46128074457fb9",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/wiki-operator/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

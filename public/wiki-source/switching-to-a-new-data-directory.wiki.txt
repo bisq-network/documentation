@@ -1,0 +1,61 @@
+'''Switching to a new data directory''' can help you start with Bisq anew: fresh wallet, new onion address, new keys, etc. It's a sort of "factory reset" that makes it like you're starting Bisq for the first time.
+
+Upon creating a new data directory, you can restore various parts of a previous data directory (e.g., aged and signed payment accounts).
+
+If you instead wish to only obtain a new wallet, while preserving every other element of your data directory, you can [[Create_a_new_wallet_for_your_data_directory|create a fresh wallet in the same data directory]].
+
+__TOC__
+
+= Why switch to a new data directory? =
+
+It's a good idea to switch to a new data directory every so often. 
+* '''Performance''' - Bisq uses bitcoinj, an SPV library that is not built for high performance, so wallets get increasingly large with every transaction. Over time, wallet corruption becomes increasingly likely and overall performance deteriorates (e.g., longer startup times).
+* '''Stability''' - The internal wallet database can get corrupted in certain situations, leading to failed take-offer attempts or failed payouts.
+* '''Privacy''' - Active traders using the same onion address for extended periods of time can leak quite a bit of information, since that same onion address is connected to each subsequent offer (see [[local reputation]]).
+
+In addition, switching to a new data directory can sometimes be the only way to work around [[Troubleshooting_wallet_issues|unusual wallet corruption issues]].
+
+= Make sure you're ready to switch =
+
+=== Ensure your existing data directory is backed up ===
+
+[[Backing_up_application_data#Back_up_the_entire_Bisq_data_directory|See how here]]. Be sure to also do a [[Backing_up_application_data#Back_up_payment_accounts|payment account export]] to make importing payment accounts easier.
+
+=== Ensure you have no open offers, trade, or disputes ===
+
+This is paramount because '''you will become unreachable and unable to respond after switching to a new data directory.''' If you don't want to wait for an open offer to be taken, you can delete it, but you will lose the maker fee.
+
+= Send funds =
+
+You will need to get your funds to the new Bisq instance somehow. 
+
+There are a handful of methods to do this, depending on your situation.
+
+# Send funds to an external wallet with a withdrawal from <code>Funds</code> > <code>Send Funds</code>, and then send those funds to the new Bisq instance once you've created it (note: you can set withdrawal transaction fees in <code>Settings</code> > <code>Preferences</code>).
+#* Variation: Use the [[Emergency_wallet|Emergency Wallet Tool]] (<code>Cmd/Ctrl</code> + <code>E</code>) to withdraw funds if standard withdrawal isn't working.
+# Restore your wallet from seed in another bitcoin wallet like Electrum, and send funds to the new Bisq instance once you've created it. This method is '''not''' recommended if you have any BSQ funds in your wallet. See [[Restoring_your_wallet_from_seed#Restoring_to_a_non-Bisq_wallet|derivation path and other details here]].
+# Send funds directly from old Bisq instance to new Bisq instance (advanced).
+## Start Bisq. 
+## Start another instance of Bisq from the command line, specifying a new data directory with the <code>appName</code> option. See [[Running_from_the_command_line|how to run Bisq from the command line here]].
+##* macOS example command: <code>/Applications/Bisq.app/Contents/MacOS/Bisq --appName=Bisq-new</code>
+##* Name of the new directory doesn't matter. <code>Bisq-new</code> was used above as an example, but you can call it whatever you like, since it's just a temporary placeholder. You'll be changing it back to "Bisq" anyway.
+## Wait for this new instance of Bisq to start and finish loading and syncing.
+## Once it has, send your funds from your old Bisq instance to your new one.
+
+= Create new data directory =
+
+If you used methods 1 or 2 in the previous step:
+# Close Bisq.
+# Delete (or rename) the <code>Bisq</code> data directory (see [[Data_directory#Operating_system_defaults|default locations for your operating system here]]).
+# Start Bisq again. Bisq will create a new data directory with a new wallet, new Tor state, etc.
+# Send funds from external wallet into Bisq.
+
+If you used method 3 in the previous step: 
+# Make sure ''both'' Bisq instances are closed.
+# Delete (or rename) the original <code>Bisq</code> data directory.
+# Rename the newer data directory to <code>Bisq</code>.
+# Start Bisq normally. Your balance should reflect the BTC you sent to it previously.
+
+= Migrate data from backup =
+
+If you'd like to restore payment accounts and/or your onion address (e.g., [[local reputation]]), [[Restoring_application_data|see how in this article]].<!-- BISQ VERSION: general -->

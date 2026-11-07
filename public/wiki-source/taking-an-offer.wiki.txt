@@ -1,0 +1,101 @@
+
+After setting up a [[Create_a_payment_account|payment account]] you're ready to take your first offer.
+
+== Select an offer ==
+
+First, click on '''BUY BTC''' and click on any of the available '''TAKE OFFER TO BUY BTC''' buttons. Each offer will list the min and max amounts you can buy, the exchange price and the payment method. 
+
+[[File:BuyBTC-accountenabled.png|thumb|left|500px]]
+
+<br clear=all>
+
+''' Note on limits for new payment accounts: '''
+
+To secure the network from scammers and other bad actors, unsigned Bisq payment accounts are limited to buying 0.01 BTC until they are signed by another trusted peer.
+
+You can have your new payment account signed by selecting an offer to buy bitcoin from a seller who’s capable of signing your account. - Click [[https://docs.bisq.network/payment-methods.html here]] for info on account signing
+
+'''Just look for an offer with a check mark.'''
+
+== Deposit and fees ==
+
+When taking an offer, Bisq creates a special trade wallet to hold your [[security deposit]] and [[trading costs|fees]]. This wallet will be used to pay your taker fee, and will then be used to transfer your security deposit into a multisig escrow transaction together with the seller’s security deposit and the bitcoin being traded.
+
+[[File:FundTrade.png|thumb|left|500px]]
+
+<br clear=all>
+
+Once you and the seller have completed your ends of the trade, you’ll receive the bitcoin you bought along with your security deposit.
+
+There are 2 ways to pay for the deposit and fees:
+
+* If you already have enough bitcoin in your Bisq wallet, click '''Transfer funds from Bisq wallet''' and the funds will be automatically transfered to the trade wallet.
+* If not, go ahead and send the amount required '''Funds needed''' to the specified address '''Trade wallet address''' using your personal wallet.
+
+''Click [[https://bisq.wiki/Trading_fees here]] for details on trading fees and the BSQ token.''
+
+== Confirm trade ==
+
+Once you’ve funded your trade wallet, you’ll see a '''Review: Take offer to buy bitcoin button appear.'''
+
+Click it, Bisq will display all details pertaining to your offer.
+
+[[File:ConfirmOffer.png|thumb|left|500px]]
+
+<br clear=all>
+
+'''Make sure these details are correct. After you confirm these details, there's no way to cancel the trade you must follow through or risk losing your deposit.'''
+
+If everything looks correct, go ahead and hit '''Confirm: Take offer to buy bitcoin.'''
+
+Your trade has now officially begun!
+
+== Send payment == 
+
+Now that you’ve taken an offer, it’s almost time to pay the seller.
+
+First, before showing you the seller’s payment details, Bisq will wait for the Bitcoin network to confirm the trade’s transactions. On average, this takes 10 minutes.
+
+Then, you’ll see a pop-up with the seller’s details. Go ahead and pay the seller through the agreed payment method.
+
+[[File:SellersPaymentDetails.png|thumb|left|500px]]
+
+<br clear=all>
+
+'''How long should you wait before sending the payment?'''
+
+Each confirmation makes a bitcoin transaction exponentially harder to reverse. You can wait for as many confirmations as you like before sending payment—just note the remaining time indicator. The seller must receive your payment before that timer runs out.
+
+[[File:Trade-remainingtime.png|thumb|left|500px]]
+
+<br clear=all>
+
+''Learn more about Bitcoin transaction confirmations [[https://en.bitcoin.it/wiki/Confirmation here]]''
+
+== Mark payment as sent ==
+
+'''Important:'''
+
+'''Once you’ve sent your payment, be sure to mark the payment as sent in Bisq by clicking the Payment started button.'''
+
+It’s easy to forget this step, but remember: Bisq doesn’t integrate with national currency payment methods in anyway so Bisq won’t know you’ve sent your payment until you say so.
+
+When you click Payment started, the seller will receive a notification that lets them know the payment is on the way. They’ll be on the lookout for it now.
+
+[[File:PaymentStarted.png|thumb|left|500px]]
+
+<br clear=all>
+
+== Complete trade ==
+
+When the seller receives your payment, they’ll mark it as received in Bisq. Bisq will then complete the trade by releasing the bitcoin you bought to you along with your security deposit.
+
+You can keep your new bitcoin in your built-in Bisq wallet by clicking Move Funds to Bisq Wallet or send it elsewhere by clicking Withdraw to External Wallet.
+
+[[File:Movefundsaftertrade.png|thumb|left|500px]]
+
+<br clear=all>
+
+Congratulations. You’ve just completed your first trade on Bisq!
+
+[[Category:Use Cases]]<!-- BISQ VERSION: general -->

@@ -1,0 +1,19 @@
+Traders incur '''trading costs''' to do trades using the Bisq trading protocol.
+
+__TOC__
+
+=== Trading fees ===
+
+[[Trading_fees|Trading fees]] are paid to the Bisq DAO to fund development of the Bisq software.
+
+These fees are payable in BTC or BSQ, with BSQ fees targeted at offering a discount of 25% over BTC fees.
+
+=== Mining fees ===
+
+Bitcoin [[mining fees]] must be paid to do on-chain bitcoin transactions, and each Bisq trade currently requires 4 on-chain transactions: maker fee tx, taker fee tx, deposit tx, and payout tx.
+
+Offer makers only pay for the first one (maker fee tx) while offer takers pay for the other three (taker fee tx, deposit tx, and payout tx).
+
+=== Premiums ===
+
+Another potential "cost" is the difference between [[Bisq_Price_Indices|spot price]] offer price (also known as spread). Spread is set by offer-makers and tends to go down as liquidity improves.<!-- BISQ VERSION: bisq1 -->

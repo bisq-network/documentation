@@ -1,0 +1,19 @@
+{
+  "title": "Bisq 1",
+  "page_id": "609",
+  "revision_id": "4173",
+  "revision_timestamp": "2026-10-14T22:50:06Z",
+  "available_attribution": {
+    "username": "204.76.203.27",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Bisq_1",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=4173",
+  "wikitext_sha256": "39061378cbcb3d285c654e4b55e1556de0f753bc4f7b34a0bc88c2a07c053bad",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/bisq-1/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

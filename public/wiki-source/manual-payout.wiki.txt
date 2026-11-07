@@ -1,0 +1,55 @@
+== Overview ==
+
+Funds for a Bisq trade are locked in a 2-of-2 multisig that is controlled only by the two parties involved.
+Bisq normally does all the work to sign and publish the payout at trade completion.
+However sometimes a trade can fail due to unforseen circumstances, leaving the funds stranded in the 2-of-2 multisig.
+When this happens, a Manual Payout may be necessary.
+
+
+== Using Bisq's Manual Payout tool ==
+The emergency payout tool is in Bisq, if you do a CTRL-G it will open.  
+
+The purpose of the tool is to allow owners of a 2of2 multisig to issue a transaction which pays out the funds to their addresses.  The tool is designed to be used in collaboration with mediators but
+it could conceivably be used by the multisig key holders alone.
+
+The tool operates in 4 steps: 
+
+# Fill input information; 
+# Import/export details to trade participants; 
+# Sign using each holder's private key; 
+# Build and broadcast the payout.
+
+
+
+=== Fill in inputs ===
+
+Input information can be either filled in manually using information from the Bisq trade's Json contract, or for ease of use the same information can be imported from the Mediation ticket.
+
+* If filling in manually, all fields on the "Inputs" tab must be entered.
+* If importing from Mediation, choose the Import menu option then pick your mediation ticket from the drop down list and press "Import from mediation ticket".
+
+One important thing which the tool prompts you for is the "amountInMultisig" field.  This value is not known in Bisq, so the user (or Mediator) has to look it up on a Blockchain explorer and enter it completely accurately into the tool.  If it is incorrect in any way the resultant transaction will fail.  (Reason for this is that Segwit includes the amount as part of the signature inputs).
+
+
+=== Import/Export to trade participants ===
+
+Once accurate input information has been entered, the same information needs to be passed to both owners of the multisig keys (the two traders).  This is what the "Export" menu item is for.  It translates the input field data into a code which can be DM'd or emailed to the participants, which they can enter via the "Import" menu (& "Import from String" option).  
+
+The important thing is that each participant have EXACTLY the same information entered into the Inputs section of the tool.  If there is any discrepancy between the inputs that each participant signs, then the transaction will be invalid.
+
+Note that if the two traders have access to the mediation ticket they can Import from the ticket themselves.  But it is generally best for Mediator to Export their filled in fields to both traders (via DM).
+
+
+=== Sign ===
+
+Both participants have to sign the inputs.  This is done from the Sign menu, for convenience there is a "Locate key in wallet" button which will scan the user's wallet for a key which matches the inputs.  "Generate signature" will sign the inputs using the key at the top of the screen.  Users could alternatively choose to locate the key themselves, and paste it into the "privateKeyHex" field before doing "Generate signature".
+
+Once the signature has been generated each participant should send it to the person who will build and broadcast the transaction (usually the Mediator).
+
+
+=== Build & Broadcast ===
+
+Once both signatures have been provided, they can be pasted into the Build screen at which time the "Build" button at the bottom of that screen should be pressed.  It will generate the TxID and transaction hex into the text area.  The transaction hex can be verified using your own tools* or simply broadcast to the network using the "Broadcast" button (or alternatively send it yourself using your Bitcoin node).   
+
+
+* NB: "https://bitaps.com/broadcast" has a "Preview" feature that tests if the transaction is acceptable to the mempool before actually sending it.  Any errors in the transaction will be listed, or if it is good it will say "Test mempool transaction accepted" and give the option to broadcast it at that point.<!-- BISQ VERSION: general -->

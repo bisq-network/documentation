@@ -1,0 +1,125 @@
+'''Monero (XMR)''' is one of the most active markets on Bisq. This article covers some things you should know when trading it.
+
+= Instant payment accounts =
+
+By default, all altcoins trades on Bisq have trade periods of 1 day. But you can set up an [[Creating_a_payment_account#Instant_accounts|Altcoins Instant account]] on Bisq for 1-hour trade periods.
+
+= Proving payments =
+
+Some details of XMR transactions are not publicly available on the blockchain. In order for a mediator or arbitrator to handle disputes, the XMR seller must make sure they send XMR using a wallet that provides the following 3 items to prove the payment was made:
+# transaction key (Tx Key, Tx Secret Key, or Tx Private Key)
+# transaction ID (Tx ID or Tx Hash)
+# recipient's address
+
+This information can be found in the following wallets: official Monero GUI and CLI wallets, MyMonero, Exodus (desktop), Cake Wallet, and Monerujo (mobile):
+
+* Monero GUI: on the Transactions tab.
+* Monero CLI: use the command <code>get_tx_key <TXID></code>. The flag <code>store-tx-info</code> must be enabled (it's enabled by default in new versions).
+* Other wallets: go to transaction history and look for transaction key (sometimes called "tx key" or "secret key") and destination address in a sent transaction. For Cake Wallet, the "Save recipient address" option must be enabled in settings.
+
+If you are using another wallet not mentioned above, be sure you can still access the 3 items mentioned above.
+
+Since transaction keys and destination addresses are stored in Monero wallet software and not available anywhere else, be careful not to delete or restore your Monero wallet before a Bisq trade is complete. 
+
+'''Failure to provide the required transaction data will result in losing disputes.'''
+
+= Verifying payments =
+
+To verify that a certain sum of Monero was sent to a specific address:
+* Monero GUI: change wallet to Advanced mode and go to <code>Advanced</code> > <code>Prove/check</code> > <code>Check Transaction</code>
+* Monero CLI: use the command <code>check_tx_key <TXID> <TXKEY ADDRESS></code>
+
+* [https://monero.com/explorer Monero.com explorer] - working checked 17.10.23
+* [https://p2pool.io/explorer/ P2pool explorer] - working checked 17.10.23
+* [https://xmrchain.net/ XMR Chain] - working checked 17.10.23
+* [https://www.exploremonero.com/receipt Explore Monero website] - working checked 26.11.23
+* [https://xmr.llcoins.net/checktx.html XMR Check Transaction tool] - not working checked 17.10.23
+
+If you still have questions, see [https://www.getmonero.org/resources/user-guides/prove-payment.html this guide on the Monero home page] or ask a question on the [https://www.reddit.com/r/monerosupport/ Monero support subreddit].
+
+= Auto-confirming trades =
+
+Auto-confirming trades verify receipt of XMR payment automatically. Typically, XMR buyers must check their wallet and manually mark a payment as received in Bisq. Auto-confirming trades do this automatically, making trades quicker and more efficient for both traders.
+
+This feature is currently available for XMR trades where:
+* the XMR seller provides a valid transaction key or viewkey
+* the XMR buyer has auto-confirming trades turned on in Bisq settings
+
+Auto confirming works very well most of the time. However on some occasions users might be manually required to confirm payment, for example then the incorrect data is supplied by the BTC buyer.
+
+By default auto-confirming trades is turned on in the Bisq app, if you wist to turn if off it can be done in Settings > Preferences:
+
+[[File:XMR auto confirm.png|frame|left|XMR auto confirm]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+== How it works ==
+
+=== XMR Seller ===
+
+The XMR seller will get a pop-up upon clicking <code>Payment Sent</code> asking for the XMR tx ID and XMR tx key. 
+
+[[File:Autoconfirm-xmrseller-input.png|600px|thumb|left|The XMR seller can choose to enter this information, or not.]]
+
+<div style="clear: both;"></div>
+
+The trader can choose to enter this information, or not. '''It is not mandatory'''. If the trader chooses not to, they'll be informed that their trading peer will not be able to use auto-confirm.
+
+=== XMR Buyer ===
+
+The XMR buyer must have auto-confirm turned on in Bisq settings. 
+
+[[File:Auto-confirm-status.png|500px|thumb|left|Auto-confirm status on the trade screen. In this particular instance, the XMR seller didn't specify the information needed for auto-confirm to work.]]
+
+<div style="clear: both;"></div>
+
+Explorer nodes are queried every 90 seconds for 12 hours. If 12 hours pass without success, auto-confirm fails for the trade. If Bisq receives just 1 failure of any kind (related to transaction, network issues, etc), auto-confirm is considered failed. '''This does not mean the XMR transaction was invalid.''' It just means the user should check the transaction manually.
+
+The user can mark the transaction as received any time by clicking <code>Confirm Payment Receipt</code> themselves, and auto-confirm will stop running for that trade and the trade will be completed normally.
+
+{{Admonition_Note|If mediation or arbitration is open for a trade, auto-confirm will not confirm the trade.}}
+
+== Settings ==
+
+On the Bisq settings screen, you can set:
+* Maximum amount of BTC that can be confirmed per trade (default: 1 BTC)
+* Monero Explorer node address (default: nodes run by Bisq contributors; see [[#Set_up_your_own_node|below]] for how to run your own)
+* Number of required confirmations (default: 5)
+
+Please note that changes to these settings are applied immediately only for trades for which payment hasn't been started yet. Restart Bisq for updated settings to apply to all trades.
+
+'''Changing the required number of confirmations is an exception: it takes effect immediately for all trades.'''
+
+Disabling the auto-confirm feature altogether also takes effect immediately. But re-enabling the feature will only take effect on trades for which payment hasn't been started yet; restart Bisq for the auto-update feature to apply to all trades.
+
+[[File:Screenshot from 2020-09-03 12-41-19-touched.png|600px|thumb|left]]
+
+<div style="clear: both;"></div>
+
+== Monero Explorer nodes ==
+
+By default, the Bisq auto-confirm feature relies on [https://github.com/bisq-network/roles/issues/107 a few Monero Explorers operated by Bisq contributors], but we highly recommend you to run your own Monero Explorer node at home. Don't trust, verify!
+
+=== Set up your own node ===
+
+For maximum privacy and security, users are recommended to run their own Monero Explorer node for verifying receipt of funds.
+# [https://github.com/monero-project/monero Build Monero from source]. Check out [https://github.com/moneroexamples/monero-compilation/blob/master/README.md this guide] for further guidance. Ubuntu (18.04 in particular) tends to work better than plain Debian.
+# [https://github.com/moneroexamples/onion-monero-blockchain-explorer Build the Monero explorer from source].
+# Run <code>monerod</code>.  
+# Once the Monero blockchain is synced, run the explorer with <code>xmrblocks --enable-json-api</code>.
+# Specify your explorer's address on the Bisq settings screen.<!-- BISQ VERSION: general -->

@@ -1,0 +1,19 @@
+{
+  "title": "Pricenode",
+  "page_id": "385",
+  "revision_id": "1673",
+  "revision_timestamp": "2020-08-10T12:34:19Z",
+  "available_attribution": {
+    "username": "MwithM",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Pricenode",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=1673",
+  "wikitext_sha256": "ba169e49520fe2db3cfb93357dc9bcd8638838e34915746198f7467b160760ad",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/pricenode/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

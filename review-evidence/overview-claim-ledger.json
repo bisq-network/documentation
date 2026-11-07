@@ -1,0 +1,176 @@
+{
+  "checked_utc": "2026-11-07T13:54:12.582184+00:00",
+  "claims": [
+    {
+      "guide": "start/choose-bisq",
+      "claim": "Bisq Easy targets first-time buyers and can be used without already owning bitcoin; reputation belongs to seller.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/bisq-network/bisq2/cfe8ab251f2b6579f29e9955036afc33ba36861e/README.md",
+          "sha256": "e406ffa7aa184c921b314e4f590b057923c349f9e1e59fec0fbe583fe6f1e174",
+          "matching_lines": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "guide": "start/choose-bisq",
+      "claim": "Bisq1 and Bisq2 are separate applications that can run alongside one another.",
+      "sources": [
+        {
+          "url": "https://bisq.network/bisq-easy/",
+          "sha256": "cf9d9b3485bb5b4ba229a1fdef402028a692c0d0c301dc2deed14a7a83dcce7a",
+          "matching_lines": [
+            307
+          ]
+        }
+      ]
+    },
+    {
+      "guide": "start/choose-bisq",
+      "claim": "The choice table points to current product guides for the separately verified fees, deposits, order and help paths.",
+      "sources": [],
+      "cross_review": "Completed against the current product guides and pinned sources; see product claim records."
+    },
+    {
+      "guide": "contribute/getting-started",
+      "claim": "Official 4 November policy pauses new compensated development and routine review of new contributor PRs, with exceptions and prior maintainer coordination.",
+      "sources": [
+        {
+          "url": "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "sha256": "37308bdfb68ffae040a5e11f31bb7b35cff1771651d15ad83951561d7b6aa6d7",
+          "matching_lines": [
+            289
+          ]
+        }
+      ]
+    },
+    {
+      "guide": "contribute/getting-started",
+      "claim": "Bisq1 uses focused pull requests and signed commits; Matrix is a coordination channel.",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/bisq-network/bisq/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md",
+          "sha256": "72943b9b8fc50d7c87e33ee29e4ec0362cb1f480306f7c0aad09f26655fa2776",
+          "matching_lines": [
+            26
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/bisq-network/bisq/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md",
+          "sha256": "72943b9b8fc50d7c87e33ee29e4ec0362cb1f480306f7c0aad09f26655fa2776",
+          "matching_lines": [
+            76
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/bisq-network/bisq/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md",
+          "sha256": "72943b9b8fc50d7c87e33ee29e4ec0362cb1f480306f7c0aad09f26655fa2776",
+          "matching_lines": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "guide": "contribute/getting-started",
+      "claim": "Review and compensation are not guaranteed; contributor must understand and take responsibility for work.",
+      "sources": [
+        {
+          "url": "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "sha256": "37308bdfb68ffae040a5e11f31bb7b35cff1771651d15ad83951561d7b6aa6d7",
+          "matching_lines": [
+            259
+          ]
+        },
+        {
+          "url": "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "sha256": "37308bdfb68ffae040a5e11f31bb7b35cff1771651d15ad83951561d7b6aa6d7",
+          "matching_lines": [
+            292
+          ]
+        }
+      ]
+    },
+    {
+      "guide": "dao/overview",
+      "claim": "BSQ is Bitcoin-based; compensation issuance and fee burning connect contributors with traders.",
+      "sources": [
+        {
+          "url": "https://bisq.network/dao/",
+          "sha256": "c2c9037571fffdbe8d740f70da5281419489dedac4d8ac798bc73e187ea4e7b2",
+          "matching_lines": [
+            649,
+            672
+          ]
+        },
+        {
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+          "matching_lines": [
+            2880
+          ]
+        },
+        {
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+          "matching_lines": [
+            2886
+          ]
+        }
+      ]
+    },
+    {
+      "guide": "dao/overview",
+      "claim": "Vote weight includes stake and earned merit.",
+      "sources": [
+        {
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+          "matching_lines": [
+            2656
+          ]
+        }
+      ]
+    },
+    {
+      "guide": "dao/overview",
+      "claim": "Proposal options include parameter changes and bond confiscation.",
+      "sources": [
+        {
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+          "matching_lines": [
+            2582,
+            2599
+          ]
+        },
+        {
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "sha256": "5e310d7d3cad5a03c8303ba65199670f93277069cc642aa597cbd23b061f6637",
+          "matching_lines": [
+            2218,
+            2233,
+            2578,
+            2595
+          ]
+        }
+      ]
+    },
+    {
+      "guide": "dao/overview",
+      "claim": "BSQ must be handled by BSQ-aware wallet rules.",
+      "sources": [],
+      "cross_review": "Completed against the current product guides and pinned sources; see product claim records."
+    }
+  ],
+  "editorial_changes": [
+    "Replaced open-ended historic compensation invitation with dated current policy.",
+    "Removed repeated recovery-pilot narrative and duplicated backup instructions in favor of linked canonical guides.",
+    "Kept dynamic trade limits, fees, DAO values and unsupported wallet procedures out of short overviews.",
+    "Source archive remains unchanged and linked separately."
+  ],
+  "independent_review": "editorial-current/bisq1/cross-review-root-and-bisq2.json",
+  "review_status": "Independent high-impact cross-review completed; maintainer/product-flow review pending"
+}

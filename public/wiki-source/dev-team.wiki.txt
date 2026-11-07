@@ -1,0 +1,17 @@
+__TOC__
+
+==Roles==
+* [[Bisq Maintainer]]
+
+==Infrastructure==
+===GitHub Teams===
+===GitHub Repositories===
+===Matrix Chat===
+https://matrix.to/#/#bisq.dev:bitcoin.kyoto
+===Critical Bugs board===
+See [[Critical Bugs]]
+
+==Processes==
+See [[Development Process]]
+
+[[Category:Teams]]<!-- BISQ VERSION: general -->

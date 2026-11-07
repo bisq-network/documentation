@@ -1,0 +1,47 @@
+==Bitcoin unit names==
+
+Some names have been proposed for different denominations of bitcoin for everyday use. One syllable words are preferred. Capital letter symbols for multiples of Bitcoin, lower case for fractions. Homage to the devs and other influences on the creation of Bitcoin.
+
+{| class="wikitable"
+|+ Bitcoin unit names and symbols
+|-
+! Bitcoin !! Satoshis !! Unit name !! Symbol
+|-
+| 1,000,000.00000000 || 100,000,000,000,000 || Nakamoto || M
+|-
+| 100,000.00000000 || 10,000,000,000,000 || Fin || F
+|-
+| 10,000.00000000 || 1,000,000,000,000 || wei || W
+|-
+| 1,000.00000000 || 100,000,000,000 || thou || T
+|-
+| 100.00000000 || 10,000,000,000 || Cot || C
+|-
+| 10.00000000 || 1,000,000,000 || dex || X
+|-
+| 1.00000000 || 100,000,000 || Bitcoin || ₿
+|-
+| 0.10000000 || 10,000,000 || nick || n
+|-
+| 0.01000000 || 1,000,000 || cent || c
+|-
+| 0.00100000 || 100,000 || hal || h
+|-
+| 0.00010000 || 10,000 || den || d
+|-
+| 0.00001000 || 1,000 || mil || m
+|-
+| 0.00000100 || 100 || bit || b
+|-
+| 0.00000010 || 10 || ten || x
+|-
+| 0.00000001 || 1 || satoshi || s
+|-
+| 0.000000001000 || 0.1 || shi || ds
+|-
+| 0.000000000100 || 0.01 || back || cs
+|-
+| 0.000000000010 || 0.001 || millisat || ms
+|-
+| 0.000000000001 || 0.0001 || nak || ns
+|}<!-- BISQ VERSION: general -->

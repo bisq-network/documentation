@@ -1,0 +1,26 @@
+You can '''run Bisq from the command line''' (also known as the terminal or console) to launch the application with specific temporary settings or for debugging purposes. This is done by navigating to the Bisq application directory and executing the program with specific arguments appended.
+
+There are many options you can specify – [https://github.com/bisq-network/bisq/blob/master/common/src/main/java/bisq/common/config/Config.java#L57 see the source code for a full list].
+
+__TOC__
+
+== Why Run from Command Line? ==
+
+* '''Temporary Settings:''' Apply a specific command-line option for a single session without permanently changing configuration files (e.g., connecting to a specific Bitcoin node just once).
+* '''Troubleshooting:''' Launching from the command line allows you to see log output directly in the terminal window, which can be helpful for diagnosing startup issues or other problems.
+* '''Multiple Instances:''' Using options like `--appName` allows running multiple, separate instances of Bisq simultaneously (e.g., for testing or separating identities before Bisq 2's built-in feature).
+
+== How to Run ==
+
+The template below shows the typical commands for launching Bisq from the command line on different operating systems. Replace `<nowiki>[OPTIONS]</nowiki>` with any specific command-line options you wish to use for that session.
+
+{{Run_with_command_line_options|<nowiki>[OPTIONS]</nowiki>}}
+== Alternative: Persistent Options ==
+
+Using command-line arguments applies settings only for the session launched that way. If you want to set options '''persistently''' (so they apply every time you start Bisq normally), it's usually better to edit the `bisq.properties` file located in your [[Data directory]].
+
+See the [[Data directory]] page for more information on locating this file and its structure.
+
+[[Category:Configuration]]
+[[Category:Technical]]
+[[Category:Troubleshooting]]<!-- BISQ VERSION: bisq2 -->

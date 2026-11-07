@@ -1,0 +1,22 @@
+The '''YouTube Admin''' maintains the Bisq YouTube channel, uploading videos and answering comments as necessary.
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/56
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/youtube-admins @bisq-network/youtube-admins]
+
+== Duties ==
+* Upload videos as necessary
+* Answer comments from YouTube users
+* Feature talks, reviews, and other videos on playlists and the channel's front page for easier discovery
+
+== Rights ==
+* "Manager" rights over the [https://youtube.com/c/bisq-network YouTube channel]
+
+== Bonding ==
+Required. See https://github.com/bisq-network/bisq/blob/42a037e/core/src/main/java/bisq/core/dao/state/model/governance/BondedRoleType.java#L48
+
+[[Category:Roles]]<!-- BISQ VERSION: general -->

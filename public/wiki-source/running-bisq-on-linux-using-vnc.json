@@ -1,0 +1,19 @@
+{
+  "title": "Running Bisq on Linux using VNC",
+  "page_id": "423",
+  "revision_id": "1898",
+  "revision_timestamp": "2020-11-25T16:37:02Z",
+  "available_attribution": {
+    "username": "Wiz",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Running_Bisq_on_Linux_using_VNC",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=1898",
+  "wikitext_sha256": "5ab03b275a9b8a56707ab08fc828a2103e180b66534379c6e1beaa36686088ec",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/running-bisq-on-linux-using-vnc/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

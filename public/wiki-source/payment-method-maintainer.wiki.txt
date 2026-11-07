@@ -1,0 +1,41 @@
+The '''Payment Method Maintainer''' vets new payment methods for use in Bisq, maintains existing ones, and monitors performance. 
+
+This is not a technical maintainer role—meaning it is not about development, but rather about managing the process for adding and maintaining payment methods.
+
+__TOC__
+
+== Issue ==
+<!-- link to this role's corresponding issue in the https://github.com/bisq-network/roles repository -->
+https://github.com/bisq-network/roles/issues/38
+
+== Team ==
+
+[https://github.com/orgs/bisq-network/teams/payment-method-maintainers @bisq-network/payment-method-maintainers]
+
+== Duties ==
+<!-- list in bullet points each of the duties that owner(s) of this role must fulfill -->
+* Tasks
+** Monthly reporting on payment method volume and health
+** Monthly reporting on role issues
+** Payment methods prioritization
+** Payment methods requirements verification and required fields description
+** Maintain payment methods roadmap
+** Develop payment method addition process
+* Goals
+** Proactively find payment methods to support Bisq's growth in coordination with growth experiments
+** Support to proposed payment methods addition
+** Develop payment methods maintainer role
+* KPIs
+** % of transaction problems related to payment methods
+** % of market share represented by supported payment methods (TBD)
+** % arbitration requests / payment method, speed, etc.
+
+== Rights ==
+<!-- list in bullet points all special privileges that owner(s) of this role are granted, e.g. repository access -->
+None.
+
+== Bonding ==
+Not required.
+
+[[Category:Roles]]
+[[Category:Maintainer]]<!-- BISQ VERSION: general -->

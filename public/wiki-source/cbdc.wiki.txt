@@ -1,0 +1,37 @@
+CBDC (Central Bank Digital Currency) is the final and most insidious form of [[fiat]] money, since as programmable money it allows a much higher degree of control, including geofencing, time limits, restrictions on saving, blacklisting, censorship, etc. It can potentially lead to [[ubiquitous law enforcement]] and facilitate social credit systems.
+
+== CBDC programs around the world ==
+A large number of governments around the world are working on developing a CBDC. 3 have launched. 36 are in the pilot stage and 30 are in development. These are some of the most relevant.
+
+{| class="wikitable"
+|+ CBDC
+|-
+! Country !! Stage !! Tech !! FOSS !! Privacy !! Transparency !! Issuance Limit !! Users (M) !! Name !! Dev. co !! DB leak !! Hacked
+|-
+| China || Pilot || . || . || . || . || . || 250 || e-CNY || . || . || 
+|-
+| Nigeria || Live || Fabric || NO || . || . || . || 12 || e-Naira || Bitt Inc || . ||
+|-
+| Jamaica || Live || NZIA || NO || . || . || . || 0.120 || Sand Dollar || NZIA || . ||
+|-
+| Bahamas || Live || . || . || . || . || . || . || . || . || . ||
+|-
+| USA || Development || . || . || . || . || . || . || . || . || . ||
+|-
+| EU || Development || . || . || . || . || . || . || Digital euro || . || . ||
+|-
+| India || Pilot || . || . || . || . || . || 5 || Digital Rupee || . || . ||
+|-
+| UK || Development || . || . || . || . || . || . || . || . || . ||
+|-
+| Brazil || Pilot || . || . || . || . || . || . || Drex || . || . ||
+|-
+| Russia || Pilot || . || . || . || . || . || . || . || . || . ||
+|-
+| Ukraine || Pilot || Stellar || . || . || . || . || . || . || Bitt Inc || . ||
+|}
+
+== External links ==
+
+*CBDCtracker [https://www.atlanticcouncil.org/cbdctracker/ cbdctracker] lets you see how CBDC implementation around the world is advancing.
+*HRF [https://cbdctracker.hrf.org/home HRF CBDCtracker]. The Human Rights Foundation is also keeping a critical eye on CBDC progress around the world.<!-- BISQ VERSION: general -->

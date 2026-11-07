@@ -1,0 +1,77 @@
+'''Tikkie''' is a payment method added in Bisq v1.8.0. 
+
+Tikkie is a payment......
+
+== What countries are available for Tikkie? ==
+
+Tikkie is available in the following countries;  
+
+== What currencies are available for Tikkie? ==
+
+Tikkie supports the following currencies;  
+
+== What is the maximum trading duration for Tikkie? ==
+
+The maximum trade time is X days. Generally Tikkie transfers will be completed within X days.
+
+== What is the maximum BTC limit for an Tikkie trade? ==
+
+{{MaxTradeSizeBisq1}}.
+
+== Is Tikkie a payment method that can be signed? ==
+
+No, Tikkie accounts do not require signing.
+
+== How do I set up a Tikkie account? ==
+
+== How do I add Tikkie as a payment method in Bisq? ==
+
+It is easy to add your Tikkie account to Bisq.
+
+# Go to the top menu in Bisq and select Account. 
+# Then select National Currency Accounts. 
+# Click add new account
+# Select Tikkie
+# Complete the details
+# Choose to use a custom account name this helps makes it easier for you to manage multiple payment methods in Bisq (this will be visible only to you, for example: Tikkie - EUR - Jan Modaal)
+# Click save new account
+
+If you have more than one Tikkie account you wish to add to Bisq you can create different accounts for each.
+
+Make sure all the details are correct when you add.
+
+== How do I buy BTC with my Tikkie account? ==
+
+You can buy BTC with Tikkie on Bisq in 2 waysː
+
+# Make an offer to buy BTC on the EUR market.
+# Take an offer to buy BTC on the EUR market.
+
+When the offer is confirmed Bisq will provide you with the BTC Sellers Tikkie details for you to complete the payment. You should send payment immediately and confirm you have done so in Bisq by clicking 'payment started'.
+ 
+If you have the option to include a payment reference please leave it blank. If your bank requires one, please just use your name that matches your bank account.
+
+Once the BTC Seller receives your payment they will confirm in Bisq and your security deposit and your purchased trade amount will be available in your wallet.
+
+== How do I sell BTC with my Tikkie account? ==
+
+You can sell BTC with Tikkie on Bisq in 2 waysː
+
+# Make an offer to sell BTC on the EUR market.
+# Take an offer to sell BTC on the EUR market.
+
+When the offer is confirmed Bisq will provide with the BTC Buyer with your Tikkie details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking 'payment started'.
+
+Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.
+
+== Are there any limits for me to be aware of when using my Tikkie account? ==
+
+== Are there any fees for me to be aware of when using my Tikkie account? == 
+
+== How does dispute resolution when trading with Tikkie? ==
+
+If a dispute occurs the mediator may ask the buyer to send them information showing that they made the payment of the correct amount to the BTC Seller within the correct time frame. 
+
+The mediator may ask the seller to send them information to prove their account details are correct, or in the case of the BTC Buyer making a payment late, or of the wrong amount. 
+
+For more information see [[dispute resolution]].<!-- BISQ VERSION: general -->

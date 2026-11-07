@@ -1,0 +1,159 @@
+<languages/>
+<translate>Bisq offers several '''payment methods''' to buy and sell bitcoin for fiat currencies or other cryptocurrencies.
+
+{{Admonition_Note|'''Version Context:''' The details on this page, particularly regarding trade limits and account signing, primarily apply to trading on '''[[Bisq 1|Bisq v1]]'''.}}
+
+Every offer on Bisq designates a payment method for traders to settle payments. The Bisq software does not actually integrate with any payment methods—'''all non-bitcoin fund transfers are made outside of Bisq software'''.
+
+Unlike cryptocurrency transfers, many fiat payment transfers have limitations that require Bisq [[Bisq 1|v1]] to employ special measures like lower per-trade limits and [[Account_limits#Account_signing|account signing]] to encourage fair trades.
+
+__TOC__
+
+== Fiat payment methods ==
+
+Fiat payment methods vary significantly in characteristics like chargeback risk, regional availability, transaction limits, fees, privacy, and verification speed. The primary consideration for supporting a method on Bisq is '''chargeback risk'''. Methods with easy chargebacks (like PayPal, Venmo, Cash App) are generally not supported.
+
+Suggestions for new payment methods, especially those enabling new markets, are welcome. See the criteria and process for adding methods [https://github.com/bisq-network/growth/issues/new?assignees=&labels=re%3Apayment-method&template=add_payment_method.md&title= here on GitHub], or discuss them on [https://bisq.chat Matrix] in the #payment-methods channel.
+
+Below is a list of fiat payment methods currently supported in Bisq v1.
+
+'''Note on Signing Requirement:''' Methods marked with an asterisk (*) '''do not''' require [[Account_limits#Account_signing|account signing]] to lift the initial low buying limit. All other listed fiat methods generally require signing.
+
+'''Note on Trade Limits:''' The maximum trade sizes listed below may not be available immediately for new payment accounts. Please refer to [[Account_limits]] for details on account aging and signing required to enable larger trade sizes.
+
+{| class="wikitable sortable"
+|+ Supported Fiat Payment Methods (Bisq v1)
+|-
+! Payment Method [* = Signing Not Required] !! Region !! Trading Period !! Per-Trade Limit (BTC) !! Notes
+|-
+| [[ACH]]* || USA || 5 days || 0.0624 || 
+|-
+| Advanced Cash* || Global (BRL, EUR, GBP, KZT, RUB, UAH, USD) || 1 day || 0.5 || Not available in the USA.
+|-
+| Alipay* || China || 1 day || 0.1252 || 
+|-
+| [[Amazon_eGift_card|Amazon eGift Card]]* || Global (AUD, CAD, EUR, GBP, INR, JPY, SAR, SEK, SGD, TRY, USD) || 1 day || 0.0624 || Check supported markets in [[Amazon_eGift_card|article]].
+|-
+| Australian PayID* || Australia || 1 day || 0.1252 || 
+|-
+| [[Bizum]]* || Spain|| 1 day || 0.02 || Bizum limits: ~1000 EUR/trade, ~2000 EUR/day.
+|-
+| [[Capitual]]* || Global (BRL, EUR, GBP, USD) || 1 day || 0.0624 || 
+|-
+| [[Cash by Mail]]* || Global || 8 days || 0.0624 || Follow [[Cash_by_Mail|instructions carefully]].
+|-
+| Cash Deposit* || Global || 4 days || 0.0624 || Check if payee bank allows 3rd party deposits.
+|-
+| [[CelPay]]* || Global (AUD, CAD, GBP, HKD, USD) || 1 day || 0.0624 || CelPay limit: ~$2,500/day.
+|-
+| Domestic Wire Transfer* || USA || 3 days || 0.0624 || 
+|-
+| [[Face-to-face_(payment_method)|Face-to-Face (F2F)]]* || Global || 4 days || 0.25 || See [[Face-to-face_(payment_method)|F2F article]] for guidance.
+|-
+| [[Faster Payments]]* || UK || 1 day || 0.0624 || See [[Faster_Payments|article]] for usage notes.
+|-
+| [[Faster_Payments_System_SBP|Faster Payments System (SBP)]]* || Russia || 1 day || 0.05 || 
+|-
+| HalCash* || Spain || 1 day || 0.25 || 
+|-
+| [[IMPS]]* || India || 1 day || 0.0624 || IMPS limit: ~1,000,000 INR/day.
+|-
+| Interac-e-Transfer || Canada || 1 day || 0.0624 || Interac Autodeposit is '''not''' supported.
+|-
+| Japan Zengin Furikomi* || Japan || 1 day || 0.25 || 
+|-
+| MercadoPago || Argentina || 1 day || 0.0624 || 
+|-
+| [[Monese]]* || Europe (GBP, EUR, RON) || 1 day || 0.0624 || 
+|-
+| MoneyBeam (N26) || Europe || 1 day || 0.0624 || 
+|-
+| MoneyGram* || Global || 4 days || 0.0832 ||
+|-
+| National Bank Transfer || Global || 4 days || 0.0624 || 
+|-
+| [[Nequi]]*|| Colombia || 1 day || 0.0624 || Nequi limit: ~7,000,000 COP/month.
+|-
+| [[NEFT]]* || India || 1 day || 0.10 || NEFT limit: ~50,000 INR/transaction.
+|-
+| [[Paxum]]* || Global || 1 day || 0.0624 || 
+|-
+| [[Paysera]]* || Global || 1 day || 0.0624 || 
+|-
+| [[PayTM]]* || India || 1 day || 0.0250 || PayTM limit: ~100,000 INR/transaction.
+|-
+| Perfect Money* || Global || 1 day || 0.25 || 
+|-
+| [[Pix]]*|| Brazil || 1 day || 0.0624 || 
+|-
+| Popmoney || USA || 1 day || 0.0624 || 
+|-
+| PromptPay* || Thailand || 1 day || 0.0624 || 
+|-
+| [[Revolut]] || Global || 1 day || 0.0624 || See [[Revolut|article]] for usage notes.
+|-
+| [[RTGS]]* || India || 1 day || 0.10 || RTGS limits: Min 200,000 INR, Max 1,000,000 INR/transaction.
+|-
+| [[Satispay]]* || Italy || 1 day || 0.0624 || 
+|-
+| [[SEPA]] || Europe || 6 days || 0.0624 || 
+|-
+| [[SEPA Instant]] || Europe || 1 day || 0.0624 || 
+|-
+| [[Strike]]* || USA || 1 day || 0.0624 || Non-KYC Strike users have lower limits.
+|-
+| [[SWIFT]]* || Global || 7 days || 0.0832 || 
+|-
+| Swish* || Sweden || 1 day || 0.1252 || 
+|-
+| [[Tikkie]]* || The Netherlands || 1 day || 0.0250 || Tikkie limit: ~2500 EUR/24 hours.
+|-
+| Transfer with Same Bank || Global || 2 days || 0.0624 || 
+|-
+| Transfer from Specific Banks || Global || 4 days || 0.0624 || 
+|-
+| [[US Postal Money Order]]* || USA || 8 days || 0.0624 || USPS limits: Max 1000 USD/order, check daily limits.
+|-
+| Uphold || Global || 1 day || 0.0624 || 
+|-
+| [[UPI]]* || India || 1 day || 0.0250 || UPI limit: ~100,000 INR/transaction.
+|-
+| WeChat Pay* || China || 1 day || 0.0832 || 
+|-
+| Western Union || Global || 4 days || 0.0832 || 
+|-
+| [[Wise]]* || Global ('''non-USD''' trades) || 4 days || 0.0624 || 
+|-
+| [[Wise-USD]]* || Global ('''USD''' trades) || 4 days || 0.0624 || 
+|-
+| [[Zelle]] || USA || 4 days || 0.0624 || Check your bank's Zelle support & limits.
+|}
+=== Payment method guides ===
+
+<gallery mode="packed" heights="150px">
+File:Payment-methods-advice-eur.png|EUR payment methods overview.
+File:Payment-methods-advice-usd.png|USD payment methods overview.
+</gallery>
+
+== Altcoin payment methods ==
+
+Bisq also supports trading Bitcoin against various cryptocurrencies, like XMR, ETH, ZEC, L-BTC or LTC. A full list is available on the [https://bisq.network/markets/ Bisq Network Markets page].
+
+Because cryptocurrency transfers are generally irreversible and fast, altcoin trades usually have higher limits (up to 0.5 BTC) available immediately, without the need for account aging or signing required for many fiat methods.
+
+{| class="wikitable"
+|+ Supported Altcoin Payment Methods (Bisq v1)
+|-
+! Payment Method !! Trading Period !! Per-Trade Limit (BTC)
+|-
+| [[Altcoins]] || 1 day || 0.5
+|-
+| [[Altcoins Instant]] || 1 hour || 0.5
+|}
+
+'''Warning for Instant Trades:''' Altcoins Instant trades require quick confirmation (within 1 hour). Remember to disable any open Instant offers (via `Portfolio` > `My Open Offers`) if you might be unavailable to complete the trade promptly.
+
+See the general Account setup process within Bisq for adding altcoin accounts.
+
+[[Category:Features]]
+</translate><!-- BISQ VERSION: bisq1 -->

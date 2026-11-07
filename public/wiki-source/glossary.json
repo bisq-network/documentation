@@ -1,0 +1,19 @@
+{
+  "title": "Glossary",
+  "page_id": "32",
+  "revision_id": "93",
+  "revision_timestamp": "2020-02-17T12:14:08Z",
+  "available_attribution": {
+    "username": "Cbeams",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Glossary",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=93",
+  "wikitext_sha256": "d4d934da0f9832a48979659eab695fe7ef035a8be847f300ae3ba88e3c3f439d",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/glossary/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

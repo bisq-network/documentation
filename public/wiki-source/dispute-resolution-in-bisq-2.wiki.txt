@@ -1,0 +1,34 @@
+Sometimes, Bisq trades don't go smoothly, and '''dispute resolution''' is required to determine an outcome. Dispute resolution in [[Bisq 2]] varies depending on the [[Trade Protocols|trade protocol]] that was used.
+
+Most issues on Bisq are minor and easily resolved when traders communicate with each other. Mediation is intended to resolve the vast majority of remaining issues.
+
+__TOC__
+
+= Trade Protocols =
+[[Bisq 2]] will offer users the choice of multiple [[trade protocols]]. A [[trade protocols|trade protocol]] serves as the fundamental framework for trading Bitcoin in a secure way. Each trade protocol presents its own set of advantages and trade-offs, including:
+
+* Security mechanisms
+* Dispute mechanisms
+* Security deposit requirements
+
+[[Bisq 2]] offers users the flexibility to select the optimal protocol aligning with their requirements and preferences. All [[trade protocols]] will be accessible from the [[Bisq 2]] application independently. Users will be able to switch between [[trade protocols]] for different trades should they wish.
+
+== Bisq Easy ==
+[[Bisq Easy]] is a [[trade protocols|trade protocol]] for [[Bisq 2]], designed to facilitate the acquisition of bitcoin with zero trade fees and without the requirement of a [[security deposit]]. [[Bisq Easy]] is a social [[trade protocols|trade protocol]] intended for novice bitcoin buyers seeking a non-KYC option and aiming to be efficiently onboarded by experienced and knowledgeable sellers that are familiar with the Bisq platform.
+
+Security mechanisms: [[Reputation]]
+Dispute mechanisms: [[#Trade Chat|Trade Chat]] and [[#Mediation in Bisq Easy|Mediation (for Bisq Easy)]]
+
+= Dispute Options =
+The options available for dispute resolution in [[Bisq 2]] vary depending on the [[trade protocols|trade protocol]] that was used. The various dispute resolution mechanisms available in [[Bisq 2]] include:
+
+== Trade Chat ==
+If you're having any issues completing a trade, or if you just want to keep your counterparty informed (e.g., in case you're delayed completing your end of the deal), you can send your counterparty a message through Bisq's end-to-end encrypted chat mechanism. This allows traders to communicate with each other throughout the course of a trade to resolve potential trade issues quickly without involving a third party like a [[mediator]].
+
+== Mediation in Bisq Easy ==
+Mediation is available within Bisq Easy at any time. You can initiate it by selecting the 'request mediation' link on the trade screen. A [[mediator]] will then join the trade chat and gather information to assist as much as possible. Since Bisq Easy trades do not require a security deposit, the mediator's abilities are somewhat limited. However, they can still provide valuable assistance and, if necessary, ban traders.
+
+=If all else fails=
+One advantage of a flat, decentralized governance structure that encourages user involvement is that no user should ever feel hindered from receiving a fair trade outcome because of a single individual's decision. Bisq isn't a black-box corporation with inscrutable processes. It's an open software project that is governed openly.
+
+Therefore, for whatever reason, if the process above doesn't work for you, you can make a [[Making_a_reimbursement_request|make a reimbursement request]] yourself in the [[DAO_user_reference#Bisq_DAO|Bisq DAO]]. '''The [[DAO_user_reference#Bisq_DAO|Bisq DAO]], not any single individual, is the ultimate arbiter of policy and decision-making for all things Bisq.'''<!-- BISQ VERSION: bisq2 -->

@@ -1,0 +1,24 @@
+This article documents the '''Mempool Explorer Operator''' [[Roles|role]].
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/107
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/mempool-operators/members @bisq-network/mempool-operators]
+
+== Duties ==
+* Run an instance of [https://github.com/mempool/mempool Mempool] with Bitcoin and Bisq networks enabled
+* Make your Mempool Explorer instance available over HTTPS clearnet and Tor V3 HS onion, enable HSTS and DNSSEC
+* Update the Bisq Pricenode code to contain the FQDN clearnet hostname of your Mempool Explorer
+* Update the Bisq code to contain the FQDN clearnet hostname and Tor V3 HS onion of your Mempool Explorer
+
+== Rights ==
+* Claim up to $150/month compensation
+
+== Bonding ==
+* Post 20,000 BSQ bond for Explorer Operator
+
+[[Category:Roles]]
+[[Category:Operator]]<!-- BISQ VERSION: general -->

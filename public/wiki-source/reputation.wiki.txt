@@ -1,0 +1,153 @@
+== Reputation in Bisq Easy ==
+
+Reputation is a cornerstone of the security model in '''[[Bisq Easy]]''', a [[Bisq 2]] trade protocol. As buyers send their fiat payment ''before'' receiving Bitcoin, the seller's reputation provides the trust needed for the buyer to proceed confidently.
+
+{{Admonition_Warn|'''Important Version Requirement:''' Please note that due to security updates, active trading on the Bisq network requires using software '''version 2.1.6 or higher'''. The reputation system described here applies to users on compatible versions participating in the [[Bisq Easy]] protocol.}}
+
+[[File:Bisq2-build-reputation-screen.png|600px|thumb|left|The 'Build reputation' screen in Bisq 2 (accessed via 'Reputation' on the left menu), showing the four methods available.]] <br clear=all>
+
+=== Why Reputation Matters ===
+
+* '''For Buyers:''' Carefully review a seller's reputation (shown as stars) before accepting an offer. Choosing sellers with a higher reputation is crucial for minimizing trade risks.
+* '''For Sellers:''' Building and maintaining a high reputation is essential. It increases buyer trust, makes your offers more attractive, helps you get more trades, and allows you to offer larger trade amounts. Maximizing reputation is key to success as a seller on [[Bisq Easy]]. There is expected to be competition among sellers to achieve higher reputation scores.
+
+=== Reputation & Trade Rules (Version 2.1.1 and Later) ===
+
+Starting with '''[[Bisq 2]] version 2.1.1''', several important rules link reputation directly to trading activity (within the currently required software version):
+
+* '''Seller's Maximum Trade Amount:''' The maximum amount a seller can offer in a single trade now directly depends on their reputation score. Higher reputation allows sellers to create offers for larger amounts.
+* '''System Trade Limits:''' While a seller's maximum depends on their reputation, the overall limits for ''any'' [[Bisq Easy]] trade are fixed between the fiat equivalent of '''6 USD''' (minimum) and '''600 USD''' (maximum). This avoids issues with Bitcoin price swings. (Note: Before v2.1.1, limits were 0.0001 - 0.01 BTC).
+* '''Enhanced BSQ Value:''' To reward commitment and long-term participation, [[Introduction to the DAO|BSQ]] that is '''burned''' or '''bonded''' for reputation now contributes '''double its initial value''' to the score over the course of the first year (the score increases linearly during that year). This allows sellers to increase their eligible trade limits more quickly.
+* '''Minimum Score Setting Removed:''' The previous option for buyers to set a specific minimum required reputation score for sellers (formerly defaulted to 30000) was removed in v2.1.1. The system now relies on the direct link between reputation and the allowed trade amount as a better way to handle risk.
+
+[[File:Minimum-maximum-trade-amounts.png|400px|thumb|left|General [[Bisq Easy]] trade limits are 6 USD to 600 USD (or fiat equivalent). A seller's specific maximum offer size within this range depends on their reputation.]]
+[[File:Minimum-required-reputation-score.png|400px|thumb|right|Previously, Bisq warned if trading below a set minimum score; this setting was removed in v2.1.1.]]
+<br clear=all>
+
+=== Understanding Reputation Stars ===
+
+To make reputation easy to compare quickly, [[Bisq Easy]] displays scores using a simple '''0 to 5 star system'''.
+
+[[File:Reputation-ranking-new.png|400px|thumb|left|The star system (0-5) provides an easy comparison of seller reputation based on their current rank among active users. 5 stars indicate the highest relative reputation.]]
+
+* '''How it Works (Relative Ranking):''' Your star rating shows how your reputation '''compares to all other *active* users''' on the Bisq network at that moment. It's your current rank, not a fixed score. The highest-ranked active sellers get 5 stars, the lowest get 0 stars.
+* '''Why Stars Change (Dynamic):''' Because it's a relative system based on active users, your star rating can change even if your score hasn't:
+:'''User Inactivity:''' If a user is inactive for '''two weeks''', their profile is temporarily excluded from the ranking calculation. If a high-ranked user becomes inactive, others might see their star ratings go up.
+:'''User Reactivation:''' When an inactive user returns, their reputation is factored back in, potentially shifting star ratings again.
+
+'''In short:''' Stars give you a quick, dynamic view of a seller's current reputation rank compared to their active peers. The star display will change over time based on both your own score changes and the changing scores of other active users.
+<br clear=all>
+
+== How to Build Reputation ==
+
+You can build your reputation score in [[Bisq Easy]] using four methods, accessed via the '''`Reputation`''' section on the main left-hand menu in Bisq 2. Your '''total reputation score''' is calculated as the '''sum''' of the points gained from all methods you use. This total score determines your reputation rank (stars) and your maximum trade offer size.
+
+Reputation scores can change over time: points from [[Introduction to the DAO|BSQ]] Bonds are lost when unlocked, but you can burn or bond [[Introduction to the DAO|BSQ]] repeatedly. You can also import account age or signed account age, potentially replacing previous imported scores if the new import source is older.
+
+<br clear=all>
+
+=== Method 1: Burning BSQ ===
+
+You permanently '''burn''' [[Introduction to the DAO|BSQ]] tokens to gain reputation. This represents a strong, long-term commitment to the network, akin to a proof of work. Follow the process displayed in the Bisq 2 Reputation section:
+
+# '''Step 1:''' Select the user profile in Bisq 2 for which you want to attach the reputation.
+# '''Step 2:''' Copy the '''Profile ID''' displayed. You will paste this into Bisq 1.
+# '''Step 3:''' Open '''[[Bisq 1]]''' and go to `DAO` > `PROOF OF BURN`. Paste the copied Profile ID into the '''`pre-image`''' field.
+# '''Step 4:''' Enter the amount of [[Introduction to the DAO|BSQ]] you want to burn.
+# '''Step 5:''' Publish the Burn [[BSQ]] transaction.
+# '''Step 6:''' After blockchain confirmation your reputation will become visible in your Bisq 2 profile.
+
+'''Scoring Details:'''
+* '''Initial Score:''' '''100 points''' per [[Introduction to the DAO|BSQ]] burned (Weight = 100).
+* '''12-Month Bonus:''' The score '''doubles''' over the first year (increasing linearly from 100 to 200 points per [[Introduction to the DAO|BSQ]] burned). This rewards long-term sellers.
+* '''Persistence:''' Reputation from burning [[Introduction to the DAO|BSQ]] is permanent for that profile (unless the profile is banned).
+* '''Cumulative:''' You can burn [[Introduction to the DAO|BSQ]] multiple times; scores add up.
+* '''Minimum Burn:''' 5.46 [[Introduction to the DAO|BSQ]] (dust limit).
+* '''Oracle Publishing:''' Data about burned [[Introduction to the DAO|BSQ]] is automatically published by the [[Bisq 2 Roles|oracle]].
+
+[[File:Burning-bsq-reputation.png|frame|left|Burning [[Introduction to the DAO|BSQ]] in [[Bisq 1]] requires your [[Bisq 2]] Profile ID as the 'pre-image'.]]
+<br clear=all>
+
+=== Method 2: Bonding BSQ ===
+
+You lock up [[Introduction to the DAO|BSQ]] tokens for a set period (minimum ~1 year) to gain reputation. This is refundable, but shows commitment for the lock duration. Like burning, regular bonding can represent user activity. Follow the process displayed in the Bisq 2 Reputation section:
+
+# '''Step 1:''' Select the user profile in Bisq 2 for which you want to attach the reputation.
+# '''Step 2:''' Copy the '''Profile ID''' displayed. You will paste this into Bisq 1.
+# '''Step 3:''' Open '''[[Bisq 1]]''' and go to `DAO` > `BONDING` > `BONDED REPUTATION`. Paste the copied Profile ID into the '''`salt`''' field.
+# '''Step 4:''' Enter the amount of [[Introduction to the DAO|BSQ]] you want to lock up and the lock time (minimum '''`50000`''' blocks).
+# '''Step 5:''' Publish the lockup transaction.
+# '''Step 6:''' After blockchain confirmation your reputation will become visible in your Bisq 2 profile.
+
+'''Scoring Details:'''
+* '''Initial Score:''' '''10 points''' per [[Introduction to the DAO|BSQ]] bonded (Weight = 10).
+* '''12-Month Bonus:''' The score '''doubles''' over the first year (increasing linearly from 10 to 20 points per [[Introduction to the DAO|BSQ]] bonded during the lock period).
+* '''Persistence:''' Reputation lasts only '''while the [[Introduction to the DAO|BSQ]] remains bonded'''. You lose these points when you unlock the bond.
+* '''Cumulative:''' You can create multiple bonds; scores add up while active.
+* '''Minimum Lock Time:''' 50,000 Bitcoin blocks (approximately 1 year).
+* '''Confiscation Risk:''' In severe cases (like proven scamming), the Bisq [[Introduction to the DAO|DAO]] can vote to confiscate (destroy) a user's bond. Confiscating requires high voter turnout (quorum) in the [[Introduction to the DAO|DAO]], making it somewhat difficult but possible.
+* '''Oracle Publishing:''' Data about bonded [[Introduction to the DAO|BSQ]] is automatically published by the [[Bisq 2 Roles|oracle]].
+
+[[File:Bonding-bsq-reputation.png|frame|left|Bonding [[Introduction to the DAO|BSQ]] in [[Bisq 1]] uses your [[Bisq 2]] Profile ID as the 'salt'.]]
+<br clear=all>
+
+=== Method 3: Importing Bisq 1 Account Age ===
+
+Leverage the history of your fiat accounts from [[Bisq 1]]. The older the account, the more trustworthy the user is assumed to be (though this is considered a weaker form of reputation). Follow the process displayed in the Bisq 2 Reputation section:
+
+# '''Step 1:''' Select the user profile in Bisq 2 for which you want to attach the reputation.
+# '''Step 2:''' Copy the '''Profile ID''' displayed. You will paste this into Bisq 1.
+# '''Step 3:''' Open '''[[Bisq 1]]''' and go to `ACCOUNT` > `NATIONAL CURRENCY ACCOUNTS`.
+## Select the oldest account you wish to use.
+## Click the button '''`EXPORT ACCOUNT AGE FOR BISQ 2`'''.
+## This copies the required JSON data (containing the proof signed with your Bisq 2 Profile ID) to your clipboard.
+# '''Step 4:''' Return to Bisq 2 and paste the JSON data from your clipboard into the text area provided ('Json data from Bisq 1').
+# '''Step 5:''' Click the '''`Request authorization`''' button.
+
+'''Scoring Details:'''
+* '''Score:''' '''4 points''' per day of the account's age (Weight = 4).
+* '''Maximum Age Counted:''' 2000 days.
+* '''Maximum Score:''' Capped at '''8,000 points''' (4 points/day * 2000 days).
+* '''Which Account:''' Uses the age of your single '''oldest''' [[Bisq 1]] fiat account. Scores from multiple accounts are '''not''' added together. Importing from an older account later can replace a previous score from this method.
+* '''Limitation:''' Account age alone is usually '''not enough''' for significant reputation; combine with other methods.
+
+[[File:Age-bsq-reputation.png|frame|left|Importing account age involves exporting proof from [[Bisq 1]].]]
+<br clear=all>
+
+=== Method 4: Importing Bisq 1 Signed Account Age ===
+
+Leverage the history of fiat accounts that completed the older signing process in [[Bisq 1]]. The older the signed account, the more trustworthy the user is assumed to be (though still considered a weaker form of reputation than BSQ burn/bond). Follow the process displayed in the Bisq 2 Reputation section:
+
+# '''Step 1:''' Select the user profile in Bisq 2 for which you want to attach the reputation.
+# '''Step 2:''' Copy the '''Profile ID''' displayed. You will paste this into Bisq 1.
+# '''Step 3:''' Open '''[[Bisq 1]]''' and go to `ACCOUNT` > `NATIONAL CURRENCY ACCOUNTS`.
+## Select the oldest ''signed'' account you wish to use.
+## Click the button '''`EXPORT SIGNED WITNESS FOR BISQ 2`'''.
+## This copies the required JSON data (containing the proof signed with your Bisq 2 Profile ID) to your clipboard.
+# '''Step 4:''' Return to Bisq 2 and paste the JSON data from your clipboard into the text area provided ('Json data from Bisq 1').
+# '''Step 5:''' Click the '''`Request authorization`''' button.
+
+'''Scoring Details:'''
+* '''Minimum Age Required:''' Signed account must be at least '''61 days''' old.
+* '''Score:''' '''10 points''' per day of the signed account's age (Weight = 10).
+* '''Maximum Age Counted:''' 2000 days.
+* '''Maximum Score:''' Capped at '''20,000 points''' (10 points/day * 2000 days).
+* '''Which Account:''' Uses the age of your single '''oldest''' [[Bisq 1]] ''signed'' fiat account. Scores are '''not''' cumulative across multiple signed accounts for this method. Importing from an older signed account later can replace a previous score from this method.
+* '''Limitation:''' Signed account age alone may '''not be enough''' for higher reputation tiers; combine with other methods.
+
+[[File:Signed-bsq-reputation.png|frame|left|Importing signed account age involves exporting proof from a signed [[Bisq 1]] account.]]
+<br clear=all>
+
+== Reputation Simulation Tool ==
+
+Deciding how much [[Introduction to the DAO|BSQ]] to burn or bond can be complex. [[Bisq 2]] provides a simulation tool (visible on the 'SCORE' tab for Burning/Bonding/Import methods) to help sellers estimate the reputation score impact of these actions.
+
+Find this tool within the '''`Reputation`''' section (accessible from the main left-hand menu). It helps visualize the immediate score increase and the potential score after the first year's doubling effect (for BSQ methods) or based on account age.
+
+[[File:Burning-bsq-screen.png|400px|thumb|left|Simulating the reputation gained from burning [[Introduction to the DAO|BSQ]].]]
+[[File:Bonding-bsq-screen.png|400px|thumb|right|Simulating the reputation gained from bonding [[Introduction to the DAO|BSQ]].]]
+<br clear=all>
+
+== What Happens if a Profile is Banned? ==
+
+If a user's profile ID (which contains a public key hash tied to reputation) is banned by [[Bisq 2 Roles|moderators]] for severe or repeated violations of Bisq trade protocols, '''all reputation associated with that specific profile ID is permanently lost''' and becomes unusable. The reputation score will no longer be visible or count towards rankings. Banning may also trigger consequences in [[Bisq 1]] (e.g., [[Changing_your_onion_address|onion address]] ban, [[Introduction to the DAO|BSQ]] bond confiscation proposal via the [[Introduction to the DAO|DAO]]).<!-- BISQ VERSION: bisq2 -->

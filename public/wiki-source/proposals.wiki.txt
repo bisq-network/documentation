@@ -1,0 +1,91 @@
+'''Proposals''' are a way to suggest significant ''project-wide'' changes or new initiatives where a broad consensus of contributors, users, and stakeholders is desired. Smaller changes to existing components, infrastructure, or processes are generally best discussed in other channels (on Matrix, other GitHub repositories, etc).
+
+This article covers the roles, processes, and conventions for proposals.
+
+__TOC__
+
+== Roles ==
+
+* [[Proposals Maintainer]]
+
+== Processes ==
+
+Anyone may submit new proposals and/or review other proposals. But there are things you can do to make it more likely your ideas are received well.
+
+=== Submission and Review ===
+
+==== Research and Evaluate ====
+
+Proposals are supposed to be significant items with enough weight to draw attention from core contributors, users, and stakeholders from across functions.
+
+{{Admonition_Note|If your idea is focused on a particular area of Bisq, it would be best to first float your idea in the channels for that area. For example, development-related ideas can be discussed in #dev on Matrix or in [https://github.com/bisq-network/bisq the main GitHub repository]. Growth-related ideas can be discussed in #growth on Matrix or the [https://github.com/bisq-network/growth/ growth GitHub repository].}}
+
+Accordingly, proposals should be well-considered, well-researched, and well-articulated.
+
+As a result, before submitting a proposal, please:
+# Discuss your idea with other contributors to see if a proposal is worth submitting at all
+# Search through existing proposals (both [https://github.com/bisq-network/proposals/issues open and closed]) to see whether something similar has already been proposed
+# Notice which among those proposals have been accepted and rejected, and why
+# Read this article to fully understand the proposal process and guidelines
+
+Look through past proposals that succeeded to get a feel for how they were structured.
+
+==== Create GitHub Issue ====
+
+Once you've done research, floated your idea in the community in other channels, and think your idea might garner broader support, create a new GitHub issue in the [https://github.com/bisq-network/proposals/issues|bisq-network/proposals repository on GitHub], written and formatted according to the following guidelines:
+
+* Write your proposal in a way that makes it as easy as possible to achieve rough consensus. This means that proposals should be as simple, focused, concrete and well-defined as possible. Your goal should be to make it as easy as possible for your fellow contributors to understand and agree with you.
+* Take full responsibility for your proposal. It is not the maintainers' job, nor anyone else’s, to see your proposal succeed. If people aren’t responding or reacting to your proposal, it’s your job to solicit that feedback more actively.
+* Never assume that anyone other than yourself is going to do the work described in your proposal. If your proposal does place expectations on other contributors, or requires them to change their behavior in any way, be explicit about that.
+* Provide context. Make a strong case for your proposal. Link to prior discussions. Do not make your reader do any more work than they have to to understand your proposal.
+* Format your proposal well. Make it a pleasure to read.
+
+In general, good proposals take time to research and write. Every minute you spend clearly and logically articulating your proposal is a minute that you save other contributors in understanding it. This diligence on your part will be appreciated and rewarded by others' attention. 
+
+{{Admonition_Warn|Cheaply-written, "drive by" proposals that waste others' time will be closed immediately as <code>was:incorrect</code>.}}
+
+A [[Proposals_maintainer|maintainer]] will quickly review your proposal and will either (a) assign it to you to indicate your ownership and responsibility over it, or (b) close it and label it as <code>was:incorrect</code> if it does not follow the guidelines listed above.
+
+==== Review ====
+
+Once a proposal is submitted, a two-week review period follows. 
+
+During this period, interested reviewers should read, discuss and ultimately [https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-conversations-on-github#reacting-to-ideas-in-comments react] to the proposal as follows:
+* 👍: I agree with the proposal and want to see it enacted.
+* 😕: I am uncertain about the proposal and I need more information.
+* 👎: I disagree with the proposal and do not want to see it enacted.
+
+Try to provide an explanation of your reaction, especially when reacting with a 😕 or 👎. If you don’t, then don’t expect your opinion to have much weight or get addressed.
+
+If you do not understand or care about a given proposal, ignore it.
+
+Use comments on the proposal issue to discuss, ask questions, and get clarifications. Take lengthy discussions offline to Matrix or elsewhere and then summarize them back on the issue.
+
+==== Evaluate ====
+
+The proposal review process is all about reaching a rough consensus, meaning that there is a broad agreement that the proposal should be enacted, and that any dissenting opinions have been addressed, though not necessarily fully resolved.
+
+After the two-week review period is over, a maintainer will evaluate reactions to and discussions about the proposal and will close the issue with a comment explaining that it is approved or rejected based on whether a rough consensus was achieved.
+
+Approved proposals will be labeled with <code>was:approved</code>. Rejected proposals will be labeled with <code>was:rejected</code>.
+
+If rough consensus has not been achieved, e.g. because discussion is still ongoing, dissenting concerns have not been addressed, or the proposal has turned out to be contentious, the maintainer will indicate that they cannot close the proposal, and that it is up to the submitter to take next steps to move the proposal forward. One option is to [[#Submit_to_the_DAO|submit the proposal to the DAO]] for voting. If the proposal does not move forward after another two weeks, the maintainer will close and label it <code>was:stalled</code>.
+
+If there have been no or very few reactions to a proposal after the two-week period, the maintainer will close it and label it as <code>was:ignored</code>.<!-- was:moved-->
+
+==== Enact ====
+
+Assuming your proposal was approved, the next step is to actually enact the changes described in that proposal, perhaps by [[Project_management|creating a project]] or simply getting to work.
+
+=== Submit to the DAO (if needed) ===
+
+Sometimes it is necessary to submit proposals to the DAO for voting:
+* DAO parameter changes
+* proposal for bonded roles
+* contentious proposals for which there is strong interest but no clear consensus
+
+For most general proposals this should not be necessary—general proposals that have clear consensus (or clear lack of consensus) don't need to be voted upon in the DAO. In any case, a DAO submission should only be considered after considerable discussion on GitHub so that voters have context and reason to vote one way or another. Do not submit a DAO proposal before such discussion is established.
+
+See [[Participating_in_a_DAO_voting_cycle|how to submit a proposal for DAO voting]].
+
+[[Category:Processes]]<!-- BISQ VERSION: general -->

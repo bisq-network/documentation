@@ -1,0 +1,12 @@
+'''Mining fees''' are BTC paid to miners to include a BTC transaction into a block.  
+The amount of BTC to be paid depends on a mining fee market driven by the amount of blocks produced by miners and demand for block space, and also the size of the transaction. This price is expressed in sat/vB or satoshis per byte. BTC transactions waiting to be included into a BTC block wait at the mempools of BTC nodes, and only those offering a higher sats/vB to miners will be included for every block. Mempool state can be seen at most blockchain explorers, like [http://www.mempool.space mempool.space].  
+Bisq use segwit addresses by default to save space on the blockchain and hence, mining fees.
+
+[[File:Mining fees 1.png|500px|thumb|left]] 
+=== Mining fees to trade ===
+Required mining fees for trading are estimated by Bisq. Traders can't decide how much to pay because underpaying mining fees would cause delays or even make trades fail. Fee rate to be used is fed by seednodes and displayed at the bottom left of the window.  
+The total BTC to be paid is displayed before making or taking any offer. As makers only publish a single transaction to create an offer (maker trading fee transaction) and takers have to publish three (taker trading fee, deposit and payout transactions), taking an offer pays approximately 3 times more in mining fees than making an offer. This is because offer makers cannot know what mining fees will be at the time their offer is taken.  
+Unlike [[trading fees]], mining fees to pay are independent to the trade amount. A higher trade will relatively pay less mining fees than a small trade.
+
+=== Mining fees to withdraw ===
+When sending BTC from Bisq wallet to other BTC addresses, you can use the mining fee recommended by Bisq or set your own at the <code>Funds / Send funds</code> tab. If you have used very small fees, it could not be included. If you still can find your tx on blockchain explorers but want to accelerate the process, you can try a manual [https://bitcoin.stackexchange.com/questions/49723/replace-by-fee-vs-child-pays-for-parent CPFP] (Child Pays For Parent) transaction. If the transaction is not anymore on the block explorers, do a [[Resyncing_SPV_file|SPV resync]] to make your wallet "forget" that transaction.<!-- BISQ VERSION: general -->

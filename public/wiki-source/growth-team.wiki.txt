@@ -1,0 +1,77 @@
+The '''Growth Team''' focuses on increasing trading volume through community engagement and outreach efforts, market-making bounties, the website, blog, and translations across the website and software.
+
+{{Admonition_Warn| The '''Growth Team''' is a now retired Bisq team. The below information is kept for prosperity.}}
+
+
+== Roles ==
+* [[Growth Team Lead]]
+* [[Community Manager]]
+* [[YouTube Admin]]
+* [[Payment Method Maintainer]]
+* [[Twitter Admin]]
+* [[Transifex Admin]]
+* [[Website Operator/Maintainer]]
+
+== Infrastructure ==
+
+=== GitHub ===
+
+==== Team ====
+
+[https://github.com/orgs/bisq-network/teams/growth @bisq-network/growth]
+
+==== Priorities ====
+
+https://github.com/bisq-network/growth/projects/1
+
+==== Repositories ====
+
+* https://github.com/bisq-network/growth
+* https://github.com/bisq-network/website
+
+=== Chat ===
+
+* [[Matrix_bisq.chat|bisq.chat]] [https://matrix.to/#/#bisq.growth:bitcoin.kyoto #Growth] channel.
+
+== Processes ==
+
+'''Any effort a contributor expects to be compensated for should be run by the growth team lead to ensure it fits cycle priorities and budget. Failure to do so may result in the contribution being rejected, undercompensated, or uncompensated.'''
+
+Please see the priorities board linked above for current objectives. 
+
+If you're interested in contributing to an existing priority, please:
+
+* Express your interest in the [[Matrix_bisq.chat|bisq.chat]] [https://matrix.to/#/#bisq.growth:bitcoin.kyoto #Growth] channel (or on the corresponding GitHub issue)
+
+If you're interested in contributing in a way that's ''not'' currently outlined on the priority board, please:
+
+* Start a discussion on Matrix to outline the merits of your proposed task (or open an GitHub issue [[#Repositories|in the appropriate repository]])
+* Growth team members will get in touch with you to determine specifics, if warranted
+
+=== Market Making ===
+
+Occasionally, market making bounties are available for specific markets or regions. These bounties are managed in the [https://github.com/orgs/bisq-network/teams/growth growth repository] on GitHub.
+
+Interested market makers should:
+
+# Carefully evaluate the conditions of the bounties they're interested in, or propose a new bounty on GitHub or Matrix
+# Outline a convincing plan of action to deliver the bounty
+# Determine which cycle they would be able to deliver the bounty in
+
+After agreeing on details and covering any lingering concerns, the market maker will be assigned to the issue and is free to begin work.
+
+{{Admonition_Note|Keep in mind that it's not necessary to be working on an approved bounty in order to do market making—market making should be a profitable activity on its own.}}
+
+=== Website ===
+
+Any website change should be first proposed as an issue in the [https://github.com/bisq-network/bisq-website bisq-network/bisq-website] GitHub repository or discussed on Matrix in the [https://matrix.to/#/#bisq.growth:bitcoin.kyoto #Growth] channell. The issue should cover the proposed change and how it aligns to current priorities. Estimated delivery date and cost should be included as well, if the issue creator expects to be the one delivering the proposed change. 
+
+Website maintainer will then review and advise whether or not to implement the proposal.
+
+It's highly recommended that the contributor not begin work on the proposed change until reaching agreement on task specifics, compensation, and timeframe with the website maintainer.
+
+=== Translations ===
+
+For more information on how translations work, please see [[Translation]].
+
+[[Category:Teams]]<!-- BISQ VERSION: general -->

@@ -1,0 +1,19 @@
+{
+  "title": "Import Bisq wallet as watch only wallet in Sparrow",
+  "page_id": "559",
+  "revision_id": "3466",
+  "revision_timestamp": "2023-12-11T11:02:52Z",
+  "available_attribution": {
+    "username": "SuddenWhipVapor",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Import_Bisq_wallet_as_watch_only_wallet_in_Sparrow",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3466",
+  "wikitext_sha256": "4b5d6188e0a0c498861875113c1d885ae9873517f0ce0726b5a11e8b752f39da",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/import-bisq-wallet-as-watch-only-wallet-in-sparrow/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

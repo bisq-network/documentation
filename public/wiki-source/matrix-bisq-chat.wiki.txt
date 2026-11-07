@@ -1,0 +1,44 @@
+Matrix is a messaging platform used by Bisq for discussions of all things related to Bisq. It is also the place for Bisq users to access support agents with any questions they might have.
+
+Matrix replaced Keybase as the main Bisq messaging platform around January 2022. If you are still using Keybase it is recommended to move over to Matrix by visiting [https://bisq.chat/ bisq.chat].
+
+== Matrix ==
+
+[http://www.matrix.org Matrix.org] is a secure, decentralized, real-time communication tool [https://github.com/bisq-network/proposals/issues/355 replacing Keybase], the tool previously used by Bisq prior to 2022. 
+Bisq self-hosts [https://bisq.chat/ bisq.chat], a Matrix team server, which takes a step further on the grade of censorship-resistance and privacy.
+
+== Using Matrix ==
+
+=== Web interface ===
+
+Matrix can be used as a web based app. That's a big advantage, specially for users only requiring occasional support and who don't need to keep on the day to day conversations.
+To start using [bisq.chat] just click the link and you'll see a page like this:
+
+[[File:Matrix 1.png|400px|thumb|left]] 
+
+<div style="clear: both;"></div>
+
+Click ''continue'' and many Matrix clients will be displayed. Select Element, which is one of the most popular and can be used without installing software. Click the ''continue in your browser'' button and the [https://app.element.io/#/room/#bisq:bitcoin.kyoto web app Element] will load.
+Click ''join'' and ''create account'', as we suppose you don't have a matrix account yet. Next image shows fields needed to host the account at matrix.org. There are other hosts requiring different data to join.
+
+[[File:Matrix create account.png|500px|thumb|left]]
+
+<div style="clear: both;"></div>
+
+==== Joining channels ====
+
+Once the matrix.org hosting account has been created, you'll see the [https://matrix.to/#/#bisq-general:matrix.org General] and [https://matrix.to/#/#bisq-support:matrix.org Support] channel. </br>
+Click on the ''+'' sign on ''Rooms'' and then ''Explore rooms'' to join other channels.
+
+[[File:Matrix web main screen.png|500px|thumb|left]]
+<div style="clear: both;"></div>
+Alternatively, after selecting Bisq space icon in the leftmost column, click on the Bisq dropdown and choose ''Explore rooms''.
+
+[[File:Explore all.jpg|500px|thumb|left]]
+
+<div style="clear: both;"></div>
+
+=== Installing Element ===
+
+To install Element on your desktop, go to [https://element.io/get-started#download], select your OS and follow the instructions. Check other clients and platforms [https://matrix.org/docs/projects/try-matrix-now/ here]. </br>
+You can also download and install Element on Android or iOS through their app stores.<!-- BISQ VERSION: general -->

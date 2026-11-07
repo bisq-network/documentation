@@ -1,0 +1,22 @@
+:root {
+  --color-secondary: rgb(227, 227, 227);
+  --font-heading: IBM Plex Sans;
+  --font-body: IBM Plex Sans;
+  --space-1: 2px;
+  --space-2: 3px;
+  --space-3: 4px;
+  --space-4: 5px;
+  --space-5: 8px;
+  --space-6: 10px;
+  --space-7: 12px;
+  --space-8: 15px;
+  --space-9: 16px;
+  --space-10: 17.6px;
+  --space-11: 23px;
+  --space-12: 24px;
+  --space-13: 48px;
+  --space-14: 64px;
+  --space-15: 80px;
+  --space-16: 108px;
+  --space-17: 160px;
+}

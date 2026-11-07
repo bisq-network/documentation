@@ -1,0 +1,7 @@
+'''Altcoins Instant''' is a type of [[Payment_methods|payment account]] on Bisq that uses cryptocurrencies to settle BTC trades '''within 1 hour'''—meaning the buyer must send payment and the seller must acknowledge it within 1 hour.
+
+Ordinary Altcoins accounts have a trade period of 1 day. Altcoins Instant payment accounts are identical to ordinary [[Altcoins]] payment accounts in every other way aside from their trade period.
+
+Only use this payment method for making or taking offers if you know you'll on your machine while the offer is available. Disable it other times to avoid disputes.
+
+See [[Creating_a_payment_account#Creating_an_altcoin_account|how to create an Altcoins Instant payment account]].<!-- BISQ VERSION: general -->

@@ -1,0 +1,19 @@
+{
+  "title": "Main Page",
+  "page_id": "6",
+  "revision_id": "3977",
+  "revision_timestamp": "2025-04-19T17:57:50Z",
+  "available_attribution": {
+    "username": "Strayorigin",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Main_Page",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3977",
+  "wikitext_sha256": "7ce8e8b17dd6229a708e15837915f3182f065e4c9313ab7cee15e56411886c03",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/main-page/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

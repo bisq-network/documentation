@@ -1,0 +1,29 @@
+Bisq is known to be a resource-hungry application, so some users may want to '''reduce memory usage'''.
+
+__TOC__
+
+{{Run_with_Java_options|<nowiki>-XX:MaxRAM=4g</nowiki>|Reduce Bisq's memory usage by setting a ceiling of 4GB}}
+
+== Persistent setting and Windows work-around ==
+
+If you'd rather not specify the RAM parameter every time you start Bisq, you can specify it in <code>Bisq.cfg</code> so it automatically takes effect every time.
+
+First, make sure Bisq is closed.
+
+Your <code>Bisq.cfg</code> file is in the directory with your Bisq binary (this is different from your [[Data_directory|data directory location]]). See [[Running from the command line|locations for each OS here]].
+
+Navigate to the directory with your Bisq binary. Using Windows as an example, this would be <code>$home\AppData\Roaming\Bisq\</code>.
+
+<code>Bisq.cfg</code> should be in the <code>app</code> directory.
+
+Open that file in a text editor. Look for the <code>[JavaOptions]</code> section, and a line in that section that look something like <code>java-options=-XX:MaxRAM=8g</code>. Change it to <code>java-options=-XX:MaxRAM=4g</code>, or add it if it's not already there.
+
+ [JavaOptions]
+ java-options=-XX:MaxRAM=4g
+
+You can also try disabling the hardware graphics acceleration by adding the following line at the end of the <code>Bisq.cfg</code>
+
+ [JVMOptions]
+ -Dprism.order=sw
+
+Save the file, close it, and then open Bisq.<!-- BISQ VERSION: general -->

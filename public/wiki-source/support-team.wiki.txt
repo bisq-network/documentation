@@ -1,0 +1,36 @@
+The Support Team is responsible for providing excellent [[user support|support]] for Bisq users. This includes:
+
+* Handling individual support cases, including [[mediation]] and [[refunds]]
+* Maintaining the Bisq [[Docs|docs website]]
+* Maintaining support-related articles here on the Bisq [[wiki]].
+
+__TOC__
+
+== Roles ==
+
+* [[Support Team Lead]]
+* L1/L2 [[Support Agent]]
+* [[Mediator]]
+* [[Arbitrator]]
+* [[Refund Agent]]
+* [[Donation Address Owner]] (aka "Burning Man") *This role is now retired and has been replaced with the [[Burning Men|Burning Men protocol]]
+* [[Fee Reimbursement Agent]]
+
+== Resources ==
+
+=== GitHub Team ===
+
+[https://github.com/orgs/bisq-network/teams/support @bisq-network/support]
+
+=== GitHub Repositories ===
+
+* https://github.com/bisq-network/support
+* https://github.com/bisq-network/bisq-docs
+* https://github.com/bisq-network/wiki
+
+=== Matrix bisq.chat ===
+
+* [[Matrix bisq.chat]] channel (public, for providing user support)
+* [https://matrix.to/#/!HkhBjopCaOwsdBBPGs:matrix.org?via=matrix.org Matrix bisq.chat] subteam (private, for Support Team contributors)
+
+[[Category:Teams]]<!-- BISQ VERSION: general -->

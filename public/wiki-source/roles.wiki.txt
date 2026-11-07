@@ -1,0 +1,180 @@
+'''Roles''' are the way contributors take responsibility for Bisq network resources and processes.
+
+__TOC__
+
+== Background ==
+
+There are many resources and processes vital to the operation of the Bisq Network that require ownership by individual contributors. For example, someone must merge pull requests into the <code>bisq</code> repository, someone must manage DNS for the <code>bisq.network</code> domain, a group of people must maintain critical infrastructure such as seed nodes and price nodes, etc.
+
+This document defines the system of roles used within the Bisq DAO to enumerate, define and track each of these responsibilities. The system is designed with two major goals in mind:
+# To maximize role owner autonomy in order to achieve Bisq's [[Decentralized_autonomous_organization|decentralization goals]]
+# To maximize transparency so that DAO stakeholders can effectively review and vote on role owner compensation requests
+
+== Properties ==
+
+The following are properties common to all roles.
+
+=== Duties ===
+
+''Duties'' are actions that must be performed for a certain resource or process to function normally.
+
+For example, a repository maintainer’s duties include merging pull requests in a timely fashion, and a website operator’s duties include keeping the site available at all times.
+
+=== Rights ===
+
+''Rights'' are special permissions or other access required to perform the Duties of a role.
+
+For example, a repository maintainer’s rights include write permissions to their repository, and a website operator’s rights include administrative access to site hosting infrastructure.
+
+=== Owners ===
+
+''Owners'' are contributors who have the Rights required to perform the Duties of a role.
+
+One owner is designated as primary and any other owners are designated as [https://github.com/bisq-network/proposals/issues/12 secondary]. The primary is responsible for performing the Duties of the role, while secondaries stand by, ready to take over for the primary at any time.
+
+== Infrastructure ==
+
+The following infrastructure is used to define and manage each role.
+
+=== Wiki ===
+
+Each role should be documented here on https://bisq.wiki in a document of its own, ideally linked to the larger resource or process it's related to.
+
+For example, there is a [[Proposals|proposals wiki article]] covering the concept and process of proposals for users, and a [[Proposals_Maintainer|proposals maintainer article]] covering the role's rights, duties, and other details.
+
+Each role’s documentation should specify the role's:
+* duties
+* rights
+* GitHub team
+* GitHub issue
+* bonding requirement (if any)
+
+=== Team ===
+
+Each role has a dedicated GitHub team where each of the role’s Owners are members. The team is used to manage access to GitHub repositories that the role is responsible for and to send notifications to role owners with @mentions in GitHub issues and pull requests.
+
+For example, the [https://github.com/orgs/bisq-network/teams/bisq-maintainers @bisq-network/bisq-maintainers] team has write access to the [https://github.com/bisq-network/bisq bisq-network/bisq] repository.
+
+{{Admonition_Note|GitHub teams are visible only to GitHub organization members. To join the [https://github.com/bisq-network @bisq-network org], see the [[Contributor_checklist#Get_connected|contributor checklist]].}}
+
+The primary role owner is also assigned as the ''maintainer'' of their role’s GitHub team, such that they may manage the team without requiring the intervention of a GitHub admin.
+
+=== Issue ===
+
+Each role has a dedicated GitHub issue in the [https://github.com/bisq-network/roles/issues bisq-network/roles] repository, wherein:
+* The '''Assignees''' field is used to track role ownership.
+* The '''Description''' field is used to link to the role’s wiki article, team, and primary owner.
+* '''Comments''' are used for reporting and feedback.
+
+See the [Compensation Maintainer https://github.com/bisq-network/roles/issues/86] role issue for an example.
+
+== Types ==
+
+Most roles fit into one of the types below.
+
+=== Maintainer ===
+
+A ''Maintainer'' is a contributor responsible for enforcing process in a given GitHub repository.
+
+Examples: [https://github.com/bisq-network/roles/issues/63 Bisq Maintainer], [https://github.com/bisq-network/roles/issues/30 Proposals Maintainer]
+
+==== Maintainer duties ====
+
+* Merging or closing pull requests after sufficient review
+* Tagging releases
+* Triaging incoming issues and keeping them organized over time
+
+'''A maintainer is not a developer or reviewer.'''
+
+Submitting and reviewing pull requests is something any contributor can do; neither are maintainer duties per se.
+
+This is particularly important from a [[compensation]] perspective. If you are a maintainer, do NOT group your development and review activities together with your maintainer role in your compensation requests. Rather, account for them separately like any other contributor would.
+
+The goal is to have as many competent contributors developing and reviewing as possible, not to load everything on the maintainer. [https://rfc.unprotocols.org/spec:1/C4/#21-preliminaries C4] is the inspiration here—it’s worth (re-)reading.
+
+==== Maintainer rights ====
+
+* Write access to the repository they are responsible for
+
+=== Operator ===
+
+An ''Operator'' is a contributor responsible for keeping a given resource running and functioning normally.
+
+Examples: [https://github.com/bisq-network/roles/issues/15 Seednode Operator], [https://github.com/bisq-network/roles/issues/19 Forum Operator]
+
+==== Operator duties ====
+
+* Keep the given resource online and functioning normally
+* Keep the resource up to date with latest version
+* Maintain backups as appropriate
+* Report on any incidents
+
+==== Operator rights ====
+
+* Administrative access to hosting infrastructure
+* Ownership of any domain name used
+
+=== Administrator ===
+
+An ''Administrator'' (often referred to as 'Admin') is a contributor responsible for managing a given resource.
+
+Examples: [https://github.com/bisq-network/roles/issues/16 GitHub Admin]
+
+==== Admin duties ====
+
+* Respond to change requests
+
+==== Admin rights ====
+
+* Access to the administrative interface of the resource in question
+
+== Common duties ==
+
+The following duties are common to all roles.
+
+=== Reporting ===
+
+Primary role owners should report once a cycle in the form of a comment [https://github.com/bisq-network/proposals/issues/13 on their issue]. The report should contain whatever information the role owner believes would be valuable to other users, contributors, and stakeholders. 
+
+The comment should be formatted in Markdown as follows:
+
+ ## Cycle 21 Report
+ 
+ Description and/or list of contributions, accomplishments, or other notable occurrences since the last role report was posted.
+ 
+ /cc bisq-network/compensation#421
+
+The <code>/cc</code> part should reference the GitHub issue for the contributor's compensation request for the cycle corresponding to the role report.
+
+== Bonding ==
+
+Most roles involve special rights that, if abused, could cause damage to the Bisq Network. For this reason, [[Introduction_to_the_DAO#Ensure_honesty_in_high-trust_roles|role owners must put up a bond in BSQ]] [https://github.com/bisq-network/bisq/blob/master/core/src/main/java/bisq/core/dao/state/model/governance/BondedRoleType.java commensurate with the amount of damage that could be caused]. In the event of a role owner turning into a bad actor or being grossly negligent, this bond can be confiscated through a Bisq DAO proposal for confiscating a bond.
+
+== Processes ==
+
+The following are some common roles-related processes.
+
+=== Proposing a new role ===
+
+Typically, proposing a new role is one part of a larger proposal to introduce some new resource or process.
+
+# Discuss the idea informally with other contributors, e.g. via [https://bisq.chat Matrix]
+# Follow the [[proposals]] process to formally suggest the new resource or process
+# Draft documentation for the new resource or process, including an article about the new role as a wiki article
+
+=== Adding a secondary role owner ===
+
+A primary role owner may add a secondary owner with the following steps:
+
+# Add them as a member of the role’s GitHub Team.
+# Add them as an assignee to role’s GitHub Issue.
+# Announce the change via a comment on the role’s GitHub Issue.
+
+=== Transferring role ownership ===
+
+A role owner may transfer ownership to another with the following steps:
+
+# Get the new contributor added to the role’s GitHub team.
+# Get the old contributor removed from the role's GitHub team.
+# Have the role’s GitHub issue updated to reflect the new primary owner.
+# Announce the change in a comment on the role’s GitHub Issue.<!-- BISQ VERSION: bisq1 -->

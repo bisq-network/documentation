@@ -1,0 +1,31 @@
+'''Security deposits''' in Bisq are BTC funds that buyer and seller lock in a 2of2 multisig address together with trade funds when an offer is taken in order to help ensure that both peers follow the trading protocol. Security deposits are fully reimbursed automatically to both trading peers when the trade ends without [[dispute resolution | disputes]].
+
+Security deposits are the most important tool Bisq offers to protect honest traders. Furthermore, requiring ''both'' parties to post a deposit increases chances that they will be willing to cooperate and determine amicable outcomes in case a trade doesn't go according to plan.
+
+When a trade doesn't go the happy path, a portion or the total amount of the offending peer's deposit will be lost, depending on whether the trade is concluded in mediation or arbitration. For example, it is considered a protocol violation when the buyer doesn't pay the seller as specified in the trade contract (e.g., late payment, mismatching names, wrong payment method, etc). [[Trading_rules|This article]] lists all Bisq trading rules.
+
+== Note for new users ==
+
+Security deposits create a conundrum for new users: '''bitcoin is required to buy bitcoin'''. This can be inconvenient, but it's a core part of the security protocol. The initial amount of BTC required to do a trade can vary depending on the payment method, but the bare minimum BTC required to buy more BTC (as of this writing) is 0.002 BTC to cover the minimum security deposit and mining fees. Take a look at [[Funding_your_wallet#How_to_Obtain_Your_First_Bitcoin|this article]] for suggestion on how to get this initial BTC without KYC ([[Bisq Easy]], [[Getting_your_first_BTC|Get your first BTC]] room, a friend, ATM, sell something, work for it, etc).
+
+Why the hard security deposit requirement? Bisq never custodies your funds, and it avoids reputation mechanisms that would weaken your privacy (e.g., reviews: to such reputation data, it must be stored somewhere ''and'' tied to an identity). Such mechanisms would only give a false sense of security anyway due to [https://en.wikipedia.org/wiki/Sybil_attack sybil attacks].
+
+== Recommended amounts ==
+
+Bisq allows offer makers to choose a security deposit percentage: '''minimum is 15%''' of trade amount and '''maximum is 50%''' of trade amount (absolute minimum is 0.001 BTC). The offer taker must deposit the same amount as the offer maker.
+
+When creating an offer, Bisq recommends a security deposit based on recent volatility of the asset being traded: '''the higher the volatility, the higher the recommended security deposit'''. Using the recommended amount helps prevent trades from becoming future trades where the BTC buyer only sends payment to settle the trade if the BTC price has not fallen enough to compensate for losing the security deposit.
+
+{{Admonition_Note|Deposits and trade amounts are locked in the multisignature address to secure trades. So a peer selling 1 BTC who chooses to specify a 25% security deposit when making his offer will need to lock 1.25 BTC, which would require the buyer to lock 0.25 BTC when taking the offer. Ultimately, this means 1.5 BTC will be locked in a 2-of-2 multisig address when the deposit transaction is confirmed, and only at that point can the buyer send payment to the seller.}}
+
+[[File:Security deposit 1.png|500px|thumb|left|Depending on volatility, recommended security deposits can reach 50%.]]
+<br clear=all>
+
+When taking an offer, the security deposit set by the maker can be viewed on the <code>Deposit BTC (%)</code> column. 
+[[File:Security deposit 2.png|500px|thumb|left|See required deposit % in this column on the offer book.]]
+<br clear=all>
+
+== Reduced peer's deposit payout during arbitration ==
+
+The latest trade protocol, which introduced contributors as BurningMen, to eliminate the single-point-of-failure that was the legacy BurningMan, implies that the trader winning in arbitration will get a considerably smaller (if at all) portion of the peer's deposit as compensation, to account for the risk of malicious BM's exploiting the protocol itself.<br>
+If you want to minimize the risk of having funds locked in arbitration for a prolonged time without any compensation after the resolution, you should take into account [https://github.com/bisq-network/proposals/issues/411 this table], and set a deposit % higher than the minimum amount possible, which will yield no compensation whatsoever.<!-- BISQ VERSION: bisq2 -->

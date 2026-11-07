@@ -1,0 +1,31 @@
+'''Compensation''' is an important element of the [[Decentralized_autonomous_organization|Bisq DAO]] that incentivizes people to contribute to the Bisq software and, over time, enables them to take on a greater stake in its governance.
+
+This article covers the several parties involved in the process of requesting, approving, issuing, and guiding compensation.
+
+__TOC__
+
+== Compensation Maintainer ==
+
+The compensation maintainer oversees the day-to-day process of compensation requests, triages issues, and determines rates. 
+
+See the [[Compensation Maintainer]] article for more details on this role.
+
+== Contributor ==
+
+Contributors are welcome to create compensation requests for work they've done on the Bisq project. See instructions in [[Making_a_compensation_request|this guide]].
+
+If you'd like to contribute to Bisq but are unsure where to start, check out the [[contributor checklist]].
+
+== Burning Men ==
+
+Any contributor can also act as Burning Man. This is part of Bisq's decentralized [[Burning Men]] protocol. Contributors to Bisq can choose to burn the BSQ they receive to have a chance of receive bitcoin trade fees paid by traders. The process of burning BSQ also help strengthen the DAO by decreasing the BSQ supply.
+
+== Stakeholder ==
+
+Just as stakeholders may review and vote on any DAO proposal, stakeholders may review and vote on any contributor's compensation request. After all, compensation requests are merely another type of DAO proposal. 
+
+No special permissions are needed—a stakeholder can simply add feedback in the form of a comment on a compensation request or an emoji reaction (thumbs-up, thumbs-down, confused face, etc).
+
+There is no obligation for stakeholders to perform these reviews, but it's advised to only review compensation requests that you are knowledgeable about.
+
+[[Category:Processes]]<!-- BISQ VERSION: bisq1 -->

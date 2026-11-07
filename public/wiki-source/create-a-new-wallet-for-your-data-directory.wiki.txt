@@ -1,0 +1,66 @@
+When you just need a fresh new wallet, but wish to keep everything else (accounts, signing status, onion address, trade history, notifications app association, and other custom settings), it is easier and faster to only generate a new wallet for Bisq, rather than [[switching to a new data directory]].
+
+__TOC__
+
+= Why creating a new wallet? =
+
+Being a project built in Java, Bisq uses [https://bitcoinj.org/ bitcoinj], which is a Java library to manage a bitcoin wallet, among other things. This comes with some known limitations, among which is the heavy performance hit when the wallet is old, and contains many transactions, this being especially aggravating when a user needs to do a [[Resyncing_SPV_file|SPV resync]], as it will take a significant amount of time during which the PC will suffer from high load. With old-time and very active traders, who have many past transactions built up in their wallet, this is even more at risk of happening, and causes a forced interruption in trading, as SPV resync must be completed before the application can resume its operativity.
+
+Recreating a completely new Bisq wallet will eliminate the issue, at least for the near future ([[Installing_your_own_Bitcoin_node|running your personal Bitcoin node]] also helps a lot with stability), at the same time preserving all the accrued reputation of your payment accounts, your full trading history, and your existing onion address, by which your previous trading peers will be able to recognize you.
+
+= Preparations =
+
+Make sure the following checklist is observed:
+* No existing open offers (delete them -this will make you lose the fees- or wait until they are taken, and their respective trades are completed).
+* No existing open trades (wait until they are completed).
+* No existing disputes (wait until their resolution).
+* Consistent wallet state (go to Funds > Send Funds, and for each btc address containing funds, verify its balance actually exists by searching the address on [https://mempool.space mempool.space], otherwise do a [[Resyncing_SPV_file|SPV resync]] and repeat).
+
+= Caveats =
+
+The provided instructions are safe as long as you don't make mistakes, which could amount to:
+
+* Deleting a folder instead of renaming it.
+* Using a wrong address to send funds to.
+The above mistakes can easily lead to loss of funds, which we obviously are not liable for.
+
+= Instructions =
+
+If the above requirements are met, and you understood the caveats, assuming you have BTC (and probably BSQ as well) in your old wallet, you can follow the procedure outlined below:
+
+# Close Bisq.
+# Rename the [[Data_directory#Default_locations|data directory]] from <code>Bisq</code> to <code>Bisq.old</code>. Copy this file to an external device, it will be used as a backup in case of data loss.
+# Start Bisq.
+# A new Bisq instance called Bisq will be created (including a new wallet, which is the one we will soon be using to replace the old one).
+# Go to ''Account'' > ''Wallet seed'' and write down the seed of the new wallet. Set the password for the wallet at ''Account'' > ''Wallet password''.
+# Go to ''Funds'' > ''Receive Funds'' and copy the first btc receive address, pasting it into a separate text file for later use.
+# Go to ''DAO'' > ''BSQ Wallet'' > ''Receive'' and copy the BSQ receive address of the new wallet, pasting it into your notes.
+# Close Bisq.
+# Rename the newly created data directory, from <code>Bisq</code> to <code>Bisq.new</code>, and rename the previous directory from <code>Bisq.old</code> to <code>Bisq</code>.
+# Start Bisq
+# You will be back into your old Bisq instance
+# Go to ''DAO'' > ''BSQ Wallet'' > ''Send'' and send all your BSQ balance to the BSQ receive address of the new wallet (this needs to be done first! if you moved out all of your BTC now, there would be none left to pay for the mining fees to move the BSQ!)
+# Go to ''Funds'' > ''Send Funds'' and move all your BTC balance to the BTC receive address of the new wallet.
+# Close Bisq
+# Within the data directory, navigate to the contents of <code>btc_mainnet</code> and rename the <code>wallet</code> folder to <code>wallet.old</code>.
+# Copy the <code>wallet</code> folder from the same location in <code>Bisq.new</code>, into the <code>btc_mainnet</code> folder of the "old" data directory, so that now there will be <code>wallet</code> and <code>wallet.old</code> folders under <code>btc_mainnet</code>.
+# Start Bisq, wait until wallet is synchronized with the blockchain, and verify that all your funds were correctly moved, checking the contents of ''Funds'' > ''Send Funds'', and ''DAO'' > ''BSQ Wallet''.
+# You can now operate normally with Bisq. The brand new wallet will be used instead of the old one.
+
+= Create a new wallet when the old one is empty =
+
+If you wish to switch to a brand new wallet, and there are no funds (anymore) in the previous one, the procedure is much simpler:
+# Close Bisq.
+# Navigate to your [[Data_directory#Default_locations|data directory]] and into the <code>btc_mainnet</code> folder.
+# Rename the <code>wallet</code> folder to <code>wallet.old</code>.
+# Start Bisq, notice a new wallet was created, write down the new seed and set the password.
+
+= Disaster recovery =
+
+In case you made some mistakes along the way and things don't work as they should, and provided you never deleted anything, but rather renamed the folders as suggested above, you can go back to the starting point by simply making sure, after closing Bisq, that the data directory gets back to its original state, that is, <code>Bisq.old</code> is renamed to <code>Bisq</code>, and, if you got to that point, <code>wallet.old</code> to <code>wallet</code>.
+
+Having a copy of <code>wallet.old</code> at an external device (like a usb memory) is also recommended, in case of the unlikely event of permanent data loss.
+
+= Cleanup =
+
+Only after you are absolutely sure everything is in order, and if you need to free up as much disk space as possible, you can delete the <code>Bisq.new</code> and <code>wallet.old</code> folders.<!-- BISQ VERSION: general -->

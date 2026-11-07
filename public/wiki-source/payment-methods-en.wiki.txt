@@ -1,0 +1,115 @@
+<languages/>
+Bisq offers several '''payment methods''' to buy and sell bitcoin for fiat currencies or other cryptocurrencies.
+
+Every offer on Bisq designates a payment method for traders to settle payments. The Bisq software does not actually integrate with any payment methods—'''all non-bitcoin fund transfers are made outside of Bisq software'''.
+
+Unlike cryptocurrency transfers, fiat payment transfers are riddled with flaws and limitations that require Bisq to employ several measures to encourage fair and honest trades.
+
+Among these measures are:
+
+* '''Account aging''' that phases in maximum trade sizes over 60 days; trade sizes vary by the risk profile of each payment method.
+* '''Account signing''' as an additional check on account aging for payment methods with chargeback risk.
+
+See more details on these mechanisms at [[account limits]].
+
+__TOC__
+
+== Fiat payment methods ==
+
+The payment methods vary in chargeback risk, regional availability, transaction size, fees, privacy, verifiability, and other characteristics.
+The top consideration for maintaining payment methods is chargeback risk. PayPal, Venmo, and Cash App are not supported on Bisq because chargebacks for payments made with those services are relatively easy.
+
+We welcome suggestions for new payment methods on Bisq, especially for those that enable new markets. Documentation on the criteria and process for adding new payment methods is [https://github.com/bisq-network/bisq-docs/issues/172 forthcoming]. For now, feel free to make suggestions by reaching out on [https://keybase.io/team/bisq Keybase].
+
+Below is a list of fiat payment methods Bisq currently supports.
+
+''Note: The maximum trade sizes listed below are not available for most newly-created payment accounts. Please refer to [https://bisq.wiki/Account_signing Account signing] for details on how to enable larger trade sizes for your payment accounts. ''
+
+{| class="wikitable sortable"
+|-
+! Payment Method !! Region !! Trading Period !! Per-Trade Limit !! Notes
+|-
+| Advanced Cash* || Global || 1 day || 2.00 BTC || Not available in the USA
+|-
+| Alipay* || China || 1 day || 1.00 BTC || 
+|-
+| Cash Deposit* || N/A || 4 days || 0.25 BTC || Some banks don't accept cash deposits from non-customers
+|-
+| Chase QuickPay || USA || 1 day || 0.25 BTC || 
+|-
+| Face-to-Face (F2F)* || Global || 4 days  || 1.00 BTC || 
+|-
+| [[Faster Payments]]* || UK || 1 day || 0.25 BTC || [[Faster_Payments|See article]] for recent changes to avoid issues.
+|-
+| HalCash* || Spain || 1 day || 1.00 BTC || 
+|-
+| Interac e-Transfer || Canada || 1 day || 0.25 BTC || 
+|-
+| Japan Zengin Furikomi* || Japan || 1 day || 1.00 BTC || 
+|-
+| MoneyBeam (N26) || Europe || 1 day || 0.25 BTC || 
+|-
+| MoneyGram* || Global || 4 days  || 0.50 BTC || 
+|-
+| National Bank Transfer || N/A || 4 days  || 0.25 BTC || 
+|-
+| Perfect Money* || Europe and USA || 1 day || 1.00 BTC || 
+|-
+| Popmoney || USA || 1 day || 0.25 BTC || 
+|-
+| PromptPay* || Thailand || 1 day || 1.00 BTC || 
+|-
+| [[Revolut]] || Global || 1 day || 0.25 BTC || [[Revolut|See article]] for recent changes to avoid issues.
+|-
+| SEPA || Europe || 6 days || 0.25 BTC || 
+|-
+| SEPA Instant || Europe || 1 day || 0.25 BTC || 
+|-
+| Swish* || Sweden || 1 day || 1.00 BTC || 
+|-
+| Transfer with Same Bank || N/A || 2 days || 0.25 BTC || 
+|-
+| Transfer from Specific Banks  || N/A || 4 days  || 0.25 BTC || 
+|-
+| US Postal Money Order* || USA || 8 days || 0.25 BTC || Maximum is $1,000 per money order within the USA
+|-
+| Uphold || Global || 1 day || 0.25 BTC || 
+|-
+| WeChat Pay* || China || 1 day || 1.00 BTC || 
+|-
+| Western Union || Global || 4 days  || 0.50 BTC || 
+|-
+| Zelle || USA || 4 days  || 0.25 BTC || 
+|}
+
+<nowiki>*</nowiki> These payment methods do not need to be signed to lift the 0.01 BTC buying limit (see [https://bisq.wiki/Account_signing account signing] for more details).
+
+=== Payment method guides ===
+
+<div style="margin-top: 1.5em;">
+<li style="display: inline-block;"> [[File:Payment-methods-advice-eur.png|thumb|none|300px|EUR payment methods overview.]] </li>
+<li style="display: inline-block;"> [[File:Payment-methods-advice-usd.png|thumb|none|300px|USD payment methods overview.]] </li>
+</div>
+
+<div style="clear: both;"></div>
+
+== Altcoin payment methods ==
+
+Bisq also supports a [https://bisq.network/markets/ variety] of cryptocurrencies for buying and selling bitcoin, like [[XMR]], [[ETH]], [[ZEC]], [[L-BTC]] or [[LTC]].
+
+Because altcoin transfers are irreversible and relatively quick, altcoin trades can be up to 2 BTC in size right away (no need to wait for account aging or account signing).
+
+{| class="wikitable"
+|-
+! Payment Method !! Trading Period !! Per-Trade Limit
+|-
+| Altcoins || 1 day || 2.00 BTC
+|-
+| Altcoins Instant || 1 hour || 2.00 BTC
+|}
+
+Altcoins Instant trades go by fast! Please remember to disable Instant offers in <code>Portfolio</code> > <code>My Open Offers</code> if you might not be around to settle an Instant trade.
+
+See more details about creating altcoin accounts [https://bisq.wiki/Create_an_altcoin_account here].
+
+[[Category:Features]]<!-- BISQ VERSION: general -->

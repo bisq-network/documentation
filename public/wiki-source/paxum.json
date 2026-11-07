@@ -1,0 +1,19 @@
+{
+  "title": "Paxum",
+  "page_id": "480",
+  "revision_id": "3918",
+  "revision_timestamp": "2025-02-12T02:32:46Z",
+  "available_attribution": {
+    "username": "Strayorigin",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Paxum",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3918",
+  "wikitext_sha256": "f7f63f9618879fb39cbd402c2b55595b91a0485dccbae867a85b5d0a3aa14d47",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/paxum/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

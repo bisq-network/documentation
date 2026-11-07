@@ -1,0 +1,71 @@
+Bisq is a decentralized bitcoin exchange network best understood through its major components:
+
+# Bisq is primarily a cross-platform '''desktop application''' (currently [[Bisq 2]]) that allows anyone to buy and sell bitcoin for national currencies or other cryptocurrencies, supporting multiple trading protocols.
+# Bisq provides '''trading protocols''' (like the classic v1 protocol and [[Bisq Easy]]) that enable individuals to exchange directly with one another over the internet, eliminating the need for trusted third-party exchange services.
+# Bisq operates on a '''[[P2P Network|peer-to-peer network]]''' formed by Bisq applications discovering, connecting to, and working with one another. The Bisq network is fully peer-to-peer, requires no centrally-controlled servers, and has no single points of failure.
+
+Bisq is not a company—it is '''free/libre software''' released under version 3 of the GNU Affero General Public License (AGPLv3). Bisq is built by individuals around the world who choose to work together, organized as a [[Decentralized autonomous organization|decentralized autonomous organization]] (DAO). It is used by individuals globally who prefer trading directly with peers instead of using centralized bitcoin exchanges.
+
+__TOC__
+
+== Why Bisq exists ==
+
+Bisq’s mission is to provide a '''secure''', '''private''', and '''censorship-resistant''' way of exchanging bitcoin for national currencies or other cryptocurrencies over the internet.
+
+* When we say '''secure''', we are referring to the safety of users' funds. Centralized exchanges often require users to deposit funds onto exchange servers, creating large targets for hackers and thieves. Bisq avoids this custodial risk.
+* When we say '''private''', we are referring to users' ability to control their own information. Most centralized exchanges require extensive personal identification (KYC) to open an account, linking trading activity to real-world identities and creating risks of data leaks or misuse. Bisq requires no registration or KYC.
+* When we say '''censorship-resistant''', we are referring to the freedom to trade voluntarily without third-party interference. Centralized exchanges operate within specific legal jurisdictions and can be shut down or forced to comply with regulations that restrict trading or mandate surveillance. Bisq's decentralized nature resists such external control.
+
+Bisq was built to fulfill this mission: providing an exchange mechanism where users keep control of their funds, privacy is the default, and the freedom to transact is defended.
+
+{{Admonition_Note|If Bitcoin’s motto is "be your own bank," Bisq’s motto is "be your own exchange."}}
+
+== How Bisq works ==
+
+=== In a nutshell (v1 Trade Example) ===
+
+Imagine you want to buy bitcoin (BTC) in exchange for Euros (EUR). Using Bisq's classic [[Bisq 1|v1]] trading protocol (which involves security deposits), you are a ''buyer'' of BTC looking for a ''seller'' of BTC who accepts EUR.
+
+The basic steps would be:
+
+# You download, install, and run the [[Bisq 2]] desktop application.
+# You add your EUR payment method details (e.g., [[SEPA]] bank account) to your Bisq client.
+# You browse Bisq’s offer book for existing offers to sell BTC for EUR.
+# You take an existing offer, agreeing to the seller's price and terms. This initiates the trade process, including locking BTC from both parties into escrow.
+# You send the EUR payment using your chosen method (outside of Bisq) and confirm "Payment sent" in the Bisq application.
+# You and the seller wait for the EUR payment to arrive in the seller's account.
+# The seller receives the EUR payment and confirms receipt in Bisq.
+# The trade completes, and the bitcoin (trade amount + your security deposit) is released to your Bisq wallet. The seller also receives their security deposit back.
+
+{{Admonition_Note|This example describes the classic Bisq v1 trading protocol. Other protocols available in [[Bisq 2]], like [[Bisq Easy]], may have different flows (e.g., no [[Security deposit|security deposit]], reliance on seller [[Reputation|reputation]]).}}
+
+For complete setup instructions, see the [https://bisq.network/getting-started/ Getting Started] guide.
+
+The exact steps can vary depending on whether you buy or sell, act as the offer [[How to be a market maker on Bisq|maker]] or taker, and the specific payment methods involved. Regardless of the protocol, the process differs significantly from centralized exchanges.
+
+=== How trading with Bisq is different ===
+
+Key characteristics distinguish Bisq trading:
+
+* '''Desktop Application:''' Bisq runs locally on your computer, not in a web browser.
+* '''Manual Offer Taking:''' There is no automatic order matching. Users manually browse the offer book and choose specific offers from peers. This enables direct P2P settlement and user control over counterparties.
+* '''Out-of-Band Fiat Payments:''' Bisq orchestrates, but does not directly process, fiat (or altcoin) payments. These transfers happen directly between users via their chosen payment methods outside the Bisq application itself.
+
+These differences lead to a fundamental trade-off: Bisq trades may take longer to settle than on centralized platforms, but they offer significantly enhanced security, privacy, and censorship resistance.
+
+=== How Bisq keeps funds secure ===
+Mechanisms vary by protocol, but core principles include:
+* '''Non-Custodial:''' Users always retain control of their fiat and cryptocurrency funds. Bisq never holds user funds.
+* '''Incentives/Collateral:''' Trading protocols use mechanisms to ensure fair play. The classic [[Bisq 1|v1]] protocol uses [[Security deposit|security deposits]] locked from both buyer and seller alongside the trade amount in a '''2-of-2 multisig escrow'''. Other protocols like [[Bisq Easy]] rely on [[Reputation|seller reputation]].
+* '''Dispute Resolution:''' If issues arise, a decentralized human [[Dispute_Resolution_in_Bisq_1|dispute resolution]] system (including trader chat, mediation, and potentially arbitration) is available.
+
+=== How Bisq keeps data private ===
+* '''No Registration/KYC:''' Using Bisq requires no identity verification or account registration with a central entity.
+* '''Tor Network:''' All peer-to-peer network communication runs over the [[Tor]] network by default, masking IP addresses.
+* '''No Central Servers:''' Bisq has no central databases storing user or trade data.
+* '''Encrypted Communication:''' Trade details are end-to-end encrypted between the trading counterparties.
+
+=== How Bisq resists censorship ===
+* '''Distributed P2P Network:''' The network consists of users running the software globally, making it difficult for any single entity to shut down.
+* '''Built on Tor:''' Inherits [[Tor]]'s own censorship resistance properties.
+* '''Code, Not a Company:''' Bisq is open-source software developed by a DAO, not a legal corporate entity that can be easily targeted or shut down by regulators.<!-- BISQ VERSION: bisq2 -->

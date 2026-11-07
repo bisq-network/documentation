@@ -1,0 +1,19 @@
+{
+  "title": "Roles",
+  "page_id": "48",
+  "revision_id": "2763",
+  "revision_timestamp": "2022-01-22T19:18:50Z",
+  "available_attribution": {
+    "username": "W000000t",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Roles",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=2763",
+  "wikitext_sha256": "ae86d6f23af95d9dda649a2f7095978fb269055abca1d6eb09086e89991a0767",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/roles/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

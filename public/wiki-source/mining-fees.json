@@ -1,0 +1,19 @@
+{
+  "title": "Mining fees",
+  "page_id": "443",
+  "revision_id": "2700",
+  "revision_timestamp": "2021-12-20T09:28:26Z",
+  "available_attribution": {
+    "username": "MwithM",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Mining_fees",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=2700",
+  "wikitext_sha256": "1b74b1f63469fbaad636356f5bba21ada6b1c2b575b8b2033f6ffeccf404c7a0",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/mining-fees/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

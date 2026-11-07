@@ -1,0 +1,59 @@
+'''Resyncing the SPV file''' (Simplified Payment Verification file, `bisq.spvchain`) can often solve wallet issues within Bisq, such as an incorrect balance showing, missing transactions, or other synchronization problems.
+
+__TOC__
+
+== How to Resync the SPV File ==
+
+It is generally best to initiate an SPV file resync using the button within the Bisq application interface. However, if Bisq cannot start properly, you may need to initiate it manually via the file system.
+
+=== From the Bisq Interface ===
+This is the recommended method if Bisq is operational.
+# Go to `Settings` > `Network Info`.
+# Click the `RESYNC SPV WALLET` button.
+# Bisq will prompt you to restart the application '''twice'''. Follow the prompts carefully.
+
+{{Admonition_Warn|'''Sync Time & Performance:'''
+*Resyncing can take a significant amount of time*, depending on the age of your wallet and the number of transactions it contains.
+*It is normal for your computer to experience '''high CPU usage''' during the resync process.
+*Bisq '''may become unresponsive''' while syncing. Please be patient and let the process complete.}}
+
+[[File:Resync-spv-file.png|600px|thumb|left|Click the 'RESYNC SPV WALLET' button under Settings > Network Info.]]
+
+<div style="clear: both;"></div>
+
+=== From the File System ===
+Use this method if you cannot access the button within Bisq (e.g., if Bisq fails to start fully).
+# Ensure Bisq is completely '''closed'''.
+# Navigate to your [[Data_directory|Bisq data directory]].
+# Locate and '''delete''' the SPV chain file: `btc_mainnet/wallet/bisq.spvchain`
+# Start Bisq and wait for it to fully load (it will begin the resync process).
+# '''Crucially, close Bisq completely and restart it a second time.''' Bisq will ''not'' prompt you for this second restart when using the manual method, but it is required for the wallet state to initialize correctly after the sync.
+
+{{Admonition_Warn|'''Sync Time & Performance:'''
+*As with the interface method, resyncing manually can take a '''significant amount of time''', depending on wallet age and transaction count.
+*Expect '''high CPU usage''' and potential Bisq '''unresponsiveness''' during the sync process. Be patient.}}
+
+=== Fix an Incomplete SPV Resync ===
+Sometimes, especially on older or larger wallets, the SPV resync might hang or get interrupted. If restarting Bisq causes the resync to start over from 0% instead of resuming, you can try this:
+# Ensure Bisq is completely '''closed'''.
+# Navigate to the root folder of your [[Data_directory#Default_locations|Bisq data directory]].
+# Locate and '''delete''' the file named `resyncSpv`. (This file typically only exists if a previous resync was interrupted).
+# '''Restart Bisq'''.
+It should now attempt to resume the SPV sync from where it previously left off.
+
+{{Admonition_Note|When resuming an incomplete sync this way, the Bisq UI might load and show balances ''before'' the background sync is fully complete. Your balance may appear incorrect until the process finishes. You can repeat steps 1-4 if the sync gets interrupted again, allowing it to complete in stages.}}
+
+== Preventing Frequent or Slow Resyncs: Connect to Your Own Node ==
+
+If you find that Bisq frequently requires SPV file resyncs, or if the process consistently takes an extremely long time (especially with an older or high-transaction wallet), the most robust solution is to connect Bisq to your own Bitcoin full node.
+
+When connected to your local node, Bisq gets blockchain information directly and reliably, bypassing the need for the SPV synchronization process over the Tor network. This typically results in faster startups and eliminates most common sync-related issues and errors.
+
+For details on setting up a node and configuring Bisq to use it, please see:
+* [[Installing your own Bitcoin node]]
+* [[Connecting to your own Bitcoin node]]
+
+While running a full node requires more resources (disk space, bandwidth), it offers the best performance, privacy, and stability when using Bisq.
+
+[[Category:Use Cases]]
+[[Category:Troubleshooting]]<!-- BISQ VERSION: general -->

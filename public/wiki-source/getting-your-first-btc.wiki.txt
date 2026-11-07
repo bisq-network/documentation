@@ -1,0 +1,54 @@
+To help new Bisq users who don't already have enough bitcoin to use Bisq, there is an '''informal market for small BTC trades'''. 
+
+Trades take place on the [[Matrix bisq.chat]] space, in the [https://matrix.to/#/#bisq.btc:bitcoin.kyoto Get your first BTC] room. You need to join [https://www.bisq.chat bisq.chat] first to be allowed to join the ''Get your first BTC'' room.  
+
+As of 2024, the get your first BTC room has now been largely replaced by [[Bisq Easy]].
+
+This article covers benefits, risks, and rules to be aware of when using this informal BTC marketplace.
+
+{{Admonition_Warn|This marketplace takes the form of a Matrix chat room, so trades are NOT secured by any of the security mechanisms of Bisq software (e.g. multi-signature escrows, mediation, arbitration, DAO, etc).
+
+Therefore be aware that such trading is inherently risky. See [[#Risks|risks]] below.}}
+
+__TOC__
+
+== Background ==
+
+For new users, Bisq requires between 0.002 and 0.007 BTC for traders to make their first trade:
+* 0.001 - 0.006 BTC security deposit
+* 0.001 BTC miner fee and trade fee
+
+It can be difficult for new bitcoiners to acquire their first coins, so this requirement is often a barrier for new Bisq users. The [https://matrix.to/#/#bisq.btc:bitcoin.kyoto Get your first BTC] room offers one possible way to get this initial bitcoin without signing up for a centralized exchange. 
+
+Other solutions are listed at [[Funding_your_wallet#How_to_Obtain_Your_First_Bitcoin|Funding your wallet]].
+
+== Risks ==
+
+Make sure you understand these risks before trading:
+
+* Not entirely anonymous - Unless you access through Tor, IP address and other usage metrics may reveal your identity
+* Must trust traders - Trades are not secured by deposits as they are on Bisq
+* No dispute resolution - Trades depend solely on user reputation, so there's no recourse if something goes wrong
+
+== Trading rules ==
+
+To maximize the chances that trades go smoothly, the following rules apply:
+
+* Maximum trade size is ''0.007'' BTC. BTC buyers can buy a maximum of 0.007 BTC in one transaction. BTC sellers can sell a maximum of 0.007 BTC in one transaction.
+* Traders can negotiate their prices. Sellers of BTC will likely charge a high premium to cover mining fees, time, and profit.
+* BTC buyers should post on the [https://matrix.to/#/#bisq.btc:bitcoin.kyoto Get your first BTC] room the amount they are looking to buy, the payment method they are looking to use, and which currency they wish to make payment in: for example, "I am looking to buy 0.007 BTC with GBP using Revolut. Is anyone online willing to take this offer?"
+* Trades between interested parties can be negotiated and settled in direct messages.
+* Only [[Payment methods|payment methods]] used in Bisq are allowed. Preference should be given to those with immediate payment: e.g. Revolut, TransferWise, SEPA Instant, Zelle, Faster Payments etc.
+* '''There are no refunds, no mediation, no arbitration, and no dispute resolution of any kind available.''' Beware!
+* DAO compensation requests or reimbursement requests related to such trades are not allowed.
+* Any trader can be kicked out of the room at the discretion of the room owner. The [https://matrix.to/#/#bisq.btc:bitcoin.kyoto Get your first BTC] room is moderated to preclude foul play and bad actors.
+
+== Considerations ==
+
+As you are potentially linking your Matrix username to your payment account you might want to consider using a Matrix throwaway account for increased privacy.
+
+Additionally, if you're not confident in the reputation of a trader, it may be a good idea to split a trade into multiple installments. This will reduce your losses if a trader disappears after payment, but should be weighed against transaction fees. If you are trading fiat, also consider the risk of a bank finding multiple transactions more suspicious than a single large purchase.
+
+If a trader isn't comfortable with multiple installments, it's most likely out of their control, and you may want to find another trader or an alternative payment method. As always, you are doing this at your own risk; make sure to consider someone's track record to determine how cautious you should be. A trader that has consistently delivered positive results is more trustworthy than someone who hasn't completed any trades yet.
+
+If a trader has treated you well, leaving a positive review in chat will help others with their own evaluation of that trader; likewise, if you have a bad experience with a trader, don't be afraid to leave a negative review, even if there is a possibility that it could've been accidental.<!-- BISQ VERSION: bisq2 -->

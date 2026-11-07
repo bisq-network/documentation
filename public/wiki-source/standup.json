@@ -1,0 +1,19 @@
+{
+  "title": "Standup",
+  "page_id": "63",
+  "revision_id": "2818",
+  "revision_timestamp": "2022-02-17T09:42:55Z",
+  "available_attribution": {
+    "username": "MwithM",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Standup",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=2818",
+  "wikitext_sha256": "4f96c03bc8174e4ceeb889b46f07d97982c56a0d269e564ec7e1f18a6d4508a9",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/standup/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

@@ -1,0 +1,147 @@
+'''Strike''' is a payment method added in Bisq v1.7.5. 
+
+Strike is a payments application developed by Zap Solutions. Strike allowing users to send and receive USD instantly around the world, for free. Strike moves fiat by buying and selling bitcoin in real time over the Lightning Network
+
+Users can use Strike to send and receive instant payments as well as buy and sell bitcoin.
+
+== Where can I find out more about Strike? ==
+
+Here is a list of Strike resources:
+
+* [https://strike.me/ Strike website]
+* [https://twitter.com/ln_strike Strike Twitter]
+* [https://global.strike.me/en/ Strike Global (in development)]
+
+== What countries are available for Strike? ==
+
+Strike is available only in the United States, and some states may not have access.
+
+== What currencies are available for Strike? ==
+
+Strike currently only supports USD.
+
+== What is the maximum trading duration for Strike? ==
+
+The maximum trade time is 1 day. Generally Strike transfers will be completed instantly.
+
+== What is the maximum BTC limit for an Strike trade? ==
+
+{{MaxTradeSizeBisq1}}.
+
+== Is Strike a payment method that can be signed? ==
+
+No, Strike accounts do not require signing.
+
+== How do I set up a Strike account? ==
+
+Sign up at https://strike.me/
+
+== How do I add Strike as a payment method in Bisq? ==
+
+It is easy to add your Strike account to Bisq.
+
+# Go to the top menu in Bisq and select Account. 
+# Then select National Currency Accounts. 
+# Click add new account
+# Select Strike
+# Complete the details
+# Choose to use a custom account name this helps makes it easier for you to manage multiple payment methods in Bisq (this will be visible only to you, for example: Strike - USD - Jane Doe)
+# Click save new account
+
+Make sure all the details are correct when you add.
+
+{{Admonition_Warn|Please make sure to include your Strike username.
+
+In Bisq, Strike is used for fiat to fiat payments only.
+
+Please make sure you are aware of the Strike limits:
+
+Users who have registered with only their email, name, and phone number have the following limits:
+
+* $100 maximum per deposit
+* $1,000 maximum total deposits per week
+* $100 maximum per payment
+
+Users can increase their limits by providing Strike more information have the following limits:
+
+* $1,000 maximum per deposit
+* $1,000 maximum total deposits per week
+* $1,000 maximum per payment
+
+If you trade over the above limits your trade might be cancelled and there could be a penalty.}}
+
+== How do I buy BTC with my Strike account? ==
+
+You can buy BTC with Strike on Bisq in 2 waysː
+
+# Make an offer to buy BTC on the USD market.
+# Take an offer to buy BTC on the USD market.
+
+When the offer is confirmed Bisq will provide you with the BTC Sellers Strike details for you to complete the payment. You should send payment immediately and confirm you have done so in Bisq by clicking 'payment started'.
+
+If you have the option to include a payment reference please leave it blank. If your bank requires one, please just use your name that matches your bank account.
+
+Once the BTC Seller receives your payment they will confirm in Bisq and your security deposit and your purchased trade amount will be available in your wallet.
+
+{{Admonition_Warn|Please send payment only to the BTC Seller's Strike username as provided in Bisq.
+
+The maximum trade size is $1,000 maximum per payment.
+
+If you trade over the above limits your trade might be cancelled and there could be a penalty.}}
+
+== How do I sell BTC with my Strike account? ==
+
+You can sell BTC with Strike on Bisq in 2 waysː
+
+# Make an offer to sell BTC on the USD market.
+# Take an offer to sell BTC on the USD market.
+
+When the offer is confirmed Bisq will provide with the BTC Buyer with your Strike details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking 'payment started'.
+
+Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.
+
+{{Admonition_Warn|Please make sure your payment is received from the BTC Buyer's Strike username as provided in Bisq.
+
+The maximum trade size is $1,000 maximum per payment.
+
+If you trade over the above limits your trade might be cancelled and there could be a penalty.}}
+
+== Are there any limits for me to be aware of when using my Strike account? ==
+
+New users can create an account by providing just the following:
+
+* Name
+* Email
+* Phone number
+
+To get higher limits >$100 users need to provide more information including:
+
+* Address
+* Birthday
+* Social Security Number
+* Photos of their ID
+
+{{Admonition_Warn|Users who have registered with only their email, name, and phone number have the following limits:
+
+* $100 maximum per deposit
+* $1,000 maximum total deposits per week
+* $100 maximum per payment
+
+Users who increase their limits by providing more information have the following limits:
+
+* $1,000 maximum per deposit
+* $1,000 maximum total deposits per week
+* $1,000 maximum per payment
+}}
+
+== Are there any fees for me to be aware of when using my Strike account? == 
+
+USD to USD is free.
+
+== How does dispute resolution when trading with Strike? ==
+
+If a dispute occurs the mediator may ask the buyer to send them information showing that they made the payment of the correct amount to the BTC Seller within the correct time frame. 
+
+The mediator may ask the seller to send them information to prove their account details are correct, or in the case of the BTC Buyer making a payment late, or of the wrong amount. 
+
+For more information see [[dispute resolution]].<!-- BISQ VERSION: general -->

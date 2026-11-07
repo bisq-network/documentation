@@ -1,0 +1,36 @@
+The Arch User Repository (AUR) can from time to time become outdated, containing a version of Bisq that will not be able to trade on the p2p network.
+
+At the time of writing, AUR contains 1.8.0, but current version is 1.8.2; the following instructions should get you a working setup.
+
+=== Method 1: edit the cloned repository ===
+
+This method has been user-tested and reported for migration from 1.8.0 to 1.8.2.
+
+Clone the AUR package for bisq  curent version 1.8.0 and change to download directory<br>
+<code>git clone https://aur.archlinux.org/bisq.git</code><br>
+<code>cd bisq</code><br>
+
+Edit the PKGBUILD file changing the version, and updating the sha256 checksum for the bisq-1.8.2.tar.gz file
+
+<code>nano PKGBUILD</code><br>
+or<br>
+<code>vi PKGBUILD</code><br>
+
+and then change<br>
+<code>pkgver=1.8.0</code><br>
+to<br>
+<code>pkgver=1.8.2</code>
+
+and
+
+<code>sha256sums=('ca636152863a9cc587d8d2b00476abd6fab854ae0b3513950d001f23cb0a1a53'</code><br>
+to<br>
+<code>sha256sums=('d69bab29875eed312811cb34a84ac7920acac74f9a86eb637e56e92e5fcbcbbb'</code><br>
+
+then build and install bisq:<br>
+<code>makepkg -si</code>
+
+=== Method 2: run the binaries downloaded from the official website ===
+The following method will work with any future version of Bisq.
+
+Download the deb package from https://bisq.network/downloads/, open it using archive manager, and extract to disk the file data.tar.xz inside of it, then run <code>opt/bisq/bin/Bisq</code> under the directory you extracted it to.<!-- BISQ VERSION: general -->

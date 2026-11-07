@@ -1,0 +1,24 @@
+This article documents the ''Bisq Maintainer'' [[Roles|role]].
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/63
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/bisq-maintainers/members @bisq-network/bisq-maintainers]
+
+== Duties ==
+* Perform [https://docs.bisq.network/roles.html#common-duties duties common to all roles]
+* Merge pull requests per the [[Development Process]]
+* Manage critical bugs per the [[Critical Bugs]] process
+
+== Rights ==
+* Admin access to the bisq-network/bisq repository
+* Write access to the [[Critical Bugs#Board|critical bugs board]]
+
+== Bonding ==
+Required. See https://github.com/bisq-network/bisq/blob/42a037e/core/src/main/java/bisq/core/dao/state/model/governance/BondedRoleType.java#L51
+
+[[Category:Roles]]
+[[Category:Maintainer]]<!-- BISQ VERSION: general -->

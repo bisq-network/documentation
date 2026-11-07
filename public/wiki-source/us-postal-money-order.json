@@ -1,0 +1,19 @@
+{
+  "title": "US Postal Money Order",
+  "page_id": "376",
+  "revision_id": "4149",
+  "revision_timestamp": "2026-05-29T16:29:18Z",
+  "available_attribution": {
+    "username": "SuddenWhipVapor",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/US_Postal_Money_Order",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=4149",
+  "wikitext_sha256": "61eae20a3a4af5a6e971bfc21be2815b23d000dd76ffad7a77955a8d52dadadc",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/us-postal-money-order/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

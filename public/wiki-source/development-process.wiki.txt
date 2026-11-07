@@ -1,0 +1,13 @@
+''Note (@ripcurlx): This is just a stub where we can detail the development processes. Just added it to link the existing process for critical bugs''
+
+== Processes ==
+
+=== Critical bugs ===
+See [[Critical Bugs#Process]]
+
+=== Development within priorities ===
+
+=== Development outside of priorities ===
+
+[[Category:Stubs]]
+[[Category:Processes]]<!-- BISQ VERSION: general -->

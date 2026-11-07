@@ -1,0 +1,7 @@
+'''Running Bisq on a HiDPI screen''' (2k, 4k, etc) with default settings often leads to small text.
+
+This article covers how to fix this issue on Linux.
+
+__TOC__
+
+{{Run_with_Java_options|<nowiki>-Dglass.gtk.uiScale=1.4</nowiki>|Adjust scaling with the following prefix}}<!-- BISQ VERSION: general -->

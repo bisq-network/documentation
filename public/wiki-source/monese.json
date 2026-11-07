@@ -1,0 +1,19 @@
+{
+  "title": "Monese",
+  "page_id": "498",
+  "revision_id": "3914",
+  "revision_timestamp": "2025-02-12T02:22:32Z",
+  "available_attribution": {
+    "username": "Strayorigin",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Monese",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3914",
+  "wikitext_sha256": "9752602d7a07d1137504af96bdc8fd87d514777529c83536440cba772f73302f",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/monese/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

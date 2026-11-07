@@ -1,0 +1,23 @@
+This article documents the '''Monero Explorer Operator''' [[Roles|role]].
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/109
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/monero-explorer-operators/members @bisq-network/monero-explorer-operators]
+
+== Duties ==
+* Run an instance of the [https://github.com/moneroexamples/onion-monero-blockchain-explorer Onion Monero Blockchain Explorer]
+* Make your Monero Explorer instance available over HTTPS clearnet and Tor V3 HS onion, enable HSTS and DNSSEC
+* Update the [https://github.com/bisq-network/bisq/blob/master/core/src/main/java/bisq/core/user/Preferences.java#L130 Bisq code] to contain the FQDN clearnet hostname and Tor V3 HS onion of your Monero Explorer
+
+== Rights ==
+* Claim $100/month compensation
+
+== Bonding ==
+* Post 20,000 BSQ bond for Explorer Operator
+
+[[Category:Roles]]
+[[Category:Operator]]<!-- BISQ VERSION: general -->

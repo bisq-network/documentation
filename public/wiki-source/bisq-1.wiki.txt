@@ -1,0 +1,79 @@
+<!--        left panels        -->
+{| id="mp-upper" style="width: 100%; margin:6px 0 0 0; background:none; border-spacing: 0px;"
+| class="MainPageBG" style="width:55%; border:1px solid #fff; background:#fff; vertical-align:top; color:#000;" |
+{| id="mp-left" style="vertical-align:top; background:#fff;"
+! style="padding:2px;" | <h2 id="mp-tfa-h2" style="margin:3px; background:#f7f7f7; font-size:120%; font-weight:bold; border:1px solid #fff; text-align:left; color:#000; padding:0.2em 0.4em;">Bisq</h2>
+|-
+| style="color:#000;" | <div id="mp-tfa" style="padding:10px 5px">{{MainPage_Intro}}</div>
+|-
+! style="padding:2px" | <h2 id="mp-dyk-h2" style="margin:3px; background:#f7f7f7; font-size:120%; font-weight:bold; border:1px solid #fff; text-align:left; color:#000; padding:0.2em 0.4em;">Why?</h2>
+|-
+| style="color:#000;padding:2px 5px 5px" | <div id="mp-dyk" style="padding:10px 5px">{{MainPage_Reasons}}</div>
+|}
+| style="border:1px solid transparent;" |
+
+<!--        right panels       -->
+
+| class="MainPageBG" style="width:45%; border:1px solid #fff; background:#fff; vertical-align:top;"|
+{| id="mp-right" style="width:100%; vertical-align:top; background:#fff;"
+! style="padding:2px" | <h2 id="mp-otd-h2" style="margin:3px; background:rgba(37, 177, 53, 0.15); font-size:120%; font-weight:bold; border:1px solid #fff; text-align:left; color:#000; padding:0.2em 0.4em;">Using Bisq</h2>
+|-
+| style="color:#000;padding:2px 5px 5px" | <div id="mp-otd">
+{|cellpadding="2" style="background-color: inherit;"
+|-
+* '''[[Introduction]]''' — what Bisq is and why
+* '''[https://bisq.network/getting-started Getting started]''' — complete your first trade in minutes
+* '''[[Downloading and installing]]''' — or [https://github.com/bisq-network/bisq/blob/master/docs/build.md build it yourself]
+* '''Backing up critical data''' — [[Backing_up_your_wallet_seed|seed words]] and [[Backing_up_application_data|data directory]]
+* '''[https://www.youtube.com/watch?v=HDkzUl9wibc Take a tour]''' — get acquainted with the interface
+* '''[[Payment methods]]''' — supported payment methods and limitations
+* '''[[Trading fees]]''' — competitive rates for unparalleled privacy
+* '''[[Dispute resolution]]''' — what happens when a trade doesn't go smoothly
+* '''[[Support]]''' — where to go when you need support
+* '''[[Installing your own Bitcoin node]]''' — take the next step in Bitcoin self sovereignty
+* '''[[Troubleshooting]]''' — solutions to known issues
+* '''Tips and Tricks''' — how to get the most out of Bisq ([[Performance_Tips|performance]] + [[Privacy_Tips|privacy]])
+<!-- * '''[[Decentralized autonomous organization]]''' — how Bisq is governed and funded -->
+
+</div>
+|}
+|-
+! style="padding:2px" | <h2 id="mp-otd-h2" style="margin:3px; background:rgba(37, 177, 53, 0.15); font-size:120%; font-weight:bold; border:1px solid #fff; text-align:left; color:#000; padding:0.2em 0.4em;">Contributing</h2>
+|-
+| style="color:#000;padding:2px 5px 5px" | <div id="mp-otd">
+{|cellpadding="2" style="background-color: inherit;"
+|-
+* '''[[Contributor_checklist|Contributor checklist]]''' — see how we think, work, and collaborate
+* '''[https://github.com/bisq-network GitHub]''' — all the code
+* '''[https://github.com/orgs/bisq-network/projects/3 Current projects]''' — see what we're up to right now
+</div>
+|}
+|-
+! style="padding:2px" | <h2 id="mp-otd-h2" style="margin:3px; background:rgba(37, 177, 53, 0.15); font-size:120%; font-weight:bold; border:1px solid #fff; text-align:left; color:#000; padding:0.2em 0.4em;">Network activity and stats</h2>
+|-
+| style="color:#000;padding:2px 5px 5px" | <div id="mp-otd">
+{|cellpadding="2" style="background-color: inherit;"
+|-
+* '''[https://bisq.network/stats Overview]''' — trading volume, BSQ issuance, other activity
+* '''[https://docs.google.com/spreadsheets/d/1o-I5fAx7DJRVqYjW8fPbo0ztlGIhIZ1EM2iLc5aEHnA Trading activity]''' — all the numbers, in detail
+* '''[https://monitor.bisq.network Network monitor]''' — P2P network activity, Tor metrics, other data
+* '''[https://bisq.network/release-stats Release stats]''' — download numbers by release
+</div>
+|}
+|-
+! style="padding:2px" | <h2 id="mp-otd-h2" style="margin:3px; background:rgba(37, 177, 53, 0.15); font-size:120%; font-weight:bold; border:1px solid #fff; text-align:left; color:#000; padding:0.2em 0.4em;">Community</h2>
+|-
+| style="color:#000;padding:2px 5px 5px" | <div id="mp-otd">
+{|cellpadding="2" style="background-color: inherit;"
+|-
+* '''[https://bisq.chat Matrix]''' — where everyone hangs out and collaborates
+* '''[https://primal.net/bisq Nostr]''' and '''[https://twitter.com/bisq_network/ Twitter]''' — user-facing announcements and news
+* '''[https://bisq.network/blog Blog]''' — longer-form updates and perspectives
+* '''[https://youtube.com/c/bisq-network YouTube]''' — calls, how-tos, interviews, and more
+* '''[https://bisq.community Forum]''' — ask questions, post opinions
+* '''[https://reddit.com/r/bisq Reddit]''' — mingle with other redditors who use Bisq
+</div>
+|}
+|}
+
+</noinclude>__NOTOC____NOEDITSECTION__<!-- BISQ VERSION: bisq1 -->

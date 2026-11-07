@@ -1,0 +1,53 @@
+---
+title: "Payment methods"
+description: "Historical payment-method and payment-account articles. Availability and rules may have changed."
+---
+
+Historical payment-method and payment-account articles. Availability and rules may have changed.
+
+**44 articles.** These are recovered historical wiki pages, not current guidance. See the [current guide drafts](../../) or [all articles](../all/).
+
+- [Account limits](../../wiki/account-limits/)
+- [ACH Transfer](../../wiki/ach-transfer/)
+- [Altcoins](../../wiki/altcoins/)
+- [Altcoins Instant](../../wiki/altcoins-instant/)
+- [Amazon eGift card](../../wiki/amazon-egift-card/)
+- [Bizum](../../wiki/bizum/)
+- [Capitual](../../wiki/capitual/)
+- [Cash by mail](../../wiki/cash-by-mail/)
+- [CelPay](../../wiki/celpay/)
+- [Creating a payment account](../../wiki/creating-a-payment-account/)
+- [Domestic Wire Transfer](../../wiki/domestic-wire-transfer/)
+- [Face-to-face (payment method)](../../wiki/face-to-face-payment-method/)
+- [Faster Payments](../../wiki/faster-payments/)
+- [Faster Payments System SBP](../../wiki/faster-payments-system-sbp/)
+- [IMPS](../../wiki/imps/)
+- [Issues with fiat payments](../../wiki/issues-with-fiat-payments/)
+- [Monese](../../wiki/monese/)
+- [NEFT](../../wiki/neft/)
+- [Nequi](../../wiki/nequi/)
+- [Paxum](../../wiki/paxum/)
+- [Payment account age witness](../../wiki/payment-account-age-witness/)
+- [Payment methods](../../wiki/payment-methods/)
+- [Payment methods/en](../../wiki/payment-methods-en/)
+- [Payment methods/es](../../wiki/payment-methods-es/)
+- [Paysera](../../wiki/paysera/)
+- [PayTM](../../wiki/paytm/)
+- [Pix](../../wiki/pix/)
+- [Revolut](../../wiki/revolut/)
+- [RTGS](../../wiki/rtgs/)
+- [Satispay](../../wiki/satispay/)
+- [SEPA](../../wiki/sepa-p551/)
+- [Sepa](../../wiki/sepa-p550/)
+- [SEPA Instant](../../wiki/sepa-instant/)
+- [Set up a Revolut payment account](../../wiki/set-up-a-revolut-payment-account/)
+- [Set up a SEPA payment account](../../wiki/set-up-a-sepa-payment-account/)
+- [Skrill](../../wiki/skrill/)
+- [Strike](../../wiki/strike/)
+- [SWIFT](../../wiki/swift/)
+- [Tikkie](../../wiki/tikkie/)
+- [UPI](../../wiki/upi/)
+- [US Postal Money Order](../../wiki/us-postal-money-order/)
+- [Wise](../../wiki/wise/)
+- [Wise-USD](../../wiki/wise-usd/)
+- [Zelle](../../wiki/zelle/)

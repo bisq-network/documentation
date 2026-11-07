@@ -1,0 +1,2 @@
+Phase Zero: A Plan for Bootstrapping the Bisq DAO
+https://docs.bisq.network/dao/phase-zero.html<!-- BISQ VERSION: bisq1 -->

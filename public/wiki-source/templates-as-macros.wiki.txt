@@ -1,0 +1,23 @@
+MediaWiki, the software platform that powers the Bisq Wiki, includes a built-in feature that allows the content of a template page to be displayed inline on any other page using a markup command. This can be very useful, for example, when mentioning a maximum trade amount that might change over time on multiple pages. You won't have to worry about those pages becoming outdated if the amount changes.
+
+To create a template page, you can do so like any other wiki page, but you need to add the prefix "Template:" at the beginning. It's recommended that template pages used as macros have a more simplified name for ease of recall. The newly created template page should only contain the content that will be displayed inline when referenced.
+
+To display the content of a template page inline, use the following command: "<nowiki>{{name_of_template}}</nowiki>". For instance, to display the content of the template page "<nowiki>Template:MaxTradeSizeUnsigned</nowiki>", you would use "<nowiki>{{MaxTradeSizeUnsigned}}</nowiki>".
+
+List of current Templates being used as macros, for reference and quick access:
+
+{| class="wikitable"
+|-
+! Page !! Description !! Current value
+|-
+| [[Template:MinTradeSizeToBeSigned]] || Displays the min trade amount for an account to be signed || {{MinTradeSizeToBeSigned}}
+|-
+| [[Template:MaxTradeSizeUnsigned]] || Displays the max trade amount for an unsigned buyer. || {{MaxTradeSizeUnsigned}}
+|-
+| [[Template:MaxTradeSizeBisq1]] || Displays the max trade size for Bisq 1 trade (keeping separate for more flexibility with Bisq 2 protocols) || {{MaxTradeSizeBisq1}}
+|-
+| [[Template:MaxTradeSizeAltcoin]] || Displays the max trade size for altcoin trades in Bisq 1 || {{MaxTradeSizeAltcoin}}
+|-
+| [[Template:MaxBisqEasyTrade]] || Displays the max trade amount for a Bisq Easy trade
+ || {{MaxBisqEasyTrade}}
+|}<!-- BISQ VERSION: general -->

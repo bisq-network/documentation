@@ -1,0 +1,16 @@
+---
+import Default from "@astrojs/starlight/components/MarkdownContent.astro";
+import relatedGuides from "../data/archive-guide-links.json";
+
+const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "");
+const mapping = relatedGuides as Record<string, { label: string; href: string }>;
+const related = mapping[id];
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+{related && (
+  <aside class="related-guide" data-pagefind-ignore>
+    <strong>Looking for current guidance?</strong>
+    <a href={`${base}${related.href}`}>{related.label}</a>
+  </aside>
+)}
+<Default><slot /></Default>

@@ -1,0 +1,24 @@
+This article is a stub pending the adaptation of the current [[Mediator#Duties]] section here.
+
+
+[[Mediation]] is a tool used to resolve a dispute between traders. It opens automatically after the trade period is over and the trade has not been completed. It can also be opened manually beforehand if needed by either one of the traders. Before opening a support ticket, traders should remember that they can contact the other party directly by using the Chat provided when the trade opens.
+
+
+== Trader's Instructions ==
+* Respond to the Mediator on the support ticket explaining why the ticket was opened. 48 hr response limit.
+* Provide proof of payment via a screenshot or PDF if required by the [[Mediator]].
+* In case of banking issues, keep detailed information of what happened (i.e. when was your account closed) attaching screenshots.
+
+== Mediator's Duties ==
+* Contact both parties of the trade (BTC buyer and BTC seller) to find out what the problem is and why the Support ticket was opened.
+* Check: Maker Fee Transaction ID, Taker Fee Transaction ID and Deposit Transaction ID to make sure the transaction was published and funds are not stuck.
+* If needed, the Mediator will require the private keys from both traders to carry out a manual payout.
+* In case of disagreement or unclear information, verified proof of payment may be required to either party by the Mediator.
+* Be available on Matrix to help users that may not be able to reach out through the Bisq app.
+* Respond within 24 hours.
+* When bugs occur, create detailed issues on [https://github.com/bisq-network/bisq Github] using the correct repository and notify L2 Support.
+   
+
+
+[[Category:Stubs]]
+[[Category:Processes]]<!-- BISQ VERSION: general -->

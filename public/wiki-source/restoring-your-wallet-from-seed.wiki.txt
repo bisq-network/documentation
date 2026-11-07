@@ -1,0 +1,31 @@
+You can '''restore your wallet from seed''' to recover your funds in unusual circumstances when nothing else is working (e.g., if a data directory ''and'' its backups become corrupted).
+
+Note that such a recovery only restores funds (BTC and BSQ) but does not restore any other Bisq data such as payment accounts, open disputes, etc. This data is stored in the Bisq data directory. Furthermore, restoring from seed does not restore [https://docs.bisq.network/dao-user-reference.html#voting-stake reputation value] earned from contributing to Bisq.
+
+__TOC__
+
+== Restoring to a Bisq wallet ==
+
+Before restoring from seed, please try [[Troubleshooting_wallet_issues#Restore_a_wallet_backup|restoring your wallet from a backup]] first.
+
+To restore a wallet using seed words, go to <code>Account</code> > <code>Wallet Seed</code>, enter the seed words and date in the "Restore wallet from seed words" section, and then click <code>Restore Wallets</code>.
+
+: ''{{Wallet_date_explainer}}''
+
+Bisq will then restart and start to rebuild your wallet state. If you see a zero balance for BTC and/or BSQ after restoring from seed, wait until the program is done syncing with the Bitcoin network. You'll know syncing is done when the green bar on the bottom right labeled "Synchronizing With Bitcoin Mainnet (using Tor) / Synchronizing DAO"  goes away.
+
+[[File:Restore-from-seed.png|600px|thumb|left|Go here to restore a Bisq wallet from seed.]]
+
+<div style="clear: both;"></div>
+
+Things to know:
+
+* '''You should only restore from seed into a new Bisq wallet.'''
+* If your goal is merely to transfer BTC or BSQ to another Bisq instance, it's best to simply send the funds to the new instance with a transaction.
+* You can restore BTC funds to an external wallet like Electrum, but restoring BSQ on a non-Bisq wallet is highly discouraged and ''not'' supported. The rules to form valid BSQ transactions are rather complex, and even the slightest error can result in invalid BSQ.
+
+== Restoring to a non-Bisq wallet ==
+
+{{Wallet_derivation_paths}}
+
+[[Category:Use Cases]]<!-- BISQ VERSION: general -->

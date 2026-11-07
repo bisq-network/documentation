@@ -1,0 +1,133 @@
+This guide shows '''how to run Bisq in a dedicated qube in QubesOS'''. The steps were tested using QubesOS 4.0.3 and a Bisq qube based on the <code>debian-10</code> template.
+
+__TOC__
+
+= How to setup =
+
+== In dom0 ==
+
+Execute the following steps in dom0.
+
+=== Create qube ===
+
+Create a new dedicated qube called <code>bisq-vm</code> based on the <code>debian-10</code> template.
+
+* Q Menu > Create Qubes VM > Qube based on a template
+* Template: choose <code>debian-10</code>
+* Check "Launch settings after creation"
+* Press OK
+
+Within a few seconds, the qube is created and the Qube Settings popup opens. Adjust it as follows:
+
+* Basic > Disk Storage
+** Set "Private Storage max size" to at least <code>5000 MiB</code> [1]
+* Advanced > Memory / CPU
+** Set "Initial memory" to <code>6000 MB</code> [2]
+** Set "vCPUs no." to <code>4</code>
+** Uncheck "Include in memory balancing" [3]
+* Press OK
+
+== In dedicated qube ==
+
+Execute the following steps in the <code>bisq-vm</code> qube.
+
+=== Create binding dirs ===
+
+Create the binding dirs needed for the Bisq installation:
+
+<pre>
+sudo mkdir -p /rw/bind-dirs/opt/bisq
+sudo mkdir -p /rw/bind-dirs/usr/share/desktop-directories
+</pre>
+
+Restart the qube to apply the binding dir settings.
+
+=== Configure binding dirs ===
+
+Setup the binding dirs mapping for the system folders needed for the Bisq installation:
+
+<pre>
+sudo mkdir -p /rw/config/qubes-bind-dirs.d
+</pre>
+
+Specify which system folders are mapped to binding dirs. To do that, create the configuration file:
+
+<pre>
+sudo nano /rw/config/qubes-bind-dirs.d/50_user.conf
+</pre>
+
+and populate it with the following lines [5] :
+
+<pre>
+binds+=( '/opt/bisq' )
+binds+=( '/usr/share/desktop-directories' )
+</pre>
+
+=== Install Bisq ===
+
+=== Download Debian package ===
+
+Go to the [https://bisq.network/downloads Bisq Downloads] page and download the Debian package and the corresponding PGP signature.
+
+==== Verify PGP signature ====
+
+Check that the downloaded package matches the signature [4]. Assuming the files were downloaded in the Downloads folder:
+
+<pre>
+# Go to the folder where you downloaded the .deb package and the PGP signature
+cd Downloads
+
+# Import the signing key of Alejandro Garcia (alejandrogarcia83)
+curl https://bisq.network/pubkey/E222AA02.asc | gpg --import
+
+# Verify the signature of the downloaded binary
+gpg --digest-algo SHA256 --verify Bisq-*.asc
+</pre>
+
+==== Install package ====
+
+<pre>
+sudo dpkg -i Bisq-*.deb
+</pre>
+
+Once this command finishes, Bisq is installed and ready to run.
+
+= How to run =
+
+== From dedicated qube ==
+
+Bisq can be started by running <code>/opt/bisq/bin/Bisq</code> in the <code>bisq-vm</code> qube.
+
+== From dom0 ==
+
+To start Bisq directly from dom0, a keyboard shortcut can be defined:
+
+* Q Menu > System Tools > Keyboard > Application Shortcuts
+* Add a shortcut where the command has the format <code>qvm-run -q -a <qube-name> <command></code>
+** For example, in our case: <code>qvm-run -q -a bisq-vm /opt/bisq/bin/Bisq</code>
+* Assign a system-wide key combination for starting Bisq
+** For example <code>Ctrl+Alt+B</code>
+* Press OK
+
+Now pressing the key combination anywhere in QubesOS will automatically start the Bisq application.
+
+= Further reading =
+
+* See [https://www.qubes-os.org/doc/bind-dirs Qubes tutorial] for what binding dirs are and how they work
+* See [https://www.qubes-os.org/doc/qmemman/ Qubes documentation] for how memory balancing works
+* See https://www.whonix.org/wiki/Bisq for a similar setup guide for a [https://www.whonix.org Whonix] Qube
+
+
+= References =
+
+[1] Assuming you only use this Qube for Bisq, this amount of storage will be used for all Bisq files (downloaded installer, installation folder, your local Bisq settings and profile, your Bisq wallet, Bisq logs, etc). Therefore it is important to have enough disk space available, because if Bisq runs out of storage space, this may lead to data corruption and loss of funds. For reference: A fresh Qube containing only a fully sync-ed new installation of Bisq 1.3.6, with no trades / accounts / balances, uses about 1GB of space.
+
+[2] Bisq needs 4 GB, the rest is for other OS processes.
+
+[3] This will ensure that the RAM allocated to this qube is not shared with other Qubes.
+
+[4] For more details, see Verifications section on the [https://github.com/bisq-network/bisq/releases/ Bisq GitHub releases page]
+
+[5] The <code>/usr/share/desktop-directories</code> is not really used, but is required during installation. See [https://github.com/bisq-network/bisq/issues/848 Issue 848]
+
+[[Category:Guides]]<!-- BISQ VERSION: bisq1 -->

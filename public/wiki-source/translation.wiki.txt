@@ -1,0 +1,54 @@
+Bisq can be used all over the world, so it needs to be '''translated''' into various languages.
+
+Feel free to contribute voluntary translations for any language, but only translations for languages in current target markets will be compensated. Such languages currently include the following:
+* French (fr)
+* Chinese (zh_CN, zh_TW) (on hold until mobile app is available)
+* German (de)
+* Italian (it)
+* Japanese (jp)
+* Portuguese (pt)
+* Russian (ru)
+* Spanish (es)
+
+__TOC__
+
+== How to contribute ==
+
+Bisq uses [https://explore.transifex.com/bisq/ Transifex] to translate the three projects it currently has: 
+* bisq-desktop
+* bisq-website 
+* bisq-subtitles
+
+Tasks are coordinated on the [[Matrix_bisq.chat|bisq.chat]] [https://matrix.to/#/#bisq.growth:bitcoin.kyoto #Growth] channel.
+
+To contribute, please register on Transifex and request to be included as translator for a language. Transifex will send corresponding notifications to [https://docs.transifex.com/teams/understanding-user-roles managers and coordinators], but it's better to also introduce yourself and what you'd like to do on Matrix.
+
+== Objectives ==
+
+=== Keep core languages for bisq-desktop up-to-date ===
+
+There's no budget to update all core languages in every DAO cycle. Languages will be updated one-by-one, starting with the markets which offer more trading volume for Bisq.
+
+== Guidelines ==
+
+* Strings labeled as <code>no_translate</code> are strings referring to unused altcoins and region specific strings that should be left untranslated or translated using the original English version. If left translated with the original source, don't submit them for compensation.
+
+* There's no budget for reviews: translated strings will be uploaded and used in the next version release. If a string is confusing, ask for help or leave it for later.
+
+* '''All translations work should be done on Transifex!''' Please don't open pull requests to modify non-English text. The Bisq software and website repositories include scripts to automatically integrate all changes on Transifex.
+
+* Propose any changes to English text on GitHub ([https://github.com/bisq-network/bisq/blob/master/core/src/main/resources/i18n/displayStrings.properties here] for Bisq software and [https://github.com/bisq-network/bisq-website/blob/master/_data/en.yml here] for the website).
+
+== Compensation ==
+
+As with all Bisq contributions, contributors who want to be compensated for their work should make a [https://docs.bisq.network/compensation.html compensation request]. 
+
+'''Only work designated as high-priority by the Transifex Admin will be compensated.''' Before you begin, make sure your work has been designated as high-priority by the Transifex Admin. Upon making a compensation request, the Transifex Admin will acknowledge your work to reaffirm your work's priority before voting begins.
+
+* A rate of 0.07 USD/word translated to the cycle's BSQ equivalent will be used-
+
+* Compensation requests for translations are submitted with screenshots of the Transifex translation panel. The filters used to create a valid screenshot are: <code>translator:<your_username> translated_after:<date_since_last_request></code>. Be careful, as this query returns every string the specified user last edited, even if the edit is a tiny change from a review instead of a translation. There is no budget for reviews, but if you want to do a review anyway, make sure the original translator has already has been compensated, or that they know how many words they translated (and that they have the requisite proof for their compensation request).
+
+See [https://github.com/bisq-network/compensation/issues/415 this compensation request] as an example.
+
+[[Category:Processes]]<!-- BISQ VERSION: general -->

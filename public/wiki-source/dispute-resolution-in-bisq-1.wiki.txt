@@ -1,0 +1,160 @@
+Sometimes Bisq trades don't go smoothly, and '''dispute resolution''' is required to determine an outcome.
+
+Dispute resolution on Bisq has three formal levels: trader chat, [[Mediation|medition]], and [[Arbitration|arbitration]].
+
+Most issues on Bisq are minor and easily resolved when traders communicate with each other. [[Mediation]] is intended to resolve the vast majority of remaining issues. [[Arbitration]] is a rare last resort measure for extreme scenarios.
+
+__TOC__
+
+= Level 1: Trader chat =
+
+If you're having any issues completing a trade, or if you just want to keep your counterparty informed (e.g., in case you're delayed completing your end of the deal), you can send your counterparty a message through Bisq's end-to-end encrypted chat mechanism. This allows traders to communicate with each other throughout the course of a trade to resolve potential trade issues quickly without involving a third party like a [[Mediator|mediator]] or [[Arbitrator|arbitrator]].
+
+[[File:Start-trader-chat.png|600px|thumb|left|Click this icon to start trader chat.]]
+
+<div style="clear: both;"></div>
+
+== Trader chat rules ==
+
+Hopefully, by following these rules you can work directly with your trading peer to solve issues quickly and amicably.
+
+=== Good Communication is Key ===
+
+Good communication between traders can resolve most disputes. It's recommended for traders to communicate any issues they're having to keep their peer informed.
+
+However, '''responding to chat messages is always optional'''. If you’re not comfortable responding, don’t. You have no obligation to communicate over this medium with traders. You must, however, respond to [[Mediator|mediators]] and [[Arbitrator|arbitrators]] when needed.
+
+=== Respect a Peer’s Decision to Avoid Responding ===
+
+If a peer seems unresponsive or has signaled their intention to refrain from chatting, please respect it and don’t pressure them.
+
+=== Do Not Send Links of Any Kind ===
+
+For safety reasons, sending links is prohibited. If you want to share a link, describe it instead.
+
+''Not allowed:''
+
+ <nowiki>https://blockstream.info/tx/4b5417ec5ab6112bedf539c3b4f5a806ed539542d8b717e1c4470aa3180edce5</nowiki>
+
+''Allowed:''
+
+ Hey, could you look up txid 4b5417ec5ab6112bedf539c3b4f5a806ed539542d8b717e1c4470aa3180edce5 in your favorite block explorer?
+
+=== Do Not Encourage Trading Away from Bisq ===
+
+Trades away from Bisq lack Bisq’s security mechanisms. If something goes wrong with an off-Bisq trade, you’re on your own.
+
+=== Do Not Share Sensitive Information ===
+
+Such information is '''never''' wise to share in general and is never needed to solve trade disputes on Bisq.  This includes passwords, seed words and private keys.  
+
+=== Do Not Engage in Foul Play ===
+
+Any attempts to exploit counterparties with social engineering scams, etc., are prohibited.
+
+=== Keep Conversation Scope Limited to the Trade ===
+
+Please don’t use Bisq’s trader chat as a general-purpose messenger. Unnecessary exchanges add unnecessary strain to Bisq’s peer-to-peer network.
+
+=== Keep Conversation Friendly and Respectful ===
+
+Because friendlier traders resolve disputes quicker, and no one wants to deal with a jerk.
+
+= Level 2: Mediation =
+
+If issues persist after discussing them with the counterparty, you may need to involve a [[Mediator|mediator]].
+
+'''[[Mediation]] can be initiated at any point during or after the trade period. To do this, select the trade from the 'Open Trades' list and press 'Ctrl' + 'O'.
+'''
+[[File:Start-mediation.png|400px|thumb|left|Engage a mediator. This button only appears after the trade period has ended.]]
+
+== How Mediation Works ==
+
+[[Mediator|Mediators]] assess a trade situation between two users and propose a payout suggestion. They don't hold a key in the multisig escrow, so their proposal isn't authoritative.
+
+=== Trading Peer Expectations ===
+* Cooperate with the [[mediator]], providing requested information (quality proof will be asked for payments or bank issues)
+* Respond to messages within 48 hours. Non-response might result in [[Table of penalties|penalties]].
+
+=== Mediator Response Time ===
+
+[[Mediator|Mediators]] may take up to 48 hours to respond. '''Please be patient'''.
+
+=== Payout Suggestion ===
+* If both peers agree, the payout is completed, and the trade is closed.
+* If one or both disagree, a peer can engage an [[Arbitrator|arbitrator]] to reassess the situation (see [[#Level_3:_Arbitration|arbitration]] below).
+
+== When are you eligible for a penalty? ==
+
+If a trader does not follow the [[trading rules]], they risk being [[Table of penalties|penalized]]. Any [[Table of penalties|penalties]] will be taken from the trader's BTC [[security deposit]].
+
+The trader at fault will be charged the [[Table of penalties|penalty]], and their [[security deposit]] will be deducted a BTC amount.
+
+The trader that is wronged will receive the [[Table of penalties|BTC penalty]] as compensation. The payout transaction for the trade will include funds from the other trader's [[security deposit]].
+
+For more information about what to expect, you can see the [[table of penalties]]. This table acts as a guideline for traders, [[Mediator|mediators]], and [[Arbitrator|arbitrators]] to ensure [[Table of penalties|penalty]] are applied in a fair and impartial way.
+
+== Who are mediators? ==
+
+[[Mediator]] roles are [https://docs.bisq.network/user-dao-intro.html#ensure-honesty-in-high-trust-roles bonded roles] in the [[DAO_user_reference#Bisq_DAO|Bisq DAO]]. Anyone can propose to become a [[mediator]], but approval will depend on the candidate's familiarity with Bisq [[Trading rules|trading rules]] and the network’s need for more [[mediator|mediators]] at the time a proposal is made.
+
+Once a proposal to become a [[mediator]] is approved by [[DAO_user_reference#Voting_Cycle|DAO voting]], the [[mediator]] must lock a 10,000 BSQ bond to become active. This bond helps to ensure their continued availability and performance in the role, and can be confiscated by [[DAO_user_reference#Voting_Cycle|DAO voting]] in extreme circumstances (negligence, foul play, prolonged absence, etc).
+
+You can see more details (current role owners, regular updates, etc) on the [https://github.com/bisq-network/roles/issues/83|mediator role issue].
+
+== Where to communicate with mediators? ==
+
+You can communicate with your [[mediator]] directly in the Bisq app. When you initiate a trade and open a [[mediation]], a support ticket is automatically created within the app. You can find this in the 'Support' > 'Mediation' section.
+
+Communicating with [[Mediator|mediators]] inside the app is preferred.
+
+In case you're unable to communicate within the Bisq app for any reason, you can also reach out to them on [[Matrix bisq.chat|Matrix]].
+
+Find more information on [[finding your mediator|finding your mediator here]].
+
+== How to find your mediators? ==
+
+Your [[mediator|mediator's]] name should be visible when you open a mediation ticket. Look for it under the 'support agent' column.
+
+If, however, you have a trade not in mediation but would like to know your assigned mediator's name, please refer to [[Finding your mediator]].
+
+= Level 3: Arbitration =
+
+[[File:Engage-arbitrator-v116.png|400px|thumb|left|Reject mediator's suggestion in order to start arbitration.]]
+[[Arbitration]] is the final tier of dispute resolution on Bisq. It's designed to be rare, and its measures are intended for extreme situations. [[Arbitration]] is only available when:
+* One or both traders reject a [[mediator|mediator's]] proposed solution.
+* The [[Arbitration#Time-Locked_Payout_Transaction|time-locked transaction]] (the delayed payout transaction created at the trade's start) is published by one of the traders.
+
+This transaction sends '''all''' funds in the multisig escrow (both traders' funds) to the [[Burning Men]].
+
+The delayed payout transaction can only be published 10 days after the deposit transaction is confirmed for altcoin trades, or 20 days for fiat trades.
+
+Consider this transaction as a safeguard or fallback option, to be used only when other options have failed.
+
+{{Admonition_Warn|[[Mediation]] is expected to be the best resolution for both traders. If a trade goes to [[arbitration]], the [[arbitrator]] will pay out the trade amount plus one peer's [[security deposit]]. This means the total [[arbitration]] payout will be less than the [[mediation]] payout. Both traders agreeing to the [[mediator|mediator's]] suggestion is the preferred outcome. Requesting [[arbitration]] should be reserved for exceptional circumstances, such as one peer not responding, or if a trader believes the [[mediator]] did not make a fair payout suggestion.
+
+This dynamic enables a form of mutually assured destruction, driving dispute resolution on Bisq without relying on trusted third parties.}}
+
+Practically, here's how [[arbitration]] works:
+
+# If you're trading with an unresponsive peer or feel the [[mediator|mediator's]] suggestion was unfair, publish the time-locked transaction as soon as possible and request [[arbitration]].
+# Collaborate with the [[arbitrator]] to clarify your case's details.
+# If the [[arbitrator]] sides with you, they will personally reimburse you.
+# The [[arbitrator]] will then request reimbursement from the [[DAO_user_reference#Bisq_DAO|Bisq DAO]] for the reimbursements they've paid. This isn't something you need to worry about as a trader, but it's good to know how the process works on both sides.
+# [[arbitrator|Arbitrators]] are required to respond to messages within 5 days, so it may take a bit longer for them to respond than mediators (you should still respond to messages within 2 days).
+
+{{ArbitrationCompensationTable}}
+
+
+== How to find your arbitrator ?==
+Your arbitrator's name should be visible when you open a arbitration ticket. Look for it under the 'support agent' column.
+
+If, however, you have a trade not in arbitration but would like to know your assigned arbitrator's name, please refer to [[Finding your arbitrator]].
+
+= If all else fails =
+
+One advantage of a flat, decentralized governance structure that encourages user involvement is that no user should ever feel hindered from receiving a fair trade outcome because of a single individual's decision. Bisq isn't a black-box corporation with inscrutable processes. It's an open software project that is governed openly.
+
+Therefore, for whatever reason, if the process above doesn't work for you, you can make a [[Making_a_reimbursement_request|make a reimbursement request]] yourself in the [[DAO_user_reference#Bisq_DAO|Bisq DAO]]. The [[DAO_user_reference#Bisq_DAO|Bisq DAO]] '''not any single individual is the ultimate arbiter of policy and decision-making for all things Bisq'''.
+
+In fact, this is how [[arbitration]] will eventually be handled anyway.<!-- BISQ VERSION: bisq1 -->

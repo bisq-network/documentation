@@ -1,0 +1,18 @@
+A '''deposit transaction''' is created when an offer is taken—this transaction is a core element of Bisq's 2-of-2 multisignature escrow mechanism for securing trades.
+
+== Verifying a deposit transaction ==
+
+1. Go to the <code>Open Trades</code> or <code>Failed</code> tab and click on the <code>i</code> icon next to trade ID.
+
+[[File:failed_trade_tab.png|thumb|left|500px]]
+<br clear=all>
+
+2. Find the <code>Deposit transaction ID</code>
+
+[[File:Trade_details.png|thumb|left|500px]]
+<br clear=all>
+
+3. Search for the ID using any Bitcoin block explorer such as [https://blockstream.info/ blockstream.info]. If the <code>Deposit transaction</code> is valid you'll see the following result:
+   2 outputs - the first is the deposit to the multi signature bitcoin address and the second is an <code>OP_RETURN</code> code.
+[[File:Deposittx.png|thumb|left|500px]]
+<br clear=all><!-- BISQ VERSION: general -->

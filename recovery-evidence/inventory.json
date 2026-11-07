@@ -1,0 +1,2428 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-10-18",
+  "count": 123,
+  "items": [
+    {
+      "wiki_filename": "Account-signing-overview.png",
+      "canonical_filename": "Account-signing-overview.png",
+      "source_pages": [
+        {
+          "title": "Account limits",
+          "original_url": "https://bisq.wiki/Account_limits",
+          "revision_id": "4145",
+          "wikitext_file": "recovery/wikitext/Account_limits.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/e/e8/Account-signing-overview.png",
+        "http://bisq.wiki/images/e/e8/Account-signing-overview.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/e/e8/Account-signing-overview.png/300px-Account-signing-overview.png",
+          "capture_timestamp": "20261011173039",
+          "page": "Account_limits",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Accountsetup.png",
+      "canonical_filename": "Accountsetup.png",
+      "source_pages": [
+        {
+          "title": "Creating a payment account",
+          "original_url": "https://bisq.wiki/Creating_a_payment_account",
+          "revision_id": "2166",
+          "wikitext_file": "recovery/wikitext/Creating_a_payment_account.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/19/Accountsetup.png",
+        "http://bisq.wiki/images/1/19/Accountsetup.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Add-new-bsq-account.png",
+      "canonical_filename": "Add-new-bsq-account.png",
+      "source_pages": [
+        {
+          "title": "Paying trading fees with BSQ",
+          "original_url": "https://bisq.wiki/Paying_trading_fees_with_BSQ",
+          "revision_id": "2182",
+          "wikitext_file": "recovery/wikitext/Paying_trading_fees_with_BSQ.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/9/92/Add-new-bsq-account.png",
+        "http://bisq.wiki/images/9/92/Add-new-bsq-account.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Age-bsq-reputation.png",
+      "canonical_filename": "Age-bsq-reputation.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        },
+        {
+          "title": "Reputation2",
+          "original_url": "https://bisq.wiki/Reputation2",
+          "revision_id": "3730",
+          "wikitext_file": "recovery/wikitext/Reputation2.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/4/45/Age-bsq-reputation.png",
+        "http://bisq.wiki/images/4/45/Age-bsq-reputation.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Altcoin-instant-setup.png",
+      "canonical_filename": "Altcoin-instant-setup.png",
+      "source_pages": [
+        {
+          "title": "Creating a payment account",
+          "original_url": "https://bisq.wiki/Creating_a_payment_account",
+          "revision_id": "2166",
+          "wikitext_file": "recovery/wikitext/Creating_a_payment_account.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/2/21/Altcoin-instant-setup.png",
+        "http://bisq.wiki/images/2/21/Altcoin-instant-setup.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Amazon.png",
+      "canonical_filename": "Amazon.png",
+      "source_pages": [
+        {
+          "title": "Amazon eGift card",
+          "original_url": "https://bisq.wiki/Amazon_eGift_card",
+          "revision_id": "3343",
+          "wikitext_file": "recovery/wikitext/Amazon_eGift_card.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/db/Amazon.png",
+        "http://bisq.wiki/images/d/db/Amazon.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Amazon eGift Card - Adding to Bisq.png",
+      "canonical_filename": "Amazon_eGift_Card_-_Adding_to_Bisq.png",
+      "source_pages": [
+        {
+          "title": "Amazon eGift card",
+          "original_url": "https://bisq.wiki/Amazon_eGift_card",
+          "revision_id": "3343",
+          "wikitext_file": "recovery/wikitext/Amazon_eGift_card.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/0/0e/Amazon_eGift_Card_-_Adding_to_Bisq.png",
+        "http://bisq.wiki/images/0/0e/Amazon_eGift_Card_-_Adding_to_Bisq.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Auto-confirm-status.png",
+      "canonical_filename": "Auto-confirm-status.png",
+      "source_pages": [
+        {
+          "title": "Trading Monero",
+          "original_url": "https://bisq.wiki/Trading_Monero",
+          "revision_id": "3453",
+          "wikitext_file": "recovery/wikitext/Trading_Monero.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/4/40/Auto-confirm-status.png",
+        "http://bisq.wiki/images/4/40/Auto-confirm-status.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Autoconfirm-xmrseller-input.png",
+      "canonical_filename": "Autoconfirm-xmrseller-input.png",
+      "source_pages": [
+        {
+          "title": "Trading Monero",
+          "original_url": "https://bisq.wiki/Trading_Monero",
+          "revision_id": "3453",
+          "wikitext_file": "recovery/wikitext/Trading_Monero.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/f/fe/Autoconfirm-xmrseller-input.png",
+        "http://bisq.wiki/images/f/fe/Autoconfirm-xmrseller-input.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Backup-while-running.png",
+      "canonical_filename": "Backup-while-running.png",
+      "source_pages": [
+        {
+          "title": "Backing up application data",
+          "original_url": "https://bisq.wiki/Backing_up_application_data",
+          "revision_id": "4058",
+          "wikitext_file": "recovery/wikitext/Backing_up_application_data.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/7/72/Backup-while-running.png",
+        "http://bisq.wiki/images/7/72/Backup-while-running.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/7/72/Backup-while-running.png/600px-Backup-while-running.png",
+          "capture_timestamp": "20261014235605",
+          "page": "Backing_up_application_data",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Bisq-account-backup-open-directory-button.png",
+      "canonical_filename": "Bisq-account-backup-open-directory-button.png",
+      "source_pages": [
+        {
+          "title": "Data directory",
+          "original_url": "https://bisq.wiki/Data_directory",
+          "revision_id": "3999",
+          "wikitext_file": "recovery/wikitext/Data_directory.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/9/9d/Bisq-account-backup-open-directory-button.png",
+        "http://bisq.wiki/images/9/9d/Bisq-account-backup-open-directory-button.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bisq-dao-data-model.png",
+      "canonical_filename": "Bisq-dao-data-model.png",
+      "source_pages": [
+        {
+          "title": "DAO user reference",
+          "original_url": "https://bisq.wiki/DAO_user_reference",
+          "revision_id": "2133",
+          "wikitext_file": "recovery/wikitext/DAO_user_reference.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/3/39/Bisq-dao-data-model.png",
+        "http://bisq.wiki/images/3/39/Bisq-dao-data-model.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bisq-v1-add-wise-usd-account.png",
+      "canonical_filename": "Bisq-v1-add-wise-usd-account.png",
+      "source_pages": [
+        {
+          "title": "Wise-USD",
+          "original_url": "https://bisq.wiki/Wise-USD",
+          "revision_id": "3987",
+          "wikitext_file": "recovery/wikitext/Wise-USD.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/5/58/Bisq-v1-add-wise-usd-account.png",
+        "http://bisq.wiki/images/5/58/Bisq-v1-add-wise-usd-account.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bisq-v1-buy-bsq-offer-book.png",
+      "canonical_filename": "Bisq-v1-buy-bsq-offer-book.png",
+      "source_pages": [
+        {
+          "title": "Trading BSQ",
+          "original_url": "https://bisq.wiki/Trading_BSQ",
+          "revision_id": "3994",
+          "wikitext_file": "recovery/wikitext/Trading_BSQ.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/8/89/Bisq-v1-buy-bsq-offer-book.png",
+        "http://bisq.wiki/images/8/89/Bisq-v1-buy-bsq-offer-book.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bisq-v1-sell-bsq-offer-book.png",
+      "canonical_filename": "Bisq-v1-sell-bsq-offer-book.png",
+      "source_pages": [
+        {
+          "title": "Trading BSQ",
+          "original_url": "https://bisq.wiki/Trading_BSQ",
+          "revision_id": "3994",
+          "wikitext_file": "recovery/wikitext/Trading_BSQ.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/2/21/Bisq-v1-sell-bsq-offer-book.png",
+        "http://bisq.wiki/images/2/21/Bisq-v1-sell-bsq-offer-book.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bisq2-build-reputation-screen.png",
+      "canonical_filename": "Bisq2-build-reputation-screen.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/6/6f/Bisq2-build-reputation-screen.png",
+        "http://bisq.wiki/images/6/6f/Bisq2-build-reputation-screen.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bonding-bsq-reputation.png",
+      "canonical_filename": "Bonding-bsq-reputation.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        },
+        {
+          "title": "Reputation2",
+          "original_url": "https://bisq.wiki/Reputation2",
+          "revision_id": "3730",
+          "wikitext_file": "recovery/wikitext/Reputation2.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/18/Bonding-bsq-reputation.png",
+        "http://bisq.wiki/images/1/18/Bonding-bsq-reputation.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bonding-bsq-screen.png",
+      "canonical_filename": "Bonding-bsq-screen.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/6/6b/Bonding-bsq-screen.png",
+        "http://bisq.wiki/images/6/6b/Bonding-bsq-screen.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bsq-buy-offers.png",
+      "canonical_filename": "Bsq-buy-offers.png",
+      "source_pages": [
+        {
+          "title": "Paying trading fees with BSQ",
+          "original_url": "https://bisq.wiki/Paying_trading_fees_with_BSQ",
+          "revision_id": "2182",
+          "wikitext_file": "recovery/wikitext/Paying_trading_fees_with_BSQ.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/e/e7/Bsq-buy-offers.png",
+        "http://bisq.wiki/images/e/e7/Bsq-buy-offers.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Bsq-wallet-address.png",
+      "canonical_filename": "Bsq-wallet-address.png",
+      "source_pages": [
+        {
+          "title": "Paying trading fees with BSQ",
+          "original_url": "https://bisq.wiki/Paying_trading_fees_with_BSQ",
+          "revision_id": "2182",
+          "wikitext_file": "recovery/wikitext/Paying_trading_fees_with_BSQ.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/6/66/Bsq-wallet-address.png",
+        "http://bisq.wiki/images/6/66/Bsq-wallet-address.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Burning-bsq-reputation.png",
+      "canonical_filename": "Burning-bsq-reputation.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        },
+        {
+          "title": "Reputation2",
+          "original_url": "https://bisq.wiki/Reputation2",
+          "revision_id": "3730",
+          "wikitext_file": "recovery/wikitext/Reputation2.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/ad/Burning-bsq-reputation.png",
+        "http://bisq.wiki/images/a/ad/Burning-bsq-reputation.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Burning-bsq-screen.png",
+      "canonical_filename": "Burning-bsq-screen.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/3/3f/Burning-bsq-screen.png",
+        "http://bisq.wiki/images/3/3f/Burning-bsq-screen.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "BuyBitcoinscreen.png",
+      "canonical_filename": "BuyBitcoinscreen.png",
+      "source_pages": [
+        {
+          "title": "Creating a payment account",
+          "original_url": "https://bisq.wiki/Creating_a_payment_account",
+          "revision_id": "2166",
+          "wikitext_file": "recovery/wikitext/Creating_a_payment_account.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/b3/BuyBitcoinscreen.png",
+        "http://bisq.wiki/images/b/b3/BuyBitcoinscreen.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "BuyBTC-accountenabled.png",
+      "canonical_filename": "BuyBTC-accountenabled.png",
+      "source_pages": [
+        {
+          "title": "Creating a payment account",
+          "original_url": "https://bisq.wiki/Creating_a_payment_account",
+          "revision_id": "2166",
+          "wikitext_file": "recovery/wikitext/Creating_a_payment_account.wiki"
+        },
+        {
+          "title": "Taking an offer",
+          "original_url": "https://bisq.wiki/Taking_an_offer",
+          "revision_id": "2073",
+          "wikitext_file": "recovery/wikitext/Taking_an_offer.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/ae/BuyBTC-accountenabled.png",
+        "http://bisq.wiki/images/a/ae/BuyBTC-accountenabled.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Compensation_board.png",
+      "canonical_filename": "Compensation_board.png",
+      "source_pages": [
+        {
+          "title": "Compensation Maintainer",
+          "original_url": "https://bisq.wiki/Compensation_Maintainer",
+          "revision_id": "3664",
+          "wikitext_file": "recovery/wikitext/Compensation_Maintainer.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/8/8b/Compensation_board.png",
+        "http://bisq.wiki/images/8/8b/Compensation_board.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "ConfirmOffer.png",
+      "canonical_filename": "ConfirmOffer.png",
+      "source_pages": [
+        {
+          "title": "Taking an offer",
+          "original_url": "https://bisq.wiki/Taking_an_offer",
+          "revision_id": "2073",
+          "wikitext_file": "recovery/wikitext/Taking_an_offer.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/be/ConfirmOffer.png",
+        "http://bisq.wiki/images/b/be/ConfirmOffer.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Create-bsq-swap-offer.png",
+      "canonical_filename": "Create-bsq-swap-offer.png",
+      "source_pages": [
+        {
+          "title": "BSQ swaps",
+          "original_url": "https://bisq.wiki/BSQ_swaps",
+          "revision_id": "2415",
+          "wikitext_file": "recovery/wikitext/BSQ_swaps.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/1b/Create-bsq-swap-offer.png",
+        "http://bisq.wiki/images/1/1b/Create-bsq-swap-offer.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 1.png",
+      "canonical_filename": "Create_buy_offers_screenshot_1.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/1c/Create_buy_offers_screenshot_1.png",
+        "http://bisq.wiki/images/1/1c/Create_buy_offers_screenshot_1.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/1/1c/Create_buy_offers_screenshot_1.png/300px-Create_buy_offers_screenshot_1.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 10.png",
+      "canonical_filename": "Create_buy_offers_screenshot_10.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/9/94/Create_buy_offers_screenshot_10.png",
+        "http://bisq.wiki/images/9/94/Create_buy_offers_screenshot_10.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/9/94/Create_buy_offers_screenshot_10.png/300px-Create_buy_offers_screenshot_10.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 11.png",
+      "canonical_filename": "Create_buy_offers_screenshot_11.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/3/30/Create_buy_offers_screenshot_11.png",
+        "http://bisq.wiki/images/3/30/Create_buy_offers_screenshot_11.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/3/30/Create_buy_offers_screenshot_11.png/300px-Create_buy_offers_screenshot_11.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 12.png",
+      "canonical_filename": "Create_buy_offers_screenshot_12.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/8/83/Create_buy_offers_screenshot_12.png",
+        "http://bisq.wiki/images/8/83/Create_buy_offers_screenshot_12.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/8/83/Create_buy_offers_screenshot_12.png/300px-Create_buy_offers_screenshot_12.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 2.png",
+      "canonical_filename": "Create_buy_offers_screenshot_2.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/0/06/Create_buy_offers_screenshot_2.png",
+        "http://bisq.wiki/images/0/06/Create_buy_offers_screenshot_2.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/0/06/Create_buy_offers_screenshot_2.png/300px-Create_buy_offers_screenshot_2.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 3.png",
+      "canonical_filename": "Create_buy_offers_screenshot_3.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/9/96/Create_buy_offers_screenshot_3.png",
+        "http://bisq.wiki/images/9/96/Create_buy_offers_screenshot_3.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/9/96/Create_buy_offers_screenshot_3.png/300px-Create_buy_offers_screenshot_3.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 4.png",
+      "canonical_filename": "Create_buy_offers_screenshot_4.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/d6/Create_buy_offers_screenshot_4.png",
+        "http://bisq.wiki/images/d/d6/Create_buy_offers_screenshot_4.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/d/d6/Create_buy_offers_screenshot_4.png/300px-Create_buy_offers_screenshot_4.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 5.png",
+      "canonical_filename": "Create_buy_offers_screenshot_5.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/b9/Create_buy_offers_screenshot_5.png",
+        "http://bisq.wiki/images/b/b9/Create_buy_offers_screenshot_5.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/b/b9/Create_buy_offers_screenshot_5.png/300px-Create_buy_offers_screenshot_5.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        },
+        {
+          "url": "https://bisq.wiki/images/thumb/b/b9/Create_buy_offers_screenshot_5.png/300px-Create_buy_offers_screenshot_5.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 6.png",
+      "canonical_filename": "Create_buy_offers_screenshot_6.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/f/fb/Create_buy_offers_screenshot_6.png",
+        "http://bisq.wiki/images/f/fb/Create_buy_offers_screenshot_6.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/f/fb/Create_buy_offers_screenshot_6.png/300px-Create_buy_offers_screenshot_6.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Create buy offers screenshot 9.png",
+      "canonical_filename": "Create_buy_offers_screenshot_9.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/c/cd/Create_buy_offers_screenshot_9.png",
+        "http://bisq.wiki/images/c/cd/Create_buy_offers_screenshot_9.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/c/cd/Create_buy_offers_screenshot_9.png/300px-Create_buy_offers_screenshot_9.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Critical Bugs Board.png",
+      "canonical_filename": "Critical_Bugs_Board.png",
+      "source_pages": [
+        {
+          "title": "Critical bugs",
+          "original_url": "https://bisq.wiki/Critical_bugs",
+          "revision_id": "1532",
+          "wikitext_file": "recovery/wikitext/Critical_bugs.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/4/45/Critical_Bugs_Board.png",
+        "http://bisq.wiki/images/4/45/Critical_Bugs_Board.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Dao-cr.png",
+      "canonical_filename": "Dao-cr.png",
+      "source_pages": [
+        {
+          "title": "Making a compensation request",
+          "original_url": "https://bisq.wiki/Making_a_compensation_request",
+          "revision_id": "3996",
+          "wikitext_file": "recovery/wikitext/Making_a_compensation_request.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/3/37/Dao-cr.png",
+        "http://bisq.wiki/images/3/37/Dao-cr.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Dao-vote-results.png",
+      "canonical_filename": "Dao-vote-results.png",
+      "source_pages": [
+        {
+          "title": "Participating in a DAO voting cycle",
+          "original_url": "https://bisq.wiki/Participating_in_a_DAO_voting_cycle",
+          "revision_id": "2191",
+          "wikitext_file": "recovery/wikitext/Participating_in_a_DAO_voting_cycle.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/8/81/Dao-vote-results.png",
+        "http://bisq.wiki/images/8/81/Dao-vote-results.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Deposittx.png",
+      "canonical_filename": "Deposittx.png",
+      "source_pages": [
+        {
+          "title": "Deposit transaction",
+          "original_url": "https://bisq.wiki/Deposit_transaction",
+          "revision_id": "1533",
+          "wikitext_file": "recovery/wikitext/Deposit_transaction.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/ac/Deposittx.png",
+        "http://bisq.wiki/images/a/ac/Deposittx.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Emergency Wallet.png",
+      "canonical_filename": "Emergency_Wallet.png",
+      "source_pages": [
+        {
+          "title": "Emergency wallet",
+          "original_url": "https://bisq.wiki/Emergency_wallet",
+          "revision_id": "2754",
+          "wikitext_file": "recovery/wikitext/Emergency_wallet.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/f/f8/Emergency_Wallet.png",
+        "http://bisq.wiki/images/f/f8/Emergency_Wallet.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Engage-arbitrator-v116.png",
+      "canonical_filename": "Engage-arbitrator-v116.png",
+      "source_pages": [
+        {
+          "title": "Dispute Resolution in Bisq 1",
+          "original_url": "https://bisq.wiki/Dispute_Resolution_in_Bisq_1",
+          "revision_id": "4136",
+          "wikitext_file": "recovery/wikitext/Dispute_Resolution_in_Bisq_1.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/e/e8/Engage-arbitrator-v116.png",
+        "http://bisq.wiki/images/e/e8/Engage-arbitrator-v116.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/e/e8/Engage-arbitrator-v116.png/400px-Engage-arbitrator-v116.png",
+          "capture_timestamp": "20261012003517",
+          "page": "Dispute_Resolution_in_Bisq_1",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Explore all.jpg",
+      "canonical_filename": "Explore_all.jpg",
+      "source_pages": [
+        {
+          "title": "Matrix bisq.chat",
+          "original_url": "https://bisq.wiki/Matrix_bisq.chat",
+          "revision_id": "4032",
+          "wikitext_file": "recovery/wikitext/Matrix_bisq.chat.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/b7/Explore_all.jpg",
+        "http://bisq.wiki/images/b/b7/Explore_all.jpg"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Export-payment-accounts.png",
+      "canonical_filename": "Export-payment-accounts.png",
+      "source_pages": [
+        {
+          "title": "Backing up application data",
+          "original_url": "https://bisq.wiki/Backing_up_application_data",
+          "revision_id": "4058",
+          "wikitext_file": "recovery/wikitext/Backing_up_application_data.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/4/4c/Export-payment-accounts.png",
+        "http://bisq.wiki/images/4/4c/Export-payment-accounts.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/4/4c/Export-payment-accounts.png/600px-Export-payment-accounts.png",
+          "capture_timestamp": "20261014235605",
+          "page": "Backing_up_application_data",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "failed_trade_tab.png",
+      "canonical_filename": "Failed_trade_tab.png",
+      "source_pages": [
+        {
+          "title": "Deposit transaction",
+          "original_url": "https://bisq.wiki/Deposit_transaction",
+          "revision_id": "1533",
+          "wikitext_file": "recovery/wikitext/Deposit_transaction.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/dc/Failed_trade_tab.png",
+        "http://bisq.wiki/images/d/dc/Failed_trade_tab.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Find-wallet-seed-words.png",
+      "canonical_filename": "Find-wallet-seed-words.png",
+      "source_pages": [
+        {
+          "title": "Backing up your wallet seed",
+          "original_url": "https://bisq.wiki/Backing_up_your_wallet_seed",
+          "revision_id": "1457",
+          "wikitext_file": "recovery/wikitext/Backing_up_your_wallet_seed.wiki"
+        },
+        {
+          "title": "Wiki style guidelines",
+          "original_url": "https://bisq.wiki/Wiki_style_guidelines",
+          "revision_id": "2045",
+          "wikitext_file": "recovery/wikitext/Wiki_style_guidelines.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/b7/Find-wallet-seed-words.png",
+        "http://bisq.wiki/images/b/b7/Find-wallet-seed-words.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/b/b7/Find-wallet-seed-words.png/600px-Find-wallet-seed-words.png",
+          "capture_timestamp": "20260503061348",
+          "page": "Backing_up_your_wallet_seed",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Finding mediator message system.png",
+      "canonical_filename": "Finding_mediator_message_system.png",
+      "source_pages": [
+        {
+          "title": "Finding your mediator",
+          "original_url": "https://bisq.wiki/Finding_your_mediator",
+          "revision_id": "4155",
+          "wikitext_file": "recovery/wikitext/Finding_your_mediator.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/2/2f/Finding_mediator_message_system.png",
+        "http://bisq.wiki/images/2/2f/Finding_mediator_message_system.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "FundTrade.png",
+      "canonical_filename": "FundTrade.png",
+      "source_pages": [
+        {
+          "title": "Taking an offer",
+          "original_url": "https://bisq.wiki/Taking_an_offer",
+          "revision_id": "2073",
+          "wikitext_file": "recovery/wikitext/Taking_an_offer.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/ae/FundTrade.png",
+        "http://bisq.wiki/images/a/ae/FundTrade.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Get-bsq-address.png",
+      "canonical_filename": "Get-bsq-address.png",
+      "source_pages": [
+        {
+          "title": "Trading BSQ",
+          "original_url": "https://bisq.wiki/Trading_BSQ",
+          "revision_id": "3994",
+          "wikitext_file": "recovery/wikitext/Trading_BSQ.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/0/0f/Get-bsq-address.png",
+        "http://bisq.wiki/images/0/0f/Get-bsq-address.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Get-first-bitcoin.png",
+      "canonical_filename": "Get-first-bitcoin.png",
+      "source_pages": [
+        {
+          "title": "Funding your wallet",
+          "original_url": "https://bisq.wiki/Funding_your_wallet",
+          "revision_id": "3816",
+          "wikitext_file": "recovery/wikitext/Funding_your_wallet.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/2/2c/Get-first-bitcoin.png",
+        "http://bisq.wiki/images/2/2c/Get-first-bitcoin.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Github-create-cr.png",
+      "canonical_filename": "Github-create-cr.png",
+      "source_pages": [
+        {
+          "title": "Making a compensation request",
+          "original_url": "https://bisq.wiki/Making_a_compensation_request",
+          "revision_id": "3996",
+          "wikitext_file": "recovery/wikitext/Making_a_compensation_request.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/c/c4/Github-create-cr.png",
+        "http://bisq.wiki/images/c/c4/Github-create-cr.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Good-bad-signing-asks.png",
+      "canonical_filename": "Good-bad-signing-asks.png",
+      "source_pages": [
+        {
+          "title": "Account limits",
+          "original_url": "https://bisq.wiki/Account_limits",
+          "revision_id": "4145",
+          "wikitext_file": "recovery/wikitext/Account_limits.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/c/c2/Good-bad-signing-asks.png",
+        "http://bisq.wiki/images/c/c2/Good-bad-signing-asks.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/c/c2/Good-bad-signing-asks.png/600px-Good-bad-signing-asks.png",
+          "capture_timestamp": "20261011173039",
+          "page": "Account_limits",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Green & Purple Postal Money Order (Point-of-Sale Version).jpeg",
+      "canonical_filename": "Green_&_Purple_Postal_Money_Order_(Point-of-Sale_Version).jpeg",
+      "source_pages": [
+        {
+          "title": "US Postal Money Order",
+          "original_url": "https://bisq.wiki/US_Postal_Money_Order",
+          "revision_id": "4149",
+          "wikitext_file": "recovery/wikitext/US_Postal_Money_Order.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/f/fd/Green_%26_Purple_Postal_Money_Order_%28Point-of-Sale_Version%29.jpeg",
+        "http://bisq.wiki/images/f/fd/Green_%26_Purple_Postal_Money_Order_%28Point-of-Sale_Version%29.jpeg"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Image_1.cleaned.png",
+      "canonical_filename": "Image_1.cleaned.png",
+      "source_pages": [
+        {
+          "title": "Downloading and installing",
+          "original_url": "https://bisq.wiki/Downloading_and_installing",
+          "revision_id": "4151",
+          "wikitext_file": "recovery/wikitext/Downloading_and_installing.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/d5/Image_1.cleaned.png",
+        "http://bisq.wiki/images/d/d5/Image_1.cleaned.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/d/d5/Image_1.cleaned.png",
+          "capture_timestamp": "20260503055706",
+          "page": "Downloading_and_installing",
+          "is_thumbnail": false
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Image 2.cleaned.png",
+      "canonical_filename": "Image_2.cleaned.png",
+      "source_pages": [
+        {
+          "title": "Downloading and installing",
+          "original_url": "https://bisq.wiki/Downloading_and_installing",
+          "revision_id": "4151",
+          "wikitext_file": "recovery/wikitext/Downloading_and_installing.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/e/ea/Image_2.cleaned.png",
+        "http://bisq.wiki/images/e/ea/Image_2.cleaned.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/e/ea/Image_2.cleaned.png",
+          "capture_timestamp": "20260503055706",
+          "page": "Downloading_and_installing",
+          "is_thumbnail": false
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Image 3.cleaned.png",
+      "canonical_filename": "Image_3.cleaned.png",
+      "source_pages": [
+        {
+          "title": "Downloading and installing",
+          "original_url": "https://bisq.wiki/Downloading_and_installing",
+          "revision_id": "4151",
+          "wikitext_file": "recovery/wikitext/Downloading_and_installing.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/5/5f/Image_3.cleaned.png",
+        "http://bisq.wiki/images/5/5f/Image_3.cleaned.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/5/5f/Image_3.cleaned.png",
+          "capture_timestamp": "20260503055706",
+          "page": "Downloading_and_installing",
+          "is_thumbnail": false
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Local-reputation-closeup.png",
+      "canonical_filename": "Local-reputation-closeup.png",
+      "source_pages": [
+        {
+          "title": "Local reputation",
+          "original_url": "https://bisq.wiki/Local_reputation",
+          "revision_id": "1288",
+          "wikitext_file": "recovery/wikitext/Local_reputation.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/a0/Local-reputation-closeup.png",
+        "http://bisq.wiki/images/a/a0/Local-reputation-closeup.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Make-reimbursement-request-in-bisq-dao.png",
+      "canonical_filename": "Make-reimbursement-request-in-bisq-dao.png",
+      "source_pages": [
+        {
+          "title": "Making a reimbursement request",
+          "original_url": "https://bisq.wiki/Making_a_reimbursement_request",
+          "revision_id": "4036",
+          "wikitext_file": "recovery/wikitext/Making_a_reimbursement_request.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/8/80/Make-reimbursement-request-in-bisq-dao.png",
+        "http://bisq.wiki/images/8/80/Make-reimbursement-request-in-bisq-dao.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Matrix 1.png",
+      "canonical_filename": "Matrix_1.png",
+      "source_pages": [
+        {
+          "title": "Matrix bisq.chat",
+          "original_url": "https://bisq.wiki/Matrix_bisq.chat",
+          "revision_id": "4032",
+          "wikitext_file": "recovery/wikitext/Matrix_bisq.chat.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/bf/Matrix_1.png",
+        "http://bisq.wiki/images/b/bf/Matrix_1.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Matrix create account.png",
+      "canonical_filename": "Matrix_create_account.png",
+      "source_pages": [
+        {
+          "title": "Matrix bisq.chat",
+          "original_url": "https://bisq.wiki/Matrix_bisq.chat",
+          "revision_id": "4032",
+          "wikitext_file": "recovery/wikitext/Matrix_bisq.chat.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/4/43/Matrix_create_account.png",
+        "http://bisq.wiki/images/4/43/Matrix_create_account.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Matrix web main screen.png",
+      "canonical_filename": "Matrix_web_main_screen.png",
+      "source_pages": [
+        {
+          "title": "Matrix bisq.chat",
+          "original_url": "https://bisq.wiki/Matrix_bisq.chat",
+          "revision_id": "4032",
+          "wikitext_file": "recovery/wikitext/Matrix_bisq.chat.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/c/c8/Matrix_web_main_screen.png",
+        "http://bisq.wiki/images/c/c8/Matrix_web_main_screen.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Mempool-dao-tx-list.png",
+      "canonical_filename": "Mempool-dao-tx-list.png",
+      "source_pages": [
+        {
+          "title": "Participating in a DAO voting cycle",
+          "original_url": "https://bisq.wiki/Participating_in_a_DAO_voting_cycle",
+          "revision_id": "2191",
+          "wikitext_file": "recovery/wikitext/Participating_in_a_DAO_voting_cycle.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/15/Mempool-dao-tx-list.png",
+        "http://bisq.wiki/images/1/15/Mempool-dao-tx-list.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Miner fees.png",
+      "canonical_filename": "Miner_fees.png",
+      "source_pages": [
+        {
+          "title": "Failed Trades - Reimbursement of Trade Fees and Miner Fees",
+          "original_url": "https://bisq.wiki/Failed_Trades_-_Reimbursement_of_Trade_Fees_and_Miner_Fees",
+          "revision_id": "3643",
+          "wikitext_file": "recovery/wikitext/Failed_Trades_-_Reimbursement_of_Trade_Fees_and_Miner_Fees.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/19/Miner_fees.png",
+        "http://bisq.wiki/images/1/19/Miner_fees.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Minimum-maximum-trade-amounts.png",
+      "canonical_filename": "Minimum-maximum-trade-amounts.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/a6/Minimum-maximum-trade-amounts.png",
+        "http://bisq.wiki/images/a/a6/Minimum-maximum-trade-amounts.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Minimum-required-reputation-score.png",
+      "canonical_filename": "Minimum-required-reputation-score.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/5/5b/Minimum-required-reputation-score.png",
+        "http://bisq.wiki/images/5/5b/Minimum-required-reputation-score.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Mining fees 1.png",
+      "canonical_filename": "Mining_fees_1.png",
+      "source_pages": [
+        {
+          "title": "Mining fees",
+          "original_url": "https://bisq.wiki/Mining_fees",
+          "revision_id": "2700",
+          "wikitext_file": "recovery/wikitext/Mining_fees.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/d0/Mining_fees_1.png",
+        "http://bisq.wiki/images/d/d0/Mining_fees_1.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Mobile-notifications-architecture.png",
+      "canonical_filename": "Mobile-notifications-architecture.png",
+      "source_pages": [
+        {
+          "title": "Mobile notifications",
+          "original_url": "https://bisq.wiki/Mobile_notifications",
+          "revision_id": "3028",
+          "wikitext_file": "recovery/wikitext/Mobile_notifications.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/0/0f/Mobile-notifications-architecture.png",
+        "http://bisq.wiki/images/0/0f/Mobile-notifications-architecture.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Movefundsaftertrade.png",
+      "canonical_filename": "Movefundsaftertrade.png",
+      "source_pages": [
+        {
+          "title": "Taking an offer",
+          "original_url": "https://bisq.wiki/Taking_an_offer",
+          "revision_id": "2073",
+          "wikitext_file": "recovery/wikitext/Taking_an_offer.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/ad/Movefundsaftertrade.png",
+        "http://bisq.wiki/images/a/ad/Movefundsaftertrade.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Ntp-v12.png",
+      "canonical_filename": "Ntp-v12.png",
+      "source_pages": [
+        {
+          "title": "Arbitration",
+          "original_url": "https://bisq.wiki/Arbitration",
+          "revision_id": "4174",
+          "wikitext_file": "recovery/wikitext/Arbitration.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/2/2b/Ntp-v12.png",
+        "http://bisq.wiki/images/2/2b/Ntp-v12.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Paxum.png",
+      "canonical_filename": "Paxum.png",
+      "source_pages": [
+        {
+          "title": "Paxum",
+          "original_url": "https://bisq.wiki/Paxum",
+          "revision_id": "3918",
+          "wikitext_file": "recovery/wikitext/Paxum.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/bb/Paxum.png",
+        "http://bisq.wiki/images/b/bb/Paxum.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Payment-account-signing-status.png",
+      "canonical_filename": "Payment-account-signing-status.png",
+      "source_pages": [
+        {
+          "title": "Account limits",
+          "original_url": "https://bisq.wiki/Account_limits",
+          "revision_id": "4145",
+          "wikitext_file": "recovery/wikitext/Account_limits.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/c/cd/Payment-account-signing-status.png",
+        "http://bisq.wiki/images/c/cd/Payment-account-signing-status.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/c/cd/Payment-account-signing-status.png/600px-Payment-account-signing-status.png",
+          "capture_timestamp": "20261011173039",
+          "page": "Account_limits",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Payment-methods-advice-eur.png",
+      "canonical_filename": "Payment-methods-advice-eur.png",
+      "source_pages": [
+        {
+          "title": "Payment methods/en",
+          "original_url": "https://bisq.wiki/Payment_methods%2Fen",
+          "revision_id": "1634",
+          "wikitext_file": "recovery/wikitext/Payment_methods%2Fen.wiki"
+        },
+        {
+          "title": "Payment methods/es",
+          "original_url": "https://bisq.wiki/Payment_methods%2Fes",
+          "revision_id": "2823",
+          "wikitext_file": "recovery/wikitext/Payment_methods%2Fes.wiki"
+        },
+        {
+          "title": "Payment methods",
+          "original_url": "https://bisq.wiki/Payment_methods",
+          "revision_id": "4146",
+          "wikitext_file": "recovery/wikitext/Payment_methods.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/c/cc/Payment-methods-advice-eur.png",
+        "http://bisq.wiki/images/c/cc/Payment-methods-advice-eur.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Payment-methods-advice-usd.png",
+      "canonical_filename": "Payment-methods-advice-usd.png",
+      "source_pages": [
+        {
+          "title": "Payment methods/en",
+          "original_url": "https://bisq.wiki/Payment_methods%2Fen",
+          "revision_id": "1634",
+          "wikitext_file": "recovery/wikitext/Payment_methods%2Fen.wiki"
+        },
+        {
+          "title": "Payment methods/es",
+          "original_url": "https://bisq.wiki/Payment_methods%2Fes",
+          "revision_id": "2823",
+          "wikitext_file": "recovery/wikitext/Payment_methods%2Fes.wiki"
+        },
+        {
+          "title": "Payment methods",
+          "original_url": "https://bisq.wiki/Payment_methods",
+          "revision_id": "4146",
+          "wikitext_file": "recovery/wikitext/Payment_methods.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/7/79/Payment-methods-advice-usd.png",
+        "http://bisq.wiki/images/7/79/Payment-methods-advice-usd.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "PaymentStarted.png",
+      "canonical_filename": "PaymentStarted.png",
+      "source_pages": [
+        {
+          "title": "Taking an offer",
+          "original_url": "https://bisq.wiki/Taking_an_offer",
+          "revision_id": "2073",
+          "wikitext_file": "recovery/wikitext/Taking_an_offer.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/8/85/PaymentStarted.png",
+        "http://bisq.wiki/images/8/85/PaymentStarted.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Pick-trade-fee-currency.png",
+      "canonical_filename": "Pick-trade-fee-currency.png",
+      "source_pages": [
+        {
+          "title": "Trading fees",
+          "original_url": "https://bisq.wiki/Trading_fees",
+          "revision_id": "4175",
+          "wikitext_file": "recovery/wikitext/Trading_fees.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/d4/Pick-trade-fee-currency.png",
+        "http://bisq.wiki/images/d/d4/Pick-trade-fee-currency.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "ReceiveFunds.png",
+      "canonical_filename": "ReceiveFunds.png",
+      "source_pages": [
+        {
+          "title": "Funding your wallet",
+          "original_url": "https://bisq.wiki/Funding_your_wallet",
+          "revision_id": "3816",
+          "wikitext_file": "recovery/wikitext/Funding_your_wallet.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/e/e8/ReceiveFunds.png",
+        "http://bisq.wiki/images/e/e8/ReceiveFunds.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Red, Blue, & Red Postal Money Order (July 2025).jpeg",
+      "canonical_filename": "Red,_Blue,_&_Red_Postal_Money_Order_(July_2025).jpeg",
+      "source_pages": [
+        {
+          "title": "US Postal Money Order",
+          "original_url": "https://bisq.wiki/US_Postal_Money_Order",
+          "revision_id": "4149",
+          "wikitext_file": "recovery/wikitext/US_Postal_Money_Order.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/bc/Red%2C_Blue%2C_%26_Red_Postal_Money_Order_%28July_2025%29.jpeg",
+        "http://bisq.wiki/images/b/bc/Red%2C_Blue%2C_%26_Red_Postal_Money_Order_%28July_2025%29.jpeg"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Reputation-ranking-new.png",
+      "canonical_filename": "Reputation-ranking-new.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/dd/Reputation-ranking-new.png",
+        "http://bisq.wiki/images/d/dd/Reputation-ranking-new.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Reputation-ranking2.png",
+      "canonical_filename": "Reputation-ranking2.png",
+      "source_pages": [
+        {
+          "title": "Reputation2",
+          "original_url": "https://bisq.wiki/Reputation2",
+          "revision_id": "3730",
+          "wikitext_file": "recovery/wikitext/Reputation2.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/7/7c/Reputation-ranking2.png",
+        "http://bisq.wiki/images/7/7c/Reputation-ranking2.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Reputation-section.png",
+      "canonical_filename": "Reputation-section.png",
+      "source_pages": [
+        {
+          "title": "Reputation2",
+          "original_url": "https://bisq.wiki/Reputation2",
+          "revision_id": "3730",
+          "wikitext_file": "recovery/wikitext/Reputation2.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/dd/Reputation-section.png",
+        "http://bisq.wiki/images/d/dd/Reputation-section.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Resources automatic backup.png",
+      "canonical_filename": "Resources_automatic_backup.png",
+      "source_pages": [
+        {
+          "title": "Automatic backup",
+          "original_url": "https://bisq.wiki/Automatic_backup",
+          "revision_id": "4096",
+          "wikitext_file": "recovery/wikitext/Automatic_backup.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/c/c8/Resources_automatic_backup.png",
+        "http://bisq.wiki/images/c/c8/Resources_automatic_backup.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Restore-from-seed.png",
+      "canonical_filename": "Restore-from-seed.png",
+      "source_pages": [
+        {
+          "title": "Restoring your wallet from seed",
+          "original_url": "https://bisq.wiki/Restoring_your_wallet_from_seed",
+          "revision_id": "1525",
+          "wikitext_file": "recovery/wikitext/Restoring_your_wallet_from_seed.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/6/69/Restore-from-seed.png",
+        "http://bisq.wiki/images/6/69/Restore-from-seed.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/6/69/Restore-from-seed.png/600px-Restore-from-seed.png",
+          "capture_timestamp": "20250820170621",
+          "page": "Restoring_your_wallet_from_seed",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Resync-spv-file.png",
+      "canonical_filename": "Resync-spv-file.png",
+      "source_pages": [
+        {
+          "title": "Resyncing SPV file",
+          "original_url": "https://bisq.wiki/Resyncing_SPV_file",
+          "revision_id": "3985",
+          "wikitext_file": "recovery/wikitext/Resyncing_SPV_file.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/d8/Resync-spv-file.png",
+        "http://bisq.wiki/images/d/d8/Resync-spv-file.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Revolut create account.png",
+      "canonical_filename": "Revolut_create_account.png",
+      "source_pages": [
+        {
+          "title": "Revolut",
+          "original_url": "https://bisq.wiki/Revolut",
+          "revision_id": "4148",
+          "wikitext_file": "recovery/wikitext/Revolut.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/c/cc/Revolut_create_account.png",
+        "http://bisq.wiki/images/c/cc/Revolut_create_account.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Screenshot from 2020-09-03 12-41-19-touched.png",
+      "canonical_filename": "Screenshot_from_2020-09-03_12-41-19-touched.png",
+      "source_pages": [
+        {
+          "title": "Trading Monero",
+          "original_url": "https://bisq.wiki/Trading_Monero",
+          "revision_id": "3453",
+          "wikitext_file": "recovery/wikitext/Trading_Monero.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/d7/Screenshot_from_2020-09-03_12-41-19-touched.png",
+        "http://bisq.wiki/images/d/d7/Screenshot_from_2020-09-03_12-41-19-touched.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Security deposit 1.png",
+      "canonical_filename": "Security_deposit_1.png",
+      "source_pages": [
+        {
+          "title": "Security deposit",
+          "original_url": "https://bisq.wiki/Security_deposit",
+          "revision_id": "3817",
+          "wikitext_file": "recovery/wikitext/Security_deposit.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/7/7b/Security_deposit_1.png",
+        "http://bisq.wiki/images/7/7b/Security_deposit_1.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Security deposit 2.png",
+      "canonical_filename": "Security_deposit_2.png",
+      "source_pages": [
+        {
+          "title": "Security deposit",
+          "original_url": "https://bisq.wiki/Security_deposit",
+          "revision_id": "3817",
+          "wikitext_file": "recovery/wikitext/Security_deposit.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/f/ff/Security_deposit_2.png",
+        "http://bisq.wiki/images/f/ff/Security_deposit_2.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "See-account-age.png",
+      "canonical_filename": "See-account-age.png",
+      "source_pages": [
+        {
+          "title": "Account limits",
+          "original_url": "https://bisq.wiki/Account_limits",
+          "revision_id": "4145",
+          "wikitext_file": "recovery/wikitext/Account_limits.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/6/65/See-account-age.png",
+        "http://bisq.wiki/images/6/65/See-account-age.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/6/65/See-account-age.png/400px-See-account-age.png",
+          "capture_timestamp": "20261011173039",
+          "page": "Account_limits",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "See-offer-details.png",
+      "canonical_filename": "See-offer-details.png",
+      "source_pages": [
+        {
+          "title": "Funding your wallet",
+          "original_url": "https://bisq.wiki/Funding_your_wallet",
+          "revision_id": "3816",
+          "wikitext_file": "recovery/wikitext/Funding_your_wallet.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/3/37/See-offer-details.png",
+        "http://bisq.wiki/images/3/37/See-offer-details.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "SellersPaymentDetails.png",
+      "canonical_filename": "SellersPaymentDetails.png",
+      "source_pages": [
+        {
+          "title": "Taking an offer",
+          "original_url": "https://bisq.wiki/Taking_an_offer",
+          "revision_id": "2073",
+          "wikitext_file": "recovery/wikitext/Taking_an_offer.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/8/8f/SellersPaymentDetails.png",
+        "http://bisq.wiki/images/8/8f/SellersPaymentDetails.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Set-wallet-password.png",
+      "canonical_filename": "Set-wallet-password.png",
+      "source_pages": [
+        {
+          "title": "Encrypting your wallet",
+          "original_url": "https://bisq.wiki/Encrypting_your_wallet",
+          "revision_id": "1267",
+          "wikitext_file": "recovery/wikitext/Encrypting_your_wallet.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/7/7c/Set-wallet-password.png",
+        "http://bisq.wiki/images/7/7c/Set-wallet-password.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Show-dao-blocks.png",
+      "canonical_filename": "Show-dao-blocks.png",
+      "source_pages": [
+        {
+          "title": "Participating in a DAO voting cycle",
+          "original_url": "https://bisq.wiki/Participating_in_a_DAO_voting_cycle",
+          "revision_id": "2191",
+          "wikitext_file": "recovery/wikitext/Participating_in_a_DAO_voting_cycle.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/9/98/Show-dao-blocks.png",
+        "http://bisq.wiki/images/9/98/Show-dao-blocks.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Signed-bsq-reputation.png",
+      "canonical_filename": "Signed-bsq-reputation.png",
+      "source_pages": [
+        {
+          "title": "Reputation",
+          "original_url": "https://bisq.wiki/Reputation",
+          "revision_id": "4017",
+          "wikitext_file": "recovery/wikitext/Reputation.wiki"
+        },
+        {
+          "title": "Reputation2",
+          "original_url": "https://bisq.wiki/Reputation2",
+          "revision_id": "3730",
+          "wikitext_file": "recovery/wikitext/Reputation2.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/0/0c/Signed-bsq-reputation.png",
+        "http://bisq.wiki/images/0/0c/Signed-bsq-reputation.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Simulation-tool.png",
+      "canonical_filename": "Simulation-tool.png",
+      "source_pages": [
+        {
+          "title": "Reputation2",
+          "original_url": "https://bisq.wiki/Reputation2",
+          "revision_id": "3730",
+          "wikitext_file": "recovery/wikitext/Reputation2.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/f/f4/Simulation-tool.png",
+        "http://bisq.wiki/images/f/f4/Simulation-tool.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Start-mediation.png",
+      "canonical_filename": "Start-mediation.png",
+      "source_pages": [
+        {
+          "title": "Dispute Resolution in Bisq 1",
+          "original_url": "https://bisq.wiki/Dispute_Resolution_in_Bisq_1",
+          "revision_id": "4136",
+          "wikitext_file": "recovery/wikitext/Dispute_Resolution_in_Bisq_1.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/8/8f/Start-mediation.png",
+        "http://bisq.wiki/images/8/8f/Start-mediation.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/8/8f/Start-mediation.png/400px-Start-mediation.png",
+          "capture_timestamp": "20261012003517",
+          "page": "Dispute_Resolution_in_Bisq_1",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Start-trader-chat.png",
+      "canonical_filename": "Start-trader-chat.png",
+      "source_pages": [
+        {
+          "title": "Dispute Resolution in Bisq 1",
+          "original_url": "https://bisq.wiki/Dispute_Resolution_in_Bisq_1",
+          "revision_id": "4136",
+          "wikitext_file": "recovery/wikitext/Dispute_Resolution_in_Bisq_1.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/ae/Start-trader-chat.png",
+        "http://bisq.wiki/images/a/ae/Start-trader-chat.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/a/ae/Start-trader-chat.png/600px-Start-trader-chat.png",
+          "capture_timestamp": "20261012003517",
+          "page": "Dispute_Resolution_in_Bisq_1",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Submit-generic-proposal.png",
+      "canonical_filename": "Submit-generic-proposal.png",
+      "source_pages": [
+        {
+          "title": "Participating in a DAO voting cycle",
+          "original_url": "https://bisq.wiki/Participating_in_a_DAO_voting_cycle",
+          "revision_id": "2191",
+          "wikitext_file": "recovery/wikitext/Participating_in_a_DAO_voting_cycle.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/9/9d/Submit-generic-proposal.png",
+        "http://bisq.wiki/images/9/9d/Submit-generic-proposal.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Support Agent guidance 1.png",
+      "canonical_filename": "Support_Agent_guidance_1.png",
+      "source_pages": [
+        {
+          "title": "Support Agent Knowledge Base",
+          "original_url": "https://bisq.wiki/Support_Agent_Knowledge_Base",
+          "revision_id": "3688",
+          "wikitext_file": "recovery/wikitext/Support_Agent_Knowledge_Base.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/f/fd/Support_Agent_guidance_1.png",
+        "http://bisq.wiki/images/f/fd/Support_Agent_guidance_1.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Support Agent guidance 3.png",
+      "canonical_filename": "Support_Agent_guidance_3.png",
+      "source_pages": [
+        {
+          "title": "Support Agent Knowledge Base",
+          "original_url": "https://bisq.wiki/Support_Agent_Knowledge_Base",
+          "revision_id": "3688",
+          "wikitext_file": "recovery/wikitext/Support_Agent_Knowledge_Base.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/0/0c/Support_Agent_guidance_3.png",
+        "http://bisq.wiki/images/0/0c/Support_Agent_guidance_3.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Support Agent guidance 4.png",
+      "canonical_filename": "Support_Agent_guidance_4.png",
+      "source_pages": [
+        {
+          "title": "Support Agent Knowledge Base",
+          "original_url": "https://bisq.wiki/Support_Agent_Knowledge_Base",
+          "revision_id": "3688",
+          "wikitext_file": "recovery/wikitext/Support_Agent_Knowledge_Base.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/b9/Support_Agent_guidance_4.png",
+        "http://bisq.wiki/images/b/b9/Support_Agent_guidance_4.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Taking offer to buy 1.png",
+      "canonical_filename": "Taking_offer_to_buy_1.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/a0/Taking_offer_to_buy_1.png",
+        "http://bisq.wiki/images/a/a0/Taking_offer_to_buy_1.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/a/a0/Taking_offer_to_buy_1.png/300px-Taking_offer_to_buy_1.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Taking offer to buy 2.png",
+      "canonical_filename": "Taking_offer_to_buy_2.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/0/0e/Taking_offer_to_buy_2.png",
+        "http://bisq.wiki/images/0/0e/Taking_offer_to_buy_2.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/0/0e/Taking_offer_to_buy_2.png/300px-Taking_offer_to_buy_2.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Taking offer to buy 3.png",
+      "canonical_filename": "Taking_offer_to_buy_3.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/d4/Taking_offer_to_buy_3.png",
+        "http://bisq.wiki/images/d/d4/Taking_offer_to_buy_3.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/d/d4/Taking_offer_to_buy_3.png/300px-Taking_offer_to_buy_3.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Taking offer to buy 4.png",
+      "canonical_filename": "Taking_offer_to_buy_4.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/f/fe/Taking_offer_to_buy_4.png",
+        "http://bisq.wiki/images/f/fe/Taking_offer_to_buy_4.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/f/fe/Taking_offer_to_buy_4.png/300px-Taking_offer_to_buy_4.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Taking offer to buy 5.png",
+      "canonical_filename": "Taking_offer_to_buy_5.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/b/be/Taking_offer_to_buy_5.png",
+        "http://bisq.wiki/images/b/be/Taking_offer_to_buy_5.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/b/be/Taking_offer_to_buy_5.png/300px-Taking_offer_to_buy_5.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Taking offer to buy 6.png",
+      "canonical_filename": "Taking_offer_to_buy_6.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/ac/Taking_offer_to_buy_6.png",
+        "http://bisq.wiki/images/a/ac/Taking_offer_to_buy_6.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/a/ac/Taking_offer_to_buy_6.png/300px-Taking_offer_to_buy_6.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Taking offer to buy 7.png",
+      "canonical_filename": "Taking_offer_to_buy_7.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/d/df/Taking_offer_to_buy_7.png",
+        "http://bisq.wiki/images/d/df/Taking_offer_to_buy_7.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/d/df/Taking_offer_to_buy_7.png/300px-Taking_offer_to_buy_7.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Taking offer to buy 8.png",
+      "canonical_filename": "Taking_offer_to_buy_8.png",
+      "source_pages": [
+        {
+          "title": "Bisq Easy",
+          "original_url": "https://bisq.wiki/Bisq_Easy",
+          "revision_id": "4112",
+          "wikitext_file": "recovery/wikitext/Bisq_Easy.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/9/99/Taking_offer_to_buy_8.png",
+        "http://bisq.wiki/images/9/99/Taking_offer_to_buy_8.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/9/99/Taking_offer_to_buy_8.png/300px-Taking_offer_to_buy_8.png",
+          "capture_timestamp": "20261014003500",
+          "page": "Bisq_Easy",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "Teams.jpg",
+      "canonical_filename": "Teams.jpg",
+      "source_pages": [
+        {
+          "title": "Teams",
+          "original_url": "https://bisq.wiki/Teams",
+          "revision_id": "3700",
+          "wikitext_file": "recovery/wikitext/Teams.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/2/28/Teams.jpg",
+        "http://bisq.wiki/images/2/28/Teams.jpg"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Time-locked-payout-tx.png",
+      "canonical_filename": "Time-locked-payout-tx.png",
+      "source_pages": [
+        {
+          "title": "Making a reimbursement request",
+          "original_url": "https://bisq.wiki/Making_a_reimbursement_request",
+          "revision_id": "4036",
+          "wikitext_file": "recovery/wikitext/Making_a_reimbursement_request.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/1d/Time-locked-payout-tx.png",
+        "http://bisq.wiki/images/1/1d/Time-locked-payout-tx.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Tor-which-version.png",
+      "canonical_filename": "Tor-which-version.png",
+      "source_pages": [
+        {
+          "title": "Changing your onion address",
+          "original_url": "https://bisq.wiki/Changing_your_onion_address",
+          "revision_id": "3956",
+          "wikitext_file": "recovery/wikitext/Changing_your_onion_address.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/6/68/Tor-which-version.png",
+        "http://bisq.wiki/images/6/68/Tor-which-version.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Trade-remainingtime.png",
+      "canonical_filename": "Trade-remainingtime.png",
+      "source_pages": [
+        {
+          "title": "Taking an offer",
+          "original_url": "https://bisq.wiki/Taking_an_offer",
+          "revision_id": "2073",
+          "wikitext_file": "recovery/wikitext/Taking_an_offer.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/9/9b/Trade-remainingtime.png",
+        "http://bisq.wiki/images/9/9b/Trade-remainingtime.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Trade_details.png",
+      "canonical_filename": "Trade_details.png",
+      "source_pages": [
+        {
+          "title": "Deposit transaction",
+          "original_url": "https://bisq.wiki/Deposit_transaction",
+          "revision_id": "1533",
+          "wikitext_file": "recovery/wikitext/Deposit_transaction.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/a/a2/Trade_details.png",
+        "http://bisq.wiki/images/a/a2/Trade_details.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Trade limits.png",
+      "canonical_filename": "Trade_limits.png",
+      "source_pages": [
+        {
+          "title": "Account limits",
+          "original_url": "https://bisq.wiki/Account_limits",
+          "revision_id": "4145",
+          "wikitext_file": "recovery/wikitext/Account_limits.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/0/00/Trade_limits.png",
+        "http://bisq.wiki/images/0/00/Trade_limits.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/0/00/Trade_limits.png/300px-Trade_limits.png",
+          "capture_timestamp": "20261011173039",
+          "page": "Account_limits",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "trading-fee-toggle.png",
+      "canonical_filename": "Trading-fee-toggle.png",
+      "source_pages": [
+        {
+          "title": "Paying trading fees with BSQ",
+          "original_url": "https://bisq.wiki/Paying_trading_fees_with_BSQ",
+          "revision_id": "2182",
+          "wikitext_file": "recovery/wikitext/Paying_trading_fees_with_BSQ.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/18/Trading-fee-toggle.png",
+        "http://bisq.wiki/images/1/18/Trading-fee-toggle.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Updating bisq popup.png",
+      "canonical_filename": "Updating_bisq_popup.png",
+      "source_pages": [
+        {
+          "title": "Updating Bisq",
+          "original_url": "https://bisq.wiki/Updating_Bisq",
+          "revision_id": "2955",
+          "wikitext_file": "recovery/wikitext/Updating_Bisq.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/1/15/Updating_bisq_popup.png",
+        "http://bisq.wiki/images/1/15/Updating_bisq_popup.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "User-dao-diagram.png",
+      "canonical_filename": "User-dao-diagram.png",
+      "source_pages": [
+        {
+          "title": "Introduction to the DAO",
+          "original_url": "https://bisq.wiki/Introduction_to_the_DAO",
+          "revision_id": "3692",
+          "wikitext_file": "recovery/wikitext/Introduction_to_the_DAO.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/6/6c/User-dao-diagram.png",
+        "http://bisq.wiki/images/6/6c/User-dao-diagram.png"
+      ],
+      "observed_archive_urls": [
+        {
+          "url": "https://bisq.wiki/images/thumb/6/6c/User-dao-diagram.png/700px-User-dao-diagram.png",
+          "capture_timestamp": "20261019151021",
+          "page": "Introduction_to_the_DAO",
+          "is_thumbnail": true
+        }
+      ]
+    },
+    {
+      "wiki_filename": "View-mediator-suggestion.png",
+      "canonical_filename": "View-mediator-suggestion.png",
+      "source_pages": [
+        {
+          "title": "Making a reimbursement request",
+          "original_url": "https://bisq.wiki/Making_a_reimbursement_request",
+          "revision_id": "4036",
+          "wikitext_file": "recovery/wikitext/Making_a_reimbursement_request.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/5/50/View-mediator-suggestion.png",
+        "http://bisq.wiki/images/5/50/View-mediator-suggestion.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Vote-proposal.png",
+      "canonical_filename": "Vote-proposal.png",
+      "source_pages": [
+        {
+          "title": "Participating in a DAO voting cycle",
+          "original_url": "https://bisq.wiki/Participating_in_a_DAO_voting_cycle",
+          "revision_id": "2191",
+          "wikitext_file": "recovery/wikitext/Participating_in_a_DAO_voting_cycle.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/2/26/Vote-proposal.png",
+        "http://bisq.wiki/images/2/26/Vote-proposal.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Vote-submit.png",
+      "canonical_filename": "Vote-submit.png",
+      "source_pages": [
+        {
+          "title": "Participating in a DAO voting cycle",
+          "original_url": "https://bisq.wiki/Participating_in_a_DAO_voting_cycle",
+          "revision_id": "2191",
+          "wikitext_file": "recovery/wikitext/Participating_in_a_DAO_voting_cycle.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/5/58/Vote-submit.png",
+        "http://bisq.wiki/images/5/58/Vote-submit.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "Wallet - watchkeys.png",
+      "canonical_filename": "Wallet_-_watchkeys.png",
+      "source_pages": [
+        {
+          "title": "Watch keys",
+          "original_url": "https://bisq.wiki/Watch_keys",
+          "revision_id": "2264",
+          "wikitext_file": "recovery/wikitext/Watch_keys.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/3/39/Wallet_-_watchkeys.png",
+        "http://bisq.wiki/images/3/39/Wallet_-_watchkeys.png"
+      ],
+      "observed_archive_urls": []
+    },
+    {
+      "wiki_filename": "XMR auto confirm.png",
+      "canonical_filename": "XMR_auto_confirm.png",
+      "source_pages": [
+        {
+          "title": "Trading Monero",
+          "original_url": "https://bisq.wiki/Trading_Monero",
+          "revision_id": "3453",
+          "wikitext_file": "recovery/wikitext/Trading_Monero.wiki"
+        }
+      ],
+      "candidate_original_urls": [
+        "https://bisq.wiki/images/6/69/XMR_auto_confirm.png",
+        "http://bisq.wiki/images/6/69/XMR_auto_confirm.png"
+      ],
+      "observed_archive_urls": []
+    }
+  ],
+  "inventory_audit": {
+    "original_scanner_count": 121,
+    "additional_gallery_only_assets": [
+      "Bisq-v1-buy-bsq-offer-book.png",
+      "Bisq-v1-sell-bsq-offer-book.png"
+    ],
+    "additional_gallery_source_references": [
+      [
+        "Payment-methods-advice-eur.png",
+        "Payment methods"
+      ],
+      [
+        "Payment-methods-advice-usd.png",
+        "Payment methods"
+      ],
+      [
+        "Bisq-v1-buy-bsq-offer-book.png",
+        "Trading BSQ"
+      ],
+      [
+        "Bisq-v1-sell-bsq-offer-book.png",
+        "Trading BSQ"
+      ]
+    ],
+    "corrected_count": 123
+  }
+}

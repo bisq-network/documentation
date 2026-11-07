@@ -1,0 +1,19 @@
+{
+  "title": "IMPS",
+  "page_id": "497",
+  "revision_id": "3913",
+  "revision_timestamp": "2025-02-12T02:20:18Z",
+  "available_attribution": {
+    "username": "Strayorigin",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/IMPS",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3913",
+  "wikitext_sha256": "dfc8cf3e1ef5f6703708c88b9b51749b27a00b9d1f30124fdec86b46353a09d9",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/imps/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

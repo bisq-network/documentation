@@ -1,0 +1,58 @@
+'''User support''' is available in a number of channels. 
+
+This article lists ways to get support as a Bisq user. For information on how to help Bisq by ''providing'' support, see [[support team]].
+
+{{Admonition_Warn|When seeking support it is important to use the correct channels. Unfortunately there are lots of scammers about on places like Reddit and Telegram that private message new users claiming to be from Bisq Support. No support agent will ever private message someone on Reddit or Telegram to offer support. Please keep you account safe by never revealing your seed phrase to anyone. This includes entering it on any website. Please also stay safe by not accepting/downloading files from strangers on the internet. Please also avoid making posts that reveal any personal or financial information that could make you a target for scammers.}}
+
+__TOC__
+
+== Via the FAQ ==
+
+Many common questions can be answered by browsing the [[frequently asked questions]].
+
+== Via the wiki ==
+
+The [[Main_Page|Bisq wiki]] is a great resource and has answers to lots of questions new and existing users might have.
+
+Common problems and solutions are documented in [[troubleshooting]]. Also try using the search function.
+
+== Via Matrix bisq.chat ==
+
+The [https://matrix.to/#/#bisq.support:bitcoin.kyoto Matrix bisq.chat] channel in the [[Matrix bisq.chat]] group is Bisq's primary user support channel. When in doubt, ask your question here!
+
+The Bisq community is really helpful and users will frequently help to answer other users questions in support.
+
+Matrix is a self-hosted place for live chat support. Hopefully you will not have to wait too long before your question is answered.
+
+[[Support_Agent|Bisq support agents]] are often on hand to help answer any questions. You can see when support agents are due to work by looking on the [[Support_Agent#Coverage_calendar|support coverage calendar]]. 
+
+It is common for Bisq user's to message each other on Matrix to discussion topics related to all things Bitcoin, Bisq and more. However always be aware that scammers may attempt to impersonate other users. 
+Matrix only allows person to person verification of identities. Check this [[Support Agent|wiki page]] to make sure mediators and support agents are not imposters.
+
+== Via Telegram ==
+
+[https://t.me/bisq_p2p Telegram] channel is used for discussion and general support questions. There are [https://t.me/BisqEs Spanish] and [https://t.me/bisqbrasil Brazilian] as well.
+Telegram is widely used and scammers try to take advantage of it. Admins always write under a pseudonym and will never send you a private message.
+
+== Via GitHub issues ==
+
+GitHub is the place where development of Bisq happens. 
+
+If you think your might be experiencing a bug with Bisq please report it by creating an issue at https://github.com/bisq-network/bisq.
+
+== Via the Bisq forum ==
+
+The [https://bisq.community Bisq Forum] is a great place to read or participate in discussions about Bisq. You will often find user's there that help troubleshoot users troubleshoot any issues or share there experience of how to use Bisq successfully. 
+
+It is easy to search the forum to see if anyone has asked a similar question that you are looking for the answer to. If you cannot find an answer to your question you can create an account a post a new topic for discussion.
+
+== Via Reddit ==
+
+Bisq has an active [https://www.reddit.com/r/bisq/ subreddit] and similar to the Bisq forum is is a good place to read or participate in discussions about Bisq and get answers to any questions you have.
+
+== Via mediation ==
+
+See [[mediation]].
+
+
+[[Category:Processes]]<!-- BISQ VERSION: general -->

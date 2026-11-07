@@ -1,0 +1,71 @@
+'''Arbitrage''' is the practice of simultaneously buying and selling an asset in different markets (or in different forms within the same market) to profit from a temporary price difference. In inefficient or less liquid markets, like many peer-to-peer environments, arbitrage opportunities can arise more frequently.
+
+[[How to be a market maker on Bisq|Arbitrageurs]] play a necessary role by taking advantage of these inefficiencies. In doing so, they not only profit but also help improve market liquidity and price discovery, making the market more efficient for everyone. Bisq currently provides many arbitrage opportunities.
+
+{{Admonition_Note|'''Version Context:''' The examples and considerations on this page primarily relate to arbitrage involving the classic '''[[Bisq 1|Bisq v1]]''' trading protocol. Arbitrage mechanics may differ significantly with the newer '''[[Bisq 2|Bisq Easy]]''' protocol (detailed on the [[Bisq 2]] page), which is not the focus of this guide.}}
+
+{{Admonition_Warn|'''Disclaimer:''' The price examples below are purely illustrative using hypothetical market conditions (approx. €80,000-€90,000 BTC/EUR) and plausible spreads. Real prices and spreads fluctuate constantly. Successful arbitrage requires accounting for all fees (trading, mining, payment method) and risks.}}
+
+__TOC__
+
+== Types of Arbitrage on Bisq ==
+
+You can perform two main types of arbitrage involving Bisq:
+
+=== Inter-Exchange Arbitrage ===
+
+This involves finding price differences between Bisq and another exchange or market (Market X).
+
+'''Example:'''
+# You observe that the lowest price to '''SELL''' Bitcoin on Bisq's EUR/BTC market is currently '''€86,000'''.
+# Simultaneously, you find you can '''BUY''' Bitcoin on Market X (e.g., a centralized exchange) for '''€85,000'''.
+# You execute both trades at roughly the same time: '''Buy''' 1 BTC on Market X for €85,000 and '''Sell''' 1 BTC on Bisq for €86,000.
+# Assuming successful execution, this yields a potential profit of '''€1000''' per BTC, '''before''' accounting for any fees (trading, withdrawal, mining, payment method).
+
+(The reverse is also possible: buying cheaper on Bisq and selling higher elsewhere).
+
+=== Intra-Exchange Arbitrage ===
+
+This involves exploiting price differences *within* the Bisq platform itself. This can happen between different currency markets or different payment methods within the same currency market.
+
+==== Cross-Currency Arbitrage ====
+
+If the implied cross-rate between two fiat currencies (e.g., USD and EUR) differs from the prevailing market rate, an opportunity might exist.
+
+'''Example:'''
+# You notice the relative price in Bisq's USD/BTC market (e.g., equivalent to €86,000) is higher than in Bisq's EUR/BTC market (e.g., €85,000).
+# You simultaneously '''SELL''' BTC for USD (at the higher relative price) and '''BUY''' BTC for EUR (at the lower relative price) on Bisq.
+# If done correctly with sufficient volume, you can lock in a profit based on the temporary price discrepancy between the two Bisq markets (factoring in fees and the actual EUR/USD exchange rate).
+# Repeat as long as the profitable spread exists.
+
+==== Payment Method Arbitrage ====
+
+Different payment methods within the same currency market (e.g., EUR) might have different prices due to varying user preferences, risks, or settlement times associated with those methods.
+
+'''Example:'''
+# You see offers available to '''BUY''' Bitcoin using [[SEPA]] priced relatively low (e.g., at €85,000).
+# At the same time, you see offers available to '''SELL''' Bitcoin receiving payment via Revolut priced higher (e.g., at €86,000).
+# You simultaneously execute both: '''BUY''' 1 BTC using [[SEPA]] for €85,000 and '''SELL''' 1 BTC receiving Revolut for €86,000.
+# This yields a potential profit of '''€1000''' per BTC arbitraged between the two payment methods on Bisq, '''before''' accounting for fees.
+# Repeat as long as the profitable spread exists.
+
+== Risks and Considerations ==
+
+While arbitrage aims to be low-risk by locking in profits from existing price differences, several practical factors introduce risk and complexity, especially on a P2P platform like Bisq:
+
+* '''Execution Risk:''' Prices can change quickly. Delay in executing one leg of the arbitrage (e.g., your external market buy fills but your Bisq sell offer gets taken by someone else before you can place it, or vice-versa) can erase the profit or lead to a loss. Getting both sides filled simultaneously at the desired prices can be challenging.
+* '''Fees:''' Remember to account for all fees:
+    * Bisq [[Trading fees|trading fees]] (maker/taker, paid in BTC or BSQ).
+    * Bitcoin [[mining fees]] (for deposit and payout transactions in Bisq v1).
+    * Fees associated with the specific [[Payment methods|payment methods]] used (both on Bisq and external exchanges).
+    * Fees on the external exchange (Market X).
+* '''Capital Requirements:''' You need sufficient capital available on both platforms/payment methods simultaneously to execute both legs of the trade (BTC and/or fiat).
+* '''Counterparty Risk (Bisq v1):''' While [[Security deposit|security deposits]] mitigate risk, trades can still go to [[Dispute_Resolution_in_Bisq_1|dispute resolution]], potentially tying up your funds (including deposits) for some time. Ensure you understand the risks associated with the specific payment methods and trade protocol.
+* '''Settlement Times:''' Fiat payment methods have varying settlement times. An arbitrage might require managing cash flow across methods that settle at different speeds.
+
+Successful arbitrage requires careful calculation, quick execution, and a good understanding of the platforms and payment methods involved.
+
+*For more short guides see [[Howto]]. You can also find support on '''[https://bisq.chat Matrix]'''.
+
+[[Category:Guides]]
+[[Category:Trading]]<!-- BISQ VERSION: bisq2 -->

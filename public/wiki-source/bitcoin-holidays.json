@@ -1,0 +1,19 @@
+{
+  "title": "Bitcoin holidays",
+  "page_id": "620",
+  "revision_id": "4027",
+  "revision_timestamp": "2025-05-22T12:16:28Z",
+  "available_attribution": {
+    "username": "Flix21",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Bitcoin_holidays",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=4027",
+  "wikitext_sha256": "5a39f976a28d392569821756e70822bba2fed80603b5724718cea501638dddda",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/bitcoin-holidays/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

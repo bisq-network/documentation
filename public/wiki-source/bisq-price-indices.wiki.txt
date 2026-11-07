@@ -1,0 +1,158 @@
+The '''Bisq Price Indices''' are the weighted average asset prices calculated by each of the [[Bisq pricenode |Bisq Pricenodes]].  It was implemented in Bisq v1.3.8 as part of [https://github.com/bisq-network/projects/issues/35 Project 35] in order to gain independence from Bitcoin Average as a price oracle, decentralizing data sources from 35+ different data providers around the world.
+
+Bisq Pricenodes fetch the latest price data, once per minute, from various providers for each asset. The price indices are equally weighted, so for example if there's a single provider for a given asset, the weight will be 100%. If there's 2 data providers for an asset, the weights will 50% each, if there are 4, 25% each, etc.
+
+Providers are selected considering for each asset reliability of the data and trading volume. The following tables display which data providers are used to calculate prices for each actively traded asset on Bisq.
+
+In the case of nodes diverging more than 1% for a given asset, the prices will be outside the price tolerance protection, and Bisq will display an error to user preventing them from taking an offer.
+
+
+= Asset Table =
+
+{| class="wikitable"
+! Currency || HUOBI || Coingecko || Binance || CoinbasePro || Kraken || Quoine || BTCmarkets || Independent</BR>Reserve || Mercado</BR>Bitcoin
+|-
+| '''AED''' ||  || 100% ||  ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''AUD''' ||  || 20% || 20% ||  || 20% ||  || 20% || 20% || 
+|-
+| '''BDT''' ||  || 100% ||  ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''BHD''' ||  || 100% ||  ||  ||  ||  ||  ||  || 
+|-
+| '''BMD''' ||  || 100% ||  ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''BRL''' || 25% || 25% || 25% ||  ||  ||  ||  ||  || 25%
+|-
+| '''BTM''' || 100% ||  ||  ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''CAD''' ||  || 50% ||  ||  || 50% ||  ||  ||  || 
+|} 
+
+<!-- table 2 -->
+{| class="wikitable"
+! Currency || HUOBI || Coingecko || Binance || CoinbasePro || Kraken || Bitstamp || Exmo || Bitfinex || Quoine || Coinmate || Bitbay
+|-
+| '''CHF''' ||  || 50% ||  ||  || 50% ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''CLP''' ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  || 
+|-
+| '''CNY''' ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''CZK''' ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  || 
+|-
+| '''EUR''' ||  || 20% || 20% || 20% || 20% || 20% ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''GBP''' ||  || 20% || 20% || 20% || 20% || 20% ||  ||  ||  ||  || 
+|-
+|} 
+
+{| class="wikitable"
+! Currency || Luno || Coingecko || CoinbasePro || Bitfinex || Quoine || Bitflyer || Coinone || Kranken
+|-
+| '''HKD''' ||  || 100% ||  ||  ||  ||  ||  ||
+|- style="background-color: #ECECF0"
+| '''HUF''' ||  || 100% ||  ||  ||  ||  ||  ||
+|-
+| '''IDR''' || 50% || 50% ||  ||  ||  ||  ||  ||
+|- style="background-color: #ECECF0"
+| '''ILS''' ||  || 100% ||  ||  ||  ||  ||  ||
+|-
+| '''INR''' ||  || 100% ||  ||  ||  ||  ||  ||
+|- style="background-color: #ECECF0"
+| '''JPY''' ||  || 33% ||  ||  ||  || 33% ||  || 33%
+|-
+| '''KRW''' ||  || 50% ||  ||  ||  ||  || 50% ||
+|- style="background-color: #ECECF0"
+| '''KWD''' ||  || 100% ||  ||  ||  ||  ||  || 
+|}
+
+<!-- table 4-->
+{| class="wikitable"
+! Currency || Cingecko || Binance || CoinbasePro || Independent</br>Reserve || Luno
+|-
+| '''LKR''' || 100% ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''MMK''' || 100% ||  ||  ||  || 
+|-
+| '''MXN''' || 100% ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''MYR''' || 50% ||  ||  ||  || 50%
+|-
+| '''NGN''' || 50% ||  ||  ||  || 50%
+|- style="background-color: #ECECF0"
+| '''NOK''' || 100% ||  ||  ||  || 
+|-
+| '''NZD''' || 50% ||  ||  || 50% || 
+|}
+
+{| class="wikitable"
+! Currency || Huobi || Coingecko || Binance || CoinbasePro || Exmo || Quoine || Bitbay
+|-
+| '''PHP''' ||  || 100% ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''PKR''' ||  || 100% ||  ||  ||  ||  || 
+|-
+| '''PLN''' ||  || 100% ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''RUB''' || 33% || 33% || 33% ||  ||  ||  || 
+|- 
+| '''SAR''' ||  || 100% ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''SEK''' ||  || 100% ||  ||  ||  ||  || 
+|-
+| '''SGD''' ||  || 100% ||  ||  ||  ||  || 
+|} 
+
+
+<!-- table 6 -->
+{| class="wikitable"
+! Currency || Huobi || Coingecko || Binance || CoinbasePro || Kraken || Bitstamp || Exmo || Bitfinex || Independent</br>Reserve || Bitbay || Luno || Paribu || Quoine
+|-
+| '''THB''' ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''TRY''' || 25% || 25% || 25% ||  ||  ||  ||  ||  ||  ||  ||  || 25% || 
+|-
+| '''TWD''' ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| '''UAH''' || 33% || 33% || 33% ||  ||  ||  ||  ||  ||  ||  ||  ||  || 
+|-
+| '''USD''' ||  || 20% ||  || 20% || 20% || 20% ||  ||  || 20% ||  ||  ||  ||  
+|- style="background-color: #ECECF0"
+| '''VND''' ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  || 
+|-
+| '''ZAR''' ||  || 50% ||  ||  ||  ||  ||  ||  ||  ||  || 50% ||  || 
+|}
+
+
+=== Altcoins: ===
+
+<small>A:Binance B:Huobi C:Kraken D:Poloniex E:Exmo F:Bitstamp G:Bitfinex H:CoinbasePro I:BTCmarkets J:Coingecko K:Bitbay LːBitflyer M:Quoine</small>
+{| class="wikitable"
+|  || A || B || C || D || E || F || G || H || I || J || K || L || M
+|- style="background-color: #ECECF0"
+| BTM ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  || 
+|-
+| DASH || 20% || 20% || 20% || 20% ||  ||  ||  || 20% ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| DCR || 33% || 33% ||  || 33% ||  ||  ||  ||  ||  ||  ||  ||  || 
+|-
+| DOGE || 33% || 33% ||  || 33% ||  ||  ||  ||  ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| ETC || 20% || 20% || 20% || 20% ||  ||  ||  || 20% ||  ||  ||  ||  || 
+|-
+| ETH || 12% || 12% || 12% || 12% ||  || 12% ||  || 12% || 12% || 12% ||  || 12% || 
+|- style="background-color: #ECECF0"
+| FAIR ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  || 
+|-
+| LTC || 12% || 12% || 12% || 12% ||  || 12% ||  || 12% || 12% || 12% ||  ||  || 
+|- style="background-color: #ECECF0"
+| XMR || 25% || 25% || 25% || 25% ||  ||  ||  ||  ||  ||  ||  ||  || 
+|- 
+| ZEC || 20% || 20% || 20% || 20% ||  ||  ||  || 20% ||  ||  ||  ||  || 
+|- style="background-color: #ECECF0"
+| ZEN || 33% || 33% ||  ||  ||  ||  ||  || 33% ||  ||  ||  ||  || 
+|-
+|  || A || B || C || D || E || F || G || H || I || J || K || L || M
+|}
+<small>A:Binance B:Huobi C:Kraken D:Poloniex E:Exmo F:Bitstamp G:Bitfinex H:Bitpay I:BTCmarkets J:Coingecko K:Bitbay LːBitflyer M:Quobi</small><!-- BISQ VERSION: general -->

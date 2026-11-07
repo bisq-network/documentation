@@ -1,0 +1,19 @@
+{
+  "title": "Critical bugs",
+  "page_id": "41",
+  "revision_id": "1532",
+  "revision_timestamp": "2020-06-19T05:32:17Z",
+  "available_attribution": {
+    "username": "M52go",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Critical_bugs",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=1532",
+  "wikitext_sha256": "ec699f5e0c6620ef444d3484ea0fe67b435ecb3e4e8c98490993974f3061c6c5",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/critical-bugs/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

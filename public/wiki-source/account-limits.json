@@ -1,0 +1,19 @@
+{
+  "title": "Account limits",
+  "page_id": "290",
+  "revision_id": "4145",
+  "revision_timestamp": "2026-05-29T16:20:14Z",
+  "available_attribution": {
+    "username": "SuddenWhipVapor",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Account_limits",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=4145",
+  "wikitext_sha256": "49dd4cb790c9cf383525447a30e73d0363233e90ce8bcf5527fd17701eb1239d",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/account-limits/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

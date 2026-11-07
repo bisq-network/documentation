@@ -1,0 +1,51 @@
+List of short how-to guides for new Bisq users:
+
+1. Getting started
+
+*[[How to back up your Bisq wallet seed]]
+*[[Set up a Revolut payment account]] 
+*[[Set up a SEPA payment account]] (EUR)
+*[[Set up a Zelle payment account]] (USD)
+*[[Set up a UK Faster Payments account]] (GBP)
+*[[Set up a National bank transfer account]] (BRL)
+*How to back up your payment accounts on Bisq
+
+2. Trade
+
+*[[How to buy BSQ on Bisq]]
+*[[How to buy BTC on Bisq with EUR]]
+*[[How to buy BTC on Bisq with CAD]]
+*How to buy BTC on Bisq with USD
+*[[How to buy ETH on Bisq]]
+*[[How to buy USDT on Bisq]]
+*[[How to buy XMR on Bisq]]
+*[[How to buy BTC on Bisq with CNY]]
+*[[How to buy BTC on Bisq with NGN]]
+*[[How to buy BTC on Bisq with INR]]
+*[[How to buy BTC on Bisq with ARS]]
+*[[How to sell BSQ on Bisq]]
+*[[How to sell BTC on Bisq with EUR]]
+*How to sell BTC on Bisq with USD
+*[[How to sell USDT on Bisq]]
+*[[How to sell XMR on Bisq]]
+*[[How to create an offer to buy BTC with EUR]]
+*[[How to create an offer to sell BTC with EUR]]
+
+3. Contribute
+*[[How to be a market maker on Bisq]]
+*[[How to do arbitrage on Bisq]]
+*[[How to do remittance on Bisq]]
+*Educational resources
+*Marketing
+*How to be a developer on Bisq
+*How to make a compensation request on Bisq
+
+4. DAO
+*How to vote on the Bisq DAO
+*How to make a proposal on the Bisq DAO
+
+==Bitcoin Wisdom==
+*DON'T TRUST. VERIFY.
+*Trusted Third Parties are security holes.
+*Not your keys, not your coins.
+*Vires in numeris.<!-- BISQ VERSION: bisq1 -->

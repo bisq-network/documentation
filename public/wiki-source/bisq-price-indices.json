@@ -1,0 +1,19 @@
+{
+  "title": "Bisq Price Indices",
+  "page_id": "383",
+  "revision_id": "3034",
+  "revision_timestamp": "2022-11-12T11:28:27Z",
+  "available_attribution": {
+    "username": "Emzy",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Bisq_Price_Indices",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3034",
+  "wikitext_sha256": "c57c9a1334b08fb396587669975a097f8808a6f7e0720bca413d0d305bd4d63e",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/bisq-price-indices/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

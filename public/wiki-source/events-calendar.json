@@ -1,0 +1,19 @@
+{
+  "title": "Events calendar",
+  "page_id": "64",
+  "revision_id": "1335",
+  "revision_timestamp": "2020-06-05T21:27:30Z",
+  "available_attribution": {
+    "username": "Plebeian9000",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Events_calendar",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=1335",
+  "wikitext_sha256": "b6dafa861ec67cc24f0240ddb563621f49f5c6e0ceabc6d1ef3ba334688199d9",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/events-calendar/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

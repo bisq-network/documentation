@@ -1,0 +1,97 @@
+A '''Bisq Pricenode''' is a service that provides essential market data to Bisq clients. It fetches cryptocurrency exchange rates (e.g., BTC/USD, BTC/EUR) and Bitcoin network mining fee estimations from various external providers and relays this aggregated data to Bisq users upon request.
+
+Pricenodes run as [[Tor]] hidden services. This allows Bisq clients to retrieve price and fee data without revealing their IP address or connecting outside the Tor network, thus preserving user privacy.
+
+While anyone with the technical capability can run a pricenode for personal use (e.g., configuring their client via [[Command line options|command-line arguments]]), the Bisq application by default connects to a list of nodes run by established, [[Introduction to the DAO|DAO]]-approved contributors who meet certain reliability standards and are '''required to be bonded'''.
+
+{{Admonition_Note|'''Note:''' In the [[Bisq 2 Roles]] framework, this function may be referred to as the '''Market Price Node'''.}}
+
+The primary source for the pricenode software and technical details is the [https://github.com/bisq-network/bisq-pricenode official GitHub repository]. This guide summarizes the key steps based on that repository.
+
+__TOC__
+
+== Overview ==
+The pricenode software runs a simple HTTP service, typically listening on `localhost:8080`, with key endpoints including:
+* `<code>/getAllMarketPrices</code>`: Returns current BTC exchange rates against various fiat currencies and altcoins.
+* `<code>/getFees</code>`: Returns current estimates for Bitcoin transaction fees (in satoshis/vByte) for different confirmation targets.
+* `<code>/getParams</code>`, `<code>/info</code>`: Provide metadata and status information about the node.
+
+== Prerequisites ==
+Running a pricenode requires a stable environment, typically a server or VPS:
+
+* '''Operating System:''' Linux (Debian/Ubuntu preferred, as automated scripts are available).
+* '''Java:''' A compatible Java Runtime Environment (JRE) is needed to run the application. (Check the GitHub repository for current version requirements).
+* '''Tor:''' The `tor` binary must be installed and operational for running as a hidden service.
+* '''System Resources:''' While not extremely resource-intensive, reliable uptime, sufficient RAM (e.g., 1GB+), disk space (~10GB), and network bandwidth (~1TB/month might be a starting point) are needed. Official requirements may be specified on the [[Pricenode Operator]] role page.
+
+== Setup and Installation ==
+
+The recommended method for Debian-based systems like Ubuntu is the automated install script. Advanced users or those on other systems can build from source.
+
+=== Method 1: Installation Script (Recommended for Debian/Ubuntu) ===
+This script automates the installation of dependencies, building the software, configuring the Tor hidden service, and setting up the pricenode to run as a system service.
+# Ensure `curl` and `sudo` are available: `sudo apt update && sudo apt install curl`
+# Run the installer script:
+ curl -s <nowiki>https://raw.githubusercontent.com/bisq-network/bisq-pricenode/main/scripts/install_pricenode_debian.sh</nowiki> | sudo bash
+# Follow any prompts from the script.
+# **Important:** At the end of the script, it should output your node's unique **Tor `.onion` address**. Record this address carefully, especially if you plan to use the node yourself or apply to become a default operator. You will also need to [[Backing_up_application_data#Export_Tor_state|back up the hidden service's private key]] (`/var/lib/tor/hidden_service/private_key` or similar, depending on Tor setup).
+
+=== Method 2: Build from Source ===
+This method requires manual setup of dependencies and Tor configuration.
+# Install Git and a compatible JDK. (Check the GitHub repository for current version requirements).
+# Clone the repository (including submodules):
+ git clone --recursive <nowiki>https://github.com/bisq-network/bisq-pricenode.git</nowiki>
+ cd bisq-pricenode
+# Build the application using Gradle:
+ ./gradlew clean build
+# Manually configure [[Tor]] to create a hidden service that points to the pricenode's listening port (default 8080). Consult the official Tor documentation for setting up onion services.
+# Determine how to run the built Java application persistently (e.g., using `screen`, `tmux`, or creating your own `systemd` service).
+
+== Running and Managing ==
+If you used the installation script (Method 1), the pricenode should be running as a `systemd` service named `bisq-pricenode`. You can manage it with standard commands:
+* Check Status: `<code>sudo systemctl status bisq-pricenode</code>`
+* Stop Service: `<code>sudo systemctl stop bisq-pricenode</code>`
+* Start Service: `<code>sudo systemctl start bisq-pricenode</code>`
+* Restart Service: `<code>sudo systemctl restart bisq-pricenode</code>`
+* View Logs (live): `<code>journalctl -u bisq-pricenode -f</code>`
+
+If you built from source (Method 2), you are responsible for starting, stopping, and managing the Java process using your chosen method (e.g., `screen`, `tmux`, manual execution).
+
+== Testing ==
+You can test if your node is running correctly by querying its endpoints using `curl` or a similar tool.
+
+* '''Locally (if installed via script):'''
+Check if the node is responding on the default local port:
+ curl <nowiki>http://localhost:8080/getAllMarketPrices</nowiki>
+ curl <nowiki>http://localhost:8080/getFees</nowiki>
+
+* '''Over Tor (replace with your node's address):'''
+Use `torsocks` (or configure Tor as a system proxy) to query your node's `.onion` address (replace `YOUR_ONION_ADDRESS.onion` with the actual address):
+ torsocks curl <nowiki>http://YOUR_ONION_ADDRESS.onion/getAllMarketPrices</nowiki>
+ torsocks curl <nowiki>http://YOUR_ONION_ADDRESS.onion/getFees</nowiki>
+
+Successful queries should return JSON formatted data containing price and fee information.
+
+== Becoming a Default Operator ==
+Running a pricenode doesn't automatically make it used by other Bisq clients. To become one of the default nodes hardcoded in the Bisq software, you generally need to:
+# Apply for the [[Pricenode Operator]] role.
+# Gain [[Introduction to the DAO|DAO]] approval through voting.
+# Set up the required [[Introduction to the DAO|BSQ]] bond (currently '''10,000 BSQ''').
+# Meet reliability and uptime standards.
+# Set up mandatory [[#Monitoring|monitoring]] systems.
+
+Contact current maintainers or check the `#pricenode` channel on Matrix/Discord for details on the current application process.
+
+== Monitoring ==
+Operators whose nodes are included in the default list within Bisq releases are required to set up monitoring using `collectd` and provide network size data. This involves running additional setup scripts found in the GitHub repository's README ([https://github.com/bisq-network/bisq-pricenode#monitoring see Monitoring section]) and coordinating with the Bisq monitoring team.
+
+== Compensation ==
+Approved [[Pricenode Operator|Pricenode Operators]] who maintain reliable nodes included in the default list can request compensation from the Bisq DAO for their service and hosting costs.
+* The current compensation rate is '''130 USD per DAO cycle''' (paid in [[BSQ]]).
+* The significant initial effort for setting up the node, Tor, monitoring, and the bonding process may also be justifiable for a one-time setup [[Making a compensation request|compensation request]].
+
+[[Category:Guides]]
+[[Category:Infrastructure]]
+[[Category:Technical]]
+[[Category:Roles]]
+[[Category:DAO]]<!-- BISQ VERSION: bisq2 -->

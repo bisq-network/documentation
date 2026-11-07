@@ -1,0 +1,25 @@
+A '''Pricenode Operator''' runs one or more [[pricenode]] instance and keeps them updated.
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/14
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/pricenode-operators/members @bisq-network/pricenode-operators]
+
+== Duties ==
+* Setup and maintain a suitable hosting environment for the pricenode
+* Operate your pricenode using the [https://github.com/bisq-network/bisq/tree/master/pricenode#how-to-deploy-for-production current pricenode documentation]
+* Run collectd with the [https://github.com/bisq-network/bisq/tree/master/pricenode#Monitoring current monitoring documentation] from bisq-monitoring operator
+* Maintain your Tor onion hostname in the [https://github.com/bisq-network/bisq/blob/master/core/src/main/java/bisq/core/provider/ProvidersRepository.java#L38 Bisq pricenode provider repository]
+
+== Rights ==
+* Claim 130 USD compensation each cycle
+
+== Bonding ==
+Required. See https://github.com/bisq-network/bisq/blob/42a037e/core/src/main/java/bisq/core/dao/state/model/governance/BondedRoleType.java#L59
+
+[[Category:Stubs]]
+[[Category:Roles]]
+[[Category:Operator]]<!-- BISQ VERSION: general -->

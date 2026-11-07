@@ -1,0 +1,65 @@
+If you're interested in contributing to Bisq, ​welcome! This '''contributor checklist''' will get you plugged in and productive as quickly as possible.
+
+Bisq is free and open source software, but contributing is not just about writing code. A contributor is any individual who works to improve and add value to the Bisq network and its users.
+
+This can mean anything from fixing typos in documentation, to providing support, to testing out new growth strategies, to implementing new Bisq features and everything in between. All such contributions are eligible for [[compensation]] from the Bisq DAO.
+
+__TOC__
+
+== Basics ==
+
+Suggestions below are in no particular order. Disregard developer-oriented items if you're not looking to contribute code.
+
+# Join the [https://bisq.chat Matrix space].
+# Introduce yourself in the <code>general</code> room. Say a bit about your skills and interests. This will help others point you in the right direction.
+# Explore the other rooms on Matrix, and join the ones that are of interest to you. For a start, consider joining <code>dev</code> (if you’re a developer) and <code>growth</code>.
+# Watch the following repositories on GitHub: [https://github.com/bisq-network/bisq core software], [https://github.com/bisq-network/bisq/discussions discussions], [https://github.com/bisq-network/proposals proposals], [https://github.com/bisq-network/growth growth], [https://github.com/bisq-network/roles roles] and [https://github.com/bisq-network/compensation compensation].
+# Read the [https://github.com/bisq-network/bisq/blob/master/docs/README.md developer docs] to set up a Bisq development environment.
+# Read [https://chris.beams.io/posts/git-commit How to Write a Git Commit Message] and follow its [https://chris.beams.io/posts/git-commit/#7-rules 7 rules] when contributing to Bisq projects.
+# Get set up to [https://help.github.com/articles/signing-commits-using-gpg/ Sign your Git Commits] with GPG. Any commits to any Bisq repository must be signed.
+
+== Learn how we work ==
+
+# Read about [[Project_management|Bisq’s project management process]].
+# Familiarize yourself with [https://ossec-docs.readthedocs.io/en/latest/docs/development/oRFC/orfc-1.html C4: The Collective Code Construction Contract]. It’s a simple set of collaboration rules based on GitHub’s fork+pull request model, and a foundational part of how we work together.
+# For more context on C4 and the principles behind it, read author Pieter Hintjens' short book, [https://www.gitbook.com/?utm_source=legacy&utm_medium=redirect&utm_campaign=close_legacy Social Architecture].
+# To understand the fundamentals of Bisq's mission and motivations, read the introductory wiki articles on [[Introduction|Bisq]] and the [[Introduction_to_the_DAO|Bisq DAO]].
+# To understand Bisq’s commitment to radical transparency and radical honesty, read Part III of [https://www.amazon.com/Principles-Life-Work-Ray-Dalio/dp/1501124021/ Ray Dalio’s Principles].
+# To get inspired about what building software in a non-hierarchical organization can be like (and what it requires of everyone involved), read the [https://steamcdn-a.akamaihd.net/apps/valve/Valve_NewEmployeeHandbook.pdf Valve Employee Handbook].
+# Finally, a few words on [[Contributor_privacy_and_opsec|safeguarding your privacy]].
+
+== Get connected ==
+
+# Browse and subscribe to the [https://www.youtube.com/c/bisq-network Bisq YouTube channel] to catch up on meetings we hold, tutorials we publish, technical sessions, and more.
+# Follow [https://twitter.com/bisq_network @bisq_network] on Twitter, or on any of the other channels listed [https://bisq.network/#community on the bottom of the website]: forum, Telegram, Matrix, Mastodon, etc.
+
+If you decide to proceed and start contributing, you'll want to join Bisq's GitHub organization so you can be assigned to issues:
+
+# Request an invite to the [https://github.com/bisq-network @bisq-network GitHub organization] on Matrix. An admin will get you set up. Doing this makes it possible to add you to the [https://github.com/orgs/bisq-network/teams @bisq-network/contributors] team and to assign you to GitHub issues.
+# After accepting your GitHub invitation, consider changing your [https://github.com/orgs/bisq-network/people membership visibility] from <code>private</code> to <code>public</code>. This helps others know at a glance roughly how many contributors are involved with Bisq.
+
+== Do valuable work and get compensated ==
+
+After Browse GitHub repositories and Matrix discussions, you will start to develop a sense for what's happening, what's needed, and where you can help:
+
+# '''Find a problem somewhere in Bisq-land''' that (a) needs fixing and (b) is a match for your skills and interests. Browse critical bugs, open bounties, follow chats on Matrix and the forums, and ask around about what other contributors think needs fixing. 
+# '''Get assigned to an issue''' or have your initiative acknowledged in some other way. While you don’t strictly need anybody’s permission to do anything for Bisq, you’ll want to make sure there's buy-in from other contributors so your work is received well. Otherwise, there are no guarantees that your work will be merged, reviewed, or eligible for compensation.
+# '''Do work to fix that problem'''. Submit your fix for review with a pull request (for code and documentation changes) or with a GitHub issue (for everything else).
+# '''Request that others review your work'''. The best way to do this is by writing good commit comments and pull request/issue descriptions that clearly explain the problem your work is intended to solve, why it’s important, and why you fixed it the way you did. Make it as easy as possible for others to review your work. Make it a pleasure for others to review your work.
+# '''Incorporate review feedback''' you get until your fix gets merged or is otherwise accepted.
+# '''Repeat''' steps 1–5.
+# [[compensation|Submit a compensation request]] toward the end of the cycle.
+
+{{Admonition Note|As you'll see from Browse the various repositories on GitHub, changes to Bisq are almost always discussed publicly. This helps maintain Bisq's commitment to transparency, invites feedback to improve the quality of contributions, and it helps keep compensation honest. '''Always try to make sure your work is documented somewhere so others can follow its progress and offer feedback.'''}}
+
+Ultimately, please remember that all Bisq contributors participate on a voluntary basis, and the more energy and quality you bring to the table, the more existing contributors will be encouraged to pay you attention.
+
+Regarding development, keep in mind that reviewing other contributors' work can be highly valuable as well (both to the project, and also to yourself as a way to learn how Bisq works). Quality code reviews are eligible for compensation just like any other contribution.
+
+== Consider if you would like to become a Burning Man ==
+
+For contributors wanting to receive regular bitcoin payments they may consider becoming performing a role as one of the Bisq [[Burning Men]]. It would be worth Bisq contributors understanding the pros and cons to becoming a burning man to decide if it is something they would like to do.
+
+[[Category:Contributors]]
+[[Category:Guides]]
+[[Category:DAO]]<!-- BISQ VERSION: bisq1 -->

@@ -1,0 +1,14 @@
+'''Altcoins''' are a type of [[Payment_methods|payment account]] on Bisq that use cryptocurrencies to settle BTC trades instead of legacy fiat-based payment methods.
+
+Any altcoin can be traded on Bisq, theoretically, but the most active markets tend to be XMR, ETH, LTC (and of course [[BSQ]], but "altcoin" may not be a great term for it).
+
+{{Admonition_Warn|There is currently an [https://github.com/bisq-network/proposals/issues/166 indefinite hold] on adding new altcoins to Bisq.}}
+
+Some altcoins have special, specific requirements for trading. Make sure you read the in-application pop-ups and information, as well as the following articles:
+* [[Trading BSQ]]
+* [[Trading Monero]]
+* [[Trading L-BTC]]
+
+See also:
+* [[Creating_a_payment_account#Creating_an_altcoin_account|Creating an altcoin account]]
+* [[Altcoins Instant]]<!-- BISQ VERSION: general -->

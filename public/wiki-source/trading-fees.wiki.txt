@@ -1,0 +1,42 @@
+'''Trading fees''' are paid to fund the [[DAO | Bisq DAO]] when making or taking an offer. Fees can be paid in BSQ or BTC. 
+
+__TOC__
+
+== Getting a discount ==
+
+Bisq encourages traders to use [[BSQ]] by offering a discount of approximately 25%. This discount fluctuates as the BSQ/BTC rate fluctuates. To maintain the 25% discount target, trading fees are [[update BSQ trading fees | updated]] every cycle as necessary.
+
+{{Admonition_Note|If you're interested in using BSQ to pay trading fees, [[Paying_trading_fees_with_BSQ#Acquire_BSQ|see this article for instructions]].}}
+
+== Current rates ==
+
+{| class="wikitable" style="width: 250px;"
+|+ Trading Fees per 1 BTC
+|-
+!
+!BTC
+!BSQ
+|-
+!Maker
+|0.0015
+|64.95
+|-
+!Taker
+|0.0115
+|497.95
+|}
+
+Combined BTC trading fee rate is 1.3% (0.15% by maker and 1.15% by taker). Absolute minimum fee to avoid dust is 0.000075 BTC.
+
+Combined BSQ trading fee rate is targeted at 0.975% (0.1125% by maker and 0.8625% by taker). Absolute minimum fee to avoid dust is 0.03 BSQ.
+
+Trading fee rates and absolute minimums are DAO parameters that [[Proposals|must be proposed]] and approved through DAO voting in order to take effect. BTC fee rates tend to stay constant, but BSQ rates are [[Updating_BSQ_trading_fees|adjusted every cycle]] to account for BSQ rate fluctuation.
+
+== Selecting how to pay ==
+
+Traders choose how they'd prefer to pay trading fees while making or taking an offer. BSQ and BTC amounts (and fiat equivalents) are shown.
+
+[[File:Pick-trade-fee-currency.png|600px|thumb|left|Pick how to pay trade fees on this screen while making or taking an offer.]]
+<div style="clear: both;"></div>
+
+[[Category:Features]]<!-- BISQ VERSION: bisq1 -->

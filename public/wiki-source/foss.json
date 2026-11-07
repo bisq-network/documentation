@@ -1,0 +1,19 @@
+{
+  "title": "FOSS",
+  "page_id": "554",
+  "revision_id": "3105",
+  "revision_timestamp": "2023-01-17T15:04:49Z",
+  "available_attribution": {
+    "username": "Flix21",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/FOSS",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3105",
+  "wikitext_sha256": "fb417e9e013aae2dc6519c9648aa5610f880596535e54b2dee09123e39708d91",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/foss/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

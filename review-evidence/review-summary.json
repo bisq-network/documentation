@@ -1,0 +1,37 @@
+{
+  "checked_date": "2026-11-07",
+  "scope": "13 revised guides, with unchanged 209-article historical source archive",
+  "guide_hashes": {
+    "src/content/docs/bisq-1/backup-and-recovery.md": "b7d45f98784a68369041dbbd90970d475af5769c2c0d04c66f27bfe7fb50f61c",
+    "src/content/docs/bisq-1/dispute-help.md": "b740b32796338492bb1bf02108d941e500eebb830af15ae7f9ed2a8a6f548df7",
+    "src/content/docs/bisq-1/first-trade.md": "8dd58a40fb2538aab42fdfbd66a80d8b5691a11bc73a61fb558c29e515aa7fec",
+    "src/content/docs/bisq-1/install-and-verify.md": "5c2966c580b54961ed6baed8034c8141029692d1a048b0635c6247da27bfa6e1",
+    "src/content/docs/bisq-1/payment-accounts.md": "a6e6d424c8f89c220d075a751aebeda3692f2f9dc95cc8c2bfaed3f102fd5fee",
+    "src/content/docs/bisq-2/backup-and-recovery.md": "4fecf00749dd81335e62fb54fdb0b3fd1e25820dde19569a38efc7b3646b0731",
+    "src/content/docs/bisq-2/bisq-easy-safety.md": "c260358398767bb82a3dc1e51ec53225d3312cac6ddd7d8c71fefb21e331275a",
+    "src/content/docs/bisq-2/first-trade.md": "752ba41e26b8c81ee0899244349d39233153ca3be92aacef4d6fd1565a3c3c9b",
+    "src/content/docs/bisq-2/get-help.md": "b0f9c4b6ba974763a9d2070e68ec5f52f7afe2a98baeabb8fcc01e29758c6288",
+    "src/content/docs/bisq-2/install-and-verify.md": "2d3c25b2001d60d4f7705d217b9ceafadddaf417575b971086ec62e1af39b9e9",
+    "src/content/docs/contribute/getting-started.md": "22adca1a851e2b3a3cd2f8126cdc4c67e4544baede2e0c78096db8e2e22d919b",
+    "src/content/docs/dao/overview.md": "4efd6063f632ea91a50d26654f2d4bfd444b503c5829f9c11b5db2c4a42c314c",
+    "src/content/docs/start/choose-bisq.md": "726f70fb63ad7fc3e56f48e424fa610effe61398372aacba89153fc0e19adcbf"
+  },
+  "release_commits": {
+    "bisq1": "ea9d5dff90c99ac462f2b0a7bf9ef92683956619",
+    "bisq2": "cfe8ab251f2b6579f29e9955036afc33ba36861e"
+  },
+  "checks": [
+    "Independent high-impact source review",
+    "Source assertions and guide hashes",
+    "Root and /bisq-docs/ builds",
+    "Local links, fragments and assets",
+    "Main search contains home and13guides",
+    "Representative desktop/mobile/light/dark/no-JavaScript browsing"
+  ],
+  "limits": [
+    "No installer binary verification or funded product flow performed",
+    "Historical209articles not all rewritten/current",
+    "Full authorship and content/media reuse terms unresolved",
+    "No official maintainer endorsement"
+  ]
+}

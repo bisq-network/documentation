@@ -1,0 +1,29 @@
+A '''stakeholder''' in the Bisq network is any '''individual''' that holds [[BSQ]] tokens. Ownership of BSQ grants the holder the ability (and responsibility) to participate in the [[Introduction to the DAO|Bisq DAO's governance]].
+
+Stakeholders can come from various backgrounds – they may be active traders using the platform, contributors developing the software or providing support, or simply individuals who have acquired BSQ and wish to have a say in the project's direction.
+
+== What Can Stakeholders Do? ==
+
+The primary function of a stakeholder is to participate in '''[[Introduction to the DAO|DAO governance]]''' through voting. Stakeholders use their BSQ voting weight to decide on various types of [[Proposals]]:
+
+* '''Compensation Requests:''' Approving payments (in newly issued BSQ) to contributors for work completed.
+* '''Reimbursement Requests:''' Approving reimbursements (in BSQ) for specific expenses incurred by contributors.
+* '''Parameter Change Proposals:''' Voting on changes to network or trading parameters (e.g., trading fees, security deposit settings).
+* '''Role Proposals:''' Approving contributors for specific [[Bisq 2 Roles|bonded roles]].
+* '''Confiscation Proposals:''' Voting on whether to confiscate a bonded role holder's BSQ bond due to misconduct.
+* '''Generic Proposals:''' Voting on broader strategic decisions or other matters affecting the Bisq project.
+
+Details on the mechanics of voting, including casting votes, stake weight, and the different phases of a voting cycle, can be found on the [[Participating in a DAO voting cycle]] page. Note that certain actions, like submitting proposals or casting votes, may require paying small fees in BSQ.
+
+== Why Participate? ==
+
+Active stakeholder participation is vital for the health and decentralization of the Bisq network:
+
+* '''Guides Development:''' Voting on compensation requests directly funds the work contributors do, influencing what gets built and maintained.
+* '''Sets Strategy:''' Voting on parameter changes and generic proposals shapes the rules, economics, and future direction of the platform.
+* '''Ensures Decentralization:''' Wide participation prevents governance power from concentrating in too few hands, upholding Bisq's core principles.
+
+By voting, stakeholders collectively steer the Bisq project according to the community's consensus.
+
+[[Category:DAO]]
+[[Category:Concepts]]<!-- BISQ VERSION: bisq2 -->

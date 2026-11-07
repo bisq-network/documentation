@@ -1,0 +1,19 @@
+{
+  "title": "Trade Protocols",
+  "page_id": "567",
+  "revision_id": "3659",
+  "revision_timestamp": "2024-07-23T15:30:48Z",
+  "available_attribution": {
+    "username": "Pazza",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Trade_Protocols",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=3659",
+  "wikitext_sha256": "ed6e8baa35c5b80e7f337c04694054af0fc2dafa4b1427a7d8ead0a736cb4aed",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/trade-protocols/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

@@ -1,0 +1,67 @@
+'''Backing up''' your Bisq data is crucial to ensure you can retain control over trades, disputes, payment accounts, and funds in case of issues with your machine (e.g., drive failure) or Bisq itself (e.g., critical bugs).
+
+All Bisq data is stored right on your computer—it's never stored (or even sent) to a central server, so backing it up is your job.
+
+To see how to ''restore'' data to Bisq, see [[Restoring application data]].
+
+__TOC__
+
+= Back up the entire Bisq data directory =
+
+The safest, quickest, easiest, and most comprehensive thing you can do to safeguard your data is to back up the whole data directory at regular intervals. See the various elements of the data directory detailed [[Data_directory#Data_Directory_Structure|here]].
+
+In addition, to make restoring payment accounts easier, you may want to back up an [[#Back_up_payment_accounts|export of your payment accounts]].
+
+== While Bisq is running ==
+
+Go to <code>Account</code> > <code>Backup</code> and put in a location for your backup to be exported to (note that this section is titled "Backup wallet" in the software but it actually exports the entire data directory).
+
+[[File:Backup-while-running.png|600px|thumb|left|Data directory backup screen.]]
+
+<div style="clear: both;"></div>
+
+== While Bisq is closed  ==
+
+When Bisq is closed, you can simply copy the entire data directory and paste it somewhere safe. Find the location of your data directory by clicking on the <code>Open Directory</code> button (see screenshot above) or see [[Data_directory#Default_Locations|data directory locations here]].
+
+== Encrypt your backup ==
+
+'''Backup files are not encrypted.''' If you’ve set a wallet password, your wallet files will be encrypted, but all your other data will ''not'' be encrypted. 
+
+We recommend encrypting the whole backup folder with something like gpg, 7-Zip, Cryptomator, etc.
+
+= Back up payment accounts =
+
+If you just want to back up your payment accounts, export them from <code>Account</code> > <code>National Currency Accounts</code>.
+
+Be advised: exporting your accounts this way only exports metadata. '''Aging and signing status are not included'''. To include [[Account_limits|account aging and signing status]], you also need to save the <code>btc_mainnet/keys/sig.key</code> file from your [[Data_directory|data directory]].
+
+Because of the way [[Restoring_application_data#Restore_payment_accounts|restoring payment accounts]] works, it's best for most users to back up the whole data directory ''and'' back up a payment account export.
+
+[[File:Export-payment-accounts.png|600px|thumb|left|Export fiat payment accounts here. You can export altcoin accounts from the Altcoin Accounts tab.]]
+
+<div style="clear: both;"></div>
+
+= Back up your wallet seed =
+
+Please be sure to [[Backing_up_your_wallet_seed|properly back up your wallet seed]].
+
+= Export Tor state =
+
+If you want to carry over a particular onion address (and keep your local reputation), you can replace the <code>btc_mainnet/tor/hiddenservice</code> folder in your data directory with the one from your backup.
+
+= Export trade history =
+
+In <code>Portfolio</code> > <code>History</code> you'll find an <code>Export to CSV</code> button to export your trade history.
+
+There's no way to import this data back into Bisq, but it can be useful to have a copy of this data for yourself for record-keeping, analysis, etc.
+
+= Export transaction history =
+
+In <code>Funds</code> > <code>Transactions</code> you'll find an <code>Export to CSV</code> button to export your trade history.
+
+There's no way to import this data back into Bisq, but it can be useful to have a copy of this data for yourself for record-keeping, analysis, etc.
+
+= Automatic backup with cyclic redundancy = 
+
+Bisq doesn't directly implement a scheduled backup feature, but you can set up an [[Automatic_backup_script|automatic backup routine]] to store a versioned history of your data directory in a compact way.<!-- BISQ VERSION: general -->

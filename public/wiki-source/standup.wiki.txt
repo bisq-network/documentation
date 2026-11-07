@@ -1,0 +1,7 @@
+<!-- As a practice, active contributors are encouraged to post updates in the [[Keybase]] <code>#standup</code> channel with a summary of what they did that day, what they plan to work on the next day, and anything that is standing in their way of progress. This is a way for our widely distributed team to keep up with each other, have a sense of teamwork and to help one another.
+
+See also: https://en.wikipedia.org/wiki/Stand-up_meeting -->
+
+Discontinued.
+
+[[Category:Processes]]<!-- BISQ VERSION: general -->

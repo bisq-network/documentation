@@ -1,0 +1,45 @@
+An '''arbitrator''' resolves disputes that could not be resolved by traders on their own or with a [[Mediator|mediator]]'s help. 
+
+Arbitrators investigate disputes, just like mediators. But unlike mediators, whose suggestions encourage traders to make payouts from their own escrowed funds, an arbitrator's findings lead to a payout from the arbitrator themselves. 
+
+__TOC__
+
+{{ArbitrationCompensationTable}}
+
+== Role Notes ==
+
+=== Arbitrator's Role in Dispute Resolution ===
+
+Currently, the arbitrator makes BTC payouts to aggrieved traders out of their own pocket and gets refunded by the Bisq DAO (hence the term ''refund agent'' used sometimes). But this arrangement is intended as a convenience so that traders can avoid making a reimbursement request to the DAO on their own. 
+
+The arbitrator role is one element of Bisq's decentralized dispute resolution process. Please see more details at [[Arbitration|arbitration]].
+
+=== Arbitrator versus Legacy Arbitrator ===
+
+Although arbitrators have been a component of dispute resolution on Bisq since its early days, the v1.2 update wholly changed the nature of the role.
+
+Before the update, trade funds were secured in a 2-of-3 multisig escrow, in which arbitrators held the third key. They would evaluate disputes and then sign funds to traders as they saw fit. Since these arbitrators (which we now refer to as ''legacy arbitrators'') had some element of control over users' funds, those who filled the role had to be ''very'' highly trusted.
+
+The v1.2 update enabled trade funds to be secured in a 2-of-2 multisig escrow, in which arbitrators have '''no involvement'''. Mediators handle most disputes, but if an arbitrator does get involved, payouts either come from the arbitrator's own pocket or from the Bisq DAO. Arbitrators are still trusted to conduct their role with integrity and consistency, but this is a wholly different kind of trust, one that is unrelated to the handling of users' funds, and thus one that doesn't even require a bond.
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/93
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/refund-agents @bisq-network/refund-agents]
+
+== Duties ==
+* Investigate trader disputes and determine how payout should be made (must respond to traders within 5 days)
+* Do payouts to traders as appropriate with BTC
+* Request BSQ reimbursement from the Bisq DAO
+
+== Rights ==
+* Write access to the <code>Support - Private</code> Matrix room
+
+== Bonding ==
+Not required.
+
+== Finding your arbitrator ==
+To find your arbitrator see [[Finding your arbitrator|here]].
+
+[[Category:Roles]]<!-- BISQ VERSION: bisq1 -->

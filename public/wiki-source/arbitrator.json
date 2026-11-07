@@ -1,0 +1,19 @@
+{
+  "title": "Arbitrator",
+  "page_id": "148",
+  "revision_id": "4135",
+  "revision_timestamp": "2026-05-10T07:54:30Z",
+  "available_attribution": {
+    "username": "SuddenWhipVapor",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Arbitrator",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=4135",
+  "wikitext_sha256": "cc48ce46d80d385307dc9b0e817c09593399f02baf143ee4c17b70f7526cd184",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/arbitrator/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

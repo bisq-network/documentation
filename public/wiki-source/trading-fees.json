@@ -1,0 +1,19 @@
+{
+  "title": "Trading fees",
+  "page_id": "122",
+  "revision_id": "4175",
+  "revision_timestamp": "2026-10-15T15:20:51Z",
+  "available_attribution": {
+    "username": "MwithM",
+    "id": "0"
+  },
+  "original_url": "https://bisq.wiki/Trading_fees",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=4175",
+  "wikitext_sha256": "31d671cd0efe02f504119865ed34143879ec82cc7d48bf1b4faf2afa0a2af805",
+  "snapshot_last_successful_ingest_utc": "2026-10-18T01:01:19.853537Z",
+  "source_route": "/wiki/trading-fees/",
+  "source_language": "en",
+  "license_status": "Unresolved; no republication approval",
+  "attribution_limit": "Only exported latest revision contributor, not full history",
+  "classification_comment_provenance": "Downloader-generated keyword classification appended by download_bisq2_media_wiki.py; not original wiki author metadata or verified product applicability"
+}

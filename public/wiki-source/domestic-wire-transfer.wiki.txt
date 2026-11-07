@@ -1,0 +1,89 @@
+'''Domestic Wire Transfer''' is a payment method added in Bisq v1.8.0. 
+
+Domestic Wire Transfers are one of the two bank transfer payment method in the the US. The other being [[ACH]].
+
+== What countries are available for Domestic Wire Transfer? ==
+
+Domestic Wire Transfers are available in the United States.  
+
+== What currencies are available for Domestic Wire Transfer? ==
+
+Domestic Wire Transfer only supports transfers of USD.
+
+== What is the maximum trading duration for Domestic Wire Transfer? ==
+
+Domestic Wire Transfers are usually completed within 1 business day. Therefore, the maximum trade duration is 3 days.
+
+== What is the maximum BTC limit for an Domestic Wire Transfer trade? ==
+
+{{MaxTradeSizeBisq1}}.
+
+== Is Domestic Wire Transfer a payment method that can be signed? ==
+
+No, Domestic Wire Transfer accounts do not require signing.
+
+== How do I set up a Domestic Wire Transfer account? ==
+
+Domestic Wire Transfers should be possible with any checking account. You can check the fees charged by the banks for Domestic Wire Transfers to make sure you chose one with low fees.
+
+== How do I add Domestic Wire Transfer as a payment method in Bisq? ==
+
+It is easy to add your Domestic Wire Transfer account to Bisq.
+
+# Go to the top menu in Bisq and select Account. 
+# Then select National Currency Accounts. 
+# Click add new account
+# Select Domestic Wire Transfer
+# Complete the details
+# Choose to use a custom account name this helps makes it easier for you to manage multiple payment methods in Bisq (this will be visible only to you, for example: Wire - Chase Bank - USD - John Doe)
+# Click save new account
+
+If you have more than one Domestic Wire Transfer account you wish to add to Bisq you can create different accounts for each.
+
+Make sure all the details are correct when you add.
+
+== How do I buy BTC with my Domestic Wire Transfer account? ==
+
+You can buy BTC with Domestic Wire Transfer on Bisq in 2 waysː
+
+# Make an offer to buy BTC on the USD market.
+# Take an offer to buy BTC on the USD market.
+
+When the offer is confirmed Bisq will provide you with the BTC Sellers Domestic Wire Transfer details for you to complete the payment. You should send payment immediately and confirm you have done so in Bisq by clicking 'payment started'.
+
+If you have the option to include a payment reference please leave it blank. If your bank requires one, please just use your name that matches your bank account.
+
+Once the BTC Seller receives your payment they will confirm in Bisq and your security deposit and your purchased trade amount will be available in your wallet.
+
+== How do I sell BTC with my Domestic Wire Transfer account? ==
+
+You can sell BTC with ACH on Domestic Wire Transfer in 2 waysː
+
+# Make an offer to sell BTC on the USD market.
+# Take an offer to sell BTC on the USD market.
+
+When the offer is confirmed Bisq will provide with the BTC Buyer with your Domestic Wire Transfer details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking 'payment started'.
+
+Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.
+
+== Are there any limits for me to be aware of when using my Domestic Wire Transfer account? ==
+
+Your bank may impose limits of the amounts you can send / receive. You should check if your bank imposes any limits.
+
+== Are there any fees for me to be aware of when using my Domestic Wire Transfer account? == 
+
+Banks often charge their users fees for sending a Domestic Wire Transfer. This is usually anything from $15-40.
+
+Banks often charge their users fees for receiving a Domestic Wire Transfer. This is usually anything from $0-15.
+
+Users should check with their bank so they know what fees they will be charged to send / receive payments.
+
+Domestic Wire Transfer are generally higher cost, but faster, than ACH Transfers.
+
+== How does dispute resolution when trading with a Domestic Wire Transfer account? ==
+
+If a dispute occurs the mediator may ask the buyer to send them information showing that they made the payment of the correct amount to the BTC Seller within the correct time frame. 
+
+The mediator may ask the seller to send them information to prove their account details are correct, or in the case of the BTC Buyer making a payment late, or of the wrong amount. 
+
+For more information see [[dispute resolution]].<!-- BISQ VERSION: general -->

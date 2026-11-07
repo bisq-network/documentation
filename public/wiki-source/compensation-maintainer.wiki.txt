@@ -1,0 +1,62 @@
+The '''Compensation Maintainer''' handles announcements and issue triaging for compensation requests.
+
+__TOC__
+
+== Issue ==
+https://github.com/bisq-network/roles/issues/86
+
+== Team ==
+[https://github.com/orgs/bisq-network/teams/compensation-maintainers @bisq-network/compensation-maintainers]
+
+== Duties ==
+
+=== Announce BSQ-USD exchange rate ===
+
+Compensation requests use a [https://github.com/bisq-network/proposals/issues/313 30-day volume-weighted average] to determine a BSQ/USD rate that discounts outliers. 
+At the beginning of the cycle, the Compensation Maintainer should create a pinned issue with the title "BSQ rate for Cycle X is Y.YY USD per 1 BSQ".
+<!-- https://github.com/bisq-network/compensation/issues/782 -->
+
+=== Announce request submission deadline ===
+
+To allow time for team leads to discuss and review compensation requests, requests need to be ready for review 1 week before the end of current cycle's proposal phase. 
+
+[[File:Compensation_board.png|400px|right|thumb|Compensation board]]
+
+Dates and reminders will be announced on a pinned issue at github [https://github.com/bisq-network/compensation/issues compensation repository], the [https://github.com/orgs/bisq-network/projects/20/ compensation board], and the [[events calendar]].
+
+=== Triage incoming requests ===
+
+The Compensation Maintainer watches the [https://github.com/bisq-network/compensation/issues compensation repository] and proceeds to triage:
+
+Incoming issues are categorized as <code>In Progress</code> if they have <code>[WIP]</code> at the beginning of the title or as <code>In Review</code> if they don't. The Compensation Maintainer assigns <code>In Review</code> issues to the appropriate team leads (or determine which team leads are responsible if it isn't obvious).
+
+As requests are submitted to the DAO (with txid posted in corresponding issues), the Compensation Maintainer should classify requests as <code>Proposal Submitted</code>.
+
+This triage can be controlled from the Compensation board by:
+* using the "Add cards" button on the board to triage new issues
+* dragging and dropping existing issues to categories
+* using the "Projects" section in the right sidebar of an issue's page
+
+=== Archive previous cycle requests at the end of the proposal phase ===
+
+Once a cycle's proposal phase is over, the Compensation Maintainer should [https://help.github.com/en/github/managing-your-work-on-github/archiving-cards-on-a-project-board archive] all issues in the <code>Done</code> column from the previous phase.
+
+The reason for waiting to archive these issues is so that contributors can easily see how many requests were made in the last cycle, quickly find their own request, and easily review which ones were accepted and rejected. Requests are archived in order to keep the board clean and make room for requests in the next cycle.
+
+=== Close current cycle requests after the vote reveal phase ===
+
+When the reveal vote phase is complete, the Compensation Maintainer should take the following steps:
+
+# Label each compensation request issue as <code>was:accepted</code> or <code>was:rejected</code> according to the vote result
+# Close the issue with a comment indicating the request's outcome (e.g., "Closing as accepted" or "Closing as rejected")
+
+Once closed, the issues will automatically move to the <code>Done</code> column of the board, where they remain for reference until they are archived at the end of the next cycle's proposal phase (see above).
+
+== Rights ==
+* "Triage" access to the [https://github.com/bisq-network/compensation/ compensation repository]
+
+== Bonding ==
+N/A
+
+[[Category:Roles]]
+[[Category:Maintainer]]<!-- BISQ VERSION: general -->

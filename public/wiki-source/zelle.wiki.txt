@@ -1,0 +1,63 @@
+'''Zelle''' is a popular payment method within the United States (US) for buying and selling bitcoin for USD on Bisq. It is offered directly through the mobile apps or online banking of many US banks and credit unions. Zelle payments are typically instant, but users should be aware they can occasionally take longer (Bisq allows up to 4 days for the trade window).
+
+{{Admonition_Note|'''Version Context:''' The details on this page, particularly regarding trade limits and account signing, primarily apply to trading on '''[[Bisq 1|Bisq v1]]'''.}}
+
+== About Zelle ==
+
+Zelle allows users to easily send and receive money using only the recipient’s email address or U.S. mobile number, provided both parties are enrolled. Money is usually available within minutes. Zelle itself does not charge fees for transfers, though your bank might have standard account fees. Account details and transaction activity remain private between the user and their bank.
+
+* '''Availability:''' Zelle is available '''only in the United States''' and facilitates transfers in '''USD'''. It is integrated into over 2,200 bank and credit union apps.
+* '''Standalone App Discontinued:''' The separate Zelle mobile app (for users whose banks didn't offer Zelle directly) was '''discontinued on April 1, 2025'''. Users who relied on the standalone app must now access Zelle through a participating bank or credit union's online/mobile banking services.
+* '''More Information:''' Visit the official Zelle website FAQ for more details: [https://www.zellepay.com/faq/top-zelle-questions]
+
+== Using Zelle on Bisq v1 ==
+
+=== Limits and Requirements ===
+
+* '''Spending Limits:''' Zelle limits (daily, weekly, monthly) vary significantly between banks and credit unions. '''Buyers are responsible for checking their own Zelle sending limits''' (usually visible within their banking app) before starting a trade.
+* '''Maximum Trade Duration:''' 4 days.
+* '''Maximum BTC per Trade:''' {{MaxTradeSizeBisq1}} (This is the standard [[Bisq 1|Bisq v1]] limit).
+* '''Account Signing:''' Yes, Zelle accounts '''require [[Account_limits|signing]]''' in [[Bisq 1|Bisq v1]]. Until your Zelle payment account is signed, trades using it are limited to 0.01 BTC.
+
+=== Setting Up Your Zelle Account in Bisq ===
+Before adding Zelle to Bisq, ensure you have enrolled with Zelle through your participating bank or credit union's app or website. This usually involves verifying your U.S. mobile number or email address.
+
+To add your Zelle account to Bisq:
+# Go to the '''Account''' tab in Bisq.
+# Click '''Add New Account'''.
+# Select '''Zelle (ClearXchange)''' from the payment method dropdown list.
+# Enter the '''Full Name''' associated with your bank account.
+{{Admonition_Warn|Use your real name exactly as registered with your bank. Sellers cannot confirm payment receipt if the sender's name doesn't match the name provided in Bisq, per trade rules.}}
+# Enter the '''Email Address or U.S. Mobile Number''' that you have registered with Zelle.
+# (Optional) Add a custom '''Account Name''' visible only to you (useful if you add multiple Zelle methods).
+# Click '''Save New Account'''.
+
+== Trading with Zelle on Bisq v1 ==
+
+=== Buying BTC with Zelle ===
+1.  Find an offer to buy BTC (or create your own) in the USD market using Zelle.
+2.  Once the trade starts and the initial deposit transaction confirms, you'll see the seller's Zelle details (Full Name and registered Email/Phone Number).
+3.  Log in to your bank/credit union's mobile app or website and initiate the Zelle payment '''exactly''' as instructed on the Bisq trade screen.
+{{Admonition_Warn|Only use the payment details provided in the Bisq trade. Do not send to different details if requested by the peer outside of Bisq.}}
+4.  After sending the payment, click the '''Payment started''' button in Bisq.
+
+=== Selling BTC with Zelle ===
+1.  Find an offer to sell BTC (or create your own) in the USD market using Zelle.
+2.  Once the trade starts and the initial deposit transaction confirms, the buyer will see your Zelle details (from the account you added in Bisq) and will send the payment.
+3.  Wait for the buyer to click "Payment started" in Bisq.
+4.  '''Verify''' in your bank account that you have received the correct USD amount '''from a sender whose name matches''' the buyer's name shown in the Bisq trade details.
+{{Admonition_Warn|Only confirm payment receipt if the sender's name matches the details in Bisq, per trade rules.}}
+5.  Once verified, click the button in Bisq to '''Confirm payment receipt''', which releases the BTC to the buyer.
+
+== Potential Issues ==
+
+=== Dispute Resolution ===
+If a problem occurs (e.g., payment not received, wrong amount sent, sender name mismatch), a [[Dispute_Resolution_in_Bisq_1|dispute resolution]] process involving a [[Mediator]] may be initiated.
+* The '''buyer''' might need to provide proof of payment (screenshot, bank statement showing correct amount, recipient, and timestamp).
+* The '''seller''' might need to provide information to verify their account details or confirm non-receipt.
+
+=== Bank Blocking Payment ===
+Banks or credit unions may sometimes block Zelle payments based on their own risk algorithms or policies. If you (as the buyer) are unable to send the Zelle payment for reasons beyond your control:
+1.  Do '''not''' try to send payment from a different Zelle account or a friend/family member's account.
+2.  Immediately open a support ticket with a [[Mediator]]: select the trade in Bisq and press '''Ctrl + O''' (or Cmd + O on Mac).
+3.  Explain the situation clearly to the [[Mediator]].<!-- BISQ VERSION: bisq1 -->

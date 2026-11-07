@@ -1,0 +1,46 @@
+The '''data directory''' is where all of Bisq's application data files (including wallet, account details, trade history, and settings) are stored locally on your computer.
+
+It is crucial that you [[Backing_up_application_data|back up this directory]] regularly to prevent data loss.
+
+{{Admonition_Note|'''Version Context:''' The directory structure described below is primarily based on Bisq v1. The location and general purpose remain similar in [[Bisq 2]], although specific file organization within subdirectories like `db/` or `keys/` might differ due to features like multiple [[Identity|identities]].}}
+
+__TOC__
+
+== Data directory structure ==
+
+Notable items typically found within the main Bisq data directory:
+
+* `bisq.log` - The main log file containing recent application activity, often helpful for debugging. Be cautious sharing it publicly as it may contain private information.
+* `bisq.properties` - A configuration file where the full list of [https://github.com/bisq-network/bisq/blob/master/common/src/main/java/bisq/common/config/Config.java#L57 command-line options] can be permanently set (one per line in `<option>=<value>` format, e.g., `dumpStatistics=true`), avoiding the need to specify them each time Bisq is launched.
+* `btc_mainnet/` - The primary subdirectory containing most network-specific operational data.
+** `keys/` - Stores cryptographic keys used for signing P2P network messages and for [[Account_limits|signing and aging]] payment accounts (in Bisq v1).
+** `db/` - Contains various user data (e.g., closed trades, DAO state) and network data. '''It is strongly discouraged to manually edit any files in this directory.'''
+** `tor/` - Holds state data for the built-in [[Tor]] connection. The `hiddenservice/` folder within this directory contains the keys determining your Bisq [[Changing_your_onion_address|onion address]].
+** `wallet/` - Contains your BTC and [[BSQ]] wallet files (`bisq_BTC.wallet`, `bisq_BSQ.wallet`), rolling backups, and the SPV chain file (`[[Resyncing SPV file|bisq.spvchain]]`).
+
+== Default locations ==
+
+The default location of the main Bisq data directory varies by operating system. The exact path can usually be found easily from within the application itself (see below), but the standard defaults are listed by the template:
+
+{{Default_data_directory_locations}}
+=== Opening Directory from Bisq ===
+
+The easiest way to find and open your specific data directory is directly through the Bisq application:
+# Go to the `Account` tab.
+# Select the `Backup` sub-tab.
+# Click the button labeled '''`OPEN DIRECTORY`'''.
+
+[[File:Bisq-account-backup-open-directory-button.png|thumb|600px|left|Clicking the 'OPEN DIRECTORY' button on the Account > Backup screen.]]
+<div style="clear: both;"></div>
+
+This will open your system's file explorer directly to the Bisq data directory, bypassing the need to manually navigate hidden folders or different paths depending on your OS.
+== See also ==
+
+* [[Backing_up_application_data|Backing up application data]]
+* [[Restoring application data]]
+* [[Switching to a new data directory]]
+* [[Running from the command line]]
+
+[[Category:Configuration]]
+[[Category:Technical]]
+[[Category:Troubleshooting]]<!-- BISQ VERSION: bisq2 -->

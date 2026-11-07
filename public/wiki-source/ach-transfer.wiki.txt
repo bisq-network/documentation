@@ -1,0 +1,61 @@
+'''ACH Transfer''', or Automated Clearing House transfer, is a payment method introduced in Bisq v1.8.0. It is primarily used for domestic, low-value payments between participating financial institutions in the United States. Along with [[Domestic_Wire_Transfer|domestic wire transfers]], ACH is one of the two primary bank transfer methods used in the US.
+
+== Quick Facts ==
+
+* '''Supported Countries:''' United States only.
+* '''Supported Currencies:''' USD only.
+* '''Maximum Trade Duration:''' 5 days (though most complete within 1–2 business days).
+* '''Trade Limits:''' {{MaxTradeSizeBisq1}}.
+* '''Account Signing:''' Not required.
+
+<div style="background-color: #fff3cd; color: #856404; padding: 15px; border: 1px solid #ffeeba; border-left: 5px solid #856404; margin: 20px 0;">
+'''SECURITY WARNING: Never confirm micro-deposits for a Bisq trade.''' 
+
+Some banks verify external accounts using micro-deposits (small transfers of a few cents). If a trade partner initiates micro-deposits, they are likely attempting to "link" your account to theirs. In the ACH system, a linked account may allow the other party to '''debit (withdraw)''' funds from your account without further authorization. 
+* '''Sellers:''' If you receive micro-deposits, do not verify the amounts for the buyer.
+* '''Buyers:''' Do not use "Direct Deposit" setup methods; use standard "Third-Party Transfer" or "Bill Pay" features.
+</div>
+
+== Account Setup & Limits ==
+
+=== Is my bank compatible? ===
+Not all banks offer third-party ACH transfers. Many banks only allow ACH transfers to other accounts '''you own'''. Before trading, verify that your bank supports "Third-Party ACH Transfers" or "External Transfers" to individuals. If your bank insists on micro-deposit verification, it is likely not a true third-party transfer service.
+
+=== Fees and Limits ===
+* '''Fees:''' Usually low-cost or free, but some banks charge for "Same Day ACH" or expedited delivery. Always check your bank's fee schedule.
+* '''Transfer Limits:''' Your bank likely has daily or monthly "External Transfer" limits. Ensure these limits accommodate your Bisq trade size before opening an offer.
+
+== Adding ACH Transfer to Bisq ==
+
+To add your ACH account to Bisq:
+# Head to the top menu and select '''Account'''.
+# Choose '''National Currency Accounts'''.
+# Click on '''Add new account'''.
+# Select '''ACH'''.
+# Fill in the necessary details (Routing Number, Account Number, etc.).
+# '''Account Name:''' You can set a custom name (e.g., "ACH - Chase - Jane Doe") to help you stay organized. This name is only visible to you.
+# Click '''Save new account'''.
+
+'''Note:''' Ensure all details are accurate. Sellers can only confirm payment if the name associated with the incoming ACH transfer matches the account name listed in Bisq.
+
+== How to Trade with ACH ==
+
+=== Buying BTC ===
+# Make or take an offer on the USD market.
+# Once the trade is confirmed, Bisq will provide the seller's ACH details.
+# Send the payment through your bank's portal immediately.
+# '''Payment Reference:''' Leave this '''blank'''. If your bank requires one, only use your name. Never mention "Bisq," "Bitcoin," or "Crypto."
+# Click '''Payment Started''' in Bisq.
+
+=== Selling BTC ===
+# Make or take an offer to sell BTC on the USD market.
+# After confirmation, Bisq will provide the buyer with your ACH details.
+# Wait for the buyer to send the payment and click "Payment Started."
+# '''Verify the funds:''' Once the funds arrive in your bank account, click '''Confirm Payment Received''' to release the BTC.
+# '''Security Note:''' If you receive small "micro-deposits" instead of the full trade amount, '''do not''' communicate those amounts to the buyer.
+
+== Dispute Resolution ==
+
+If a dispute occurs, the mediator may ask the buyer to provide proof of payment (e.g., a PDF receipt) showing the correct amount and recipient details. The mediator may also ask the seller for a redacted statement to prove their account details or to show that a payment was not received.
+
+For more information, see [[dispute resolution]].<!-- BISQ VERSION: general -->

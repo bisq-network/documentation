@@ -1,0 +1,15 @@
+Bisq is a decentralized [[P2P Network|peer-to-peer]] bitcoin exchange network that you access via software running on your own computer. It enables secure, private, and censorship-resistant trading directly with other users, without relying on intermediaries.
+
+Bisq offers two software versions providing different trading experiences:
+
+== Bisq 1 ==
+[[Bisq 1]] is the original, well-established peer-to-peer exchange platform launched in 2016 (initially as BitSquare). It allows users to trade Bitcoin for fiat currencies and various altcoins using a robust [[Security deposit|multisig deposit system]] for security between strangers. Individual trade sizes on Bisq 1 can reach up to {{MaxTradeSizeBisq1}} for fiat trades and {{MaxTradeSizeAltcoin}} for altcoin trades.
+
+'''[[Bisq 1|Learn more about Bisq 1]]'''
+
+== Bisq 2 ==
+Launched in 2024, [[Bisq 2]] is the next-generation platform designed to support multiple [[Trade Protocols|trade protocols]]. The first, and currently primary, protocol available is [[Bisq Easy]].
+
+[[Bisq Easy]] facilitates peer-to-peer Bitcoin-fiat trades with security based on seller [[Reputation|reputation]], rather than deposits. It features no trading fees and no deposit requirements, making it accessible for smaller trades up to the equivalent of 600 USD (or {{MaxBisqEasyTrade}}). It is positioned as a simpler alternative for users, especially those new to Bisq or making smaller fiat trades.
+
+'''[[Bisq 2|Learn more about Bisq 2 & Bisq Easy]]'''<!-- BISQ VERSION: bisq2 -->

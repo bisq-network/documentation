@@ -1,0 +1,132 @@
+A '''Support Agent''', as part of the [[Support Team]], is responsible for:
+
+* Assisting users with issues on various support channels.
+* Maintaining the Bisq wiki.
+* Communicating user issues with the development team.
+
+== Current Support Agents and official user names ==
+
+Below is a list of current support agents and their user names on the various support channels.
+
+{| class="wikitable"
+! Name !! [http://bisq.chat Matrix] !! [https://github.com/bisq-network GitHub] !! [https://bisq.community/c/support/18 Bisq Community]
+|-
+| darawhelan || [https://matrix.to/#/@darawhelan:matrix.org @darawhelan:matrix.org] || [https://github.com/darawhelan darawhelan] || [https://bisq.community/u/darawheelan/summary darawheelan]
+|-
+| luis3672 || [https://matrix.to/#/@luis3672:matrix.org @luis3672:matrix.org] || [https://github.com/luis3672 luis3672] ||
+|-
+| MnM || [https://matrix.to/#/@mwithm:matrix.org @mwithm:matrix.org] || [https://github.com/mwithm mwithm] || [https://bisq.community/u/mnm/summary MnM]
+|-
+| pazza83 || [https://matrix.to/#/@pazza83:matrix.org @pazza83:matrix.org] || [https://github.com/pazza83 pazza83] || [https://bisq.community/u/pazza/summary Pazza]
+|-
+| strayorigin|| [https://matrix.to/#/@strayorigin:matrix.org @strayorigin:matrix.org] || [https://github.com/strayorigin strayorigin] || 
+|-
+| suddenwhipvapor || [https://matrix.to/#/@suddenwhipvapor:matrix.org @suddenwhipvapor:matrix.org] || [https://github.com/suddenwhipvapor suddenwhipvapor] || [https://bisq.community/u/suddenwhipvapor/summary suddenwhipvapor]
+|-
+|}
+
+{{Admonition_Warn|When communicating with support agents, always verify that '''both''' their display name and user name match exactly.}}
+
+__TOC__
+
+==Requirements==
+
+Bisq support agents play a vital role in assisting users who encounter issues. In addition to delivering quality customer support, a support agent must:
+
+* Be a Bisq user, proficient enough to assist others.
+* Dedicate 10 hours per week to monitor various support channels and provide assistance.
+* Be familiar with Bisq's current [knowledge base] documents.
+
+If you're interested in becoming a support agent, see the [[#Internship]] section below.
+
+==Infrastructure==
+
+Includes all of [[Support Team#Infrastructure]], plus the following:
+
+=== Calendar ===
+
+The calendar tracks support events.
+
+* [https://calendar.google.com/calendar/embed?src=u4eea6bffk10b76l2cmb86eqqc%40group.calendar.google.com&ctz=Europe%2FVienna Public HTML]
+* [https://calendar.google.com/calendar/ical/u4eea6bffk10b76l2cmb86eqqc%40group.calendar.google.com/public/basic.ics iCal File]
+* [https://calendar.google.com/calendar?cid=dTRlZWE2YmZmazEwYjc2bDJjbWI4NmVxcWNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ Google Calendar] (login required)
+
+===GitHub team===
+* [https://github.com/orgs/bisq-network/teams/support-agents @bisq-network/support-agents] (includes l1, l2 and intern subteams)
+
+===Role issue===
+* [https://github.com/bisq-network/roles/issues/64 L1 Support Agent #64]
+
+==Duties==
+
+===Handle support cases===
+Bisq support agents will dedicate at least 10 hours each week to monitor the various support channels and assist users with their issues.
+
+===Report issues to developers===
+Required data to request support from developers:
+
+* Create a directory with the trade ID as name
+* Add a short description in a plain text file of the problem/bug. Use BTC buyer/BTC seller if you refer to any trader. Ask user when the issue happened so its easier to find the issue in the logs.
+* Ask them if they have done anything non-standard or had past issues.
+* Add all available trade tx IDs of both traders as plain text to the report.
+* Get a screenshot of the trade details window (click on trade ID). Tell users to only blur out the payment account details but not the tx IDs or other data. There is no relevant privacy issue with exposing trade ID, tx IDs or onion address.
+* Add a screenshot from the mediators dispute details window. The contract as json data is not required initially and only needed if the dev requests it. The payment account data in the json file should be removed before handing over to a dev to protect traders privacy.
+* Get all log files from both users (at Account/Backup there is a button for opening the data dir) - its up to 11 files.
+* Put all logs from one user into a directory named buyer and seller
+* Add a screenshot of both traders first chat message (system message containing data like version number/OS,...)
+* If there have been any error/warning popups request a screenshot of that as well.
+* Zip all and send it on Matrix chat as PM to a dev who has committed to work on it. Avoid adding it to the support channel as then nobody will feel responsible to work on it.
+
+===Attend weekly support calls===
+Bisq support agents will attend weekly calls to discuss current issues.  
+
+===Submit regular cycle reports===
+Bisq support agents will submit a report each DAO Cycle via the [https://github.com/bisq-network/roles/issues/64 GitHub roles page].
+
+==Rights==
+
+* Writer access to the <code>Support - Private</code> Matrix room
+* [https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#repository-access-for-each-permission-level Triage] access to [[Support Team#Repositories]]
+
+==Policies==
+
+===Time to response===
+
+The goal of the Bisq support agent is to respond to user issues within '''one hour''' of them being posted. Keep in mind, the goal isn't to solve their issue within an hour, but to make initial communication so as to provide the best possible experience.
+
+===Sensitive user data===
+
+Often, support agents need to ask users to share their logs with you or specific information about their offer or trade, such as trade ID, trade amounts, etc. This data should not be shared in any public channel, and it should be securely destroyed one month after the case is closed. Please note that any such information that is shared within the bisq.support subteam is automatically destroyed after 30 days.
+
+==Processes==
+
+===Internship===
+Prospective support agents are asked to undergo an internship process, which lasts approximately one month, or one DAO cycle. During this period, you'll perform the #Duties|duties of a support agent, but your contributions won't be eligible for compensation. This gives you an opportunity to familiarize yourself with the role and for all parties involved to assess if a support agent role is a suitable fit for you.
+
+* Indicate your interest in interning as a Support Agent in the #support channel.
+# Briefly introduce yourself and share why you're interested in this work.
+# Let us know your availability for this work.
+
+The Support Team will then:
+
+* Add you to the [https://github.com/orgs/bisq-network/teams/intern-support-agents @bisq-network/intern-support-agents] on GitHub.
+* Announce your internship:
+# With a message to the larger @bisq-network/support team.
+# And with a message in the #support channel.
+
+After successfully completing one full cycle of interning:
+
+* Submit a [[Proposals|proposal]] to be added to the [https://github.com/orgs/bisq-network/teams/support @bisq-network/support] team.
+* If your proposal is approved, the support team lead will proceed with your promotion according to the established process.
+
+===Reporting===
+Bisq support agents are required to submit a report each DAO cycle that chronicles the support issues that they assisted users with during that cycle.  Reports will be submitted to the [https://github.com/bisq-network/roles/issues/64 GitHub roles page].
+
+===Compensation===
+* '''Compensation Rates for L1 Support Agents''': Established at 750 USD per cycle.
+* '''Eligibility''': Requires working at least 10 hours per week.
+* '''Consistency''': A fixed rate for all Support Agents.
+* '''Bonuses''': May apply upon appropriate justification.
+* '''Increases''': Agreed through consensus by the Support Team.
+
+[[Category:Roles]]<!-- BISQ VERSION: general -->

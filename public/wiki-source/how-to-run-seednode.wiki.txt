@@ -1,0 +1,2 @@
+How to run a seednode
+https://docs.bisq.network/exchange/howto/run-seednode.html<!-- BISQ VERSION: general -->
