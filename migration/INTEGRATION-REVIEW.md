@@ -1,6 +1,6 @@
 # Wiki integration review
 
-The 209 recovered wiki topics now have destinations in 98 subject guides. The separate historical reading section is retired; original text and available revision metadata remain downloadable from each guide. This is a local contributor-review edition, not maintainer approval.
+The 209 recovered wiki topics now have destinations in 98 subject guides. The separate historical reading section is retired; original text and available revision metadata remain downloadable from each guide. This is a contributor-review edition; maintainer approval remains pending.
 
 ## Coverage
 
@@ -36,4 +36,4 @@ Search covers all subject guides, including `suddenwhipvapor` and `luis3672`. Bo
 
 Current provider access/fees, role ownership, changing governance parameters, historical-only reference, content/media reuse terms and complete authorship need maintainer review. No funded trade, wallet restore, exceptional payout, burn/bond, DAO action or production infrastructure procedure was executed. Unknown former redirects or deleted pages outside the recovered inventory may require additional mappings.
 
-Source and content edits are local. Publishing this revision to the personal GitHub Pages preview is a separate next action; no DNS or official adoption change was made.
+Deployment is tracked separately in the [Pages workflow history](https://github.com/hiciefte/bisq-docs/actions/workflows/pages.yml). Check the successful run's revision when reviewing the live preview. Publishing the preview does not change DNS or establish official adoption.
