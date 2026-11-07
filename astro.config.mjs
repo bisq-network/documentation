@@ -11,6 +11,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Documentation",
+      favicon: "/favicon.ico",
       logo: { src: "./src/assets/bisq-logo.svg", alt: "Bisq" },
       customCss: ["./src/styles/custom.css"],
       routeMiddleware: "./src/route-data.ts",
