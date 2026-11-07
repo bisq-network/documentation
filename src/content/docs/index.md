@@ -31,6 +31,7 @@ Learn what to back up before you need to restore it.
 
 - [Get help with Bisq 2](bisq-2/get-help/) or [find Bisq 1 dispute help](bisq-1/dispute-help/)
 - Read the [DAO overview](dao/overview/) or learn about [contributing](contribute/getting-started/)
-- [Browse the historical wiki](browse/) by subject or [view all article titles](browse/all/)
+- [Browse all documentation](browse/) by subject or [find an article by title](browse/all/)
+- Compare [payment methods](browse/payment-methods/) or find [technical and background reference](browse/reference/)
 
-Search covers the current guides and core pages. Browse the historical wiki by title for older material.
+Search covers the main documentation, including support names, payment methods, and technical reference. Guides distinguish current instructions from version-specific or unverified information.

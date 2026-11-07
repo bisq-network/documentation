@@ -15,9 +15,11 @@ Start with a guide you know well. Open an issue or a focused pull request identi
 
 Source-checked does not mean tested with real funds. Never perform a funded trade, wallet restore or irreversible operation merely to validate a wording change.
 
-## Historical imports and images
+## Integrated sources and images
 
-The 209 files in `src/content/docs/wiki/` preserve exported historical articles. Their exact raw source is in `public/wiki-source/`. Propose current instructions in a guide and map related archive pages in `src/data/archive-guide-links.json`; retain the historical provenance.
+All 209 recovered wiki titles are assigned to main documentation guides in `migration/integration-*.json`. Preserve the useful detail, source-check notes and source-to-section mapping when consolidating a guide. The exact original source and available revision attribution remain in `public/wiki-source/`; do not edit those exports to make them match the new prose.
+
+When changing a heading or destination, update the integration mapping and any explicit fragment mappings. Test old title paths as well as the new guide URL. Search indexes canonical subject guides; compatibility and provenance pages are excluded to avoid duplicate results.
 
 Use an image only when it explains the surrounding step. Preserve its source record and identify historical interfaces or thumbnails. Never include wallet secrets, payment details, private trade chats or another person's personal information in a screenshot.
 

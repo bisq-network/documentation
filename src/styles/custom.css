@@ -108,3 +108,9 @@ a.sl-link-button.primary:hover { background: #39c34a; border-color: #39c34a; col
   background: var(--sl-color-gray-6);
 }
 .related-guide strong { display: block; margin-bottom: 0.2rem; }
+
+.source-history { margin-top: 2.5rem; padding: 1rem; border: 1px solid var(--sl-color-gray-5); border-radius: 0.3rem; font-size: 0.9rem; }
+.source-history summary { cursor: pointer; font-weight: 600; }
+.source-history p { margin-block: 0.8rem; }
+.source-history ul { padding-inline-start: 1.4rem; }
+.source-history li { margin-block: 0.5rem; overflow-wrap: anywhere; }

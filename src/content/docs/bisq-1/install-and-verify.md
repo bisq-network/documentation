@@ -15,6 +15,21 @@ Open the official [v1.10.11 release](https://github.com/bisq-network/bisq/releas
 
 Choose the installer for your operating system and processor, plus the matching `.asc` signature. macOS has separate Apple Silicon (`aarch64`) and Intel (`x86_64`) packages. Keep the installer and signature together.
 
+
+
+<details>
+<summary>Earlier interface illustrations</summary>
+
+These recovered screenshots show the controls discussed in this section. Prices, balances, limits, account identities and software versions in them are historical examples; follow the current instructions above.
+
+<figure><a href="../../media/wiki/14ac38b9d82ae0c749167e6122813f0a2c1d9018e373b88580bad9edfa500d78.png"><img src="../../media/wiki/14ac38b9d82ae0c749167e6122813f0a2c1d9018e373b88580bad9edfa500d78.png" alt="Image 1.cleaned" loading="lazy" /></a><figcaption>Historical Downloading and installing illustration. Do not treat an identity or key in this screenshot as the expected signer for another release; compare the current full fingerprint.</figcaption></figure>
+
+<figure><a href="../../media/wiki/bb9e8beb6c9e78248b404e7abf121478ef9e249f5e1d084bd895f65d22a8875b.png"><img src="../../media/wiki/bb9e8beb6c9e78248b404e7abf121478ef9e249f5e1d084bd895f65d22a8875b.png" alt="Image 2.cleaned" loading="lazy" /></a><figcaption>Historical Downloading and installing illustration. Do not treat an identity or key in this screenshot as the expected signer for another release; compare the current full fingerprint.</figcaption></figure>
+
+<figure><a href="../../media/wiki/8be1c0cef4d7135bed78f94b86768259719c681ecf5db149c1700f89b03f2fc9.png"><img src="../../media/wiki/8be1c0cef4d7135bed78f94b86768259719c681ecf5db149c1700f89b03f2fc9.png" alt="Image 3.cleaned" loading="lazy" /></a><figcaption>Historical Downloading and installing illustration. Do not treat an identity or key in this screenshot as the expected signer for another release; compare the current full fingerprint.</figcaption></figure>
+
+</details>
+
 ## 2. Check the signing key
 
 For **v1.10.11**, [signingkey.asc](https://github.com/bisq-network/bisq/releases/download/v1.10.11/signingkey.asc) identifies `E222AA02`. Download its [release public key](https://github.com/bisq-network/bisq/releases/download/v1.10.11/E222AA02.asc) and compare the full fingerprint with the [key published on bisq.network](https://bisq.network/pubkey/E222AA02.asc):
@@ -60,12 +75,25 @@ This guide identifies the published key; **you must verify your own installer**.
 
 Once Bisq opens, [make a backup](../backup-and-recovery/), [add a payment account](../payment-accounts/), and follow [your first trade](../first-trade/).
 
+## Updates and alternative installations
+
+Install a verified new release over the existing application after backing up. **Do not downgrade an existing data directory** to fit an old tutorial: older software may not understand newer stored state. A trusted installed Bisq can offer **Download installer and verify signature** when an update is available; inspect its result rather than ignoring a verification error.
+
+<figure><a href="../../media/wiki/a9e16d42dc98e43f2bd804d78815c69fc969d7b029c5b61ce08beaffa6c6059a.png"><img src="../../media/wiki/a9e16d42dc98e43f2bd804d78815c69fc969d7b029c5b61ce08beaffa6c6059a.png" alt="Updating bisq popup" loading="lazy" /></a><figcaption>Historical illustration from Updating Bisq; current controls may differ.</figcaption></figure>
+
+The historical **Receive pre-release notifications** setting is for testing releases, not a reason to use a prerelease for an ordinary funded trade. Current release notes and compatibility requirements take precedence over old monthly-release estimates.
+
+For a source build, follow the [build instructions at the checked release commit](https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/docs/build.md), including its JDK requirements; do not assume a distribution's default Java is correct. Source builds have a different trust/reproducibility workflow from checking a release installer.
+
+Community Linux packages require reviewing their packaging recipe as well as the Bisq source. Historical AUR, Snap and Gentoo-overlay references do not establish current maintenance or compatibility. The old Gentoo instruction enabled a `booboo` overlay; no current support claim for that overlay is made here. See [Arch, Qubes, Tails and remote-desktop notes](../platform-guides/) for the preserved platform-specific details and limitations.
+
+
 <details>
 <summary>Sources and review notes</summary>
 
 - [Release notes and installer assets](https://github.com/bisq-network/bisq/releases/tag/v1.10.11).
 - [GnuPG signature verification](https://www.gnupg.org/download/integrity_check.html).
-- [Historical installation article](../../wiki/downloading-and-installing/), revised 12 June 2026.
+- [Historical installation article](../../wiki-source/downloading-and-installing.wiki.txt), revised 12 June 2026.
 - Release source pinned to [commit `ea9d5dff90c9`](https://github.com/bisq-network/bisq/commit/ea9d5dff90c99ac462f2b0a7bf9ef92683956619).
 
 Published key metadata was cross-checked; no installer binary was downloaded or cryptographically verified for this draft.

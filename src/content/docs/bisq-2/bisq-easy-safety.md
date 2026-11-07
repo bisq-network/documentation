@@ -42,6 +42,6 @@ Never share seed words, private keys, or passwords with a trader or someone clai
 <details>
 <summary>Sources</summary>
 
-[Current trade rules](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L428-L436) · [Buyer payment screen](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/open_trades/trade_state/states/BuyerState2a.java#L145-L158) · [Seller receipt check](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L954-L955) · [Historical source](../../wiki/bisq-easy/)
+[Current trade rules](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L428-L436) · [Buyer payment screen](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/open_trades/trade_state/states/BuyerState2a.java#L145-L158) · [Seller receipt check](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L954-L955) · [Historical source](../../wiki-source/bisq-easy.wiki.txt)
 
 </details>

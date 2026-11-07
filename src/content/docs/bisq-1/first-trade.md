@@ -48,7 +48,7 @@ For a delay, mismatch or failed transaction, use [dispute help](../dispute-help/
 - [Funding and offer-taking UI](https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L668).
 - [Deposit/payment sequence and reference rules](https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L802-L850).
 - [Seller receipt checks](https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L938-L996) and [completed-trade locations](https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1061-L1063).
-- [Historical taking-an-offer article](../../wiki/taking-an-offer/).
+- [Historical taking-an-offer article](../../wiki-source/taking-an-offer.wiki.txt).
 
 These instructions were checked against release sources; a full desktop walkthrough remains pending.
 

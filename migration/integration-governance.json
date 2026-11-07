@@ -1,0 +1,1283 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "title": "BSQ",
+      "source_slug": "bsq",
+      "target": "/dao/bsq/#bsq",
+      "disposition": "merged",
+      "retained_details": [
+        "colored BTC, issuance and burn",
+        "explorer comparison"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3980",
+          "https://docs.bisq.network/dao-user-reference.html",
+          "https://docs.bisq.network/dao-technical-overview.html"
+        ],
+        "notes": "Official DAO references describe 100-satoshi colored BSQ, issuance, burn and wallet risks; no wallet recovery was performed. Exact current wallet-file behavior is not claimed."
+      }
+    },
+    {
+      "title": "BSQ swaps",
+      "source_slug": "bsq-swaps",
+      "target": "/dao/bsq/#bsq-swaps",
+      "disposition": "merged",
+      "retained_details": [
+        "single transaction, offer funding and proof of work",
+        "historical fee example and screen"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2415",
+          "https://github.com/bisq-network/bisq/tree/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/trade/protocol/bsq_swap",
+          "https://docs.bisq.network/dao-user-reference.html"
+        ],
+        "notes": "Pinned swap protocol source path verified; historical single-transaction structure, fee example and partial screenshot retained. No swap, live fee or UI action was executed."
+      }
+    },
+    {
+      "title": "Bisq Maintainer",
+      "source_slug": "bisq-maintainer",
+      "target": "/contribute/roles/#bisq-maintainer",
+      "disposition": "merged",
+      "retained_details": [
+        "merge/critical-bug duties",
+        "historical access and bond; role issue"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1526",
+          "https://github.com/bisq-network/roles/issues/63",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains merge/critical-bug duties; historical access and bond; role issue. GitHub issue #63 was open at the 7 November 2026 API check (last updated 2025-02-25T12:57:49Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Burning Men",
+      "source_slug": "burning-men",
+      "target": "/dao/burning-men/#why-the-protocol-exists",
+      "disposition": "merged",
+      "retained_details": [
+        "distributed payout rationale",
+        "eligibility, UI fields, caps, decay and risk qualified as historic"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3786",
+          "https://github.com/bisq-network/proposals/issues/390",
+          "https://github.com/bisq-network/proposals/issues/390#issuecomment-1306075295"
+        ],
+        "notes": "The proposal describes the protocol and receiving-address context. Historical cap, decay and UI examples remain explicitly versioned; current parameters and economic return were not established."
+      }
+    },
+    {
+      "title": "Community Manager",
+      "source_slug": "community-manager",
+      "target": "/contribute/roles/#community-manager",
+      "disposition": "merged",
+      "retained_details": [
+        "community monitoring and feedback",
+        "retired Growth context and role issue"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2816",
+          "https://github.com/bisq-network/roles/issues/95",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains community monitoring and feedback; retired Growth context and role issue. GitHub issue #95 was open at the 7 November 2026 API check (last updated 2026-05-01T02:31:19Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Compensation",
+      "source_slug": "compensation",
+      "target": "/dao/requests/#compensation",
+      "disposition": "merged",
+      "retained_details": [
+        "contributor request, stakeholder vote, no guaranteed payment"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3680",
+          "https://docs.bisq.network/dao-user-reference.html",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/"
+        ],
+        "notes": "Captured source retains contributor request, stakeholder vote, no guaranteed payment. Official DAO user reference and current participation update were checked; current cycle, eligibility, fees and individual outcomes were not exercised."
+      }
+    },
+    {
+      "title": "Compensation Maintainer",
+      "source_slug": "compensation-maintainer",
+      "target": "/contribute/roles/#compensation-maintainer",
+      "disposition": "merged",
+      "retained_details": [
+        "cycle announcements, triage, proposal and result tracking",
+        "board image in requests page"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3664",
+          "https://github.com/bisq-network/roles/issues/86",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains cycle announcements, triage, proposal and result tracking; board image in requests page. GitHub issue #86 was open at the 7 November 2026 API check (last updated 2026-11-02T07:42:06Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Contributor checklist",
+      "source_slug": "contributor-checklist",
+      "target": "/contribute/workflow/#contributor-checklist",
+      "disposition": "merged",
+      "retained_details": [
+        "choose bounded task, coordinate reviewer, evidence and follow-up"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4018",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains choose bounded task, coordinate reviewer, evidence and follow-up. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "Contributor privacy and opsec",
+      "source_slug": "contributor-privacy-and-opsec",
+      "target": "/contribute/privacy/#contributor-privacy-and-opsec",
+      "disposition": "merged",
+      "retained_details": [
+        "threat model, identity separation, fingerprinting",
+        "unsafe browser weakening superseded; on-chain linkage"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3693",
+          "https://support.torproject.org/",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/"
+        ],
+        "notes": "Source threat-model and identity-linkability concepts retained; unsafe advice to weaken Tor Browser defaults is explicitly superseded. No user threat model or anonymity guarantee was assessed.",
+        "omitted_as_unverified_or_unsafe": [
+          "Old Tor Browser instructions weaken anti-fingerprinting; replaced by threat-model and official guidance."
+        ]
+      }
+    },
+    {
+      "title": "Critical bugs",
+      "source_slug": "critical-bugs",
+      "target": "/contribute/workflow/#critical-bugs",
+      "disposition": "merged",
+      "retained_details": [
+        "core-use-case, support, fund/privacy definition",
+        "historical triage and screenshot"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1532",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains core-use-case, support, fund/privacy definition; historical triage and screenshot. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "DAO technical overview",
+      "source_slug": "dao-technical-overview",
+      "target": "/dao/technical/#token-and-validation",
+      "disposition": "merged",
+      "retained_details": [
+        "BSQ ancestry and ordered outputs; transaction-family table",
+        "nodes, snapshots, payload hashes, vote-list consensus, bonds and burn"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4169",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/voteresult/VoteResultConsensus.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/merit/MeritConsensus.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/merit/MeritConsensusV2.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/DaoHardFork.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/param/Param.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/state/DaoStateSnapshotService.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/node/full/FullNode.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/node/lite/LiteNode.java",
+          "https://docs.bisq.network/dao-technical-overview.html"
+        ],
+        "notes": "Pinned v1.10.11 code confirms 0.8 conflicting-list stake test, 100000-block linear merit, V2/V3 activation selection, phase defaults and 20-block snapshot grid; historical transaction layouts are explicitly versioned. Current chain tip, changed DAO parameters and production behavior were not checked."
+      }
+    },
+    {
+      "title": "DAO user reference",
+      "source_slug": "dao-user-reference",
+      "target": "/dao/technical/#on-chain-and-peer-to-peer-data",
+      "disposition": "merged",
+      "retained_details": [
+        "on-chain/P2P data and payload integrity diagram",
+        "stake, merit, reveal and consensus in linked governance guide"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2133",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/voteresult/VoteResultConsensus.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/merit/MeritConsensusV2.java",
+          "https://docs.bisq.network/dao-user-reference.html"
+        ],
+        "notes": "Checked on-chain/P2P data model against official user reference and v1.10.11 stake/merit consensus code. Diagram is recovered historical media; current UI and live cycle values were not verified."
+      }
+    },
+    {
+      "title": "Decentralized autonomous organization",
+      "source_slug": "decentralized-autonomous-organization",
+      "target": "/dao/overview/#why-a-dao",
+      "disposition": "merged",
+      "retained_details": [
+        "governance motivation, separation from ordinary trading, early source context"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2211",
+          "https://docs.bisq.network/dao-user-reference.html",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/"
+        ],
+        "notes": "Captured source retains governance motivation, separation from ordinary trading, early source context. Official DAO user reference and current participation update were checked; current cycle, eligibility, fees and individual outcomes were not exercised."
+      }
+    },
+    {
+      "title": "Dev Team",
+      "source_slug": "dev-team",
+      "target": "/contribute/teams/#development-team",
+      "disposition": "merged",
+      "retained_details": [
+        "maintainer and critical-bug coordination; current repository links"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2747",
+          "https://github.com/bisq-network/roles",
+          "https://github.com/bisq-network/ops",
+          "https://github.com/bisq-network/support"
+        ],
+        "notes": "Captured team page retains maintainer and critical-bug coordination; current repository links. Public role, ops and support repositories were checked for the relevant coordination context; the old team roster and authority are not presented as current."
+      }
+    },
+    {
+      "title": "Development process",
+      "source_slug": "development-process",
+      "target": "/contribute/workflow/#development-process",
+      "disposition": "merged",
+      "retained_details": [
+        "repository-specific contribution rules, signed commits and review"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=361",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains repository-specific contribution rules, signed commits and review. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "Donation Address Owner",
+      "source_slug": "donation-address-owner",
+      "target": "/dao/burning-men/#why-the-protocol-exists",
+      "disposition": "reference",
+      "retained_details": [
+        "retired centralized fee-recipient role and replacement protocol"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3679",
+          "https://github.com/bisq-network/roles/issues/80",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains retired centralized fee-recipient role and replacement protocol. GitHub issue #80 was open at the 7 November 2026 API check (last updated 2025-07-02T14:27:22Z); an issue state does not establish a current owner, access, bond or compensation. Captured wiki labels the role retired, but the issue remains open; current operational status needs maintainer clarification."
+      }
+    },
+    {
+      "title": "Events calendar",
+      "source_slug": "events-calendar",
+      "target": "/contribute/infrastructure/#events-calendar",
+      "disposition": "merged",
+      "retained_details": [
+        "historical calendar link and current-event verification"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1335",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains historical calendar link and current-event verification. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "FOSS",
+      "source_slug": "foss",
+      "target": "/reference/money-and-terms/#foss",
+      "disposition": "reference",
+      "retained_details": [
+        "license-dependent use, study, modification and distribution"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3105",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains license-dependent use, study, modification and distribution. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    },
+    {
+      "title": "Growth Team",
+      "source_slug": "growth-team",
+      "target": "/contribute/teams/#growth-team",
+      "disposition": "retired",
+      "retained_details": [
+        "explicit retired status, historical outreach and bounty context"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3696",
+          "https://github.com/bisq-network/roles",
+          "https://github.com/bisq-network/ops",
+          "https://github.com/bisq-network/support"
+        ],
+        "notes": "Captured team page retains explicit retired status, historical outreach and bounty context. Public role, ops and support repositories were checked for the relevant coordination context; the old team roster and authority are not presented as current."
+      }
+    },
+    {
+      "title": "How to run pricenode",
+      "source_slug": "how-to-run-pricenode",
+      "target": "/contribute/infrastructure/#how-to-run-pricenode",
+      "disposition": "merged",
+      "retained_details": [
+        "pinned checkout/build and endpoints",
+        "Java toolchain versus README/installer discrepancy; Tor/service/monitoring"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4011",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/README.md",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/build.gradle",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/scripts/install_pricenode_debian.sh",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/scripts/bisq-pricenode.service",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/src/main/resources/application.properties"
+        ],
+        "notes": "Pinned README supplies build, probe and monitoring procedure; checked Gradle requires Java 21 while README says 8 and installer installs 11. Installer side effects and service paths are documented, but no command, node or deployment was run."
+      }
+    },
+    {
+      "title": "How to run seednode",
+      "source_slug": "how-to-run-seednode",
+      "target": "/contribute/infrastructure/#how-to-run-seednode",
+      "disposition": "merged",
+      "retained_details": [
+        "seed-node function and upstream setup reference"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1771",
+          "https://docs.bisq.network/exchange/howto/run-seednode.html"
+        ],
+        "notes": "Official seed-node guide identifies peer discovery and initial network/DAO data. Its old setup, capacity, bond and compensation values were not asserted current; no node was run."
+      }
+    },
+    {
+      "title": "Introduction to the DAO",
+      "source_slug": "introduction-to-the-dao",
+      "target": "/dao/overview/#why-a-dao",
+      "disposition": "merged",
+      "retained_details": [
+        "DAO motivation, stakeholders and historical system diagram"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3692",
+          "https://bisq.network/dao/",
+          "https://docs.bisq.network/dao-user-reference.html"
+        ],
+        "notes": "Official DAO explanation and user reference support funding and governance overview. The image is a historical diagram and live DAO participation was not tested."
+      }
+    },
+    {
+      "title": "Making a compensation request",
+      "source_slug": "making-a-compensation-request",
+      "target": "/dao/requests/#compensation",
+      "disposition": "merged",
+      "retained_details": [
+        "issue, evidence, cycle review, DAO proposal, transaction ID",
+        "historical form screenshots and variable fees"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3996",
+          "https://docs.bisq.network/dao-user-reference.html",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/"
+        ],
+        "notes": "Captured source retains issue, evidence, cycle review, DAO proposal, transaction ID; historical form screenshots and variable fees. Official DAO user reference and current participation update were checked; current cycle, eligibility, fees and individual outcomes were not exercised."
+      }
+    },
+    {
+      "title": "Making a reimbursement request",
+      "source_slug": "making-a-reimbursement-request",
+      "target": "/dao/requests/#reimbursement",
+      "disposition": "merged",
+      "retained_details": [
+        "exhaust dispute options, document payout, issue and proposal",
+        "historical deadlines qualified and three contextual images"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4036",
+          "https://docs.bisq.network/dao-user-reference.html",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/"
+        ],
+        "notes": "Captured source retains exhaust dispute options, document payout, issue and proposal; historical deadlines qualified and three contextual images. Official DAO user reference and current participation update were checked; current cycle, eligibility, fees and individual outcomes were not exercised."
+      }
+    },
+    {
+      "title": "Mempool Explorer Operator",
+      "source_slug": "mempool-explorer-operator",
+      "target": "/contribute/roles/#mempool-explorer-operator",
+      "disposition": "merged",
+      "retained_details": [
+        "explorer service, HTTPS/Tor and provider coordination",
+        "historical bond/compensation qualified"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1739",
+          "https://github.com/bisq-network/roles/issues/107",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains explorer service, HTTPS/Tor and provider coordination; historical bond/compensation qualified. GitHub issue #107 was open at the 7 November 2026 API check (last updated 2026-09-23T23:11:44Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Monero Explorer Operator",
+      "source_slug": "monero-explorer-operator",
+      "target": "/contribute/roles/#monero-explorer-operator",
+      "disposition": "merged",
+      "retained_details": [
+        "explorer service, HTTPS/Tor and client configuration",
+        "historical bond/compensation qualified"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1741",
+          "https://github.com/bisq-network/roles/issues/109",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains explorer service, HTTPS/Tor and client configuration; historical bond/compensation qualified. GitHub issue #109 was open at the 7 November 2026 API check (last updated 2026-10-19T08:17:14Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Ops Team",
+      "source_slug": "ops-team",
+      "target": "/contribute/teams/#operations-team",
+      "disposition": "merged",
+      "retained_details": [
+        "node/service availability, privacy, operator coordination"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3065",
+          "https://github.com/bisq-network/roles",
+          "https://github.com/bisq-network/ops",
+          "https://github.com/bisq-network/support"
+        ],
+        "notes": "Captured team page retains node/service availability, privacy, operator coordination. Public role, ops and support repositories were checked for the relevant coordination context; the old team roster and authority are not presented as current."
+      }
+    },
+    {
+      "title": "Participating in a DAO voting cycle",
+      "source_slug": "participating-in-a-dao-voting-cycle",
+      "target": "/dao/governance/#proposal-phase",
+      "disposition": "merged",
+      "retained_details": [
+        "cycle dashboard, proposal, blind ballot and stake",
+        "reveal, results and six contextual historical images"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2191",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/voteresult/VoteResultConsensus.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/merit/MeritConsensusV2.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/param/Param.java",
+          "https://docs.bisq.network/dao-user-reference.html"
+        ],
+        "notes": "Pinned consensus and phase code confirm stake/merit and conditional 80% list agreement; the guide retains six dated UI images. No vote, live phase or current fee was checked."
+      }
+    },
+    {
+      "title": "Payment Method Maintainer",
+      "source_slug": "payment-method-maintainer",
+      "target": "/contribute/roles/#payment-method-maintainer",
+      "disposition": "merged",
+      "retained_details": [
+        "method vetting, requirements, roadmap and reporting"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1867",
+          "https://github.com/bisq-network/roles/issues/38",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains method vetting, requirements, roadmap and reporting. GitHub issue #38 was closed at the 7 November 2026 API check (last updated 2025-08-21T11:41:44Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Phase zero",
+      "source_slug": "phase-zero",
+      "target": "/dao/overview/#the-early-plan",
+      "disposition": "merged",
+      "retained_details": [
+        "early bootstrapping plan distinguished from current procedure"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1776",
+          "https://docs.bisq.network/dao/phase-zero.html"
+        ],
+        "notes": "Original proposal is linked as a bootstrap plan, explicitly distinguished from current on-chain procedure."
+      }
+    },
+    {
+      "title": "Pricenode",
+      "source_slug": "pricenode",
+      "target": "/contribute/infrastructure/#pricenode",
+      "disposition": "merged",
+      "retained_details": [
+        "provider discovery, default operators and historical role qualifications"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1673",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains provider discovery, default operators and historical role qualifications. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "Pricenode Operator",
+      "source_slug": "pricenode-operator",
+      "target": "/contribute/roles/#pricenode-operator",
+      "disposition": "merged",
+      "retained_details": [
+        "availability, Tor, monitoring and role issue"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3523",
+          "https://github.com/bisq-network/roles/issues/14",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains availability, Tor, monitoring and role issue. GitHub issue #14 was open at the 7 November 2026 API check (last updated 2026-09-23T23:10:07Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Project management",
+      "source_slug": "project-management",
+      "target": "/contribute/workflow/#project-management",
+      "disposition": "merged",
+      "retained_details": [
+        "proposal, triage, feedback, approval versus budget",
+        "blocked work and delivery/abort/defer/supersede closure"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2195",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains proposal, triage, feedback, approval versus budget; blocked work and delivery/abort/defer/supersede closure. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "Proposals",
+      "source_slug": "proposals",
+      "target": "/dao/governance/#before-proposing",
+      "disposition": "merged",
+      "retained_details": [
+        "research, issue discussion, review and on-chain vote distinction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2755",
+          "https://docs.bisq.network/proposals.html",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/dao/governance/param/Param.java"
+        ],
+        "notes": "Official proposals reference supports discussion before DAO voting. Captured two-week period and issue labels are explicitly historical; live timing and labels were not checked."
+      }
+    },
+    {
+      "title": "Proposals Maintainer",
+      "source_slug": "proposals-maintainer",
+      "target": "/contribute/roles/#proposals-maintainer",
+      "disposition": "merged",
+      "retained_details": [
+        "proposal triage, documentation and historical reporting"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2819",
+          "https://github.com/bisq-network/roles/issues/30",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains proposal triage, documentation and historical reporting. GitHub issue #30 was open at the 7 November 2026 API check (last updated 2026-10-19T08:18:06Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Roles",
+      "source_slug": "roles",
+      "target": "/contribute/roles/#roles",
+      "disposition": "merged",
+      "retained_details": [
+        "role duties, rights, ownership and reporting",
+        "maintainer/operator/admin distinctions, proposals and handovers"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2763",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains role duties, rights, ownership and reporting; maintainer/operator/admin distinctions, proposals and handovers. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "Roles Maintainer",
+      "source_slug": "roles-maintainer",
+      "target": "/contribute/roles/#roles-maintainer",
+      "disposition": "merged",
+      "retained_details": [
+        "role documentation, assignment handover and reporting"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2141",
+          "https://github.com/bisq-network/roles/issues/28",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains role documentation, assignment handover and reporting. GitHub issue #28 was open at the 7 November 2026 API check (last updated 2026-10-25T13:45:52Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Security Team",
+      "source_slug": "security-team",
+      "target": "/contribute/teams/#security-team",
+      "disposition": "merged",
+      "retained_details": [
+        "historical security review and disclosure coordination",
+        "repository security policy for current reporting"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2821",
+          "https://github.com/bisq-network/roles",
+          "https://github.com/bisq-network/ops",
+          "https://github.com/bisq-network/support"
+        ],
+        "notes": "Captured team page retains historical security review and disclosure coordination; repository security policy for current reporting. Public role, ops and support repositories were checked for the relevant coordination context; the old team roster and authority are not presented as current."
+      }
+    },
+    {
+      "title": "Security Team Lead",
+      "source_slug": "security-team-lead",
+      "target": "/contribute/roles/#security-team-lead",
+      "disposition": "retired",
+      "retained_details": [
+        "explicit retired status and historical responsibilities"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3695",
+          "https://github.com/bisq-network/roles/issues/108",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains explicit retired status and historical responsibilities. GitHub issue #108 was closed at the 7 November 2026 API check (last updated 2024-05-05T17:14:10Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Stakeholder",
+      "source_slug": "stakeholder",
+      "target": "/dao/governance/#before-proposing",
+      "disposition": "merged",
+      "retained_details": [
+        "BSQ holder participation, proposal review and voting"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3978",
+          "https://docs.bisq.network/dao-user-reference.html",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/"
+        ],
+        "notes": "Captured source retains BSQ holder participation, proposal review and voting. Official DAO user reference and current participation update were checked; current cycle, eligibility, fees and individual outcomes were not exercised."
+      }
+    },
+    {
+      "title": "Standup",
+      "source_slug": "standup",
+      "target": "/contribute/workflow/#standup",
+      "disposition": "merged",
+      "retained_details": [
+        "brief completed/next/blocked update; old schedule not asserted"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2818",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains brief completed/next/blocked update; old schedule not asserted. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "Support Agent",
+      "source_slug": "support-agent",
+      "target": "/contribute/support/#support-agent",
+      "disposition": "merged",
+      "retained_details": [
+        "triage, escalation and minimum necessary user data",
+        "old roster and rates not treated as current"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3944",
+          "https://github.com/bisq-network/roles/issues/64",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains triage, escalation and minimum necessary user data; old roster and rates not treated as current. GitHub issue #64 was open at the 7 November 2026 API check (last updated 2026-10-25T12:20:14Z); an issue state does not establish a current owner, access, bond or compensation.",
+        "omitted_as_unverified_or_unsafe": [
+          "Captured named-agent roster, rates and retention period not verified current; no names or rates presented as current."
+        ]
+      }
+    },
+    {
+      "title": "Support Agent Knowledge Base",
+      "source_slug": "support-agent-knowledge-base",
+      "target": "/contribute/support/#support-agent-knowledge-base",
+      "disposition": "merged",
+      "retained_details": [
+        "classic trade transaction graph and missing transaction diagnosis",
+        "SPV/network/backup precautions and three inferred-source illustrations"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3688",
+          "https://github.com/bisq-network/support",
+          "https://github.com/bisq-network/bisq/tree/ea9d5dff90c99ac462f2b0a7bf9ef92683956619"
+        ],
+        "notes": "Classic trade graph and diagnostic cautions are attributed to captured guide; three original support-issue images have inferred filename mapping. No live trade or complete validation of every historic transaction-layout assertion was performed."
+      }
+    },
+    {
+      "title": "Support Team",
+      "source_slug": "support-team",
+      "target": "/contribute/teams/#support-team",
+      "disposition": "merged",
+      "retained_details": [
+        "support, dispute coordination and public/private information distinction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3681",
+          "https://github.com/bisq-network/roles",
+          "https://github.com/bisq-network/ops",
+          "https://github.com/bisq-network/support"
+        ],
+        "notes": "Captured team page retains support, dispute coordination and public/private information distinction. Public role, ops and support repositories were checked for the relevant coordination context; the old team roster and authority are not presented as current."
+      }
+    },
+    {
+      "title": "Support Team Lead",
+      "source_slug": "support-team-lead",
+      "target": "/contribute/roles/#support-team-lead",
+      "disposition": "merged",
+      "retained_details": [
+        "historical schedule, calls, internship and review responsibilities"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2059",
+          "https://github.com/bisq-network/roles/issues/102",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains historical schedule, calls, internship and review responsibilities. GitHub issue #102 was closed at the 7 November 2026 API check (last updated 2025-02-08T20:15:26Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Teams",
+      "source_slug": "teams",
+      "target": "/contribute/teams/#teams",
+      "disposition": "merged",
+      "retained_details": [
+        "historical development, ops, support, security and growth structure",
+        "dated team diagram"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3700",
+          "https://github.com/bisq-network/roles",
+          "https://github.com/bisq-network/ops",
+          "https://github.com/bisq-network/support"
+        ],
+        "notes": "Captured team page retains historical development, ops, support, security and growth structure; dated team diagram. Public role, ops and support repositories were checked for the relevant coordination context; the old team roster and authority are not presented as current."
+      }
+    },
+    {
+      "title": "Templates as macros",
+      "source_slug": "templates-as-macros",
+      "target": "/contribute/documentation/#templates-as-macros",
+      "disposition": "merged",
+      "retained_details": [
+        "MediaWiki transclusion and arguments, unavailable template gaps"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3931",
+          "https://www.mediawiki.org/wiki/Help:Templates"
+        ],
+        "notes": "MediaWiki documentation supports transclusion and arguments. The recovered macro names are retained; missing definitions and their numeric values are not invented."
+      }
+    },
+    {
+      "title": "Translation",
+      "source_slug": "translation",
+      "target": "/contribute/documentation/#translation",
+      "disposition": "merged",
+      "retained_details": [
+        "Transifex coordination, source strings, placeholders",
+        "historic language priorities and rates not asserted current"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3209",
+          "https://explore.transifex.com/bisq/",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/"
+        ],
+        "notes": "Public Transifex project and participation policy checked. Old priority languages, rates and claims that reviews have no budget are not represented as current."
+      }
+    },
+    {
+      "title": "Ubiquitous law enforcement",
+      "source_slug": "ubiquitous-law-enforcement",
+      "target": "/reference/money-and-terms/#ubiquitous-law-enforcement",
+      "disposition": "reference",
+      "retained_details": [
+        "recovered surveillance/control concern framed as a hypothesis"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3129",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains recovered surveillance/control concern framed as a hypothesis. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    },
+    {
+      "title": "Wiki Operator",
+      "source_slug": "wiki-operator",
+      "target": "/contribute/roles/#wiki-operator",
+      "disposition": "merged",
+      "retained_details": [
+        "historic MediaWiki hosting, DNS and offsite database/file backups"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2212",
+          "https://github.com/bisq-network/roles/issues/92",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains historic MediaWiki hosting, DNS and offsite database/file backups. GitHub issue #92 was closed at the 7 November 2026 API check (last updated 2024-05-05T17:14:09Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Wiki style guidelines",
+      "source_slug": "wiki-style-guidelines",
+      "target": "/contribute/documentation/#wiki-style-guidelines",
+      "disposition": "merged",
+      "retained_details": [
+        "concept/procedure/reference structure, stable headings, warnings and screenshots",
+        "avoid duplicated or promotional content"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2045",
+          "https://bisq.network/blog/open-source-development-in-the-age-of-ai/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md"
+        ],
+        "notes": "Captured source retains concept/procedure/reference structure, stable headings, warnings and screenshots; avoid duplicated or promotional content. Current contribution update and pinned Bisq 1 contribution rules were checked; old board labels, schedules, staffing and compensation are qualified where relevant."
+      }
+    },
+    {
+      "title": "YouTube Admin",
+      "source_slug": "youtube-admin",
+      "target": "/contribute/roles/#youtube-admin",
+      "disposition": "merged",
+      "retained_details": [
+        "historical publishing, replies and playlist duties"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2142",
+          "https://github.com/bisq-network/roles/issues/56",
+          "https://github.com/bisq-network/roles"
+        ],
+        "notes": "Captured role description retains historical publishing, replies and playlist duties. GitHub issue #56 was closed at the 7 November 2026 API check (last updated 2024-05-05T17:14:07Z); an issue state does not establish a current owner, access, bond or compensation."
+      }
+    },
+    {
+      "title": "Bisq Price Indices",
+      "source_slug": "bisq-price-indices",
+      "target": "/reference/markets/#bisq-price-indices",
+      "disposition": "merged",
+      "retained_details": [
+        "pinned inlier aggregation, one-minute sampled providers, ten-minute staleness",
+        "actual maker/taker 1% check and outdated provider tables"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3034",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/src/main/java/bisq/price/spot/ExchangeRateService.java",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/src/main/java/bisq/price/spot/ExchangeRateProvider.java",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/src/main/java/bisq/price/spot/providers/CoinGecko.java",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/src/main/java/bisq/price/spot/providers/Kraken.java",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/src/main/java/bisq/price/mining/FeeRateService.java",
+          "https://github.com/bisq-network/bisq-pricenode/blob/c1576ab976b2403b7858c84e6396962ad84ba467/src/main/resources/application.properties",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/offer/Offer.java"
+        ],
+        "notes": "Pinned current price-node code confirms inlier average, configurable 1.1 standard-deviation default, sampled 1-minute refresh and 10-minute stale cutoff; pinned Bisq 1 code compares maker and taker offer calculations with 1% tolerance. Live feeds and current provider weights were not queried.",
+        "omitted_as_unverified_or_unsafe": [
+          "Old currency/provider weight tables are not current feed configuration."
+        ]
+      }
+    },
+    {
+      "title": "Bitcoin holidays",
+      "source_slug": "bitcoin-holidays",
+      "target": "/reference/money-and-terms/#bitcoin-holidays",
+      "disposition": "reference",
+      "retained_details": [
+        "genesis/Proof of Keys, pizza day, white paper and block-height halving"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4027",
+          "https://bitcoin.org/bitcoin.pdf"
+        ],
+        "notes": "White-paper publication is grounded in the primary paper; other community observances and old halving examples remain historical source context, not current schedules."
+      }
+    },
+    {
+      "title": "Bitcoin units",
+      "source_slug": "bitcoin-units",
+      "target": "/reference/money-and-terms/#bitcoin-units",
+      "disposition": "reference",
+      "retained_details": [
+        "BTC to satoshis, bit and millisatoshi distinction",
+        "uncommon proposed names qualified"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4026",
+          "https://bitcoin.org/en/vocabulary"
+        ],
+        "notes": "Bitcoin.org supports 100 million satoshis per BTC and the bit denomination; unusual source-proposed unit names are labeled nonstandard. Sub-satoshi off-chain use is qualified."
+      }
+    },
+    {
+      "title": "CBDC",
+      "source_slug": "cbdc",
+      "target": "/reference/money-and-terms/#cbdc",
+      "disposition": "reference",
+      "retained_details": [
+        "digital central-bank money, design-specific privacy/control risks",
+        "outdated country table and counts not asserted"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3655",
+          "https://www.bis.org/publications/central-bank-digital-currencies-system-design"
+        ],
+        "notes": "BIS design report supports the central-bank-money definition and design-specific privacy/security questions. Outdated country counts, specific program statuses and unsupported universal political claims were omitted.",
+        "omitted_as_unverified_or_unsafe": [
+          "Dated country status/user table had errors and is not a current tracker."
+        ]
+      }
+    },
+    {
+      "title": "Fiat",
+      "source_slug": "fiat",
+      "target": "/reference/money-and-terms/#fiat",
+      "disposition": "reference",
+      "retained_details": [
+        "government-issued currency and external payment-method risk"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3039",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains government-issued currency and external payment-method risk. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    },
+    {
+      "title": "Glossary",
+      "source_slug": "glossary",
+      "target": "/reference/money-and-terms/#glossary",
+      "disposition": "reference",
+      "retained_details": [
+        "core use case and critical bug definition"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=93",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains core use case and critical bug definition. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    },
+    {
+      "title": "How to be a market maker on Bisq",
+      "source_slug": "how-to-be-a-market-maker-on-bisq",
+      "target": "/reference/markets/#how-to-be-a-market-maker-on-bisq",
+      "disposition": "merged",
+      "retained_details": [
+        "offer creation, liquidity, online availability and fee/execution risk"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3202",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains offer creation, liquidity, online availability and fee/execution risk. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    },
+    {
+      "title": "How to do arbitrage on Bisq",
+      "source_slug": "how-to-do-arbitrage-on-bisq",
+      "target": "/reference/markets/#how-to-do-arbitrage-on-bisq",
+      "disposition": "merged",
+      "retained_details": [
+        "inter-exchange, cross-currency and payment-method comparisons",
+        "worked spread before costs and execution risk"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4089",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains inter-exchange, cross-currency and payment-method comparisons; worked spread before costs and execution risk. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    },
+    {
+      "title": "How to do remittance on Bisq",
+      "source_slug": "how-to-do-remittance-on-bisq",
+      "target": "/reference/markets/#how-to-do-remittance-on-bisq",
+      "disposition": "merged",
+      "retained_details": [
+        "two local markets and settlement directions",
+        "fees, legal and counterparty risks; no profit guarantee"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2922",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains two local markets and settlement directions; fees, legal and counterparty risks; no profit guarantee. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy.",
+        "omitted_as_unverified_or_unsafe": [
+          "The source claimed low risk and assured profit; replaced with explicit execution, legal and counterparty risks."
+        ]
+      }
+    },
+    {
+      "title": "Howto",
+      "source_slug": "howto",
+      "target": "/reference/start/#howto",
+      "disposition": "reference",
+      "retained_details": [
+        "task-oriented installation, trade, backup and DAO links"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4082",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains task-oriented installation, trade, backup and DAO links. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    },
+    {
+      "title": "Introduction",
+      "source_slug": "introduction",
+      "target": "/reference/start/#introduction",
+      "disposition": "reference",
+      "retained_details": [
+        "peer-to-peer self-custody, protocol distinctions and limits"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3971",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains peer-to-peer self-custody, protocol distinctions and limits. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    },
+    {
+      "title": "Main Page",
+      "source_slug": "main-page",
+      "target": "/reference/start/#main-page",
+      "disposition": "reference",
+      "retained_details": [
+        "Bisq 1 versus Bisq 2 starting points, safety and verification"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3977",
+          "https://bisq.network/",
+          "https://github.com/bisq-network/bisq"
+        ],
+        "notes": "Captured article retains Bisq 1 versus Bisq 2 starting points, safety and verification. Bisq site and public repository were checked for project context; historical examples are not live prices, guarantees or verified current policy."
+      }
+    }
+  ]
+}

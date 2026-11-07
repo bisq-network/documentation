@@ -1,23 +1,21 @@
 ---
 title: "Bisq 2"
-description: "A small set of historical pages explicitly about Bisq 2. Other related pages may appear in the complete index."
+description: "Bisq Easy trading, reputation, identity, backup, and help."
 ---
 
-A small set of historical pages explicitly about Bisq 2. Other related pages may appear in the complete index.
+Bisq Easy trading, reputation, identity, backup, and help.
 
-**14 articles.** These are recovered historical wiki pages, not current guidance. See the [current guide drafts](../../) or [all articles](../all/).
+- [Bisq 2: start here](../../bisq-2/)
+- [Install and verify Bisq 2](../../bisq-2/install-and-verify/)
+- [Buy your first bitcoin with Bisq Easy](../../bisq-2/first-trade/)
+- [Trade safely with Bisq Easy](../../bisq-2/bisq-easy-safety/)
+- [Back up and recover Bisq 2](../../bisq-2/backup-and-recovery/)
+- [Get help with Bisq 2](../../bisq-2/get-help/)
+- [Build and understand Bisq Easy reputation](../../bisq-2/reputation/)
+- [Choose a Bisq mobile application](../../bisq-2/mobile/)
+- [Create or take a Bisq Easy offer](../../bisq-2/offers/)
+- [Network roles, bonds and accountability](../../bisq-2/roles/)
+- [Profiles and identities](../../bisq-2/identity/)
+- [Trading protocols and current availability](../../bisq-2/protocols/)
 
-- [Backup](../../wiki/backup/)
-- [Bisq 2](../../wiki/bisq-2/)
-- [Bisq 2 mobile applications](../../wiki/bisq-2-mobile-applications/)
-- [Bisq 2 Roles](../../wiki/bisq-2-roles/)
-- [Bisq 2 Wallet](../../wiki/bisq-2-wallet/)
-- [Bisq Easy](../../wiki/bisq-easy/)
-- [Dispute Resolution in Bisq 2](../../wiki/dispute-resolution-in-bisq-2/)
-- [Downloading and installing](../../wiki/downloading-and-installing/)
-- [Frequently asked questions](../../wiki/frequently-asked-questions/)
-- [Identity](../../wiki/identity/)
-- [Reputation](../../wiki/reputation/)
-- [Reputation2](../../wiki/reputation2/)
-- [Running Bisq in China](../../wiki/running-bisq-in-china/)
-- [Trade Protocols](../../wiki/trade-protocols/)
+[Browse all documentation](../)

@@ -8,8 +8,9 @@
   },
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
-    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/check-site.mjs",
-    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview"
+    "build": "node scripts/build-browse-indexes.mjs && ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/check-site.mjs",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "test": "node --test scripts/legacy-routes.test.mjs"
   },
   "dependencies": {
     "@astrojs/starlight": "0.42.10",

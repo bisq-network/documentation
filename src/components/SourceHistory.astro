@@ -1,0 +1,25 @@
+---
+import Default from "@astrojs/starlight/components/MarkdownContent.astro";
+import { loadIntegration } from "../../scripts/lib/documentation.mjs";
+
+const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
+const route = id ? `/${id}/` : "/";
+const sources = loadIntegration().filter((item) => item.target.split("#")[0] === route);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+<Default><slot /></Default>
+{sources.length > 0 && (
+  <details class="source-history" data-pagefind-ignore>
+    <summary>Source history and attribution</summary>
+    <p>This guide incorporates the following wiki topics from the 18 October 2026 snapshot. Original text and available revision metadata are retained for comparison. The last recorded editor is not a complete author list.</p>
+    <ul>
+      {sources.map((item) => (
+        <li>
+          <strong>{item.title}</strong>: <a href={`${base}${item.source_download}`}>original text</a> · <a href={`${base}${item.source_metadata}`}>revision metadata</a>
+          {item.available_attribution?.username && <> · last recorded editor: {item.available_attribution.username}</>}
+        </li>
+      ))}
+    </ul>
+    <p><a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
+  </details>
+)}

@@ -26,9 +26,11 @@ For a normal Bisq Easy trade, bitcoin is received in the wallet you chose. Recor
 
 If you use an experimental built-in wallet instead, obtain build-specific recovery guidance before replacing any data. Do not assume its recovery procedure matches the separate wallet used in this guide.
 
-## Understand automatic snapshots
+## Automatic snapshots
 
 Bisq 2 also keeps rolling backups when stored application data changes. **Support → Resources** lists the available snapshots, and older copies are thinned over time.
+
+The checked retention implementation keeps minute-level copies for the last hour, the newest per hour up to 24 hours, per day up to 7 days, per calendar week up to 28 days, per month up to a year, then per year. Several writes in one minute can overwrite that minute's backup. Per-store and total size limits can prune old copies, so this is a retention policy, not guaranteed recovery points.
 
 These snapshots can help recover readable application stores, but remain local and subject to retention limits. They do not replace the independent backup above or protect against losing the device.
 
@@ -40,6 +42,8 @@ If trades are open, the application will not start, or you are unsure which back
 
 <details>
 <summary>Sources</summary>
+
+[Automatic snapshot retention](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/persistence/src/main/java/bisq/persistence/backup/BackupService.java#L51-L75).
 
 [Backup UI and unencrypted warning](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/support.properties#L15-L37) · [Manual copy implementation](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/support/resources/ResourcesController.java#L145-L175) · [Excluded files and credential warning](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/support/resources/ResourcesController.java#L224-L250) · [Wallet availability](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L163-L168) · [Wallet restore callback](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/wallet/WalletController.java#L80-L86)
 

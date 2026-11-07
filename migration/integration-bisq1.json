@@ -1,0 +1,1853 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "title": "Arbitration",
+      "source_slug": "arbitration",
+      "target": "/bisq-1/arbitration-protocol/#two-keys-mediation-and-delayed-payout",
+      "disposition": "merged",
+      "retained_details": [
+        "pre/post-v1.2 keys",
+        "time-locked delayed payout",
+        "self-trade fraud defense",
+        "distributed Burning Men separation",
+        "refund-agent liquidity and DAO governance",
+        "speculative future designs qualified"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4174",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L358-L371",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/docs/specifications/trade/delayed-payout-receivers.md",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/docs/specifications/dispute/refund-direct-payout.md"
+        ],
+        "notes": "Guaranteed payout language and obsolete numerical entitlements corrected; illustrative economics retained conceptually, original example linked."
+      }
+    },
+    {
+      "title": "Arbitrator",
+      "source_slug": "arbitrator",
+      "target": "/bisq-1/finding-your-arbitrator/#what-the-role-can-do",
+      "disposition": "merged",
+      "retained_details": [
+        "refundAgentNodeAddress lookup",
+        "public Matrix/onion mapping",
+        "role versus legacy third-key arbitrator",
+        "response-time discrepancy and no reimbursement guarantee"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4135",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/support/dispute/agent/DisputeAgentLookupMap.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L358-L371"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Automatic backup",
+      "source_slug": "automatic-backup",
+      "target": "/bisq-2/backup-and-recovery/#automatic-snapshots",
+      "disposition": "merged",
+      "retained_details": [
+        "per-store snapshots",
+        "dense recent and thinned old retention",
+        "default size policy"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4096",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/persistence/src/main/java/bisq/persistence/backup/BackupService.java#L51-L75"
+        ],
+        "notes": "Product attribution corrected to Bisq2; current section owned and checked by Bisq2 lane."
+      }
+    },
+    {
+      "title": "Automatic backup script",
+      "source_slug": "automatic-backup-script",
+      "target": "/bisq-1/backup-automation/#scheduling-and-retention",
+      "disposition": "merged",
+      "retained_details": [
+        "all OS scheduling patterns",
+        "selected stores versus whole snapshot",
+        "7z archive/test commands",
+        "retention off-by-one and unchecked failure corrections",
+        "macOS quoting issue",
+        "Bisq2 scope distinction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4080"
+        ],
+        "notes": "Original scripts read in full, not executed; safe archival examples preserve utility, scheduler/rotation is review guidance rather than a production-ready implementation."
+      }
+    },
+    {
+      "title": "Backing up application data",
+      "source_slug": "backing-up-application-data",
+      "target": "/bisq-1/backup-and-recovery/#make-an-application-backup",
+      "disposition": "merged",
+      "retained_details": [
+        "full backup",
+        "unencrypted data",
+        "account export plus signing key",
+        "Tor and CSV exports"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4058",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1998-L2044",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/backup/BackupView.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Backing up your wallet seed",
+      "source_slug": "backing-up-your-wallet-seed",
+      "target": "/bisq-1/backup-and-recovery/#record-the-seed-separately",
+      "disposition": "merged",
+      "retained_details": [
+        "offline seed and date",
+        "funds versus account/trade identity",
+        "current wallet paths shown in app"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1457",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1998-L2044",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/backup/BackupView.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Backup",
+      "source_slug": "backup",
+      "target": "/bisq-1/backup-automation/#choose-what-to-protect",
+      "disposition": "merged",
+      "retained_details": [
+        "manual versus automatic per-store versus external scheduled copies",
+        "Bisq1/Bisq2 distinction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4101"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Bisq 1",
+      "source_slug": "bisq-1",
+      "target": "/bisq-1/faq/#where-to-go-next",
+      "disposition": "merged",
+      "retained_details": [
+        "getting-started navigation",
+        "support and troubleshooting",
+        "DAO/contributing/community entry points"
+      ],
+      "removed_as_duplicate": [
+        "Portal link lists combined with current subject navigation"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4173"
+        ],
+        "notes": "Old layout and missing MainPage transclusions replaced with task navigation; unsupported missing template prose was not invented."
+      }
+    },
+    {
+      "title": "BuyerVerifiesPreparedDelayedPayoutTx Exception error",
+      "source_slug": "buyerverifiesprepareddelayedpayouttx-exception-error",
+      "target": "/bisq-1/transaction-troubleshooting/#prepared-delayed-payouts-disagree",
+      "disposition": "merged",
+      "retained_details": [
+        "specific transaction diagnosis",
+        "conditions for the documented recovery",
+        "chain verification before spending",
+        "historical bug/workaround limits"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3460"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Changing your onion address",
+      "source_slug": "changing-your-onion-address",
+      "target": "/bisq-1/data-directory/#change-your-onion-address",
+      "disposition": "merged",
+      "retained_details": [
+        "onion identity rotation",
+        "no live trades/disputes",
+        "backup and reversible move",
+        "local recognition reset"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3956",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/p2p/src/main/java/bisq/network/p2p/network/TorMode.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Cloning an offer",
+      "source_slug": "cloning-an-offer",
+      "target": "/bisq-1/offers/#clone-an-offer-across-payment-methods",
+      "disposition": "merged",
+      "retained_details": [
+        "currency and buyer/seller direction",
+        "offer funding and commitment",
+        "deposit then payment then confirmation",
+        "specific maker/clone behavior"
+      ],
+      "removed_as_duplicate": [
+        "Repeated install/seed prerequisites linked to dedicated guides"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3204",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L996",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/cloneoffer/CloneOfferDataModel.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Command line options",
+      "source_slug": "command-line-options",
+      "target": "/bisq-1/command-line/#launch-and-options",
+      "disposition": "merged",
+      "retained_details": [
+        "OS launch examples",
+        "appName correction",
+        "appDataDir semantics",
+        "persistent properties",
+        "dump exports",
+        "obsolete Tor flags"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3131",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Connecting to your own Bitcoin node",
+      "source_slug": "connecting-to-your-own-bitcoin-node",
+      "target": "/bisq-1/network-and-nodes/#connect-your-own-bitcoin-node",
+      "disposition": "merged",
+      "retained_details": [
+        "network-specific diagnostics",
+        "node configuration and privacy",
+        "historical values/workaround limits",
+        "Tor release compatibility correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4166",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java",
+          "https://github.com/bisq-network/bisq/releases/tag/v1.10.11"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Create a new wallet for your data directory",
+      "source_slug": "create-a-new-wallet-for-your-data-directory",
+      "target": "/bisq-1/restoring-data/#replace-only-the-wallet",
+      "disposition": "merged",
+      "retained_details": [
+        "empty and funded wallet replacement",
+        "BSQ before BTC",
+        "no live trades",
+        "rename not delete"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3553"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Data Privacy",
+      "source_slug": "data-privacy",
+      "target": "/bisq-1/wallet-and-watch-only/#protect-trade-data",
+      "disposition": "merged",
+      "retained_details": [
+        "balance states",
+        "SPV versus keys",
+        "public-key script/path pairing",
+        "watch-only privacy",
+        "sensitive-data retention"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2951",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/walletinfo/WalletInfoView.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Data directory",
+      "source_slug": "data-directory",
+      "target": "/bisq-1/data-directory/#what-the-files-contain",
+      "disposition": "merged",
+      "retained_details": [
+        "actual directory lookup",
+        "OS defaults",
+        "wallet versus DB versus identity",
+        "log and backup privacy"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3999",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Delayed payout transaction pending in mempool and CPFP",
+      "source_slug": "delayed-payout-transaction-pending-in-mempool-and-cpfp",
+      "target": "/bisq-1/transaction-troubleshooting/#delayed-payout-pending",
+      "disposition": "merged",
+      "retained_details": [
+        "specific transaction diagnosis",
+        "conditions for the documented recovery",
+        "chain verification before spending",
+        "historical bug/workaround limits"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3494"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Deposit transaction",
+      "source_slug": "deposit-transaction",
+      "target": "/bisq-1/transaction-troubleshooting/#verify-the-deposit",
+      "disposition": "merged",
+      "retained_details": [
+        "specific transaction diagnosis",
+        "conditions for the documented recovery",
+        "chain verification before spending",
+        "historical bug/workaround limits"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1533"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Deposit transaction pending in mempool and CPFP",
+      "source_slug": "deposit-transaction-pending-in-mempool-and-cpfp",
+      "target": "/bisq-1/transaction-troubleshooting/#deposit-pending-and-cpfp",
+      "disposition": "merged",
+      "retained_details": [
+        "specific transaction diagnosis",
+        "conditions for the documented recovery",
+        "chain verification before spending",
+        "historical bug/workaround limits"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3496"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Dispute Resolution in Bisq 1",
+      "source_slug": "dispute-resolution-in-bisq-1",
+      "target": "/bisq-1/dispute-help/#ask-a-mediator-for-help",
+      "disposition": "merged",
+      "retained_details": [
+        "chat rules",
+        "support shortcut",
+        "48-hour trader response",
+        "both-party payout consent",
+        "arbitration consequences",
+        "DAO alternative"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4136",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L347-L371",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/pendingtrades/PendingTradesView.java"
+        ],
+        "notes": "Old guaranteed-arbitration wording corrected; roster and protocol details split into linked subject guides."
+      }
+    },
+    {
+      "title": "Downloading and installing",
+      "source_slug": "downloading-and-installing",
+      "target": "/bisq-1/install-and-verify/#1-download-the-installer-and-signature",
+      "disposition": "merged",
+      "retained_details": [
+        "exact release asset/signature workflow",
+        "full signer fingerprint",
+        "GPG and Kleopatra trust correction",
+        "OS installers",
+        "source and community platform context"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4151",
+          "https://github.com/bisq-network/bisq/releases/tag/v1.10.11",
+          "https://www.gnupg.org/download/integrity_check.html"
+        ],
+        "notes": "Fresh latest-release API still v1.10.11; same-day signer metadata receipt retained from prior editorial work; no installer binary verification claimed."
+      },
+      "fragment_map": {
+        "Verify_installer_file": "/bisq-1/install-and-verify/#3-verify-your-downloaded-file",
+        "Bisq2_specific_instructions": "/bisq-2/install-and-verify/",
+        "Windows": "/bisq-1/install-and-verify/#2-check-the-signing-key",
+        "Download_and_install_Gpg4win": "/bisq-1/install-and-verify/#2-check-the-signing-key",
+        "Import_Signing_Keys": "/bisq-1/install-and-verify/#2-check-the-signing-key",
+        "Import_Signing_Keys_2": "/bisq-1/install-and-verify/#2-check-the-signing-key",
+        "Verify_the_signature_of_the_binary_you_downloaded": "/bisq-1/install-and-verify/#3-verify-your-downloaded-file",
+        "Verify_the_signature_of_the_binary_you_downloaded_2": "/bisq-1/install-and-verify/#3-verify-your-downloaded-file",
+        "Mac_and_Linux": "/bisq-1/install-and-verify/#2-check-the-signing-key",
+        "Build_from_source": "/bisq-1/install-and-verify/#updates-and-alternative-installations",
+        "OS-specific_install_notes": "/bisq-1/install-and-verify/#4-install-the-verified-package",
+        "macOS": "/bisq-1/install-and-verify/#4-install-the-verified-package",
+        "Windows_2": "/bisq-1/install-and-verify/#4-install-the-verified-package",
+        "Linux_(General)": "/bisq-1/install-and-verify/#4-install-the-verified-package",
+        "Arch_Linux": "/bisq-1/platform-guides/#arch-and-other-community-packages",
+        "Gentoo": "/bisq-1/platform-guides/#arch-and-other-community-packages",
+        "Tails": "/bisq-1/platform-guides/#tails-persistence-and-the-obsolete-tor-script",
+        "Qubes": "/bisq-1/platform-guides/#qubes-os",
+        "Update_Bisq": "/bisq-1/install-and-verify/#updates-and-alternative-installations"
+      }
+    },
+    {
+      "title": "Dumping delayed payout transactions",
+      "source_slug": "dumping-delayed-payout-transactions",
+      "target": "/bisq-1/manual-payout/#export-the-delayed-payout-transaction",
+      "disposition": "merged",
+      "retained_details": [
+        "dump flag",
+        "three JSON filenames",
+        "exact trade selection",
+        "arbitration consequences"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4041",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Emergency wallet",
+      "source_slug": "emergency-wallet",
+      "target": "/bisq-1/wallet-troubleshooting/#emergency-wallet",
+      "disposition": "merged",
+      "retained_details": [
+        "resync and restart conditions",
+        "non-destructive wallet file recovery",
+        "no active trade/key replacement",
+        "BSQ and encryption warnings"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2754",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3882"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Encrypting your wallet",
+      "source_slug": "encrypting-your-wallet",
+      "target": "/bisq-1/backup-and-recovery/#encrypt-the-wallet",
+      "disposition": "merged",
+      "retained_details": [
+        "wallet password",
+        "no central reset",
+        "encryption scope"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1267",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1998-L2044",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/backup/BackupView.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Failed Trades - Reimbursement of Trade Fees and Miner Fees",
+      "source_slug": "failed-trades-reimbursement-of-trade-fees-and-miner-fees",
+      "target": "/bisq-1/reimbursements/#establish-the-loss",
+      "disposition": "merged",
+      "retained_details": [
+        "maker/taker/deposit loss diagnosis",
+        "exact current request fields",
+        "privacy implications",
+        "three-month latest-event correction",
+        "operator helper mutation scope"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3643",
+          "https://github.com/bisq-network/support/blob/0023af5a064a4091451e648dd702aa10b256799a/.github/ISSUE_TEMPLATE/reimbursement-template.md",
+          "https://github.com/bisq-network/proposals/issues/369"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Fee Reimbursement Agent",
+      "source_slug": "fee-reimbursement-agent",
+      "target": "/bisq-1/reimbursements/#fee-reimbursement-agent-workflow",
+      "disposition": "merged",
+      "retained_details": [
+        "maker/taker/deposit loss diagnosis",
+        "exact current request fields",
+        "privacy implications",
+        "three-month latest-event correction",
+        "operator helper mutation scope"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3122",
+          "https://github.com/bisq-network/support/blob/0023af5a064a4091451e648dd702aa10b256799a/.github/ISSUE_TEMPLATE/reimbursement-template.md",
+          "https://github.com/bisq-network/proposals/issues/369"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Finding your arbitrator",
+      "source_slug": "finding-your-arbitrator",
+      "target": "/bisq-1/finding-your-arbitrator/#identify-the-agent-for-your-trade",
+      "disposition": "merged",
+      "retained_details": [
+        "refundAgentNodeAddress lookup",
+        "public Matrix/onion mapping",
+        "role versus legacy third-key arbitrator",
+        "response-time discrepancy and no reimbursement guarantee"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4111",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/support/dispute/agent/DisputeAgentLookupMap.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L358-L371"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Finding your mediator",
+      "source_slug": "finding-your-mediator",
+      "target": "/bisq-1/finding-your-mediator/#find-the-assigned-mediator",
+      "disposition": "merged",
+      "retained_details": [
+        "trade contract singular address lookup",
+        "public agent identities and dated activity evidence",
+        "mediation duties and consent",
+        "private-key-sharing correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4155",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/support/dispute/agent/DisputeAgentLookupMap.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/overlays/windows/TradeDetailsWindow.java",
+          "https://github.com/bisq-network/roles/issues/83"
+        ],
+        "notes": "Current code mapping confirmed; roster activity is dated, not a live availability assertion."
+      },
+      "fragment_map": {
+        "Get_in_touch_with_your_mediator": "/bisq-1/finding-your-mediator/#if-mediation-chat-is-unavailable",
+        "View_contract_in_JSON": "/bisq-1/finding-your-mediator/#find-the-assigned-mediator",
+        "In_Bisq_2": "/bisq-2/get-help/#for-a-trade-problem",
+        "Bisq_Easy": "/bisq-2/get-help/#for-a-trade-problem",
+        "Matrix_and_onion_addresses": "/bisq-1/finding-your-mediator/#public-mediator-names-and-contact-evidence"
+      }
+    },
+    {
+      "title": "Fix Arch release",
+      "source_slug": "fix-arch-release",
+      "target": "/bisq-1/platform-guides/#arch-and-other-community-packages",
+      "disposition": "reference",
+      "retained_details": [
+        "original tested platform/version",
+        "persistence and launch architecture",
+        "useful bounded commands",
+        "obsolete unsafe components and full source access"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2806",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java#L1145-L1175"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Frequently asked questions",
+      "source_slug": "frequently-asked-questions",
+      "target": "/bisq-1/faq/#getting-started-and-quiet-markets",
+      "disposition": "merged",
+      "retained_details": [
+        "all major FAQ questions routed by task",
+        "unique notification/restriction/DAO diagnostics",
+        "chargeback/privacy limitations",
+        "outdated fee and time claims corrected"
+      ],
+      "removed_as_duplicate": [
+        "Full trade, backup and governance procedures consolidated into subject guides"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4171",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Funding your wallet",
+      "source_slug": "funding-your-wallet",
+      "target": "/bisq-1/funding-and-fees/#receive-bitcoin-into-bisq",
+      "disposition": "merged",
+      "retained_details": [
+        "deposit versus fee versus premium",
+        "displayed actual funding requirements",
+        "historical rate contradictions",
+        "external funding and bootstrap risks"
+      ],
+      "removed_as_duplicate": [
+        "Stale rate tables replaced by current offer breakdown; historical original linked"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3816",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L668"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Getting your first BTC",
+      "source_slug": "getting-your-first-btc",
+      "target": "/bisq-1/funding-and-fees/#get-your-first-btc",
+      "disposition": "merged",
+      "retained_details": [
+        "deposit versus fee versus premium",
+        "displayed actual funding requirements",
+        "historical rate contradictions",
+        "external funding and bootstrap risks"
+      ],
+      "removed_as_duplicate": [
+        "Stale rate tables replaced by current offer breakdown; historical original linked"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3652",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L668"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How do I send fiat to Bisq",
+      "source_slug": "how-do-i-send-fiat-to-bisq",
+      "target": "/bisq-1/funding-and-fees/#fiat-is-sent-to-your-peer-not-to-bisq",
+      "disposition": "merged",
+      "retained_details": [
+        "deposit versus fee versus premium",
+        "displayed actual funding requirements",
+        "historical rate contradictions",
+        "external funding and bootstrap risks"
+      ],
+      "removed_as_duplicate": [
+        "Stale rate tables replaced by current offer breakdown; historical original linked"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2948",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L668"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How to back up your Bisq wallet seed",
+      "source_slug": "how-to-back-up-your-bisq-wallet-seed",
+      "target": "/bisq-1/backup-and-recovery/#record-the-seed-separately",
+      "disposition": "merged",
+      "retained_details": [
+        "seed/date location",
+        "offline paper record",
+        "no secret sharing"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2873",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1998-L2044",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/backup/BackupView.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How to buy BSQ on Bisq",
+      "source_slug": "how-to-buy-bsq-on-bisq",
+      "target": "/bisq-1/bsq-trading/#buy-bsq-with-btc",
+      "disposition": "merged",
+      "retained_details": [
+        "atomic swap and confirmation distinction",
+        "correct sell-side receipt asset",
+        "BSQ address and colored-output safeguards",
+        "fee choice",
+        "DAO parameter enactment"
+      ],
+      "removed_as_duplicate": [
+        "Legacy manual BSQ payment-account recipe superseded by swaps; retained as earlier-interface context"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2916",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "https://github.com/bisq-network/proposals/issues/365"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How to buy BTC on Bisq with CAD",
+      "source_slug": "how-to-buy-btc-on-bisq-with-cad",
+      "target": "/bisq-1/offers/#take-an-offer-in-eur-or-cad",
+      "disposition": "merged",
+      "retained_details": [
+        "currency and buyer/seller direction",
+        "offer funding and commitment",
+        "deposit then payment then confirmation",
+        "specific maker/clone behavior"
+      ],
+      "removed_as_duplicate": [
+        "Repeated install/seed prerequisites linked to dedicated guides"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4081",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L996",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/cloneoffer/CloneOfferDataModel.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How to buy BTC on Bisq with EUR",
+      "source_slug": "how-to-buy-btc-on-bisq-with-eur",
+      "target": "/bisq-1/offers/#take-an-offer-in-eur-or-cad",
+      "disposition": "merged",
+      "retained_details": [
+        "currency and buyer/seller direction",
+        "offer funding and commitment",
+        "deposit then payment then confirmation",
+        "specific maker/clone behavior"
+      ],
+      "removed_as_duplicate": [
+        "Repeated install/seed prerequisites linked to dedicated guides"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2923",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L996",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/cloneoffer/CloneOfferDataModel.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How to buy USDT on Bisq",
+      "source_slug": "how-to-buy-usdt-on-bisq",
+      "target": "/bisq-1/offers/#buy-usdt-by-selling-btc",
+      "disposition": "merged",
+      "retained_details": [
+        "currency and buyer/seller direction",
+        "offer funding and commitment",
+        "deposit then payment then confirmation",
+        "specific maker/clone behavior"
+      ],
+      "removed_as_duplicate": [
+        "Repeated install/seed prerequisites linked to dedicated guides"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2936",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L996",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/cloneoffer/CloneOfferDataModel.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How to create an offer to buy BTC with EUR",
+      "source_slug": "how-to-create-an-offer-to-buy-btc-with-eur",
+      "target": "/bisq-1/offers/#make-an-offer-to-buy-btc-with-eur",
+      "disposition": "merged",
+      "retained_details": [
+        "currency and buyer/seller direction",
+        "offer funding and commitment",
+        "deposit then payment then confirmation",
+        "specific maker/clone behavior"
+      ],
+      "removed_as_duplicate": [
+        "Repeated install/seed prerequisites linked to dedicated guides"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2880",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L996",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/cloneoffer/CloneOfferDataModel.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How to create an offer to sell BTC with EUR",
+      "source_slug": "how-to-create-an-offer-to-sell-btc-with-eur",
+      "target": "/bisq-1/offers/#make-an-offer-to-sell-btc-for-eur",
+      "disposition": "merged",
+      "retained_details": [
+        "currency and buyer/seller direction",
+        "offer funding and commitment",
+        "deposit then payment then confirmation",
+        "specific maker/clone behavior"
+      ],
+      "removed_as_duplicate": [
+        "Repeated install/seed prerequisites linked to dedicated guides"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2881",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L996",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/cloneoffer/CloneOfferDataModel.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "How to sell BSQ on Bisq",
+      "source_slug": "how-to-sell-bsq-on-bisq",
+      "target": "/bisq-1/bsq-trading/#sell-bsq-for-btc",
+      "disposition": "merged",
+      "retained_details": [
+        "atomic swap and confirmation distinction",
+        "correct sell-side receipt asset",
+        "BSQ address and colored-output safeguards",
+        "fee choice",
+        "DAO parameter enactment"
+      ],
+      "removed_as_duplicate": [
+        "Legacy manual BSQ payment-account recipe superseded by swaps; retained as earlier-interface context"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2917",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "https://github.com/bisq-network/proposals/issues/365"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Import Bisq wallet as watch only wallet in Sparrow",
+      "source_slug": "import-bisq-wallet-as-watch-only-wallet-in-sparrow",
+      "target": "/bisq-1/wallet-and-watch-only/#sparrow-reference-workflow",
+      "disposition": "merged",
+      "retained_details": [
+        "balance states",
+        "SPV versus keys",
+        "public-key script/path pairing",
+        "watch-only privacy",
+        "sensitive-data retention"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3466",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/walletinfo/WalletInfoView.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Installing your own Bitcoin node",
+      "source_slug": "installing-your-own-bitcoin-node",
+      "target": "/bisq-1/network-and-nodes/#connect-your-own-bitcoin-node",
+      "disposition": "merged",
+      "retained_details": [
+        "network-specific diagnostics",
+        "node configuration and privacy",
+        "historical values/workaround limits",
+        "Tor release compatibility correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4167",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java",
+          "https://github.com/bisq-network/bisq/releases/tag/v1.10.11"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Last resort restore",
+      "source_slug": "last-resort-restore",
+      "target": "/bisq-1/restoring-data/#last-resort-reconstruction",
+      "disposition": "merged",
+      "retained_details": [
+        "exact store selection",
+        "matching identity folders",
+        "copy-only experiment and consistency limits"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3195"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Linux memory arenas",
+      "source_slug": "linux-memory-arenas",
+      "target": "/bisq-1/performance/#linux-memory-arenas",
+      "disposition": "reference",
+      "retained_details": [
+        "distinct diagnostic symptom",
+        "original tuning example with limits",
+        "no guaranteed memory savings",
+        "reversible installed-config changes"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1514"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Manual payout",
+      "source_slug": "manual-payout",
+      "target": "/bisq-1/manual-payout/#cooperatively-spend-the-deposit",
+      "disposition": "merged",
+      "retained_details": [
+        "four-step input/export/local-sign/build workflow",
+        "exact SegWit amount",
+        "both signatures",
+        "transaction verification and irreversible broadcast"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3358",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L894-L904"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Manually select seednodes",
+      "source_slug": "manually-select-seednodes",
+      "target": "/bisq-1/network-and-nodes/#tor-bridges-and-stalled-startup",
+      "disposition": "merged",
+      "retained_details": [
+        "network-specific diagnostics",
+        "node configuration and privacy",
+        "historical values/workaround limits",
+        "Tor release compatibility correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3648",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java",
+          "https://github.com/bisq-network/bisq/releases/tag/v1.10.11"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Matrix bisq.chat",
+      "source_slug": "matrix-bisq-chat",
+      "target": "/bisq-1/support/#join-matrix",
+      "disposition": "merged",
+      "retained_details": [
+        "Keybase migration",
+        "browser/client signup",
+        "space and room discovery",
+        "homeserver-dependent identity"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4032",
+          "https://bisq.chat/"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Mediation",
+      "source_slug": "mediation",
+      "target": "/bisq-1/finding-your-mediator/#what-a-mediator-does",
+      "disposition": "merged",
+      "retained_details": [
+        "trade contract singular address lookup",
+        "public agent identities and dated activity evidence",
+        "mediation duties and consent",
+        "private-key-sharing correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3854",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/support/dispute/agent/DisputeAgentLookupMap.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/overlays/windows/TradeDetailsWindow.java",
+          "https://github.com/bisq-network/roles/issues/83"
+        ],
+        "notes": "Current code mapping confirmed; roster activity is dated, not a live availability assertion."
+      }
+    },
+    {
+      "title": "Mediator",
+      "source_slug": "mediator",
+      "target": "/bisq-1/finding-your-mediator/#what-a-mediator-does",
+      "disposition": "merged",
+      "retained_details": [
+        "trade contract singular address lookup",
+        "public agent identities and dated activity evidence",
+        "mediation duties and consent",
+        "private-key-sharing correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3939",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/support/dispute/agent/DisputeAgentLookupMap.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/overlays/windows/TradeDetailsWindow.java",
+          "https://github.com/bisq-network/roles/issues/83"
+        ],
+        "notes": "Current code mapping confirmed; roster activity is dated, not a live availability assertion."
+      }
+    },
+    {
+      "title": "Mining fees",
+      "source_slug": "mining-fees",
+      "target": "/bisq-1/funding-and-fees/#withdrawal-fees",
+      "disposition": "merged",
+      "retained_details": [
+        "deposit versus fee versus premium",
+        "displayed actual funding requirements",
+        "historical rate contradictions",
+        "external funding and bootstrap risks"
+      ],
+      "removed_as_duplicate": [
+        "Stale rate tables replaced by current offer breakdown; historical original linked"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2700",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L668"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Mobile notifications",
+      "source_slug": "mobile-notifications",
+      "target": "/bisq-1/notifications/#pair-the-companion-app",
+      "disposition": "merged",
+      "retained_details": [
+        "pairing/token confidentiality",
+        "trade/offer/price alerts",
+        "relay and push-provider metadata",
+        "documented degraded behavior and untested current delivery"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3028",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/notifications/MobileNotificationService.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Network status indicator",
+      "source_slug": "network-status-indicator",
+      "target": "/bisq-1/network-and-nodes/#read-the-network-indicator",
+      "disposition": "merged",
+      "retained_details": [
+        "network-specific diagnostics",
+        "node configuration and privacy",
+        "historical values/workaround limits",
+        "Tor release compatibility correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3010",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java",
+          "https://github.com/bisq-network/bisq/releases/tag/v1.10.11"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Paying trading fees with BSQ",
+      "source_slug": "paying-trading-fees-with-bsq",
+      "target": "/bisq-1/bsq-trading/#choose-bsq-for-trading-fees",
+      "disposition": "merged",
+      "retained_details": [
+        "atomic swap and confirmation distinction",
+        "correct sell-side receipt asset",
+        "BSQ address and colored-output safeguards",
+        "fee choice",
+        "DAO parameter enactment"
+      ],
+      "removed_as_duplicate": [
+        "Legacy manual BSQ payment-account recipe superseded by swaps; retained as earlier-interface context"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2182",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "https://github.com/bisq-network/proposals/issues/365"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Performance Tips",
+      "source_slug": "performance-tips",
+      "target": "/bisq-1/performance/#slow-startup-or-a-large-wallet",
+      "disposition": "reference",
+      "retained_details": [
+        "distinct diagnostic symptom",
+        "original tuning example with limits",
+        "no guaranteed memory savings",
+        "reversible installed-config changes"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1918"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Reducing memory usage",
+      "source_slug": "reducing-memory-usage",
+      "target": "/bisq-1/performance/#java-memory-settings",
+      "disposition": "reference",
+      "retained_details": [
+        "distinct diagnostic symptom",
+        "original tuning example with limits",
+        "no guaranteed memory savings",
+        "reversible installed-config changes"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2296"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Remote control via web browser using xpra",
+      "source_slug": "remote-control-via-web-browser-using-xpra",
+      "target": "/bisq-1/platform-guides/#remote-gui-with-xpra-or-vnc",
+      "disposition": "reference",
+      "retained_details": [
+        "original tested platform/version",
+        "persistence and launch architecture",
+        "useful bounded commands",
+        "obsolete unsafe components and full source access"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3197",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java#L1145-L1175"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Restoring application data",
+      "source_slug": "restoring-application-data",
+      "target": "/bisq-1/restoring-data/#restore-a-complete-data-directory",
+      "disposition": "merged",
+      "retained_details": [
+        "complete restore",
+        "metadata/salt and sig.key recovery",
+        "singular hiddenservice correction",
+        "ClosedTrades versus CSV"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3955"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Restoring your wallet from seed",
+      "source_slug": "restoring-your-wallet-from-seed",
+      "target": "/bisq-1/wallet-troubleshooting/#restore-from-seed-as-a-last-resort",
+      "disposition": "merged",
+      "retained_details": [
+        "resync and restart conditions",
+        "non-destructive wallet file recovery",
+        "no active trade/key replacement",
+        "BSQ and encryption warnings"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1525",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3882"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Resyncing SPV file",
+      "source_slug": "resyncing-spv-file",
+      "target": "/bisq-1/wallet-troubleshooting/#resync-the-spv-wallet",
+      "disposition": "merged",
+      "retained_details": [
+        "resync and restart conditions",
+        "non-destructive wallet file recovery",
+        "no active trade/key replacement",
+        "BSQ and encryption warnings"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3985",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3882"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Running Bisq in China",
+      "source_slug": "running-bisq-in-china",
+      "target": "/bisq-1/network-and-nodes/#china-and-other-restricted-networks",
+      "disposition": "merged",
+      "retained_details": [
+        "network-specific diagnostics",
+        "node configuration and privacy",
+        "historical values/workaround limits",
+        "Tor release compatibility correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3839",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java",
+          "https://github.com/bisq-network/bisq/releases/tag/v1.10.11"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Running Bisq on Linux using VNC",
+      "source_slug": "running-bisq-on-linux-using-vnc",
+      "target": "/bisq-1/platform-guides/#remote-gui-with-xpra-or-vnc",
+      "disposition": "reference",
+      "retained_details": [
+        "original tested platform/version",
+        "persistence and launch architecture",
+        "useful bounded commands",
+        "obsolete unsafe components and full source access"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=1898",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java#L1145-L1175"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Running Bisq on Qubes",
+      "source_slug": "running-bisq-on-qubes",
+      "target": "/bisq-1/platform-guides/#qubes-os",
+      "disposition": "reference",
+      "retained_details": [
+        "original tested platform/version",
+        "persistence and launch architecture",
+        "useful bounded commands",
+        "obsolete unsafe components and full source access"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3130",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java#L1145-L1175"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Running Bisq on Tails",
+      "source_slug": "running-bisq-on-tails",
+      "target": "/bisq-1/platform-guides/#tails-persistence-and-the-obsolete-tor-script",
+      "disposition": "reference",
+      "retained_details": [
+        "original tested platform/version",
+        "persistence and launch architecture",
+        "useful bounded commands",
+        "obsolete unsafe components and full source access"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3603",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java#L1145-L1175"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Running from the command line",
+      "source_slug": "running-from-the-command-line",
+      "target": "/bisq-1/command-line/#launch-and-options",
+      "disposition": "merged",
+      "retained_details": [
+        "OS launch examples",
+        "appName correction",
+        "appDataDir semantics",
+        "persistent properties",
+        "dump exports",
+        "obsolete Tor flags"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4000",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Running on HiDPI screen",
+      "source_slug": "running-on-hidpi-screen",
+      "target": "/bisq-1/performance/#hidpi-and-blank-windows",
+      "disposition": "reference",
+      "retained_details": [
+        "distinct diagnostic symptom",
+        "original tuning example with limits",
+        "no guaranteed memory savings",
+        "reversible installed-config changes"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2231"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Security deposit",
+      "source_slug": "security-deposit",
+      "target": "/bisq-1/funding-and-fees/#security-deposits-and-funds-needed",
+      "disposition": "merged",
+      "retained_details": [
+        "deposit versus fee versus premium",
+        "displayed actual funding requirements",
+        "historical rate contradictions",
+        "external funding and bootstrap risks"
+      ],
+      "removed_as_duplicate": [
+        "Stale rate tables replaced by current offer breakdown; historical original linked"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3817",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L668"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Switching to a new data directory",
+      "source_slug": "switching-to-a-new-data-directory",
+      "target": "/bisq-1/restoring-data/#start-with-an-entirely-new-identity",
+      "disposition": "merged",
+      "retained_details": [
+        "new identity effects",
+        "appName separation",
+        "safe fund transfer and migration"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3799"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Table of penalties",
+      "source_slug": "table-of-penalties",
+      "target": "/bisq-1/trade-rules/#historical-penalty-schedule",
+      "disposition": "reference",
+      "retained_details": [
+        "all 22 penalty rows",
+        "maximum not mandatory",
+        "noncumulative",
+        "deposit constraints and exceptions",
+        "Bisq Easy exclusion"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4071"
+        ],
+        "notes": "Exact numerical policy retained as a dated source guideline; current ratification not established."
+      }
+    },
+    {
+      "title": "Taking an offer",
+      "source_slug": "taking-an-offer",
+      "target": "/bisq-1/offers/#take-an-offer-in-eur-or-cad",
+      "disposition": "merged",
+      "retained_details": [
+        "currency and buyer/seller direction",
+        "offer funding and commitment",
+        "deposit then payment then confirmation",
+        "specific maker/clone behavior"
+      ],
+      "removed_as_duplicate": [
+        "Repeated install/seed prerequisites linked to dedicated guides"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2073",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L996",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/portfolio/cloneoffer/CloneOfferDataModel.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Trade payout address reuse issue",
+      "source_slug": "trade-payout-address-reuse-issue",
+      "target": "/bisq-1/transaction-troubleshooting/#trade-says-completed-but-btc-is-missing",
+      "disposition": "merged",
+      "retained_details": [
+        "specific transaction diagnosis",
+        "conditions for the documented recovery",
+        "chain verification before spending",
+        "historical bug/workaround limits"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3213"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Trading BSQ",
+      "source_slug": "trading-bsq",
+      "target": "/bisq-1/bsq-trading/#receive-bsq-and-keep-it-colored",
+      "disposition": "merged",
+      "retained_details": [
+        "atomic swap and confirmation distinction",
+        "correct sell-side receipt asset",
+        "BSQ address and colored-output safeguards",
+        "fee choice",
+        "DAO parameter enactment"
+      ],
+      "removed_as_duplicate": [
+        "Legacy manual BSQ payment-account recipe superseded by swaps; retained as earlier-interface context"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3994",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "https://github.com/bisq-network/proposals/issues/365"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Trading costs",
+      "source_slug": "trading-costs",
+      "target": "/bisq-1/funding-and-fees/#trading-fees-mining-fees-and-price",
+      "disposition": "merged",
+      "retained_details": [
+        "deposit versus fee versus premium",
+        "displayed actual funding requirements",
+        "historical rate contradictions",
+        "external funding and bootstrap risks"
+      ],
+      "removed_as_duplicate": [
+        "Stale rate tables replaced by current offer breakdown; historical original linked"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4176",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L668"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Trading fees",
+      "source_slug": "trading-fees",
+      "target": "/bisq-1/funding-and-fees/#trading-fees-mining-fees-and-price",
+      "disposition": "merged",
+      "retained_details": [
+        "deposit versus fee versus premium",
+        "displayed actual funding requirements",
+        "historical rate contradictions",
+        "external funding and bootstrap risks"
+      ],
+      "removed_as_duplicate": [
+        "Stale rate tables replaced by current offer breakdown; historical original linked"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4175",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L618-L668"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Trading rules",
+      "source_slug": "trading-rules",
+      "target": "/bisq-1/trade-rules/#rules-for-both-traders",
+      "disposition": "merged",
+      "retained_details": [
+        "matching accounts",
+        "optional peer chat versus mandatory dispute response",
+        "blank reference and required-field exception",
+        "sender fees",
+        "actual receipt",
+        "no unilateral term change"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4121",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L347-L371",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L811-L814"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Troubleshooting",
+      "source_slug": "troubleshooting",
+      "target": "/bisq-1/performance/#hidpi-and-blank-windows",
+      "disposition": "reference",
+      "retained_details": [
+        "distinct diagnostic symptom",
+        "original tuning example with limits",
+        "no guaranteed memory savings",
+        "reversible installed-config changes"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2416"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Troubleshooting network issues",
+      "source_slug": "troubleshooting-network-issues",
+      "target": "/bisq-1/network-and-nodes/#tor-bridges-and-stalled-startup",
+      "disposition": "merged",
+      "retained_details": [
+        "network-specific diagnostics",
+        "node configuration and privacy",
+        "historical values/workaround limits",
+        "Tor release compatibility correction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3009",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java",
+          "https://github.com/bisq-network/bisq/releases/tag/v1.10.11"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Troubleshooting wallet issues",
+      "source_slug": "troubleshooting-wallet-issues",
+      "target": "/bisq-1/wallet-troubleshooting/#restore-a-recent-wallet-file",
+      "disposition": "merged",
+      "retained_details": [
+        "resync and restart conditions",
+        "non-destructive wallet file recovery",
+        "no active trade/key replacement",
+        "BSQ and encryption warnings"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=3422",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3882"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Updating BSQ trading fees",
+      "source_slug": "updating-bsq-trading-fees",
+      "target": "/bisq-1/bsq-trading/#how-fee-parameters-are-updated",
+      "disposition": "merged",
+      "retained_details": [
+        "atomic swap and confirmation distinction",
+        "correct sell-side receipt asset",
+        "BSQ address and colored-output safeguards",
+        "fee choice",
+        "DAO parameter enactment"
+      ],
+      "removed_as_duplicate": [
+        "Legacy manual BSQ payment-account recipe superseded by swaps; retained as earlier-interface context"
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=4060",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties",
+          "https://github.com/bisq-network/proposals/issues/365"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Updating Bisq",
+      "source_slug": "updating-bisq",
+      "target": "/bisq-1/install-and-verify/#updates-and-alternative-installations",
+      "disposition": "merged",
+      "retained_details": [
+        "backup before upgrade",
+        "no downgrade",
+        "in-app verification result",
+        "prerelease notification purpose"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2955",
+          "https://github.com/bisq-network/bisq/releases/tag/v1.10.11"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "User support",
+      "source_slug": "user-support",
+      "target": "/bisq-1/support/#ask-a-useful-support-question",
+      "disposition": "merged",
+      "retained_details": [
+        "correct support versus bug/reimbursement channels",
+        "impersonation and secret safeguards",
+        "public/private evidence distinction"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2930",
+          "https://bisq.network/contact/",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L894-L904"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Wallet",
+      "source_slug": "wallet",
+      "target": "/bisq-1/wallet-and-watch-only/#available-reserved-and-locked",
+      "disposition": "merged",
+      "retained_details": [
+        "balance states",
+        "SPV versus keys",
+        "public-key script/path pairing",
+        "watch-only privacy",
+        "sensitive-data retention"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2100",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/walletinfo/WalletInfoView.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    },
+    {
+      "title": "Watch keys",
+      "source_slug": "watch-keys",
+      "target": "/bisq-1/wallet-and-watch-only/#watch-only-wallets",
+      "disposition": "merged",
+      "retained_details": [
+        "balance states",
+        "SPV versus keys",
+        "public-key script/path pairing",
+        "watch-only privacy",
+        "sensitive-data retention"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://bisq.wiki/index.php?oldid=2264",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/walletinfo/WalletInfoView.java"
+        ],
+        "notes": "Source-specific content retained with explicit historical qualifications; current release instructions checked where cited."
+      }
+    }
+  ]
+}

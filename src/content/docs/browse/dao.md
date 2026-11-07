@@ -1,30 +1,15 @@
 ---
-title: "DAO"
-description: "Historical articles about the DAO, BSQ, governance, and related processes."
+title: "DAO and BSQ"
+description: "Understand BSQ, proposals, voting, compensation, and DAO operation."
 ---
 
-Historical articles about the DAO, BSQ, governance, and related processes.
+Understand BSQ, proposals, voting, compensation, and DAO operation.
 
-**21 articles.** These are recovered historical wiki pages, not current guidance. See the [current guide drafts](../../) or [all articles](../all/).
+- [Understand the Bisq DAO](../../dao/overview/)
+- [BSQ and BSQ swaps](../../dao/bsq/)
+- [Burning Men protocol](../../dao/burning-men/)
+- [Compensation and reimbursement requests](../../dao/requests/)
+- [DAO technical reference](../../dao/technical/)
+- [Proposals and voting](../../dao/governance/)
 
-- [BSQ](../../wiki/bsq/)
-- [BSQ swaps](../../wiki/bsq-swaps/)
-- [Burning Men](../../wiki/burning-men/)
-- [Compensation](../../wiki/compensation/)
-- [Contributor checklist](../../wiki/contributor-checklist/)
-- [DAO technical overview](../../wiki/dao-technical-overview/)
-- [DAO user reference](../../wiki/dao-user-reference/)
-- [Decentralized autonomous organization](../../wiki/decentralized-autonomous-organization/)
-- [How to buy BSQ on Bisq](../../wiki/how-to-buy-bsq-on-bisq/)
-- [How to run pricenode](../../wiki/how-to-run-pricenode/)
-- [How to sell BSQ on Bisq](../../wiki/how-to-sell-bsq-on-bisq/)
-- [Introduction to the DAO](../../wiki/introduction-to-the-dao/)
-- [Making a compensation request](../../wiki/making-a-compensation-request/)
-- [Making a reimbursement request](../../wiki/making-a-reimbursement-request/)
-- [Participating in a DAO voting cycle](../../wiki/participating-in-a-dao-voting-cycle/)
-- [Paying trading fees with BSQ](../../wiki/paying-trading-fees-with-bsq/)
-- [Proposals](../../wiki/proposals/)
-- [Roles](../../wiki/roles/)
-- [Stakeholder](../../wiki/stakeholder/)
-- [Trading BSQ](../../wiki/trading-bsq/)
-- [Updating BSQ trading fees](../../wiki/updating-bsq-trading-fees/)
+[Browse all documentation](../)

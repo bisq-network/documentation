@@ -2,11 +2,11 @@
 
 This is a community review edition of Bisq documentation. Each current guide links its checked sources and identifies its release/date context. Rewriting and source checking do not establish official endorsement or replace maintainer review.
 
-## Historical wiki
+## Integrated wiki sources
 
-The archive contains 209 articles from a support-agent snapshot completed on 18 October 2026 at 01:01:19 UTC. The newest exported article revision is 15 October 2026 at 15:23:28 UTC. It contains one revision per article, not the complete MediaWiki database or revision history.
+The preserved source collection contains 209 articles from a support-agent snapshot completed on 18 October 2026 at 01:01:19 UTC. The newest exported article revision is 15 October 2026 at 15:23:28 UTC. It contains one revision per article, not the complete MediaWiki database or revision history.
 
-Each archived article identifies its original title, URL, exported revision, available last-editor attribution and exact source hash. `public/wiki-source/` preserves the wikitext and metadata; `migration/articles.json` indexes the collection. Full authorship history and the wiki's content licence have not been recovered. Available attribution must not be mistaken for the complete author list.
+Each integrated guide exposes the original topics through an expandable source-history section. Preserved source metadata identifies the original title, URL, exported revision, available last-editor attribution and exact source hash. `public/wiki-source/` preserves the wikitext and metadata; `migration/articles.json` indexes the collection. Full authorship history and the wiki's content licence have not been recovered. Available attribution must not be mistaken for the complete author list.
 
 ## Media and branding
 
@@ -16,4 +16,4 @@ The Bisq logo and visual reference sources are recorded in `design-reference/PRO
 
 ## Review limits
 
-The revised guide batch is checked against the linked official release and source material. Historical imports are not all current factual guidance. Keep the public preview clearly identified as a community review draft while contributors assess accuracy, attribution and reuse. No blanket licence is assigned to the imported corpus by this preview.
+Integration records identify the source checks and disposition of all recovered topics. Current instructions are checked against linked sources; explicitly qualified historical or unresolved details are not presented as confirmed current behavior. Keep the public preview clearly identified as a community review draft while contributors assess accuracy, attribution and reuse. No blanket licence is assigned to the imported corpus by this preview.

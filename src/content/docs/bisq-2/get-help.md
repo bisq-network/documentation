@@ -33,6 +33,12 @@ Never provide seed words, private keys, passwords, or a full application backup.
 
 Do not delete application data, replace identity files, or attempt wallet resets as a first troubleshooting step. [Make a backup](../backup-and-recovery/) and obtain guidance for your exact situation. Keep trade communication in the app whenever possible so the mediator can follow its history.
 
+## Recognize the real project
+
+Use official project download and support links. A site using Bisq's name or logo is not automatically affiliated. The recovered **Bisqpro** article reported an impersonating investment site; it supplies no reason to send funds, buy a membership or trust a promised yield. Its old claim that free software has no copyright/trademark protection is not a valid legal explanation and is not repeated here.
+
+Never give a support contact your wallet seed, private key, password or pairing token. Verify roles inside the application and keep the trade conversation available for the mediator.
+
 <details>
 <summary>Sources</summary>
 

@@ -1,0 +1,1491 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "title": "ACH Transfer",
+      "source_slug": "ach-transfer",
+      "target": "/payment-methods/ach/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Third-party ACH versus same-owner linking; micro-deposit debit risk; routing/name evidence",
+        "Avoid account-linking scams",
+        "Prepare the transfer"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Account limits",
+      "source_slug": "account-limits",
+      "target": "/payment-methods/account-limits/",
+      "disposition": "merged",
+      "retained_details": [
+        "Signing versus age versus personal cap; buying/selling/crypto classification",
+        "Unsigned/under30days,30–60days and60+day factor schedule",
+        "Eligible signing offer and exact-name self-signing; account salt plus key backup",
+        "Hash/date witness, peer signature, nonce, backdating and hijacking defenses",
+        "Local onion trade-count distinction and active-trade identity preservation",
+        "Current0.002BTC unsigned allowance;0.25BTC protocol clamp; EUR/USD/GBP/CAD/AUD/BRL classification"
+      ],
+      "removed_as_duplicate": [
+        "Three incompatible example BTC-cap tables replaced with one verified factor table.",
+        "Original account-age design rollout retained as technical provenance; shared backup instructions linked."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L490-L507",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L329-L438",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/offer/OfferRestrictions.java#L35-L47",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/TradeLimits.java#L39-L93",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/locale/CurrencyUtil.java#L190-L198"
+        ],
+        "notes": "Current factor schedule and risk classification checked against release code. Exact signing amount, dynamic maxima, current mature-currency set and self-signing eligibility must match the client. Original2017 algorithm examples/rollout retained as technical source rather than current limits."
+      }
+    },
+    {
+      "title": "Altcoins",
+      "source_slug": "altcoins",
+      "target": "/payment-methods/altcoins/",
+      "disposition": "merged",
+      "retained_details": [
+        "Ordinary one-day versus Instant one-hour deadline; disable unattended offers",
+        "Altcoin account creation and coin-specific proof requirements",
+        "Dynamic limits instead of contradictory fixed cap history",
+        "New-asset-policy qualification and atomic-swap distinction"
+      ],
+      "removed_as_duplicate": [
+        "Identical account setup and Instant description consolidated."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L290-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L493"
+        ],
+        "notes": "Current client periods and crypto-limit classification checked. Specific external-wallet proof procedures are covered separately."
+      }
+    },
+    {
+      "title": "Altcoins Instant",
+      "source_slug": "altcoins-instant",
+      "target": "/payment-methods/altcoins/",
+      "disposition": "merged",
+      "retained_details": [
+        "Ordinary one-day versus Instant one-hour deadline; disable unattended offers",
+        "Altcoin account creation and coin-specific proof requirements",
+        "Dynamic limits instead of contradictory fixed cap history",
+        "New-asset-policy qualification and atomic-swap distinction"
+      ],
+      "removed_as_duplicate": [
+        "Identical account setup and Instant description consolidated."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L290-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L493"
+        ],
+        "notes": "Current client periods and crypto-limit classification checked. Specific external-wallet proof procedures are covered separately."
+      }
+    },
+    {
+      "title": "Amazon eGift card",
+      "source_slug": "amazon-egift-card",
+      "target": "/payment-methods/amazon-egift-card/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Electronic gift versus unverifiable paper codes; matching storefront/currency; delivery/email receipt and notification resend",
+        "Agree on the Amazon storefront",
+        "Buy, deliver and retain proof",
+        "Account setup illustration"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Atomic swap",
+      "source_slug": "atomic-swap",
+      "target": "/bisq-2/protocols/#atomic-swaps-and-bsq",
+      "disposition": "merged",
+      "retained_details": [
+        "Protocol security/fees/deposit/dispute distinctions",
+        "Standard Easy6–600USD and reputation scaling",
+        "Developer-gated MuSig10–10,000USD and risk multipliers",
+        "Unverified90-day/import/rate policy explicitly qualified",
+        "BSQ atomicity versus ordinary altcoin transfer; eight historical protocol proposals"
+      ],
+      "removed_as_duplicate": [
+        "Roadmap lists in Bisq2 overview and protocol page unified; Easy workflow linked instead of repeated."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L163-L168",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop-app/src/main/resources/desktop.conf#L1-L5",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/trade/src/main/java/bisq/trade/bisq_easy/BisqEasyTradeAmountLimits.java#L52-L69",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/offer/src/main/java/bisq/offer/mu_sig/MuSigTradeAmountLimitsPolicy.java#L30-L60"
+        ],
+        "notes": "Standard/dev availability and amount-policy constants verified in immutable code. Full gated MuSig rate/age/account-import policy was not validated, so historical formulas are qualified."
+      }
+    },
+    {
+      "title": "Bisq 2",
+      "source_slug": "bisq-2",
+      "target": "/bisq-2/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Successor/multi-protocol architecture versus released feature availability",
+        "Buyer-first Easy reputation model, costs and mediation trade-off",
+        "P2P/Tor, local state and public profile privacy boundaries",
+        "Separate identities, mobile/headless/API and wallet caveats",
+        "Install/config instructions moved to current task guides"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop-app/src/main/resources/desktop.conf#L1-L5",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L163-L168",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L410-L436"
+        ],
+        "notes": "Current desktop release and developer gates checked. Old roadmap promises and universal privacy claims narrowed; no unsupported new protocol availability asserted."
+      },
+      "fragment_map": {
+        "Installation": "/bisq-2/install-and-verify/",
+        "Download_and_verify": "/bisq-2/install-and-verify/#verify-your-downloaded-file",
+        "Known_issues_with_installation": "/bisq-2/install-and-verify/#install-and-open",
+        "Multiple_Trade_Protocols": "/bisq-2/protocols/",
+        "Multiple_Identities": "/bisq-2/identity/",
+        "Multiple_applications": "/bisq-2/mobile/",
+        "Bonded_Roles": "/bisq-2/roles/",
+        "Bisq_1_vs_Bisq_2": "/start/choose-bisq/",
+        "Bisq_Easy": "/bisq-2/first-trade/",
+        "Main_differences_for_BTC_buyers": "/bisq-2/first-trade/",
+        "Main_differences_for_BTC_sellers": "/bisq-2/reputation/",
+        "How_Bisq_2_keeps_data_private": "/bisq-2/#network-identities-and-privacy",
+        "Multiple_privacy_networks": "/bisq-2/#network-identities-and-privacy",
+        "Advanced_configurations_for_Bisq_2": "/bisq-2/get-help/#for-installation-or-general-questions"
+      }
+    },
+    {
+      "title": "Bisq 2 Roles",
+      "source_slug": "bisq-2-roles",
+      "target": "/bisq-2/roles/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Mediator/moderator/security/release functions and boundaries",
+        "Seed/oracle/explorer/market-price services and DAO bridge",
+        "Role approval versus actual lockup and registration proof",
+        "Static-oracle authorization restriction; no universal delegation claim",
+        "Confiscation proposal distinct from ban, victim refund or guaranteed outcome"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/bonded-roles/src/main/java/bisq/bonded_roles/BondedRoleType.java#L30-L42",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/bonded-roles/src/main/java/bisq/bonded_roles/registration/BondedRoleRegistrationService.java#L53-L89",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/bonded-roles/src/main/java/bisq/bonded_roles/bonded_role/AuthorizedBondedRolesService.java#L78-L80",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L428-L436"
+        ],
+        "notes": "Current enum, registration proof and static-oracle restriction checked. Governance quorum/acceptance parameters left to current DAO documentation; no timeless historic threshold claim."
+      }
+    },
+    {
+      "title": "Bisq 2 Wallet",
+      "source_slug": "bisq-2-wallet",
+      "target": "/bisq-2/backup-and-recovery/#keep-the-wallet-backup-separate",
+      "disposition": "merged",
+      "retained_details": [
+        "Separate Easy receiving wallet and its backup",
+        "No Bisq1 seed/path recipe forBisq2; integrated Wallet code developer-gated",
+        "Bisq1 DAO/BSQ role retained in reputation guide"
+      ],
+      "removed_as_duplicate": [
+        "Old launch-time wallet roadmap replaced by verified current gate and recovery limitation"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/left/LeftNavView.java#L190-L191",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L163-L168",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/wallet/WalletController.java#L80-L86"
+        ],
+        "notes": "Standard UI wallet gating and unimplemented manual restore callback checked; no claim that Wallet code is absent."
+      }
+    },
+    {
+      "title": "Bisq 2 mobile applications",
+      "source_slug": "bisq-2-mobile-applications",
+      "target": "/bisq-2/mobile/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Android fullnode versus Android/iOS thinclient",
+        "Phone resources/background/connectivity and no assumed desktop sync",
+        "Remote node compatibility/separate versions; fresh0.17.0 Android release",
+        "Pairing credential and backend data/trust/backup boundary",
+        "No promised MuSig support from old roadmap"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq-mobile/blob/9b2a6edb90703ed996239b7335efbbd166637844/README.md",
+          "https://github.com/bisq-network/bisq-mobile/releases/tag/anode_0.17.0",
+          "https://github.com/bisq-network/bisq-mobile/releases/tag/trusted-node_2.1.15.0"
+        ],
+        "notes": "Fresh official release API and pinned mobile README checked. Mobile installation/pairing and app-store availability were not exercised."
+      }
+    },
+    {
+      "title": "Bisq Easy",
+      "source_slug": "bisq-easy",
+      "target": "/bisq-2/offers/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Create versus take; direction/currency/method/custom method",
+        "Fixed amount/range, review, persistent-offer management",
+        "Matching seller reputation versus price; no-match options",
+        "Buyer-first workflow; cancellation stages; seller price/cost distinction",
+        "Six contextual offer-flow screenshots, not repeated full screen dump"
+      ],
+      "removed_as_duplicate": [
+        "Repeated19-screen wizard walkthrough reduced to six distinct decision-point illustrations.",
+        "Payment and receipt steps linked to first-trade; safety and dispute rules linked to focused guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L53-L291",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L331-L436",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/trade/src/main/java/bisq/trade/bisq_easy/BisqEasyTradeAmountLimits.java#L52-L69"
+        ],
+        "notes": "Current offer UI strings, limits and rules checked. Screenshots are historical illustrations; source trade-ID tip is superseded by current payment-screen blank/name rule."
+      }
+    },
+    {
+      "title": "Bisqpro",
+      "source_slug": "bisqpro",
+      "target": "/bisq-2/get-help/#recognize-the-real-project",
+      "disposition": "reference",
+      "retained_details": [
+        "Historical impersonation warning retained as authenticity check",
+        "No investment/yield promises, false no-copyright legal claim omitted"
+      ],
+      "removed_as_duplicate": [
+        "Generic protocol introduction replaced by protocol guide"
+      ],
+      "fact_check": {
+        "status": "historical-only",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L428-L436",
+          "https://bisq.network/downloads/"
+        ],
+        "notes": "Current mediation limits checked. Historical Bisqpro allegation attributed to recovered source; no current investigation of that domain and no legal claim of absent copyright."
+      }
+    },
+    {
+      "title": "Bizum",
+      "source_slug": "bizum",
+      "target": "/payment-methods/bizum/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Phone number linked to Spanish EUR bank account; recipient identity; multiple bank limit dimensions",
+        "Check the linked bank account",
+        "Check both amount and transaction-count limits"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Capitual",
+      "source_slug": "capitual",
+      "target": "/payment-methods/capitual/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "CapCode locked value, redemption and status proof; distinct bank versus converted balance routes",
+        "How the source described CapCodes",
+        "Currency and access distinctions"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Cash by mail",
+      "source_slug": "cash-by-mail",
+      "target": "/payment-methods/cash-by-mail/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Account name/address/currency and visible offer terms",
+        "Tamper-evident inconspicuous inner/outer packaging and valid return address",
+        "Packing, mailing and opening videos; matching tracking label",
+        "Carrier permission/insurance limits; difficult disputes and no guaranteed recovery"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L240",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Current registration/eight-day period checked. Detailed packaging/evidence practices adapted from the source; carrier coverage and outcome of an individual dispute are not verified."
+      }
+    },
+    {
+      "title": "CelPay",
+      "source_slug": "celpay",
+      "target": "/payment-methods/celpay/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Celsius official app closure; retained legacy stablecoin contact/payment-link record",
+        "What the old method did",
+        "Existing records and disputes"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368",
+          "https://celsiusdistribution.stretto.com/support/solutions/articles/153000147019-celsius-network-dissolution-and-distribution"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Creating a payment account",
+      "source_slug": "creating-a-payment-account",
+      "target": "/bisq-1/payment-accounts/",
+      "disposition": "merged",
+      "retained_details": [
+        "National/altcoin account distinction; form fields and local label",
+        "Accurate holder details, immutable account details, salt and full-data backup",
+        "Offer compatibility before/after setup screenshots; Instant account in altcoin guide"
+      ],
+      "removed_as_duplicate": [
+        "Generic buy/sell process linked to first-trade guide"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/fiataccounts/FiatAccountsView.java"
+        ],
+        "notes": "Current account form and signing/limit evidence reused; altcoin requirements moved to focused guide."
+      }
+    },
+    {
+      "title": "Dispute Resolution in Bisq 2",
+      "source_slug": "dispute-resolution-in-bisq-2",
+      "target": "/bisq-2/get-help/",
+      "disposition": "merged",
+      "retained_details": [
+        "Trade chat, request mediation, evidence and cooperative resolution",
+        "No enforceable Easy payout or guaranteed DAO reimbursement; mediator/moderator distinction"
+      ],
+      "removed_as_duplicate": [
+        "Generic protocol introduction replaced by protocol guide"
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L428-L436",
+          "https://bisq.network/downloads/"
+        ],
+        "notes": "Current mediation limits checked. Historical Bisqpro allegation attributed to recovered source; no current investigation of that domain and no legal claim of absent copyright."
+      }
+    },
+    {
+      "title": "Domestic Wire Transfer",
+      "source_slug": "domestic-wire-transfer",
+      "target": "/payment-methods/domestic-wire/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "US domestic USD wire versus ACH; cutoffs, sending/receiving fees and wire trace evidence",
+        "Timing and cost",
+        "Enter and verify the account"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Face-to-face (payment method)",
+      "source_slug": "face-to-face-payment-method",
+      "target": "/payment-methods/face-to-face/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Country/city/currency/visible terms; public meeting and cash validation; both clients complete on-site; hard-to-prove handover",
+        "Set terms before taking an offer",
+        "Complete both sides on the spot",
+        "Disputes are difficult"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Faster Payments",
+      "source_slug": "faster-payments",
+      "target": "/payment-methods/faster-payments/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "UK GBP sort-code/account route; exact payer and reference; bank limits/holds",
+        "Before starting",
+        "During the trade"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Faster Payments System SBP",
+      "source_slug": "faster-payments-system-sbp",
+      "target": "/payment-methods/sbp/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Russian RUB phone plus receiving bank; same phone multiple banks; distinct UK FPS",
+        "Select the right receiving bank",
+        "Limits, fees and delays"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "IMPS",
+      "source_slug": "imps",
+      "target": "/payment-methods/imps/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Indian INR IMPS versus NEFT/RTGS/UPI; beneficiary and bank allowance",
+        "Prepare a compatible account",
+        "Complete the payment"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Identity",
+      "source_slug": "identity",
+      "target": "/bisq-2/identity/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Multiple independent profile/network identities; active-profile checks",
+        "Cross-profile correlation through reused fiat data",
+        "No permission for spouse/third-party payer from a profile example",
+        "Reputation bound to exact ID; deletion retires identity and risks open chats",
+        "Only-profile deletion guard and full-data backup"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/identity/UserIdentityService.java#L190-L225",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/reputation.properties#L96-L195"
+        ],
+        "notes": "Identity edit/delete implementation and reputation association checked. Exact user-interface path is described by function rather than asserting old menu labels."
+      }
+    },
+    {
+      "title": "Issues with fiat payments",
+      "source_slug": "issues-with-fiat-payments",
+      "target": "/payment-methods/fiat-problems/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Account freezes/closures, refused/held/reversed transfers",
+        "Five possible settlement outcomes including post-payout reversal",
+        "Bisq1 escrow-finality versus Easy no-deposit limitation",
+        "Private original bank receipts/statements/reversal evidence"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L428-L436"
+        ],
+        "notes": "Current protocol limitations cross-checked against both release rule sets. Individual bank/legal outcomes remain provider-specific."
+      }
+    },
+    {
+      "title": "Local reputation",
+      "source_slug": "local-reputation",
+      "target": "/payment-methods/account-limits/",
+      "disposition": "merged",
+      "retained_details": [
+        "Signing versus age versus personal cap; buying/selling/crypto classification",
+        "Unsigned/under30days,30–60days and60+day factor schedule",
+        "Eligible signing offer and exact-name self-signing; account salt plus key backup",
+        "Hash/date witness, peer signature, nonce, backdating and hijacking defenses",
+        "Local onion trade-count distinction and active-trade identity preservation"
+      ],
+      "removed_as_duplicate": [
+        "Three incompatible example BTC-cap tables replaced with one verified factor table.",
+        "Original account-age design rollout retained as technical provenance; shared backup instructions linked."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L490-L507",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L329-L438"
+        ],
+        "notes": "Current factor schedule and risk classification checked against release code. Exact signing amount, dynamic maxima, current mature-currency set and self-signing eligibility must match the client. Original2017 algorithm examples/rollout retained as technical source rather than current limits."
+      }
+    },
+    {
+      "title": "Monese",
+      "source_slug": "monese",
+      "target": "/payment-methods/monese/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Internal multicurrency transfer versus external bank route; residence/verification and receiving-currency eligibility",
+        "Confirm eligibility and currency",
+        "Limits and fees"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "MuSig-tradelimits",
+      "source_slug": "musig-tradelimits",
+      "target": "/bisq-2/protocols/#experimental-trade-limits",
+      "disposition": "merged",
+      "retained_details": [
+        "Protocol security/fees/deposit/dispute distinctions",
+        "Standard Easy6–600USD and reputation scaling",
+        "Developer-gated MuSig10–10,000USD and risk multipliers",
+        "Unverified90-day/import/rate policy explicitly qualified",
+        "BSQ atomicity versus ordinary altcoin transfer; eight historical protocol proposals"
+      ],
+      "removed_as_duplicate": [
+        "Roadmap lists in Bisq2 overview and protocol page unified; Easy workflow linked instead of repeated."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L163-L168",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop-app/src/main/resources/desktop.conf#L1-L5",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/trade/src/main/java/bisq/trade/bisq_easy/BisqEasyTradeAmountLimits.java#L52-L69",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/offer/src/main/java/bisq/offer/mu_sig/MuSigTradeAmountLimitsPolicy.java#L30-L60"
+        ],
+        "notes": "Standard/dev availability and amount-policy constants verified in immutable code. Full gated MuSig rate/age/account-import policy was not validated, so historical formulas are qualified."
+      }
+    },
+    {
+      "title": "NEFT",
+      "source_slug": "neft",
+      "target": "/payment-methods/neft/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "INR beneficiary activation; corrected one-day period instead of X-days placeholder",
+        "Prepare the beneficiary",
+        "When payment is delayed"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Nequi",
+      "source_slug": "nequi",
+      "target": "/payment-methods/nequi/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "COP account tier, transfer limits and tax/fee uncertainty; no current universal COP cap claim",
+        "Check account tier and taxes",
+        "Confirm the real transfer"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Paxum",
+      "source_slug": "paxum",
+      "target": "/payment-methods/paxum/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Internal transfers versus virtual bank rails; multicurrency receiving and withdrawal fees; no unlimited claim",
+        "Confirm the currency and recipient",
+        "Read the current fee schedule"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "PayTM",
+      "source_slug": "paytm",
+      "target": "/payment-methods/paytm/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "RBI wallet-credit restriction versus Paytm-as-UPI-interface; no wallet onboarding from stale source",
+        "What the source described",
+        "Choose a working payment rail"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368",
+          "https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=57376"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Payment account age witness",
+      "source_slug": "payment-account-age-witness",
+      "target": "/payment-methods/account-limits/",
+      "disposition": "merged",
+      "retained_details": [
+        "Signing versus age versus personal cap; buying/selling/crypto classification",
+        "Unsigned/under30days,30–60days and60+day factor schedule",
+        "Eligible signing offer and exact-name self-signing; account salt plus key backup",
+        "Hash/date witness, peer signature, nonce, backdating and hijacking defenses",
+        "Local onion trade-count distinction and active-trade identity preservation"
+      ],
+      "removed_as_duplicate": [
+        "Three incompatible example BTC-cap tables replaced with one verified factor table.",
+        "Original account-age design rollout retained as technical provenance; shared backup instructions linked."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L490-L507",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L329-L438"
+        ],
+        "notes": "Current factor schedule and risk classification checked against release code. Exact signing amount, dynamic maxima, current mature-currency set and self-signing eligibility must match the client. Original2017 algorithm examples/rollout retained as technical source rather than current limits."
+      }
+    },
+    {
+      "title": "Payment methods",
+      "source_slug": "payment-methods",
+      "target": "/payment-methods/",
+      "disposition": "merged",
+      "retained_details": [
+        "External settlement; chargeback, privacy and evidence trade-offs",
+        "Current client registration and trade periods; signing-sensitive methods",
+        "Deprecated Verse; CelPay closure; PayTM route restrictions; incomplete Skrill",
+        "Regional EUR/USD diagrams; altcoin and Easy distinctions"
+      ],
+      "removed_as_duplicate": [
+        "English language variant merged; stale parallel BTC-limit tables removed in favour of verified runtime calculation.",
+        "Repeated setup, limits and generic workflows linked to shared task guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L490-L507",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/fiataccounts/FiatAccountsView.java#L458-L460"
+        ],
+        "notes": "Fresh latest-release API check confirms v1.10.11. Registration, duration and signing classification checked in immutable release source. Provider admission and live transfers were not tested."
+      }
+    },
+    {
+      "title": "Payment methods/en",
+      "source_slug": "payment-methods-en",
+      "target": "/payment-methods/",
+      "disposition": "merged",
+      "retained_details": [
+        "External settlement; chargeback, privacy and evidence trade-offs",
+        "Current client registration and trade periods; signing-sensitive methods",
+        "Deprecated Verse; CelPay closure; PayTM route restrictions; incomplete Skrill",
+        "Regional EUR/USD diagrams; altcoin and Easy distinctions"
+      ],
+      "removed_as_duplicate": [
+        "English language variant merged; stale parallel BTC-limit tables removed in favour of verified runtime calculation.",
+        "Repeated setup, limits and generic workflows linked to shared task guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L490-L507",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/fiataccounts/FiatAccountsView.java#L458-L460"
+        ],
+        "notes": "Fresh latest-release API check confirms v1.10.11. Registration, duration and signing classification checked in immutable release source. Provider admission and live transfers were not tested."
+      }
+    },
+    {
+      "title": "Payment methods/es",
+      "source_slug": "payment-methods-es",
+      "target": "/payment-methods/es/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Preserved Spanish explanations of external settlement, chargeback, aging/signing and Instant availability",
+        "Corrected obsolete fixed caps and mistaken reversibility wording; links to current method reference"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515"
+        ],
+        "notes": "Spanish useful content retained and edited; old tables duplicated outdated English limits. Current client trade periods checked. This does not claim independent native-language editorial acceptance."
+      }
+    },
+    {
+      "title": "Paysera",
+      "source_slug": "paysera",
+      "target": "/payment-methods/paysera/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Verification-tier daily/monthly/annual limits; internal/conversion/withdrawal/SWIFT costs; erroneous Spanish-bank prerequisite removed",
+        "Confirm access and identification tier",
+        "Account for conversion and bank charges"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Pix",
+      "source_slug": "pix",
+      "target": "/payment-methods/pix/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "BRL Pix recipient-key resolution; per-account/time restrictions; scheduled/request versus credited payment",
+        "Check limits before taking an offer",
+        "Verify payment, not a notification"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "RTGS",
+      "source_slug": "rtgs",
+      "target": "/payment-methods/rtgs/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Larger INR route; bank minimum can exceed Bisq allowance; corrected one-day metadata",
+        "Check whether the amount fits",
+        "Fees and evidence"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Reputation",
+      "source_slug": "reputation",
+      "target": "/bisq-2/reputation/",
+      "disposition": "merged",
+      "retained_details": [
+        "Score÷200 seller allowance; fixed star bands versus relative rank",
+        "Four active scoring sources; profile-age score0",
+        "Burn100points/BSQ and bond10points/BSQ with first-year boost;50k block lock",
+        "Profile ID preimage/salt; irreversible burn, unlock/ban/confiscation risks",
+        "Account4/day cap8k; signed witness61days,10/day cap20k; oldest proof not additive",
+        "Simulation and preserved six meaningful screenshots"
+      ],
+      "removed_as_duplicate": [
+        "Reputation2 repeats the same four mechanisms with obsolete weights; one current guide replaces both.",
+        "Duplicate screenshots of identical forms and removed minimum-score setting omitted; image ledger records reasons."
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ReputationService.java#L170-L204",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ProofOfBurnService.java#L41-L96",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/BondedReputationService.java#L42-L130",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/AccountAgeService.java#L187-L196",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/SignedWitnessService.java#L197-L209",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ProfileAgeService.java#L155-L158",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/reputation.properties#L9-L32",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/reputation.properties#L96-L195"
+        ],
+        "notes": "All formulas, fixed star thresholds, zero profile-age contribution and current import flows checked against pinned release source. Live burn/bond/import not executed. Old relative-stars and10k/30k minimum claims corrected."
+      }
+    },
+    {
+      "title": "Reputation2",
+      "source_slug": "reputation2",
+      "target": "/bisq-2/reputation/",
+      "disposition": "merged",
+      "retained_details": [
+        "Score÷200 seller allowance; fixed star bands versus relative rank",
+        "Four active scoring sources; profile-age score0",
+        "Burn100points/BSQ and bond10points/BSQ with first-year boost;50k block lock",
+        "Profile ID preimage/salt; irreversible burn, unlock/ban/confiscation risks",
+        "Account4/day cap8k; signed witness61days,10/day cap20k; oldest proof not additive",
+        "Simulation and preserved six meaningful screenshots"
+      ],
+      "removed_as_duplicate": [
+        "Reputation2 repeats the same four mechanisms with obsolete weights; one current guide replaces both.",
+        "Duplicate screenshots of identical forms and removed minimum-score setting omitted; image ledger records reasons."
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ReputationService.java#L170-L204",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ProofOfBurnService.java#L41-L96",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/BondedReputationService.java#L42-L130",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/AccountAgeService.java#L187-L196",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/SignedWitnessService.java#L197-L209",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ProfileAgeService.java#L155-L158",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/reputation.properties#L9-L32",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/reputation.properties#L96-L195"
+        ],
+        "notes": "All formulas, fixed star thresholds, zero profile-age contribution and current import flows checked against pinned release source. Live burn/bond/import not executed. Old relative-stars and10k/30k minimum claims corrected."
+      }
+    },
+    {
+      "title": "Revolut",
+      "source_slug": "revolut",
+      "target": "/payment-methods/revolut/",
+      "disposition": "merged",
+      "retained_details": [
+        "Internal username/Revtag route rather than bank-detail substitution; discovery settings and signing",
+        "Set up your payment account",
+        "Check before sending",
+        "Signing and receipt checks"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "SEPA",
+      "source_slug": "sepa-p551",
+      "target": "/payment-methods/sepa/",
+      "disposition": "merged",
+      "retained_details": [
+        "EUR account holder/IBAN/BIC/counterparty-country fields; six-day period and signing",
+        "Set up the account",
+        "Allow for bank processing",
+        "Signing and account recovery"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "SEPA Instant",
+      "source_slug": "sepa-instant",
+      "target": "/payment-methods/sepa-instant/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Separate one-day instant route; both-bank capability and fallback evidence; no automatic penalty waiver promise",
+        "Confirm both banks support the route",
+        "Do not assume an automatic waiver"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "SWIFT",
+      "source_slug": "swift",
+      "target": "/payment-methods/swift/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Complete intermediary/account/currency details; BEN/OUR/SHA fee model; conversion shortfall and obsolete fixed penalty qualification",
+        "Fill all required details",
+        "Send the offer's currency",
+        "Understand fee options"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Satispay",
+      "source_slug": "satispay",
+      "target": "/payment-methods/satispay/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Phone/linked-bank method; budget readiness and higher-limit lead time",
+        "Prepare the available budget",
+        "Settle the correct transfer"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Sepa",
+      "source_slug": "sepa-p550",
+      "target": "/payment-methods/sepa/",
+      "disposition": "merged",
+      "retained_details": [
+        "Case-only six-word stub consolidated into the full SEPA guide",
+        "Set up the account",
+        "Allow for bank processing",
+        "Signing and account recovery"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Set up a Revolut payment account",
+      "source_slug": "set-up-a-revolut-payment-account",
+      "target": "/payment-methods/revolut/",
+      "disposition": "merged",
+      "retained_details": [
+        "Set up your payment account",
+        "Check before sending",
+        "Signing and receipt checks"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Set up a SEPA payment account",
+      "source_slug": "set-up-a-sepa-payment-account",
+      "target": "/payment-methods/sepa/",
+      "disposition": "merged",
+      "retained_details": [
+        "Set up the account",
+        "Allow for bank processing",
+        "Signing and account recovery"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Skrill",
+      "source_slug": "skrill",
+      "target": "/payment-methods/skrill/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Unfinished template identified; no registered current method",
+        "Generic safety material moved to actual task guides"
+      ],
+      "removed_as_duplicate": [
+        "All XXXX generic workflow paragraphs consolidated; invented0.25BTC limit omitted."
+      ],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300"
+        ],
+        "notes": "Complete current method registry inspected; absence is an app-registration fact, not a claim that the unrelated provider ceased operating."
+      }
+    },
+    {
+      "title": "Strike",
+      "source_slug": "strike",
+      "target": "/payment-methods/strike/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Provider payment versus Easy Lightning network; current account/routing/verification check without obsolete US-only cap claim",
+        "Check your current provider account",
+        "Cost and receipt"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Tikkie",
+      "source_slug": "tikkie",
+      "target": "/payment-methods/tikkie/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Unfinished provider template replaced with verified current entry/one-day period and proof/eligibility prerequisites",
+        "What is verified",
+        "Before using an offer"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Trade Protocols",
+      "source_slug": "trade-protocols",
+      "target": "/bisq-2/protocols/",
+      "disposition": "merged",
+      "retained_details": [
+        "Protocol security/fees/deposit/dispute distinctions",
+        "Standard Easy6–600USD and reputation scaling",
+        "Developer-gated MuSig10–10,000USD and risk multipliers",
+        "Unverified90-day/import/rate policy explicitly qualified",
+        "BSQ atomicity versus ordinary altcoin transfer; eight historical protocol proposals"
+      ],
+      "removed_as_duplicate": [
+        "Roadmap lists in Bisq2 overview and protocol page unified; Easy workflow linked instead of repeated."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L163-L168",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop-app/src/main/resources/desktop.conf#L1-L5",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/trade/src/main/java/bisq/trade/bisq_easy/BisqEasyTradeAmountLimits.java#L52-L69",
+          "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/offer/src/main/java/bisq/offer/mu_sig/MuSigTradeAmountLimitsPolicy.java#L30-L60"
+        ],
+        "notes": "Standard/dev availability and amount-policy constants verified in immutable code. Full gated MuSig rate/age/account-import policy was not validated, so historical formulas are qualified."
+      }
+    },
+    {
+      "title": "Trading GRIN",
+      "source_slug": "trading-grin",
+      "target": "/payment-methods/grin/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Slates/slatepack interactive receiving and sender/receiver/BTC direction",
+        "txs/export_proof and verify_proof commands; endpoint not blindly reused",
+        "Proof amount/excess/address/signature fields;9decimal unit example",
+        "Contract matching before cryptographic verification; no invented ledger guarantee",
+        "Current wallet-support uncertainty explicit; market maker price"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L290-L300",
+          "https://github.com/mimblewimble/grin-wallet",
+          "https://docs.grin.mw/"
+        ],
+        "notes": "Bisq altcoin timing checked. Original GRIN proof workflow preserved as versioned reference; current upstream documentation path was unavailable and commands were not executed. No claim of current exclusive wallet capability."
+      }
+    },
+    {
+      "title": "Trading L-BTC",
+      "source_slug": "trading-l-btc",
+      "target": "/payment-methods/liquid-bitcoin/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Liquid federation/peg versus Bitcoin mainchain; confidential asset/amount",
+        "Receiver blinding-key proof and sensitive disclosure boundary",
+        "dumpblindingkey and original importaddress/gettransaction/importblindingkey sequence",
+        "Wallet-version capability qualification; synchronized verifier and rescan",
+        "Price/peg delay distinctions without timeless historical promises"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L290-L300",
+          "https://elementsproject.org/en/doc/0.21.0.0/rpc/wallet/dumpblindingkey/",
+          "https://github.com/ElementsProject/elements"
+        ],
+        "notes": "Official versioned Elements dumpblindingkey RPC checked. Full import/rescan workflow and current wallet compatibility not executed; explicitly retained as versioned technical reference."
+      }
+    },
+    {
+      "title": "Trading Monero",
+      "source_slug": "trading-monero",
+      "target": "/payment-methods/monero/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "TxID/transaction key/recipient retention; correct CLI argument separation",
+        "Current auto-confirm OFF,0.125BTC,5confirmations,min2",
+        "Optional sender auto-confirm input versus mandatory dispute proof readiness",
+        "Proof-service trust, settings lifecycle, dispute stops and manual fallback",
+        "Four original context screenshots; old explorer/node-build advice qualified"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/user/AutoConfirmSettings.java#L49-L65",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/trade/txproof/xmr/XmrTxProofRequestsPerTrade.java#L120-L175",
+          "https://www.getmonero.org/resources/user-guides/prove-payment.html"
+        ],
+        "notes": "Fresh pinned current Bisq defaults and per-trade service code inspected; Monero proof commands cross-checked in official guide. Third-party wallets/explorers and full node deployment not tested."
+      }
+    },
+    {
+      "title": "UPI",
+      "source_slug": "upi",
+      "target": "/payment-methods/upi/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Underlying bank/recipient VPA versus app branding; INR amount and limits; collect request not receipt",
+        "Prepare the transfer",
+        "Verify completion"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "US Postal Money Order",
+      "source_slug": "us-postal-money-order",
+      "target": "/payment-methods/us-postal-money-order/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Physical payee/return details, mailing video/tracking, receipt, counterfeit-design comparison and current USPS fees",
+        "Agree on recipient and mailing details",
+        "Record the handover to the mail",
+        "Inspect before releasing bitcoin"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368",
+          "https://www.usps.com/shop/money-orders.htm",
+          "https://about.usps.com/postal-bulletin/2026/pb22696/html/frd_003.htm"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Verse",
+      "source_slug": "verse",
+      "target": "/payment-methods/verse/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Explicit shutdown/deprecated/filter status",
+        "Legacy username/multicurrency/internal-transfer versus withdrawal context",
+        "Preserve old receipts; no new setup recommendation"
+      ],
+      "removed_as_duplicate": [],
+      "fact_check": {
+        "status": "checked",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L270-L284",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/fiataccounts/FiatAccountsView.java#L458-L460"
+        ],
+        "notes": "Shutdown comment and new-account filter directly checked. Old provider marketing and onboarding steps removed."
+      }
+    },
+    {
+      "title": "Wise",
+      "source_slug": "wise",
+      "target": "/payment-methods/wise/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Email-discovery recipient proof; receiving currency/primary account readiness; internal versus bank rail",
+        "Prepare the receiving currency",
+        "Send to the intended recipient"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Wise-USD",
+      "source_slug": "wise-usd",
+      "target": "/payment-methods/wise-usd/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "Separate USD method; provider USD eligibility; actual received amount/name and conversion fees",
+        "Confirm USD eligibility first",
+        "Add the correct account",
+        "Pay and check the full USD amount"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    },
+    {
+      "title": "Zelle",
+      "source_slug": "zelle",
+      "target": "/payment-methods/zelle/",
+      "disposition": "rewritten",
+      "retained_details": [
+        "US USD enrolled recipient; bank limits; no substitute payer when blocked; current dispute shortcut link",
+        "Enrol the right account",
+        "Check the bank's sending limits",
+        "If the bank blocks payment"
+      ],
+      "removed_as_duplicate": [
+        "Repeated add-account, generic make/take, buy/sell and mediation steps consolidated into shared guides."
+      ],
+      "fact_check": {
+        "status": "qualified",
+        "sources": [
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515",
+          "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L345-L368"
+        ],
+        "notes": "Client registration and trade period checked against the pinned release. Provider-specific historical numbers and instructions are qualified above; a live transfer or complete provider onboarding was not tested."
+      }
+    }
+  ]
+}

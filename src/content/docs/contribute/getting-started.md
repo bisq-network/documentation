@@ -34,6 +34,6 @@ Compensation uses the [Bisq DAO](../../dao/overview/). Eligible completed work c
 <details>
 <summary>Sources and review</summary>
 
-Checked **7 November 2026**: [current participation policy](https://bisq.network/blog/open-source-development-in-the-age-of-ai/), [Bisq 1 contribution rules at v1.10.11](https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md), [Bisq 2 repository guidance](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/README.md), and the [compensation repository](https://github.com/bisq-network/compensation). Consolidates the historical [contributor checklist](../../wiki/contributor-checklist/). Maintainer review is pending.
+Checked **7 November 2026**: [current participation policy](https://bisq.network/blog/open-source-development-in-the-age-of-ai/), [Bisq 1 contribution rules at v1.10.11](https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/CONTRIBUTING.md), [Bisq 2 repository guidance](https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/README.md), and the [compensation repository](https://github.com/bisq-network/compensation). Consolidates the historical [contributor checklist](../../wiki-source/contributor-checklist.wiki.txt). Maintainer review is pending.
 
 </details>
