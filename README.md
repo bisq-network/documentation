@@ -33,7 +33,7 @@ To refresh from an updated recovery manifest, run `node scripts/integrate-media.
 
 ## GitHub Pages
 
-The intended personal repository is [hiciefte/bisq-docs](https://github.com/hiciefte/bisq-docs), with a future project Pages path at `https://hiciefte.github.io/bisq-docs/`. No deployment is implied by this repository or preview.
+The contributor preview is published from [hiciefte/bisq-docs](https://github.com/hiciefte/bisq-docs) to **[hiciefte.github.io/bisq-docs](https://hiciefte.github.io/bisq-docs/)**. See the repository Actions page for the latest deployment result.
 
 The included Pages workflow is **manual only**. It derives the GitHub Pages origin and project base path from repository context, including on a fork. Set repository variables `DOCS_SITE` and `DOCS_BASE` to override both values for an approved custom domain or different deployment layout. The workflow requires a configured GitHub Pages environment and must be reviewed before it is run. For a local project-path build, for example:
 
@@ -41,6 +41,6 @@ The included Pages workflow is **manual only**. It derives the GitHub Pages orig
 DOCS_SITE=https://hiciefte.github.io DOCS_BASE=/bisq-docs/ npm run build
 ```
 
-A custom domain, DNS configuration, publication, and resolving licensing and maintainer review require separate decisions. No `CNAME` is included. Exact-case compatibility pages preserve `/Bisq_2` and `/Downloading_and_installing` with selected anchors; verify slashless paths at the final host.
+A custom domain, DNS configuration, and promotion to official documentation require separate decisions; licensing and maintainer review remain open. No `CNAME` is included. Exact-case compatibility pages preserve `/Bisq_2` and `/Downloading_and_installing` with selected anchors; verify slashless paths at the final host.
 
-The prepared checkout includes [publishing steps](PUBLISHING.md) for the later source push and manual Pages deployment.
+See [publishing steps](PUBLISHING.md) for source updates and manual Pages deployment.
