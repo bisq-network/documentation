@@ -62,7 +62,7 @@ tableOfContents: false
 <p>Regarding dispute resolution, please note:</p>
 <ul>
 <li>Mediators can consider your case and make a suggestion, but they are NOT guaranteed to help.</li>
-<li>If a mediator is engaged, and if either peer rejects the mediator's suggestion, both peers' funds will be sent to a <a href="../arbitration/">Bisq 'donation' address</a> <small class="wiki-link-gap">[section not recovered: Time-Locked Payout Transaction]</small>, and the trade will effectively be completed.</li>
+<li>Rejecting a mediation suggestion does not by itself publish the delayed payout. Under Bisq 1 v1.10.11, opening eligible arbitration publishes that transaction and transfers the trade funds to <a href="../arbitration/">Burning Men</a>; direct reimbursement by a refund agent is discretionary, not guaranteed.</li>
 <li>If a trader rejects a mediation suggestion and opens arbitration, it could lead to lose both trading and deposit funds.</li>
 <li>Arbitrators will make a decision based on the evidence provided to them. Therefore, please follow and document the above processes to have evidence in case of dispute. For cash-by-mail trades, arbitrator decisions are final, meaning reimbursement requests to the Bisq DAO for any funds lost in cash-by-mail trades will NOT be considered.</li>
 </ul>
