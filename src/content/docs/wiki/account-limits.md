@@ -94,7 +94,7 @@ tableOfContents: false
 </tr>
 <tr>
 <td>Day 30</td>
-<td>0.03125 BTC</td>
+<td>0.0312 BTC</td>
 <td>0.0624 BTC</td>
 </tr>
 <tr>
@@ -137,7 +137,7 @@ tableOfContents: false
 </tr>
 <tr>
 <td>Day 60</td>
-<td>0.0325 BTC</td>
+<td>0.0312 BTC</td>
 <td>0.0624 BTC</td>
 </tr>
 <tr>
