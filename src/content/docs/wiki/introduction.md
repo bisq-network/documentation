@@ -28,7 +28,7 @@ tableOfContents: false
 <p>Imagine you want to buy bitcoin (BTC) in exchange for Euros (EUR). Using Bisq's classic <a href="../bisq-1/">v1</a> trading protocol (which involves security deposits), you are a <em>buyer</em> of BTC looking for a <em>seller</em> of BTC who accepts EUR.</p>
 <p>The basic steps would be:</p>
 <ol>
-<li>You download, install, and run the <a href="../bisq-2/">Bisq 2</a> desktop application.</li>
+<li>You download, install, and run the <a href="../bisq-1/">Bisq 1</a> desktop application.</li>
 <li>You add your EUR payment method details (e.g., <a href="../sepa-p551/">SEPA</a> bank account) to your Bisq client.</li>
 <li>You browse Bisq’s offer book for existing offers to sell BTC for EUR.</li>
 <li>You take an existing offer, agreeing to the seller's price and terms. This initiates the trade process, including locking BTC from both parties into escrow.</li>
