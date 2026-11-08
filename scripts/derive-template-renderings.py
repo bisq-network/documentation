@@ -20,13 +20,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--recovery-root', type=Path, required=True)
 args = parser.parse_args()
 site = Path.cwd().resolve()
-converter = (site / 'scripts/migrate-wiki.py').read_text()
+converter = (site / 'scripts/migrate-wiki.py').read_text(encoding='utf-8')
 converter = converter.replace('ROOT = Path(__file__).resolve().parents[2]', f'ROOT = Path({str(args.recovery_root.resolve())!r})')
 converter = converter.replace('SITE = ROOT / "site"', f'SITE = Path({str(site)!r})')
 ns = {'__name__': 'template_converter', '__file__': str(site / 'scripts/migrate-wiki.py')}
 exec(compile(converter, 'scripts/migrate-wiki.py', 'exec'), ns)
 # Resolve recorded fragment-free redirect chains against the current snapshot.
-redirects = json.loads((site / 'migration/archive-redirects-20261014.json').read_text())['items']
+redirects = json.loads((site / 'migration/archive-redirects-20261014.json').read_text(encoding='utf-8'))['items']
 for _ in range(len(redirects)):
     changed = False
     for record in redirects:
@@ -35,7 +35,7 @@ for _ in range(len(redirects)):
             changed = True
     if not changed:
         break
-for asset in json.loads((site / 'recovery-evidence/template-media.json').read_text())['items']:
+for asset in json.loads((site / 'recovery-evidence/template-media.json').read_text(encoding='utf-8'))['items']:
     ns['MEDIA'][asset['canonical_filename']] = dict(asset, local_path=True, status='original')
     ns['ASSETS'][asset['sha256']] = asset['asset_path'].lstrip('/')
 
@@ -45,19 +45,19 @@ def digest(s):
 def norm(s):
     """Normalize template spelling for matching recovered definitions."""
     return s.replace('_', ' ').strip().lower()
-metadata = json.loads((site / 'migration/archive-templates-20261014.json').read_text())
+metadata = json.loads((site / 'migration/archive-templates-20261014.json').read_text(encoding='utf-8'))
 lookup = {norm(item['template_normalized_name']): item for item in metadata['items']}
 pattern = re.compile(r'<span class="wiki-template-gap" role="note"><strong>\[Unresolved template: ([^<]+)\]</strong> <code>(.*?)</code></span>', re.S)
 invocations = {}
 for file in sorted((site / 'src/content/docs/wiki').glob('*.md')):
-    for match in pattern.finditer(file.read_text()):
+    for match in pattern.finditer(file.read_text(encoding='utf-8')):
         name, invocation = html.unescape(match.group(1)), html.unescape(match.group(2))
         invocations.setdefault(invocation, {'name': name, 'articles': []})['articles'].append(file.stem)
 assert sum(len(v['articles']) for v in invocations.values()) == 71
 out=[]
 for invocation, data in invocations.items():
     item=lookup[norm(data['name'])]
-    raw=(site / ('public' + item['source_download'])).read_text()
+    raw=(site / ('public' + item['source_download'])).read_text(encoding='utf-8')
     assert digest(raw) == item['wikitext_sha256']
     call=mw.parse(invocation).filter_templates(recursive=False)
     assert len(call)==1
@@ -97,7 +97,7 @@ for invocation, data in invocations.items():
         for tag in soup.select('[style]'):
             del tag['style']
         if norm(data['name']) == 'arbitrationcompensationtable':
-            warning=next(x for x in json.loads((site / 'recovery-evidence/template-media.json').read_text())['items'] if x['canonical_filename']=='Admonition-icon-warning.png')
+            warning=next(x for x in json.loads((site / 'recovery-evidence/template-media.json').read_text(encoding='utf-8'))['items'] if x['canonical_filename']=='Admonition-icon-warning.png')
             aside=soup.select_one('aside.wiki-admonition')
             assert aside
             icon=soup.new_tag('img', src='../../'+warning['asset_path'].lstrip('/'), alt='', width='17', height='15')
@@ -112,5 +112,5 @@ for invocation, data in invocations.items():
             bad=[g for g in article.gaps if g['kind'] not in allowed]
             if bad: raise ValueError(f'{invocation}: unexpected converter gaps: {bad}')
     out.append({'invocation':invocation,'name':data['name'],'source_download':item['source_download'],'definition_sha256':item['wikitext_sha256'],'expanded_wikitext_sha256':digest(expanded),'rendered_sha256':digest(rendered),'html':rendered,'scalar':scalar,'inline':scalar or norm(data['name']) == 'wallet date explainer','articles':data['articles']})
-(site/'migration/template-renderings-20261014.json').write_text(json.dumps({'schema_version':1,'capture_date':'2026-10-14','generator':'scripts/derive-template-renderings.py','occurrences':71,'items':out},ensure_ascii=False,indent=2)+'\n')
+(site/'migration/template-renderings-20261014.json').write_text(json.dumps({'schema_version':1,'capture_date':'2026-10-14','generator':'scripts/derive-template-renderings.py','occurrences':71,'items':out},ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
 print(f'Generated {len(out)} unique renderings for 71 occurrences')
