@@ -4,7 +4,7 @@ slug: "wiki/set-up-a-revolut-payment-account"
 tableOfContents: false
 ---
 
-<div class="wiki-recovered-article" lang="en"><p>First download, install Bisq and create a backup (copy seed words - see <a href="../how-to-back-up-your-bisq-wallet-seed/">How to back up your Bisq wallet seed</a>).</p>
+<div class="wiki-recovered-article" lang="en"><p>First download, install Bisq and make a full application-data backup and separately record your wallet seed (see <a href="../how-to-back-up-your-bisq-wallet-seed/">How to back up your Bisq wallet seed</a>). A seed alone does not restore payment accounts, application keys or trade state.</p>
 <p>Now you can set up a <a href="../fiat/">fiat</a> payment account, that you will use to pay or receive payments when trading on Bisq.</p>
 <p>1. Go to <strong>Account</strong> tab on Bisq</p>
 <p>2. Click on <strong>Add new Account</strong></p>
