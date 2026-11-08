@@ -109,10 +109,10 @@ tableOfContents: false
 <p>Bisq2 can be downloaded <a href="https://bisq.network/downloads/" rel="noopener noreferrer">here</a>. Before installing software that manages your funds, you should always verify the installer has not been tampered with, to avoid the risk of losing funds due to a compromised download.</p>
 <p>To import the key in Linux and MacOS:</p>
 <p><code><code class="wiki-source-code" id="source-code-1">curl https://bisq.network/pubkey/E222AA02.asc | gpg --import </code></code></p>
-<p>GPG will return "This key is not certified with a trusted signature!", this is normal (see <a href="https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key" rel="noopener noreferrer">https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key</a> for background information what it means)</p>
+<p>An uncertified-key warning can accompany a cryptographically good signature, but does not establish the signer's identity. Compare the full key fingerprint with an independently obtained official source; do not treat a generic verification error as a reason to continue.</p>
 <p>To verify the installer against the signature:</p>
-<p><code><code class="wiki-source-code" id="source-code-2">gpg --digest-algo SHA256 --verify BINARY{.asc*,}</code></code></p>
-<p>Replace BINARY with the name of the file you downloaded.</p>
+<p><code><code class="wiki-source-code" id="source-code-2">gpg --verify INSTALLER.asc INSTALLER</code></code></p>
+<p>Replace INSTALLER.asc with the exact matching detached-signature filename and INSTALLER with the exact installer filename. Require a good signature from the expected key; stop for bad signatures, a wrong signer, a missing key or unresolved expiry.</p>
 <p>In case you receive an error for an expired key, you can refresh the keys on your system from an official keyserver:</p>
 <p><code><code class="wiki-source-code" id="source-code-3">gpg --keyserver hkps://keys.openpgp.org --refresh-keys</code></code></p>
 <p>In Windows you can import the key, and subsequently verify the installer, by using <a href="https://www.gpg4win.org/download.html" rel="noopener noreferrer">Kleopatra</a>.</p>
