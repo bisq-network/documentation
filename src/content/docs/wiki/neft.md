@@ -74,8 +74,8 @@ tableOfContents: false
 <p>Please note some banks have different limits for their customers.</p>
 </aside>
 <span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_NEFT_account?" aria-hidden="true"></span><h2 id="are-there-any-limits-for-me-to-be-aware-of-when-using-my-neft-account"> Are there any limits for me to be aware of when using my NEFT account? </h2>
-<p>Maximum amount limited to per transaction is Rs.50000 within India</p>
-<p>Maximum of 50,000 INR can be sent per transaction.</p>
+<p>RBI does not set a maximum for account-based NEFT transfers; a member bank may set its own limits.</p>
+<p>The 50,000 INR per-transaction restriction in RBI's FAQ concerns cash remittances by people without a bank account, not every NEFT bank transfer.</p>
 <p>No minimum limit.</p>
 <span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_NEFT_account?" aria-hidden="true"></span><h2 id="are-there-any-fees-for-me-to-be-aware-of-when-using-my-neft-account"> Are there any fees for me to be aware of when using my NEFT account? </h2>
 <p>It is free to send and receive.</p>

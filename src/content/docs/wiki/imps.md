@@ -75,7 +75,7 @@ tableOfContents: false
 <p>Please note some banks have different limits for their customers.</p>
 </aside>
 <span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_IMPS_account?" aria-hidden="true"></span><h2 id="are-there-any-limits-for-me-to-be-aware-of-when-using-my-imps-account"> Are there any limits for me to be aware of when using my IMPS account? </h2>
-<p>Maximum of 200,000 INR can be sent per transaction.</p>
+<p>NPCI raised the IMPS per-transaction ceiling to 500,000 INR for channels other than SMS and IVR. Your bank can apply its own available limit; check it before accepting an offer.</p>
 <p>Maximum of 1,000,000 INR can be sent per day.</p>
 <p>Minimum payment is 1 INR.</p>
 <span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_IMPS_account?" aria-hidden="true"></span><h2 id="are-there-any-fees-for-me-to-be-aware-of-when-using-my-imps-account"> Are there any fees for me to be aware of when using my IMPS account? </h2>

@@ -72,7 +72,7 @@ tableOfContents: false
 </aside>
 <span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_RTGS_account?" aria-hidden="true"></span><h2 id="are-there-any-limits-for-me-to-be-aware-of-when-using-my-rtgs-account"> Are there any limits for me to be aware of when using my RTGS account? </h2>
 <p>Minimum amount per transaction is Rs.200,000.</p>
-<p>Maximum of 1,000,000 INR can be sent per day.</p>
+<p>RBI specifies a 200,000 INR RTGS minimum and no system-wide maximum. Your bank can impose channel/account limits, so verify the daily allowance rather than assuming a universal 1,000,000 INR cap.</p>
 <span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_RTGS_account?" aria-hidden="true"></span><h2 id="are-there-any-fees-for-me-to-be-aware-of-when-using-my-rtgs-account"> Are there any fees for me to be aware of when using my RTGS account? </h2>
 <p>RTGS fees are low. Banks charge different amounts but fees are generally between 25-50 rupees.</p>
 <span class="wiki-legacy-anchor" id="How_does_dispute_resolution_when_trading_with_RTGS?" aria-hidden="true"></span><h2 id="how-does-dispute-resolution-when-trading-with-rtgs"> How does dispute resolution when trading with RTGS? </h2>
