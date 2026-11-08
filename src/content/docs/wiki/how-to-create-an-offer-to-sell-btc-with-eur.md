@@ -15,7 +15,7 @@ tableOfContents: false
 <p>6. Click on <strong>PLACE OFFER TO SELL BITCOIN</strong>.</p>
 <p>7. Your offer will now become visible for anyone on Bisq to take. Wait for someone to take your offer. Remember to keep Bisq running and online for your offer to be available.</p>
 <p>8. When your offer is taken you will be notified. Wait for a blockchain confirmation for the trade contract to be confirmed.</p>
-<p>9. Wait for the buyer to make the fiat payment. Confirm that you have received your EUR.</p>
+<p>9. Wait for the buyer to make the fiat payment. Check your own bank/payment-provider account for the EUR receipt, amount and matching sender details. A screenshot or payment-started notification is not proof; resolve mismatches through mediation before confirming.</p>
 <p>10. Confirm payment received and release BTC to buyer.</p>
 <ul>
 <li>For more short guides see <a href="../howto/">Howto</a>. You can also find support on <strong><a href="https://bisq.chat" rel="noopener noreferrer">Matrix</a></strong>.</li>
