@@ -48,7 +48,7 @@ tableOfContents: false
 <p>Users of Bisq Easy can sell bitcoin for fiat or altcoins with no fees and no security deposits.</p>
 <p>Sellers of Bisq Easy will however have to build up their <a href="../reputation/">reputation</a> in order to get buyers.</p>
 <span class="wiki-legacy-anchor" id="How_to_buy_bitcoin_on_Bisq_Easy" aria-hidden="true"></span><h2 id="how-to-buy-bitcoin-on-bisq-easy"> How to buy bitcoin on Bisq Easy </h2>
-<p>Buying Bitcoin with Bisq Easy is recommended for small fiat amounts, or as a starting point if you still have no Bitcoin that you can use for the security deposits of other trade protocols.</p>
+<p>Buying Bitcoin with Bisq Easy is recommended for small fiat amounts, or as a starting point if you still have no Bitcoin that you can use for the security deposits of other trade protocols. Before accepting an offer, prepare a receiving wallet you control and protect its recovery information separately from Bisq 2 application data.</p>
 <p>You can opt for two ways to find a trading partner to get some Bitcoin: taking an existing offer or creating one.</p>
 <span class="wiki-legacy-anchor" id="Creating_an_offer" aria-hidden="true"></span><h3 id="creating-an-offer"> Creating an offer </h3>
 <p>Creating an offer is a great way to establish your own terms and simply wait for someone to match what you are after. It is also the right option if you don't find any offers with the right premium or payment methods in the market you want to trade in. Follow along to learn how to navigate to your preferred market and create a new offer in it:</p>
@@ -109,16 +109,16 @@ tableOfContents: false
 <li>Once the traders have agreed on the trade terms (e.g. payment method and trade price) the trade starts.</li>
 <li>The seller transmits the payment account details to the buyer (e.g. bank account number). The buyer sends the BTC address to the seller.</li>
 <li>The buyer starts the Fiat payment to the seller's account and sends the seller a message that the payment is in transit.</li>
-<li>Once the seller has received the Fiat payment they send the Bitcoin to the buyer's address.</li>
+<li>The seller checks actual payment receipt in their own bank or payment-provider account before sending Bitcoin to the buyer's address. A buyer's message or screenshot alone is not that receipt check.</li>
 <li>After the buyer receives the Bitcoin the trade is completed.</li>
 </ul>
 <span class="wiki-legacy-anchor" id="Trade_Rules" aria-hidden="true"></span><h2 id="trade-rules"> Trade Rules </h2>
 <p>Bisq Easy trading rules are as follows:</p>
 <ul>
 <li>Before the payment details are exchanged the trade can be canceled by any party without justification.</li>
-<li>After the payment details are exchanged, not fulfilling the trade obligations is considered a breach of the trade contract and can lead to getting banned from the network.</li>
+<li>After the payment details are exchanged, not fulfilling the trade obligations is considered a breach of the trade contract and can lead to getting banned from the network; the v2.1.15 rule makes an exception if the trade peer is unresponsive.</li>
 <li>When sending the Fiat, the buyer MUST leave the payment reason field blank, or, if that is not possible, fill it with their own name, and MUST NOT use any term related to 'Bitcoin', 'Bisq' or 'Trade'.</li>
-<li>If the trade cannot be completed instantly because the Fiat transfer takes longer, both traders have to be online at least once a day to follow up the trade process.</li>
+<li>If the trade cannot be completed instantly because the Fiat transfer takes longer, both traders have to be online at least once a day to follow up the trade process. The v2.1.15 rules also require replies within 24 hours and make the sender responsible for fees charged by the sender's bank.</li>
 <li>If there are any open questions or problems the traders can use the support chat, invite a mediator into their trade chat or get in touch with Bisq support team on the <a href="../matrix-bisq-chat/">Matrix channel</a>.</li>
 </ul>
 <span class="wiki-legacy-anchor" id="Chat_Rules" aria-hidden="true"></span><h2 id="chat-rules"> Chat Rules </h2>
@@ -146,7 +146,7 @@ tableOfContents: false
 <li>Choose a seller with a high reputation. The higher the reputation of the seller the better. Sellers need a minimum reputation score of 30,000, ideally you should be choosing to trade with someone higher than this. Look at the star system for guidance. It will be safer to trade with a 5 star rated seller than a 1 star rated seller.</li>
 <li>Send payment as soon as possible once you have the seller's account details.</li>
 <li>Only send payment to the account details provided by the Seller in the trade chat window. If the seller is trying to change the account they want you to send payment to, it would be better to cancel the trade and open a new trade with another seller.</li>
-<li>Place the trade ID from Bisq Easy in the payment reason.</li>
+<li>Leave the payment reason blank if possible; if the provider requires a value, use your own name. Never include Bisq or Bitcoin.</li>
 <li>Send the payment from the same account you share the information with in trader chat. For example if you are having problems with the payment do not send payment from your partners, business, friends etc account. Instead try and resolve the issue so you can send payment from the correct account and failing that open mediation to get additional support.</li>
 <li>Keep the trade chat limited to using Bisq 2. Do not communicate with the seller via WhatsApp, Matrix etc as it will make mediation much harder if there is an issue.</li>
 <li>Avoid trading off platform with any Bisq sellers.</li>
