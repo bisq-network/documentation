@@ -16,7 +16,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="Duties" aria-hidden="true"></span><h2 id="duties"> Duties </h2>
 <ul>
 <li>Examine every Github proposal, verify that the taker and maker fee address are mentioned in the issue. then move to "ready" <a href="https://github.com/bisq-network/support/projects/1" rel="noopener noreferrer">Lost fee reimbursements</a></li>
-<li>Ensure reimbursement request was submitted within 3 months of the trade completing as per the accepted proposal <a href="https://github.com/bisq-network/proposals/issues/369" rel="noopener noreferrer">here</a></li>
+<li>Ensure reimbursement request was submitted within 3 months of the latest of trade completion, trade failure, the proposed mediation summary or the received arbitration summary as per the accepted proposal <a href="https://github.com/bisq-network/proposals/issues/369" rel="noopener noreferrer">here</a></li>
 <li>When starting to process an individual issue, move it to "In progress". Then open the terminal.</li>
 <li>Make a clone of the support repository.</li>
 <li>Enter ./helpers/automate.sh</li>
