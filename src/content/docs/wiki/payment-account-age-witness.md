@@ -24,7 +24,7 @@ tableOfContents: false
 <p>This mechanism is only relevant for fiat payment accounts, because with altcoins, there is no chargeback risk.</p>
 <p>We posit that a 60-day-old payment account should be safe (it seems highly unlikely that a stolen bank account will not get discovered for such a long time). <strong>This is the core premise of account aging</strong>: from the time a user sets up a payment account in Bisq, until 60 days later, Bisq limits the size of trades handled by that payment account.</p>
 <p>Cheating this mechanism would be difficult because a scammer cannot know a stolen account's information before stealing the account.</p>
-<p>Consequently, we use following trade limits:</p>
+<p>The original 2017 design used the following account-age schedule. In Bisq 1 v1.10.11, the current implementation instead applies signing-age restrictions to BTC buying with risk-sensitive methods; crypto trades, selling and methods outside that classification use the applicable method maximum:</p>
 <ul>
 <li>Account age is 0-30 days: 25% of the payment method's maximum (e.g. 0.125 BTC if maximum is 0.5 BTC)</li>
 <li>Account age is 30-60 days: 50% of the payment method's maximum (e.g. 0.25 BTC if maximum is 0.5 BTC)</li>
