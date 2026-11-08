@@ -19,7 +19,7 @@ tableOfContents: false
 </ul>
 <p>Bisq 2 offers users the flexibility to select the optimal protocol aligning with their requirements and preferences.</p>
 <p>All trade protocols will be able to be accessed from the Bisq 2 application independently. Users will be able to switch between trade protocols for different trades should they wish.</p>
-<p>As of now, Bisq Easy stands as the sole implemented protocol, tailored for novice Bitcoin users and suitable for smaller trade amounts.</p>
+<p>In the standard Bisq 2 v2.1.15 configuration, Bisq Easy is the available trading workflow for novice users and smaller amounts. MuSig implementation code exists, but activation requires developer mode.</p>
 <span class="wiki-legacy-anchor" id="Bisq_Easy" aria-hidden="true"></span><h2 id="bisq-easy"> Bisq Easy </h2>
 <p>Bisq Easy will be the first trade protocol for Bisq 2. It will be accessible on the launch of Bisq 2. It is an easy to use chat based trade protocol for buying and selling bitcoin for fiat. The security is based on reputation of the sellers.</p>
 <p>See here for more information about <a href="../bisq-easy/">Bisq Easy</a>.</p>

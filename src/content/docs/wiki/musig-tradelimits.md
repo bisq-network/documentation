@@ -7,7 +7,7 @@ tableOfContents: false
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#why-are-trade-limits-necessary">Why are trade limits necessary?</a></li><li><a href="#fiat-trades-bitcoin-buyers">Fiat trades – Bitcoin buyers</a></li><li><a href="#fiat-trades-bitcoin-sellers">Fiat trades – Bitcoin sellers</a></li><li><a href="#cryptocurrency-trades">Cryptocurrency trades</a></li><li><a href="#how-are-trade-limits-applied">How are trade limits applied?</a></li><li><a href="#trade-rate-limit">Trade rate limit</a></li><li><a href="#trade-limit-calculator">Trade limit calculator</a></li></ul></details></nav>
 
 <div class="wiki-recovered-article" lang="en"><span class="wiki-legacy-anchor" id="Why_are_trade_limits_necessary?" aria-hidden="true"></span><h2 id="why-are-trade-limits-necessary"> Why are trade limits necessary? </h2>
-<p>Most fiat payment methods carry a risk of bank chargebacks. To reduce this risk, Bisq applies both trade amount limits and trade rate limits to Bitcoin buyers, since buyers are the ones who could initiate a chargeback.</p>
+<p>This article describes MuSig design and implementation limits, not Bisq Easy. In Bisq 2 v2.1.15, MuSig activation requires developer mode. Most fiat payment methods carry a risk of bank chargebacks. To reduce this risk, Bisq applies both trade amount limits and trade rate limits to Bitcoin buyers, since buyers are the ones who could initiate a chargeback.</p>
 <span class="wiki-legacy-anchor" id="Fiat_trades_–_Bitcoin_buyers" aria-hidden="true"></span><h3 id="fiat-trades-bitcoin-buyers"> Fiat trades – Bitcoin buyers </h3>
 <p>Trade limits depend on:</p>
 <ul>
