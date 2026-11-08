@@ -59,7 +59,7 @@ Henrik Jannsen (public key id <code class="wiki-source-code" id="source-code-10"
 <p><span id="verify-the-signature-of-the-binary-you-downloaded"></span></p>
 <span class="wiki-legacy-anchor" id="Verify_the_signature_of_the_binary_you_downloaded" aria-hidden="true"></span><h4 id="verify-the-signature-of-the-binary-you-downloaded-2"> Verify the signature of the binary you downloaded </h4>
 <p>With the <code class="wiki-source-code" id="source-code-14">install-file.exe</code> and <code class="wiki-source-code" id="source-code-15">signature-file.exe.asc</code> in the same directory, double-click on the <code class="wiki-source-code" id="source-code-16">.exe.asc</code> file.</p>
-<p>You should see a Kleopatra window pop up with a green progress bar that says “Verified .exe with .exe.asc”. The program will continue to say “The data could not be verified” in bold but you can disregard that message.</p>
+<p>You should see a Kleopatra window pop up with a green progress bar that says “Verified .exe with .exe.asc”. Do not disregard an unresolved verification error. Proceed only when the detached signature is valid and its full signer fingerprint matches the expected release key; an uncertified-key warning is different from a bad or unchecked signature.</p>
 <p>This means the installer file we downloaded is intact and as intended. You can proceed to install Bisq by double-clicking the .exe file.</p>
 <p><span id="mac-and-linux"></span></p>
 <span class="wiki-legacy-anchor" id="Mac_and_Linux" aria-hidden="true"></span><h3 id="mac-and-linux-2"> Mac and Linux </h3>
@@ -67,7 +67,7 @@ Henrik Jannsen (public key id <code class="wiki-source-code" id="source-code-10"
 <span class="wiki-legacy-anchor" id="Import_Signing_Keys_2" aria-hidden="true"></span><h4 id="import-signing-keys-2"> Import Signing Keys </h4>
 <p>To import the signing keys for Alejandro García and Henrik Jannsen, open a terminal and run:</p>
 <pre><code class="wiki-source-code" id="source-code-17">gpg --receive-keys 0xF806F422E222AA02 0x02AA2BAE387C8307</code></pre>
-<p>Next you need to verify key’s fingerprint and tell GPG to trust the key. For example, to verify Alejandro's key, run:</p>
+<p>Next you need to verify key’s fingerprint against the expected release signer. For example, to verify Alejandro's key, run:</p>
 <pre><code class="wiki-source-code" id="source-code-18">gpg --edit-key 0xF806F422E222AA02</code></pre>
 <p>Then type:</p>
 <pre><code class="wiki-source-code" id="source-code-19">fpr</code></pre>
@@ -75,32 +75,14 @@ Henrik Jannsen (public key id <code class="wiki-source-code" id="source-code-10"
 <pre><code class="wiki-source-code" id="source-code-20">gpg&gt; fpr
 pub   rsa4096/0xF806F422E222AA02 2022-09-28 Alejandro García &lt;alejandro.garcia@disroot.org&gt;
  Primary key fingerprint: B493 3191 06CC 3D1F 252E  19CB F806 F422 E222 AA02</code></pre>
-<p>If the fingerprint matches you can trust the key. To trust the key type:</p>
-<pre><code class="wiki-source-code" id="source-code-21">trust</code></pre>
-<p>Now you’ll see following output:</p>
-<pre><code class="wiki-source-code" id="source-code-22">gpg&gt; trust
-pub  rsa4096/0xF806F422E222AA02
-      created: 2022-09-28  expires: 2026-10-03  usage: SC  &#10;      trust: unknown        validity: unknown
-sub  rsa4096/0xE7F08D07C72561D0
-      created: 2022-09-28  expires: 2026-10-03  usage: E   &#10;[ unknown] (1). Alejandro García &lt;alejandro.garcia@disroot.org&gt;
-&#10;Please decide how far you trust this user to correctly verify other users' keys
-(by looking at passports, checking fingerprints from different sources, etc.)
-&#10;  1 = I don't know or won't say
-  2 = I do NOT trust
-  3 = I trust marginally
-  4 = I trust fully
-  5 = I trust ultimately
-  m = back to the main menu
-&#10;Your decision?</code></pre>
-<p>Type <code class="wiki-source-code" id="source-code-23">5</code> to trust to the key and you’ll see following output:</p>
-<pre><code class="wiki-source-code" id="source-code-24">Do you really want to set this key to ultimate trust? (y/N) </code></pre>
-<p>Now type <code class="wiki-source-code" id="source-code-25">y</code> to confirm. Now you can quit by typing <code class="wiki-source-code" id="source-code-26">quit</code>.</p>
+<span id="source-code-21" aria-hidden="true"></span><span id="source-code-22" aria-hidden="true"></span><span id="source-code-23" aria-hidden="true"></span><span id="source-code-24" aria-hidden="true"></span><span id="source-code-25" aria-hidden="true"></span><span id="source-code-26" aria-hidden="true"></span><p>Compare the full fingerprint with the key published for the release through a trusted source. Do not assign ultimate ownertrust merely to silence a verification warning; type <code>quit</code> to leave the key editor, then verify the installer signature below.</p>
 <p><span id="verify-the-signature-of-the-binary-you-downloaded-1"></span></p>
 <span class="wiki-legacy-anchor" id="Verify_the_signature_of_the_binary_you_downloaded_2" aria-hidden="true"></span><h4 id="verify-the-signature-of-the-binary-you-downloaded-3"> Verify the signature of the binary you downloaded </h4>
 <p>With the installer file and installer signature file in the same directory, run:</p>
 <pre><code class="wiki-source-code" id="source-code-27">gpg --verify INSTALLER.asc INSTALLER</code></pre>
 <p>Where <code class="wiki-source-code" id="source-code-28">INSTALLER.asc</code> is the filename of the <code class="wiki-source-code" id="source-code-29">.asc</code> file you just downloaded.</p>
 <p>You should see an output similar to this:</p>
+<p>The example below includes a local trust setting from its author's keyring. Your result need not say <code>[ultimate]</code>; require a valid signature and the expected full fingerprint instead.</p>
 <pre><code class="wiki-source-code" id="source-code-30">gpg: Signature made Fri 22 Nov 2024 07:42:50 PM UTC
 gpg:                 using RSA key B493319106CC3D1F252E19CBF806F422E222AA02
 gpg: checking the trustdb
