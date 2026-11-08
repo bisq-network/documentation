@@ -1,0 +1,1221 @@
+{
+  "description": "Proposed task-based navigation for bisq-docs. Titles and routes are unchanged; only group labels and placement are new. Generated from the approved prototype on 2026-11-08. Needs maintainer review before merge.",
+  "groups": [
+    {
+      "id": "start",
+      "label": "Get started",
+      "blurb": "Products, installation and first steps",
+      "count": 10,
+      "articles": [
+        {
+          "title": "Bisq 1",
+          "route": "/wiki/bisq-1/"
+        },
+        {
+          "title": "Bisq 2",
+          "route": "/wiki/bisq-2/"
+        },
+        {
+          "title": "Bisq Easy",
+          "route": "/wiki/bisq-easy/"
+        },
+        {
+          "title": "Downloading and installing",
+          "route": "/wiki/downloading-and-installing/"
+        },
+        {
+          "title": "Frequently asked questions",
+          "route": "/wiki/frequently-asked-questions/"
+        },
+        {
+          "title": "Getting your first BTC",
+          "route": "/wiki/getting-your-first-btc/"
+        },
+        {
+          "title": "Glossary",
+          "route": "/wiki/glossary/"
+        },
+        {
+          "title": "Introduction",
+          "route": "/wiki/introduction/"
+        },
+        {
+          "title": "Trading rules",
+          "route": "/wiki/trading-rules/"
+        },
+        {
+          "title": "Updating Bisq",
+          "route": "/wiki/updating-bisq/"
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "label": "Trading",
+      "blurb": "Offers, fees, deposits and reputation",
+      "count": 29,
+      "articles": [
+        {
+          "title": "Atomic swap",
+          "route": "/wiki/atomic-swap/"
+        },
+        {
+          "title": "Bisq Price Indices",
+          "route": "/wiki/bisq-price-indices/"
+        },
+        {
+          "title": "Bitcoin holidays",
+          "route": "/wiki/bitcoin-holidays/"
+        },
+        {
+          "title": "Bitcoin units",
+          "route": "/wiki/bitcoin-units/"
+        },
+        {
+          "title": "Cloning an offer",
+          "route": "/wiki/cloning-an-offer/"
+        },
+        {
+          "title": "Deposit transaction",
+          "route": "/wiki/deposit-transaction/"
+        },
+        {
+          "title": "How do I send fiat to Bisq",
+          "route": "/wiki/how-do-i-send-fiat-to-bisq/"
+        },
+        {
+          "title": "How to be a market maker on Bisq",
+          "route": "/wiki/how-to-be-a-market-maker-on-bisq/"
+        },
+        {
+          "title": "How to buy BTC on Bisq with CAD",
+          "route": "/wiki/how-to-buy-btc-on-bisq-with-cad/"
+        },
+        {
+          "title": "How to buy BTC on Bisq with EUR",
+          "route": "/wiki/how-to-buy-btc-on-bisq-with-eur/"
+        },
+        {
+          "title": "How to buy USDT on Bisq",
+          "route": "/wiki/how-to-buy-usdt-on-bisq/"
+        },
+        {
+          "title": "How to create an offer to buy BTC with EUR",
+          "route": "/wiki/how-to-create-an-offer-to-buy-btc-with-eur/"
+        },
+        {
+          "title": "How to create an offer to sell BTC with EUR",
+          "route": "/wiki/how-to-create-an-offer-to-sell-btc-with-eur/"
+        },
+        {
+          "title": "How to do arbitrage on Bisq",
+          "route": "/wiki/how-to-do-arbitrage-on-bisq/"
+        },
+        {
+          "title": "How to do remittance on Bisq",
+          "route": "/wiki/how-to-do-remittance-on-bisq/"
+        },
+        {
+          "title": "Identity",
+          "route": "/wiki/identity/"
+        },
+        {
+          "title": "Local reputation",
+          "route": "/wiki/local-reputation/"
+        },
+        {
+          "title": "Mining fees",
+          "route": "/wiki/mining-fees/"
+        },
+        {
+          "title": "MuSig-tradelimits",
+          "route": "/wiki/musig-tradelimits/"
+        },
+        {
+          "title": "Reputation",
+          "route": "/wiki/reputation/"
+        },
+        {
+          "title": "Reputation2",
+          "route": "/wiki/reputation2/"
+        },
+        {
+          "title": "Security deposit",
+          "route": "/wiki/security-deposit/"
+        },
+        {
+          "title": "Taking an offer",
+          "route": "/wiki/taking-an-offer/"
+        },
+        {
+          "title": "Trade Protocols",
+          "route": "/wiki/trade-protocols/"
+        },
+        {
+          "title": "Trading GRIN",
+          "route": "/wiki/trading-grin/"
+        },
+        {
+          "title": "Trading L-BTC",
+          "route": "/wiki/trading-l-btc/"
+        },
+        {
+          "title": "Trading Monero",
+          "route": "/wiki/trading-monero/"
+        },
+        {
+          "title": "Trading costs",
+          "route": "/wiki/trading-costs/"
+        },
+        {
+          "title": "Trading fees",
+          "route": "/wiki/trading-fees/"
+        }
+      ]
+    },
+    {
+      "id": "payments",
+      "label": "Payment methods",
+      "blurb": "Payment accounts, limits and method guides",
+      "count": 45,
+      "subgroups": [
+        {
+          "label": "Overview and limits",
+          "articles": [
+            {
+              "title": "Account limits",
+              "route": "/wiki/account-limits/"
+            },
+            {
+              "title": "Creating a payment account",
+              "route": "/wiki/creating-a-payment-account/"
+            },
+            {
+              "title": "Issues with fiat payments",
+              "route": "/wiki/issues-with-fiat-payments/"
+            },
+            {
+              "title": "Payment account age witness",
+              "route": "/wiki/payment-account-age-witness/"
+            },
+            {
+              "title": "Payment methods",
+              "route": "/wiki/payment-methods/"
+            },
+            {
+              "title": "Payment methods/en",
+              "route": "/wiki/payment-methods-en/"
+            },
+            {
+              "title": "Payment methods/es",
+              "route": "/wiki/payment-methods-es/"
+            },
+            {
+              "title": "Set up a Revolut payment account",
+              "route": "/wiki/set-up-a-revolut-payment-account/"
+            },
+            {
+              "title": "Set up a SEPA payment account",
+              "route": "/wiki/set-up-a-sepa-payment-account/"
+            }
+          ]
+        },
+        {
+          "label": "Methods A to Z",
+          "articles": [
+            {
+              "title": "ACH Transfer",
+              "route": "/wiki/ach-transfer/"
+            },
+            {
+              "title": "Altcoins",
+              "route": "/wiki/altcoins/"
+            },
+            {
+              "title": "Altcoins Instant",
+              "route": "/wiki/altcoins-instant/"
+            },
+            {
+              "title": "Amazon eGift card",
+              "route": "/wiki/amazon-egift-card/"
+            },
+            {
+              "title": "Bizum",
+              "route": "/wiki/bizum/"
+            },
+            {
+              "title": "Capitual",
+              "route": "/wiki/capitual/"
+            },
+            {
+              "title": "Cash by mail",
+              "route": "/wiki/cash-by-mail/"
+            },
+            {
+              "title": "CelPay",
+              "route": "/wiki/celpay/"
+            },
+            {
+              "title": "Domestic Wire Transfer",
+              "route": "/wiki/domestic-wire-transfer/"
+            },
+            {
+              "title": "Face-to-face (payment method)",
+              "route": "/wiki/face-to-face-payment-method/"
+            },
+            {
+              "title": "Faster Payments",
+              "route": "/wiki/faster-payments/"
+            },
+            {
+              "title": "Faster Payments System SBP",
+              "route": "/wiki/faster-payments-system-sbp/"
+            },
+            {
+              "title": "IMPS",
+              "route": "/wiki/imps/"
+            },
+            {
+              "title": "Monese",
+              "route": "/wiki/monese/"
+            },
+            {
+              "title": "NEFT",
+              "route": "/wiki/neft/"
+            },
+            {
+              "title": "Nequi",
+              "route": "/wiki/nequi/"
+            },
+            {
+              "title": "Paxum",
+              "route": "/wiki/paxum/"
+            },
+            {
+              "title": "PayTM",
+              "route": "/wiki/paytm/"
+            },
+            {
+              "title": "Paysera",
+              "route": "/wiki/paysera/"
+            },
+            {
+              "title": "Pix",
+              "route": "/wiki/pix/"
+            },
+            {
+              "title": "RTGS",
+              "route": "/wiki/rtgs/"
+            },
+            {
+              "title": "Revolut",
+              "route": "/wiki/revolut/"
+            },
+            {
+              "title": "SEPA",
+              "route": "/wiki/sepa-p551/"
+            },
+            {
+              "title": "SEPA Instant",
+              "route": "/wiki/sepa-instant/"
+            },
+            {
+              "title": "SWIFT",
+              "route": "/wiki/swift/"
+            },
+            {
+              "title": "Satispay",
+              "route": "/wiki/satispay/"
+            },
+            {
+              "title": "Sepa",
+              "route": "/wiki/sepa-p550/"
+            },
+            {
+              "title": "Skrill",
+              "route": "/wiki/skrill/"
+            },
+            {
+              "title": "Strike",
+              "route": "/wiki/strike/"
+            },
+            {
+              "title": "Tikkie",
+              "route": "/wiki/tikkie/"
+            },
+            {
+              "title": "UPI",
+              "route": "/wiki/upi/"
+            },
+            {
+              "title": "US Postal Money Order",
+              "route": "/wiki/us-postal-money-order/"
+            },
+            {
+              "title": "Verse",
+              "route": "/wiki/verse/"
+            },
+            {
+              "title": "Wise",
+              "route": "/wiki/wise/"
+            },
+            {
+              "title": "Wise-USD",
+              "route": "/wiki/wise-usd/"
+            },
+            {
+              "title": "Zelle",
+              "route": "/wiki/zelle/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wallet",
+      "label": "Wallet, backup and recovery",
+      "blurb": "Seeds, data directories and restores",
+      "count": 22,
+      "articles": [
+        {
+          "title": "Automatic backup",
+          "route": "/wiki/automatic-backup/"
+        },
+        {
+          "title": "Automatic backup script",
+          "route": "/wiki/automatic-backup-script/"
+        },
+        {
+          "title": "Backing up application data",
+          "route": "/wiki/backing-up-application-data/"
+        },
+        {
+          "title": "Backing up your wallet seed",
+          "route": "/wiki/backing-up-your-wallet-seed/"
+        },
+        {
+          "title": "Backup",
+          "route": "/wiki/backup/"
+        },
+        {
+          "title": "Bisq 2 Wallet",
+          "route": "/wiki/bisq-2-wallet/"
+        },
+        {
+          "title": "Changing your onion address",
+          "route": "/wiki/changing-your-onion-address/"
+        },
+        {
+          "title": "Create a new wallet for your data directory",
+          "route": "/wiki/create-a-new-wallet-for-your-data-directory/"
+        },
+        {
+          "title": "Data directory",
+          "route": "/wiki/data-directory/"
+        },
+        {
+          "title": "Dumping delayed payout transactions",
+          "route": "/wiki/dumping-delayed-payout-transactions/"
+        },
+        {
+          "title": "Emergency wallet",
+          "route": "/wiki/emergency-wallet/"
+        },
+        {
+          "title": "Encrypting your wallet",
+          "route": "/wiki/encrypting-your-wallet/"
+        },
+        {
+          "title": "Funding your wallet",
+          "route": "/wiki/funding-your-wallet/"
+        },
+        {
+          "title": "How to back up your Bisq wallet seed",
+          "route": "/wiki/how-to-back-up-your-bisq-wallet-seed/"
+        },
+        {
+          "title": "Import Bisq wallet as watch only wallet in Sparrow",
+          "route": "/wiki/import-bisq-wallet-as-watch-only-wallet-in-sparrow/"
+        },
+        {
+          "title": "Last resort restore",
+          "route": "/wiki/last-resort-restore/"
+        },
+        {
+          "title": "Restoring application data",
+          "route": "/wiki/restoring-application-data/"
+        },
+        {
+          "title": "Restoring your wallet from seed",
+          "route": "/wiki/restoring-your-wallet-from-seed/"
+        },
+        {
+          "title": "Resyncing SPV file",
+          "route": "/wiki/resyncing-spv-file/"
+        },
+        {
+          "title": "Switching to a new data directory",
+          "route": "/wiki/switching-to-a-new-data-directory/"
+        },
+        {
+          "title": "Wallet",
+          "route": "/wiki/wallet/"
+        },
+        {
+          "title": "Watch keys",
+          "route": "/wiki/watch-keys/"
+        }
+      ]
+    },
+    {
+      "id": "disputes",
+      "label": "Disputes and support",
+      "blurb": "Mediation, arbitration and reimbursements",
+      "count": 14,
+      "articles": [
+        {
+          "title": "Arbitration",
+          "route": "/wiki/arbitration/"
+        },
+        {
+          "title": "Arbitrator",
+          "route": "/wiki/arbitrator/"
+        },
+        {
+          "title": "Dispute Resolution in Bisq 1",
+          "route": "/wiki/dispute-resolution-in-bisq-1/"
+        },
+        {
+          "title": "Dispute Resolution in Bisq 2",
+          "route": "/wiki/dispute-resolution-in-bisq-2/"
+        },
+        {
+          "title": "Failed Trades - Reimbursement of Trade Fees and Miner Fees",
+          "route": "/wiki/failed-trades-reimbursement-of-trade-fees-and-miner-fees/"
+        },
+        {
+          "title": "Finding your arbitrator",
+          "route": "/wiki/finding-your-arbitrator/"
+        },
+        {
+          "title": "Finding your mediator",
+          "route": "/wiki/finding-your-mediator/"
+        },
+        {
+          "title": "Making a reimbursement request",
+          "route": "/wiki/making-a-reimbursement-request/"
+        },
+        {
+          "title": "Manual payout",
+          "route": "/wiki/manual-payout/"
+        },
+        {
+          "title": "Matrix bisq.chat",
+          "route": "/wiki/matrix-bisq-chat/"
+        },
+        {
+          "title": "Mediation",
+          "route": "/wiki/mediation/"
+        },
+        {
+          "title": "Mediator",
+          "route": "/wiki/mediator/"
+        },
+        {
+          "title": "Table of penalties",
+          "route": "/wiki/table-of-penalties/"
+        },
+        {
+          "title": "User support",
+          "route": "/wiki/user-support/"
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "label": "Troubleshooting",
+      "blurb": "Errors, stuck transactions and performance",
+      "count": 13,
+      "articles": [
+        {
+          "title": "BuyerVerifiesPreparedDelayedPayoutTx Exception error",
+          "route": "/wiki/buyerverifiesprepareddelayedpayouttx-exception-error/"
+        },
+        {
+          "title": "Critical bugs",
+          "route": "/wiki/critical-bugs/"
+        },
+        {
+          "title": "Delayed payout transaction pending in mempool and CPFP",
+          "route": "/wiki/delayed-payout-transaction-pending-in-mempool-and-cpfp/"
+        },
+        {
+          "title": "Deposit transaction pending in mempool and CPFP",
+          "route": "/wiki/deposit-transaction-pending-in-mempool-and-cpfp/"
+        },
+        {
+          "title": "Fix Arch release",
+          "route": "/wiki/fix-arch-release/"
+        },
+        {
+          "title": "Linux memory arenas",
+          "route": "/wiki/linux-memory-arenas/"
+        },
+        {
+          "title": "Performance Tips",
+          "route": "/wiki/performance-tips/"
+        },
+        {
+          "title": "Reducing memory usage",
+          "route": "/wiki/reducing-memory-usage/"
+        },
+        {
+          "title": "Running on HiDPI screen",
+          "route": "/wiki/running-on-hidpi-screen/"
+        },
+        {
+          "title": "Trade payout address reuse issue",
+          "route": "/wiki/trade-payout-address-reuse-issue/"
+        },
+        {
+          "title": "Troubleshooting",
+          "route": "/wiki/troubleshooting/"
+        },
+        {
+          "title": "Troubleshooting network issues",
+          "route": "/wiki/troubleshooting-network-issues/"
+        },
+        {
+          "title": "Troubleshooting wallet issues",
+          "route": "/wiki/troubleshooting-wallet-issues/"
+        }
+      ]
+    },
+    {
+      "id": "setup",
+      "label": "Advanced setup",
+      "blurb": "Nodes, Tails, Qubes, command line and mobile",
+      "count": 13,
+      "articles": [
+        {
+          "title": "Bisq 2 mobile applications",
+          "route": "/wiki/bisq-2-mobile-applications/"
+        },
+        {
+          "title": "Command line options",
+          "route": "/wiki/command-line-options/"
+        },
+        {
+          "title": "Connecting to your own Bitcoin node",
+          "route": "/wiki/connecting-to-your-own-bitcoin-node/"
+        },
+        {
+          "title": "Installing your own Bitcoin node",
+          "route": "/wiki/installing-your-own-bitcoin-node/"
+        },
+        {
+          "title": "Manually select seednodes",
+          "route": "/wiki/manually-select-seednodes/"
+        },
+        {
+          "title": "Mobile notifications",
+          "route": "/wiki/mobile-notifications/"
+        },
+        {
+          "title": "Network status indicator",
+          "route": "/wiki/network-status-indicator/"
+        },
+        {
+          "title": "Remote control via web browser using xpra",
+          "route": "/wiki/remote-control-via-web-browser-using-xpra/"
+        },
+        {
+          "title": "Running Bisq in China",
+          "route": "/wiki/running-bisq-in-china/"
+        },
+        {
+          "title": "Running Bisq on Linux using VNC",
+          "route": "/wiki/running-bisq-on-linux-using-vnc/"
+        },
+        {
+          "title": "Running Bisq on Qubes",
+          "route": "/wiki/running-bisq-on-qubes/"
+        },
+        {
+          "title": "Running Bisq on Tails",
+          "route": "/wiki/running-bisq-on-tails/"
+        },
+        {
+          "title": "Running from the command line",
+          "route": "/wiki/running-from-the-command-line/"
+        }
+      ]
+    },
+    {
+      "id": "dao",
+      "label": "DAO and BSQ",
+      "blurb": "BSQ, governance and compensation",
+      "count": 20,
+      "articles": [
+        {
+          "title": "BSQ",
+          "route": "/wiki/bsq/"
+        },
+        {
+          "title": "BSQ swaps",
+          "route": "/wiki/bsq-swaps/"
+        },
+        {
+          "title": "Burning Men",
+          "route": "/wiki/burning-men/"
+        },
+        {
+          "title": "Compensation",
+          "route": "/wiki/compensation/"
+        },
+        {
+          "title": "Contributor checklist",
+          "route": "/wiki/contributor-checklist/"
+        },
+        {
+          "title": "DAO technical overview",
+          "route": "/wiki/dao-technical-overview/"
+        },
+        {
+          "title": "DAO user reference",
+          "route": "/wiki/dao-user-reference/"
+        },
+        {
+          "title": "Decentralized autonomous organization",
+          "route": "/wiki/decentralized-autonomous-organization/"
+        },
+        {
+          "title": "How to buy BSQ on Bisq",
+          "route": "/wiki/how-to-buy-bsq-on-bisq/"
+        },
+        {
+          "title": "How to run pricenode",
+          "route": "/wiki/how-to-run-pricenode/"
+        },
+        {
+          "title": "How to sell BSQ on Bisq",
+          "route": "/wiki/how-to-sell-bsq-on-bisq/"
+        },
+        {
+          "title": "Introduction to the DAO",
+          "route": "/wiki/introduction-to-the-dao/"
+        },
+        {
+          "title": "Making a compensation request",
+          "route": "/wiki/making-a-compensation-request/"
+        },
+        {
+          "title": "Participating in a DAO voting cycle",
+          "route": "/wiki/participating-in-a-dao-voting-cycle/"
+        },
+        {
+          "title": "Paying trading fees with BSQ",
+          "route": "/wiki/paying-trading-fees-with-bsq/"
+        },
+        {
+          "title": "Proposals",
+          "route": "/wiki/proposals/"
+        },
+        {
+          "title": "Roles",
+          "route": "/wiki/roles/"
+        },
+        {
+          "title": "Stakeholder",
+          "route": "/wiki/stakeholder/"
+        },
+        {
+          "title": "Trading BSQ",
+          "route": "/wiki/trading-bsq/"
+        },
+        {
+          "title": "Updating BSQ trading fees",
+          "route": "/wiki/updating-bsq-trading-fees/"
+        }
+      ]
+    },
+    {
+      "id": "contribute",
+      "label": "Contributing",
+      "blurb": "Roles, teams and project processes",
+      "count": 34,
+      "articles": [
+        {
+          "title": "Bisq 2 Roles",
+          "route": "/wiki/bisq-2-roles/"
+        },
+        {
+          "title": "Bisq Maintainer",
+          "route": "/wiki/bisq-maintainer/"
+        },
+        {
+          "title": "Community Manager",
+          "route": "/wiki/community-manager/"
+        },
+        {
+          "title": "Compensation Maintainer",
+          "route": "/wiki/compensation-maintainer/"
+        },
+        {
+          "title": "Contributor privacy and opsec",
+          "route": "/wiki/contributor-privacy-and-opsec/"
+        },
+        {
+          "title": "Dev Team",
+          "route": "/wiki/dev-team/"
+        },
+        {
+          "title": "Development process",
+          "route": "/wiki/development-process/"
+        },
+        {
+          "title": "Donation Address Owner",
+          "route": "/wiki/donation-address-owner/"
+        },
+        {
+          "title": "Events calendar",
+          "route": "/wiki/events-calendar/"
+        },
+        {
+          "title": "Fee Reimbursement Agent",
+          "route": "/wiki/fee-reimbursement-agent/"
+        },
+        {
+          "title": "Growth Team",
+          "route": "/wiki/growth-team/"
+        },
+        {
+          "title": "How to run seednode",
+          "route": "/wiki/how-to-run-seednode/"
+        },
+        {
+          "title": "Mempool Explorer Operator",
+          "route": "/wiki/mempool-explorer-operator/"
+        },
+        {
+          "title": "Monero Explorer Operator",
+          "route": "/wiki/monero-explorer-operator/"
+        },
+        {
+          "title": "Ops Team",
+          "route": "/wiki/ops-team/"
+        },
+        {
+          "title": "Payment Method Maintainer",
+          "route": "/wiki/payment-method-maintainer/"
+        },
+        {
+          "title": "Pricenode",
+          "route": "/wiki/pricenode/"
+        },
+        {
+          "title": "Pricenode Operator",
+          "route": "/wiki/pricenode-operator/"
+        },
+        {
+          "title": "Project management",
+          "route": "/wiki/project-management/"
+        },
+        {
+          "title": "Proposals Maintainer",
+          "route": "/wiki/proposals-maintainer/"
+        },
+        {
+          "title": "Roles Maintainer",
+          "route": "/wiki/roles-maintainer/"
+        },
+        {
+          "title": "Security Team",
+          "route": "/wiki/security-team/"
+        },
+        {
+          "title": "Security Team Lead",
+          "route": "/wiki/security-team-lead/"
+        },
+        {
+          "title": "Standup",
+          "route": "/wiki/standup/"
+        },
+        {
+          "title": "Support Agent",
+          "route": "/wiki/support-agent/"
+        },
+        {
+          "title": "Support Agent Knowledge Base",
+          "route": "/wiki/support-agent-knowledge-base/"
+        },
+        {
+          "title": "Support Team",
+          "route": "/wiki/support-team/"
+        },
+        {
+          "title": "Support Team Lead",
+          "route": "/wiki/support-team-lead/"
+        },
+        {
+          "title": "Teams",
+          "route": "/wiki/teams/"
+        },
+        {
+          "title": "Templates as macros",
+          "route": "/wiki/templates-as-macros/"
+        },
+        {
+          "title": "Translation",
+          "route": "/wiki/translation/"
+        },
+        {
+          "title": "Wiki Operator",
+          "route": "/wiki/wiki-operator/"
+        },
+        {
+          "title": "Wiki style guidelines",
+          "route": "/wiki/wiki-style-guidelines/"
+        },
+        {
+          "title": "YouTube Admin",
+          "route": "/wiki/youtube-admin/"
+        }
+      ]
+    },
+    {
+      "id": "reference",
+      "label": "Reference",
+      "blurb": "Background articles and wiki history",
+      "count": 9,
+      "articles": [
+        {
+          "title": "Bisqpro",
+          "route": "/wiki/bisqpro/"
+        },
+        {
+          "title": "CBDC",
+          "route": "/wiki/cbdc/"
+        },
+        {
+          "title": "Data Privacy",
+          "route": "/wiki/data-privacy/"
+        },
+        {
+          "title": "FOSS",
+          "route": "/wiki/foss/"
+        },
+        {
+          "title": "Fiat",
+          "route": "/wiki/fiat/"
+        },
+        {
+          "title": "Howto",
+          "route": "/wiki/howto/"
+        },
+        {
+          "title": "Main Page",
+          "route": "/wiki/main-page/"
+        },
+        {
+          "title": "Phase zero",
+          "route": "/wiki/phase-zero/"
+        },
+        {
+          "title": "Ubiquitous law enforcement",
+          "route": "/wiki/ubiquitous-law-enforcement/"
+        }
+      ]
+    }
+  ],
+  "productEvidence": {
+    "rules": [
+      "Title matches /Bisq ?1\\b/ -> Bisq 1; /Bisq ?2\\b|Bisq Easy|MuSig/ -> Bisq 2 (basis: title)",
+      "Any section heading matches the same patterns (basis: section)",
+      "migration/taxonomy.json topics include bisq-1 / bisq-2 (basis: group)",
+      "Never use articles.json product_hint (downloader heuristic, marked unverified)"
+    ],
+    "articles": {
+      "ach-transfer": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "automatic-backup-script": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "section"
+        }
+      ],
+      "backup": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "group"
+        }
+      ],
+      "bisq-1": [
+        {
+          "product": "Bisq 1",
+          "basis": "title"
+        }
+      ],
+      "bisq-2": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "title"
+        }
+      ],
+      "bisq-2-roles": [
+        {
+          "product": "Bisq 2",
+          "basis": "title"
+        }
+      ],
+      "bisq-2-wallet": [
+        {
+          "product": "Bisq 2",
+          "basis": "title"
+        }
+      ],
+      "bisq-2-mobile-applications": [
+        {
+          "product": "Bisq 2",
+          "basis": "title"
+        }
+      ],
+      "bisq-easy": [
+        {
+          "product": "Bisq 2",
+          "basis": "title"
+        }
+      ],
+      "bizum": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "capitual": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "celpay": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "cloning-an-offer": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "dispute-resolution-in-bisq-1": [
+        {
+          "product": "Bisq 1",
+          "basis": "title"
+        }
+      ],
+      "dispute-resolution-in-bisq-2": [
+        {
+          "product": "Bisq 2",
+          "basis": "title"
+        }
+      ],
+      "domestic-wire-transfer": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "downloading-and-installing": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "section"
+        }
+      ],
+      "finding-your-arbitrator": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        }
+      ],
+      "finding-your-mediator": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "section"
+        }
+      ],
+      "frequently-asked-questions": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "group"
+        }
+      ],
+      "imps": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "identity": [
+        {
+          "product": "Bisq 2",
+          "basis": "section"
+        }
+      ],
+      "main-page": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "section"
+        }
+      ],
+      "monese": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "musig-tradelimits": [
+        {
+          "product": "Bisq 2",
+          "basis": "title"
+        }
+      ],
+      "neft": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "nequi": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "paytm": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "payment-methods": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "rtgs": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "reputation": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "section"
+        }
+      ],
+      "reputation2": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "group"
+        }
+      ],
+      "running-bisq-in-china": [
+        {
+          "product": "Bisq 1",
+          "basis": "section"
+        },
+        {
+          "product": "Bisq 2",
+          "basis": "section"
+        }
+      ],
+      "satispay": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "strike": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "tikkie": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "trade-protocols": [
+        {
+          "product": "Bisq 2",
+          "basis": "section"
+        }
+      ],
+      "upi": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "wise-usd": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ],
+      "zelle": [
+        {
+          "product": "Bisq 1",
+          "basis": "group"
+        }
+      ]
+    }
+  }
+}
