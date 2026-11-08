@@ -12,8 +12,8 @@ tableOfContents: false
 <p>4. Review offer details including amount, price. Then click on <strong>TAKE OFFER TO BUY BTC</strong>.</p>
 <p>5. Click on <strong>CONFIRM TAKE OFFER</strong>.</p>
 <p>6. BSQ/BTC swap is now complete. Wait for blockchain confirmation.</p>
-<p>7. Check that you have received BSQ in your wallet.</p>
-<p>BSQ/BTC swaps are <strong>Atomic Swaps</strong>. This means that they are either completed or not. They cannot be stuck or incomplete. They have no counterparty risk and require no <strong>trusted third party</strong> to be involved.</p>
+<p>7. Check that you have received BTC in your wallet.</p>
+<p>BSQ/BTC swaps are <strong>Atomic Swaps</strong>. Both assets are exchanged in the same Bitcoin transaction, so one side cannot settle on its own. Broadcasting can fail and confirmation can be delayed; wait for the transaction's confirmation and check the received asset. The exchange does not require a trusted third party.</p>
 <ul>
 <li>For more short guides see <a href="../howto/">Howto</a>. You can also find support on <strong><a href="https://bisq.chat" rel="noopener noreferrer">Matrix</a></strong>.</li>
 </ul>
