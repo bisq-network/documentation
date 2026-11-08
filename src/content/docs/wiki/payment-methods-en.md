@@ -18,7 +18,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="Fiat_payment_methods" aria-hidden="true"></span><h2 id="fiat-payment-methods"> Fiat payment methods </h2>
 <p>The payment methods vary in chargeback risk, regional availability, transaction size, fees, privacy, verifiability, and other characteristics. The top consideration for maintaining payment methods is chargeback risk. PayPal, Venmo, and Cash App are not supported on Bisq because chargebacks for payments made with those services are relatively easy.</p>
 <p>We welcome suggestions for new payment methods on Bisq, especially for those that enable new markets. Documentation on the criteria and process for adding new payment methods is <a href="https://github.com/bisq-network/bisq-docs/issues/172" rel="noopener noreferrer">forthcoming</a>. For now, feel free to make suggestions by reaching out on <a href="https://keybase.io/team/bisq" rel="noopener noreferrer">Keybase</a>.</p>
-<p>Below is a list of fiat payment methods Bisq currently supports.</p>
+<p>Below is a list of fiat payment methods Bisq currently supports. The BTC amounts in this source table are historical reference figures, not a universal allowance for a current account. Bisq 1 v1.10.11 calculates method and account limits from protocol/DAO parameters and clamps its maximum at 0.25 BTC; confirm the amount shown by the client.</p>
 <p><em>Note: The maximum trade sizes listed below are not available for most newly-created payment accounts. Please refer to <a href="https://bisq.wiki/Account_signing" rel="noopener noreferrer">Account signing</a> for details on how to enable larger trade sizes for your payment accounts.</em></p>
 <table>
 <thead>
