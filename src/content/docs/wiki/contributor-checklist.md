@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en"><p>If you're interested in contributing to Bisq, ​welcome! This <strong>contributor checklist</strong> will get you plugged in and productive as quickly as possible.</p>
 <p>Bisq is free and open source software, but contributing is not just about writing code. A contributor is any individual who works to improve and add value to the Bisq network and its users.</p>
-<p>This can mean anything from fixing typos in documentation, to providing support, to testing out new growth strategies, to implementing new Bisq features and everything in between. All such contributions are eligible for <a href="../compensation/">compensation</a> from the Bisq DAO.</p>
+<p>This can mean anything from fixing typos in documentation, to providing support, to testing out new growth strategies, to implementing new Bisq features and everything in between. Contributors may request <a href="../compensation/">compensation</a> from the Bisq DAO, subject to review and DAO approval. A 4 November 2026 Bisq update announced a temporary pause on accepting new contributors for compensated development and on routinely reviewing their pull requests; new contributors should discuss priorities, review capacity and available funding with maintainers before investing substantial time.</p>
 <span class="wiki-legacy-anchor" id="Basics" aria-hidden="true"></span><h2 id="basics"> Basics </h2>
 <p>Suggestions below are in no particular order. Disregard developer-oriented items if you're not looking to contribute code.</p>
 <ol>
