@@ -6,7 +6,7 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#what-is-a-wallet">What is a wallet?</a></li><li><a href="#the-bisq-wallet">The Bisq Wallet</a></li><li><a href="#understanding-the-bisq-wallet">Understanding the Bisq Wallet</a></li><li><a href="#spv-file">SPV file</a></li><li><a href="#important">Important</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>As many other apps in the Bitcoin space, Bisq has a wallet embedded in it. It is not required in order to use Bisq, but it makes trading easier. This article explains the differences between the Bisq wallet and a generic wallet and answers a few common wallet-related questions.</p>
+<div class="wiki-recovered-article" lang="en"><p>As many other apps in the Bitcoin space, Bisq has a wallet embedded in it. Prefunding it is optional: you can fund a trade from an external wallet, but Bisq still uses its embedded wallet and trade keys, which must be backed up. This article explains the differences between the Bisq wallet and a generic wallet and answers a few common wallet-related questions.</p>
 <p>See <a href="../backing-up-your-wallet-seed/">backing up your wallet seed</a> if you haven't already backed up your Bisq wallet.</p>
 <span class="wiki-legacy-anchor" id="What_is_a_wallet?" aria-hidden="true"></span><h2 id="what-is-a-wallet">What is a wallet?</h2>
 <p>In simple words a wallet is a piece of software that helps you manage private keys, public keys, and thus generate addresses, generate and sign transactions and keep track of the funds that belong to the private keys mentioned above by scanning the blockchain.</p>
