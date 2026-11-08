@@ -3,7 +3,7 @@ title: "Contributing"
 description: "Roles, teams and project processes"
 ---
 
-Roles, teams and project processes. **34 articles.**
+Roles, teams and project processes. **35 articles.**
 
 - [Bisq 2 Roles](../../wiki/bisq-2-roles/)
 - [Bisq Maintainer](../../wiki/bisq-maintainer/)
@@ -39,5 +39,6 @@ Roles, teams and project processes. **34 articles.**
 - [Wiki Operator](../../wiki/wiki-operator/)
 - [Wiki style guidelines](../../wiki/wiki-style-guidelines/)
 - [YouTube Admin](../../wiki/youtube-admin/)
+- [Bitcointalk Moderator](../../wiki/bitcointalk-moderator/)
 
 [Browse all articles](../all/)

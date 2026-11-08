@@ -10,12 +10,12 @@ Find articles by topic or name, or use the [complete title index](all/).
 - [Get started](start/) (10): Products, installation and first steps
 - [Trading](trade/) (29): Offers, fees, deposits and reputation
 - [Payment methods](payments/) (45): Payment accounts, limits and method guides
-- [Wallet, backup and recovery](wallet/) (22): Seeds, data directories and restores
+- [Wallet, backup and recovery](wallet/) (23): Seeds, data directories and restores
 - [Disputes and support](disputes/) (14): Mediation, arbitration and reimbursements
 - [Troubleshooting](troubleshooting/) (13): Errors, stuck transactions and performance
-- [Advanced setup](setup/) (13): Nodes, Tails, Qubes, command line and mobile
+- [Advanced setup](setup/) (14): Nodes, Tails, Qubes, command line and mobile
 - [DAO and BSQ](dao/) (20): BSQ, governance and compensation
-- [Contributing](contribute/) (34): Roles, teams and project processes
+- [Contributing](contribute/) (35): Roles, teams and project processes
 - [Reference](reference/) (9): Background articles and wiki history
 
 ## Saved wiki links

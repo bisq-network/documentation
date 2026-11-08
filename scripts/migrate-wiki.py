@@ -27,15 +27,15 @@ SITE = ROOT / "site"
 PANDOC = MIG / "bin/pandoc"
 TOKEN = "BISQMIGTOKEN"
 RAW = [
-    json.loads(x) for x in (ROOT / "recovery/raw-pages.jsonl").read_text().splitlines()
+    json.loads(x) for x in (ROOT / "recovery/raw-pages.jsonl").read_text(encoding="utf-8").splitlines()
 ]
-META = json.loads((MIG / "articles.json").read_text())["items"]
+META = json.loads((MIG / "articles.json").read_text(encoding="utf-8"))["items"]
 BY_TITLE = {x["title"]: x for x in META}
-MEDIA = json.loads((ROOT / "image-recovery/recovered-manifest.json").read_text())[
+MEDIA = json.loads((ROOT / "image-recovery/recovered-manifest.json").read_text(encoding="utf-8"))[
     "items"
 ]
 MEDIA = {x["canonical_filename"]: x for x in MEDIA}
-MAPPING = json.loads((SITE / "public/media/wiki/mapping.json").read_text())["files"]
+MAPPING = json.loads((SITE / "public/media/wiki/mapping.json").read_text(encoding="utf-8"))["files"]
 ASSETS = {x["sha256"]: x["file"] for x in MAPPING}
 LITERAL_TAGS = {"code", "pre", "nowiki", "syntaxhighlight", "source"}
 CONTAINER_TAGS = {
@@ -273,14 +273,16 @@ class Article:
         return "\n\n" + key + "\n\n" if block else key
 
     def render(self, prepared, inline=False, allow_failure=False):
+        """Run Pandoc and restore protected tokens, recording conversion failures."""
         result = subprocess.run(
             [str(PANDOC), "--from=mediawiki", "--to=html5", "--wrap=none"],
             input=prepared,
             text=True,
+            encoding="utf-8",
             capture_output=True,
         )
         if result.returncode:
-            (MIG / "pandoc-failure.mediawiki").write_text(prepared)
+            (MIG / "pandoc-failure.mediawiki").write_text(prepared, encoding="utf-8")
             (MIG / "pandoc-failure.json").write_text(
                 json.dumps(
                     {
@@ -289,7 +291,8 @@ class Article:
                         "code": result.returncode,
                     },
                     indent=2,
-                )
+                ),
+                encoding="utf-8",
             )
             if allow_failure:
                 self.gap(
@@ -873,6 +876,7 @@ class Article:
         return note + str(soup) + raw
 
     def convert(self):
+        """Write one sanitized source article and its hash-checked source metadata."""
         body = self.render(self.prepare(CODES[self.row["title"]]))
         body = CLEANER.clean(body)
         body = self.adapt_legacy_portal(body)
@@ -941,7 +945,7 @@ class Article:
         )
         output = SITE / "src/content/docs/wiki" / (m["slug"] + ".md")
         output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(content)
+        output.write_text(content, encoding="utf-8")
         source = SITE / "public/wiki-source"
         source.mkdir(parents=True, exist_ok=True)
         data = r["wikitext"].encode()
@@ -971,7 +975,7 @@ class Article:
             }
         )
         (source / (m["slug"] + ".json")).write_text(
-            json.dumps(meta, indent=2, ensure_ascii=False) + "\n"
+            json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
         )
         m.update(
             {
@@ -1006,6 +1010,7 @@ class Article:
 
 
 def main():
+    """Convert the fixed recovery snapshot and write its evidence inventories."""
     assert len(RAW) == len(META) == 209 and all(TOKEN not in r["wikitext"] for r in RAW)
     results = []
     for i, (row, meta) in enumerate(zip(RAW, META), 1):
@@ -1019,11 +1024,12 @@ def main():
                 indent=2,
                 ensure_ascii=False,
             )
-            + "\n"
+            + "\n",
+            encoding="utf-8",
         )
         html_dir = MIG / "rendered-html"
         html_dir.mkdir(exist_ok=True)
-        (html_dir / (meta["slug"] + ".html")).write_text(result["rendered_html"])
+        (html_dir / (meta["slug"] + ".html")).write_text(result["rendered_html"], encoding="utf-8")
         if i % 25 == 0:
             print(f"Converted {i}/209 articles", flush=True)
     for name in ["articles.json", "title-route-map.json"]:
@@ -1033,7 +1039,8 @@ def main():
                 indent=2,
                 ensure_ascii=False,
             )
-            + "\n"
+            + "\n",
+            encoding="utf-8",
         )
     occurrences = [
         dict(page_id=r["page_id"], title=r["title"], route=r["route"], **image)
@@ -1046,7 +1053,8 @@ def main():
             indent=2,
             ensure_ascii=False,
         )
-        + "\n"
+        + "\n",
+        encoding="utf-8",
     )
     report = {
         "article_count": len(results),
@@ -1065,12 +1073,12 @@ def main():
         "all_source_hashes_verified": True,
         "all_local_images_hash_verified": True,
         "pandoc_version": subprocess.check_output(
-            [str(PANDOC), "--version"], text=True
+            [str(PANDOC), "--version"], text=True, encoding="utf-8"
         ).splitlines()[0],
         "parser_version": mw.__version__,
         "scope": "Historical source conversion; reviewed guides unchanged; no publication or current-product validation",
     }
-    (MIG / "conversion-report.json").write_text(json.dumps(report, indent=2) + "\n")
+    (MIG / "conversion-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
 
 

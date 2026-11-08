@@ -15,7 +15,7 @@ export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = orig
     const input = value.trim();
     if (!input || input.length > 4096 || /[\\\u0000-\u001f\u007f]/.test(input)) return null;
     const isWikiHost = /^(?:www\.)?bisq\.wiki(?:\/|$)/i.test(input);
-    const hasScheme = /^[a-z][a-z\d+.-]*:/i.test(input);
+    const hasScheme = !/^Category:/i.test(input) && /^[a-z][a-z\d+.-]*:/i.test(input);
     if (input.startsWith("//") || (hasScheme && !/^https?:\/\//i.test(input))) return null;
     let url;
     try {

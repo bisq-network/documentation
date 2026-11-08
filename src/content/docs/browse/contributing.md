@@ -39,5 +39,6 @@ This topic is now listed under [Contributing](../contribute/).
 - [Wiki Operator](../../wiki/wiki-operator/)
 - [Wiki style guidelines](../../wiki/wiki-style-guidelines/)
 - [YouTube Admin](../../wiki/youtube-admin/)
+- [Bitcointalk Moderator](../../wiki/bitcointalk-moderator/)
 
 [Browse all articles](../all/)

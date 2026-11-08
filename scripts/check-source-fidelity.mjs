@@ -1,3 +1,4 @@
+import { verifyAdditionalArticles } from "./lib/additional-articles.mjs";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
@@ -148,7 +149,8 @@ async function verify(overrides = new Map()) {
   assert.equal(manifest.count, 209, "manifest must account for 209 source articles");
   assert.equal(manifest.items.length, 209, "manifest article count mismatch");
   assert.equal(new Set(manifest.items.map((item) => item.slug)).size, 209, "duplicate source slug");
-  const expectedFiles = manifest.items.map((item) => `src/content/docs/wiki/${item.slug}.md`).sort();
+  const additions = verifyAdditionalArticles();
+  const expectedFiles = [...manifest.items.map((item) => `src/content/docs/wiki/${item.slug}.md`), ...additions.map((item) => item.file)].sort();
   await check("src/content/docs/wiki", async () => assert.deepEqual(await filesBelow("src/content/docs/wiki"), expectedFiles, "missing or unexpected source article files"));
   const images = new Set();
   let imageOccurrences = 0;

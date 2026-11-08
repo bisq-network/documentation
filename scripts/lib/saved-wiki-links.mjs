@@ -1,4 +1,6 @@
-import { buildLegacyRoutes, normalizeFragment } from "./legacy-routes.mjs";
+import { recoveredCategoryRoutes } from "./recovered-categories.mjs";
+import { buildRecoveredAliasRoutes } from "./recovered-link-aliases.mjs";
+import { buildLegacyRoutes, buildPublicLegacyRoutes, normalizeFragment } from "./legacy-routes.mjs";
 import { loadEditedRouteAliases } from "./edited-route-aliases.mjs";
 
 /**
@@ -8,7 +10,7 @@ import { loadEditedRouteAliases } from "./edited-route-aliases.mjs";
  * the build. Only titles, routes and section metadata leave the build process.
  */
 export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
-    const legacy = buildLegacyRoutes(articles, headingsByRoute);
+    const legacy = buildPublicLegacyRoutes(articles, headingsByRoute);
     const edited = loadEditedRouteAliases(articles);
     const pages = Object.create(null);
     const routes = Object.create(null);
@@ -19,6 +21,7 @@ export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
             target: entry.target,
             fragments: entry.fragments,
             ...(entry.autoRedirect === false ? { autoRedirect: false } : {}),
+            ...(entry.strictFragments ? { strictFragments: true } : {}),
             ...(entry.choices?.length ? { choices: entry.choices } : {}),
             ...(entry.fragmentChoices?.length ? { fragmentChoices: entry.fragmentChoices } : {}),
         };
@@ -30,7 +33,7 @@ export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
         if (Object.hasOwn(routes, path)) throw new Error(`Duplicate saved-link path: ${path}`);
         routes[path] = interned.get(key);
     };
-    for (const entry of [...legacy, ...edited]) add(entry.path, entry);
+    for (const entry of [...legacy, ...buildRecoveredAliasRoutes(articles, legacy), ...edited, ...recoveredCategoryRoutes()]) add(entry.path, entry);
     for (const article of articles) {
         const sections = Object.create(null);
         for (const heading of article.headings || []) sections[heading.anchor] = heading.text;
@@ -52,6 +55,7 @@ export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
         }
         add(article.route.replace(/^\/+|\/+$/g, ""), { target: article.route, fragments });
     }
+    pages["/categories/teams/"] = { title: "Teams category", sections: {} };
     // Thousands of legacy fragments share destinations. Store each URL once.
     const targets = [];
     const targetIndex = new Map();

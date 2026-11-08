@@ -1,15 +1,16 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 import articles from "../migration/articles.json";
+import additional from "../migration/additional-articles.json";
 
 type TocItem = { depth: number; slug: string; text: string; children: TocItem[] };
-const originals = new Map(articles.items.map((article) => [`wiki/${article.slug}`, article]));
+const originals = new Map([...articles.items, ...additional.items].map((article) => [`wiki/${article.slug}`, article]));
 
 export const onRequest = defineRouteMiddleware(({ locals }) => {
   const route = locals.starlightRoute;
   const { entry } = route;
   const id = entry.id.replace(/\.(md|mdx)$/, "");
   // All originals remain searchable; directories and provenance would duplicate results.
-  if (id.startsWith("browse/") || ["browse", "recovered-media", "recovery-status", "review"].includes(id)) {
+  if (id.startsWith("browse/") || ["browse", "recovered-media", "recovery-status", "review", "categories/teams"].includes(id)) {
     entry.data.pagefind = false;
   }
   const article = originals.get(id);

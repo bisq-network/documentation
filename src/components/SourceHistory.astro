@@ -1,9 +1,15 @@
 ---
 import SavedWikiLink from "./SavedWikiLink.astro";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import Default from "@astrojs/starlight/components/MarkdownContent.astro";
 import { collectGuides, sections, loadIntegration } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import notes from "../../migration/source-review-notes.json";
+import { renderSectionRepairs } from "../../scripts/lib/section-repairs.mjs";
+import { renderArchivedTemplates } from "../../scripts/lib/archived-templates.mjs";
+import { renderSupplementalMedia } from "../../scripts/lib/supplemental-media.mjs";
+import { allRecoveredAliases, renderRecoveredLinks } from "../../scripts/lib/recovered-link-aliases.mjs";
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
 const route = id ? `/${id}/` : "/";
@@ -13,16 +19,26 @@ const needsReview = checks.filter((note) => note.status === "needs-maintainer-re
 const guide = article ? collectGuides().find((item) => item.slug === article.slug) : undefined;
 const topic = sections.find((section) => section.directory === guide?.directory)?.label;
 const products = article ? productEvidence(article) : [];
-const content = (await Astro.slots.render("default")).replace(
+const rawContent = (await Astro.slots.render("default")).replace(
   /<details\b([^>]*\bclass="[^"]*\bwiki-table-source\b[^"]*"[^>]*)>/g,
   (tag, attributes) => attributes.includes("data-pagefind-ignore") ? tag : `<details${attributes} data-pagefind-ignore>`,
 );
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const sourceText = article ? readFileSync(resolve(process.cwd(), `public${article.source_download}`), "utf8") : "";
+const links = article ? renderRecoveredLinks(rawContent, import.meta.env.BASE_URL, allRecoveredAliases(loadIntegration()), article.slug, sourceText) : { content: rawContent, unresolved: 0 };
+const sectionsRepaired = article ? renderSectionRepairs(links.content, article.slug) : { content: links.content, unresolved: 0 };
+const templates = article ? renderArchivedTemplates(sectionsRepaired.content, import.meta.env.BASE_URL, article.slug) : { content: links.content, restored: 0, unresolved: 0 };
+const updatedMedia = article ? renderSupplementalMedia(templates.content, article.image_occurrences || [], import.meta.env.BASE_URL) : { content: links.content, images: [] };
+const content = updatedMedia.content.replace(
+  "Missing introduction and reasons templates remain explicitly unresolved; no replacement prose has been invented.",
+  "The introduction and reasons sections are rendered from recovered historical templates."
+);
+const unresolvedSections = sectionsRepaired.unresolved;
 const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(value));
-const images = article?.image_occurrences || [];
+const images = updatedMedia.images;
 ---
 {article && checks.length > 0 && <aside class="source-context" data-pagefind-ignore aria-label="Migration notes">
-  <details class="source-checks">
+  <details class="source-checks" open={checks.some((note) => "display_priority" in note && note.display_priority === "prominent")}>
     <summary><strong>Migration notes ({checks.length})</strong>{needsReview > 0 && <span class="docs-chip review">{needsReview} needs maintainer review</span>}<span class="source-note-origin">Added during migration, not part of the original</span></summary>
     <p>These notes identify specific differences or review needs. They are not a review of the whole procedure.</p>
     {checks.map((note) => <section>
@@ -42,17 +58,17 @@ const images = article?.image_occurrences || [];
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>
-  <p>This article keeps its recovered wording, headings, step order and available images. Formatting and links are adapted for this site. The snapshot does not guarantee that every instruction is current.</p>
+  <p>This article keeps its recovered wording, headings, step order and available images. Formatting and links are adapted for this site. {article.recovery_note || "The snapshot does not guarantee that every instruction is current."}</p>
   <dl>
     <dt>Original page</dt><dd><a href={article.original_url}>{article.title}</a></dd>
     <dt>Revision</dt><dd><a href={article.original_revision_url}>{article.revision_id}</a> · {date(article.revision_timestamp)}</dd>
     <dt>Last recorded editor</dt><dd>{article.available_attribution?.username || "Not recorded"} <span class="source-note-origin">(not a complete author list)</span></dd>
-    <dt>Snapshot</dt><dd>18 October 2026</dd>
+    <dt>Snapshot</dt><dd>{article.snapshot_label || "18 October 2026"}</dd>
     <dt>Source files</dt><dd><a href={`${base}${article.source_download}`}>Original wikitext</a> · <a href={`${base}${article.source_metadata}`}>Revision metadata</a></dd>
     {images.length > 0 && <><dt>Image references</dt><dd>{images.filter((image) => image.asset_path).length} recovered, {images.filter((image) => !image.asset_path).length} missing{images.some((image) => image.status === "partial") && ` (${images.filter((image) => image.status === "partial").length} recovered as thumbnails or partial files)`} · <a href={`${base}/recovered-media/`}>Media catalogue</a></dd></>}
-    <dt>Recovery gaps</dt><dd>{article.template_gap_count || 0} unresolved templates · {article.link_gap_count || 0} unrecovered links</dd>
+    <dt>Recovery gaps</dt><dd>{templates.restored} restored historical template occurrences · {templates.unresolved} unresolved templates · {links.unresolved} unresolved article links · {unresolvedSections} unresolved sections</dd>
   </dl>
   <p><a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
 </section>}
-{article && <script type="application/json" id="article-media-data" set:html={JSON.stringify(article.image_occurrences.map((image) => ({ id: image.element_id, status: image.status, width: image.width, height: image.height }))).replace(/</g, "\\u003c")} />}
+{article && <script type="application/json" id="article-media-data" set:html={JSON.stringify(images.map((image) => ({ id: image.element_id, status: image.status, width: image.width, height: image.height }))).replace(/</g, "\\u003c")} />}
 <script src="../scripts/article-experience.ts"></script>
