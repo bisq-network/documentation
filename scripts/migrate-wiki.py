@@ -273,6 +273,7 @@ class Article:
         return "\n\n" + key + "\n\n" if block else key
 
     def render(self, prepared, inline=False, allow_failure=False):
+        """Run Pandoc and restore protected tokens, recording conversion failures."""
         result = subprocess.run(
             [str(PANDOC), "--from=mediawiki", "--to=html5", "--wrap=none"],
             input=prepared,
@@ -875,6 +876,7 @@ class Article:
         return note + str(soup) + raw
 
     def convert(self):
+        """Write one sanitized source article and its hash-checked source metadata."""
         body = self.render(self.prepare(CODES[self.row["title"]]))
         body = CLEANER.clean(body)
         body = self.adapt_legacy_portal(body)
@@ -1008,6 +1010,7 @@ class Article:
 
 
 def main():
+    """Convert the fixed recovery snapshot and write its evidence inventories."""
     assert len(RAW) == len(META) == 209 and all(TOKEN not in r["wikitext"] for r in RAW)
     results = []
     for i, (row, meta) in enumerate(zip(RAW, META), 1):
