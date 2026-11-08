@@ -7,6 +7,7 @@ tableOfContents: false
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#persistent-setting-and-windows-work-around">Persistent setting and Windows work-around</a></li></ul></details></nav>
 
 <div class="wiki-recovered-article" lang="en"><p>Bisq is known to be a resource-hungry application, so some users may want to <strong>reduce memory usage</strong>.</p>
+<p><code>-XX:MaxRAM</code> is an input to Java heap-sizing ergonomics, not a hard cap on the whole process's resident memory. Back up <code>Bisq.cfg</code> before editing; lowering memory settings can cause allocation failures, so restore the previous setting if startup or synchronization fails.</p>
 <span class="wiki-template-gap" role="note"><strong>[Unresolved template: Run_with_Java_options]</strong> <code>{{Run_with_Java_options|&lt;nowiki&gt;-XX:MaxRAM=4g&lt;/nowiki&gt;|Reduce Bisq's memory usage by setting a ceiling of 4GB}}</code></span>
 <span class="wiki-legacy-anchor" id="Persistent_setting_and_Windows_work-around" aria-hidden="true"></span><h2 id="persistent-setting-and-windows-work-around"> Persistent setting and Windows work-around </h2>
 <p>If you'd rather not specify the RAM parameter every time you start Bisq, you can specify it in <code class="wiki-source-code" id="source-code-2">Bisq.cfg</code> so it automatically takes effect every time.</p>
