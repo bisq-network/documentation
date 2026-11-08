@@ -1,9 +1,16 @@
 import { normalizeFragment, resolveLegacyDestination } from "../../scripts/lib/legacy-routes.mjs";
 
+/** Decode a URL component while retaining malformed escape sequences for lookup. */
 function decode(value) {
     try { return decodeURIComponent(value); } catch { return value; }
 }
 
+/**
+ * Normalize a pasted wiki address or same-site path without making a request.
+ * Accept only HTTP(S) wiki hosts and the configured local/canonical origins;
+ * reject credentials, control characters and unsupported schemes. Return null
+ * for invalid input, otherwise a lookup path, fragment and search suggestion.
+ */
 export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = origin }) {
     const input = value.trim();
     if (!input || input.length > 4096 || /[\\\u0000-\u001f\u007f]/.test(input)) return null;
@@ -30,6 +37,12 @@ export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = orig
     return { path, hash: url.hash, search: path.split("/").at(-1).replaceAll("_", " ").replaceAll("-", " ") };
 }
 
+/**
+ * Resolve a pasted address using the packed static map and the legacy resolver.
+ * Exact paths win; case-insensitive lookup is accepted only for one destination.
+ * Return a match, ambiguous source choices, an invalid input or a missing page,
+ * explicitly reporting lost fragments instead of claiming an exact match.
+ */
 export function resolveSavedWikiLink(value, map, options) {
     const parsed = parseSavedWikiLink(value, options);
     if (!parsed) return { kind: "invalid" };

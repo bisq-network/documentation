@@ -52,6 +52,11 @@ export function loadIntegration() {
   });
 }
 
+/**
+ * Join preserved article metadata to the approved task navigation, then sort by
+ * title. Reject missing placements or changed routes instead of silently hiding
+ * an article. Navigation order is retained separately for sidebar rendering.
+ */
 export function collectGuides() {
   const articles = loadIntegration();
   const guides = articles.map((article) => {

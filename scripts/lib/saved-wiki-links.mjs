@@ -1,7 +1,12 @@
 import { buildLegacyRoutes, normalizeFragment } from "./legacy-routes.mjs";
 import { loadEditedRouteAliases } from "./edited-route-aliases.mjs";
 
-// Build-time only. The browser receives no source prose, private data or filesystem code.
+/**
+ * Build the browser's versioned lookup from the existing legacy and edited-guide
+ * aliases. Preserve ambiguous choices, add canonical article paths, and intern
+ * repeated destinations to keep the static payload small. Duplicate paths fail
+ * the build. Only titles, routes and section metadata leave the build process.
+ */
 export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
     const legacy = buildLegacyRoutes(articles, headingsByRoute);
     const edited = loadEditedRouteAliases(articles);

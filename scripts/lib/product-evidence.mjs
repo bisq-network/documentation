@@ -6,7 +6,12 @@ const products = [
   { label: "Bisq 2", pattern: /Bisq ?2\b|Bisq Easy|MuSig/, topic: "bisq-2" },
 ];
 
-// These labels describe explicit source evidence, not a review of applicability.
+/**
+ * Return product labels with their first explicit source: title, headings, then
+ * migration taxonomy. Unverified product hints are deliberately excluded; an
+ * empty result means no product was named, not that the article applies to all.
+ * These labels do not certify the instructions' current applicability.
+ */
 export function productEvidence(article) {
   return products.flatMap(({ label, pattern, topic }) => {
     const basis = pattern.test(article.title) ? "Named in the article title"

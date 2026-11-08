@@ -1,6 +1,11 @@
 import { resolveSavedWikiLink } from "../lib/resolve-saved-wiki-link.mjs";
 
 let lookup;
+/**
+ * Lazily fetch and share the static lookup map between forms. The URL comes from
+ * server-rendered configuration, never pasted input. Clear failed requests so
+ * visitors can retry, and reject unexpected map versions before resolving links.
+ */
 function loadMap(url) {
     if (!lookup) {
         lookup = fetch(url, { credentials: "omit", referrerPolicy: "no-referrer" })
@@ -17,13 +22,17 @@ function loadMap(url) {
     return lookup;
 }
 
+/** Create an element with literal text so pasted input cannot become markup. */
 function node(tag, text) {
     const element = document.createElement(tag);
     element.textContent = text;
     return element;
 }
 
-// Resolve only to this preview's article paths; pasted input is never a fetch URL.
+/**
+ * Create a link only for a canonical article target within the site's base path.
+ * Return null for unexpected destinations instead of rendering a navigable URL.
+ */
 function articleLink(target, label, base) {
     if (!/^\/wiki\/[a-z0-9-]+\/(?:#[^\u0000-\u001f]*)?$/.test(target)) return null;
     const a = node("a", label);
@@ -31,6 +40,12 @@ function articleLink(target, label, base) {
     return a;
 }
 
+/**
+ * Enhance each saved-link form once, retaining the directory fallback without JS.
+ * Submit against the shared static map and render matches, choices or misses.
+ * A generation counter prevents a late response from replacing newer input;
+ * request failures leave the form available for another attempt.
+ */
 function initialize() {
     for (const form of document.querySelectorAll("[data-saved-wiki-link]")) {
         if (!(form instanceof HTMLFormElement) || form.dataset.ready) continue;
