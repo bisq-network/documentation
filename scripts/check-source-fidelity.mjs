@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = "migration/restoration-fidelity.json";
 const snapshotPath = "review/ai-edited/snapshot.json";
+const formattingPath = "migration/source-formatting.json";
 const hash = (value) => createHash("sha256").update(value).digest("hex");
 const escapeHtml = (value) => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
   .replaceAll("'", "&#x27;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
@@ -33,6 +34,16 @@ function articleBody(text) {
     if (depth === 0) return text.slice(start, start + match.index + match[0].length);
   }
   throw new Error("unclosed original article container");
+}
+
+function restoreRecordedFormatting(text, record) {
+  if (!record) return text;
+  assert.equal(hash(text), record.formatted_file_sha256, "formatted source file drift");
+  const body = articleBody(text);
+  assert.equal(body.split("\n").length - 1, record.decoded_newline_entities, "recorded line-break count changed");
+  const restored = text.replace(body, () => body.replaceAll("\n", "&#10;"));
+  assert.equal(hash(restored), record.original_file_sha256, "source formatting no longer reconstructs the original bytes");
+  return restored;
 }
 
 function normalizeRecordedAnchors(body, anchors) {
@@ -116,6 +127,16 @@ async function verify(overrides = new Map()) {
   };
   const manifest = JSON.parse((await read(manifestPath)).toString());
   const snapshot = JSON.parse((await read(snapshotPath)).toString());
+  const formatting = JSON.parse((await read(formattingPath)).toString());
+  assert.equal(formatting.schema_version, 1, "unsupported source-formatting schema");
+  const formattingBySlug = new Map(formatting.items.map((item) => [item.slug, item]));
+  assert.equal(formattingBySlug.size, formatting.items.length, "duplicate source-formatting record");
+  for (const record of formatting.items) {
+    const original = manifest.items.find((item) => item.slug === record.slug);
+    assert(original, "source-formatting record has no original article");
+    assert.equal(record.original_file_sha256, original.restored_file_sha256, "source-formatting baseline differs from the preserved original");
+    assert(Number.isSafeInteger(record.decoded_newline_entities) && record.decoded_newline_entities > 0, "invalid source-formatting line count");
+  }
   assert.equal(manifest.schema_version, 1, "unsupported fidelity manifest schema");
   assert.equal(manifest.count, 209, "manifest must account for 209 source articles");
   assert.equal(manifest.items.length, 209, "manifest article count mismatch");
@@ -130,7 +151,7 @@ async function verify(overrides = new Map()) {
     const path = `src/content/docs/wiki/${item.slug}.md`;
     await check(path, async () => {
       assert(/^[a-z0-9-]+$/.test(item.slug), "invalid source slug");
-      const text = (await read(path)).toString();
+      const text = restoreRecordedFormatting((await read(path)).toString(), formattingBySlug.get(item.slug));
       const front = text.match(/^---\n([\s\S]*?)\n---/);
       assert(front, "missing frontmatter");
       const title = front[1].match(/^title: (.+)$/m);
@@ -207,12 +228,16 @@ try {
       const rawPath = "public/wiki-source/last-resort-restore.wiki.txt";
       const snapshot = JSON.parse(await readFile(resolve(root, snapshotPath), "utf8"));
       const guidePath = `review/ai-edited/${Object.keys(snapshot.files).find((file) => file.startsWith("guides/"))}`;
+      const teamsPath = "src/content/docs/wiki/teams.md";
+      const teams = await readFile(resolve(root, teamsPath), "utf8");
       const mutations = [
         [path, text.replace('title: "Last resort restore"', 'title: "Different title"')],
         [path, text.replace("100% new instance", "90% new instance")],
         [path, text.replace('<div class="wiki-recovered-article" lang="en">', '<div class="wiki-recovered-article" lang="en"><span>unlisted content</span>')],
         [rawPath, `${await readFile(resolve(root, rawPath), "utf8")}\nchanged`],
         [guidePath, "changed immutable AI draft"],
+        [teamsPath, teams.replace("is responsable", "is responsible")],
+        [teamsPath, teams.replace("Bisq is a", "Bisq  is a")],
       ];
       for (const [file, content] of mutations) {
         const mutated = await verify(new Map([[file, content]]));
@@ -220,7 +245,7 @@ try {
       }
       assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("btc_mainnet/tor/hiddenservice", "hiddenservice")), /lost recovery safeguard/);
       assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("Copy all the above files", "Copy selected files")), /procedure reordered or missing/);
-      console.log("Seven negative regression checks passed; test mutations were in memory only.");
+      console.log("Nine negative regression checks passed; test mutations were in memory only.");
     }
   }
 } catch (error) {
