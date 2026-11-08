@@ -11,7 +11,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="Commands_to_dump_delayed_payout_transactions" aria-hidden="true"></span><h2 id="commands-to-dump-delayed-payout-transactions"> Commands to dump delayed payout transactions </h2>
 <span class="wiki-template-gap" role="note"><strong>[Unresolved template: Run_with_command_line_options]</strong> <code>{{Run_with_command_line_options|&lt;nowiki&gt;--dumpDelayedPayoutTxs=true&lt;/nowiki&gt;}}</code></span>
 <span class="wiki-legacy-anchor" id="Where_to_find_the_delayed_payout_files" aria-hidden="true"></span><h2 id="where-to-find-the-delayed-payout-files"> Where to find the delayed payout files </h2>
-<p>Shortly after running one of the commands above, you will find 3 newly-created files in your Bisq data directory:</p>
+<p>Shortly after running one of the commands above, you will find 3 newly-created files under <code>btc_mainnet/db</code> inside the selected Bisq data directory:</p>
 <ol>
 <li><code class="wiki-source-code" id="source-code-3">delayed_payout_txs_closed.json</code></li>
 <li><code class="wiki-source-code" id="source-code-4">delayed_payout_txs_pending.json</code></li>
