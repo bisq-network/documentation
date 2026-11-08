@@ -16,5 +16,5 @@ tableOfContents: false
 <div>
 </div>
 <span class="wiki-legacy-anchor" id="Restore_wallet_from_seed" aria-hidden="true"></span><h2 id="restore-wallet-from-seed"> Restore wallet from seed </h2>
-<p>If the emergency wallet tool produces a transaction that fails to broadcast (you can see that at <em>Funds &gt; Transactions</em>) you can import private keys to a <a href="../switching-to-a-new-data-directory/">new Bisq instance</a> at <em>Accounts &gt; Wallet Seed - Restore wallet from seed</em>. Importing seeds to an external wallet should be used only if this method fails, and is extremely recommended to report it to support.</p>
+<p>If the emergency wallet tool produces a transaction that fails to broadcast (you can see that at <em>Funds &gt; Transactions</em>) you can restore your seed words and wallet date to a <a href="../switching-to-a-new-data-directory/">new Bisq instance</a> at <em>Accounts &gt; Wallet Seed - Restore wallet from seed</em>. Importing seeds to an external wallet should be used only if this method fails, and is extremely recommended to report it to support.</p>
 </div>
