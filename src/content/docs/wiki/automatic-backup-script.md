@@ -12,6 +12,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="Common_requirements_and_backup_strategy" aria-hidden="true"></span><h2 id="common-requirements-and-backup-strategy"> Common requirements and backup strategy </h2>
 <p>All scripts require 7z compression (7-zip on Windows, p7zip-full on Linux, p7zip on MacOS).</p>
 <p>The provided code will backup all functional files in the data directory, leaving out non-unique files that the Bisq application will fetch/re-create autonomously, and compress them into a 7zip archive, keeping the number of last backups that you define, while deleting the oldest one(s) if the existing number of backups is higher.</p>
+<p><strong>Review before scheduling:</strong> these scripts use fixed file lists, so verify that they cover your installed release and test restoration into a separate directory. Copying live files is not a guaranteed consistent snapshot; prefer a copy made while Bisq is closed. The examples do not check every archive command for success before reporting completion or deleting old backups: disable rotation until creation and archive testing succeed, and keep a known-good independent copy. The Unix rotation starts at the Nth file, so it retains one fewer archive than <code>BACKUP_COUNT</code>; a corrected rotation must start at N+1 and still check archive success before deleting anything. Compression alone does not encrypt the backup, and <code>-spf</code> stores full paths, so inspect extraction paths before restoring.</p>
 <p>It is advised that you direct the backups to either an external drive, or a NAS, or an encrypted cloud storage.</p>
 <p>Depending on how bulletproof of a backup schedule you want, you can increase the number of backups to keep on disk to 10 or more (the size of each depends on the history of your instance, but it usually resides in a few tens of MB, often less) and the frequency the script runs with, for example every 1 or 2 hours.</p>
 <span class="wiki-legacy-anchor" id="Bisq1" aria-hidden="true"></span><h2 id="bisq1"> Bisq1 </h2>
@@ -206,7 +207,7 @@ nano bisq1backup
 <pre><code class="wiki-source-code" id="source-code-12">
 #!/bin/bash
 &#10;# ==== EDIT THE FOLLOWING ====
-SOURCE_DIR="/Users/YOURUSERNAME/Library/Application\ Support/Bisq/btc_mainnet"
+SOURCE_DIR="/Users/YOURUSERNAME/Library/Application Support/Bisq/btc_mainnet"
 TARGET_FOLDER="/Volumes/BACKUPS/BISQ1"
 BACKUP_COUNT=4
 # ============================
