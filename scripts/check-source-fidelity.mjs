@@ -39,9 +39,16 @@ function articleBody(text) {
 function restoreRecordedFormatting(text, record) {
   if (!record) return text;
   assert.equal(hash(text), record.formatted_file_sha256, "formatted source file drift");
-  const body = articleBody(text);
-  assert.equal(body.split("\n").length - 1, record.decoded_newline_entities, "recorded line-break count changed");
-  const restored = text.replace(body, () => body.replaceAll("\n", "&#10;"));
+  const offsets = record.decoded_newline_offsets;
+  assert(Array.isArray(offsets), "missing exact formatting offsets");
+  assert.equal(offsets.length, record.decoded_newline_entities, "recorded line-break count changed");
+  assert.deepEqual(offsets, [...new Set(offsets)].sort((a, b) => a - b), "formatting offsets must be unique and ordered");
+  let restored = text;
+  for (const offset of [...offsets].reverse()) {
+    assert(Number.isSafeInteger(offset) && offset >= 0 && offset < text.length, "invalid formatting offset");
+    assert.equal(restored[offset], "\n", "recorded line break moved");
+    restored = restored.slice(0, offset) + "&#10;" + restored.slice(offset + 1);
+  }
   assert.equal(hash(restored), record.original_file_sha256, "source formatting no longer reconstructs the original bytes");
   return restored;
 }
