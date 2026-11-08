@@ -7,10 +7,7 @@ tableOfContents: false
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#roles">Roles</a></li><li><a href="#infrastructure">Infrastructure</a></li><li><a href="#github">GitHub</a></li><li><a href="#team">Team</a></li><li><a href="#repositories">Repositories</a></li><li><a href="#chat">Chat</a></li></ul></details></nav>
 
 <div class="wiki-recovered-article" lang="en"><p>The <strong>Ops Team</strong> is responsible for operating Bisq infrastructure nodes and other Bisq services with high availability, in a decentralized and censorship-resistant manner, while respecting the privacy and freedom of all Bisq users.</p>
-<p>See the individual <a href="../ops-team/#roles"></a></p><ol><a href="../ops-team/#roles">
-<li>Roles</li>
-</a></ol><a href="../ops-team/#roles">
-</a> below for further details.<p></p>
+<p>See the individual <a href="../ops-team/#roles">Roles</a> below for further details.</p>
 <span class="wiki-legacy-anchor" id="Roles" aria-hidden="true"></span><h2 id="roles"> Roles </h2>
 <ul>
 <li><span class="wiki-link-gap">Bitcoin Node Operator <small>[unrecovered article: Bitcoin Node Operator]</small></span></li>

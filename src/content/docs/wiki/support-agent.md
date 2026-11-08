@@ -92,10 +92,7 @@ tableOfContents: false
 <li>Dedicate 10 hours per week to monitor various support channels and provide assistance.</li>
 <li>Be familiar with Bisq's current [knowledge base] documents.</li>
 </ul>
-<p>If you're interested in becoming a support agent, see the <a href="../support-agent/#internship"></a></p><ol><a href="../support-agent/#internship">
-<li>Internship</li>
-</a></ol><a href="../support-agent/#internship">
-</a> section below.<p></p>
+<p>If you're interested in becoming a support agent, see the <a href="../support-agent/#internship">Internship</a> section below.</p>
 <span class="wiki-legacy-anchor" id="Infrastructure" aria-hidden="true"></span><h2 id="infrastructure">Infrastructure</h2>
 <p>Includes all of <a href="../support-team/">Support Team#Infrastructure</a> <small class="wiki-link-gap">[section not recovered: Infrastructure]</small>, plus the following:</p>
 <span class="wiki-legacy-anchor" id="Calendar" aria-hidden="true"></span><h3 id="calendar"> Calendar </h3>
