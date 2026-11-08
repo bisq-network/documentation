@@ -38,7 +38,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 </>}
 <Default><Fragment set:html={content} /></Default>
 {article && (
-  <details class="source-history" data-pagefind-ignore>
+  <details id="docs-source-history" class="source-history" data-pagefind-ignore>
     <summary>Source history and attribution</summary>
     <p>This article retains its recovered wording, headings, step order and available images. Formatting and links have been adapted for this site. The snapshot is not a guarantee that every instruction is current.</p>
     <p><strong>{article.title}</strong>: <a href={`${base}${article.source_download}`}>original wikitext</a> · <a href={`${base}${article.source_metadata}`}>revision metadata</a>

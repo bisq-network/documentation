@@ -19,6 +19,7 @@ export default defineConfig({
       routeMiddleware: "./src/route-data.ts",
       components: {
         Banner: "./src/components/PreviewBanner.astro",
+        PageTitle: "./src/components/PageTitle.astro",
         MarkdownContent: "./src/components/SourceHistory.astro",
       },
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/hiciefte/bisq-docs" }],

@@ -35,12 +35,14 @@ if (article) {
   let toastTimeout: ReturnType<typeof setTimeout>;
   const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href ?? location.href;
 
-  const copyLink = async (heading: HTMLElement, title: string) => {
+  const copyLink = async (heading: HTMLElement | null, title: string, trigger: HTMLButtonElement) => {
     const url = new URL(canonical);
-    url.hash = heading.id;
-    const local = new URL(location.href);
-    local.hash = heading.id;
-    history.replaceState(history.state, "", local);
+    url.hash = heading?.id ?? "";
+    if (heading) {
+      const local = new URL(location.href);
+      local.hash = heading.id;
+      history.replaceState(history.state, "", local);
+    }
     clearTimeout(toastTimeout);
     toast.replaceChildren();
     toast.hidden = false;
@@ -65,13 +67,18 @@ if (article) {
       close.textContent = "Close";
       close.addEventListener("click", () => {
         toast.hidden = true;
-        heading.querySelector<HTMLButtonElement>(".h-anchor")?.focus();
+        trigger.focus();
       });
       toast.append(label, close);
       input.focus();
       input.select();
     }
   };
+
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-page]").forEach((button) => {
+    button.hidden = false;
+    button.addEventListener("click", () => { void copyLink(null, document.querySelector("h1")?.textContent ?? "article", button); });
+  });
 
   article.querySelectorAll<HTMLElement>("h2[id], h3[id], h4[id], h5[id]").forEach((heading) => {
     const title = heading.textContent?.trim() ?? "section";
@@ -81,7 +88,7 @@ if (article) {
     button.setAttribute("aria-label", `Copy link to section: ${title}`);
     button.setAttribute("data-pagefind-ignore", "");
     button.textContent = "#";
-    button.addEventListener("click", () => { void copyLink(heading, title); });
+    button.addEventListener("click", () => { void copyLink(heading, title, button); });
     heading.append(button);
   });
 }
