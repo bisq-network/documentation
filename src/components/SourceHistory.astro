@@ -47,4 +47,5 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <p>The last recorded editor is not a complete author list. <a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
   </details>
 )}
+{article && <script type="application/json" id="article-media-data" set:html={JSON.stringify(article.image_occurrences.map((image) => ({ id: image.element_id, status: image.status, width: image.width, height: image.height }))).replace(/</g, "\\u003c")} />}
 <script src="../scripts/article-experience.ts"></script>

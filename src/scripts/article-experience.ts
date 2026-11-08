@@ -92,3 +92,126 @@ if (article) {
     heading.append(button);
   });
 }
+
+if (article) {
+  article.querySelectorAll<HTMLTableElement>("table").forEach((table, index) => {
+    const wrap = document.createElement("div");
+    wrap.className = "table-wrap";
+    wrap.setAttribute("role", "region");
+    wrap.tabIndex = 0;
+    const headers = [...table.querySelectorAll("th")].slice(0, 3).map((cell) => cell.textContent?.trim()).filter(Boolean);
+    wrap.setAttribute("aria-label", `Table ${index + 1}${headers.length ? `: ${headers.join(", ")}` : ""}`);
+    table.replaceWith(wrap);
+    wrap.append(table);
+    const hint = document.createElement("p");
+    hint.className = "table-hint";
+    hint.setAttribute("data-pagefind-ignore", "");
+    hint.textContent = "Scroll the table sideways for more columns";
+    hint.hidden = true;
+    wrap.after(hint);
+    const updateHint = () => { hint.hidden = wrap.scrollWidth <= wrap.clientWidth + 1; };
+    new ResizeObserver(updateHint).observe(wrap);
+    updateHint();
+  });
+
+  article.querySelectorAll<HTMLPreElement>("pre").forEach((pre) => {
+    pre.tabIndex = 0;
+    pre.setAttribute("aria-label", "Code block");
+    if (pre.closest(".wiki-table-source")) return;
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    const bar = document.createElement("div");
+    bar.className = "code-bar";
+    bar.setAttribute("data-pagefind-ignore", "");
+    const label = document.createElement("span");
+    label.textContent = "Code";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Copy";
+    button.setAttribute("aria-label", "Copy code");
+    const status = document.createElement("span");
+    status.className = "sr-only";
+    status.setAttribute("role", "status");
+    bar.append(label, status, button);
+    pre.replaceWith(wrap);
+    wrap.append(bar, pre);
+    let timeout: ReturnType<typeof setTimeout>;
+    button.addEventListener("click", async () => {
+      clearTimeout(timeout);
+      try {
+        await navigator.clipboard.writeText(pre.textContent ?? "");
+        button.textContent = "Copied";
+        status.textContent = "Code copied";
+      } catch {
+        pre.focus();
+        const range = document.createRange();
+        range.selectNodeContents(pre);
+        const selection = window.getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+        status.textContent = "Code selected. Use your copy keyboard shortcut.";
+        button.textContent = "Selected";
+      }
+      timeout = setTimeout(() => { button.textContent = "Copy"; status.textContent = ""; }, 1500);
+    });
+  });
+
+  article.querySelectorAll<HTMLElement>(".wiki-admonition").forEach((note) => {
+    const label = note.querySelector("p:first-child > strong")?.textContent ?? "";
+    note.classList.add(/warning|caution|important/i.test(label) ? "adm-warning" : "adm-note");
+  });
+
+  type ImageRecord = { id: string; status?: string; width?: number; height?: number };
+  const metadata: ImageRecord[] = JSON.parse(document.getElementById("article-media-data")?.textContent || "[]");
+  let viewer: HTMLDialogElement | undefined;
+  const openImage = (link: HTMLAnchorElement, original: HTMLImageElement, figure: HTMLElement) => {
+    if (!viewer) {
+      viewer = document.createElement("dialog");
+      viewer.className = "image-viewer";
+      viewer.setAttribute("aria-labelledby", "docs-image-title");
+      viewer.innerHTML = `<div class="image-viewer-bar"><strong id="docs-image-title"></strong><button type="button" class="docs-button" data-image-size>Actual size</button><button type="button" class="docs-button" data-image-close>Close</button></div><div class="image-viewer-stage fit" tabindex="0" role="region" aria-label="Image"><img alt="" /></div><div class="image-viewer-footer"><p data-image-status></p><a class="docs-button" data-image-original target="_blank" rel="noopener">Open original file</a></div>`;
+      document.body.append(viewer);
+      viewer.querySelector<HTMLButtonElement>("[data-image-close]")?.addEventListener("click", () => viewer?.close());
+      viewer.querySelector<HTMLButtonElement>("[data-image-size]")?.addEventListener("click", (event) => {
+        const fit = viewer!.querySelector(".image-viewer-stage")!.classList.toggle("fit");
+        (event.currentTarget as HTMLButtonElement).textContent = fit ? "Actual size" : "Fit to window";
+      });
+      viewer.addEventListener("click", (event) => {
+        if (event.target !== viewer) return;
+        const bounds = viewer!.getBoundingClientRect();
+        if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) viewer?.close();
+      });
+    }
+    const record = metadata.find((item) => item.id === figure.id);
+    const image = viewer.querySelector<HTMLImageElement>("img")!;
+    viewer.querySelector("#docs-image-title")!.textContent = original.alt || "Recovered image";
+    image.alt = original.alt;
+    image.src = link.href;
+    viewer.querySelector<HTMLAnchorElement>("[data-image-original]")!.href = link.href;
+    viewer.querySelector(".image-viewer-stage")!.classList.add("fit");
+    viewer.querySelector("[data-image-size]")!.textContent = "Actual size";
+    const status = record?.status === "original" ? "Full-size recovered file" : "Recovered thumbnail or partial file";
+    const showDimensions = () => {
+      const width = record?.width || image.naturalWidth;
+      const height = record?.height || image.naturalHeight;
+      viewer!.querySelector("[data-image-status]")!.textContent = `${status}${width && height ? ` · ${width} × ${height} px` : ""} · Historical screenshot; current software may differ`;
+    };
+    image.onload = showDimensions;
+    showDimensions();
+    viewer.addEventListener("close", () => link.focus(), { once: true });
+    viewer.showModal();
+  };
+
+  article.querySelectorAll<HTMLElement>("figure.wiki-source-image").forEach((figure) => {
+    const link = figure.querySelector<HTMLAnchorElement>("a");
+    const image = link?.querySelector<HTMLImageElement>("img");
+    if (!link || !image) return;
+    link.classList.add("image-zoom");
+    link.setAttribute("aria-label", `Inspect image: ${image.alt || "figure"}`);
+    link.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault();
+      openImage(link, image, figure);
+    });
+  });
+}

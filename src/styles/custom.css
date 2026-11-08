@@ -286,3 +286,36 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 .docs-button:hover { background: var(--sl-color-bg-sidebar); border-color: var(--sl-color-gray-2); }
 .docs-button.ghost { background: transparent; border-color: transparent; color: var(--sl-color-gray-2); }
 .docs-button.ghost:hover { background: var(--sl-color-bg-sidebar); color: var(--sl-color-text); }
+
+/* Article furniture enhances the original server-rendered HTML in place. */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.table-wrap { max-width: 100%; margin-block: 1.4em; border: 1px solid var(--sl-color-hairline-light); border-radius: var(--bd-radius-md); overflow-x: auto; background: linear-gradient(to right, var(--sl-color-bg) 30%, transparent) left / 24px 100% no-repeat local, linear-gradient(to left, var(--sl-color-bg) 30%, transparent) right / 24px 100% no-repeat local, linear-gradient(to right, var(--sl-color-hairline), transparent) left / 10px 100% no-repeat scroll, linear-gradient(to left, var(--sl-color-hairline), transparent) right / 10px 100% no-repeat scroll; }
+.sl-markdown-content .table-wrap table { display: table; margin: 0; overflow: visible; border-collapse: collapse; font-size: 0.875rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.wiki-recovered-article :is(th, td) { padding: 0.55rem 0.8rem; min-width: 7rem; overflow-wrap: anywhere; vertical-align: top; border-bottom: 1px solid var(--sl-color-hairline-light); }
+.wiki-recovered-article th { background: var(--sl-color-bg-sidebar); color: var(--sl-color-text); font-weight: 600; }
+.wiki-recovered-article tbody tr:hover td { background: var(--sl-color-bg-sidebar); }
+.wiki-recovered-article .table-hint { margin-top: -0.9em; color: var(--sl-color-gray-2); font-size: 0.78125rem; }
+.code-block { max-width: 100%; margin-block: 1.3em; border: 1px solid var(--sl-color-hairline-light); border-radius: var(--bd-radius-md); background: var(--sl-color-bg-inline-code); overflow: hidden; }
+.code-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.25rem 0.35rem 0.25rem 0.75rem; border-bottom: 1px solid var(--sl-color-hairline-light); color: var(--sl-color-gray-3); font-size: 0.78125rem; }
+.code-bar button { min-height: 2.75rem; padding-inline: 0.65rem; border: 1px solid transparent; border-radius: var(--bd-radius-sm); background: transparent; color: var(--sl-color-gray-2); cursor: pointer; }
+.code-bar button:hover { border-color: var(--sl-color-hairline); color: var(--sl-color-text); }
+.sl-markdown-content .code-block pre { margin: 0; padding: 0.75rem 1rem; background: transparent; font-size: 0.84rem; line-height: 1.45; tab-size: 4; }
+.sl-markdown-content pre code { overflow-wrap: normal; word-break: normal; }
+.sl-markdown-content .wiki-admonition:is(.adm-note, .adm-warning) { position: relative; padding: 0.75rem 1rem 0.75rem 2.9rem; border: 1px solid var(--bd-note-line); border-radius: var(--bd-radius-md); background: var(--bd-note-bg); color: var(--sl-color-text); font-size: 1rem; }
+.sl-markdown-content .wiki-admonition.adm-warning { border-color: var(--bd-warn-line); background: var(--bd-warn-bg); }
+.wiki-admonition::before { content: ""; position: absolute; inset-inline-start: 0.95rem; top: 0.95rem; width: 1.15rem; height: 1.15rem; background: var(--bd-note-ink); mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v5M12 8h.01'/%3E%3C/svg%3E") center / contain no-repeat; }
+.wiki-admonition.adm-warning::before { background: var(--bd-warn-ink); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M12 3 2 21h20zM12 9v5M12 17h.01'/%3E%3C/svg%3E"); }
+.wiki-admonition > p:first-child > strong:only-child { color: var(--bd-note-ink); }
+.wiki-admonition.adm-warning > p:first-child > strong:only-child { color: var(--bd-warn-ink); }
+.image-zoom { display: inline-block; max-width: 100%; cursor: zoom-in; border: 1px solid var(--sl-color-hairline-light); border-radius: var(--bd-radius-md); background: var(--sl-color-bg-sidebar); }
+.image-zoom img { display: block; border-radius: var(--bd-radius-md); }
+.image-viewer { margin: auto; width: min(96vw, 80rem); max-width: calc(100vw - 1rem); max-height: 94dvh; padding: 0; border: 1px solid var(--sl-color-hairline); border-radius: var(--bd-radius-lg); background: var(--bd-raised); color: var(--sl-color-text); overflow: hidden; }
+.image-viewer[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+.image-viewer::backdrop { background: #0009; }
+.image-viewer-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; border-bottom: 1px solid var(--sl-color-hairline-light); font-size: 0.875rem; }
+.image-viewer-bar strong { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.image-viewer-stage { overflow: auto; overscroll-behavior: contain; padding: 1rem; background: var(--sl-color-bg-sidebar); }
+.image-viewer-stage img { display: block; max-width: none; height: auto; margin: auto; }
+.image-viewer-stage.fit img { max-width: 100%; max-height: calc(94dvh - 13rem); width: auto; object-fit: contain; }
+.image-viewer-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; padding: 0.75rem 1rem; border-top: 1px solid var(--sl-color-hairline-light); font-size: 0.875rem; }
+.image-viewer-footer p { flex: 1; min-width: 12rem; }
