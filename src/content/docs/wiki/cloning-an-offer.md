@@ -10,12 +10,12 @@ tableOfContents: false
 <p>Cloning an offer allows offer makers to use the same security deposit for multiple offers.</p>
 <span class="wiki-legacy-anchor" id="What_is_this_difference_between_duplicating_and_offer_and_cloning_an_offer?" aria-hidden="true"></span><h2 id="what-is-this-difference-between-duplicating-and-offer-and-cloning-an-offer"> What is this difference between duplicating and offer and cloning an offer? </h2>
 <p>Duplicating an offer creates a new transaction. Therefore, each duplicated offer has a cost in terns of a new mining and trade fee for the on-chain transaction.</p>
-<p>Cloning an offer uses the original deposit transaction of the cloned offer to create a new offer that shares the original deposit transaction, therefore, no additional on chain transaction or fees are needed.</p>
+<p>Cloning an offer reuses the original offer's maker-fee transaction and reserved funding, so creating the clone needs no additional on-chain transaction or maker fee. The trade deposit transaction is created when an offer is taken.</p>
 <span class="wiki-legacy-anchor" id="What_are_the_advantages_of_cloning_an_offer?" aria-hidden="true"></span><h2 id="what-are-the-advantages-of-cloning-an-offer"> What are the advantages of cloning an offer? </h2>
 <p>The advantages of cloning an offer are the ability to create more offers for different payment methods and/or different currencies increasing the likelihood that someone will take your offer.</p>
 <p>For example if you are in the US and happy to accept payment by ACH, Strike, Wire, or Zelle, you could clone your offer to show all 4 of these payment methods without paying to create an additional offer. This will result in 4 offers been shown in the Bisq offer book and increase the chance that your offer is taken quickly.</p>
 <span class="wiki-legacy-anchor" id="What_are_the_disadvantages_of_cloning_an_offer?" aria-hidden="true"></span><h2 id="what-are-the-disadvantages-of-cloning-an-offer"> What are the disadvantages of cloning an offer? </h2>
-<p>The disadvantages of cloning an offer is that once your cloned offer is taken all associated clones (those that share the same deposit transaction fee) will disappear from the Bisq offer book.</p>
+<p>The disadvantages of cloning an offer is that once your cloned offer is taken all associated clones (those that share the same maker-fee transaction) will disappear from the Bisq offer book.</p>
 <span class="wiki-legacy-anchor" id="What_offers_can_be_cloned?" aria-hidden="true"></span><h2 id="what-offers-can-be-cloned"> What offers can be cloned? </h2>
 <p>Any maker offer can be cloned, excluding BSQ swaps.</p>
 <p>Clones MUST be for a different payment method and/or currency.</p>
