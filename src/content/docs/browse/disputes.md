@@ -3,7 +3,7 @@ title: "Disputes and support"
 description: "Mediation, arbitration and reimbursements"
 ---
 
-Mediation, arbitration and reimbursements. **14 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Mediation, arbitration and reimbursements. **14 articles.**
 
 - [Arbitration](../../wiki/arbitration/)
 - [Arbitrator](../../wiki/arbitrator/)

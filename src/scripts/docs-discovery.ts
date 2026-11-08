@@ -42,19 +42,19 @@ if (directory) {
     const matchingTitles = items.filter((item) => item.title.includes(query));
     for (const item of items) item.element.hidden = !(item.title.includes(query) && (topic === "all" || item.topic === topic) && productMatches(item.products, product));
     const count = items.filter((item) => !item.element.hidden).length;
-    directory.querySelector("[data-directory-count]")!.textContent = `${count} of ${items.length} articles`;
+    directory.querySelector("[data-directory-count]")!.textContent = count === items.length ? "All articles" : `${count} ${count === 1 ? "article" : "articles"} found`;
     const empty = directory.querySelector<HTMLElement>(".directory-empty")!;
     empty.hidden = count > 0;
     empty.querySelector<HTMLElement>("[data-docs-search]")!.dataset.docsSearch = input.value.trim();
     for (const button of topicButtons) {
       const value = button.dataset.topicFilter!;
       button.setAttribute("aria-pressed", String(value === topic));
-      button.querySelector("[data-filter-count]")!.textContent = String(matchingTitles.filter((item) => (value === "all" || item.topic === value) && productMatches(item.products, product)).length);
+      button.querySelector("[data-filter-count]")!.textContent = value === "all" ? "" : String(matchingTitles.filter((item) => item.topic === value && productMatches(item.products, product)).length);
     }
     for (const button of productButtons) {
       const value = button.dataset.productFilter!;
       button.setAttribute("aria-pressed", String(value === product));
-      button.querySelector("[data-filter-count]")!.textContent = String(matchingTitles.filter((item) => (topic === "all" || item.topic === topic) && productMatches(item.products, value)).length);
+      button.querySelector("[data-filter-count]")!.textContent = value === "all" ? "" : String(matchingTitles.filter((item) => (topic === "all" || item.topic === topic) && productMatches(item.products, value)).length);
     }
     directory.querySelectorAll<HTMLElement>("[data-directory-subgroup], [data-directory-group]").forEach((group) => {
       const visible = [...group.querySelectorAll<HTMLElement>("[data-directory-item]")].filter((element) => !element.hidden).length;

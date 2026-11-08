@@ -3,7 +3,7 @@ title: "DAO and BSQ"
 description: "BSQ, governance and compensation"
 ---
 
-BSQ, governance and compensation. **20 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+BSQ, governance and compensation. **20 articles.**
 
 - [BSQ](../../wiki/bsq/)
 - [BSQ swaps](../../wiki/bsq-swaps/)

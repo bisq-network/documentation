@@ -3,7 +3,7 @@ title: Source recovery and migration
 description: What the recovered wiki snapshot contains and which source gaps remain.
 ---
 
-The source snapshot completed on **18 October 2026 at 01:01:19 UTC**. Its newest article revision is dated **15 October 2026 at 15:23:28 UTC**. It contains one exported revision for each of **209 articles**, not a full MediaWiki database or complete revision history. These original articles are the [main documentation](../browse/); the snapshot date does not establish that their contents are current.
+The source snapshot completed on **18 October 2026 at 01:01:19 UTC**. Its newest article revision is dated **15 October 2026 at 15:23:28 UTC**. It contains one exported revision for each recovered article, not a full MediaWiki database or complete revision history. These original articles are the [main documentation](../browse/).
 
 The original wikitext and available revision metadata are preserved for comparison. Automated source checks verify preservation, while contributors and maintainers still need to review the substance. An earlier AI-edited edition and its comparison index are retained separately for review, not served as the main articles or indexed in site search.
 
@@ -19,7 +19,7 @@ These three files remain unavailable:
 
 ## Saved links
 
-All 209 exported wiki title paths are retained with their capitalization and underscores, and all 98 previous AI-edited guide paths have compatibility pages. Recognized original section links lead to their recovered sections. Edited guides that drew on several sources offer links to the relevant original articles, including without JavaScript.
+All exported wiki title paths are retained with their capitalization and underscores, and all 98 previous AI-edited guide paths have compatibility pages. Recognized original section links lead to their recovered sections. Edited guides that drew on several sources offer links to the relevant original articles, including without JavaScript.
 
 The export did not contain every redirect, deleted article or old revision; links absent from the inventory may still need mapping. The preview does not control the old wiki domain.
 

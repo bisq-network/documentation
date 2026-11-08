@@ -3,7 +3,7 @@ title: "Contributing"
 description: "Roles, teams and project processes"
 ---
 
-Roles, teams and project processes. **34 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Roles, teams and project processes. **34 articles.**
 
 - [Bisq 2 Roles](../../wiki/bisq-2-roles/)
 - [Bisq Maintainer](../../wiki/bisq-maintainer/)

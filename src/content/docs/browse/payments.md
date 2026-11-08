@@ -3,7 +3,7 @@ title: "Payment methods"
 description: "Payment accounts, limits and method guides"
 ---
 
-Payment accounts, limits and method guides. **45 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Payment accounts, limits and method guides. **45 articles.**
 
 ## Overview and limits
 

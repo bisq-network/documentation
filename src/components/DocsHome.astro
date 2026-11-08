@@ -16,7 +16,7 @@ const tasks = [
 ---
 <div class="docs-home">
   <div class="home-search">
-    <p class="home-lede">209 articles restored from the Bisq wiki: installing, trading, payment methods, recovery, the DAO and contributing.</p>
+    <p class="home-lede">Find help with installing Bisq, trading, payment methods, wallet recovery, the DAO and contributing.</p>
     <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog" hidden><span aria-hidden="true">⌕</span><span>Search articles, sections, people…</span><kbd>⌘ / Ctrl K</kbd></button>
     <div class="home-try" data-pagefind-ignore data-search-controls hidden><span>Try</span>{["Last resort restore", "luis3672", "Zelle", "verify signature"].map((query) => <button type="button" data-docs-search={query}>{query}</button>)}</div>
     <noscript><p><a href={`${base}/browse/all/`}>Browse all article titles</a></p></noscript>
@@ -36,12 +36,11 @@ const tasks = [
   </section>
   <section aria-labelledby="browse-by-topic">
     <h2 id="browse-by-topic">Browse by topic</h2>
-    <p class="section-intro">Every article appears once in the navigation. <a href={`${base}/browse/all/`}>See all 209 articles</a>.</p>
+    <p class="section-intro"><a href={`${base}/browse/all/`}>Browse all articles</a> or choose a topic below.</p>
     <div class="home-topics">{sections.map((section) => <a href={`${base}/browse/${section.directory}/`}><strong>{section.label}</strong><span>{section.intro}</span><em>{section.count}</em></a>)}</div>
   </section>
   <section aria-labelledby="about-preview" class="home-about">
-    <div><h2 id="about-preview">About this preview</h2><p>These pages restore the original wiki wording, headings, step order and images. Proposed edits are reviewed separately. Instructions may describe older software.</p><p><a href={`${base}/review/`}>Review status</a> · <a href={`${base}/recovery-status/`}>Recovery scope</a> · <a href={`${base}/recovered-media/`}>Recovered media catalogue</a></p></div>
-    <dl><dt>Snapshot</dt><dd>18 October 2026</dd><dt>Articles</dt><dd>209 restored, original wording</dd><dt>Images</dt><dd>120 recovered, 3 missing</dd><dt>Review</dt><dd>Maintainer review open</dd></dl>
+    <div><h2 id="about-preview">Help improve the documentation</h2><p><a href={`${base}/review/`}>How to contribute a review</a> · <a href={`${base}/recovery-status/`}>Source recovery details</a> · <a href={`${base}/recovered-media/`}>Recovered media catalogue</a></p></div>
   </section>
   <SavedWikiLink id="home" />
 </div>

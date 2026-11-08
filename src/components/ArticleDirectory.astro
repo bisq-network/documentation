@@ -14,7 +14,7 @@ const productFilters = [["all", "Any product"], ["Bisq 2", "Names Bisq 2"], ["Bi
     <div class="directory-chiprow" role="group" aria-label="Topic"><span>Topic</span>{[{ directory: "all", label: "All topics" }, ...sections].map((section) => <button type="button" data-topic-filter={section.directory} aria-pressed={section.directory === "all" ? "true" : "false"}>{section.label} <span data-filter-count></span></button>)}</div>
     <div class="directory-chiprow" role="group" aria-label="Product named in the article"><span>Product</span>{productFilters.map(([id, label]) => <button type="button" data-product-filter={id} aria-pressed={id === "all" ? "true" : "false"}>{label} <span data-filter-count></span></button>)}</div>
   </div>
-  <p class="directory-count" role="status" aria-live="polite" data-directory-count>209 articles</p>
+  <p class="directory-count" role="status" aria-live="polite" data-directory-count>All articles</p>
   <div class="directory-empty" hidden><p>No article titles match these filters.</p><button type="button" class="docs-button" data-directory-reset>Clear filters</button><button type="button" class="docs-button" data-docs-search="">Search inside articles</button></div>
   {sections.map((section) => <section class="directory-group" data-directory-group aria-labelledby={`directory-${section.directory}`}>
     <h2 id={`directory-${section.directory}`}>{section.label} <span data-group-count>{section.count}</span></h2>

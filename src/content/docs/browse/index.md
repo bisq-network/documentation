@@ -3,7 +3,7 @@ title: "Browse the documentation"
 description: "Browse the original Bisq Wiki articles by topic or title."
 ---
 
-The **209 recovered articles** are the main documentation. Original titles, wording, and procedures are preserved. Search by topic or name, or use the [complete title index](all/).
+Find articles by topic or name, or use the [complete title index](all/).
 
 ## Browse by subject
 

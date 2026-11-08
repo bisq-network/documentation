@@ -3,7 +3,7 @@ title: "Reference"
 description: "Background articles and wiki history"
 ---
 
-Background articles and wiki history. **9 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Background articles and wiki history. **9 articles.**
 
 - [Bisqpro](../../wiki/bisqpro/)
 - [CBDC](../../wiki/cbdc/)

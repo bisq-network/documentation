@@ -355,11 +355,7 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 .home-topics > a:hover strong { text-decoration: underline; }
 .home-topics span { grid-column: 1; color: var(--sl-color-gray-3); font-size: 0.875rem; }
 .home-topics em { grid-column: 2; grid-row: 1; font-style: normal; font-variant-numeric: tabular-nums; color: var(--sl-color-gray-3); }
-.home-about { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: start; }
 .home-about p { color: var(--sl-color-gray-2); font-size: 0.875rem; }
-.home-about dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.5rem 1rem; font-size: 0.875rem; }
-.home-about dt { color: var(--sl-color-gray-3); }
-.home-about dd { margin: 0; }
 .directory-tools { display: grid; gap: 0.75rem; padding-block: 1rem; border-block: 1px solid var(--sl-color-hairline-light); }
 .directory-tools > label { font-size: 0.875rem; font-weight: 500; }
 .directory-tools input { max-width: 30rem; width: 100%; min-height: 2.75rem; padding: 0.5rem 0.75rem; border: 1px solid var(--bd-control-line); border-radius: var(--bd-radius-md); background: var(--bd-raised); color: var(--sl-color-text); }
@@ -380,7 +376,7 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 .directory-list a:hover { color: var(--sl-color-text-accent); text-decoration: underline; }
 .directory-list .product-labels { margin-inline-start: auto; flex: none; }
 :where(.docs-home, .article-directory) [hidden] { display: none !important; }
-@media (max-width: 64rem) { .home-products { grid-template-columns: 1fr; } .home-products article, .home-products article + article { padding: 1rem 0; border-inline-start: 0; border-bottom: 1px solid var(--sl-color-hairline-light); } .home-about { grid-template-columns: 1fr; } }
+@media (max-width: 64rem) { .home-products { grid-template-columns: 1fr; } .home-products article, .home-products article + article { padding: 1rem 0; border-inline-start: 0; border-bottom: 1px solid var(--sl-color-hairline-light); } }
 @media (max-width: 40rem) { .main-pane:has(.docs-home) h1 { font-size: 2.125rem; } .home-tasks, .home-topics, .docs-home .home-tasks { grid-template-columns: 1fr; } .home-search-field kbd { display: none; } .article-directory .directory-list { columns: 1; } .directory-list li { flex-wrap: wrap; } .directory-chiprow { flex-wrap: nowrap; overflow-x: auto; padding-block: 0.2rem; } .directory-chiprow > * { flex: none; } }
 
 /* Provenance stays separate from the recovered author content. */

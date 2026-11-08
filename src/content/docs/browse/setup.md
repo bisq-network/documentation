@@ -3,7 +3,7 @@ title: "Advanced setup"
 description: "Nodes, Tails, Qubes, command line and mobile"
 ---
 
-Nodes, Tails, Qubes, command line and mobile. **13 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Nodes, Tails, Qubes, command line and mobile. **13 articles.**
 
 - [Bisq 2 mobile applications](../../wiki/bisq-2-mobile-applications/)
 - [Command line options](../../wiki/command-line-options/)

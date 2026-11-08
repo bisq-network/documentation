@@ -3,7 +3,7 @@ title: "Trading"
 description: "Offers, fees, deposits and reputation"
 ---
 
-Offers, fees, deposits and reputation. **29 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Offers, fees, deposits and reputation. **29 articles.**
 
 - [Atomic swap](../../wiki/atomic-swap/)
 - [Bisq Price Indices](../../wiki/bisq-price-indices/)

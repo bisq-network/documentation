@@ -3,7 +3,7 @@ title: "Troubleshooting"
 description: "Errors, stuck transactions and performance"
 ---
 
-Errors, stuck transactions and performance. **13 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Errors, stuck transactions and performance. **13 articles.**
 
 - [BuyerVerifiesPreparedDelayedPayoutTx Exception error](../../wiki/buyerverifiesprepareddelayedpayouttx-exception-error/)
 - [Critical bugs](../../wiki/critical-bugs/)

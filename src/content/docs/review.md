@@ -3,7 +3,7 @@ title: Review this documentation
 description: Compare the recovered wiki articles and help review their accuracy.
 ---
 
-This is a **community documentation preview** maintained in [hiciefte/bisq-docs](https://github.com/hiciefte/bisq-docs). The main documentation contains 209 restored wiki articles. Their source snapshot is dated 18 October 2026; restoration is not a certification that their instructions are current. Human maintainer review remains needed.
+Help review the documentation in [hiciefte/bisq-docs](https://github.com/hiciefte/bisq-docs). Article wording is preserved from the wiki; proposed edits are reviewed separately.
 
 ## What to review
 
@@ -15,6 +15,6 @@ A separate AI-edited edition and a comparison index are preserved in the reposit
 
 ## Sources and saved links
 
-Each original article has preserved source text and available revision metadata. All 209 recovered wiki title paths and 98 earlier edited-guide paths remain available as compatibility links. Where an edited guide combined multiple articles, its compatibility page offers the relevant originals for selection.
+Each original article has preserved source text and available revision metadata. All recovered wiki title paths and 98 earlier edited-guide paths remain available as compatibility links. Where an edited guide combined multiple articles, its compatibility page offers the relevant originals for selection.
 
 The [recovery status](../recovery-status/) describes the snapshot, recovered images, missing files, attribution and reuse questions. Old images and role information may no longer reflect current software or availability.

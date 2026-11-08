@@ -3,7 +3,7 @@ title: "Wallet, backup and recovery"
 description: "Seeds, data directories and restores"
 ---
 
-Seeds, data directories and restores. **22 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Seeds, data directories and restores. **22 articles.**
 
 - [Automatic backup](../../wiki/automatic-backup/)
 - [Automatic backup script](../../wiki/automatic-backup-script/)

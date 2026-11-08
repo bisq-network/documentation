@@ -3,7 +3,7 @@ title: "Get started"
 description: "Products, installation and first steps"
 ---
 
-Products, installation and first steps. **10 articles.** Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+Products, installation and first steps. **10 articles.**
 
 - [Bisq 1](../../wiki/bisq-1/)
 - [Bisq 2](../../wiki/bisq-2/)
