@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "description": "Reversible source formatting only. The restoration-fidelity manifest remains the original byte baseline. Each listed article decodes decimal newline entities inside its HTML body to literal newlines; author wording and rendered text do not change.",
+  "items": [
+    {
+      "slug": "teams",
+      "decoded_newline_entities": 25,
+      "original_file_sha256": "00c863f2a03e2cbc6af4d571d6efba5b14c19a235838b98cbd0a9937977f282f",
+      "formatted_file_sha256": "0ee964964a6c6e58d9042181b33fd79239c10e98ef65caefcbe893534f9700a8"
+    }
+  ]
+}
