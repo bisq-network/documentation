@@ -30,13 +30,13 @@ export function verifyArchiveSources({ read = readFileSync, list = readdirSync }
     const seen = new Set();
     for (const item of items) {
       assert.match(item.page_id, /^[1-9]\d*$/);
-      assert.match(item.latest_revision_id, /^[1-9]\d*$/);
+      assert.match(item.latest_revision_id, /^[1-9]\d*$/, "invalid source revision ID");
       assert.match(item.latest_revision_timestamp, /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$/);
       const revisionDate = Date.parse(item.latest_revision_timestamp);
-      assert.ok(Number.isFinite(revisionDate) && revisionDate < Date.parse("2026-10-15T00:00:00Z"));
+      assert.ok(Number.isFinite(revisionDate) && revisionDate < Date.parse("2026-10-15T00:00:00Z"), "revision timestamp exceeds archive capture");
       assert.equal(item.original_revision_url, `https://bisq.wiki/index.php?oldid=${item.latest_revision_id}`);
       const filename = `${item.page_id}.wiki.txt`;
-      assert.equal(item.source_download, `/wiki-source/${directory}/${filename}`);
+      assert.equal(item.source_download, `/wiki-source/${directory}/${filename}`, "unexpected source download path");
       assert.ok(!seen.has(filename), `duplicate source page: ${filename}`);
       seen.add(filename);
       assert.match(item.wikitext_sha256, /^[a-f0-9]{64}$/);
@@ -51,7 +51,7 @@ export function verifyArchiveSources({ read = readFileSync, list = readdirSync }
         assert.ok(directive, `invalid redirect directive: ${filename}`);
         assert.equal(directive[1], item.raw_target);
         const [title, ...fragment] = item.raw_target.split("#");
-        assert.equal(title.replaceAll("_", " "), item.target_title);
+        assert.equal(title.replaceAll("_", " "), item.target_title, "redirect target differs from source");
         assert.equal(fragment.length ? fragment.join("#") : null, item.target_fragment);
         assert.ok(bytes.toString("utf8").includes(item.redirect_line), `redirect line absent: ${filename}`);
       } else {

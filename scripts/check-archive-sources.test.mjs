@@ -26,9 +26,9 @@ test("a modified source file is rejected", () => {
 
 test("source metadata rejects traversal, missing revisions and duplicate records", () => {
   const path = "migration/archive-templates-20261014.json";
-  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[0].source_download = "/wiki-source/archive-templates/../private"; }) }));
-  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[0].latest_revision_id = ""; }) }));
-  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[1] = data.items[0]; }) }));
+  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[0].source_download = "/wiki-source/archive-templates/../private"; }) }), /unexpected source download path/);
+  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[0].latest_revision_id = ""; }) }), /invalid source revision ID/);
+  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[1] = data.items[0]; }) }), /duplicate source page/);
 });
 
 test("the source inventory rejects missing or unexpected files", () => {
@@ -40,6 +40,6 @@ test("the source inventory rejects missing or unexpected files", () => {
 
 test("recorded redirect target and revision must agree with the source", () => {
   const path = "migration/archive-redirects-20261014.json";
-  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[0].target_title = "Wrong destination"; }) }));
-  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[0].latest_revision_timestamp = "2026-11-01T00:00:00Z"; }) }));
+  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[0].target_title = "Wrong destination"; }) }), /redirect target differs from source/);
+  assert.throws(() => verifyArchiveSources({ read: withModifiedManifest(path, (data) => { data.items[0].latest_revision_timestamp = "2026-11-01T00:00:00Z"; }) }), /revision timestamp exceeds archive capture/);
 });
