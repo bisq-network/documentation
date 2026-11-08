@@ -13,7 +13,7 @@ tableOfContents: false
 <p>4. Stay online and keep Bisq running so that your offers are available.</p>
 <p>5. When one of your offers is taken, complete the trade and create a new one to replace it.</p>
 <p>6. Tell people about it! Let people from that market know that you are trying to kickstart it.</p>
-<p>In the example above if both your offers are taken you will have sold at 103 and bought at 97, making a profit of 6. You will also be performing a very valuable service for other Bisq users who don't have the time to stay online and just want to be able to take an offer quickly. Offer takers will be happy to pay a small % for the convenience of buying or selling when they want. Some markets are less liquid and you can charge more for your service, others have many more offers and will pay less for the convenience.</p>
+<p>In the example above if both your offers are taken you will have sold at 103 and bought at 97, for a gross difference of 6 before trading and other costs; neither execution nor profit is guaranteed. You will also be performing a very valuable service for other Bisq users who don't have the time to stay online and just want to be able to take an offer quickly. Offer takers will be happy to pay a small % for the convenience of buying or selling when they want. Some markets are less liquid and you can charge more for your service, others have many more offers and will pay less for the convenience.</p>
 <ul>
 <li>For more short guides see <a href="../howto/">Howto</a>. You can also find support on <strong><a href="https://bisq.chat" rel="noopener noreferrer">Matrix</a></strong>.</li>
 </ul>
