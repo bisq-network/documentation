@@ -2,6 +2,7 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join, resolve, sep } from "node:path";
 import { collectGuides, loadIntegration } from "./lib/documentation.mjs";
+import { buildRecoveredAliasRoutes, validateRecoveredAliases } from "./lib/recovered-link-aliases.mjs";
 import { buildLegacyRoutes } from "./lib/legacy-routes.mjs";
 import { loadEditedRouteAliases } from "./lib/edited-route-aliases.mjs";
 
@@ -80,7 +81,9 @@ for (const article of migration) {
   const raw = await readFile(join(root, article.source_download.slice(1)));
   if (digest(raw) !== article.wikitext_sha256) failures.push(`source bytes changed: ${article.title}`);
 }
-const legacy = [...buildLegacyRoutes(migration), ...loadEditedRouteAliases(migration)];
+validateRecoveredAliases();
+const originals = buildLegacyRoutes(migration);
+const legacy = [...originals, ...buildRecoveredAliasRoutes(migration, originals), ...loadEditedRouteAliases(migration)];
 for (const route of legacy) {
   const html = await documentForRoute(`/${route.path}/`);
   if (!html || !html.includes('id="legacy-destination"') || !html.includes("data-pagefind-ignore")) failures.push(`missing compatibility route: ${route.path}`);
@@ -99,9 +102,32 @@ for (const route of legacy) {
 }
 const media = JSON.parse(await readFile("public/media/wiki/mapping.json", "utf8")).files;
 for (const asset of media) if (digest(await readFile(join(root, asset.file))) !== asset.sha256) failures.push(`recovered image changed: ${asset.filename}`);
+const archivedTemplates = JSON.parse(await readFile("migration/archive-templates-20261014.json", "utf8"));
+for (const item of archivedTemplates.items) {
+  if (digest(await readFile(join(root, item.source_download.slice(1)))) !== item.wikitext_sha256) failures.push(`archived template changed: ${item.title}`);
+}
+const archiveRedirects = JSON.parse(await readFile("migration/archive-redirects-20261014.json", "utf8"));
+for (const record of archiveRedirects.items) {
+  if (digest(await readFile(join(root, record.source_download.slice(1)))) !== record.wikitext_sha256) failures.push(`archived redirect source changed: ${record.source_title}`);
+}
+const supplement = JSON.parse(await readFile("recovery-evidence/supplemental-media.json", "utf8"));
+const replacements = new Map(supplement.items.flatMap((item) => [[item.canonical_filename, item], [item.wiki_filename, item]]));
+for (const asset of [...supplement.items, ...(supplement.linked_resources || [])]) {
+  if (digest(await readFile(join(root, asset.asset_path.slice(1)))) !== asset.sha256) failures.push(`supplemental image changed: ${asset.canonical_filename}`);
+}
 for (const asset of media) {
-  const used = await Promise.all(guides.map(async (guide) => (await documentForRoute(guide.route))?.includes(asset.sha256)));
+  const effective = replacements.get(asset.filename)?.sha256 || asset.sha256;
+  const used = await Promise.all(guides.map(async (guide) => (await documentForRoute(guide.route))?.includes(effective)));
   if (!used.some(Boolean)) failures.push(`recovered image missing from original articles: ${asset.filename}`);
+}
+for (const article of migration) {
+  const html = await documentForRoute(article.route);
+  for (const image of article.image_occurrences || []) {
+    const effective = replacements.get(image.canonical_filename)?.sha256 || image.sha256;
+    const pattern = new RegExp(`<figure\\b[^>]*\\bid="${image.element_id}"[^>]*>[\\s\\S]*?<\\/figure>`);
+    const figure = html?.match(pattern)?.[0];
+    if (!effective || !figure?.includes(effective) || !figure.includes("<img")) failures.push(`missing image placement: ${article.slug} ${image.element_id}`);
+  }
 }
 const mediator = migration.find((item) => item.title === "Finding your mediator");
 const mediatorHtml = await documentForRoute(mediator.target);

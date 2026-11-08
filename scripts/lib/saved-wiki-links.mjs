@@ -1,3 +1,4 @@
+import { buildRecoveredAliasRoutes } from "./recovered-link-aliases.mjs";
 import { buildLegacyRoutes, normalizeFragment } from "./legacy-routes.mjs";
 import { loadEditedRouteAliases } from "./edited-route-aliases.mjs";
 
@@ -19,6 +20,7 @@ export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
             target: entry.target,
             fragments: entry.fragments,
             ...(entry.autoRedirect === false ? { autoRedirect: false } : {}),
+            ...(entry.strictFragments ? { strictFragments: true } : {}),
             ...(entry.choices?.length ? { choices: entry.choices } : {}),
             ...(entry.fragmentChoices?.length ? { fragmentChoices: entry.fragmentChoices } : {}),
         };
@@ -30,7 +32,7 @@ export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
         if (Object.hasOwn(routes, path)) throw new Error(`Duplicate saved-link path: ${path}`);
         routes[path] = interned.get(key);
     };
-    for (const entry of [...legacy, ...edited]) add(entry.path, entry);
+    for (const entry of [...legacy, ...buildRecoveredAliasRoutes(articles, legacy), ...edited]) add(entry.path, entry);
     for (const article of articles) {
         const sections = Object.create(null);
         for (const heading of article.headings || []) sections[heading.anchor] = heading.text;
