@@ -110,7 +110,7 @@ tableOfContents: false
 </p>
 <pre><code class="wiki-source-code" id="source-code-1">
 &#10;Burning BSQ has the highest impact on the reputation score.
-&#10;For every BSQ burnt the user receives a reputation score of 100. For example if a user burns 100 BSQ their reputation score will be increased by 10,000. Reputation obtained by burning will persist with that users profile.
+&#10;In Bisq 2 v2.1.15, each BSQ burned initially contributes 100 points; the event's score increases linearly to twice that value over its first 365 days. For example if a user burns 100 BSQ their reputation score will be increased by 10,000. Reputation obtained by burning will persist with that users profile.
 &#10;To increase their reputation further a user can burn multiple times. The scores received are cumulative.
 &#10;</code></pre>
 <span class="wiki-legacy-anchor" id="Setting_up_a_BSQ_bond" aria-hidden="true"></span><h3 id="setting-up-a-bsq-bond"> Setting up a BSQ bond </h3>
@@ -148,7 +148,7 @@ tableOfContents: false
 </p>
 <pre><code class="wiki-source-code" id="source-code-2">
 Bonding BSQ has a high impact on the reputation score.
-&#10;For every BSQ bonded the user receives a reputation score of 10. For example if a user bonds 1,000 BSQ their reputation score will be increased by 10,000. Reputation obtained by burning will persist with that users profile.
+&#10;In Bisq 2 v2.1.15, each BSQ bonded initially contributes 10 points; the event's score increases linearly to twice that value over its first 365 days while the bond remains locked. For example if a user bonds 1,000 BSQ their reputation score will be increased by 10,000. Reputation obtained from the bond persists only while the bond remains locked.
 &#10;To increase their reputation further a user can bond multiple times. The scores received are cumulative. &#10;
 Once the bond is unlocked the reputation score attributed to that bond is lost. &#10;</code></pre>
 <span class="wiki-legacy-anchor" id="Importing_the_Account_Age_from_Bisq_1" aria-hidden="true"></span><h3 id="importing-the-account-age-from-bisq-1"> Importing the Account Age from Bisq 1 </h3>
