@@ -44,7 +44,7 @@ tableOfContents: false
 <p>The mobile app acts as a remote interface, allowing you to monitor and manage your node from your phone.</p>
 <p>Features:</p>
 <ul>
-<li>Pairing via QR code</li>
+<li>Pairing via QR code. The official mobile README identifies the pairing QR/token as a trade-control credential: keep it private and do not expose the pairing UI/API to an untrusted or public network.</li>
 <li>Real-time market data</li>
 <li>Push notifications</li>
 <li>Private P2P messaging</li>
@@ -56,7 +56,7 @@ tableOfContents: false
 <li>Available on both Android and iOS</li>
 <li>Low resource and battery usage</li>
 <li>Seamless access to the same data across devices when self-hosted</li>
-<li>No need for mobile backups (data is stored on the backend node)</li>
+<li>Trade data is stored on the backend node, which still needs its own protected application backup; a thin client does not remove that requirement.</li>
 <li>Mobile app can be closed without affecting node operation</li>
 </ul>
 <p>Cons:</p>
