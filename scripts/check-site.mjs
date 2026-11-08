@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { join, resolve, sep } from "node:path";
 import { collectGuides, loadIntegration } from "./lib/documentation.mjs";
 import { buildLegacyRoutes } from "./lib/legacy-routes.mjs";
+import { loadEditedRouteAliases } from "./lib/edited-route-aliases.mjs";
 
 const root = resolve(process.env.DOCS_DIST || "dist");
 const base = `/${(process.env.DOCS_BASE || "/").replace(/^\/+|\/+$/g, "")}`.replace(/^\/$/, "");
@@ -25,10 +26,14 @@ async function documentForRoute(route) {
   try { return documents.get(file) ?? await readFile(file, "utf8"); }
   catch { return null; }
 }
+function decodeAttribute(value) {
+  return value.replace(/&#(x[0-9a-f]+|[0-9]+);/gi, (_, n) => String.fromCodePoint(n[0].toLowerCase() === "x" ? parseInt(n.slice(1), 16) : Number(n)))
+    .replaceAll("&quot;", '"').replaceAll("&apos;", "'").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&amp;", "&");
+}
 function idsFrom(html) {
   return [...html.matchAll(/<[a-z][^>]*>/gi)].flatMap((tag) => {
     const id = tag[0].match(/\sid=["']([^"']+)["']/);
-    return id ? [id[1]] : [];
+    return id ? [decodeAttribute(id[1])] : [];
   });
 }
 for (const [file, html] of documents) {
@@ -36,7 +41,7 @@ for (const [file, html] of documents) {
   if (new Set(ids).size !== ids.length) failures.push(`${file}: duplicate element ID`);
   if ([...html.matchAll(/<h1(?:\s|>)/gi)].length !== 1) failures.push(`${file}: expected one page H1`);
   for (const match of html.matchAll(/\b(?:href|src)=(["'])(.*?)\1/g)) {
-    const href = match[2].replaceAll("&amp;", "&");
+    const href = decodeAttribute(match[2]);
     if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href)) continue;
     const url = new URL(href, `https://local.invalid${base}/${file.slice(root.length + 1).replace(/index\.html$/, "")}`);
     if (base && !(url.pathname === base || url.pathname.startsWith(`${base}/`))) {
@@ -75,7 +80,7 @@ for (const article of migration) {
   const raw = await readFile(join(root, article.source_download.slice(1)));
   if (digest(raw) !== article.wikitext_sha256) failures.push(`source bytes changed: ${article.title}`);
 }
-const legacy = buildLegacyRoutes(migration);
+const legacy = [...buildLegacyRoutes(migration), ...loadEditedRouteAliases(migration)];
 for (const route of legacy) {
   const html = await documentForRoute(`/${route.path}/`);
   if (!html || !html.includes('id="legacy-destination"') || !html.includes("data-pagefind-ignore")) failures.push(`missing compatibility route: ${route.path}`);
@@ -83,8 +88,8 @@ for (const route of legacy) {
     const json = html.match(/<script[^>]*id="legacy-destination"[^>]*>([\s\S]*?)<\/script>/)?.[1];
     try {
       const config = JSON.parse(json);
-      if (config.target !== route.target || config.base !== base) failures.push(`wrong compatibility destination: ${route.path}`);
-      for (const target of new Set(Object.values(config.fragments))) {
+      if (config.target !== route.target || config.base !== base || config.autoRedirect !== (route.autoRedirect ?? true)) failures.push(`wrong compatibility destination: ${route.path}`);
+      for (const target of new Set([route.target, ...Object.values(config.fragments), ...(route.choices || []).map((choice) => choice.target), ...(route.fragmentChoices || []).flatMap((section) => section.targets.map((choice) => choice.target))])) {
         const content = await documentForRoute(target);
         const fragment = target.split("#")[1];
         if (!content || (fragment && !idsFrom(content).includes(fragment))) failures.push(`invalid legacy fragment destination ${route.path}: ${target}`);
@@ -94,22 +99,12 @@ for (const route of legacy) {
 }
 const media = JSON.parse(await readFile("public/media/wiki/mapping.json", "utf8")).files;
 for (const asset of media) if (digest(await readFile(join(root, asset.file))) !== asset.sha256) failures.push(`recovered image changed: ${asset.filename}`);
-const mediaDispositions = JSON.parse(await readFile("migration/media-disposition.json", "utf8")).items;
-if (mediaDispositions.length !== media.length || new Set(mediaDispositions.map((item) => item.sha256)).size !== media.length) failures.push("incomplete media disposition inventory");
 for (const asset of media) {
-  const item = mediaDispositions.find((entry) => entry.sha256 === asset.sha256);
-  if (!item?.reason || item.file !== asset.file || !["inline", "catalogue-only"].includes(item.disposition)) {
-    failures.push(`missing media disposition: ${asset.filename}`); continue;
-  }
-  const actualGuides = [];
-  for (const guide of guides) {
-    const html = await documentForRoute(guide.route);
-    if (html?.includes(asset.sha256)) actualGuides.push(guide.route);
-  }
-  if (JSON.stringify(actualGuides.sort()) !== JSON.stringify([...item.guides].sort()) || (item.disposition === "inline") !== (actualGuides.length > 0)) failures.push(`media placement changed without disposition update: ${asset.filename}`);
+  const used = await Promise.all(guides.map(async (guide) => (await documentForRoute(guide.route))?.includes(asset.sha256)));
+  if (!used.some(Boolean)) failures.push(`recovered image missing from original articles: ${asset.filename}`);
 }
 const mediator = migration.find((item) => item.title === "Finding your mediator");
 const mediatorHtml = await documentForRoute(mediator.target);
 for (const name of ["suddenwhipvapor", "luis3672"]) if (!mediatorHtml?.includes(name)) failures.push(`mediator name missing: ${name}`);
 if (failures.length) { console.error([...new Set(failures)].join("\n")); process.exitCode = 1; }
-else console.log(`Checked ${documents.size} HTML pages, ${guides.length} searchable guides, ${migration.length} topic dispositions, ${legacy.length} legacy routes, ${media.length} unchanged images, source hashes, links and fragments.`);
+else console.log(`Checked ${documents.size} HTML pages, ${guides.length} searchable original articles, ${migration.length} source records, ${legacy.length} compatibility routes, ${media.length} unchanged images, source hashes, links and fragments.`);

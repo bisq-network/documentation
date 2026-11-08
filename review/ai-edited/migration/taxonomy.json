@@ -1,0 +1,1810 @@
+{
+  "schema_version": 1,
+  "description": "Selective navigation groups were manually checked against titles and source prose after stripping HTML comments. Product references can be historical and the groups are not exhaustive. The BISQ VERSION comment is a downloader-generated keyword heuristic, retained as evidence only and not used to assign product groups. Topics overlap; the all-articles index is complete.",
+  "items": [
+    {
+      "title": "ACH Transfer",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Account limits",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Altcoins",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Altcoins Instant",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Amazon eGift card",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [
+        "Features"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Arbitration",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Processes"
+      ],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Arbitrator",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Atomic swap",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Automatic backup",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Automatic backup script",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "BSQ",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [
+        "BSQ",
+        "DAO"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "BSQ swaps",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Backing up application data",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Backing up your wallet seed",
+      "topics": [],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Backup",
+      "topics": [
+        "bisq-1",
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Source prose explicitly discusses backup in both Bisq 1 and Bisq 2."
+    },
+    {
+      "title": "Bisq 1",
+      "topics": [
+        "bisq-1"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1",
+      "product_reason": "Product named explicitly in the article title."
+    },
+    {
+      "title": "Bisq 2",
+      "topics": [
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Product named explicitly in the article title."
+    },
+    {
+      "title": "Bisq 2 Roles",
+      "topics": [
+        "bisq-2",
+        "contributing"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Product named explicitly in the article title."
+    },
+    {
+      "title": "Bisq 2 Wallet",
+      "topics": [
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Product named explicitly in the article title."
+    },
+    {
+      "title": "Bisq 2 mobile applications",
+      "topics": [
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Product named explicitly in the article title."
+    },
+    {
+      "title": "Bisq Easy",
+      "topics": [
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Opening source prose explicitly identifies Bisq 2 or Bisq Easy."
+    },
+    {
+      "title": "Bisq Maintainer",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Maintainer",
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Bisq Price Indices",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Bisqpro",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Bitcoin holidays",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Bitcoin units",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Bizum",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Burning Men",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "BuyerVerifiesPreparedDelayedPayoutTx Exception error",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "CBDC",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Capitual",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Cash by mail",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "CelPay",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Changing your onion address",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Cloning an offer",
+      "topics": [
+        "bisq-1"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Command line options",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Community Manager",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Maintainer",
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Compensation",
+      "topics": [
+        "contributing",
+        "dao"
+      ],
+      "wiki_categories": [
+        "Processes"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Compensation Maintainer",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Maintainer",
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Connecting to your own Bitcoin node",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Contributor checklist",
+      "topics": [
+        "contributing",
+        "dao"
+      ],
+      "wiki_categories": [
+        "Contributors",
+        "DAO",
+        "Guides"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Contributor privacy and opsec",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Create a new wallet for your data directory",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Creating a payment account",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Critical bugs",
+      "topics": [
+        "contributing",
+        "reference",
+        "troubleshooting"
+      ],
+      "wiki_categories": [
+        "Infrastructure",
+        "Processes"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "DAO technical overview",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "DAO user reference",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Data Privacy",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Data directory",
+      "topics": [
+        "reference",
+        "troubleshooting"
+      ],
+      "wiki_categories": [
+        "Configuration",
+        "Technical",
+        "Troubleshooting"
+      ],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Decentralized autonomous organization",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Delayed payout transaction pending in mempool and CPFP",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Deposit transaction",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Deposit transaction pending in mempool and CPFP",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Dev Team",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Teams"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Development process",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Processes",
+        "Stubs"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Dispute Resolution in Bisq 1",
+      "topics": [
+        "bisq-1"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1",
+      "product_reason": "Product named explicitly in the article title."
+    },
+    {
+      "title": "Dispute Resolution in Bisq 2",
+      "topics": [
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Product named explicitly in the article title."
+    },
+    {
+      "title": "Domestic Wire Transfer",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Donation Address Owner",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Downloading and installing",
+      "topics": [
+        "bisq-1",
+        "bisq-2"
+      ],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Source contains separate sections explicitly addressing Bisq 1 and Bisq 2."
+    },
+    {
+      "title": "Dumping delayed payout transactions",
+      "topics": [],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Emergency wallet",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Encrypting your wallet",
+      "topics": [],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Events calendar",
+      "topics": [
+        "contributing",
+        "reference"
+      ],
+      "wiki_categories": [
+        "Infrastructure"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "FOSS",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Face-to-face (payment method)",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Failed Trades - Reimbursement of Trade Fees and Miner Fees",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Faster Payments",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Faster Payments System SBP",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Fee Reimbursement Agent",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Fiat",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Finding your arbitrator",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Finding your mediator",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Fix Arch release",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Frequently asked questions",
+      "topics": [
+        "bisq-1",
+        "bisq-2",
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Source version-context note explicitly discusses both products."
+    },
+    {
+      "title": "Funding your wallet",
+      "topics": [],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Getting your first BTC",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Glossary",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Growth Team",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Teams"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How do I send fiat to Bisq",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to back up your Bisq wallet seed",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to be a market maker on Bisq",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to buy BSQ on Bisq",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to buy BTC on Bisq with CAD",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to buy BTC on Bisq with EUR",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to buy USDT on Bisq",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to create an offer to buy BTC with EUR",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to create an offer to sell BTC with EUR",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to do arbitrage on Bisq",
+      "topics": [],
+      "wiki_categories": [
+        "Guides",
+        "Trading"
+      ],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "How to do remittance on Bisq",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to run pricenode",
+      "topics": [
+        "contributing",
+        "dao",
+        "reference"
+      ],
+      "wiki_categories": [
+        "DAO",
+        "Guides",
+        "Infrastructure",
+        "Roles",
+        "Technical"
+      ],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "How to run seednode",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "How to sell BSQ on Bisq",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Howto",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "IMPS",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Identity",
+      "topics": [
+        "bisq-2",
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Opening source prose explicitly identifies Bisq 2 or Bisq Easy."
+    },
+    {
+      "title": "Import Bisq wallet as watch only wallet in Sparrow",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Installing your own Bitcoin node",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Introduction",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Introduction to the DAO",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Issues with fiat payments",
+      "topics": [
+        "payment-methods",
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Last resort restore",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Linux memory arenas",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [
+        "Troubleshooting"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Local reputation",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Main Page",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Making a compensation request",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Making a reimbursement request",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Manual payout",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Manually select seednodes",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Matrix bisq.chat",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Mediation",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Processes",
+        "Stubs"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Mediator",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Mempool Explorer Operator",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Operator",
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Mining fees",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Mobile notifications",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Monero Explorer Operator",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Operator",
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Monese",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "MuSig-tradelimits",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "NEFT",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Nequi",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Network status indicator",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Ops Team",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Teams"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Participating in a DAO voting cycle",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Paxum",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "PayTM",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Paying trading fees with BSQ",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Payment Method Maintainer",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Maintainer",
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Payment account age witness",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Payment methods",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [
+        "Features"
+      ],
+      "download_classifier_hint": "bisq1",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Payment methods/en",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [
+        "Features"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Payment methods/es",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [
+        "Features"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Paysera",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Performance Tips",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Phase zero",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Pix",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Pricenode",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Pricenode Operator",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Operator",
+        "Roles",
+        "Stubs"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Project management",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Processes"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Proposals",
+      "topics": [
+        "contributing",
+        "dao"
+      ],
+      "wiki_categories": [
+        "Processes"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Proposals Maintainer",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "RTGS",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Reducing memory usage",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Remote control via web browser using xpra",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Reputation",
+      "topics": [
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Opening source prose explicitly identifies Bisq 2 or Bisq Easy."
+    },
+    {
+      "title": "Reputation2",
+      "topics": [
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Opening source prose explicitly identifies Bisq 2 or Bisq Easy."
+    },
+    {
+      "title": "Restoring application data",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Restoring your wallet from seed",
+      "topics": [],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Resyncing SPV file",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [
+        "Troubleshooting",
+        "Use Cases"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Revolut",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [
+        "Guides",
+        "Payment methods"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Roles",
+      "topics": [
+        "contributing",
+        "dao"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Roles Maintainer",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Maintainer",
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Running Bisq in China",
+      "topics": [
+        "bisq-1",
+        "bisq-2"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Source contains separate sections explicitly addressing Bisq 1 and Bisq 2."
+    },
+    {
+      "title": "Running Bisq on Linux using VNC",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Running Bisq on Qubes",
+      "topics": [],
+      "wiki_categories": [
+        "Guides"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Running Bisq on Tails",
+      "topics": [],
+      "wiki_categories": [
+        "Guides"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Running from the command line",
+      "topics": [
+        "reference",
+        "troubleshooting"
+      ],
+      "wiki_categories": [
+        "Configuration",
+        "Technical",
+        "Troubleshooting"
+      ],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Running on HiDPI screen",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "SEPA",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "SEPA Instant",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "SWIFT",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Satispay",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Security Team",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Teams"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Security Team Lead",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Security deposit",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Sepa",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Set up a Revolut payment account",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Set up a SEPA payment account",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Skrill",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Stakeholder",
+      "topics": [
+        "dao",
+        "reference"
+      ],
+      "wiki_categories": [
+        "Concepts",
+        "DAO"
+      ],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Standup",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Processes"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Strike",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Support Agent",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Support Agent Knowledge Base",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Support Team",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Teams"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Support Team Lead",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Switching to a new data directory",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Table of penalties",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Taking an offer",
+      "topics": [],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Teams",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Templates as macros",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Tikkie",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "Trade Protocols",
+      "topics": [
+        "bisq-2",
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2",
+      "product_reason": "Opening source prose explicitly identifies Bisq 2 or Bisq Easy."
+    },
+    {
+      "title": "Trade payout address reuse issue",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Trading BSQ",
+      "topics": [
+        "dao"
+      ],
+      "wiki_categories": [
+        "BSQ",
+        "DAO",
+        "Guides"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Trading GRIN",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Trading L-BTC",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Trading Monero",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Trading costs",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Trading fees",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [
+        "Features"
+      ],
+      "download_classifier_hint": "bisq1"
+    },
+    {
+      "title": "Trading rules",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Translation",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Processes"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Troubleshooting",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [
+        "Client",
+        "Stubs"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Troubleshooting network issues",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Troubleshooting wallet issues",
+      "topics": [
+        "troubleshooting"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "UPI",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "US Postal Money Order",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Ubiquitous law enforcement",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Updating BSQ trading fees",
+      "topics": [
+        "contributing",
+        "dao"
+      ],
+      "wiki_categories": [
+        "Processes"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Updating Bisq",
+      "topics": [],
+      "wiki_categories": [
+        "Use Cases"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "User support",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Processes"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Verse",
+      "topics": [],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Wallet",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [
+        "Features"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Watch keys",
+      "topics": [
+        "reference"
+      ],
+      "wiki_categories": [
+        "Guides"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Wiki Operator",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Operator",
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Wiki style guidelines",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Wise",
+      "topics": [
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq2"
+    },
+    {
+      "title": "Wise-USD",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    },
+    {
+      "title": "YouTube Admin",
+      "topics": [
+        "contributing"
+      ],
+      "wiki_categories": [
+        "Roles"
+      ],
+      "download_classifier_hint": "general"
+    },
+    {
+      "title": "Zelle",
+      "topics": [
+        "bisq-1",
+        "payment-methods"
+      ],
+      "wiki_categories": [],
+      "download_classifier_hint": "bisq1",
+      "product_reason": "Opening source prose explicitly refers to Bisq v1 release or version context."
+    }
+  ]
+}

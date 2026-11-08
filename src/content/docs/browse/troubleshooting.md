@@ -1,18 +1,31 @@
 ---
 title: "Troubleshooting"
-description: "Resolve application, network, wallet, and trade problems."
+description: "Recovery procedures, troubleshooting, and support."
 ---
 
-Choose the guide for your Bisq application.
+Recovery procedures, troubleshooting, and support. Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
 
-- [Back up and recover Bisq 1](../../bisq-1/backup-and-recovery/)
-- [Back up and recover Bisq 2](../../bisq-2/backup-and-recovery/)
-- [Get help with a Bisq 1 trade](../../bisq-1/dispute-help/)
-- [Get help with Bisq 2](../../bisq-2/get-help/)
-- [Diagnose deposit and payout transactions](../../bisq-1/transaction-troubleshooting/)
-- [Fix wallet synchronization and recover funds](../../bisq-1/wallet-troubleshooting/)
-- [Improve performance and diagnose display problems](../../bisq-1/performance/)
-- [Restore application data and replace a wallet](../../bisq-1/restoring-data/)
-- [Troubleshoot connections and use your Bitcoin node](../../bisq-1/network-and-nodes/)
+- [BuyerVerifiesPreparedDelayedPayoutTx Exception error](../../wiki/buyerverifiesprepareddelayedpayouttx-exception-error/)
+- [Critical bugs](../../wiki/critical-bugs/)
+- [Data directory](../../wiki/data-directory/)
+- [Delayed payout transaction pending in mempool and CPFP](../../wiki/delayed-payout-transaction-pending-in-mempool-and-cpfp/)
+- [Deposit transaction pending in mempool and CPFP](../../wiki/deposit-transaction-pending-in-mempool-and-cpfp/)
+- [Emergency wallet](../../wiki/emergency-wallet/)
+- [Failed Trades - Reimbursement of Trade Fees and Miner Fees](../../wiki/failed-trades-reimbursement-of-trade-fees-and-miner-fees/)
+- [Finding your arbitrator](../../wiki/finding-your-arbitrator/)
+- [Finding your mediator](../../wiki/finding-your-mediator/)
+- [Fix Arch release](../../wiki/fix-arch-release/)
+- [Issues with fiat payments](../../wiki/issues-with-fiat-payments/)
+- [Last resort restore](../../wiki/last-resort-restore/)
+- [Linux memory arenas](../../wiki/linux-memory-arenas/)
+- [Manual payout](../../wiki/manual-payout/)
+- [Performance Tips](../../wiki/performance-tips/)
+- [Reducing memory usage](../../wiki/reducing-memory-usage/)
+- [Resyncing SPV file](../../wiki/resyncing-spv-file/)
+- [Running from the command line](../../wiki/running-from-the-command-line/)
+- [Trade payout address reuse issue](../../wiki/trade-payout-address-reuse-issue/)
+- [Troubleshooting](../../wiki/troubleshooting/)
+- [Troubleshooting network issues](../../wiki/troubleshooting-network-issues/)
+- [Troubleshooting wallet issues](../../wiki/troubleshooting-wallet-issues/)
 
-[Browse all documentation](../)
+[Browse all articles](../all/)

@@ -1,37 +1,26 @@
 ---
 title: Find your way with Bisq
-description: Guides for installing Bisq, making a trade, and keeping your data safe.
+description: Recovered Bisq documentation for trading, keeping your data safe, and contributing.
 template: splash
 hero:
-  tagline: Clear guidance for using Bisq, from your first installation to your next trade.
+  tagline: Explore the recovered Bisq wiki, from installation and trading to the DAO.
   actions:
-    - text: Choose Bisq 1 or Bisq 2
-      link: start/choose-bisq/
+    - text: Explore Bisq 2
+      link: wiki/bisq-2/
       icon: right-arrow
-    - text: Install Bisq 2
-      link: bisq-2/install-and-verify/
+    - text: Explore Bisq 1
+      link: wiki/bisq-1/
       variant: minimal
 ---
 
 ## Get started
 
-Choose the version that fits what you want to do, then install it and verify your download.
+- [Bisq 2](wiki/bisq-2/) · [Bisq Easy](wiki/bisq-easy/)
+- [Bisq 1](wiki/bisq-1/) · [Taking an offer](wiki/taking-an-offer/)
+- [Downloading and installing](wiki/downloading-and-installing/)
 
-- [Choose between Bisq 1 and Bisq 2](start/choose-bisq/)
-- [Install and verify Bisq 2](bisq-2/install-and-verify/) · [Make your first trade](bisq-2/first-trade/)
-- [Install and verify Bisq 1](bisq-1/install-and-verify/) · [Make your first trade](bisq-1/first-trade/)
+## Find a topic
 
-## Keep your data safe
+Browse [all articles by title](browse/all/) or explore [payment methods](browse/payment-methods/), [DAO](browse/dao/), [contributing](browse/contributing/), and [reference](browse/reference/). Search the restored articles for a topic or phrase.
 
-Learn what to back up before you need to restore it.
-
-[Bisq 2 backup and recovery](bisq-2/backup-and-recovery/) · [Bisq 1 backup and recovery](bisq-1/backup-and-recovery/)
-
-## Find help and explore
-
-- [Get help with Bisq 2](bisq-2/get-help/) or [find Bisq 1 dispute help](bisq-1/dispute-help/)
-- Read the [DAO overview](dao/overview/) or learn about [contributing](contribute/getting-started/)
-- [Browse all documentation](browse/) by subject or [find an article by title](browse/all/)
-- Compare [payment methods](browse/payment-methods/) or find [technical and background reference](browse/reference/)
-
-Search covers the main documentation, including support names, payment methods, and technical reference. Guides distinguish current instructions from version-specific or unverified information.
+These articles are restored from a snapshot taken in October 2026. They may describe older software or procedures; see the [review notes](review/) and check current Bisq sources before acting on version-sensitive instructions.

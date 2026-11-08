@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "local-signing-not-private-key-collection",
+      "source_slugs": [
+        "mediation",
+        "manual-payout",
+        "mediator"
+      ],
+      "title": "Manual payout: local signing",
+      "body": "The Mediation source says a mediator may require both traders' private keys. The pinned Bisq 1 v1.10.11 Support Tool instead locates the user's key locally, generates a signature locally, and combines the two signatures. That workflow does not require sending a seed or private key to the mediator. This source check is added separately; it does not validate a particular payout transaction.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Bisq 1 local signing",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/overlays/windows/supporttool/SignPane.java#L76-L138"
+        },
+        {
+          "label": "Bisq 1 signature assembly",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/overlays/windows/supporttool/BuildPane.java#L106-L135"
+        }
+      ]
+    },
+    {
+      "id": "seed-is-not-application-backup",
+      "source_slugs": [
+        "backing-up-application-data",
+        "backing-up-your-wallet-seed",
+        "how-to-back-up-your-bisq-wallet-seed",
+        "restoring-your-wallet-from-seed",
+        "restoring-application-data"
+      ],
+      "title": "Wallet seed and application data have different scopes",
+      "body": "Bisq 1 v1.10.11 explicitly says the same seed serves BTC and BSQ, but seed words do not replace the database and keys needed to restore application state. The application backup warning also says the copy is not encrypted. Restoring wallet funds is not evidence that payment accounts, signing identity, messages or trade state have been recovered.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Bisq 1 backup and seed warnings",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1998-L2044"
+        }
+      ]
+    },
+    {
+      "id": "seed-restore-preconditions",
+      "source_slugs": [
+        "restoring-your-wallet-from-seed",
+        "how-to-back-up-your-bisq-wallet-seed"
+      ],
+      "title": "Seed restoration is an emergency procedure",
+      "body": "The pinned Bisq 1 v1.10.11 restore warnings require an empty wallet and no open offers/trades, warn that restoration removes wallet encryption, and require a new password afterward. They also distinguish the wallet creation date from an arbitrary recent date. Preserve these prerequisites and the separate application-backup requirement when interpreting the original procedure; a seed restore was not executed for this review.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Bisq 1 restore warnings",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3882"
+        }
+      ]
+    },
+    {
+      "id": "singular-hiddenservice-directory",
+      "source_slugs": [
+        "restoring-application-data",
+        "changing-your-onion-address",
+        "local-reputation",
+        "last-resort-restore"
+      ],
+      "title": "Tor identity path spelling",
+      "body": "Bisq 1 v1.10.11 defines the directory name as hiddenservice (singular). The Restoring application data source uses hiddenservices (plural). The checked implementation supports btc_mainnet/tor/hiddenservice for this identity path; it does not establish that selectively replacing identity files is safe during an active trade.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Bisq 1 Tor directory constant",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/p2p/src/main/java/bisq/network/p2p/network/TorMode.java#L54"
+        }
+      ]
+    },
+    {
+      "id": "delayed-payout-export-directory",
+      "source_slugs": [
+        "dumping-delayed-payout-transactions",
+        "manual-payout"
+      ],
+      "title": "Delayed-payout exports use the database directory",
+      "body": "In Bisq 1 v1.10.11, DumpDelayedPayoutTx receives Config.STORAGE_DIR, and Config resolves that directory to the network's db folder. On mainnet this is btc_mainnet/db. Do not infer the dump location from the wallet directory. Exporting a stored transaction does not verify its inputs, locktime, destinations or present spendability and does not authorize broadcasting it.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Export destination injection",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/trade/bisq_v1/DumpDelayedPayoutTx.java#L40-L44"
+        },
+        {
+          "label": "Storage directory resolution",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/common/src/main/java/bisq/common/config/Config.java#L1133"
+        }
+      ]
+    },
+    {
+      "id": "xmr-auto-confirm-defaults",
+      "source_slugs": [
+        "trading-monero"
+      ],
+      "title": "Monero auto-confirm defaults changed",
+      "body": "The pinned Bisq 1 v1.10.11 AutoConfirmSettings defaults XMR auto-confirm to disabled, with a 0.125 BTC auto-confirm ceiling and five required confirmations; the minimum configurable confirmations is two. These differ from the source's enabled/1 BTC description. Existing saved preferences can differ from defaults. An auto-confirm failure alone is not proof that the XMR payment failed.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "XMR default settings",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/user/AutoConfirmSettings.java#L49-L65"
+        },
+        {
+          "label": "Per-trade proof handling",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/trade/txproof/xmr/XmrTxProofRequestsPerTrade.java"
+        }
+      ]
+    },
+    {
+      "id": "reputation-stars-and-ranking",
+      "source_slugs": [
+        "reputation",
+        "reputation2"
+      ],
+      "title": "Bisq 2 stars and rank are different",
+      "body": "In Bisq 2 v2.1.15, ReputationService computes rank relative to other scores but assigns stars using fixed score bands, reaching five stars at 100,000 points. Both source articles describe stars as relative rank. The current fixed-band implementation, rather than that old explanation, is the basis of this added check.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Rank calculation",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ReputationService.java#L150-L153"
+        },
+        {
+          "label": "Fixed star bands",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ReputationService.java#L180-L204"
+        }
+      ]
+    },
+    {
+      "id": "reputation-active-score-sources",
+      "source_slugs": [
+        "reputation",
+        "reputation2"
+      ],
+      "title": "Pinned reputation weights and age bounds",
+      "body": "Bisq 2 v2.1.15 uses an initial 100 points per BSQ burned and 10 per BSQ bonded, with the first-year time boost; an unlocked bond contributes zero. Imported Bisq 1 account age uses four points per day capped at 2,000 days. Signed-witness age uses ten points per day, requires at least 61 days, and is capped at 2,000 days. Profile age is tracked but contributes zero points in this version. These are release-pinned formulas, not a guarantee of reputation or trade availability.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Burn scoring",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ProofOfBurnService.java#L41-L96"
+        },
+        {
+          "label": "Bond scoring",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/BondedReputationService.java#L116-L130"
+        },
+        {
+          "label": "Account-age scoring",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/AccountAgeService.java#L187-L196"
+        },
+        {
+          "label": "Signed-witness scoring",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/SignedWitnessService.java#L197-L209"
+        },
+        {
+          "label": "Profile-age score",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/user/src/main/java/bisq/user/reputation/ProfileAgeService.java#L155-L158"
+        }
+      ]
+    },
+    {
+      "id": "easy-payment-reference-conflict",
+      "source_slugs": [
+        "bisq-easy"
+      ],
+      "title": "Conflicting payment-reference advice",
+      "body": "The original Bisq Easy page tells buyers both to leave the payment reason blank/use their own name and to insert the trade ID. Bisq 2 v2.1.15's explicit buyer payment-screen rule says blank if possible, otherwise the buyer's own name; never Bisq or Bitcoin. The pinned upstream guide text itself also retains conflicting trade-ID wording. This check identifies the contradiction and follows the actual payment-screen rule; it does not silently remove either original passage.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Buyer payment-screen text",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L910"
+        },
+        {
+          "label": "Payment-screen implementation",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/open_trades/trade_state/states/BuyerState2a.java#L145-L158"
+        },
+        {
+          "label": "Upstream process and trade rules",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L418-L436"
+        }
+      ]
+    },
+    {
+      "id": "bisq1-payment-reference",
+      "source_slugs": [
+        "trading-rules",
+        "wise-usd",
+        "zelle",
+        "faster-payments",
+        "swift"
+      ],
+      "title": "Bisq 1 payment references",
+      "body": "Bisq 1 v1.10.11's rules say to leave the reason blank and not include the trade ID, Bitcoin, BTC or Bisq. Its UI guidance allows an account name or a non-descriptive character when a reference is compulsory and tells traders to discuss alternatives in trade chat. A method-specific old suggestion such as a SWIFT conversion comment is not a universal exception to those rules.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Bisq 1 trade rules",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L350-L355"
+        },
+        {
+          "label": "Compulsory reference guidance",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L811-L814"
+        }
+      ]
+    },
+    {
+      "id": "easy-receipt-and-mediation-scope",
+      "source_slugs": [
+        "bisq-easy",
+        "dispute-resolution-in-bisq-2",
+        "issues-with-fiat-payments"
+      ],
+      "title": "Bisq Easy receipt and mediation limits",
+      "body": "Bisq 2 v2.1.15 tells the seller to check actual receipt through the bank/payment provider before sending bitcoin. It also states that a mediator cannot enforce an outcome or guarantee recovery. A message or screenshot from the buyer is not the seller's receipt check, and Bisq 1's escrow/arbitration mechanism must not be inferred for Bisq Easy.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Seller receipt instruction",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L954-L955"
+        },
+        {
+          "label": "Easy mediation limit",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L436"
+        }
+      ]
+    },
+    {
+      "id": "developer-gated-musig-and-wallet",
+      "source_slugs": [
+        "bisq-2",
+        "bisq-2-wallet",
+        "trade-protocols",
+        "musig-tradelimits"
+      ],
+      "title": "Source code presence is not standard-release availability",
+      "body": "Bisq 2 v2.1.15's MuSig activation requires DevMode; the desktop configuration sets devMode=false. Wallet navigation is bound to MuSig activation, although Wallet implementation code exists. The Wallet controller's manual restore callback is still a TODO. Neither an old launch-time statement that there is no wallet nor a roadmap list establishes the current availability of a standard integrated-wallet recovery workflow.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "MuSig activation gate",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/mu-sig/src/main/java/bisq/mu_sig/MuSigService.java#L163-L168"
+        },
+        {
+          "label": "Desktop defaults",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop-app/src/main/resources/desktop.conf#L1-L5"
+        },
+        {
+          "label": "Wallet navigation gate",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/left/LeftNavView.java#L190-L191"
+        },
+        {
+          "label": "Wallet restore callback",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/wallet/WalletController.java#L80-L86"
+        }
+      ]
+    },
+    {
+      "id": "bisq1-dynamic-limits",
+      "source_slugs": [
+        "account-limits",
+        "payment-methods",
+        "payment-methods-en",
+        "payment-methods-es",
+        "revolut",
+        "zelle"
+      ],
+      "title": "Fixed BTC tables can differ from the pinned calculation",
+      "body": "Bisq 1 v1.10.11's tolerated small-trade amount is 0.002 BTC after its 17 February 2025 activation date. TradeLimits clamps its maximum at 0.25 BTC; method risk, DAO parameters and account state can make the actual allowance lower. The signing-based buying schedule and the buying/selling distinction must be checked separately. These constants do not make every old method-specific maximum or table row current.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Small-trade constant",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/offer/OfferRestrictions.java#L35-L47"
+        },
+        {
+          "label": "Maximum clamp and DAO parameter",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/TradeLimits.java#L39-L93"
+        },
+        {
+          "label": "Direction and signing factors",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/account/witness/AccountAgeWitnessService.java#L475-L515"
+        }
+      ]
+    },
+    {
+      "id": "provider-registration-versus-availability",
+      "source_slugs": [
+        "verse",
+        "celpay",
+        "paytm",
+        "payment-methods"
+      ],
+      "title": "Client registration and provider operation differ",
+      "body": "Bisq 1 v1.10.11 explicitly marks Verse as shut down and filters it out of new-account selection. It still registers CelPay and PayTM, but Celsius's official distribution notice records app closure on 29 February 2024, and RBI's notice restricts new credits into Paytm Payments Bank accounts/wallets after 15 March 2024. Paytm's other bank-backed UPI routes are a separate question. A retained software identifier is not proof that an old provider workflow remains usable.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Current method registry",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L210-L300"
+        },
+        {
+          "label": "Verse selector filter",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/account/content/fiataccounts/FiatAccountsView.java#L458-L460"
+        },
+        {
+          "label": "Official Celsius wind-down notice",
+          "url": "https://celsiusdistribution.stretto.com/support/solutions/articles/153000147019-celsius-network-dissolution-and-distribution"
+        },
+        {
+          "label": "Reserve Bank of India notice",
+          "url": "https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=57376"
+        }
+      ]
+    },
+    {
+      "id": "bisq2-backup-scope",
+      "source_slugs": [
+        "automatic-backup",
+        "backup",
+        "bisq-2-wallet"
+      ],
+      "title": "Bisq 2 snapshots and manual backup are distinct",
+      "body": "The pinned Bisq 2 v2.1.15 implementation thins automatic store backups and can prune them by size. Manual Support/Resources backup is a separate data-directory copy; its UI warns that the backup is not encrypted. The copy intentionally excludes some runtime files and can retain external Tor credentials. Neither a local rolling snapshot nor an external wallet seed establishes that all application state is protected against device loss.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Automatic retention and size limits",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/persistence/src/main/java/bisq/persistence/backup/BackupService.java#L51-L75"
+        },
+        {
+          "label": "Manual backup UI warning",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/support.properties#L15-L37"
+        },
+        {
+          "label": "Manual copy exclusions and credential handling",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/support/resources/ResourcesController.java#L224-L250"
+        }
+      ]
+    },
+    {
+      "id": "last-resort-restore-independent-review",
+      "source_slugs": [
+        "last-resort-restore",
+        "restoring-application-data"
+      ],
+      "title": "Last resort restore: procedure review",
+      "body": "The original Last resort restore procedure is restored here, including its file-selection, copy order, identity directories, rollback and SPV-resync directions. The earlier AI edit did not preserve the complete procedure. Support maintainers still need to assess its applicability to the pinned release; restoration of the wording is not a recovery test.",
+      "status": "needs-maintainer-review",
+      "checked_at": "2026-11-07",
+      "sources": [
+        {
+          "label": "Original Last resort restore revision",
+          "url": "https://bisq.wiki/index.php?oldid=3195"
+        },
+        {
+          "label": "Pinned Bisq 1 seed-restore warnings (different recovery scope)",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3882"
+        }
+      ]
+    }
+  ]
+}

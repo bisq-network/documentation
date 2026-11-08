@@ -1,25 +1,37 @@
 ---
 import Default from "@astrojs/starlight/components/MarkdownContent.astro";
 import { loadIntegration } from "../../scripts/lib/documentation.mjs";
+import notes from "../../migration/source-review-notes.json";
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
 const route = id ? `/${id}/` : "/";
-const sources = loadIntegration().filter((item) => item.target.split("#")[0] === route);
+const article = loadIntegration().find((item) => item.target === route);
+const checks = article ? notes.items.filter((note) => note.source_slugs.includes(article.slug)) : [];
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
+{article && (
+  <aside class="source-context" data-pagefind-ignore aria-label="Article source">
+    <p>Original wiki wording · recovered from the 18 October 2026 snapshot. <a href={`${base}/review/`}>Review status</a></p>
+    {checks.length > 0 && <details class="source-checks">
+      <summary>Separate source-check notes ({checks.length})</summary>
+      <p>Added during migration; these notes are not part of the original article. They identify specific differences or review needs, not a review of the entire procedure.</p>
+      {checks.map((note) => <section>
+        <h2>{note.title}</h2>
+        <p>{note.body}</p>
+        <p class="source-check-date">Checked {note.checked_at}{note.status === "needs-maintainer-review" ? " · maintainer review needed" : " · pinned sources below"}</p>
+        <ul>{note.sources.map((source) => <li><a href={source.url}>{source.label}</a></li>)}</ul>
+      </section>)}
+    </details>}
+  </aside>
+)}
 <Default><slot /></Default>
-{sources.length > 0 && (
+{article && (
   <details class="source-history" data-pagefind-ignore>
     <summary>Source history and attribution</summary>
-    <p>This guide incorporates the following wiki topics from the 18 October 2026 snapshot. Original text and available revision metadata are retained for comparison. The last recorded editor is not a complete author list.</p>
-    <ul>
-      {sources.map((item) => (
-        <li>
-          <strong>{item.title}</strong>: <a href={`${base}${item.source_download}`}>original text</a> · <a href={`${base}${item.source_metadata}`}>revision metadata</a>
-          {item.available_attribution?.username && <> · last recorded editor: {item.available_attribution.username}</>}
-        </li>
-      ))}
-    </ul>
-    <p><a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
+    <p>This article retains its recovered wording, headings, step order and available images. Formatting and links have been adapted for this site. The snapshot is not a guarantee that every instruction is current.</p>
+    <p><strong>{article.title}</strong>: <a href={`${base}${article.source_download}`}>original wikitext</a> · <a href={`${base}${article.source_metadata}`}>revision metadata</a>
+      {article.available_attribution?.username && <> · last recorded editor: {article.available_attribution.username}</>}
+    </p>
+    <p>The last recorded editor is not a complete author list. <a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
   </details>
 )}

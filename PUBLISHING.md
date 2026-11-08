@@ -1,10 +1,12 @@
-# Publish the contributor preview
+# Publish the community preview
 
-The public repository [hiciefte/bisq-docs](https://github.com/hiciefte/bisq-docs) publishes the community review preview at **[hiciefte.github.io/bisq-docs](https://hiciefte.github.io/bisq-docs/)**. GitHub Actions builds the site from the selected revision; check the workflow result before sharing an update.
+The intended public preview is [hiciefte.github.io/bisq-docs](https://hiciefte.github.io/bisq-docs/) from [hiciefte/bisq-docs](https://github.com/hiciefte/bisq-docs). GitHub Actions builds a selected revision; check the workflow result and live pages to establish what is deployed.
+
+Before publication, review the exact changes, source preservation checks, licensing and attribution status, and the community-preview notice. The restored snapshot is not a certification of current instructions. Review the checked-in source and the [contributor guidance](CONTRIBUTING.md); publishing a restoration does not establish official Bisq endorsement.
 
 ## Publish source updates
 
-From this checkout, inspect the commit and remote, then publish the source:
+Inspect the commit and remote, then push the authorized revision:
 
 ```sh
 git status
@@ -13,17 +15,14 @@ git show --stat --oneline HEAD
 git push -u origin main
 ```
 
-This push makes the repository contents public. The workflow does not deploy automatically on push.
+The push makes repository contents public. The workflow does not deploy automatically on push.
 
 ## Deploy the website
 
-1. In the repository's **Settings → Pages**, select **GitHub Actions** as the publishing source.
-2. Open **Actions → Build and deploy documentation → Run workflow**, choose `main`, and run it when ready to publish.
-3. Review the build and deployment results. The website address is `https://hiciefte.github.io/bisq-docs/`.
-4. Verify the homepage, search, a guide and its image at that live address. Local path checks do not establish successful public deployment.
+1. In **Settings → Pages**, select **GitHub Actions** as the publishing source.
+2. Open **Actions → Build and deploy documentation → Run workflow**, choose the intended revision, and run it when authorized.
+3. Check the build and deployment results. Verify the live homepage, search, restored article and image, an old wiki-title link, and a multi-source guide compatibility page.
 
-The workflow derives the Pages origin and `/bisq-docs/` base from the repository. No custom domain or new hosting account is needed for this path. Set `DOCS_SITE` and `DOCS_BASE` only if you deliberately change the destination.
-
-Keep the community-preview notice and the [review status](src/content/docs/review.md) accurate. Check [content sources and attribution](CONTENT-SOURCES.md) before treating the recovered archive as a cleared official publication.
+The workflow derives the Pages origin and `/bisq-docs/` base from the repository. Set `DOCS_SITE` and `DOCS_BASE` only when intentionally changing the destination. No custom domain or new hosting account is needed for this path.
 
 References: [GitHub Pages custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [manual workflow execution](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow).

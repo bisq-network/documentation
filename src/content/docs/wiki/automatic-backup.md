@@ -1,0 +1,7 @@
+---
+title: "Automatic backup"
+slug: "wiki/automatic-backup"
+tableOfContents: false
+---
+
+<div class="wiki-recovered-article" lang="en"><p>The Bisq application automatically creates a backup whenever a data storage file is updated. Recent backups are retained more densely, while older ones are gradually thinned out. This approach maintains a good balance between storage usage and ensuring that sufficiently recent backups are available when needed.</p>&#10;<p>Backup snapshots are created on every write (the backup filename is the store filename plus the timestamp format <code class="wiki-source-code" id="source-code-1">yyyy-MM-dd_HHmm</code>) and are grouped by the store’s parent filename.</p>&#10;<figure class="wiki-image-gap" id="source-image-1"><p><strong>Image not recovered: Resources automatic backup.png</strong></p><p>The original file is unavailable in this local recovery.</p></figure>&#10;<p>The system keeps backup snapshots based on the following rules and the <code class="wiki-source-code" id="source-code-2">MaxBackupSize</code> (default 100MB):</p>&#10;<ul>&#10;<li>Last hour: a snapshot every minute</li>&#10;<li>Past hour → 24 hours: the most recent snapshot from each hour is kept</li>&#10;<li>Past day → 7 days: the most recent snapshot from each day is kept</li>&#10;<li>Past week → 28 days: the most recent snapshot from each week is kept</li>&#10;<li>Past month → 1 year: the most recent snapshot from each month is kept</li>&#10;<li>Older than a year: the most recent snapshot from each year is kept</li>&#10;</ul>&#10;</div>

@@ -114,3 +114,13 @@ a.sl-link-button.primary:hover { background: #39c34a; border-color: #39c34a; col
 .source-history p { margin-block: 0.8rem; }
 .source-history ul { padding-inline-start: 1.4rem; }
 .source-history li { margin-block: 0.5rem; overflow-wrap: anywhere; }
+
+.source-context { margin-bottom: 1.5rem; padding: 0.85rem 1rem; border: 1px solid var(--sl-color-gray-5); border-radius: 0.2rem; font-size: 0.9rem; }
+.source-context p { margin-block: 0.5rem; }
+.source-checks { margin-top: 0.75rem; }
+.source-checks summary { cursor: pointer; font-weight: 600; }
+.source-checks section { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--sl-color-gray-5); }
+.source-checks h2 { font-size: 1.05rem; }
+.source-checks ul { padding-inline-start: 1.4rem; }
+.source-check-date { color: var(--sl-color-gray-2); font-size: 0.85rem; }
+.wiki-recovered-article table th, .wiki-recovered-article table td { min-width: 8rem; }

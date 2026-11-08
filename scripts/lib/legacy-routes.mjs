@@ -9,7 +9,8 @@ export function normalizeFragment(value) {
 export function buildLegacyRoutes(articles, headingsByRoute = new Map()) {
   const routes = new Map();
   for (const article of articles) {
-    const [targetPath, targetFragment = ""] = article.target.split("#");
+    const canonicalTarget = (article.title === "Sepa" || article.title === "SEPA") ? "/wiki/sepa-p551/" : article.target;
+    const [targetPath, targetFragment = ""] = canonicalTarget.split("#");
     const headings = headingsByRoute.get(targetPath) || [];
     const byNormalized = new Map(headings.flatMap((heading) => [[normalizeFragment(heading.text), heading.slug], [normalizeFragment(heading.slug), heading.slug]]));
     const fragments = Object.create(null);
@@ -29,23 +30,28 @@ export function buildLegacyRoutes(articles, headingsByRoute = new Map()) {
       const kind = explicit ? "explicit" : matching ? "matching-heading" : "topic-section";
       for (const id of [heading.legacy_id, heading.anchor, heading.explicit_source_id]) remember(id, destination, kind);
     }
-    for (const explicit of article.explicit_anchors || []) {
-      const id = typeof explicit === "string" ? explicit : explicit.id;
-      if (id && !anchors.has(id)) remember(id, article.target, "topic-section");
-    }
     for (const image of article.image_occurrences || []) {
-      if (image.element_id) remember(image.element_id, article.target, "topic-section");
+      if (image.element_id) remember(image.element_id, `${article.target.split("#")[0]}#${image.element_id}`, "source-image");
     }
     for (const [old, target] of Object.entries(article.fragment_map || {})) remember(old, target.startsWith("/") ? target : `${targetPath}#${target.replace(/^#/, "")}`, "explicit");
+    // Use only IDs retained in the rendered article; layout-template IDs can be absent.
+    // These IDs exist in the restored author HTML. Preserve their exact targets,
+    // including when a normalized Markdown heading name happens to collide.
+    for (const explicit of article.rendered_explicit_anchors ?? article.explicit_anchors ?? []) {
+      const id = typeof explicit === "string" ? explicit : explicit.id;
+      if (id) remember(id, `${article.target.split("#")[0]}#${id}`, "explicit-source-id");
+    }
     // Installation anchors existed in the first published preview, even where the export differed.
     const prior = article.title === "Bisq 2" ? ["Installation", "Known_issues_with_installation"] : article.title === "Downloading and installing" ? ["OS-specific_install_notes"] : [];
     for (const id of prior) if (!anchors.has(id)) remember(id, article.target, "topic-section");
     const originalPath = decodeURIComponent(new URL(article.original_url).pathname).replace(/^\/+|\/+$/g, "");
     const paths = new Set([originalPath, article.route.replace(/^\/+|\/+$/g, "")]);
+    paths.delete(targetPath.replace(/^\/+|\/+$/g, ""));
+    paths.delete(article.route.replace(/^\/+|\/+$/g, ""));
     for (const path of paths) {
       if (!path || path.split("/").some((part) => part === "." || part === "..")) throw new Error(`Unsafe legacy path: ${path}`);
       if (routes.has(path)) throw new Error(`Duplicate legacy path: ${path}`);
-      routes.set(path, { path, title: article.title, sourceSlug: article.source_slug || article.slug, target: article.target, targetPath, targetFragment, fragments, anchors: [...anchors], mappings });
+      routes.set(path, { path, title: article.title, sourceSlug: article.source_slug || article.slug, target: canonicalTarget, targetPath, targetFragment, fragments, anchors: [...anchors], mappings });
     }
   }
   // SEPA/Sepa are distinct MediaWiki titles but collide on common macOS filesystems.
@@ -66,11 +72,11 @@ export function buildLegacyRoutes(articles, headingsByRoute = new Map()) {
   return [...routes.values()];
 }
 
-export function resolveLegacyDestination({ base = "", target, fragments }, hash = "") {
+export function resolveLegacyDestination({ base = "", target, fragments, autoRedirect = true }, hash = "") {
   let decoded = hash.replace(/^#/, "");
   try { decoded = decodeURIComponent(decoded); } catch { /* Preserve malformed bookmarks for fallback. */ }
   const normalized = normalizeFragment(decoded);
-  const destination = Object.hasOwn(fragments, decoded) ? fragments[decoded] : Object.hasOwn(fragments, normalized) ? fragments[normalized] : target;
+  const destination = Object.hasOwn(fragments, decoded) ? fragments[decoded] : Object.hasOwn(fragments, normalized) ? fragments[normalized] : (autoRedirect ? target : null);
   if (typeof destination !== "string" || !destination.startsWith("/") || destination.startsWith("//")) return null;
   return `${base.replace(/\/$/, "")}${destination}`;
 }

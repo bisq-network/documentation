@@ -1,6 +1,6 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 
-// All subject guides are searchable. Index and provenance pages would duplicate their results.
+// All original articles are searchable. Index and provenance pages would duplicate their results.
 export const onRequest = defineRouteMiddleware(({ locals }) => {
   const { entry } = locals.starlightRoute;
   const id = entry.id.replace(/\.(md|mdx)$/, "");

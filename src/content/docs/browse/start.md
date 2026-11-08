@@ -1,10 +1,9 @@
 ---
-title: "Start here"
-description: "Choose the right Bisq app and learn the basics."
+title: "Getting started"
+description: "Original wiki introductions and installation guides."
 ---
 
-Choose the right Bisq app and learn the basics.
-
-- [Choose your Bisq app](../../start/choose-bisq/)
-
-[Browse all documentation](../)
+- [Backing up application data](../../wiki/backing-up-application-data/)
+- [Bisq 2](../../wiki/bisq-2/)
+- [Bisq Easy](../../wiki/bisq-easy/)
+- [Downloading and installing](../../wiki/downloading-and-installing/)

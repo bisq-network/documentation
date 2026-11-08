@@ -1,36 +1,23 @@
 # Review and improve the documentation
 
-This repository is a personal community review preview. Changes here do not represent official Bisq approval.
+This is a community preview, not official Bisq approval. The main articles reproduce a recovered October 2026 wiki snapshot; their age and preservation do not establish current accuracy.
 
-Start with a guide you know well. Open an issue or a focused pull request identifying the page, the affected Bisq version, the problem and the source that supports your correction. Keep current product instructions separate from historical material.
+For a focused correction, identify the article, affected product and version, the wording to change, and a supporting source or reproducible observation. Prefer immutable links to official application source, release notes or other primary material. Explain whether you inspected code, exercised the application, or both. Human review remains necessary, especially for payments, recovery and dispute instructions. Never perform a funded trade or irreversible operation merely to validate wording.
 
-## Editing a guide
+The original source and available revision metadata remain in `public/wiki-source/`; preserve them when editing a main article. The 98 prior AI-edited guides and their comparison index under `review/` are available as review material, not live main documentation. Avoid treating an AI rewrite as an authoritative source.
 
-1. Read its sources and check the relevant supported release. Prefer official release notes and immutable application-source links for facts that can change.
-2. Preserve prerequisites, warnings, payment order, product boundaries and recovery limits. A shorter paragraph is useful only if those details survive.
-3. Link to the existing guide for shared explanations. Keep a critical warning next to the action it affects even if it also appears elsewhere.
-4. Explain any contradiction between sources. Do not invent missing fees, limits, keys, template values or UI behavior.
-5. Update the guide's checked date and source context. Tell reviewers whether you read source code, exercised the application, or both.
-6. Run `npm ci` and `npm run build`. Check the affected page on a desktop and a narrow screen, including its images and links.
+Preserve prerequisites and warnings, identify old interfaces in images, and do not include secrets, payment details or private trade conversations in public material. When changing a route or heading, check the corresponding wiki-title and earlier-guide compatibility links, including saved sections. Content and media reuse terms and full authorship remain unresolved; see [CONTENT-SOURCES.md](CONTENT-SOURCES.md).
 
-Source-checked does not mean tested with real funds. Never perform a funded trade, wallet restore or irreversible operation merely to validate a wording change.
-
-## Integrated sources and images
-
-All 209 recovered wiki titles are assigned to main documentation guides in `migration/integration-*.json`. Preserve the useful detail, source-check notes and source-to-section mapping when consolidating a guide. The exact original source and available revision attribution remain in `public/wiki-source/`; do not edit those exports to make them match the new prose.
-
-When changing a heading or destination, update the integration mapping and any explicit fragment mappings. Test old title paths as well as the new guide URL. Search indexes canonical subject guides; compatibility and provenance pages are excluded to avoid duplicate results.
-
-Use an image only when it explains the surrounding step. Preserve its source record and identify historical interfaces or thumbnails. Never include wallet secrets, payment details, private trade chats or another person's personal information in a screenshot.
-
-Full source authorship and content/media reuse terms remain unresolved. Do not assign a blanket licence to imported material or assume that the application's software licence covers wiki prose and images. See `CONTENT-SOURCES.md`.
-
-## Checks for a GitHub Pages path
-
-The normal local build uses `/`. Check the intended hosted path too:
+Run `npm ci`, `npm test`, and `npm run build`; check affected pages, images and links at desktop and narrow widths. Also check the project base path:
 
 ```sh
 DOCS_SITE=https://hiciefte.github.io DOCS_BASE=/bisq-docs/ npm run build
 ```
 
-The deployment workflow is manual. Building or contributing a pull request does not publish the site.
+The deployment workflow is manual. Building or submitting a pull request does not publish the site.
+
+## Wording-only review batches
+
+Keep initial proposals small and article-by-article, retaining titles, structure, facts and procedural order. Open a draft PR against the restored baseline so reviewers see the actual wording diff. The earlier AI edition can inform the comparison, but is not a replacement to apply wholesale.
+
+The restoration fidelity gate intentionally rejects changes to article wording. A draft editorial PR can therefore show this expected failure while reviewers assess the proposal. Do not refresh the original hashes to hide the difference. Human approval and a separately reviewed policy for accepted editorial changes are required before such a PR can be merged and published.

@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import { loadIntegration } from "../../scripts/lib/documentation.mjs";
 import { buildLegacyRoutes } from "../../scripts/lib/legacy-routes.mjs";
+import { loadEditedRouteAliases } from "../../scripts/lib/edited-route-aliases.mjs";
 
 export async function getStaticPaths() {
   const docs = await getCollection("docs");
@@ -9,14 +10,21 @@ export async function getStaticPaths() {
     const id = entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
     return [id ? `/${id}/` : "/", (await render(entry)).headings];
   })));
-  return buildLegacyRoutes(loadIntegration(), headings).map((entry) => ({ params: { legacy: entry.path }, props: entry }));
+  const articles = loadIntegration();
+  const aliases = [...buildLegacyRoutes(articles, headings), ...loadEditedRouteAliases(articles)];
+  const paths = new Set();
+  for (const alias of aliases) {
+    if (paths.has(alias.path)) throw new Error(`Duplicate alias: ${alias.path}`);
+    paths.add(alias.path);
+  }
+  return aliases.map((entry) => ({ params: { legacy: entry.path }, props: entry }));
 }
 
-const { title, target, fragments, anchors } = Astro.props;
+const { title, target, fragments, anchors, choices = [], fragmentChoices = [], autoRedirect = true } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const href = `${base}${target}`;
 const canonical = Astro.site ? new URL(href, Astro.site).href : href;
-const configuration = JSON.stringify({ base, target, fragments }).replace(/</g, "\\u003c");
+const configuration = JSON.stringify({ base, target, fragments, autoRedirect }).replace(/</g, "\\u003c");
 ---
 <!doctype html>
 <html lang="en">
@@ -25,7 +33,7 @@ const configuration = JSON.stringify({ base, target, fragments }).replace(/</g, 
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex,follow" />
     <link rel="icon" type="image/x-icon" href={`${base}/favicon.ico`} />
-    <link rel="canonical" href={canonical} />
+    {autoRedirect && <link rel="canonical" href={canonical} />}
     <title>{title} | Bisq documentation</title>
     <style>
       body { font: 1.05rem/1.7 system-ui, sans-serif; max-width: 48rem; margin: 3rem auto; padding: 0 1.25rem; color: #1c2820; background: #f9fbf9; }
@@ -36,13 +44,22 @@ const configuration = JSON.stringify({ base, target, fragments }).replace(/</g, 
     <main>
       <p><a href={`${base}/`}>Bisq documentation</a></p>
       <h1>{title}</h1>
-      <p>This topic is now part of the main documentation.</p>
-      <p><a id="continue-to-guide" href={href}>Continue to the guide</a></p>
-      <noscript><p>The link above works without JavaScript.</p></noscript>
-      {anchors.length > 0 && <details>
-        <summary>Find a saved section</summary>
-        <ul>{anchors.map((id) => <li id={id}><a href={`${base}${fragments[id] || target}`}>{id.replaceAll("_", " ")}</a></li>)}</ul>
-      </details>}
+      {choices.length > 0 ? <>
+        <p>This earlier edited guide has been replaced by the recovered original documentation.</p>
+        {choices.length > 1 && <p>It combined several source articles. Choose the relevant original:</p>}
+        <ul>{choices.map((choice) => <li><a href={`${base}${choice.target}`}>{choice.title}</a></li>)}</ul>
+        {choices.length > 1 && <p><a href={href}>Browse all articles</a></p>}
+        {fragmentChoices.length > 0 && <details open>
+          <summary>Find a saved guide section</summary>
+          <ul>{fragmentChoices.map((section) => <li id={section.id}>{section.id.replaceAll("-", " ")}: {section.targets.map((choice, index) => <>{index > 0 && ", "}<a href={`${base}${choice.target}`}>{choice.title}</a></>)}</li>)}</ul>
+        </details>}
+      </> : <>
+        <p>This topic is now part of the original documentation.</p>
+        <p><a id="continue-to-guide" href={href}>Continue to the original article</a></p>
+        <details open><summary>Find a saved section</summary>
+          <ul>{anchors.map((id) => <li id={id}><a href={`${base}${fragments[id] || target}`}>{id.replaceAll("_", " ")}</a></li>)}</ul>
+        </details>
+      </>}
     </main>
     <script type="application/json" id="legacy-destination" set:html={configuration} />
     <script>

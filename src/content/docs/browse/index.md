@@ -1,20 +1,24 @@
 ---
 title: "Browse the documentation"
-description: "Find Bisq user guides, payment methods, DAO documentation, and contributor reference."
+description: "Browse the original Bisq Wiki articles by topic or title."
 ---
 
-Choose a subject, search for a name or topic, or use the [complete title index](all/).
+The **209 recovered articles** are the main documentation. Original titles, wording, and procedures are preserved. Search by topic or name, or use the [complete title index](all/).
 
 ## Browse by subject
 
-- [Start here](start/) — Choose the right Bisq app and learn the basics.
-- [Bisq 2](bisq-2/) — Bisq Easy trading, reputation, identity, backup, and help.
-- [Bisq 1](bisq-1/) — Multisig trades, accounts, wallet recovery, and troubleshooting.
-- [Payment methods](payment-methods/) — Method-specific account setup, payment requirements, risks, and availability.
-- [DAO and BSQ](dao/) — Understand BSQ, proposals, voting, compensation, and DAO operation.
-- [Contributing](contributing/) — Project participation, contributor roles, infrastructure, and documentation.
-- [Reference](reference/) — Background concepts, technical details, and version-specific reference.
+- [Bisq 2](bisq-2/) — Original articles about Bisq 2 and Bisq Easy.
+- [Bisq 1](bisq-1/) — Original articles about Bisq 1 trading, accounts, and operation.
+- [Payment methods](payment-methods/) — Payment methods, account limits, and signing.
+- [Troubleshooting](troubleshooting/) — Recovery procedures, troubleshooting, and support.
+- [DAO and BSQ](dao/) — BSQ, governance, proposals, and DAO operation.
+- [Contributing](contributing/) — Contributor roles, teams, and project processes.
+- [Reference](reference/) — Additional articles and technical background.
 
-## Find an old wiki link
+## Saved wiki links
 
-All 209 recovered wiki titles map to their integrated guides. Saved paths such as `/Finding_your_mediator` still work on the new site. The [title index](all/#former-wiki-titles) shows where each topic now lives.
+Exported wiki paths such as `/Finding_your_mediator` and `/Last_resort_restore` open the corresponding original articles. Links to the previous edited guides lead to the relevant originals or a list of their source articles.
+
+## Editorial review
+
+Proposed wording changes are reviewed separately. See [review status](../review/) for the comparison material and remaining recovery gaps.

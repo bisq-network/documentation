@@ -1,65 +1,40 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync } from "node:fs";
 
 export const sections = [
-  { directory: "start", label: "Start here", intro: "Choose the right Bisq app and learn the basics." },
-  { directory: "bisq-2", label: "Bisq 2", intro: "Bisq Easy trading, reputation, identity, backup, and help." },
-  { directory: "bisq-1", label: "Bisq 1", intro: "Multisig trades, accounts, wallet recovery, and troubleshooting." },
-  { directory: "payment-methods", label: "Payment methods", intro: "Method-specific account setup, payment requirements, risks, and availability." },
-  { directory: "support", label: "Support", intro: "Find assistance and resolve trade problems." },
-  { directory: "troubleshooting", label: "Troubleshooting", intro: "Diagnose application, network, and wallet problems." },
-  { directory: "dao", label: "DAO and BSQ", intro: "Understand BSQ, proposals, voting, compensation, and DAO operation." },
-  { directory: "contribute", label: "Contributing", intro: "Project participation, contributor roles, infrastructure, and documentation." },
-  { directory: "reference", label: "Reference", intro: "Background concepts, technical details, and version-specific reference." },
+  { directory: "bisq-2", label: "Bisq 2", intro: "Original articles about Bisq 2 and Bisq Easy." },
+  { directory: "bisq-1", label: "Bisq 1", intro: "Original articles about Bisq 1 trading, accounts, and operation." },
+  { directory: "payment-methods", label: "Payment methods", intro: "Payment methods, account limits, and signing." },
+  { directory: "troubleshooting", label: "Troubleshooting", intro: "Recovery procedures, troubleshooting, and support." },
+  { directory: "dao", label: "DAO and BSQ", intro: "BSQ, governance, proposals, and DAO operation." },
+  { directory: "contribute", label: "Contributing", intro: "Contributor roles, teams, and project processes." },
+  { directory: "reference", label: "Reference", intro: "Additional articles and technical background." },
 ];
 
-const priority = ["choose-bisq", "install-and-verify", "first-trade", "payment-accounts", "bisq-easy-safety", "backup-and-recovery", "dispute-help", "finding-your-mediator", "get-help", "overview", "getting-started"];
-
-export function collectGuides(root = "src/content/docs") {
-  const guides = [];
-  function walk(directory, relative) {
-    let entries;
-    try { entries = readdirSync(directory, { withFileTypes: true }); }
-    catch (error) { if (error.code === "ENOENT") return; throw error; }
-    for (const entry of entries) {
-      const path = join(directory, entry.name);
-      const id = `${relative}/${entry.name}`;
-      if (entry.isDirectory()) walk(path, id);
-      else if (/\.mdx?$/.test(entry.name)) {
-        const source = readFileSync(path, "utf8");
-        const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-        const value = frontmatter?.[1].match(/^title:\s*(.+)$/m)?.[1].trim();
-        if (!value) throw new Error(`Missing title: ${path}`);
-        let title = value;
-        if (value.startsWith('"')) title = JSON.parse(value);
-        else if (value.startsWith("'")) title = value.slice(1, -1).replaceAll("''", "'");
-        const slug = id.replace(/\.mdx?$/, "").replace(/\/index$/, "");
-        guides.push({ title, route: `/${slug}/`, directory: relative.split("/")[0], file: path });
-      }
+export function loadIntegration() {
+  const articles = JSON.parse(readFileSync("migration/articles.json", "utf8")).items;
+  if (articles.length !== 209 || new Set(articles.map((a) => a.slug)).size !== 209) throw new Error("Expected all 209 original wiki articles.");
+  return articles.map((article) => {
+    if (article.route !== `/wiki/${article.slug}/`) throw new Error(`Unexpected original route: ${article.title}`);
+    const fragment_map = {};
+    for (const heading of article.headings || []) {
+      for (const id of [heading.legacy_id, heading.anchor, heading.explicit_source_id].filter(Boolean)) fragment_map[id] = heading.anchor;
     }
-  }
-  for (const section of sections) walk(join(root, section.directory), section.directory);
-  return guides.sort((a, b) => {
-    const rank = (item) => {
-      const slug = item.route.split("/").filter(Boolean).at(-1);
-      if (slug === item.directory) return -1;
-      const n = priority.indexOf(slug);
-      return n < 0 ? priority.length : n;
-    };
-    return rank(a) - rank(b) || a.title.localeCompare(b.title, "en");
+    const rendered = article.explicit_anchors?.length ? readFileSync(`src/content/docs/wiki/${article.slug}.md`, "utf8") : "";
+    const rendered_explicit_anchors = (article.explicit_anchors || []).filter((value) => {
+      const id = typeof value === "string" ? value : value.id;
+      const escaped = id.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+      return rendered.includes(`id="${escaped}"`);
+    });
+    return { ...article, source_slug: article.slug, target: article.route, fragment_map, rendered_explicit_anchors };
   });
 }
 
-export function loadIntegration() {
-  const items = ["bisq1", "payments-bisq2", "governance"].flatMap((lane) => JSON.parse(readFileSync(`migration/integration-${lane}.json`, "utf8")).items);
-  const articles = JSON.parse(readFileSync("migration/articles.json", "utf8")).items;
-  if (items.length !== articles.length || items.length !== 209) throw new Error("Every recovered article needs one reviewed disposition.");
-  const bySlug = new Map(items.map((item) => [item.source_slug, item]));
-  if (bySlug.size !== items.length) throw new Error("Duplicate migration disposition.");
-  return articles.map((article) => {
-    const item = bySlug.get(article.slug);
-    if (!item || item.title !== article.title || !/^\/(?:[a-z0-9-]+\/)*(?:#[^\s]*)?$/.test(item.target)) throw new Error(`Invalid destination for ${article.title}`);
-    if (!item.retained_details?.length || !item.fact_check?.sources?.length) throw new Error(`Missing coverage or source evidence for ${article.title}`);
-    return { ...article, ...item };
-  });
+export function collectGuides() {
+  const taxonomy = new Map(JSON.parse(readFileSync("migration/taxonomy.json", "utf8")).items.map((item) => [item.title, item.topics]));
+  const priority = ["payment-methods", "troubleshooting", "dao", "contribute", "bisq-2", "bisq-1", "reference"];
+  return loadIntegration().map((article) => {
+    const topics = (taxonomy.get(article.title) || []).map((topic) => topic === "contributing" ? "contribute" : topic).filter((topic) => sections.some((s) => s.directory === topic));
+    if (!topics.length) topics.push("reference");
+    return { title: article.title, route: article.route, directory: priority.find((topic) => topics.includes(topic)), topics, file: `src/content/docs/wiki/${article.slug}.md`, slug: article.slug };
+  }).sort((a, b) => a.title.localeCompare(b.title, "en", { numeric: true, sensitivity: "base" }));
 }
