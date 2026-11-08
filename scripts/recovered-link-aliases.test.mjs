@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolveArchivedRedirects } from "./lib/archived-redirects.mjs";
 import { buildRecoveredAliasRoutes, recoveredAliases, renderRecoveredLinks, validateRecoveredAliases } from "./lib/recovered-link-aliases.mjs";
-import { buildLegacyRoutes, resolveLegacyDestination } from "./lib/legacy-routes.mjs";
+import { buildPublicLegacyRoutes, resolveLegacyDestination } from "./lib/legacy-routes.mjs";
 import { loadIntegration } from "./lib/documentation.mjs";
 
 const marker = (label, target) => `<span class="wiki-link-gap">${label} <small>[unrecovered article: ${target}]</small></span>`;
@@ -37,7 +37,7 @@ test("target article and any exact fragment must exist", () => {
 
 test("legacy alias preserves known original fragments and base", () => {
   const articles = loadIntegration();
-  const originals = buildLegacyRoutes(articles);
+  const originals = buildPublicLegacyRoutes(articles);
   const aliases = buildRecoveredAliasRoutes(articles, originals);
   const wise = aliases.find((entry) => entry.path === "TransferWise");
   assert.equal(resolveLegacyDestination({ ...wise, base: "/bisq-docs/" }), "/bisq-docs/wiki/wise/");
@@ -63,4 +63,31 @@ test("archive redirect chains follow exact first-letter case and reject cycles",
   assert.deepEqual(resolveArchivedRedirects(articles, [make("First", "fINAL")]).unresolved, ["First"]);
   assert.throws(() => resolveArchivedRedirects(articles, [make("First", "Second"), make("Second", "First")]), /redirect cycle/);
   assert.deepEqual(resolveArchivedRedirects(articles, [make("First", "Final", "absent")]).unresolved, ["First"]);
+});
+
+test("substantive redirect tails keep their article routes and archived title redirects", () => {
+  const articles = loadIntegration();
+  const legacy = buildPublicLegacyRoutes(articles);
+  const aliases = buildRecoveredAliasRoutes(articles, legacy);
+  const bitcointalk = aliases.find((entry) => entry.path === "Bitcointalk_Moderator");
+  const china = aliases.find((entry) => entry.path === "在中国运行Bisq_(Running_Bisq_in_China)");
+  assert.equal(bitcointalk?.target, "/wiki/community-manager/");
+  assert.equal(china?.target, "/wiki/running-bisq-in-china/");
+  assert.ok(articles.some((article) => article.route === "/wiki/bitcointalk-moderator/"));
+  assert.ok(articles.some((article) => article.route === "/wiki/running-bisq-in-china-sstap/"));
+});
+
+test("historical Bitcointalk role link resolves to the recovered role definition", () => {
+  const html = '<span class="wiki-link-gap">role <small>[unrecovered article: role]</small></span>';
+  const source = readFileSync("public/wiki-source/bitcointalk-moderator.wiki.txt", "utf8");
+  assert.match(renderRecoveredLinks(html, "/bisq-docs/", undefined, "bitcointalk-moderator", source).content, /href="\/bisq-docs\/wiki\/roles\/"/);
+});
+
+test("scoped corrections preserve labels and never affect a different source", () => {
+  const marker = '<span class="wiki-link-gap">Satispay app <small>[unrecovered article: satispay.com/it-it/privati/]</small></span>';
+  const source = readFileSync("public/wiki-source/satispay.wiki.txt", "utf8");
+  assert.match(renderRecoveredLinks(marker, "/bisq-docs/", undefined, "satispay", source).content, /href="https:\/\/satispay\.com\/it-it\/privati\/" rel="noopener noreferrer">Satispay app/);
+  assert.match(renderRecoveredLinks(marker, "/bisq-docs/", undefined, "wrong-page", source).content, /unresolved link/);
+  const xmr = '<span class="wiki-link-gap">XMR <small>[unrecovered article: XMR]</small></span>';
+  assert.match(renderRecoveredLinks(xmr, "/", undefined, "payment-methods-en", "[[XMR]]").content, /href="\/wiki\/trading-monero\/"/);
 });

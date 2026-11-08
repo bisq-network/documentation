@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { additionalArticles } from "./additional-articles.mjs";
 
 const navigation = JSON.parse(readFileSync("migration/nav-groups.json", "utf8"));
 const expectedGroupCounts = [10, 29, 45, 22, 14, 13, 13, 20, 34, 9];
@@ -14,6 +15,17 @@ export const sections = navigation.groups.map((group, index) => {
   return { ...group, directory: group.id, intro: group.blurb, articles };
 });
 if (sections.length !== expectedGroupCounts.length) throw new Error("Expected ten navigation groups.");
+
+// Keep the approved original groups intact, then add the separately preserved
+// historical sources to the appropriate existing task group.
+for (const article of additionalArticles) {
+  const section = sections.find((group) => group.directory === article.directory);
+  if (!section || section.subgroups) throw new Error(`Invalid additional article placement: ${article.title}`);
+  if (sections.some((group) => group.articles.some((item) => item.title === article.title || item.route === article.route))) throw new Error(`Duplicate additional article: ${article.title}`);
+  section.articles.push({ title: article.title, route: article.route });
+  section.count += 1;
+}
+
 
 const placementByTitle = new Map();
 for (const section of sections) {
@@ -31,12 +43,13 @@ for (const section of sections) {
     }
   }
 }
-if (placementByTitle.size !== 209) throw new Error("Expected all 209 navigation titles exactly once.");
+if (placementByTitle.size !== 209 + additionalArticles.length) throw new Error("Expected all original and additional navigation titles exactly once.");
 
+/** Load original and separately verified additional article metadata. */
 export function loadIntegration() {
   const articles = JSON.parse(readFileSync("migration/articles.json", "utf8")).items;
   if (articles.length !== 209 || new Set(articles.map((a) => a.slug)).size !== 209) throw new Error("Expected all 209 original wiki articles.");
-  return articles.map((article) => {
+  return [...articles, ...additionalArticles].map((article) => {
     if (article.route !== `/wiki/${article.slug}/`) throw new Error(`Unexpected original route: ${article.title}`);
     const fragment_map = {};
     for (const heading of article.headings || []) {

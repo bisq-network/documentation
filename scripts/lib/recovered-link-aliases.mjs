@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { templateDefinitionTarget } from "./archived-templates.mjs";
+import scopedLinkRepairs from "../../migration/scoped-link-repairs-20261108.json" with { type: "json" };
 import mediaSupplement from "../../recovery-evidence/supplemental-media.json" with { type: "json" };
 import articlesData from "../../migration/articles.json" with { type: "json" };
 import { normalizeWikiTitle, resolveArchivedRedirects } from "./archived-redirects.mjs";
@@ -29,7 +30,7 @@ export const aliasSourceEvidence = {
   "rading rules": ["account-limits:176", "trading-rules:1"],
   "TransferWise": ["how-do-i-send-fiat-to-bisq:12", "wise:1"],
   "ACH": ["domestic-wire-transfer:3", "payment-methods:29", "ach-transfer:1"],
-  "role": ["support-team-lead:1", "roles:1"],
+  "role": ["support-team-lead:1", "bitcointalk-moderator:6", "roles:1"],
   "Role": ["security-team-lead:1", "roles:1"],
   "Altcoins Instant this article": ["paying-trading-fees-with-bsq:28", "altcoins-instant:1"],
   "Burning Ben": ["contributor-privacy-and-opsec:64", "burning-men:1"],
@@ -41,6 +42,7 @@ export const aliasSourceEvidence = {
   "DAO": ["teams:3", "trading-fees:1", "decentralized-autonomous-organization:1"],
 };
 
+/** Combine contextual repairs with authoritative archived redirect destinations. */
 export function allRecoveredAliases(articles = articlesData.items) {
   const aliases = new Map(recoveredAliases.map((item) => [normalizeWikiTitle(item.name), item]));
   // A recorded redirect takes precedence over a topic-based repair.
@@ -50,6 +52,7 @@ export function allRecoveredAliases(articles = articlesData.items) {
 
 const escapeHtml = (value) => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("'", "&#x27;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
+/** Validate repair evidence, source lines and exact destination fragments. */
 export function validateRecoveredAliases(aliases = recoveredAliases) {
   const names = new Set();
   for (const alias of aliases) {
@@ -77,6 +80,7 @@ export function validateRecoveredAliases(aliases = recoveredAliases) {
   readFileSync(resolve(process.cwd(), "src/content/docs/wiki/dispute-resolution-in-bisq-1.md"), "utf8");
 }
 
+/** Restore supported links only when their source targets have no lost fragments. */
 export function renderRecoveredLinks(html, base = "/", aliases = allRecoveredAliases(), sourceSlug = "", sourceText) {
   if (sourceText === undefined) {
     if (!/^[a-z0-9-]+$/.test(sourceSlug)) throw new Error(`Invalid source slug: ${sourceSlug}`);
@@ -101,15 +105,18 @@ export function renderRecoveredLinks(html, base = "/", aliases = allRecoveredAli
     const scoped = /^(?:dispute resolution|Dispute resolution)$/.test(target) && disputeEvidence.items.find((item) => item.slug === sourceSlug);
     const resource = mediaSupplement.linked_resources?.find((item) => normalizeWikiTitle(item.source_target) === normalizeWikiTitle(target));
     const template = templateDefinitionTarget(target);
-    const alias = lookup.get(normalizeWikiTitle(target)) || scoped || (resource && { target: resource.asset_path }) || (template && { target: template });
+    const reviewed = scopedLinkRepairs.items.find((item) => item.source_slug === sourceSlug && item.original_title === target);
+    const alias = lookup.get(normalizeWikiTitle(target)) || scoped || (resource && { target: resource.asset_path }) || (template && { target: template }) || reviewed;
     const originals = originalTargets.get(normalizeWikiTitle(target));
     if (!alias || !originals?.length || originals.some(Boolean)) { unresolved++; return `<span class="wiki-link-gap">${label} <small>[unresolved link: ${target}]</small></span>`; }
     resolved++;
-    return `<a href="${escapeHtml(prefix + alias.target)}">${label}</a>`;
+    const external = alias.target.startsWith("https://");
+    return `<a href="${escapeHtml(external ? alias.target : prefix + alias.target)}"${external ? ' rel="noopener noreferrer"' : ""}>${label}</a>`;
   });
   return { content, resolved, unresolved };
 }
 
+/** Build safe legacy routes for reviewed aliases without conflicting destinations. */
 export function buildRecoveredAliasRoutes(articles, legacyRoutes, aliases = allRecoveredAliases(articles)) {
   const occupied = new Map(legacyRoutes.map((route) => [route.path.toLowerCase(), route]));
   const result = [];

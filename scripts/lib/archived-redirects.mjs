@@ -1,11 +1,12 @@
 import archive from "../../migration/archive-redirects-20261014.json" with { type: "json" };
 
-// MediaWiki siteinfo uses first-letter case, not whole-title case folding.
+/** Normalize wiki titles using MediaWiki first-letter case and equivalent spaces. */
 export function normalizeWikiTitle(title) {
   const text = title.replaceAll("_", " ").trim().replace(/\s+/g, " ");
   return text ? text[0].toUpperCase() + text.slice(1) : text;
 }
 
+/** Resolve a recorded fragment only when it identifies one exact target anchor. */
 function exactFragment(article, fragment) {
   if (!fragment) return "";
   let decoded = fragment;
@@ -22,6 +23,7 @@ function exactFragment(article, fragment) {
   return matches.size === 1 ? [...matches][0] : null;
 }
 
+/** Resolve preserved redirect chains, rejecting ambiguity and cycles. */
 export function resolveArchivedRedirects(articles, records = archive.items) {
   const canonical = new Map();
   for (const article of articles) {
@@ -31,7 +33,8 @@ export function resolveArchivedRedirects(articles, records = archive.items) {
   }
   const redirects = new Map();
   for (const entry of records) {
-    if (!entry.is_pure_redirect || entry.has_substantive_trailing_body) continue;
+    const preservedTail = articles.find((article) => article.source_has_substantive_redirect_tail && normalizeWikiTitle(article.title) === normalizeWikiTitle(entry.source_title) && article.wikitext_sha256 === entry.wikitext_sha256);
+    if ((!entry.is_pure_redirect || entry.has_substantive_trailing_body) && !preservedTail) continue;
     const key = normalizeWikiTitle(entry.source_title);
     if (redirects.has(key)) throw new Error(`Ambiguous archive redirect: ${key}`);
     redirects.set(key, entry);

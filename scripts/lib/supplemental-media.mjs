@@ -3,6 +3,7 @@ import supplement from "../../recovery-evidence/supplemental-media.json" with { 
 const escape = (text) => String(text).replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 const byFilename = new Map(supplement.items.map((item) => [item.canonical_filename, item]));
 
+/** Replace recovery placeholders and thumbnails with verified historical files. */
 export function renderSupplementalMedia(html, images, base = "/") {
   const prefix = base.replace(/\/$/, "");
   const effectiveImages = images.map((image) => {

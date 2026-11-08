@@ -3,7 +3,7 @@ title: Source recovery and migration
 description: What the recovered wiki snapshot contains and which source gaps remain.
 ---
 
-The source snapshot completed on **18 October 2026 at 01:01:19 UTC**. Its newest article revision is dated **15 October 2026 at 15:23:28 UTC**. It contains one exported revision for each recovered article, not a full MediaWiki database or complete revision history. These original articles are the [main documentation](../browse/).
+The source snapshot completed on **18 October 2026 at 01:01:19 UTC**. Its newest article revision is dated **15 October 2026 at 15:23:28 UTC**. It contains one exported revision for each recovered article, not a full MediaWiki database or complete revision history. Those 209 original articles and three separately dated historical additions are available in the [main documentation](../browse/).
 
 The original wikitext and available revision metadata are preserved for comparison. Automated source checks verify preservation, while contributors and maintainers still need to review the substance. An earlier AI-edited edition and its comparison index are retained separately for review, not served as the main articles or indexed in site search.
 
@@ -19,6 +19,6 @@ The 14 October archive also supplies redirect records; verified chains that end 
 
 ## Templates and remaining source gaps
 
-The 14 October archive contains definitions for all **14 templates** required by the recovered article placeholders. The site links to those historical definitions, while **71 inline template expansions** remain pending integration and current review. Historical values have not been inserted into the articles. The separate offline AI corpus expands those templates for analysis; that does not certify their present-day correctness.
+The 14 October archive contains definitions for all **14 templates** required by the recovered article placeholders. The site renders **71 template occurrences** from those dated definitions and links each to its archived source. These historical values and procedures have not been verified as current; the source definition, rendering, and original invocation remain available for review. The separate offline AI corpus also expands those templates for analysis; neither rendering certifies present-day correctness.
 
-The archive inventory contains **3,804 available revisions** for its included pages. This is additional history beyond the one-revision article snapshot, not proof that every historical revision or contributor has been recovered. Some links and 11 section references remain unresolved; an unresolved link does not by itself establish that an article was missing. Content and media reuse terms and complete authorship remain unresolved. Recovery does not imply official endorsement or a blanket licence for the imported corpus.
+The archive inventory contains **3,804 available revisions** for its included pages. This is additional history beyond the one-revision article snapshot, not proof that every historical revision or contributor has been recovered. Some links and one section reference remain unresolved; an unresolved link does not by itself establish that an article was missing. Content and media reuse terms and complete authorship remain unresolved. Recovery does not imply official endorsement or a blanket licence for the imported corpus.

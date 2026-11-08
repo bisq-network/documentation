@@ -3,7 +3,7 @@ title: "Advanced setup"
 description: "Nodes, Tails, Qubes, command line and mobile"
 ---
 
-Nodes, Tails, Qubes, command line and mobile. **13 articles.**
+Nodes, Tails, Qubes, command line and mobile. **14 articles.**
 
 - [Bisq 2 mobile applications](../../wiki/bisq-2-mobile-applications/)
 - [Command line options](../../wiki/command-line-options/)
@@ -18,5 +18,6 @@ Nodes, Tails, Qubes, command line and mobile. **13 articles.**
 - [Running Bisq on Qubes](../../wiki/running-bisq-on-qubes/)
 - [Running Bisq on Tails](../../wiki/running-bisq-on-tails/)
 - [Running from the command line](../../wiki/running-from-the-command-line/)
+- [在中国运行Bisq (Running Bisq in China)](../../wiki/running-bisq-in-china-sstap/)
 
 [Browse all articles](../all/)

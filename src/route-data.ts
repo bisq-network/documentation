@@ -1,8 +1,9 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 import articles from "../migration/articles.json";
+import additional from "../migration/additional-articles.json";
 
 type TocItem = { depth: number; slug: string; text: string; children: TocItem[] };
-const originals = new Map(articles.items.map((article) => [`wiki/${article.slug}`, article]));
+const originals = new Map([...articles.items, ...additional.items].map((article) => [`wiki/${article.slug}`, article]));
 
 export const onRequest = defineRouteMiddleware(({ locals }) => {
   const route = locals.starlightRoute;

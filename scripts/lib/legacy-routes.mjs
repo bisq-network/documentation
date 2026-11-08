@@ -72,6 +72,12 @@ export function buildLegacyRoutes(articles, headingsByRoute = new Map()) {
   return [...routes.values()];
 }
 
+/** Keep historical redirect titles separate from their preserved substantive tails. */
+export function buildPublicLegacyRoutes(articles, headingsByRoute = new Map()) {
+  const tails = new Set(articles.filter((article) => article.source_has_substantive_redirect_tail).map((article) => article.slug));
+  return buildLegacyRoutes(articles, headingsByRoute).filter((route) => !tails.has(route.sourceSlug));
+}
+
 export function resolveLegacyDestination({ base = "", target, fragments, autoRedirect = true, strictFragments = false }, hash = "") {
   let decoded = hash.replace(/^#/, "");
   try { decoded = decodeURIComponent(decoded); } catch { /* Preserve malformed bookmarks for fallback. */ }

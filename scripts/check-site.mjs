@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { join, resolve, sep } from "node:path";
 import { collectGuides, loadIntegration } from "./lib/documentation.mjs";
 import { buildRecoveredAliasRoutes, validateRecoveredAliases } from "./lib/recovered-link-aliases.mjs";
-import { buildLegacyRoutes } from "./lib/legacy-routes.mjs";
+import { buildPublicLegacyRoutes } from "./lib/legacy-routes.mjs";
 import { loadEditedRouteAliases } from "./lib/edited-route-aliases.mjs";
 
 const root = resolve(process.env.DOCS_DIST || "dist");
@@ -82,7 +82,7 @@ for (const article of migration) {
   if (digest(raw) !== article.wikitext_sha256) failures.push(`source bytes changed: ${article.title}`);
 }
 validateRecoveredAliases();
-const originals = buildLegacyRoutes(migration);
+const originals = buildPublicLegacyRoutes(migration);
 const legacy = [...originals, ...buildRecoveredAliasRoutes(migration, originals), ...loadEditedRouteAliases(migration)];
 for (const route of legacy) {
   const html = await documentForRoute(`/${route.path}/`);

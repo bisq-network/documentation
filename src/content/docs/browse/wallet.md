@@ -3,7 +3,7 @@ title: "Wallet, backup and recovery"
 description: "Seeds, data directories and restores"
 ---
 
-Seeds, data directories and restores. **22 articles.**
+Seeds, data directories and restores. **23 articles.**
 
 - [Automatic backup](../../wiki/automatic-backup/)
 - [Automatic backup script](../../wiki/automatic-backup-script/)
@@ -27,5 +27,6 @@ Seeds, data directories and restores. **22 articles.**
 - [Switching to a new data directory](../../wiki/switching-to-a-new-data-directory/)
 - [Wallet](../../wiki/wallet/)
 - [Watch keys](../../wiki/watch-keys/)
+- [Emergency Multisig payout tool](../../wiki/emergency-multisig-payout-tool/)
 
 [Browse all articles](../all/)

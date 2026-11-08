@@ -1,5 +1,5 @@
 import { buildRecoveredAliasRoutes } from "./recovered-link-aliases.mjs";
-import { buildLegacyRoutes, normalizeFragment } from "./legacy-routes.mjs";
+import { buildLegacyRoutes, buildPublicLegacyRoutes, normalizeFragment } from "./legacy-routes.mjs";
 import { loadEditedRouteAliases } from "./edited-route-aliases.mjs";
 
 /**
@@ -9,7 +9,7 @@ import { loadEditedRouteAliases } from "./edited-route-aliases.mjs";
  * the build. Only titles, routes and section metadata leave the build process.
  */
 export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
-    const legacy = buildLegacyRoutes(articles, headingsByRoute);
+    const legacy = buildPublicLegacyRoutes(articles, headingsByRoute);
     const edited = loadEditedRouteAliases(articles);
     const pages = Object.create(null);
     const routes = Object.create(null);
