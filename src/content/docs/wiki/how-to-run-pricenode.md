@@ -30,7 +30,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="Setup_and_Installation" aria-hidden="true"></span><h2 id="setup-and-installation"> Setup and Installation </h2>
 <p>The recommended method for Debian-based systems like Ubuntu is the automated install script. Advanced users or those on other systems can build from source.</p>
 <span class="wiki-legacy-anchor" id="Method_1:_Installation_Script_(Recommended_for_Debian/Ubuntu)" aria-hidden="true"></span><h3 id="method-1-installation-script-recommended-for-debian-ubuntu"> Method 1: Installation Script (Recommended for Debian/Ubuntu) </h3>
-<p>This script automates the installation of dependencies, building the software, configuring the Tor hidden service, and setting up the pricenode to run as a system service.</p>
+<p>This script automates the installation of dependencies, building the software, configuring the Tor hidden service, and setting up the pricenode to run as a system service. Before running it, review the exact script and its system changes. At upstream commit c1576ab976b2403b7858c84e6396962ad84ba467, the installer installs OpenJDK 11 while the Gradle build specifies Java 21; resolve this discrepancy with maintainers before deployment.</p>
 <ol>
 <li>Ensure `curl` and `sudo` are available: `sudo apt update &amp;&amp; sudo apt install curl`</li>
 <li>Run the installer script:</li>
