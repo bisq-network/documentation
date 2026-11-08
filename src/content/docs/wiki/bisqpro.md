@@ -9,5 +9,5 @@ tableOfContents: false
 <p>They are a total ponzi, making false claims to fool investors.</p>
 <p>Be warned.</p>
 <p><strong>DON'T TRUST, VERIFY!</strong></p>
-<p>As a <a href="../foss/">FOSS</a> (Free Open Source Software) project Bisq has no copyright, trademarks or other traditional ways to fight this type of abuse. It is up to users to beware and warn others of this type of fraud.</p>
+<p>As a <a href="../foss/">FOSS</a> (Free Open Source Software) project, Bisq publishes its code under the GNU Affero General Public License v3. Open-source licensing does not mean that a site using its name or logo is affiliated with Bisq. It is up to users to beware and warn others of this type of fraud.</p>
 </div>
