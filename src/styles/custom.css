@@ -223,3 +223,44 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
   pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) { .reading-progress { display: none; } }
+
+.h-anchor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  margin-inline-start: 0.35rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--bd-radius-sm);
+  background: transparent;
+  color: var(--sl-color-text-accent);
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--bd-motion);
+}
+:where(h2, h3, h4, h5):is(:hover, :focus-within) .h-anchor { opacity: 1; }
+.h-anchor:hover { background: var(--sl-color-accent-low); }
+.link-toast {
+  position: fixed;
+  z-index: 30;
+  inset-inline: 1rem;
+  bottom: 1rem;
+  width: fit-content;
+  max-width: min(36rem, calc(100% - 2rem));
+  margin-inline: auto;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--bd-control-line);
+  border-radius: var(--bd-radius-md);
+  background: var(--bd-raised);
+  color: var(--sl-color-text);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+  box-shadow: 0 4px 24px #0003;
+}
+.link-toast :is(strong, span, label) { display: block; }
+.link-toast input { display: block; width: 100%; margin-block: 0.5rem; color: var(--sl-color-text); background: var(--sl-color-bg); border: 1px solid var(--bd-control-line); }
+.link-toast button { min-height: 2.75rem; }
+@media (hover: none) { .h-anchor { opacity: 0.7; } }
