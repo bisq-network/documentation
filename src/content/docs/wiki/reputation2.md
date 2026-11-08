@@ -12,10 +12,10 @@ tableOfContents: false
 <p>Buyers should look to choose sellers with a high reputation for their trades.</p>
 <p>Sellers should look at how to maximize their reputation to ensure they get more trades.</p>
 <span class="wiki-legacy-anchor" id="Minimum_Reputation_Score" aria-hidden="true"></span><h2 id="minimum-reputation-score"> Minimum Reputation Score </h2>
-<p>Bisq Easy uses 10,000 as the minimum reputation score.</p>
-<p>Seller's with a reputation score of 10,000 or more will be able to have their offers taken from buyers. Seller's that have a reputation score of less than 10,000 will not be able to have their offers taken from buyers.</p>
-<p>Traders can change this setting in their Bisq 2 client, but the default minimum reputation score is 10,000.</p>
-<p>Seller's wanting to sell bitcoin on Bisq Easy should look to obtain a reputation score of at least 10,000, but preferably higher to compete with the other sellers on the platform.</p>
+<p>In Bisq 2 v2.1.15, seller reputation determines the allowed trade amount at 200 points per USD, within the 6–600 USD-equivalent protocol range.</p>
+<p>A seller needs at least 1,200 points for the minimum 6 USD-equivalent amount. A score of 30,000 corresponds to 150 USD before the current currency conversion and validation.</p>
+<p>The old configurable minimum-score setting is not the current amount-coverage rule; use the limit shown by v2.1.15.</p>
+<p>Sellers seeking larger trades need a score that covers the proposed amount; more reputation does not guarantee buyers or a successful trade.</p>
 <span class="wiki-legacy-anchor" id="Reputation_score_star_system" aria-hidden="true"></span><h2 id="reputation-score-star-system"> Reputation score star system </h2>
 <p>To make it easier for user's to compare the reputation scores of different traders, Bisq displays reputation scores as stars (0-5 stars).</p>
 <p>To achieve this users' total reputation scores are compared to other scores in the network and ranked and normalized to a value between 0 and 1.</p>
@@ -190,9 +190,9 @@ Once the bond is unlocked the reputation score attributed to that bond is lost. 
 </p>
 <pre><code class="wiki-source-code" id="source-code-3">
 Importing an account age from Bisq 1 the lowest impact on the reputation score.
-&#10;For every day old the user's account is they will receive a reputation score of 2.5. For example if a user imports a 300 day old account from Bisq 1 their reputation score will be increased by 750. Reputation obtained from importing their account age will be cumulative with all other reputation scores the user obtains.
-&#10;A user cannot obtain the minimum reputation score required from importing their account age alone, they would need to burn or bond BSQ to achieve this.
-&#10;The maximum reputation score a user can achieve from importing an account age is 5,000. This can be achieved when importing accounts of 2,000 days old, or older. &#10;</code></pre>
+&#10;In Bisq 2 v2.1.15, each day of imported account age contributes 4 points. A 300-day-old account therefore contributes 1,200 points. Reputation obtained from importing their account age will be cumulative with all other reputation scores the user obtains.
+&#10;Imported account age can cover a small trade, but its 8,000-point cap does not cover the maximum Bisq Easy trade amount.
+&#10;The maximum reputation score from imported account age is 8,000 in v2.1.15. This can be achieved when importing accounts of 2,000 days old, or older. &#10;</code></pre>
 <span class="wiki-legacy-anchor" id="Importing_the_Signed_Account_Age_from_Bisq_1" aria-hidden="true"></span><h3 id="importing-the-signed-account-age-from-bisq-1"> Importing the Signed Account Age from Bisq 1 </h3>
 <p>Users of Bisq 1 can gain reputation by importing their signed account age from Bisq 1 into Bisq 2.</p>
 <p>Any signed account from Bisq 1 can be used.</p>
@@ -229,9 +229,9 @@ Importing an account age from Bisq 1 the lowest impact on the reputation score.
 </p>
 <pre><code class="wiki-source-code" id="source-code-4">
 Importing a signed account age from Bisq 1  has a low impact on the reputation score.
-&#10;For every day old the user's singed account is they will receive a reputation score of 5. For example if a user imports a 300 day old account from Bisq 1 their reputation score will be increased by 1500. Reputation obtained from importing their signed account age will be cumulative with all other reputation scores the user obtains.
-&#10;A user cannot obtain the minimum reputation score required from importing their signed account age alone, they would need to burn or bond BSQ to achieve this. &#10;
-The maximum reputation score a user can achieve from importing a signed account is 10,000. This can be achieved when importing accounts of 2,000 days old, or older.
+&#10;In Bisq 2 v2.1.15, a signed witness must be at least 61 days old to score and contributes 10 points per day. A 300-day-old signed witness therefore contributes 3,000 points. Reputation obtained from importing their signed account age will be cumulative with all other reputation scores the user obtains.
+&#10;Imported signed-account age can cover a small trade, but its 20,000-point cap does not cover the maximum Bisq Easy trade amount. &#10;
+The maximum reputation score from imported signed account age is 20,000 in v2.1.15. This can be achieved when importing accounts of 2,000 days old, or older.
 </code></pre>
 <span class="wiki-legacy-anchor" id="Reputation_Simulation_Tool" aria-hidden="true"></span><h2 id="reputation-simulation-tool"> Reputation Simulation Tool </h2>
 <p>For bitcoin sellers it can get a little complicated to work out what the best way is to increase their reputation. To help make the decision process easier Bisq 2 provides a simulation tool for sellers to see what different actions they can take to increase their reputation.</p>

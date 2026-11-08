@@ -143,7 +143,7 @@ tableOfContents: false
 <ol>
 <li>Start with a small amount as a test trade</li>
 <li>Start chatting with the seller before sending the fiat payment to check that they are still active</li>
-<li>Choose a seller with a high reputation. The higher the reputation of the seller the better. Sellers need a minimum reputation score of 30,000, ideally you should be choosing to trade with someone higher than this. Look at the star system for guidance. It will be safer to trade with a 5 star rated seller than a 1 star rated seller.</li>
+<li>Choose a seller with a high reputation. The higher the reputation of the seller the better. In Bisq 2 v2.1.15, sellers need a score covering the trade amount at 200 points per USD, with at least 1,200 points for the 6 USD-equivalent minimum. Look at the star system for guidance. It will be safer to trade with a 5 star rated seller than a 1 star rated seller.</li>
 <li>Send payment as soon as possible once you have the seller's account details.</li>
 <li>Only send payment to the account details provided by the Seller in the trade chat window. If the seller is trying to change the account they want you to send payment to, it would be better to cancel the trade and open a new trade with another seller.</li>
 <li>Place the trade ID from Bisq Easy in the payment reason.</li>
