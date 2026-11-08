@@ -68,7 +68,7 @@ tableOfContents: false
 <p>When the offer is confirmed Paxum will provide with the BTC Buyer with your Paxum details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking 'payment started'.</p>
 <p>Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.</p>
 <span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_Paxum_account?" aria-hidden="true"></span><h2 id="are-there-any-limits-for-me-to-be-aware-of-when-using-my-paxum-account"> Are there any limits for me to be aware of when using my Paxum account? </h2>
-<p>None</p>
+<p>Paxum's published FAQ limits personal accounts to five P2P transfers per day. Its receiving and business-account rules differ; verify your account type and current allowances before trading.</p>
 <span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_Paxum_account?" aria-hidden="true"></span><h2 id="are-there-any-fees-for-me-to-be-aware-of-when-using-my-paxum-account"> Are there any fees for me to be aware of when using my Paxum account? </h2>
 <p>Paxum to Paxum transfers cost ~$0.25 to both send and receive.</p>
 <p>It costs about $5 to deposit and withdraw funds from to Paxum.</p>

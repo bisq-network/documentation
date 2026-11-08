@@ -59,7 +59,7 @@ tableOfContents: false
 <aside class="wiki-admonition" role="note"><p><strong>Warning</strong></p><p>Please checked that the payment received description matches the Pix Key provided in the BTC Buyer's Bisq account.</p>
 </aside>
 <span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_Pix_account?" aria-hidden="true"></span><h2 id="are-there-any-limits-for-me-to-be-aware-of-when-using-my-pix-account"> Are there any limits for me to be aware of when using my Pix account? </h2>
-<p>None.</p>
+<p>Pix transfers can have limits set by the institution, including time-of-day and device restrictions. Check your own available sending limit before taking an offer; Banco Central do Brasil does not describe Pix as universally unlimited.</p>
 <span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_Pix_account?" aria-hidden="true"></span><h2 id="are-there-any-fees-for-me-to-be-aware-of-when-using-my-pix-account"> Are there any fees for me to be aware of when using my Pix account? </h2>
 <p>It is generally free to send and receive Pix payments.</p>
 <span class="wiki-legacy-anchor" id="How_does_dispute_resolution_when_trading_with_Pix?" aria-hidden="true"></span><h2 id="how-does-dispute-resolution-when-trading-with-pix"> How does dispute resolution when trading with Pix? </h2>
