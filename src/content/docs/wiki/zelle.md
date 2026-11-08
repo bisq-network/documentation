@@ -22,7 +22,7 @@ tableOfContents: false
 <li><strong>Spending Limits:</strong> Zelle limits (daily, weekly, monthly) vary significantly between banks and credit unions. <strong>Buyers are responsible for checking their own Zelle sending limits</strong> (usually visible within their banking app) before starting a trade.</li>
 <li><strong>Maximum Trade Duration:</strong> 4 days.</li>
 <li><strong>Maximum BTC per Trade:</strong> <span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span> (This is the standard <a href="../bisq-1/">Bisq v1</a> limit).</li>
-<li><strong>Account Signing:</strong> Yes, Zelle accounts <strong>require <a href="../account-limits/">signing</a></strong> in <a href="../bisq-1/">Bisq v1</a>. Until your Zelle payment account is signed, trades using it are limited to 0.01 BTC.</li>
+<li><strong>Account Signing:</strong> Yes, Zelle accounts <strong>require <a href="../account-limits/">signing</a></strong> in <a href="../bisq-1/">Bisq v1</a>. In Bisq 1 v1.10.11, the unsigned BTC-buying allowance is 0.002 BTC; higher buying limits phase in after eligible signing. Selling is governed by the method's applicable maximum.</li>
 </ul>
 <span class="wiki-legacy-anchor" id="Setting_Up_Your_Zelle_Account_in_Bisq" aria-hidden="true"></span><h3 id="setting-up-your-zelle-account-in-bisq"> Setting Up Your Zelle Account in Bisq </h3>
 <p>Before adding Zelle to Bisq, ensure you have enrolled with Zelle through your participating bank or credit union's app or website. This usually involves verifying your U.S. mobile number or email address.</p>
@@ -59,5 +59,5 @@ tableOfContents: false
 <li>The <strong>seller</strong> might need to provide information to verify their account details or confirm non-receipt.</li>
 </ul>
 <span class="wiki-legacy-anchor" id="Bank_Blocking_Payment" aria-hidden="true"></span><h3 id="bank-blocking-payment"> Bank Blocking Payment </h3>
-<p>Banks or credit unions may sometimes block Zelle payments based on their own risk algorithms or policies. If you (as the buyer) are unable to send the Zelle payment for reasons beyond your control: 1. Do <strong>not</strong> try to send payment from a different Zelle account or a friend/family member's account. 2. Immediately open a support ticket with a <a href="../mediator/">Mediator</a>: select the trade in Bisq and press <strong>Ctrl + O</strong> (or Cmd + O on Mac). 3. Explain the situation clearly to the <a href="../mediator/">Mediator</a>.</p>
+<p>Banks or credit unions may sometimes block Zelle payments based on their own risk algorithms or policies. If you (as the buyer) are unable to send the Zelle payment for reasons beyond your control: 1. Do <strong>not</strong> try to send payment from a different Zelle account or a friend/family member's account. 2. Immediately open a support ticket with a <a href="../mediator/">Mediator</a>: select the trade in Bisq and press <strong>Alt + O</strong> (Option + O on macOS; Ctrl + O is also accepted). 3. Explain the situation clearly to the <a href="../mediator/">Mediator</a>.</p>
 </div>
