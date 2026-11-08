@@ -6,7 +6,7 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#get-in-touch-with-your-mediator">Get in touch with your mediator</a></li><li><a href="#how-to-find-the-mediator-for-a-trade">How to find the mediator for a trade</a></li><li><a href="#in-bisq-1">In Bisq 1</a></li><li><a href="#system-message">System message</a></li><li><a href="#view-contract-in-json">View contract in JSON</a></li><li><a href="#in-bisq-2">In Bisq 2</a></li><li><a href="#bisq-easy">Bisq Easy</a></li><li><a href="#matrix-and-onion-addresses">Matrix and onion addresses</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>Here is a list of current Bisq mediators and their onion addresses, as well as how you can find the mediator for a specific Bisq trade.</p>
+<div class="wiki-recovered-article" lang="en"><p>This article lists public mediator identity mappings and explains how to find the mediator assigned to a specific trade. The table is a source snapshot, not a guarantee that every listed person is currently available.</p>
 <p>If you need to find your arbitrator see <a href="../finding-your-arbitrator/">here</a>.</p>
 <span class="wiki-legacy-anchor" id="Get_in_touch_with_your_mediator" aria-hidden="true"></span><h2 id="get-in-touch-with-your-mediator"> Get in touch with your mediator </h2>
 <p>For open trades, you should be able to get in touch with your mediator through Bisq mediation chat itself.</p>
@@ -26,6 +26,7 @@ tableOfContents: false
 <li>Scroll down and you'll find <code class="wiki-source-code" id="source-code-7">"mediatorNodeAddress"</code> field with a single <code class="wiki-source-code" id="source-code-8">"hostName"</code> for the onion address.</li>
 </ol>
 <p>This is the onion address of the mediator for your trade.</p>
+<p>Bisq 1 v1.10.11 also shows <strong>Selected mediator</strong> in trade details. Its public lookup recognizes <code>luis3672</code>, <code>pazza83</code> and <code>suddenwhipvapor</code>; compare the full address assigned to your trade, not just a display name. Consult the official mediator-role reports for dated activity, and use the assigned in-app dispute channel first.</p>
 <span class="wiki-legacy-anchor" id="In_Bisq_2" aria-hidden="true"></span><h3 id="in-bisq-2"> In Bisq 2 </h3>
 <span class="wiki-legacy-anchor" id="Bisq_Easy" aria-hidden="true"></span><h4 id="bisq-easy"> Bisq Easy </h4>
 <p>The mediator for a Bisq Easy trade can be found by going to the "My Open Trades" tab. Trade details, including the assigned mediator, are displayed for each open trade.</p>

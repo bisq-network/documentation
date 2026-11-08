@@ -6,7 +6,7 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#get-in-touch-with-your-arbitrator">Get in touch with your arbitrator</a></li><li><a href="#how-to-find-the-arbitrator-for-a-trade">How to find the arbitrator for a trade</a></li><li><a href="#in-bisq-1">In Bisq 1</a></li><li><a href="#system-message">System message</a></li><li><a href="#view-contract-in-json">View contract in JSON</a></li><li><a href="#matrix-and-onion-addresses">Matrix and onion addresses</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>Here is a list of current Bisq arbitrators and their onion addresses, as well as how you can find the arbitrator for a specific Bisq trade.</p>
+<div class="wiki-recovered-article" lang="en"><p>This article lists public arbitrator/refund-agent identity mappings and explains how to find the agent assigned to a specific trade. The table is a source snapshot, not a guarantee of current availability; use the trade's assigned in-app arbitration channel first.</p>
 <p>If you need to find your mediator see <a href="../finding-your-mediator/">here</a>.</p>
 <span class="wiki-legacy-anchor" id="Get_in_touch_with_your_arbitrator" aria-hidden="true"></span><h2 id="get-in-touch-with-your-arbitrator"> Get in touch with your arbitrator </h2>
 <p>For open trades, you should be able to get in touch with your arbitrator through Bisq arbitration chat itself.</p>
