@@ -49,7 +49,7 @@ tableOfContents: false
 </ul>
 <span class="wiki-legacy-anchor" id="Stakeholders_and_users" aria-hidden="true"></span><h3 id="stakeholders-and-users"> Stakeholders and users </h3>
 <p>DAO <a href="../stakeholder/">stakeholders</a> and Bisq users are responsible for providing approval feedback on project proposals.</p>
-<p>&lt;span id="Committee"&gt;</p>
+<span id="Committee" class="wiki-legacy-anchor" aria-hidden="true"></span>
 <span class="wiki-legacy-anchor" id="Project_management_committee" aria-hidden="true"></span><h3 id="project-management-committee"> Project management committee </h3>
 <p>The <a href="https://github.com/orgs/bisq-network/teams/pmc" rel="noopener noreferrer">@bisq-network/pmc</a> is responsible for the overall project management process, including:</p>
 <ul>
