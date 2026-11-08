@@ -52,7 +52,7 @@ tableOfContents: false
 <p>If you want to restore it:</p>
 <ul>
 <li>Close Bisq. Also make sure you've made a <a href="../backing-up-application-data/">backup of your data directory</a> (just in case).</li>
-<li>Replace the <code class="wiki-source-code" id="source-code-21">/path/to/data/directory/btc_mainnet/tor/hiddenservices/</code> folder with the <code class="wiki-source-code" id="source-code-22">btc_mainnet/tor/hiddenservices/</code> folder from your backup.</li>
+<li>Replace the <code class="wiki-source-code" id="source-code-21">/path/to/data/directory/btc_mainnet/tor/hiddenservice/</code> folder with the <code class="wiki-source-code" id="source-code-22">btc_mainnet/tor/hiddenservice/</code> folder from your backup.</li>
 </ul>
 <p>When you open Bisq, your onion address will be restored.</p>
 <p>This means that the peers that have traded with you will see <a href="../local-reputation/">bubbles with trade counts</a> in their offer books for <em>your</em> offers.</p>
