@@ -6,6 +6,7 @@ if (article) {
   progress.setAttribute("aria-hidden", "true");
   document.body.append(progress);
   let scheduled = false;
+  /** Clamp reading progress to the article bounds, allowing for the fixed header. */
   const updateProgress = () => {
     const box = article.getBoundingClientRect();
     const header = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
@@ -14,6 +15,7 @@ if (article) {
     progress.style.transform = `scaleX(${fraction})`;
     scheduled = false;
   };
+  /** Coalesce scroll, resize and article-size changes into one animation frame. */
   const requestProgress = () => {
     if (scheduled) return;
     scheduled = true;
@@ -35,6 +37,11 @@ if (article) {
   let toastTimeout: ReturnType<typeof setTimeout>;
   const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href ?? location.href;
 
+  /**
+   * Copy a canonical article/section URL and update only the local fragment.
+   * Announce success briefly; on denial keep a selectable URL available until
+   * dismissed, then return focus to the control that requested the copy.
+   */
   const copyLink = async (heading: HTMLElement | null, title: string, trigger: HTMLButtonElement) => {
     const url = new URL(canonical);
     url.hash = heading?.id ?? "";
@@ -164,6 +171,11 @@ if (article) {
   type ImageRecord = { id: string; status?: string; width?: number; height?: number };
   const metadata: ImageRecord[] = JSON.parse(document.getElementById("article-media-data")?.textContent || "[]");
   let viewer: HTMLDialogElement | undefined;
+  /**
+   * Reuse a modal viewer for the linked recovered file, resetting zoom and its
+   * historical recovery metadata on each open. Native dialog dismissal restores
+   * focus to the original image link; modified clicks never call this helper.
+   */
   const openImage = (link: HTMLAnchorElement, original: HTMLImageElement, figure: HTMLElement) => {
     if (!viewer) {
       viewer = document.createElement("dialog");
@@ -191,6 +203,7 @@ if (article) {
     viewer.querySelector(".image-viewer-stage")!.classList.add("fit");
     viewer.querySelector("[data-image-size]")!.textContent = "Actual size";
     const status = record?.status === "original" ? "Full-size recovered file" : "Recovered thumbnail or partial file";
+    /** Prefer recorded dimensions, falling back to the loaded file's natural size. */
     const showDimensions = () => {
       const width = record?.width || image.naturalWidth;
       const height = record?.height || image.naturalHeight;

@@ -1,7 +1,9 @@
+/** Open native Starlight search and fill its lazily created Pagefind input. */
 async function openDocsSearch(query: string) {
   const trigger = document.querySelector<HTMLButtonElement>("site-search [data-open-modal]");
   if (!trigger) return;
   trigger.click();
+  /** Return false until the input exists; otherwise apply the query and focus it. */
   const fill = () => {
     const input = document.querySelector<HTMLInputElement>(".pagefind-ui__search-input");
     if (!input) return false;
@@ -36,7 +38,12 @@ if (directory) {
   let product = productButtons.some((button) => button.dataset.productFilter === params.get("product")) ? params.get("product")! : "all";
   input.value = params.get("q") ?? "";
   directory.querySelector<HTMLElement>(".directory-tools")!.hidden = false;
+  /** Match an explicit label, all products, or articles with no stated product. */
   const productMatches = (products: string[], filter: string) => filter === "all" || (filter === "none" ? products.length === 0 : products.includes(filter));
+  /**
+   * Apply the title, topic and product filters together. Keep visible groups,
+   * facet counts, the live result status and URL query parameters in sync.
+   */
   const update = () => {
     const query = normalize(input.value.trim());
     const matchingTitles = items.filter((item) => item.title.includes(query));

@@ -5,6 +5,7 @@ const articles = collectGuides();
 const escape = (s) => s.replace(/([\\\[\]])/g, "\\$1").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 const frontmatter = (title, description, extra = "") => `---\ntitle: ${JSON.stringify(title)}\ndescription: ${JSON.stringify(description)}\n${extra}---\n\n`;
 const link = (item) => `- [${escape(item.title)}](../..${item.route})`;
+/** Render approved article links, retaining subgroup headings where configured. */
 const topicList = (section) => section.subgroups
   ? section.subgroups.map((subgroup) => `## ${subgroup.label}\n\n${subgroup.articles.map(link).join("\n")}`).join("\n\n")
   : section.articles.map(link).join("\n");
