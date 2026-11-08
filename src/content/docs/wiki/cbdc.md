@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en"><p>CBDC (Central Bank Digital Currency) is the final and most insidious form of <a href="../fiat/">fiat</a> money, since as programmable money it allows a much higher degree of control, including geofencing, time limits, restrictions on saving, blacklisting, censorship, etc. It can potentially lead to <a href="../ubiquitous-law-enforcement/">ubiquitous law enforcement</a> and facilitate social credit systems.</p>
 <span class="wiki-legacy-anchor" id="CBDC_programs_around_the_world" aria-hidden="true"></span><h2 id="cbdc-programs-around-the-world"> CBDC programs around the world </h2>
-<p>A large number of governments around the world are working on developing a CBDC. 3 have launched. 36 are in the pilot stage and 30 are in development. These are some of the most relevant.</p>
+<p>A large number of governments around the world are working on developing a CBDC. 3 have launched. 36 are in the pilot stage and 30 are in development. These are some of the most relevant. The counts and table below come from the recovered wiki snapshot and may be out of date; check current primary sources for each program.</p>
 <table>
 <caption>CBDC</caption>
 <thead>
@@ -59,14 +59,14 @@ tableOfContents: false
 <tr>
 <td>Jamaica</td>
 <td>Live</td>
-<td>NZIA</td>
+<td>.</td>
 <td>NO</td>
 <td>.</td>
 <td>.</td>
 <td>.</td>
 <td>0.120</td>
-<td>Sand Dollar</td>
-<td>NZIA</td>
+<td>JAM-DEX</td>
+<td>.</td>
 <td>.</td>
 <td></td>
 </tr>
@@ -79,7 +79,7 @@ tableOfContents: false
 <td>.</td>
 <td>.</td>
 <td>.</td>
-<td>.</td>
+<td>Sand Dollar</td>
 <td>.</td>
 <td>.</td>
 <td></td>
