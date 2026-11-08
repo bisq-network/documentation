@@ -36,7 +36,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="Is_Paysera_a_payment_method_that_can_be_signed?" aria-hidden="true"></span><h2 id="is-paysera-a-payment-method-that-can-be-signed"> Is Paysera a payment method that can be signed? </h2>
 <p>No, Paysera accounts do not require signing.</p>
 <span class="wiki-legacy-anchor" id="How_do_I_set_up_a_Paysera_account?" aria-hidden="true"></span><h2 id="how-do-i-set-up-a-paysera-account"> How do I set up a Paysera account? </h2>
-<p>Vist the <a href="https://www.paysera.com/" rel="noopener noreferrer">Paysera website</a> to set up an account. You will need a Spanish bank account.</p>
+<p>Vist the <a href="https://www.paysera.com/" rel="noopener noreferrer">Paysera website</a> to set up an account. Follow Paysera's own registration and identity-verification requirements for your country; its published personal-account guide uses a phone and identity document, not a universal Spanish-bank-account requirement.</p>
 <span class="wiki-legacy-anchor" id="How_do_I_add_Paysera_as_a_payment_method_in_Bisq?" aria-hidden="true"></span><h2 id="how-do-i-add-paysera-as-a-payment-method-in-bisq"> How do I add Paysera as a payment method in Bisq? </h2>
 <p>It is easy to add your Paysera account to Bisq.</p>
 <ol>

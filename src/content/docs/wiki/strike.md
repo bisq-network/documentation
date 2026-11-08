@@ -17,7 +17,7 @@ tableOfContents: false
 <li><a href="https://global.strike.me/en/" rel="noopener noreferrer">Strike Global (in development)</a></li>
 </ul>
 <span class="wiki-legacy-anchor" id="What_countries_are_available_for_Strike?" aria-hidden="true"></span><h2 id="what-countries-are-available-for-strike"> What countries are available for Strike? </h2>
-<p>Strike is available only in the United States, and some states may not have access.</p>
+<p>Strike's current provider guidance lists availability in multiple countries. Separately, Bisq 1 v1.10.11's STRIKE account implementation is restricted to United States/USD; broader app availability does not expand that Bisq payment route.</p>
 <span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Strike?" aria-hidden="true"></span><h2 id="what-currencies-are-available-for-strike"> What currencies are available for Strike? </h2>
 <p>Strike currently only supports USD.</p>
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_Strike?" aria-hidden="true"></span><h2 id="what-is-the-maximum-trading-duration-for-strike"> What is the maximum trading duration for Strike? </h2>

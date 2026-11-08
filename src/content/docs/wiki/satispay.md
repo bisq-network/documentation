@@ -13,7 +13,7 @@ tableOfContents: false
 <li><a href="https://twitter.com/satispay/" rel="noopener noreferrer">Satispay Twitter</a></li>
 </ul>
 <span class="wiki-legacy-anchor" id="What_countries_are_available_for_Satispay?" aria-hidden="true"></span><h2 id="what-countries-are-available-for-satispay"> What countries are available for Satispay? </h2>
-<p>Satispay is only currently available in Italy.</p>
+<p>Satispay's signup guidance lists eligible residents/domiciliaries in multiple European countries, not Italy alone. Check its current country list for your own eligibility.</p>
 <span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Satispay?" aria-hidden="true"></span><h2 id="what-currencies-are-available-for-satispay"> What currencies are available for Satispay? </h2>
 <p>Satispay supports EUR as a currency.</p>
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_Satispay?" aria-hidden="true"></span><h2 id="what-is-the-maximum-trading-duration-for-satispay"> What is the maximum trading duration for Satispay? </h2>
@@ -24,7 +24,7 @@ tableOfContents: false
 <p>No, Satispay accounts do not require signing.</p>
 <span class="wiki-legacy-anchor" id="How_do_I_set_up_a_Satispay_account?" aria-hidden="true"></span><h2 id="how-do-i-set-up-a-satispay-account"> How do I set up a Satispay account? </h2>
 <p>Download the <span class="wiki-link-gap">Satispay app <small>[unrecovered article: satispay.com/it-it/privati/]</small></span> and get started.</p>
-<p>To create an account you will need an ID, the IBAN code of your bank account of a country where the SEPA scheme is available and an Italian tax code.</p>
+<p>The provider's signup guidance requires an identity document and an eligible IBAN; it specifies an Italian tax code when using an Italian IBAN. Check the current accepted-country exceptions before signing up.</p>
 <span class="wiki-legacy-anchor" id="How_do_I_add_Satispay_as_a_payment_method_in_Bisq?" aria-hidden="true"></span><h2 id="how-do-i-add-satispay-as-a-payment-method-in-bisq"> How do I add Satispay as a payment method in Bisq? </h2>
 <p>It is easy to add your Satispay account to Bisq.</p>
 <ol>
