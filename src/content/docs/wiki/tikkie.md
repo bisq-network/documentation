@@ -13,7 +13,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Tikkie?" aria-hidden="true"></span><h2 id="what-currencies-are-available-for-tikkie"> What currencies are available for Tikkie? </h2>
 <p>Tikkie supports the following currencies;</p>
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_Tikkie?" aria-hidden="true"></span><h2 id="what-is-the-maximum-trading-duration-for-tikkie"> What is the maximum trading duration for Tikkie? </h2>
-<p>The maximum trade time is X days. Generally Tikkie transfers will be completed within X days.</p>
+<p>Bisq 1 v1.10.11 sets the Tikkie trade period to 1 day. This is the client deadline; provider processing and eligibility must be checked separately.</p>
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_Tikkie_trade?" aria-hidden="true"></span><h2 id="what-is-the-maximum-btc-limit-for-an-tikkie-trade"> What is the maximum BTC limit for an Tikkie trade? </h2>
 <p><span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span>.</p>
 <span class="wiki-legacy-anchor" id="Is_Tikkie_a_payment_method_that_can_be_signed?" aria-hidden="true"></span><h2 id="is-tikkie-a-payment-method-that-can-be-signed"> Is Tikkie a payment method that can be signed? </h2>

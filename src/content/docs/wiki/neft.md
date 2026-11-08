@@ -18,7 +18,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="What_currencies_are_available_for_NEFT?" aria-hidden="true"></span><h2 id="what-currencies-are-available-for-neft"> What currencies are available for NEFT? </h2>
 <p>NEFT supports INR currency.</p>
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_NEFT?" aria-hidden="true"></span><h2 id="what-is-the-maximum-trading-duration-for-neft"> What is the maximum trading duration for NEFT? </h2>
-<p>The maximum trade time is X days. Generally NEFT transfers will be completed within X days.</p>
+<p>Bisq 1 v1.10.11 sets the NEFT trade period to 1 day. This is the client deadline, not a guaranteed bank processing time.</p>
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_NEFT_trade?" aria-hidden="true"></span><h2 id="what-is-the-maximum-btc-limit-for-an-neft-trade"> What is the maximum BTC limit for an NEFT trade? </h2>
 <p>0.0050</p>
 <span class="wiki-legacy-anchor" id="Is_NEFT_a_payment_method_that_can_be_signed?" aria-hidden="true"></span><h2 id="is-neft-a-payment-method-that-can-be-signed"> Is NEFT a payment method that can be signed? </h2>

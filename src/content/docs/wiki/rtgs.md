@@ -18,7 +18,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="What_currencies_are_available_for_RTGS?" aria-hidden="true"></span><h2 id="what-currencies-are-available-for-rtgs"> What currencies are available for RTGS? </h2>
 <p>RTGS supports INR currency.</p>
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_RTGS?" aria-hidden="true"></span><h2 id="what-is-the-maximum-trading-duration-for-rtgs"> What is the maximum trading duration for RTGS? </h2>
-<p>The maximum trade time is X days. Generally RTGS transfers will be completed within X days.</p>
+<p>Bisq 1 v1.10.11 sets the RTGS trade period to 1 day. This is the client deadline, not a guaranteed bank processing time.</p>
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_RTGS_trade?" aria-hidden="true"></span><h2 id="what-is-the-maximum-btc-limit-for-an-rtgs-trade"> What is the maximum BTC limit for an RTGS trade? </h2>
 <p><span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span>.</p>
 <span class="wiki-legacy-anchor" id="Is_RTGS_a_payment_method_that_can_be_signed?" aria-hidden="true"></span><h2 id="is-rtgs-a-payment-method-that-can-be-signed"> Is RTGS a payment method that can be signed? </h2>
