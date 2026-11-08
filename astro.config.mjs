@@ -20,6 +20,7 @@ export default defineConfig({
       components: {
         Banner: "./src/components/PreviewBanner.astro",
         PageTitle: "./src/components/PageTitle.astro",
+        Search: "./src/components/Search.astro",
         MarkdownContent: "./src/components/SourceHistory.astro",
       },
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/hiciefte/bisq-docs" }],

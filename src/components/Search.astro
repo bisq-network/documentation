@@ -1,0 +1,28 @@
+---
+import Default from "@astrojs/starlight/components/Search.astro";
+---
+<Default {...Astro.props} />
+<script>
+  // Keep Starlight's search implementation, including its lazy Pagefind loading.
+  const search = document.querySelector("site-search");
+  if (search) {
+    const addLabel = () => {
+      const input = search.querySelector<HTMLInputElement>(".pagefind-ui__search-input");
+      const form = input?.closest("form");
+      if (!input || !form) return false;
+      if (document.getElementById("docs-search-label")) return true;
+      input.id = "docs-search-query";
+      const label = document.createElement("label");
+      label.id = "docs-search-label";
+      label.htmlFor = input.id;
+      label.className = "docs-search-label";
+      label.textContent = "Search documentation";
+      form.before(label);
+      return true;
+    };
+    if (!addLabel()) {
+      const observer = new MutationObserver(() => { if (addLabel()) observer.disconnect(); });
+      observer.observe(search, { childList: true, subtree: true });
+    }
+  }
+</script>
