@@ -81,7 +81,7 @@ tableOfContents: false
 <tbody>
 <tr>
 <td>Australia</td>
-<td>AUS</td>
+<td>AUD</td>
 <td><a href="https://www.amazon.com.au" rel="noopener noreferrer">https://www.amazon.com.au</a></td>
 </tr>
 <tr>
