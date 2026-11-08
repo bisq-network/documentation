@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en"><aside class="wiki-admonition" role="note"><p><strong>Note</strong></p><p><strong>Verse has been DISCONTINUED as a service. This article has been kept for historical purposes, but the link from <a href="../payment-methods/">Payment methods</a> has been removed.</strong></p>
 </aside>
-<p><strong>Verse</strong> is a payment method added in Bisq v1.7.5.</p>
+<p><strong>Verse</strong> is a payment method added in Bisq v1.7.5. Bisq 1 v1.10.11 explicitly marks it as shut down and excludes it from the new fiat-account selector; the remaining instructions below are historical, not new-account guidance.</p>
 <p>Verse is a mobile payment app based in Europe owned by Square. Users can pay and request money from your friends. Payments are immediate and free. It is easy to use.</p>
 <p>Verse is multi currency, easy to use and payments are instant and free.</p>
 <p>Verse is designed for small payments between friends and family members. Fiat money you receive is stored in your Verse balance. From there you can send it to your friends’ digital wallets. When you want that money to be in your real world wallet, all you have to do is transfer it to your bank account. Withdrawals from Verse (sending to own account) take anywhere from a few seconds to two business days.</p>
