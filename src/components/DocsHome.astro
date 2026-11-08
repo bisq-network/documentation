@@ -1,0 +1,46 @@
+---
+import { collectGuides, sections } from "../../scripts/lib/documentation.mjs";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const guides = collectGuides();
+const tasks = [
+  ["Install Bisq and verify the download", "downloading-and-installing"],
+  ["Start trading with Bisq Easy", "bisq-easy"],
+  ["Choose and set up a payment method", "payment-methods"],
+  ["Contact the mediator for a trade", "finding-your-mediator"],
+  ["Back up your wallet seed", "backing-up-your-wallet-seed"],
+  ["Recover data when Bisq won’t start", "last-resort-restore"],
+  ["Fix connection problems", "troubleshooting-network-issues"],
+  ["Start contributing to Bisq", "contributor-checklist"],
+].map(([label, slug]) => ({ label, guide: guides.find((guide) => guide.slug === slug)! }));
+---
+<div class="docs-home">
+  <div class="home-search">
+    <p class="home-lede">209 articles restored from the Bisq wiki: installing, trading, payment methods, recovery, the DAO and contributing.</p>
+    <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog" hidden><span aria-hidden="true">⌕</span><span>Search articles, sections, people…</span><kbd>⌘ / Ctrl K</kbd></button>
+    <div class="home-try" data-pagefind-ignore data-search-controls hidden><span>Try</span>{["Last resort restore", "luis3672", "Zelle", "verify signature"].map((query) => <button type="button" data-docs-search={query}>{query}</button>)}</div>
+    <noscript><p><a href={`${base}/browse/all/`}>Browse all article titles</a></p></noscript>
+  </div>
+  <section aria-labelledby="which-bisq">
+    <h2 id="which-bisq">Which Bisq is this about?</h2>
+    <p class="section-intro">Product labels show what the article names in its title, section headings or migration grouping.</p>
+    <div class="home-products">
+      <article><h3>Bisq 2</h3><blockquote>“Bisq 2 is the successor to the original Bisq (Bisq v1).”<cite>From the article Bisq 2</cite></blockquote><a href={`${base}/wiki/bisq-2/`}>Read about Bisq 2</a></article>
+      <article><h3>Bisq Easy</h3><blockquote>“Bisq Easy is a trade protocol for Bisq 2, designed to facilitate the acquisition of bitcoin with zero trade fees and without the requirement of a security deposit.”<cite>From the article Bisq Easy</cite></blockquote><a href={`${base}/wiki/bisq-easy/`}>Read about Bisq Easy</a></article>
+      <article><h3>Bisq 1</h3><blockquote>The original Bisq desktop application, called “Bisq v1” in the Bisq 2 article.</blockquote><a href={`${base}/wiki/bisq-1/`}>Read about Bisq 1</a></article>
+    </div>
+  </section>
+  <section aria-labelledby="common-tasks">
+    <h2 id="common-tasks">Common tasks</h2>
+    <ul class="home-tasks">{tasks.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span>{label}</span><small>{guide.title} · {sections.find((section) => section.directory === guide.directory)?.label}</small><span class="task-arrow" aria-hidden="true">→</span></a></li>)}</ul>
+  </section>
+  <section aria-labelledby="browse-by-topic">
+    <h2 id="browse-by-topic">Browse by topic</h2>
+    <p class="section-intro">Every article appears once in the navigation. <a href={`${base}/browse/all/`}>See all 209 articles</a>.</p>
+    <div class="home-topics">{sections.map((section) => <a href={`${base}/browse/${section.directory}/`}><strong>{section.label}</strong><span>{section.intro}</span><em>{section.count}</em></a>)}</div>
+  </section>
+  <section aria-labelledby="about-preview" class="home-about">
+    <div><h2 id="about-preview">About this preview</h2><p>These pages restore the original wiki wording, headings, step order and images. Proposed edits are reviewed separately. Instructions may describe older software.</p><p><a href={`${base}/review/`}>Review status</a> · <a href={`${base}/recovery-status/`}>Recovery scope</a> · <a href={`${base}/recovered-media/`}>Recovered media catalogue</a></p></div>
+    <dl><dt>Snapshot</dt><dd>18 October 2026</dd><dt>Articles</dt><dd>209 restored, original wording</dd><dt>Images</dt><dd>120 recovered, 3 missing</dd><dt>Review</dt><dd>Maintainer review open</dd></dl>
+  </section>
+</div>
+<script src="../scripts/docs-discovery.ts"></script>

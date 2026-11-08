@@ -1,9 +1,9 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { collectGuides, sections } from "./lib/documentation.mjs";
 
 const articles = collectGuides();
 const escape = (s) => s.replace(/([\\\[\]])/g, "\\$1").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-const frontmatter = (title, description) => `---\ntitle: ${JSON.stringify(title)}\ndescription: ${JSON.stringify(description)}\n---\n\n`;
+const frontmatter = (title, description, extra = "") => `---\ntitle: ${JSON.stringify(title)}\ndescription: ${JSON.stringify(description)}\n${extra}---\n\n`;
 const link = (item) => `- [${escape(item.title)}](../..${item.route})`;
 const topicList = (section) => section.subgroups
   ? section.subgroups.map((subgroup) => `## ${subgroup.label}\n\n${subgroup.articles.map(link).join("\n")}`).join("\n\n")
@@ -14,7 +14,9 @@ for (const section of sections) {
 }
 const groups = sections.map((section) => `- [${section.label}](${section.directory}/) (${section.count}): ${section.intro}`);
 await writeFile("src/content/docs/browse/index.md", frontmatter("Browse the documentation", "Browse the original Bisq Wiki articles by topic or title.") + `The **209 recovered articles** are the main documentation. Original titles, wording, and procedures are preserved. Search by topic or name, or use the [complete title index](all/).\n\n## Browse by subject\n\n${groups.join("\n")}\n\n## Saved wiki links\n\nExported wiki paths such as \`/Finding_your_mediator\` and \`/Last_resort_restore\` open the corresponding original articles. Links to the previous edited guides lead to the relevant originals or a list of their source articles.\n\n## Editorial review\n\nProposed wording changes are reviewed separately. See [review status](../review/) for the comparison material and remaining recovery gaps.\n`);
-await writeFile("src/content/docs/browse/all.md", frontmatter("All articles", "All 209 recovered Bisq Wiki articles with their original titles.") + `## Original wiki articles\n\n${articles.map(link).join("\n")}\n\n<span id="former-wiki-titles"></span><span id="guides-and-reference"></span>\n\nAll former wiki titles appear above. Article bodies retain the original wording; source-check notes and conversion gaps are labeled separately.\n`);
+await rm("src/content/docs/browse/all.md", { force: true });
+await writeFile("src/content/docs/browse/all.mdx", frontmatter("All articles", "All 209 recovered Bisq Wiki articles with their original titles.", "tableOfContents: false\n") + `import ArticleDirectory from "../../../components/ArticleDirectory.astro";\n\n<ArticleDirectory />\n\n<span id="former-wiki-titles"></span><span id="guides-and-reference"></span>\n`);
+
 // Keep the previous browse addresses useful without making them primary groups.
 for (const [oldDirectory, directory] of [["payment-methods", "payments"], ["contributing", "contribute"]]) {
   const section = sections.find((item) => item.directory === directory);
