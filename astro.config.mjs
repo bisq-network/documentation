@@ -19,6 +19,8 @@ export default defineConfig({
       routeMiddleware: "./src/route-data.ts",
       components: {
         Banner: "./src/components/PreviewBanner.astro",
+        PageTitle: "./src/components/PageTitle.astro",
+        Search: "./src/components/Search.astro",
         MarkdownContent: "./src/components/SourceHistory.astro",
       },
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/hiciefte/bisq-docs" }],
@@ -27,7 +29,15 @@ export default defineConfig({
         ...sections.map((section) => ({
           label: section.label,
           collapsed: section.directory !== "start",
-          items: guides.filter((guide) => guide.directory === section.directory).map((guide) => ({ label: guide.title, link: guide.route })),
+          items: section.subgroups
+            ? section.subgroups.map((subgroup) => ({
+              label: subgroup.label,
+              collapsed: false,
+              items: subgroup.articles.map((article) => ({ label: article.title, link: article.route })),
+            }))
+            : guides.filter((guide) => guide.directory === section.directory)
+              .sort((a, b) => a.navigationOrder - b.navigationOrder)
+              .map((guide) => ({ label: guide.title, link: guide.route })),
         })).filter((section) => section.items.length),
         { label: "Browse all documentation", link: "/browse/" },
         { label: "Review status", link: "/review/" },
