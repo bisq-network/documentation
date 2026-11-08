@@ -10,7 +10,7 @@ export const onRequest = defineRouteMiddleware(({ locals }) => {
   const { entry } = route;
   const id = entry.id.replace(/\.(md|mdx)$/, "");
   // All originals remain searchable; directories and provenance would duplicate results.
-  if (id.startsWith("browse/") || ["browse", "recovered-media", "recovery-status", "review"].includes(id)) {
+  if (id.startsWith("browse/") || ["browse", "recovered-media", "recovery-status", "review", "categories/teams"].includes(id)) {
     entry.data.pagefind = false;
   }
   const article = originals.get(id);

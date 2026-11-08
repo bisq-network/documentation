@@ -48,6 +48,14 @@
       "original_title": "Bisq pricenode",
       "target": "/wiki/pricenode/",
       "evidence": "The recovered Pricenode article is the directly named source subject; it is a stub."
+    },
+    {
+      "source_slug": "project-management",
+      "source_sha256": "3dfe53fcd22d2545136a2db20f2e02d16c48bf1440c997d9c527c0b45e83d0e8",
+      "source_line": 16,
+      "original_title": ":Category:Teams",
+      "target": "/categories/teams/",
+      "evidence": "The 2020 Category:Teams source is recovered exactly; membership shown separately is restricted to explicitly tagged recovered articles."
     }
   ]
 }

@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import { loadIntegration } from "../../scripts/lib/documentation.mjs";
 import { buildPublicLegacyRoutes } from "../../scripts/lib/legacy-routes.mjs";
 import { buildRecoveredAliasRoutes, validateRecoveredAliases } from "../../scripts/lib/recovered-link-aliases.mjs";
+import { recoveredCategoryRoutes } from "../../scripts/lib/recovered-categories.mjs";
 import { loadEditedRouteAliases } from "../../scripts/lib/edited-route-aliases.mjs";
 
 export async function getStaticPaths() {
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
   const articles = loadIntegration();
   validateRecoveredAliases();
   const legacy = buildPublicLegacyRoutes(articles, headings);
-  const aliases = [...legacy, ...buildRecoveredAliasRoutes(articles, legacy), ...loadEditedRouteAliases(articles)];
+  const aliases = [...legacy, ...buildRecoveredAliasRoutes(articles, legacy), ...loadEditedRouteAliases(articles), ...recoveredCategoryRoutes()];
   const paths = new Set();
   for (const alias of aliases) {
     if (paths.has(alias.path)) throw new Error(`Duplicate alias: ${alias.path}`);

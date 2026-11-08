@@ -2,6 +2,7 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join, resolve, sep } from "node:path";
 import { collectGuides, loadIntegration } from "./lib/documentation.mjs";
+import { recoveredCategoryRoutes } from "./lib/recovered-categories.mjs";
 import { buildRecoveredAliasRoutes, validateRecoveredAliases } from "./lib/recovered-link-aliases.mjs";
 import { buildPublicLegacyRoutes } from "./lib/legacy-routes.mjs";
 import { loadEditedRouteAliases } from "./lib/edited-route-aliases.mjs";
@@ -83,7 +84,7 @@ for (const article of migration) {
 }
 validateRecoveredAliases();
 const originals = buildPublicLegacyRoutes(migration);
-const legacy = [...originals, ...buildRecoveredAliasRoutes(migration, originals), ...loadEditedRouteAliases(migration)];
+const legacy = [...originals, ...buildRecoveredAliasRoutes(migration, originals), ...loadEditedRouteAliases(migration), ...recoveredCategoryRoutes()];
 for (const route of legacy) {
   const html = await documentForRoute(`/${route.path}/`);
   if (!html || !html.includes('id="legacy-destination"') || !html.includes("data-pagefind-ignore")) failures.push(`missing compatibility route: ${route.path}`);

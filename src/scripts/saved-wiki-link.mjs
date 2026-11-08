@@ -34,7 +34,7 @@ function node(tag, text) {
  * Return null for unexpected destinations instead of rendering a navigable URL.
  */
 function articleLink(target, label, base) {
-    if (!/^\/wiki\/[a-z0-9-]+\/(?:#[^\u0000-\u001f]*)?$/.test(target)) return null;
+    if (target !== "/categories/teams/" && !/^\/wiki\/[a-z0-9-]+\/(?:#[^\u0000-\u001f]*)?$/.test(target)) return null;
     const a = node("a", label);
     a.href = base + target;
     return a;

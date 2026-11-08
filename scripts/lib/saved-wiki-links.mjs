@@ -1,3 +1,4 @@
+import { recoveredCategoryRoutes } from "./recovered-categories.mjs";
 import { buildRecoveredAliasRoutes } from "./recovered-link-aliases.mjs";
 import { buildLegacyRoutes, buildPublicLegacyRoutes, normalizeFragment } from "./legacy-routes.mjs";
 import { loadEditedRouteAliases } from "./edited-route-aliases.mjs";
@@ -32,7 +33,7 @@ export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
         if (Object.hasOwn(routes, path)) throw new Error(`Duplicate saved-link path: ${path}`);
         routes[path] = interned.get(key);
     };
-    for (const entry of [...legacy, ...buildRecoveredAliasRoutes(articles, legacy), ...edited]) add(entry.path, entry);
+    for (const entry of [...legacy, ...buildRecoveredAliasRoutes(articles, legacy), ...edited, ...recoveredCategoryRoutes()]) add(entry.path, entry);
     for (const article of articles) {
         const sections = Object.create(null);
         for (const heading of article.headings || []) sections[heading.anchor] = heading.text;
@@ -54,6 +55,7 @@ export function buildSavedWikiLinks(articles, headingsByRoute = new Map()) {
         }
         add(article.route.replace(/^\/+|\/+$/g, ""), { target: article.route, fragments });
     }
+    pages["/categories/teams/"] = { title: "Teams category", sections: {} };
     // Thousands of legacy fragments share destinations. Store each URL once.
     const targets = [];
     const targetIndex = new Map();
