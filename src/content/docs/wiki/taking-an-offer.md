@@ -12,7 +12,7 @@ tableOfContents: false
 <figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/b438c0e73f171e2e1c5cfe2bdb92e4c166f8b1dd0bdd67c718662d3a64a75510.png"><img alt="BuyBTC-accountenabled.png" decoding="async" height="558" loading="lazy" src="../../media/wiki/b438c0e73f171e2e1c5cfe2bdb92e4c166f8b1dd0bdd67c718662d3a64a75510.png" width="940"></a><figcaption>BuyBTC-accountenabled.png<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 <p><br>
 <strong>Note on limits for new payment accounts:</strong></p>
-<p>To secure the network from scammers and other bad actors, unsigned Bisq payment accounts are limited to buying 0.01 BTC until they are signed by another trusted peer.</p>
+<p>For payment methods subject to account-signing restrictions, Bisq 1 v1.10.11 limits unsigned accounts to buying up to 0.002 BTC; the actual limit also depends on the account and payment method. Signing does not immediately remove all age-based limits.</p>
 <p>You can have your new payment account signed by selecting an offer to buy bitcoin from a seller who’s capable of signing your account. - Click [<a href="https://docs.bisq.network/payment-methods.html" rel="noopener noreferrer">here</a>] for info on account signing</p>
 <p><strong>Just look for an offer with a check mark.</strong></p>
 <span class="wiki-legacy-anchor" id="Deposit_and_fees" aria-hidden="true"></span><h2 id="deposit-and-fees"> Deposit and fees </h2>
