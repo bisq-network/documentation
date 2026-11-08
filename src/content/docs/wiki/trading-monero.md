@@ -29,7 +29,7 @@ tableOfContents: false
 <p>To verify that a certain sum of Monero was sent to a specific address:</p>
 <ul>
 <li>Monero GUI: change wallet to Advanced mode and go to <code class="wiki-source-code" id="source-code-3">Advanced</code> &gt; <code class="wiki-source-code" id="source-code-4">Prove/check</code> &gt; <code class="wiki-source-code" id="source-code-5">Check Transaction</code></li>
-<li>Monero CLI: use the command <code class="wiki-source-code" id="source-code-6">check_tx_key &lt;TXID&gt; &lt;TXKEY ADDRESS&gt;</code></li>
+<li>Monero CLI: use the command <code class="wiki-source-code" id="source-code-6">check_tx_key &lt;TXID&gt; &lt;TXKEY&gt; &lt;ADDRESS&gt;</code></li>
 </ul>
 <ul>
 <li><a href="https://monero.com/explorer" rel="noopener noreferrer">Monero.com explorer</a> - working checked 17.10.23</li>
@@ -47,7 +47,7 @@ tableOfContents: false
 <li>the XMR buyer has auto-confirming trades turned on in Bisq settings</li>
 </ul>
 <p>Auto confirming works very well most of the time. However on some occasions users might be manually required to confirm payment, for example then the incorrect data is supplied by the BTC buyer.</p>
-<p>By default auto-confirming trades is turned on in the Bisq app, if you wist to turn if off it can be done in Settings &gt; Preferences:</p>
+<p>In Bisq 1 v1.10.11, XMR auto-confirmation is disabled by default. Check or change your saved setting in Settings &gt; Preferences; an existing installation may retain different preferences.</p>
 <figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/b75fd0e6e142b52742239c81d39b9cbd745acb10a54024fffcaf8480e971cdca.png"><img alt="XMR auto confirm" decoding="async" height="318" loading="lazy" src="../../media/wiki/b75fd0e6e142b52742239c81d39b9cbd745acb10a54024fffcaf8480e971cdca.png" width="1456"></a><figcaption>XMR auto confirm<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 <span class="wiki-legacy-anchor" id="How_it_works" aria-hidden="true"></span><h3 id="how-it-works"> How it works </h3>
 <span class="wiki-legacy-anchor" id="XMR_Seller" aria-hidden="true"></span><h4 id="xmr-seller"> XMR Seller </h4>
@@ -68,7 +68,7 @@ tableOfContents: false
 <span class="wiki-legacy-anchor" id="Settings" aria-hidden="true"></span><h3 id="settings"> Settings </h3>
 <p>On the Bisq settings screen, you can set:</p>
 <ul>
-<li>Maximum amount of BTC that can be confirmed per trade (default: 1 BTC)</li>
+<li>Maximum amount of BTC that can be confirmed per trade (Bisq 1 v1.10.11 default: 0.125 BTC)</li>
 <li>Monero Explorer node address (default: nodes run by Bisq contributors; see <a href="../trading-monero/#set-up-your-own-node">below</a> for how to run your own)</li>
 <li>Number of required confirmations (default: 5)</li>
 </ul>
