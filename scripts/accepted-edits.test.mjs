@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { acceptedEditsPath, describeEdit, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
-import { verify } from "./check-source-fidelity.mjs";
+import { awaitingLine, verify } from "./check-source-fidelity.mjs";
 
 // All edits below exist only in memory; verify() reads them through overrides.
 const hash = (value) => createHash("sha256").update(value).digest("hex");
@@ -106,13 +106,16 @@ test("with its base, an edit a receipt could accept awaits a receipt instead of 
 
 test("without a receipt, everything else a receipt would require still fails", async () => {
   // The figure link and the image both point to the other asset.
+  const relinked = original.replace('<a href="../../media/wiki/4cf4058b304d93bc429a0e4aa49656339f02fb3f5d8604a7ba0deff1485d5db6.png"', '<a href="../../media/wiki/b97e0b293eaaa15e84b399dbe9a4a279010caccbd25ab133c323b0a21aef4d08.png"');
   const swapped = original.replaceAll("4cf4058b304d93bc429a0e4aa49656339f02fb3f5d8604a7ba0deff1485d5db6", "b97e0b293eaaa15e84b399dbe9a4a279010caccbd25ab133c323b0a21aef4d08");
   for (const [edited, pattern] of [
     [original.replace('<h3 id="settings"> Settings </h3>', '<h3 id="preferences"> Settings </h3>'), /The edit awaiting a receipt changes heading 8/],
     [original.replace('<h3 id="settings"> Settings </h3>', '<h3 id="settings"> Preferences </h3>'), /The edit awaiting a receipt changes heading 8/],
     [original.replace('<span class="wiki-legacy-anchor" id="Settings" aria-hidden="true"></span>', ""), /The edit awaiting a receipt removes anchor #Settings/],
-    [swapped, /The edit awaiting a receipt changes the image source-image-2; only alt text may change/],
-    [original.replace('<img alt="XMR auto confirm"', '<img alt="Historical XMR auto-confirm settings"'), /changes the alt text of source-image-1; an alt-text change needs a receipt that lists the figure/],
+    [swapped, /The edit awaiting a receipt changes the figure source-image-2 or the link that opens it/],
+    [original.replace('src="../../media/wiki/4cf4058b304d93bc429a0e4aa49656339f02fb3f5d8604a7ba0deff1485d5db6.png"', 'src="../../media/wiki/b97e0b293eaaa15e84b399dbe9a4a279010caccbd25ab133c323b0a21aef4d08.png"'), /The edit awaiting a receipt changes the image source-image-2; only alt text may change/],
+    [relinked, /The edit awaiting a receipt changes the figure source-image-2 or the link that opens it/],
+    [original.replace('<img alt="XMR auto confirm" decoding="async" height="318"', '<img alt="Historical XMR auto-confirm settings" decoding="async" height="300"'), /The edit awaiting a receipt changes the image source-image-1; only alt text may change/],
     [original.replace('title: "Trading Monero"', 'title: "Trading XMR"'), /The edit awaiting a receipt changes text outside the article body/],
     [original.replace("(default: 1 BTC)", '(default: 1 BTC) <span hidden>hidden</span>'), /The edit awaiting a receipt adds or removes <\/?span/],
     [original.replace("(default: 1 BTC)", '(default: 1 BTC) <a href="javascript:alert(1)">x</a>'), /adds or removes <a href="javascript:/],
@@ -127,6 +130,20 @@ test("without a receipt, everything else a receipt would require still fails", a
   ]) {
     onlyFinding(await run({ [restorePath]: edited }, [], 2, withBase), /last-resort-restore\.md: (?:lost recovery safeguard|The edit awaiting a receipt changes the text around the recovery safeguard)/);
   }
+});
+
+test("without a receipt, an alt-text-only change awaits a receipt that lists the figure", async () => {
+  const alt = original.replace('<img alt="XMR auto confirm"', '<img alt="Historical XMR auto-confirm settings"')
+    .replace('alt="The XMR seller can choose to enter this information, or not."', 'alt="The XMR seller may enter this information."');
+  const result = await run({ [path]: alt }, [], 2, withBase);
+  assert.deepEqual(result.failures, []);
+  assert.deepEqual(result.awaiting.map(({ slug, changedImageAltText }) => [slug, changedImageAltText]), [["trading-monero", ["source-image-1", "source-image-2"]]]);
+  assert.equal(awaitingLine(result.awaiting[0]), "trading-monero: alt text of source-image-1, source-image-2 changed; its receipt must list them in changed_image_alt_text");
+  assert.equal(awaitingLine({ slug: "reputation", changedImageAltText: ["source-image-4"] }), "reputation: alt text of source-image-4 changed; its receipt must list it in changed_image_alt_text");
+  assert.equal(awaitingLine((await run({ [path]: reworded }, [], 2, withBase)).awaiting[0]), "trading-monero");
+  // The strict gate still fails it, and so does a receipt that does not list the figure.
+  onlyFinding(await run({ [path]: alt }, []), /Trading Monero changed since restoration/);
+  onlyFinding(await run({ [path]: alt }, [receipt(original, alt, { changed_image_alt_text: ["source-image-1"] })]), /PR #46 changes the image source-image-2; only alt text may change/);
 });
 
 test("without a receipt, raw sources, restoration hashes and snapshots stay exact", async () => {
@@ -189,6 +206,9 @@ test("image changes need an explicit alt-text record and never swap the asset", 
   onlyFinding(await run({ [path]: reworded }, [receipt(original, reworded, { changed_image_alt_text: ["source-image-2"] })]), /lists an alt-text change for source-image-2, but that image is unchanged/);
   const resized = original.replace('height="318"', 'height="300"');
   onlyFinding(await run({ [path]: resized }, [receipt(original, resized, { changed_image_alt_text: ["source-image-1"] })]), /changes the image source-image-1/);
+  const relinked = original.replace('<a href="../../media/wiki/4cf4058b304d93bc429a0e4aa49656339f02fb3f5d8604a7ba0deff1485d5db6.png"', '<a href="../../media/wiki/b97e0b293eaaa15e84b399dbe9a4a279010caccbd25ab133c323b0a21aef4d08.png"');
+  assert.notEqual(relinked, original);
+  onlyFinding(await run({ [path]: relinked }, [receipt(original, relinked, { changed_image_alt_text: [] })]), /PR #46 changes the figure source-image-2 or the link that opens it/);
 });
 
 test("front matter, title and contents list stay outside an accepted edit", async () => {

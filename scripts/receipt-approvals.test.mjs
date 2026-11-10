@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { annotation, changedReceiptItems, checkReceiptApprovals, fetchPullRequest, githubGraphql, latestReviews, runApprovalCheck } from "./lib/receipt-approvals.mjs";
+import { annotation } from "./lib/actions-output.mjs";
+import { changedReceiptItems, checkReceiptApprovals, fetchPullRequest, githubGraphql, latestReviews, runApprovalCheck } from "./lib/receipt-approvals.mjs";
 
 // Recorded GitHub responses in the shape of reviewsQuery; no network access.
 const repository = "bisq-network/documentation";

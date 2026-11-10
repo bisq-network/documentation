@@ -19,22 +19,14 @@
 // The REST collaborator-permission endpoint needs push access itself, so a fork
 // pull request's read-only token cannot use it.
 
+import { annotation, oneLine } from "./actions-output.mjs";
+
 const githubLogin = /^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$/;
 const short = (sha) => (typeof sha === "string" ? sha.slice(0, 12) : "an unknown commit");
 const plural = (count, noun) => `${count} ${noun}${count === 1 ? "" : "s"}`;
 
-/** Untrusted text on one log line, so it cannot start a workflow command. */
-export const oneLine = (value) => String(value).replace(/[\r\n\u0085\u2028\u2029]+/g, " ");
 /** A login for messages: as is when it is a plain GitHub login, JSON-quoted otherwise. */
 const shown = (login) => (githubLogin.test(login) ? login : JSON.stringify(String(login)));
-
-/** A GitHub Actions annotation with escaped properties and message. */
-export function annotation(level, properties, message) {
-  const data = (value) => String(value).replaceAll("%", "%25").replaceAll("\r", "%0D").replaceAll("\n", "%0A");
-  const property = (value) => data(value).replaceAll(":", "%3A").replaceAll(",", "%2C");
-  const list = Object.entries(properties).map(([key, value]) => `${key}=${property(value)}`).join(",");
-  return `::${level}${list ? ` ${list}` : ""}::${data(message)}`;
-}
 
 export const reviewsQuery = `query($owner: String!, $name: String!, $number: Int!, $after: String) {
   repository(owner: $owner, name: $name) {

@@ -1,7 +1,8 @@
 import { appendFileSync, existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { acceptedEditsPath } from "./lib/accepted-edits.mjs";
-import { githubGraphql, oneLine, runApprovalCheck } from "./lib/receipt-approvals.mjs";
+import { oneLine } from "./lib/actions-output.mjs";
+import { githubGraphql, runApprovalCheck } from "./lib/receipt-approvals.mjs";
 
 // The receipts job: compare the approvals recorded in receipt items that this
 // pull request adds or changes with the pull request's actual approving reviews

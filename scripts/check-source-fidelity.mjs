@@ -129,10 +129,11 @@ function editableTag(tag) {
 }
 const occurrences = (body, pattern) => body.match(pattern)?.length ?? 0;
 
-// Stands in for the receipt of an edit that has none yet: it lists no figure, so
-// no alt text may change.
+// Stands in for the receipt of an edit that has none yet. Its alt-text changes
+// are reported instead, because the receipt will have to list those figures.
 const awaitingLabel = "The edit awaiting a receipt";
 const noReceipt = { changed_image_alt_text: [] };
+const figureId = /^source-image-\d+$/;
 
 function checkAcceptedStructure(base, edited, item, receipt, pr = pullRequestLabel(receipt.pull_request)) {
   const before = splitArticle(base);
@@ -148,7 +149,8 @@ function checkAcceptedStructure(base, edited, item, receipt, pr = pullRequestLab
   const lost = idsOf(before.body).filter((id) => !ids.includes(id));
   assert(!lost.length, `${pr} removes anchor #${lost[0]}${lost.length > 1 ? ` and ${lost.length - 1} more` : ""}; section URLs and saved links would break`);
   normalizeRecordedAnchors(after.body, item.added_legacy_anchors);
-  const media = (body) => [...body.matchAll(/<figure\b[^>]*>|<img\b[^>]*>/g)].map((match) => match[0]);
+  // A figure is compared together with the link that opens it, so the link cannot be pointed elsewhere.
+  const media = (body) => [...body.matchAll(/<figure\b[^>]*>(?:<a\b[^>]*>)?|<img\b[^>]*>/g)].map((match) => match[0]);
   const [oldMedia, newMedia] = [media(before.body), media(after.body)];
   assert.equal(newMedia.length, oldMedia.length, `${pr} adds or removes images or figures`);
   const listed = new Set(receipt.changed_image_alt_text ?? []);
@@ -159,10 +161,15 @@ function checkAcceptedStructure(base, edited, item, receipt, pr = pullRequestLab
     if (tag === newMedia[index]) return;
     const withoutAlt = (value) => value.replace(/\salt="[^"]*"/, "");
     const altOnly = tag.startsWith("<img") && withoutAlt(tag) === withoutAlt(newMedia[index]);
-    // Without a receipt nothing lists the figure, so no alt text may change yet.
-    assert(receipt !== noReceipt || !altOnly, `${pr} changes the alt text of ${figure || `image #${index + 1}`}; an alt-text change needs a receipt that lists the figure in changed_image_alt_text, so it counts as a failure until then`);
-    assert(altOnly && listed.has(figure),
-      `${pr} changes ${tag.startsWith("<img") ? "the image" : "the figure"} ${figure || `#${index + 1}`}; only alt text may change, and only for figures listed in changed_image_alt_text`);
+    const unchanged = `only alt text may change, and only for figures listed in changed_image_alt_text`;
+    assert(altOnly, tag.startsWith("<img") ? `${pr} changes the image ${figure || `#${index + 1}`}; ${unchanged}`
+      : `${pr} changes the figure ${figure || `#${index + 1}`} or the link that opens it; figures and their links stay as restored`);
+    if (receipt === noReceipt) {
+      // Reported with the awaiting article; the receipt must then list the figure.
+      assert(figureId.test(figure), `${pr} changes the alt text of image #${index + 1}, which has no figure id a receipt could list`);
+    } else {
+      assert(listed.has(figure), `${pr} changes the image ${figure || `#${index + 1}`}; ${unchanged}`);
+    }
     altChanged.add(figure);
   });
   const unused = [...listed].filter((id) => !altChanged.has(id));
@@ -176,6 +183,7 @@ function checkAcceptedStructure(base, edited, item, receipt, pr = pullRequestLab
     checkRestoreSafeguards(after.body);
     checkRestoreSafeguardContext(before.body, after.body, pr);
   }
+  return [...altChanged];
 }
 
 // An accepted edit may not touch the words around a recovery safeguard either, so
@@ -257,8 +265,8 @@ export function baseReader(dir) {
  * Check the restored articles. Without options, any article no receipt covers
  * fails. With readBase (path -> base file bytes or undefined), such an article
  * is listed in `awaiting` instead when it passes everything a receipt would
- * still require. `unreceipted` lists every article file no receipt covers, in
- * either mode.
+ * still require; changedImageAltText names the figures its receipt must list.
+ * `unreceipted` lists every article file no receipt covers, in either mode.
  */
 export async function verify(overrides = new Map(), { readBase } = {}) {
   const failures = [];
@@ -374,8 +382,8 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
       for (const [base, edited, receipt] of steps) checkAcceptedStructure(base, edited, item, receipt);
       acceptedCount += steps.length;
       if (proposed !== undefined) {
-        checkAcceptedStructure(current, proposed, item, noReceipt, awaitingLabel);
-        awaiting.push({ slug: item.slug, title: item.title, path });
+        const changedImageAltText = checkAcceptedStructure(current, proposed, item, noReceipt, awaitingLabel);
+        awaiting.push({ slug: item.slug, title: item.title, path, changedImageAltText });
       }
     });
     const rawPath = `public/wiki-source/${item.slug}.wiki.txt`;
@@ -419,6 +427,16 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
   return { failures, awaiting, unreceipted, anchorCount, acceptedCount, acceptedArticles: accepted.bySlug.size, snapshotFiles: snapshots.length, restoreBody };
 }
 
+/** For an awaiting article whose alt text changed: which figures its receipt must list ("" if none). */
+export function altTextNote(item) {
+  const figures = item.changedImageAltText ?? [];
+  if (!figures.length) return "";
+  return `alt text of ${figures.join(", ")} changed; its receipt must list ${figures.length === 1 ? "it" : "them"} in changed_image_alt_text`;
+}
+
+/** One awaiting article for messages: its slug, plus any alt-text note. */
+export const awaitingLine = (item) => (altTextNote(item) ? `${item.slug}: ${altTextNote(item)}` : item.slug);
+
 /** The value of --awaiting-receipt-base, or undefined when the flag is absent. */
 export function awaitingReceiptBase(argv) {
   const index = argv.indexOf("--awaiting-receipt-base");
@@ -437,7 +455,7 @@ async function main() {
     const result = await verify(new Map(), base === undefined ? {} : { readBase: baseReader(base) });
     const plural = (count, noun) => `${count} ${noun}${count === 1 ? "" : "s"}`;
     const awaiting = result.awaiting.length
-      ? `\nAwaiting an accepted-edit receipt (${plural(result.awaiting.length, "article")}; not a failure here, the receipts job reports them until reviewers accept the wording):\n${result.awaiting.map((item) => `- ${item.slug}`).join("\n")}`
+      ? `\nAwaiting an accepted-edit receipt (${plural(result.awaiting.length, "article")}; not a failure here, the receipts job reports them until reviewers accept the wording):\n${result.awaiting.map((item) => `- ${awaitingLine(item)}`).join("\n")}`
       : "";
     if (result.failures.length) {
       console.error(`Source fidelity FAILED (${result.failures.length} finding${result.failures.length === 1 ? "" : "s"}):\n${result.failures.map((failure) => `- ${failure}`).join("\n")}${awaiting}`);
