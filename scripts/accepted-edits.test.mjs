@@ -58,6 +58,18 @@ function onlyFinding(result, pattern) {
   assert.match(result.failures[0], pattern);
 }
 
+// The check job runs the gate with its base and then build:after-fidelity, so
+// every build step must live there; npm run build and pages.yml stay strict.
+test("npm run build is the strict gate plus exactly the steps the check job runs", () => {
+  const { scripts } = JSON.parse(readFileSync("package.json", "utf8"));
+  assert.equal(scripts.build, "node scripts/check-source-fidelity.mjs && npm run build:after-fidelity");
+  const check = readFileSync(".github/workflows/check.yml", "utf8");
+  assert.match(check, /\n {8}run: node scripts\/check-source-fidelity\.mjs --awaiting-receipt-base "\$RUNNER_TEMP\/base"\n {6}- run: npm run build:after-fidelity\n/);
+  // Only the flag relaxes the gate: no environment variable can.
+  assert.doesNotMatch(readFileSync("scripts/check-source-fidelity.mjs", "utf8"), /process\.env/);
+  assert.match(readFileSync(".github/workflows/pages.yml", "utf8"), /\n {6}- run: npm run build\n/);
+});
+
 test("the sample articles are the restored originals", () => {
   const manifest = JSON.parse(readFileSync("migration/restoration-fidelity.json", "utf8")).items;
   const formatting = JSON.parse(readFileSync("migration/source-formatting.json", "utf8")).items;

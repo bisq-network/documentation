@@ -144,14 +144,20 @@ reviews:
         Check that actions are pinned: a full commit SHA, never a branch or an
         unpinned tag such as @main or @latest.
 
-        Check that the required `check` job keeps running `npm ci`, `npm test` and
-        `npm run build`, so that the source-fidelity gate and the build stay
-        required for every pull request.
+        Check that the required `check` job keeps running `npm ci`, `npm test`, the
+        source-fidelity gate with `--awaiting-receipt-base` and
+        `npm run build:after-fidelity` (everything `npm run build` runs after the
+        gate), so that the gate and the build stay required for every pull request.
+        The base directory reaches the gate only through that flag, never through
+        an environment variable or default, because `npm run build` and pages.yml
+        must stay strict. The `receipts` job must keep failing while any article
+        awaits a receipt.
 
     - path: "package.json"
       instructions: |
-        The `build` script starts with the source-fidelity gate and the other
-        check scripts, and `test` lists the test files explicitly. Flag any change
+        The `build` script runs the source-fidelity gate, then
+        `npm run build:after-fidelity` with the other check scripts, and `test`
+        lists the test files explicitly. Flag any change
         that removes or reorders those gate steps, or drops a test file from the
         list.
 
