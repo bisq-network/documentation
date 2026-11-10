@@ -1,0 +1,516 @@
+{
+  "schema_version": 1,
+  "count": 26,
+  "archive": "https://archive.org/download/wiki-bisq.wiki-20261014/bisq.wiki-20261014-images.7z",
+  "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+  "items": [
+    {
+      "canonical_filename": "Altcoin-instant-setup.png",
+      "wiki_filename": "Altcoin-instant-setup.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/3a6e08a4c4719b4e26b41ee020ef0ba76fa5eb5c0bd0cc953c53bd046ce74136.png",
+      "sha256": "3a6e08a4c4719b4e26b41ee020ef0ba76fa5eb5c0bd0cc953c53bd046ce74136",
+      "bytes": 64443,
+      "width": 1200,
+      "height": 710,
+      "format": "PNG",
+      "archive_member": "images/Altcoin-instant-setup.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Creating a payment account"
+      ]
+    },
+    {
+      "canonical_filename": "Amazon.png",
+      "wiki_filename": "Amazon.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/119abb0fb00ece2bf393b57ade1e2d0b0813ec8568988ef98a6eba91b1c52caf.png",
+      "sha256": "119abb0fb00ece2bf393b57ade1e2d0b0813ec8568988ef98a6eba91b1c52caf",
+      "bytes": 262598,
+      "width": 1906,
+      "height": 964,
+      "format": "PNG",
+      "archive_member": "images/Amazon.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Amazon eGift card"
+      ]
+    },
+    {
+      "canonical_filename": "Compensation_board.png",
+      "wiki_filename": "Compensation_board.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/4dc0904af5bb6d20fb346ae6c84aaf4e010193affc3bbd21b53a43c9d36eb478.png",
+      "sha256": "4dc0904af5bb6d20fb346ae6c84aaf4e010193affc3bbd21b53a43c9d36eb478",
+      "bytes": 170254,
+      "width": 1908,
+      "height": 840,
+      "format": "PNG",
+      "archive_member": "images/Compensation_board.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Compensation Maintainer"
+      ]
+    },
+    {
+      "canonical_filename": "Create-bsq-swap-offer.png",
+      "wiki_filename": "Create-bsq-swap-offer.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/184734951a7552a4f27f9701f136fbacb7ff4b4eef71713c8be92ac21eb7177f.png",
+      "sha256": "184734951a7552a4f27f9701f136fbacb7ff4b4eef71713c8be92ac21eb7177f",
+      "bytes": 312131,
+      "width": 2504,
+      "height": 1438,
+      "format": "PNG",
+      "archive_member": "images/Create-bsq-swap-offer.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "BSQ swaps"
+      ]
+    },
+    {
+      "canonical_filename": "Critical_Bugs_Board.png",
+      "wiki_filename": "Critical Bugs Board.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/7cade77131ec7446d6998095ce6c00f1e05b38d23ced7f84a8bf9417381f9886.png",
+      "sha256": "7cade77131ec7446d6998095ce6c00f1e05b38d23ced7f84a8bf9417381f9886",
+      "bytes": 170450,
+      "width": 1105,
+      "height": 649,
+      "format": "PNG",
+      "archive_member": "images/Critical_Bugs_Board.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Critical bugs"
+      ]
+    },
+    {
+      "canonical_filename": "Dao-cr.png",
+      "wiki_filename": "Dao-cr.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/f05d18fb043b3949ce5b7870927fd2ba002eab0f5531a2380d4f8fdfce9b31e2.png",
+      "sha256": "f05d18fb043b3949ce5b7870927fd2ba002eab0f5531a2380d4f8fdfce9b31e2",
+      "bytes": 147871,
+      "width": 2410,
+      "height": 1420,
+      "format": "PNG",
+      "archive_member": "images/Dao-cr.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Making a compensation request"
+      ]
+    },
+    {
+      "canonical_filename": "Emergency_Wallet.png",
+      "wiki_filename": "Emergency Wallet.png",
+      "previous_status": "missing",
+      "asset_path": "/media/wiki/4e56566c307ab84280e69daa5bf905bac2de6af76aeca9e0ed3a25452115bb09.png",
+      "sha256": "4e56566c307ab84280e69daa5bf905bac2de6af76aeca9e0ed3a25452115bb09",
+      "bytes": 33933,
+      "width": 609,
+      "height": 428,
+      "format": "PNG",
+      "archive_member": "images/Emergency_Wallet.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Emergency wallet"
+      ]
+    },
+    {
+      "canonical_filename": "Failed_trade_tab.png",
+      "wiki_filename": "failed_trade_tab.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/df374fe70d3255827aad21ac772314b702f5c8147ba089f2f50b6e28b9c84d40.png",
+      "sha256": "df374fe70d3255827aad21ac772314b702f5c8147ba089f2f50b6e28b9c84d40",
+      "bytes": 34503,
+      "width": 1196,
+      "height": 347,
+      "format": "PNG",
+      "archive_member": "images/Failed_trade_tab.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Deposit transaction"
+      ]
+    },
+    {
+      "canonical_filename": "FundTrade.png",
+      "wiki_filename": "FundTrade.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/20c8cc96ba59e3a9738320bb51946eea85090d4240223a05bdce4945ea812349.png",
+      "sha256": "20c8cc96ba59e3a9738320bb51946eea85090d4240223a05bdce4945ea812349",
+      "bytes": 79564,
+      "width": 1206,
+      "height": 737,
+      "format": "PNG",
+      "archive_member": "images/FundTrade.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Taking an offer"
+      ]
+    },
+    {
+      "canonical_filename": "Get-bsq-address.png",
+      "wiki_filename": "Get-bsq-address.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/44d9ee3ef5bc49249cca0bdc6ed22ae27f31188eed74eafc02968c2c4acc000d.png",
+      "sha256": "44d9ee3ef5bc49249cca0bdc6ed22ae27f31188eed74eafc02968c2c4acc000d",
+      "bytes": 132683,
+      "width": 2410,
+      "height": 1420,
+      "format": "PNG",
+      "archive_member": "images/Get-bsq-address.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Trading BSQ"
+      ]
+    },
+    {
+      "canonical_filename": "Get-first-bitcoin.png",
+      "wiki_filename": "Get-first-bitcoin.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/a932d114e6f8d5865b3445197d3b7562e402bae63ce2761c56e2dc0cbd58211c.png",
+      "sha256": "a932d114e6f8d5865b3445197d3b7562e402bae63ce2761c56e2dc0cbd58211c",
+      "bytes": 305550,
+      "width": 801,
+      "height": 2011,
+      "format": "PNG",
+      "archive_member": "images/Get-first-bitcoin.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Funding your wallet"
+      ]
+    },
+    {
+      "canonical_filename": "Github-create-cr.png",
+      "wiki_filename": "Github-create-cr.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/97ce0d71a8383aa03a8469f9f8f4f2c9a60135e8c68dbbd1891f808c687ea285.png",
+      "sha256": "97ce0d71a8383aa03a8469f9f8f4f2c9a60135e8c68dbbd1891f808c687ea285",
+      "bytes": 60504,
+      "width": 1384,
+      "height": 1295,
+      "format": "PNG",
+      "archive_member": "images/Github-create-cr.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Making a compensation request"
+      ]
+    },
+    {
+      "canonical_filename": "Matrix_web_main_screen.png",
+      "wiki_filename": "Matrix web main screen.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/baff38587ac72c9d7de2addcb3ce60c0424c05369bf38e943c5044db5937d902.png",
+      "sha256": "baff38587ac72c9d7de2addcb3ce60c0424c05369bf38e943c5044db5937d902",
+      "bytes": 127015,
+      "width": 1200,
+      "height": 821,
+      "format": "PNG",
+      "archive_member": "images/Matrix_web_main_screen.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Matrix bisq.chat"
+      ]
+    },
+    {
+      "canonical_filename": "Mempool-dao-tx-list.png",
+      "wiki_filename": "Mempool-dao-tx-list.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/f56b43d7ac309a65ad2a36b3327b6f5dde0298a9fa40a3724efca6bf7f5b6136.png",
+      "sha256": "f56b43d7ac309a65ad2a36b3327b6f5dde0298a9fa40a3724efca6bf7f5b6136",
+      "bytes": 338847,
+      "width": 2834,
+      "height": 1946,
+      "format": "PNG",
+      "archive_member": "images/Mempool-dao-tx-list.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Participating in a DAO voting cycle"
+      ]
+    },
+    {
+      "canonical_filename": "Miner_fees.png",
+      "wiki_filename": "Miner fees.png",
+      "previous_status": "missing",
+      "asset_path": "/media/wiki/4b2b72cef127daa8ff78c800fe019c3801bbf6d009555008f5e7d0e77ca29f78.png",
+      "sha256": "4b2b72cef127daa8ff78c800fe019c3801bbf6d009555008f5e7d0e77ca29f78",
+      "bytes": 148300,
+      "width": 1472,
+      "height": 898,
+      "format": "PNG",
+      "archive_member": "images/Miner_fees.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Failed Trades - Reimbursement of Trade Fees and Miner Fees"
+      ]
+    },
+    {
+      "canonical_filename": "Movefundsaftertrade.png",
+      "wiki_filename": "Movefundsaftertrade.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/54674cb0498a841ebd356b2ad55a7b7eb497b182b2bb3b068bbc02adc380952e.png",
+      "sha256": "54674cb0498a841ebd356b2ad55a7b7eb497b182b2bb3b068bbc02adc380952e",
+      "bytes": 60788,
+      "width": 1213,
+      "height": 392,
+      "format": "PNG",
+      "archive_member": "images/Movefundsaftertrade.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Taking an offer"
+      ]
+    },
+    {
+      "canonical_filename": "Paxum.png",
+      "wiki_filename": "Paxum.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/5f5d36ed73a9bfacceb97b9110cdfd1878f1de853de16105b2bea6aa6bd48ba3.png",
+      "sha256": "5f5d36ed73a9bfacceb97b9110cdfd1878f1de853de16105b2bea6aa6bd48ba3",
+      "bytes": 646757,
+      "width": 1800,
+      "height": 1200,
+      "format": "PNG",
+      "archive_member": "images/Paxum.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Paxum"
+      ]
+    },
+    {
+      "canonical_filename": "Red,_Blue,_&_Red_Postal_Money_Order_(July_2025).jpeg",
+      "wiki_filename": "Red, Blue, & Red Postal Money Order (July 2025).jpeg",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/d058ee0569e1db8bbcae4d113ccd98f06b16bd7cac89b3d56a59fd570b0a0ab5.jpg",
+      "sha256": "d058ee0569e1db8bbcae4d113ccd98f06b16bd7cac89b3d56a59fd570b0a0ab5",
+      "bytes": 161222,
+      "width": 786,
+      "height": 364,
+      "format": "JPEG",
+      "archive_member": "images/Red,_Blue,_&_Red_Postal_Money_Order_(July_2025).jpeg",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "US Postal Money Order"
+      ]
+    },
+    {
+      "canonical_filename": "Resources_automatic_backup.png",
+      "wiki_filename": "Resources automatic backup.png",
+      "previous_status": "missing",
+      "asset_path": "/media/wiki/bd174bcf28e38039ba1cd8f9f162657e70489869594b09c67a76fcec79d7cc49.png",
+      "sha256": "bd174bcf28e38039ba1cd8f9f162657e70489869594b09c67a76fcec79d7cc49",
+      "bytes": 149074,
+      "width": 2560,
+      "height": 1440,
+      "format": "PNG",
+      "archive_member": "images/Resources_automatic_backup.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Automatic backup"
+      ]
+    },
+    {
+      "canonical_filename": "Security_deposit_1.png",
+      "wiki_filename": "Security deposit 1.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/5986cd3cf903163de705ab673626abf2afa6177bee090a08db01c29697db66fb.png",
+      "sha256": "5986cd3cf903163de705ab673626abf2afa6177bee090a08db01c29697db66fb",
+      "bytes": 49117,
+      "width": 1046,
+      "height": 600,
+      "format": "PNG",
+      "archive_member": "images/Security_deposit_1.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Security deposit"
+      ]
+    },
+    {
+      "canonical_filename": "Security_deposit_2.png",
+      "wiki_filename": "Security deposit 2.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/e3c4906a75e00b17fc310cdd207c44d238fc3a41d493fb064b68f05db3d25be6.png",
+      "sha256": "e3c4906a75e00b17fc310cdd207c44d238fc3a41d493fb064b68f05db3d25be6",
+      "bytes": 77629,
+      "width": 1331,
+      "height": 429,
+      "format": "PNG",
+      "archive_member": "images/Security_deposit_2.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Security deposit"
+      ]
+    },
+    {
+      "canonical_filename": "See-account-age.png",
+      "wiki_filename": "See-account-age.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/e440c3faab16325d2eeda99b9b50b6e88cded41b61a3477a1e9d1e18b564f2ff.png",
+      "sha256": "e440c3faab16325d2eeda99b9b50b6e88cded41b61a3477a1e9d1e18b564f2ff",
+      "bytes": 122976,
+      "width": 2740,
+      "height": 1168,
+      "format": "PNG",
+      "archive_member": "images/See-account-age.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Account limits"
+      ]
+    },
+    {
+      "canonical_filename": "Show-dao-blocks.png",
+      "wiki_filename": "Show-dao-blocks.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/42c952ca3375198b29a7d8d330eacc49b724c2fd982a27b19172957a85ccc9d1.png",
+      "sha256": "42c952ca3375198b29a7d8d330eacc49b724c2fd982a27b19172957a85ccc9d1",
+      "bytes": 153330,
+      "width": 2400,
+      "height": 1389,
+      "format": "PNG",
+      "archive_member": "images/Show-dao-blocks.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Participating in a DAO voting cycle"
+      ]
+    },
+    {
+      "canonical_filename": "Submit-generic-proposal.png",
+      "wiki_filename": "Submit-generic-proposal.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/7f7f9b6fb5ee9c0554f1a417b06b46eefbcc482c2acaa79f28d32e90955314c4.png",
+      "sha256": "7f7f9b6fb5ee9c0554f1a417b06b46eefbcc482c2acaa79f28d32e90955314c4",
+      "bytes": 128347,
+      "width": 2410,
+      "height": 1420,
+      "format": "PNG",
+      "archive_member": "images/Submit-generic-proposal.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Participating in a DAO voting cycle"
+      ]
+    },
+    {
+      "canonical_filename": "Tor-which-version.png",
+      "wiki_filename": "Tor-which-version.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/322f07a89613fc1a2b9eeb8001cfc444c0055b6cf67b470f298a24a1d265b562.png",
+      "sha256": "322f07a89613fc1a2b9eeb8001cfc444c0055b6cf67b470f298a24a1d265b562",
+      "bytes": 207031,
+      "width": 2394,
+      "height": 1384,
+      "format": "PNG",
+      "archive_member": "images/Tor-which-version.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Changing your onion address"
+      ]
+    },
+    {
+      "canonical_filename": "Wallet_-_watchkeys.png",
+      "wiki_filename": "Wallet - watchkeys.png",
+      "previous_status": "partial",
+      "asset_path": "/media/wiki/ccd6786bdc77d9d32256ea707d82676340c7aa28482bcec6931cde57f96c9581.png",
+      "sha256": "ccd6786bdc77d9d32256ea707d82676340c7aa28482bcec6931cde57f96c9581",
+      "bytes": 61900,
+      "width": 1004,
+      "height": 535,
+      "format": "PNG",
+      "archive_member": "images/Wallet_-_watchkeys.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14",
+      "archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "provenance": "Exact named image member from the checksum-verified WikiTeam archive; historical original, not proof of the bytes on 18 October.",
+      "source_pages": [
+        "Watch keys"
+      ]
+    }
+  ],
+  "linked_resources": [
+    {
+      "canonical_filename": "Arrow-screenshot.png",
+      "asset_path": "/media/wiki/f8fee4411f67f16a31ddd69712275e9ecdf1356a32aeccb3d9ddbb87f924c575.png",
+      "sha256": "f8fee4411f67f16a31ddd69712275e9ecdf1356a32aeccb3d9ddbb87f924c575",
+      "bytes": 1014,
+      "width": 272,
+      "height": 96,
+      "source_target": "images/9/99/Arrow-screenshot.png",
+      "archive_member": "images/Arrow-screenshot.png",
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14"
+    }
+  ]
+}
