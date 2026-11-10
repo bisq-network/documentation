@@ -11,6 +11,7 @@ import { renderArchivedTemplates } from "../../scripts/lib/archived-templates.mj
 import { addTableRowSummaries } from "../../scripts/lib/table-search-rows.mjs";
 import { renderSupplementalMedia } from "../../scripts/lib/supplemental-media.mjs";
 import { allRecoveredAliases, renderRecoveredLinks } from "../../scripts/lib/recovered-link-aliases.mjs";
+import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
 const route = id ? `/${id}/` : "/";
@@ -37,6 +38,7 @@ const content = updatedMedia.content.replace(
 const unresolvedSections = sectionsRepaired.unresolved;
 const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(value));
 const images = updatedMedia.images;
+const edits = article ? acceptedEditsFor(article.slug) : [];
 ---
 {article && checks.length > 0 && <aside class="source-context" data-pagefind-ignore aria-label="Migration notes">
   <details class="source-checks" open={checks.some((note) => "display_priority" in note && note.display_priority === "prominent")}>
@@ -59,12 +61,15 @@ const images = updatedMedia.images;
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>
-  <p>This article keeps its recovered wording, headings, step order and available images. Formatting and links are adapted for this site. {article.recovery_note || "The snapshot does not guarantee that every instruction is current."}</p>
+  <p>{edits.length
+    ? `This article keeps its recovered headings and available images. Some wording was changed after restoration in the pull request${edits.length === 1 ? "" : "s"} listed below; the original wikitext keeps the earlier wording.`
+    : "This article keeps its recovered wording, headings, step order and available images."} Formatting and links are adapted for this site. {article.recovery_note || "The snapshot does not guarantee that every instruction is current."}</p>
   <dl>
     <dt>Original page</dt><dd><a href={article.original_url}>{article.title}</a></dd>
     <dt>Revision</dt><dd><a href={article.original_revision_url}>{article.revision_id}</a> · {date(article.revision_timestamp)}</dd>
     <dt>Last recorded editor</dt><dd>{article.available_attribution?.username || "Not recorded"} <span class="source-note-origin">(not a complete author list)</span></dd>
     <dt>Snapshot</dt><dd>{article.snapshot_label || "18 October 2026"}</dd>
+    {edits.length > 0 && <><dt>Edited after restoration</dt><dd><ul class="source-edits">{edits.map((edit) => <li>{date(edit.accepted_on)} · {edit.summary} · <a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></li>)}</ul></dd></>}
     <dt>Source files</dt><dd><a href={`${base}${article.source_download}`}>Original wikitext</a> · <a href={`${base}${article.source_metadata}`}>Revision metadata</a></dd>
     {images.length > 0 && <><dt>Image references</dt><dd>{images.filter((image) => image.asset_path).length} recovered, {images.filter((image) => !image.asset_path).length} missing{images.some((image) => image.status === "partial") && ` (${images.filter((image) => image.status === "partial").length} recovered as thumbnails or partial files)`} · <a href={`${base}/recovered-media/`}>Media catalogue</a></dd></>}
     <dt>Recovery gaps</dt><dd>{templates.restored} restored historical template occurrences · {templates.unresolved} unresolved templates · {links.unresolved} unresolved article links · {unresolvedSections} unresolved sections</dd>
