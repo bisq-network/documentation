@@ -41,7 +41,7 @@ const images = updatedMedia.images;
   <details class="source-checks" open={checks.some((note) => "display_priority" in note && note.display_priority === "prominent")}>
     <summary><strong>Migration notes ({checks.length})</strong>{needsReview > 0 && <span class="docs-chip review">{needsReview} needs maintainer review</span>}<span class="source-note-origin">Added during migration, not part of the original</span></summary>
     <p>These notes identify specific differences or review needs. They are not a review of the whole procedure.</p>
-    {checks.map((note) => <section>
+    {checks.map((note) => <section id={`migration-note-${note.id}`}>
       <h2>{note.title}</h2>
       <span class:list={["docs-chip", { review: note.status === "needs-maintainer-review" }]}>{note.status === "needs-maintainer-review" ? "Needs maintainer review" : "Checked against pinned source"}</span>
       <p>{note.body}</p>
