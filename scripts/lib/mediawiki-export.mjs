@@ -9,9 +9,13 @@ import { createReadStream } from "node:fs";
 
 const ENTITIES = { lt: "<", gt: ">", amp: "&", quot: '"', apos: "'" };
 
-/** Decode the XML entities MediaWiki writes into titles, comments and text. */
+/**
+ * Decode the XML entities MediaWiki writes into titles, comments and text. Line
+ * endings are normalised first, as an XML parser does, so an export saved with
+ * CRLF reads like the original; an encoded &#13; still decodes to a CR.
+ */
 export function decodeXml(value) {
-    return value.replace(/&(#x[\da-f]+|#\d+|lt|gt|amp|quot|apos);/gi, (whole, entity) => {
+    return value.replace(/\r\n?/g, "\n").replace(/&(#x[\da-f]+|#\d+|lt|gt|amp|quot|apos);/gi, (whole, entity) => {
         if (entity[0] !== "#") return ENTITIES[entity.toLowerCase()] ?? whole;
         const hex = entity[1].toLowerCase() === "x";
         return String.fromCodePoint(parseInt(entity.slice(hex ? 2 : 1), hex ? 16 : 10));
@@ -31,8 +35,15 @@ function parseRevision(block, keepText) {
     const textMatch = /<text\b([^>]*?)(?:\/>|>([\s\S]*?)<\/text>)/.exec(block);
     const deleted = !!textMatch && /deleted="deleted"/.test(textMatch[1]);
     const text = textMatch?.[2] !== undefined ? decodeXml(textMatch[2]) : deleted ? null : "";
+    const id = field(block, "id");
+    // A stub dump writes <text bytes="N" /> without the text. Compare with the recorded
+    // length so a missing or damaged text is never mistaken for an edit.
+    const recordedBytes = /\sbytes="(\d+)"/.exec(textMatch?.[1] ?? "")?.[1];
+    if (text !== null && recordedBytes !== undefined && Number(recordedBytes) !== Buffer.byteLength(text, "utf8")) {
+        throw new Error(`Revision ${id}: the export records ${recordedBytes} bytes of text but contains ${Buffer.byteLength(text, "utf8")}. Use a full export with text (not a stub dump), unchanged.`);
+    }
     return {
-        id: field(block, "id"),
+        id,
         parentid: field(block, "parentid"),
         timestamp: field(block, "timestamp"),
         contributor: username !== null
@@ -60,6 +71,8 @@ export function parsePage(block, { keepText = () => false } = {}) {
     };
     const parsed = revisions.map((revision) => parseRevision(revision, false));
     // Revisions are usually in order, but sort by id so "latest" never depends on it.
+    // MediaWiki's current revision (page_latest) is normally the highest id; a history
+    // import could break that, which this reader does not detect.
     const order = parsed.map((revision, index) => ({ revision, index }))
         .sort((a, b) => Number(a.revision.id) - Number(b.revision.id));
     const sorted = order.map(({ revision }) => revision);
@@ -68,12 +81,22 @@ export function parsePage(block, { keepText = () => false } = {}) {
     return { ...page, revisions: sorted };
 }
 
-/** Read <siteinfo> and every <page> of an export file, one page at a time. */
+/**
+ * Read <siteinfo> and every <page> of an export file, one page at a time. Throws
+ * when the file is not an uncompressed MediaWiki export or ends early, so an empty,
+ * compressed or truncated file can never look like a backup with missing pages.
+ */
 export async function* readMediaWikiExport(path, options = {}) {
     let buffer = "";
     let siteinfoDone = false;
+    let sawRoot = false;
+    const notAnExport = () => new Error(`${path} is not a MediaWiki XML export (no <mediawiki> element). Decompress a .gz or .bz2 file first.`);
     for await (const chunk of createReadStream(path, { encoding: "utf8", highWaterMark: 1 << 20 })) {
         buffer += chunk;
+        if (!sawRoot) {
+            if (/<mediawiki[\s>]/.test(buffer)) sawRoot = true;
+            else if (buffer.length > 4096) throw notAnExport();
+        }
         if (!siteinfoDone) {
             const end = buffer.indexOf("</siteinfo>");
             if (end >= 0) {
@@ -89,6 +112,10 @@ export async function* readMediaWikiExport(path, options = {}) {
             yield { page: parsePage(buffer.slice(start + 6, end), options) };
             buffer = buffer.slice(end + 7);
         }
-        if (!buffer.includes("<page>") && buffer.length > 1 << 16) buffer = buffer.slice(-16);
+        if (!buffer.includes("<page>") && buffer.length > 1 << 16) buffer = buffer.slice(-256);
+    }
+    if (!sawRoot) throw notAnExport();
+    if (buffer.includes("<page>") || !/<\/mediawiki>\s*$/.test(buffer)) {
+        throw new Error(`${path} ends before </mediawiki>: the export is truncated or incomplete.`);
     }
 }
