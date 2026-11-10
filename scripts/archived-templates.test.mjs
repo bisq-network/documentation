@@ -46,7 +46,7 @@ test("archived Bisq 1 trade-limit values stay unchanged and are labelled histori
   const items = rendered.items.filter((item) => ["MaxTradeSizeBisq1", "MaxTradeSizeAltcoin"].includes(item.name));
   assert.deepEqual(items.map((item) => item.html), ["0.0624 BTC", "0.50 BTC"]);
   for (const item of items) {
-    const labelled = new RegExp(`${escapeRegExp(item.html)}<sup><a [^>]*>2026 source</a></sup> <small class="wiki-template-historical-value">\\(historical wiki value; <a href="#migration-note-archived-bisq1-trade-limit-macros">check the limit shown in Bisq</a>\\)</small>`, "g");
+    const labelled = new RegExp(`${escapeRegExp(item.html)}<sup><a [^>]*>2026 source</a></sup> <small class="wiki-template-historical-value">\\(historical wiki value; <a href="#migration-note-archived-bisq1-trade-limit-macros">check the limit shown in Bisq 1</a>\\)</small>`, "g");
     for (const slug of new Set(item.articles)) {
       const result = renderArchivedTemplates(readFileSync(`src/content/docs/wiki/${slug}.md`, "utf8"), "/bisq-docs/", slug);
       assert.equal((result.content.match(labelled) || []).length, item.articles.filter((entry) => entry === slug).length, slug);
