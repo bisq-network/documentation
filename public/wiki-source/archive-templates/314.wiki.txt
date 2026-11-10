@@ -1,0 +1,25 @@
+=== Windows ===
+
+Open PowerShell (search the Start menu for <code>PowerShell</code>).
+
+Then from PowerShell, run the following command to switch to your Bisq application directory:
+
+ cd  $home\AppData\Local\Bisq
+
+Then run the following command to run Bisq:
+
+ start Bisq.exe {{{1}}}
+
+=== macOS ===
+
+Open a terminal window by searching for Terminal with Spotlight, and then press <code>Enter</code>.
+
+Then run the following command:
+
+ /Applications/Bisq.app/Contents/MacOS/Bisq {{{1}}}
+
+=== Linux ===
+
+In a new terminal window, run the following command:
+
+ /opt/bisq/bin/Bisq {{{1}}}
