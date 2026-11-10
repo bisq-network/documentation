@@ -16,6 +16,11 @@ import { parseArgs } from "node:util";
 import { readMediaWikiExport } from "./lib/mediawiki-export.mjs";
 
 const read = (path) => JSON.parse(readFileSync(path, "utf8"));
+const sha256 = (text) => createHash("sha256").update(text, "utf8").digest("hex");
+// The snapshot downloader appended "<!-- BISQ VERSION: … -->" to every restored source.
+// The wiki itself never stored it, so an unchanged page in the backup matches the
+// snapshot text without that suffix, not the recorded file hash.
+const INGEST_COMMENT = /<!-- BISQ VERSION: [^>]*? -->$/;
 const key = (title) => title.replaceAll("_", " ").trim().replace(/^./, (c) => c.toUpperCase());
 
 /** Collect the restored articles with their review context (notes, PRs, coverage status). */
@@ -31,6 +36,7 @@ export function loadSnapshot(root = ".") {
     return articles.map((item) => {
         const slug = slugOf(item);
         const proposal = coverage.get(slug);
+        const source = readFileSync(join(root, "public/wiki-source", `${slug}.wiki.txt`), "utf8");
         return {
             title: item.title,
             slug,
@@ -38,6 +44,8 @@ export function loadSnapshot(root = ".") {
             revision_id: item.revision_id,
             revision_timestamp: item.revision_timestamp,
             wikitext_sha256: item.wikitext_sha256,
+            // Hashes a backup revision may match: the recorded file, and the file without the ingest comment.
+            text_sha256s: [...new Set([item.wikitext_sha256, sha256(source.replace(INGEST_COMMENT, ""))])],
             template_gap_count: item.template_gap_count ?? 0,
             origin: item.origin,
             notes: notes.filter((note) => note.source_slugs.includes(slug)).map((note) => note.id),
@@ -103,23 +111,24 @@ export async function reconcile({ xml, images, root = "." }) {
 
     const articles = snapshot.map((article) => {
         const match = found.get(article.slug);
-        if (!match) return { ...article, status: "missing-from-backup" };
+        if (!match) return { ...article, text_sha256s: undefined, status: "missing-from-backup" };
         const { page, latest } = match;
         const recorded = page.revisions.find((revision) => revision.id === article.revision_id);
         const after = page.revisions.filter((revision) => Number(revision.id) > Number(article.revision_id));
         const status = !latest ? "no-revisions"
             : page.redirect && latest.id !== article.revision_id ? "now-a-redirect"
-            : latest.id === article.revision_id ? (latest.sha256 === article.wikitext_sha256 ? "unchanged" : "same-revision-text-differs")
+            : latest.id === article.revision_id ? (article.text_sha256s.includes(latest.sha256) ? "unchanged" : "same-revision-text-differs")
             : Number(latest.id) > Number(article.revision_id) ? "newer-revision"
             : "backup-older";
         const history = editors(page.revisions);
         return {
             ...article,
+            text_sha256s: undefined,
             status,
             backup_title: page.title === article.title ? undefined : page.title,
             redirect_target: page.redirect ?? undefined,
             recorded_revision_in_backup: !!recorded,
-            recorded_revision_text_matches: recorded?.sha256 === undefined ? null : recorded.sha256 === article.wikitext_sha256,
+            recorded_revision_text_matches: recorded?.sha256 === undefined ? null : article.text_sha256s.includes(recorded.sha256),
             latest_revision_id: latest?.id ?? null,
             latest_timestamp: latest?.timestamp ?? null,
             revisions_after: after.length,
