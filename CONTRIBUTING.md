@@ -11,7 +11,7 @@ Preserve prerequisites and warnings, identify old interfaces in images, and do n
 Run `npm ci`, `npm test`, and `npm run build`; check affected pages, images and links at desktop and narrow widths. Also check the project base path:
 
 ```sh
-DOCS_SITE=https://hiciefte.github.io DOCS_BASE=/bisq-docs/ npm run build
+DOCS_SITE=https://bisq-network.github.io DOCS_BASE=/documentation/ npm run build
 ```
 
 The deployment workflow is manual. Building or submitting a pull request does not publish the site.

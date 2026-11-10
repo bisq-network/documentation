@@ -178,6 +178,10 @@ h1 { font-size: var(--sl-text-h1); font-weight: 500; }
 .wiki-recovered-article > :not(table, pre, figure, .table-wrap, .code-block) { max-width: 34rem; }
 .wiki-recovered-article :is(table, pre, figure) { max-width: 54rem; width: 100%; }
 .wiki-recovered-article :is(p, li) { text-wrap: pretty; }
+/* Pages without the restored-article wrapper (review, recovery status, recovered media, browse hubs, 404) get the same prose measure.
+   Starlight wraps headings in div.sl-heading-wrapper, so only paragraphs, lists and quotes are direct children here. */
+.sl-markdown-content:not(:has(.wiki-recovered-article)) > :is(p, ul, ol, dl, blockquote) { max-width: 34rem; }
+.sl-markdown-content:not(:has(.wiki-recovered-article)) > p { text-wrap: pretty; }
 .wiki-recovered-article figure img { width: auto; max-width: 100%; }
 .source-context a, .source-history a { color: var(--sl-color-text-accent); text-underline-offset: 0.15em; }
 .sidebar-content a[aria-current="page"] {
@@ -403,3 +407,11 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 .directory-tools > *, .directory-chiprow > *, .home-try > *, .home-search-field > * { margin: 0; }
 .docs-search-label { display: block; margin-bottom: 0.5rem; color: var(--sl-color-text); font-size: 0.875rem; font-weight: 500; line-height: 1.5; }
 site-search:has(.docs-search-label) button[data-close-modal] { margin-top: 1.8125rem; }
+
+/* Search dialog: no-exact-match notice and per-section copy button (src/components/Search.astro). */
+.docs-search-notice { margin: 0 0 1rem; padding: 0.75rem 1rem; border: 1px solid var(--bd-note-line); border-radius: var(--bd-radius-md); background: var(--bd-note-bg); color: var(--sl-color-text); font-size: 0.9375rem; line-height: 1.5; }
+.docs-search-notice p { margin: 0.25rem 0 0; }
+.docs-search-notice a { color: var(--sl-color-text-accent); }
+.pagefind-ui__results-area[data-no-exact] > .pagefind-ui__message { display: none; }
+.pagefind-ui__result-nested .docs-search-copy { position: relative; z-index: 1; display: block; width: fit-content; margin: 0.25rem 0 0.25rem 1.5rem; padding: 0.15rem 0.6rem; border: 1px solid var(--bd-control-line); border-radius: var(--bd-radius-sm); background: transparent; color: var(--sl-color-text); font-size: 0.8125rem; cursor: pointer; }
+.pagefind-ui__result-nested .docs-search-copy:hover { background: var(--sl-color-bg-sidebar); }
