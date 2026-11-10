@@ -6,6 +6,8 @@ import { collectGuides, sections } from "./scripts/lib/documentation.mjs";
 const site = process.env.DOCS_SITE || undefined;
 const base = process.env.DOCS_BASE || "/";
 const guides = collectGuides();
+// GitHub sets GITHUB_REPOSITORY in Actions, so the header link follows a repository transfer.
+const repository = process.env.DOCS_REPOSITORY || process.env.GITHUB_REPOSITORY || "hiciefte/bisq-docs";
 
 export default defineConfig({
   site,
@@ -23,7 +25,7 @@ export default defineConfig({
         Search: "./src/components/Search.astro",
         MarkdownContent: "./src/components/SourceHistory.astro",
       },
-      social: [{ icon: "github", label: "GitHub", href: "https://github.com/hiciefte/bisq-docs" }],
+      social: [{ icon: "github", label: "GitHub", href: `https://github.com/${repository}` }],
       sidebar: [
         { label: "Overview", link: "/" },
         ...sections.map((section) => ({
