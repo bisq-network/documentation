@@ -1,11 +1,24 @@
 ---
 title: "Payment methods"
-description: "Payment methods, account limits, and signing."
+description: "Payment accounts, limits and method guides"
 ---
 
-Payment methods, account limits, and signing. Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+This topic is now listed under [Payment methods](../payments/).
+
+## Overview and limits
 
 - [Account limits](../../wiki/account-limits/)
+- [Creating a payment account](../../wiki/creating-a-payment-account/)
+- [Issues with fiat payments](../../wiki/issues-with-fiat-payments/)
+- [Payment account age witness](../../wiki/payment-account-age-witness/)
+- [Payment methods](../../wiki/payment-methods/)
+- [Payment methods/en](../../wiki/payment-methods-en/)
+- [Payment methods/es](../../wiki/payment-methods-es/)
+- [Set up a Revolut payment account](../../wiki/set-up-a-revolut-payment-account/)
+- [Set up a SEPA payment account](../../wiki/set-up-a-sepa-payment-account/)
+
+## Methods A to Z
+
 - [ACH Transfer](../../wiki/ach-transfer/)
 - [Altcoins](../../wiki/altcoins/)
 - [Altcoins Instant](../../wiki/altcoins-instant/)
@@ -14,38 +27,31 @@ Payment methods, account limits, and signing. Article wording is preserved from 
 - [Capitual](../../wiki/capitual/)
 - [Cash by mail](../../wiki/cash-by-mail/)
 - [CelPay](../../wiki/celpay/)
-- [Creating a payment account](../../wiki/creating-a-payment-account/)
 - [Domestic Wire Transfer](../../wiki/domestic-wire-transfer/)
 - [Face-to-face (payment method)](../../wiki/face-to-face-payment-method/)
 - [Faster Payments](../../wiki/faster-payments/)
 - [Faster Payments System SBP](../../wiki/faster-payments-system-sbp/)
 - [IMPS](../../wiki/imps/)
-- [Issues with fiat payments](../../wiki/issues-with-fiat-payments/)
 - [Monese](../../wiki/monese/)
 - [NEFT](../../wiki/neft/)
 - [Nequi](../../wiki/nequi/)
 - [Paxum](../../wiki/paxum/)
-- [Payment account age witness](../../wiki/payment-account-age-witness/)
-- [Payment methods](../../wiki/payment-methods/)
-- [Payment methods/en](../../wiki/payment-methods-en/)
-- [Payment methods/es](../../wiki/payment-methods-es/)
-- [Paysera](../../wiki/paysera/)
 - [PayTM](../../wiki/paytm/)
+- [Paysera](../../wiki/paysera/)
 - [Pix](../../wiki/pix/)
-- [Revolut](../../wiki/revolut/)
 - [RTGS](../../wiki/rtgs/)
-- [Satispay](../../wiki/satispay/)
+- [Revolut](../../wiki/revolut/)
 - [SEPA](../../wiki/sepa-p551/)
-- [Sepa](../../wiki/sepa-p550/)
 - [SEPA Instant](../../wiki/sepa-instant/)
-- [Set up a Revolut payment account](../../wiki/set-up-a-revolut-payment-account/)
-- [Set up a SEPA payment account](../../wiki/set-up-a-sepa-payment-account/)
+- [SWIFT](../../wiki/swift/)
+- [Satispay](../../wiki/satispay/)
+- [Sepa](../../wiki/sepa-p550/)
 - [Skrill](../../wiki/skrill/)
 - [Strike](../../wiki/strike/)
-- [SWIFT](../../wiki/swift/)
 - [Tikkie](../../wiki/tikkie/)
 - [UPI](../../wiki/upi/)
 - [US Postal Money Order](../../wiki/us-postal-money-order/)
+- [Verse](../../wiki/verse/)
 - [Wise](../../wiki/wise/)
 - [Wise-USD](../../wiki/wise-usd/)
 - [Zelle](../../wiki/zelle/)
