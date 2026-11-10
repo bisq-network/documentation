@@ -7,7 +7,7 @@ const site = process.env.DOCS_SITE || undefined;
 const base = process.env.DOCS_BASE || "/";
 const guides = collectGuides();
 // GitHub sets GITHUB_REPOSITORY in Actions, so the header link follows a repository transfer.
-const repository = process.env.DOCS_REPOSITORY || process.env.GITHUB_REPOSITORY || "hiciefte/bisq-docs";
+const repository = process.env.DOCS_REPOSITORY || process.env.GITHUB_REPOSITORY || "bisq-network/documentation";
 
 export default defineConfig({
   site,
