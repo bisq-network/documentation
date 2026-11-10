@@ -97,7 +97,9 @@ const clip = (value) => (value.length > 90 ? `${value.slice(0, 90)}…` : value)
 // relative or same-page targets. Anything else (other elements, attributes such as hidden, style or
 // on*, any capitalisation) could add, hide or run content and needs its own policy.
 const editableTags = new Set(["a", "strong", "em", "b", "i", "code", "br", "p", "ul", "ol", "li"]);
-const tagsOf = (body) => body.match(/<\/?[A-Za-z][^>]*>/g) ?? [];
+// An empty span that only carries an ID (a moved or legacy anchor) cannot hold content.
+const anchorPlaceholder = /<span(?:\s+(?:id="[^"<>]*"|class="wiki-legacy-anchor"|aria-hidden="true"))+\s*><\/span>/g;
+const tagsOf = (body) => body.replace(anchorPlaceholder, "").match(/<\/?[A-Za-z][^>]*>/g) ?? [];
 function changedTags(before, after) {
   const counts = new Map();
   for (const tag of tagsOf(before)) counts.set(tag, (counts.get(tag) ?? 0) - 1);
@@ -113,6 +115,7 @@ function editableTag(tag) {
   if (match[1]) return names.length === 0;
   // New IDs are allowed (duplicates are rejected above); links also take href and rel.
   if (match[2] !== "a") return names.every((name) => name === "id");
+  if (!names.length) return true; // a bare <a> links nowhere
   return names.includes("href") && names.every((name) => ["href", "rel", "id"].includes(name))
     && attributes.every(({ name, value }) => name !== "href" || /^(?:https?:\/\/|\.\.\/|#)/.test(value));
 }
