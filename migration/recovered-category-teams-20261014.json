@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "capture_date": "2026-10-14",
+  "archive_item": "https://archive.org/details/wiki-bisq.wiki-20261014",
+  "categories": [
+    {
+      "title": "Category:Teams",
+      "page_id": "11",
+      "latest_revision_id": "1190",
+      "latest_revision_timestamp": "2020-04-27T18:23:22Z",
+      "wikitext_sha256": "b38669e319519f70d5cb1df261f368278d83017b75dd4099b906e79005231c98",
+      "original_revision_url": "https://bisq.wiki/index.php?oldid=1190",
+      "original_url": "https://bisq.wiki/Category:Teams",
+      "source_download": "/wiki-source/archive-categories/11.wiki.txt"
+    },
+    {
+      "title": "Category:Roles",
+      "page_id": "13",
+      "latest_revision_id": "1191",
+      "latest_revision_timestamp": "2020-04-27T18:26:22Z",
+      "wikitext_sha256": "1c94838fd3622970f0d4024a51a85bb20cd6a345acf489b036eca2620a9cd6ae",
+      "original_revision_url": "https://bisq.wiki/index.php?oldid=1191",
+      "original_url": "https://bisq.wiki/Category:Roles",
+      "source_download": "/wiki-source/archive-categories/13.wiki.txt"
+    }
+  ],
+  "members": [
+    {
+      "title": "Dev Team",
+      "slug": "dev-team",
+      "route": "/wiki/dev-team/",
+      "source_line": 17,
+      "source_sha256": "1086aa8a175ef5b7bf3e4cc7ad18b5bf6c20664fab216816014adcac4f70b405"
+    },
+    {
+      "title": "Growth Team",
+      "slug": "growth-team",
+      "route": "/wiki/growth-team/",
+      "source_line": 77,
+      "source_sha256": "f54823c44e0e7c995789b6a6b0a49344cab72a9c334462dd984e4f99247021b5"
+    },
+    {
+      "title": "Ops Team",
+      "slug": "ops-team",
+      "route": "/wiki/ops-team/",
+      "source_line": 38,
+      "source_sha256": "74b88f2ceee625a1eef5b03304e860a1a7b679114834cea3aacd3960ea943a16"
+    },
+    {
+      "title": "Security Team",
+      "slug": "security-team",
+      "route": "/wiki/security-team/",
+      "source_line": 50,
+      "source_sha256": "d74b812741426f6c36de886cb135ac4964b87f32c989ea0008c16dac889dec9a"
+    },
+    {
+      "title": "Support Team",
+      "slug": "support-team",
+      "route": "/wiki/support-team/",
+      "source_line": 36,
+      "source_sha256": "a0b007f742c58ec3102f96a0bd630c20b6304ff4c16e49d91b1e1d83cba35a1b"
+    }
+  ],
+  "membership_scope": "Five explicitly tagged recovered main-namespace articles; not a complete historical category list."
+}
