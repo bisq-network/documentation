@@ -1,0 +1,26 @@
+== Command-line fix ==
+
+{{{2}}}:
+
+ JAVA_TOOL_OPTIONS="{{{1}}}" /opt/bisq/bin/Bisq
+
+<code>/opt/bisq/bin/Bisq</code> is the default application directory on Linux. If you run another operating system, you'll need to replace that path with [[Running_from_the_command_line|the one for your OS]].
+
+You can adjust the scaling factor as you wish, of course, and add any [[Command_line_options|runtime options for Bisq]] as well.
+
+== GUI fix ==
+
+To be able to launch the fix by double clicking an icon, rather than running a command in CLI, you can edit the launcher file to run, instead of the Bisq app directly, a shell script which injects said fix.
+
+1. Create a text file (for example <code>/opt/bisq/Bisq-runner.sh</code>) containing the following code:
+
+ #!/bin/bash
+ JAVA_TOOL_OPTIONS="{{{1}}}" /opt/bisq/bin/Bisq
+
+2. Make it executable:
+
+ chmod +x /opt/bisq/Bisq-runner.sh
+
+3. Edit the launcher file (<code>/opt/bisq/Bisq.desktop</code> and/or <code>/usr/share/applications/Bisq.desktop</code>) by opening it in a text editor and modifying the <code>Exec</code> line like follows:
+
+ Exec=/opt/bisq/Bisq-runner.sh

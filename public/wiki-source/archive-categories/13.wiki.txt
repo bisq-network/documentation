@@ -1,0 +1,5 @@
+Anchor point with some categories for helping find roles.
+
+See https://docs.bisq.network/roles.html
+
+[[Category:Teams]]
