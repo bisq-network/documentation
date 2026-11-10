@@ -1,0 +1,8 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import SavedWikiLink from "../components/SavedWikiLink.astro";
+---
+<StarlightPage frontmatter={{ title: "Page not found", tableOfContents: false, pagefind: false, prev: false, next: false }}>
+  <p>The link may be from the old wiki or an earlier preview.</p>
+  <SavedWikiLink id="not-found" />
+</StarlightPage>
