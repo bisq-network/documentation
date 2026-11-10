@@ -40,6 +40,11 @@ jobs:
           git rev-parse --verify --quiet 'HEAD^2' > /dev/null || { echo "::error::Expected the pull request's merge commit"; exit 1; }
           mkdir -p "$RUNNER_TEMP/base"
           git archive 'HEAD^1' src/content/docs/wiki migration/accepted-edits.json | tar -x -C "$RUNNER_TEMP/base"
+      # The restoration manifest, additional-article records, raw sources, media and
+      # AI-edited snapshots never change in a pull request.
+      - name: Preserved restoration materials are unchanged
+        if: github.event.pull_request
+        run: node scripts/check-immutable-materials.mjs 'HEAD^1' HEAD
       - run: npm ci
       - run: npm test
       # npm run build (and pages.yml) fail on any wording edit without a receipt.
