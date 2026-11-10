@@ -2,7 +2,7 @@
 
 The comparison covered **209 restored original articles** and **98 retained AI-edited guides**. The proposed edits preserve the originals as the review baseline. Reading and comparing material does not verify every historical claim, establish current applicability, or replace human review. Each pull request should be assessed against its affected article, source evidence and stated risks.
 
-The queue comprises **73 focused review groups**, containing **182 proposed edits** across **94 original articles**. [PR #1](https://github.com/bisq-network/documentation/pull/1) covers two additional original articles. Of the remaining originals, 31 have no identified beneficial change, 18 prior rewrites were rejected as lossy, and 64 have unresolved questions. These are article dispositions; proposed articles may still contain unresolved claims.
+The queue comprises **73 focused review groups**, containing **182 proposed edits** across **94 original articles**. [PR #100](https://github.com/bisq-network/documentation/pull/100) covers two additional original articles. Of the remaining originals, 31 have no identified beneficial change, 18 prior rewrites were rejected as lossy, and 64 have unresolved questions. These are article dispositions; proposed articles may still contain unresolved claims.
 
 All 73 new PRs were created **open and ready for review** on 8 November 2026, targeting `main`. Each changes one to three articles; the largest diff has 26 added/deleted source lines. Check GitHub for their current state. None was merged or deployed. Related articles sometimes have separate PRs, so consider the wider topic when approving a correction.
 
@@ -20,89 +20,89 @@ See [proposal coverage](proposal-coverage.json) for the complete article and gui
 
 | Review group | Scope | Pull request |
 | --- | --- | --- |
-| Correct deposit values and funding estimates | Funding your wallet, Security deposit | [#2](https://github.com/bisq-network/documentation/pull/2) |
-| Distinguish clone maker fees from trade deposits | Cloning an offer | [#3](https://github.com/bisq-network/documentation/pull/3) |
-| Correct the unsigned-account limit and scope | Taking an offer | [#4](https://github.com/bisq-network/documentation/pull/4) |
-| Correct BSQ swap receipt and confirmation advice | How to buy BSQ on Bisq, How to sell BSQ on Bisq | [#5](https://github.com/bisq-network/documentation/pull/5) |
-| Keep manual-payout keys local | Manual payout | [#6](https://github.com/bisq-network/documentation/pull/6) |
-| Explain entries omitted by application backup | Backing up application data | [#7](https://github.com/bisq-network/documentation/pull/7) |
-| Add current seed-restore safeguards | Restoring your wallet from seed | [#8](https://github.com/bisq-network/documentation/pull/8) |
-| Use seed words in the seed-restore screen | Emergency wallet | [#9](https://github.com/bisq-network/documentation/pull/9) |
-| Clarify what wallet encryption protects | Encrypting your wallet | [#10](https://github.com/bisq-network/documentation/pull/10) |
-| Correct the onion-identity backup directory | Restoring application data | [#11](https://github.com/bisq-network/documentation/pull/11) |
-| Correct Bisq instance and payout export paths | Dumping delayed payout transactions, Command line options | [#12](https://github.com/bisq-network/documentation/pull/12) |
-| Preserve external Tor configuration during cache reset | Troubleshooting network issues | [#13](https://github.com/bisq-network/documentation/pull/13) |
-| Mark the Tails Tor-control script as version-bound | Running Bisq on Tails | [#14](https://github.com/bisq-network/documentation/pull/14) |
-| Use the matching script type and watch key | Watch keys | [#15](https://github.com/bisq-network/documentation/pull/15) |
-| Distinguish external funding from avoiding the wallet | Wallet, Frequently asked questions | [#16](https://github.com/bisq-network/documentation/pull/16) |
-| Calculate CPFP from the combined transaction package | Deposit transaction pending in mempool and CPFP | [#17](https://github.com/bisq-network/documentation/pull/17) |
-| Explain the scope of Java MaxRAM | Reducing memory usage | [#18](https://github.com/bisq-network/documentation/pull/18) |
-| Use the accepted reimbursement deadline trigger | Failed Trades - Reimbursement of Trade Fees and Miner Fees, Fee Reimbursement Agent | [#19](https://github.com/bisq-network/documentation/pull/19) |
-| Distinguish arbitration decisions from guaranteed refunds | Arbitration | [#20](https://github.com/bisq-network/documentation/pull/20) |
-| Qualify direct refunds in dispute and role guidance | Dispute Resolution in Bisq 1, Arbitrator | [#21](https://github.com/bisq-network/documentation/pull/21) |
-| Separate agent identity mappings from availability | Finding your mediator, Finding your arbitrator | [#22](https://github.com/bisq-network/documentation/pull/22) |
-| Require a valid signature without assigning ultimate trust | Downloading and installing | [#23](https://github.com/bisq-network/documentation/pull/23) |
-| Explain Bitcoin node configuration accurately | Connecting to your own Bitcoin node | [#24](https://github.com/bisq-network/documentation/pull/24) |
-| Check actual EUR receipt before releasing bitcoin | How to create an offer to sell BTC with EUR | [#25](https://github.com/bisq-network/documentation/pull/25) |
-| Distinguish Bisq 1 alerts from mobile trading | Mobile notifications | [#26](https://github.com/bisq-network/documentation/pull/26) |
-| Fix the macOS backup path and flag rotation risks | Automatic backup script | [#27](https://github.com/bisq-network/documentation/pull/27) |
-| Require authenticated encrypted access to the wallet desktop | Remote control via web browser using xpra | [#28](https://github.com/bisq-network/documentation/pull/28) |
+| Correct deposit values and funding estimates | Funding your wallet, Security deposit | [#101](https://github.com/bisq-network/documentation/pull/101) |
+| Distinguish clone maker fees from trade deposits | Cloning an offer | [#102](https://github.com/bisq-network/documentation/pull/102) |
+| Correct the unsigned-account limit and scope | Taking an offer | [#103](https://github.com/bisq-network/documentation/pull/103) |
+| Correct BSQ swap receipt and confirmation advice | How to buy BSQ on Bisq, How to sell BSQ on Bisq | [#104](https://github.com/bisq-network/documentation/pull/104) |
+| Keep manual-payout keys local | Manual payout | [#105](https://github.com/bisq-network/documentation/pull/105) |
+| Explain entries omitted by application backup | Backing up application data | [#106](https://github.com/bisq-network/documentation/pull/106) |
+| Add current seed-restore safeguards | Restoring your wallet from seed | [#107](https://github.com/bisq-network/documentation/pull/107) |
+| Use seed words in the seed-restore screen | Emergency wallet | [#108](https://github.com/bisq-network/documentation/pull/108) |
+| Clarify what wallet encryption protects | Encrypting your wallet | [#109](https://github.com/bisq-network/documentation/pull/109) |
+| Correct the onion-identity backup directory | Restoring application data | [#110](https://github.com/bisq-network/documentation/pull/110) |
+| Correct Bisq instance and payout export paths | Dumping delayed payout transactions, Command line options | [#111](https://github.com/bisq-network/documentation/pull/111) |
+| Preserve external Tor configuration during cache reset | Troubleshooting network issues | [#112](https://github.com/bisq-network/documentation/pull/112) |
+| Mark the Tails Tor-control script as version-bound | Running Bisq on Tails | [#113](https://github.com/bisq-network/documentation/pull/113) |
+| Use the matching script type and watch key | Watch keys | [#114](https://github.com/bisq-network/documentation/pull/114) |
+| Distinguish external funding from avoiding the wallet | Wallet, Frequently asked questions | [#115](https://github.com/bisq-network/documentation/pull/115) |
+| Calculate CPFP from the combined transaction package | Deposit transaction pending in mempool and CPFP | [#116](https://github.com/bisq-network/documentation/pull/116) |
+| Explain the scope of Java MaxRAM | Reducing memory usage | [#117](https://github.com/bisq-network/documentation/pull/117) |
+| Use the accepted reimbursement deadline trigger | Failed Trades - Reimbursement of Trade Fees and Miner Fees, Fee Reimbursement Agent | [#118](https://github.com/bisq-network/documentation/pull/118) |
+| Distinguish arbitration decisions from guaranteed refunds | Arbitration | [#119](https://github.com/bisq-network/documentation/pull/119) |
+| Qualify direct refunds in dispute and role guidance | Dispute Resolution in Bisq 1, Arbitrator | [#120](https://github.com/bisq-network/documentation/pull/120) |
+| Separate agent identity mappings from availability | Finding your mediator, Finding your arbitrator | [#121](https://github.com/bisq-network/documentation/pull/121) |
+| Require a valid signature without assigning ultimate trust | Downloading and installing | [#122](https://github.com/bisq-network/documentation/pull/122) |
+| Explain Bitcoin node configuration accurately | Connecting to your own Bitcoin node | [#123](https://github.com/bisq-network/documentation/pull/123) |
+| Check actual EUR receipt before releasing bitcoin | How to create an offer to sell BTC with EUR | [#124](https://github.com/bisq-network/documentation/pull/124) |
+| Distinguish Bisq 1 alerts from mobile trading | Mobile notifications | [#125](https://github.com/bisq-network/documentation/pull/125) |
+| Fix the macOS backup path and flag rotation risks | Automatic backup script | [#126](https://github.com/bisq-network/documentation/pull/126) |
+| Require authenticated encrypted access to the wallet desktop | Remote control via web browser using xpra | [#127](https://github.com/bisq-network/documentation/pull/127) |
 
 ### Bisq 2 and payment methods
 
 | Review group | Scope | Pull request |
 | --- | --- | --- |
-| Correct XMR defaults and proof-command syntax | Trading Monero | [#46](https://github.com/bisq-network/documentation/pull/46) |
-| Distinguish reputation stars from rank (Reputation) | Reputation | [#47](https://github.com/bisq-network/documentation/pull/47) |
-| Distinguish reputation stars from rank (Reputation2) | Reputation2 | [#48](https://github.com/bisq-network/documentation/pull/48) |
-| Correct reputation weights and trade coverage | Reputation2, Bisq Easy | [#49](https://github.com/bisq-network/documentation/pull/49) |
-| Clarify Bisq Easy payment and response rules | Bisq Easy | [#50](https://github.com/bisq-network/documentation/pull/50) |
-| Clarify Easy mediation powers and recovery | Dispute Resolution in Bisq 2 | [#51](https://github.com/bisq-network/documentation/pull/51) |
-| Qualify standard Wallet and MuSig availability | Bisq 2 Wallet, Trade Protocols, MuSig-tradelimits | [#52](https://github.com/bisq-network/documentation/pull/52) |
-| Preserve active chats when deleting a profile | Identity | [#53](https://github.com/bisq-network/documentation/pull/53) |
-| Clarify automatic backup product and limits | Automatic backup | [#54](https://github.com/bisq-network/documentation/pull/54) |
-| Separate payment-account backup from wallet seed | Set up a Revolut payment account, Set up a SEPA payment account | [#55](https://github.com/bisq-network/documentation/pull/55) |
-| Correct Zelle limits and dispute shortcut | Zelle | [#56](https://github.com/bisq-network/documentation/pull/56) |
-| Fix half-limit arithmetic in signing examples | Account limits | [#57](https://github.com/bisq-network/documentation/pull/57) |
-| Label the original aging schedule as design history | Payment account age witness | [#58](https://github.com/bisq-network/documentation/pull/58) |
-| Scope historical payment-method BTC tables | Payment methods, Payment methods/en, Payment methods/es | [#59](https://github.com/bisq-network/documentation/pull/59) |
-| Identify unavailable and unfinished payment guides | CelPay, Verse, Skrill | [#60](https://github.com/bisq-network/documentation/pull/60) |
-| Distinguish Paytm wallet restrictions from UPI | PayTM | [#61](https://github.com/bisq-network/documentation/pull/61) |
-| Replace unfinished client trade-period placeholders | NEFT, RTGS, Tikkie | [#62](https://github.com/bisq-network/documentation/pull/62) |
-| Correct Pix, Paxum and Bizum transfer limits | Pix, Paxum, Bizum | [#63](https://github.com/bisq-network/documentation/pull/63) |
-| Clarify payment-provider signup and client scope | Paysera, Satispay, Strike | [#64](https://github.com/bisq-network/documentation/pull/64) |
-| Update USPS fees and money-order form guidance | US Postal Money Order | [#65](https://github.com/bisq-network/documentation/pull/65) |
-| Correct the Australian gift-card currency code | Amazon eGift card | [#66](https://github.com/bisq-network/documentation/pull/66) |
-| Correct Indian bank-transfer limit distinctions | IMPS, NEFT, RTGS | [#67](https://github.com/bisq-network/documentation/pull/67) |
-| Clarify Bisq 2 detached-signature verification | Bisq 2 | [#68](https://github.com/bisq-network/documentation/pull/68) |
-| Protect mobile pairing credentials and backend backups | Bisq 2 mobile applications | [#69](https://github.com/bisq-network/documentation/pull/69) |
-| Separate role approval, lockup and registration | Bisq 2 Roles | [#70](https://github.com/bisq-network/documentation/pull/70) |
-| Clarify when the delayed payout is published | Cash by mail | [#71](https://github.com/bisq-network/documentation/pull/71) |
-| Clarify availability for an Instant offer | Altcoins Instant | [#72](https://github.com/bisq-network/documentation/pull/72) |
-| Correct the no-copyright premise in Bisqpro | Bisqpro | [#73](https://github.com/bisq-network/documentation/pull/73) |
-| Clarify the first-year burn and bond boost | Reputation2 | [#74](https://github.com/bisq-network/documentation/pull/74) |
+| Correct XMR defaults and proof-command syntax | Trading Monero | [#145](https://github.com/bisq-network/documentation/pull/145) |
+| Distinguish reputation stars from rank (Reputation) | Reputation | [#146](https://github.com/bisq-network/documentation/pull/146) |
+| Distinguish reputation stars from rank (Reputation2) | Reputation2 | [#147](https://github.com/bisq-network/documentation/pull/147) |
+| Correct reputation weights and trade coverage | Reputation2, Bisq Easy | [#148](https://github.com/bisq-network/documentation/pull/148) |
+| Clarify Bisq Easy payment and response rules | Bisq Easy | [#149](https://github.com/bisq-network/documentation/pull/149) |
+| Clarify Easy mediation powers and recovery | Dispute Resolution in Bisq 2 | [#150](https://github.com/bisq-network/documentation/pull/150) |
+| Qualify standard Wallet and MuSig availability | Bisq 2 Wallet, Trade Protocols, MuSig-tradelimits | [#151](https://github.com/bisq-network/documentation/pull/151) |
+| Preserve active chats when deleting a profile | Identity | [#152](https://github.com/bisq-network/documentation/pull/152) |
+| Clarify automatic backup product and limits | Automatic backup | [#153](https://github.com/bisq-network/documentation/pull/153) |
+| Separate payment-account backup from wallet seed | Set up a Revolut payment account, Set up a SEPA payment account | [#154](https://github.com/bisq-network/documentation/pull/154) |
+| Correct Zelle limits and dispute shortcut | Zelle | [#155](https://github.com/bisq-network/documentation/pull/155) |
+| Fix half-limit arithmetic in signing examples | Account limits | [#156](https://github.com/bisq-network/documentation/pull/156) |
+| Label the original aging schedule as design history | Payment account age witness | [#157](https://github.com/bisq-network/documentation/pull/157) |
+| Scope historical payment-method BTC tables | Payment methods, Payment methods/en, Payment methods/es | [#158](https://github.com/bisq-network/documentation/pull/158) |
+| Identify unavailable and unfinished payment guides | CelPay, Verse, Skrill | [#159](https://github.com/bisq-network/documentation/pull/159) |
+| Distinguish Paytm wallet restrictions from UPI | PayTM | [#160](https://github.com/bisq-network/documentation/pull/160) |
+| Replace unfinished client trade-period placeholders | NEFT, RTGS, Tikkie | [#161](https://github.com/bisq-network/documentation/pull/161) |
+| Correct Pix, Paxum and Bizum transfer limits | Pix, Paxum, Bizum | [#162](https://github.com/bisq-network/documentation/pull/162) |
+| Clarify payment-provider signup and client scope | Paysera, Satispay, Strike | [#163](https://github.com/bisq-network/documentation/pull/163) |
+| Update USPS fees and money-order form guidance | US Postal Money Order | [#164](https://github.com/bisq-network/documentation/pull/164) |
+| Correct the Australian gift-card currency code | Amazon eGift card | [#165](https://github.com/bisq-network/documentation/pull/165) |
+| Correct Indian bank-transfer limit distinctions | IMPS, NEFT, RTGS | [#166](https://github.com/bisq-network/documentation/pull/166) |
+| Clarify Bisq 2 detached-signature verification | Bisq 2 | [#167](https://github.com/bisq-network/documentation/pull/167) |
+| Protect mobile pairing credentials and backend backups | Bisq 2 mobile applications | [#168](https://github.com/bisq-network/documentation/pull/168) |
+| Separate role approval, lockup and registration | Bisq 2 Roles | [#169](https://github.com/bisq-network/documentation/pull/169) |
+| Clarify when the delayed payout is published | Cash by mail | [#170](https://github.com/bisq-network/documentation/pull/170) |
+| Clarify availability for an Instant offer | Altcoins Instant | [#171](https://github.com/bisq-network/documentation/pull/171) |
+| Correct the no-copyright premise in Bisqpro | Bisqpro | [#172](https://github.com/bisq-network/documentation/pull/172) |
+| Clarify the first-year burn and bond boost | Reputation2 | [#173](https://github.com/bisq-network/documentation/pull/173) |
 
 ### DAO, contributing and reference
 
 | Review group | Scope | Pull request |
 | --- | --- | --- |
-| Correct Tor Browser privacy assumptions | Contributor privacy and opsec | [#29](https://github.com/bisq-network/documentation/pull/29) |
-| Clarify current contributor review and compensation limits | Contributor checklist | [#30](https://github.com/bisq-network/documentation/pull/30) |
-| Flag the pricenode installer Java mismatch | How to run pricenode | [#31](https://github.com/bisq-network/documentation/pull/31) |
-| Clarify sub-satoshi units in the historical table | Bitcoin units | [#32](https://github.com/bisq-network/documentation/pull/32) |
-| Correct CBDC names and qualify dated figures | CBDC | [#33](https://github.com/bisq-network/documentation/pull/33) |
-| Repair two restored source-reference links | How to run seednode, Phase zero | [#34](https://github.com/bisq-network/documentation/pull/34) |
-| Repair two restored section links | Ops Team, Support Agent | [#35](https://github.com/bisq-network/documentation/pull/35) |
-| Correct the remittance example’s offer directions | How to do remittance on Bisq | [#36](https://github.com/bisq-network/documentation/pull/36) |
-| Qualify the market-making example return | How to be a market maker on Bisq | [#37](https://github.com/bisq-network/documentation/pull/37) |
-| Correct the BSQ swap buyer funding example | BSQ swaps | [#38](https://github.com/bisq-network/documentation/pull/38) |
-| Correct support-data privacy guidance | Support Agent | [#39](https://github.com/bisq-network/documentation/pull/39) |
-| Clarify price aggregation and offer tolerance | Bisq Price Indices | [#40](https://github.com/bisq-network/documentation/pull/40) |
-| Clarify support backup and file-change guidance | Support Agent Knowledge Base | [#41](https://github.com/bisq-network/documentation/pull/41) |
-| Restore two DAO section links | Proposals, Project management | [#42](https://github.com/bisq-network/documentation/pull/42) |
-| Use Bisq 1 for the Bisq 1 trade example | Introduction | [#43](https://github.com/bisq-network/documentation/pull/43) |
-| Clarify DAO fee defaults and issuance units | Making a compensation request, Participating in a DAO voting cycle | [#44](https://github.com/bisq-network/documentation/pull/44) |
-| Correct the Burning Men burn asset | Burning Men | [#45](https://github.com/bisq-network/documentation/pull/45) |
+| Correct Tor Browser privacy assumptions | Contributor privacy and opsec | [#128](https://github.com/bisq-network/documentation/pull/128) |
+| Clarify current contributor review and compensation limits | Contributor checklist | [#129](https://github.com/bisq-network/documentation/pull/129) |
+| Flag the pricenode installer Java mismatch | How to run pricenode | [#130](https://github.com/bisq-network/documentation/pull/130) |
+| Clarify sub-satoshi units in the historical table | Bitcoin units | [#131](https://github.com/bisq-network/documentation/pull/131) |
+| Correct CBDC names and qualify dated figures | CBDC | [#132](https://github.com/bisq-network/documentation/pull/132) |
+| Repair two restored source-reference links | How to run seednode, Phase zero | [#133](https://github.com/bisq-network/documentation/pull/133) |
+| Repair two restored section links | Ops Team, Support Agent | [#134](https://github.com/bisq-network/documentation/pull/134) |
+| Correct the remittance example’s offer directions | How to do remittance on Bisq | [#135](https://github.com/bisq-network/documentation/pull/135) |
+| Qualify the market-making example return | How to be a market maker on Bisq | [#136](https://github.com/bisq-network/documentation/pull/136) |
+| Correct the BSQ swap buyer funding example | BSQ swaps | [#137](https://github.com/bisq-network/documentation/pull/137) |
+| Correct support-data privacy guidance | Support Agent | [#138](https://github.com/bisq-network/documentation/pull/138) |
+| Clarify price aggregation and offer tolerance | Bisq Price Indices | [#139](https://github.com/bisq-network/documentation/pull/139) |
+| Clarify support backup and file-change guidance | Support Agent Knowledge Base | [#140](https://github.com/bisq-network/documentation/pull/140) |
+| Restore two DAO section links | Proposals, Project management | [#141](https://github.com/bisq-network/documentation/pull/141) |
+| Use Bisq 1 for the Bisq 1 trade example | Introduction | [#142](https://github.com/bisq-network/documentation/pull/142) |
+| Clarify DAO fee defaults and issuance units | Making a compensation request, Participating in a DAO voting cycle | [#143](https://github.com/bisq-network/documentation/pull/143) |
+| Correct the Burning Men burn asset | Burning Men | [#144](https://github.com/bisq-network/documentation/pull/144) |
 
 ## Deferred and rejected comparisons
 
