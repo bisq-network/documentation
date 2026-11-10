@@ -46,11 +46,14 @@ not report vulnerabilities in Bisq, such as in the trade protocol, wallet, P2P
 networking, DAO, seednodes, price feeds, updater, or release infrastructure,
 in this repository.
 
-Follow the process in Bisq 2's security policy:
-https://github.com/bisq-network/bisq2/blob/main/SECURITY.md. It asks for a
-private report through GitHub's **Report a vulnerability** flow on the
-bisq-network/bisq2 Security page:
-https://github.com/bisq-network/bisq2/security/advisories/new.
+Bisq 1 and Bisq 2 each have their own security policy. Report to the repository
+of the affected version, privately through GitHub's **Report a vulnerability**
+flow on that repository's Security page:
+
+- Bisq 1: [bisq-network/bisq](https://github.com/bisq-network/bisq/blob/master/SECURITY.md),
+  report at https://github.com/bisq-network/bisq/security/advisories/new;
+- Bisq 2: [bisq-network/bisq2](https://github.com/bisq-network/bisq2/blob/main/SECURITY.md),
+  report at https://github.com/bisq-network/bisq2/security/advisories/new.
 
 ## CI Supply-Chain Pinning
 
