@@ -3,17 +3,20 @@ title: "Browse the documentation"
 description: "Browse the original Bisq Wiki articles by topic or title."
 ---
 
-The **209 recovered articles** are the main documentation. Original titles, wording, and procedures are preserved. Search by topic or name, or use the [complete title index](all/).
+Find articles by topic or name, or use the [complete title index](all/).
 
 ## Browse by subject
 
-- [Bisq 2](bisq-2/) — Original articles about Bisq 2 and Bisq Easy.
-- [Bisq 1](bisq-1/) — Original articles about Bisq 1 trading, accounts, and operation.
-- [Payment methods](payment-methods/) — Payment methods, account limits, and signing.
-- [Troubleshooting](troubleshooting/) — Recovery procedures, troubleshooting, and support.
-- [DAO and BSQ](dao/) — BSQ, governance, proposals, and DAO operation.
-- [Contributing](contributing/) — Contributor roles, teams, and project processes.
-- [Reference](reference/) — Additional articles and technical background.
+- [Get started](start/) (10): Products, installation and first steps
+- [Trading](trade/) (29): Offers, fees, deposits and reputation
+- [Payment methods](payments/) (45): Payment accounts, limits and method guides
+- [Wallet, backup and recovery](wallet/) (23): Seeds, data directories and restores
+- [Disputes and support](disputes/) (14): Mediation, arbitration and reimbursements
+- [Troubleshooting](troubleshooting/) (13): Errors, stuck transactions and performance
+- [Advanced setup](setup/) (14): Nodes, Tails, Qubes, command line and mobile
+- [DAO and BSQ](dao/) (20): BSQ, governance and compensation
+- [Contributing](contribute/) (35): Roles, teams and project processes
+- [Reference](reference/) (9): Background articles and wiki history
 
 ## Saved wiki links
 
