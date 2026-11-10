@@ -6,15 +6,17 @@
       "source_slugs": [
         "mediation",
         "manual-payout",
-        "mediator"
+        "mediator",
+        "emergency-multisig-payout-tool"
       ],
       "title": "Manual payout: local signing",
-      "body": "The Mediation source says a mediator may require both traders' private keys. The pinned Bisq 1 v1.10.11 Support Tool instead locates the user's key locally, generates a signature locally, and combines the two signatures. That workflow does not require sending a seed or private key to the mediator. This source check is added separately; it does not validate a particular payout transaction.",
+      "body": "The restored 2021 Emergency Multisig payout tool guide describes copying private keys into a text file and removing wallet password protection. Bisq 1 v1.10.11 includes a local Locate key in wallet action and local signature generation; the assembly step combines signatures. Sending a seed or private key to the mediator is not part of that workflow. This source check does not validate any payout, signature or broadcast.",
       "status": "verified-against-pinned-source",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-08",
+      "display_priority": "prominent",
       "sources": [
         {
-          "label": "Bisq 1 local signing",
+          "label": "Bisq 1 local key lookup and signing",
           "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/main/overlays/windows/supporttool/SignPane.java#L76-L138"
         },
         {
@@ -35,10 +37,11 @@
       "title": "Wallet seed and application data have different scopes",
       "body": "Bisq 1 v1.10.11 explicitly says the same seed serves BTC and BSQ, but seed words do not replace the database and keys needed to restore application state. The application backup warning also says the copy is not encrypted. Restoring wallet funds is not evidence that payment accounts, signing identity, messages or trade state have been recovered.",
       "status": "verified-against-pinned-source",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-08",
+      "display_priority": "source-check",
       "sources": [
         {
-          "label": "Bisq 1 backup and seed warnings",
+          "label": "Bisq 1 application backup and wallet-seed scope",
           "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L1998-L2044"
         }
       ]
@@ -50,13 +53,14 @@
         "how-to-back-up-your-bisq-wallet-seed"
       ],
       "title": "Seed restoration is an emergency procedure",
-      "body": "The pinned Bisq 1 v1.10.11 restore warnings require an empty wallet and no open offers/trades, warn that restoration removes wallet encryption, and require a new password afterward. They also distinguish the wallet creation date from an arbitrary recent date. Preserve these prerequisites and the separate application-backup requirement when interpreting the original procedure; a seed restore was not executed for this review.",
+      "body": "Bisq 1 v1.10.11 warns to finish trades, close open offers and empty the existing wallet before restoring an older wallet. Its UI warns that restoring an encrypted wallet removes encryption and requires a new password afterward, and explains the role of the original wallet creation date. These warnings are separate from application-data backup requirements; no wallet restore was performed for this review.",
       "status": "verified-against-pinned-source",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-08",
+      "display_priority": "prominent",
       "sources": [
         {
-          "label": "Bisq 1 restore warnings",
-          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3882"
+          "label": "Bisq 1 seed-restore preconditions and encryption warning",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3889"
         }
       ]
     },
@@ -182,19 +186,20 @@
       "title": "Conflicting payment-reference advice",
       "body": "The original Bisq Easy page tells buyers both to leave the payment reason blank/use their own name and to insert the trade ID. Bisq 2 v2.1.15's explicit buyer payment-screen rule says blank if possible, otherwise the buyer's own name; never Bisq or Bitcoin. The pinned upstream guide text itself also retains conflicting trade-ID wording. This check identifies the contradiction and follows the actual payment-screen rule; it does not silently remove either original passage.",
       "status": "verified-against-pinned-source",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-08",
+      "display_priority": "prominent",
       "sources": [
         {
-          "label": "Buyer payment-screen text",
-          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L910"
+          "label": "Bisq 2 buyer payment-screen reference rule",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L910-L910"
+        },
+        {
+          "label": "Bisq 2 guide wording still mentioning Trade ID",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L418-L427"
         },
         {
           "label": "Payment-screen implementation",
           "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/apps/desktop/desktop/src/main/java/bisq/desktop/main/content/bisq_easy/open_trades/trade_state/states/BuyerState2a.java#L145-L158"
-        },
-        {
-          "label": "Upstream process and trade rules",
-          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/i18n/src/main/resources/bisq_easy.properties#L418-L436"
         }
       ]
     },
@@ -210,14 +215,15 @@
       "title": "Bisq 1 payment references",
       "body": "Bisq 1 v1.10.11's rules say to leave the reason blank and not include the trade ID, Bitcoin, BTC or Bisq. Its UI guidance allows an account name or a non-descriptive character when a reference is compulsory and tells traders to discuss alternatives in trade chat. A method-specific old suggestion such as a SWIFT conversion comment is not a universal exception to those rules.",
       "status": "verified-against-pinned-source",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-08",
+      "display_priority": "source-check",
       "sources": [
         {
-          "label": "Bisq 1 trade rules",
+          "label": "Bisq 1 trading rule",
           "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L350-L355"
         },
         {
-          "label": "Compulsory reference guidance",
+          "label": "Bisq 1 compulsory reference guidance",
           "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L811-L814"
         }
       ]
@@ -379,6 +385,99 @@
         {
           "label": "Pinned Bisq 1 seed-restore warnings (different recovery scope)",
           "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/resources/i18n/displayStrings.properties#L3864-L3882"
+        }
+      ]
+    },
+    {
+      "id": "archived-bisq1-trade-limit-macros",
+      "source_slugs": [
+        "ach-transfer",
+        "capitual",
+        "celpay",
+        "domestic-wire-transfer",
+        "faster-payments",
+        "faster-payments-system-sbp",
+        "imps",
+        "main-page",
+        "monese",
+        "nequi",
+        "paxum",
+        "paysera",
+        "pix",
+        "rtgs",
+        "sepa-p551",
+        "sepa-instant",
+        "satispay",
+        "strike",
+        "templates-as-macros",
+        "tikkie",
+        "verse",
+        "wise-usd",
+        "zelle"
+      ],
+      "title": "Trade limits: restored macro values are historical",
+      "body": "The restored templates contain 0.0624 BTC for MaxTradeSizeBisq1 and 0.50 BTC for MaxTradeSizeAltcoin. Bisq 1 v1.10.11 clamps trade limits to 0.25 BTC and calculates method limits from the DAO parameter and payment-method risk factor, with additional account restrictions. The historical macro values are not universal current limits; use the limit shown for the actual account and offer.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-08",
+      "display_priority": "prominent",
+      "sources": [
+        {
+          "label": "Bisq 1 v1.10.11 limit clamp and DAO parameter",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/TradeLimits.java#L40-L88"
+        },
+        {
+          "label": "Bisq 1 v1.10.11 method-specific limit calculation",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L395-L431"
+        }
+      ]
+    },
+    {
+      "id": "easy-reputation-amount-eligibility",
+      "source_slugs": [
+        "reputation",
+        "reputation2",
+        "bisq-easy"
+      ],
+      "title": "Bisq Easy amount eligibility differs from the old minimum score",
+      "body": "Bisq 2 v2.1.15 retains a 600 USD Bisq Easy ceiling, but permits seller offers from 1,200 reputation points and computes the amount from 200 points per USD, subject to its rounding and tolerance checks. The old 10,000-point minimum in Reputation2 is not the release-pinned predicate. These rules do not guarantee that a trade or a particular counterparty is safe.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-08",
+      "display_priority": "source-check",
+      "sources": [
+        {
+          "label": "Bisq Easy limits and reputation constants",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/trade/src/main/java/bisq/trade/bisq_easy/BisqEasyTradeAmountLimits.java#L51-L69"
+        },
+        {
+          "label": "Bisq Easy offer eligibility checks",
+          "url": "https://github.com/bisq-network/bisq2/blob/cfe8ab251f2b6579f29e9955036afc33ba36861e/trade/src/main/java/bisq/trade/bisq_easy/BisqEasyTradeAmountLimits.java#L158-L187"
+        }
+      ]
+    },
+    {
+      "id": "wallet-derivation-template-incomplete",
+      "source_slugs": [
+        "backing-up-your-wallet-seed",
+        "restoring-your-wallet-from-seed",
+        "wallet"
+      ],
+      "title": "The historical BSQ derivation list is incomplete",
+      "body": "The archived template lists only BSQ account m/44'/142'/0'. Bisq 1 v1.10.11 additionally defines BSQ SegWit account m/44'/142'/1'; wallet setup uses a SegWit keychain for new wallets and can migrate legacy wallets. The historical list is incomplete for that version and should not be treated as a complete wallet-recovery recipe. This check does not validate an external-wallet restoration.",
+      "status": "verified-against-pinned-source",
+      "checked_at": "2026-11-08",
+      "display_priority": "prominent",
+      "sources": [
+        {
+          "label": "Bisq 1 legacy and SegWit BTC/BSQ account paths",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/btc/setup/BisqKeyChainGroupStructure.java#L32-L74"
+        },
+        {
+          "label": "Bisq 1 new wallets use a SegWit keychain",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/btc/setup/WalletConfig.java#L434-L450"
+        },
+        {
+          "label": "Bisq 1 legacy wallet SegWit migration",
+          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/btc/setup/WalletConfig.java#L566-L605"
         }
       ]
     }

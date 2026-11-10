@@ -1,0 +1,69 @@
+name: Review an article
+description: Report whether an article still matches the application, with evidence.
+title: "Review: "
+labels: ["review: article"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One article and one finding per issue. Do not include wallet seeds, private keys,
+        payment details or private trade conversations.
+  - type: input
+    id: article
+    attributes:
+      label: Article link
+      description: Use the section link button next to a heading to link the exact section.
+      placeholder: https://bisq-network.github.io/documentation/wiki/last-resort-restore/#import-raw-data-from-backup
+    validations:
+      required: true
+  - type: dropdown
+    id: product
+    attributes:
+      label: Product checked
+      options:
+        - Bisq 1
+        - Bisq 2
+        - Bisq 2 mobile
+        - Both Bisq 1 and Bisq 2
+        - Not product-specific
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version checked
+      placeholder: "Version number shown in the application"
+    validations:
+      required: true
+  - type: dropdown
+    id: finding
+    attributes:
+      label: Finding
+      options:
+        - Still correct as written
+        - Needs a correction
+        - Outdated, needs a larger rewrite
+        - Unsure, a maintainer should check
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What is wrong, and suggested wording
+      description: Quote the current sentence and give the wording you would use. Leave empty if the article is still correct.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: How you checked it, for example the screen in the application, release notes or a source link. Say whether you looked at the application, the code, or both. Crop screenshots so they show no balances, addresses, trade or offer IDs, or onion addresses.
+    validations:
+      required: true
+  - type: checkboxes
+    id: care
+    attributes:
+      label: Before submitting
+      options:
+        - label: I did not perform a funded trade or an irreversible operation only to check this article.
+          required: true
+        - label: This issue contains no seeds, keys, payment details or private conversations.
+          required: true
