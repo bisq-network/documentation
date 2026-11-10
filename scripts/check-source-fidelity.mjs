@@ -12,6 +12,14 @@ import { fileURLToPath } from "node:url";
 // A human-approved wording change is accepted only through a receipt in
 // migration/accepted-edits.json: the receipt's recorded original text must
 // rebuild the preserved original exactly, which is then checked as before.
+//
+// By default a wording change without a receipt fails. Only the pull request
+// check passes --awaiting-receipt-base <dir>, a copy of the pull request's base
+// articles: an unreceipted edit then counts as awaiting a receipt, not as a
+// failure, if its base file in <dir> is exactly the restored article (or its last
+// accepted edit), passes every check above, and the edit keeps everything a
+// receipt would still require (see checkAcceptedStructure). The receipts job
+// fails while any article awaits a receipt.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = "migration/restoration-fidelity.json";
 const snapshotPath = "review/ai-edited/snapshot.json";
@@ -121,8 +129,12 @@ function editableTag(tag) {
 }
 const occurrences = (body, pattern) => body.match(pattern)?.length ?? 0;
 
-function checkAcceptedStructure(base, edited, item, receipt) {
-  const pr = pullRequestLabel(receipt.pull_request);
+// Stands in for the receipt of an edit that has none yet: it lists no figure, so
+// no alt text may change.
+const awaitingLabel = "The edit awaiting a receipt";
+const noReceipt = { changed_image_alt_text: [] };
+
+function checkAcceptedStructure(base, edited, item, receipt, pr = pullRequestLabel(receipt.pull_request)) {
   const before = splitArticle(base);
   const after = splitArticle(edited);
   assert(before.outside === after.outside, `${pr} changes text outside the article body (front matter, title, contents list or wrapper)`);
@@ -146,7 +158,10 @@ function checkAcceptedStructure(base, edited, item, receipt) {
     if (tag.startsWith("<figure")) figure = tag.match(/\bid="([^"]+)"/)?.[1] ?? "";
     if (tag === newMedia[index]) return;
     const withoutAlt = (value) => value.replace(/\salt="[^"]*"/, "");
-    assert(tag.startsWith("<img") && listed.has(figure) && withoutAlt(tag) === withoutAlt(newMedia[index]),
+    const altOnly = tag.startsWith("<img") && withoutAlt(tag) === withoutAlt(newMedia[index]);
+    // Without a receipt nothing lists the figure, so no alt text may change yet.
+    assert(receipt !== noReceipt || !altOnly, `${pr} changes the alt text of ${figure || `image #${index + 1}`}; an alt-text change needs a receipt that lists the figure in changed_image_alt_text, so it counts as a failure until then`);
+    assert(altOnly && listed.has(figure),
       `${pr} changes ${tag.startsWith("<img") ? "the image" : "the figure"} ${figure || `#${index + 1}`}; only alt text may change, and only for figures listed in changed_image_alt_text`);
     altChanged.add(figure);
   });
@@ -226,8 +241,29 @@ async function filesBelow(directory) {
   return files.sort();
 }
 
-export async function verify(overrides = new Map()) {
+/** Read base files below dir for verify({ readBase }); a missing file is undefined. */
+export function baseReader(dir) {
+  return async (path) => {
+    try {
+      return await readFile(resolve(dir, path));
+    } catch (error) {
+      if (error.code === "ENOENT") return undefined;
+      throw error;
+    }
+  };
+}
+
+/**
+ * Check the restored articles. Without options, any article no receipt covers
+ * fails. With readBase (path -> base file bytes or undefined), such an article
+ * is listed in `awaiting` instead when it passes everything a receipt would
+ * still require. `unreceipted` lists every article file no receipt covers, in
+ * either mode.
+ */
+export async function verify(overrides = new Map(), { readBase } = {}) {
   const failures = [];
+  const awaiting = [];
+  const unreceipted = [];
   const check = async (path, operation) => {
     try { await operation(); } catch (error) { failures.push(`${path}: ${error.message}`); }
   };
@@ -273,8 +309,25 @@ export async function verify(overrides = new Map()) {
       assert(/^[a-z0-9-]+$/.test(item.slug), "invalid source slug");
       const record = formattingBySlug.get(item.slug);
       const baseline = record?.formatted_file_sha256 ?? item.restored_file_sha256;
-      const current = (await read(path)).toString();
+      const file = (await read(path)).toString();
       const receipts = accepted.bySlug.get(item.slug) ?? [];
+      // The file the newest accepted edit produced, or the restored baseline.
+      const covered = receipts.length ? receipts.at(-1).accepted_file_sha256 : baseline;
+      const uncovered = hash(file) !== covered && !(receipts.length && hash(file) === baseline);
+      if (uncovered) unreceipted.push({ slug: item.slug, title: item.title, path });
+      let current = file;
+      let proposed;
+      if (uncovered && readBase) {
+        // Check the base file exactly as the article itself would be checked, then the edit against it.
+        const base = await readBase(path);
+        const why = !base ? "there is no base file to compare it with"
+          : hash(base) === covered ? ""
+          : record && !receipts.length && hash(base) === item.restored_file_sha256
+            ? `its base file has no line-break formatting yet, but this change also records it in ${formattingPath}; propose the formatting-only change on its own first (see CONTRIBUTING.md)`
+            : `its base file is sha256 ${short(hash(base))}, not the ${receipts.length ? "last accepted edit" : "restored article"} ${short(covered)}`;
+        assert(!why, `${item.title} changed ${receipts.length ? `after its accepted edit (${pullRequestLabel(receipts.at(-1).pull_request)})` : "since restoration"} and no receipt in ${acceptedEditsPath} covers it. It cannot be checked as awaiting a receipt: ${why}.`);
+        [current, proposed] = [base.toString(), file];
+      }
       if (!receipts.length) {
         assert(hash(current) === baseline, `${item.title} changed since restoration (sha256 ${short(hash(current))}, restored ${short(baseline)}) and no receipt in ${acceptedEditsPath} covers it. A wording change needs human approval and a receipt (see CONTRIBUTING.md); do not refresh the original hashes.`);
       } else if (hash(current) === baseline) {
@@ -320,6 +373,10 @@ export async function verify(overrides = new Map()) {
       counted += 1;
       for (const [base, edited, receipt] of steps) checkAcceptedStructure(base, edited, item, receipt);
       acceptedCount += steps.length;
+      if (proposed !== undefined) {
+        checkAcceptedStructure(current, proposed, item, noReceipt, awaitingLabel);
+        awaiting.push({ slug: item.slug, title: item.title, path });
+      }
     });
     const rawPath = `public/wiki-source/${item.slug}.wiki.txt`;
     await check(rawPath, async () => assert.equal(hash(await read(rawPath)), item.raw_wikitext_sha256, "immutable raw wikitext drift"));
@@ -359,7 +416,16 @@ export async function verify(overrides = new Map()) {
     const local = `review/ai-edited/${path}`;
     await check(local, async () => assert.equal(hash(await read(local)), expected, "immutable AI-review snapshot drift"));
   }
-  return { failures, anchorCount, acceptedCount, acceptedArticles: accepted.bySlug.size, snapshotFiles: snapshots.length, restoreBody };
+  return { failures, awaiting, unreceipted, anchorCount, acceptedCount, acceptedArticles: accepted.bySlug.size, snapshotFiles: snapshots.length, restoreBody };
+}
+
+/** The value of --awaiting-receipt-base, or undefined when the flag is absent. */
+export function awaitingReceiptBase(argv) {
+  const index = argv.indexOf("--awaiting-receipt-base");
+  if (index < 0) return undefined;
+  const dir = argv[index + 1];
+  if (!dir || dir.startsWith("--")) throw new Error("--awaiting-receipt-base needs the directory holding the pull request's base files");
+  return dir;
 }
 
 const runAsScript = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
@@ -367,14 +433,19 @@ if (runAsScript) await main();
 
 async function main() {
   try {
-    const result = await verify();
+    const base = awaitingReceiptBase(process.argv);
+    const result = await verify(new Map(), base === undefined ? {} : { readBase: baseReader(base) });
+    const plural = (count, noun) => `${count} ${noun}${count === 1 ? "" : "s"}`;
+    const awaiting = result.awaiting.length
+      ? `\nAwaiting an accepted-edit receipt (${plural(result.awaiting.length, "article")}; not a failure here, the receipts job reports them until reviewers accept the wording):\n${result.awaiting.map((item) => `- ${item.slug}`).join("\n")}`
+      : "";
     if (result.failures.length) {
-      console.error(`Source fidelity FAILED (${result.failures.length} finding${result.failures.length === 1 ? "" : "s"}):\n${result.failures.map((failure) => `- ${failure}`).join("\n")}`);
+      console.error(`Source fidelity FAILED (${result.failures.length} finding${result.failures.length === 1 ? "" : "s"}):\n${result.failures.map((failure) => `- ${failure}`).join("\n")}${awaiting}`);
       process.exitCode = 1;
     } else {
-      const plural = (count, noun) => `${count} ${noun}${count === 1 ? "" : "s"}`;
       const edits = result.acceptedCount ? ` (${plural(result.acceptedArticles, "article")} with ${plural(result.acceptedCount, "accepted edit")}; originals rebuilt exactly)` : "";
-      console.log(`Source fidelity passed: 209 original bodies/titles/raw sources${edits}, ${result.anchorCount} explicit anchor additions, 130 image occurrences/120 assets, 98 AI guides (${result.snapshotFiles} snapshot files), 14 recovery safeguards, ordered 27-file list and 8-step order.`);
+      const proposals = result.awaiting.length ? ` (${result.awaiting.length} awaiting a receipt, checked against their base files)` : "";
+      console.log(`Source fidelity passed: 209 original bodies/titles/raw sources${edits}${proposals}, ${result.anchorCount} explicit anchor additions, 130 image occurrences/120 assets, 98 AI guides (${result.snapshotFiles} snapshot files), 14 recovery safeguards, ordered 27-file list and 8-step order.${awaiting}`);
       if (process.argv.includes("--self-test")) {
         const path = "src/content/docs/wiki/last-resort-restore.md";
         const text = await readFile(resolve(root, path), "utf8");
