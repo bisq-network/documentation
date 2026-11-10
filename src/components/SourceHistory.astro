@@ -8,6 +8,7 @@ import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import notes from "../../migration/source-review-notes.json";
 import { renderSectionRepairs } from "../../scripts/lib/section-repairs.mjs";
 import { renderArchivedTemplates } from "../../scripts/lib/archived-templates.mjs";
+import { addTableRowSummaries } from "../../scripts/lib/table-search-rows.mjs";
 import { renderSupplementalMedia } from "../../scripts/lib/supplemental-media.mjs";
 import { allRecoveredAliases, renderRecoveredLinks } from "../../scripts/lib/recovered-link-aliases.mjs";
 
@@ -54,7 +55,7 @@ const images = updatedMedia.images;
   {topic && <span hidden data-pagefind-ignore data-pagefind-filter={`topic:${topic}`}></span>}
   {(products.length ? products : [{ label: "Product not stated" }]).map((product) => <span hidden data-pagefind-ignore data-pagefind-filter={`product:${product.label}`}></span>)}
 </>}
-<Default><Fragment set:html={content} /></Default>
+<Default><Fragment set:html={addTableRowSummaries(content)} /></Default>
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>

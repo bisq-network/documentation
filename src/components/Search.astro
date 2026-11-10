@@ -24,5 +24,87 @@ import Default from "@astrojs/starlight/components/Search.astro";
       const observer = new MutationObserver(() => { if (addLabel()) observer.disconnect(); });
       observer.observe(search, { childList: true, subtree: true });
     }
+
+    // Pagefind's default UI also returns partial-word matches (for qzxvplk it marks the letter "q").
+    // Say so when no result contains a query word, announce result counts, and add a copy-link button
+    // to each section result. Everything is derived from the rendered results, so nothing is re-indexed.
+    const browseUrl = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/browse/all/`;
+    let announcer: HTMLElement | null = null;
+    let lastAnnouncement = "";
+    let announcedFor = "";
+    const announce = (text: string) => {
+      if (text === lastAnnouncement) return;
+      lastAnnouncement = text;
+      if (!announcer) {
+        announcer = document.createElement("div");
+        announcer.className = "sr-only";
+        announcer.setAttribute("role", "status");
+        announcer.setAttribute("aria-live", "polite");
+        search.querySelector(".pagefind-ui")?.append(announcer);
+      }
+      announcer.textContent = text;
+    };
+    const sharesWord = (mark: string, term: string) => {
+      let n = 0;
+      while (n < mark.length && n < term.length && mark[n] === term[n]) n++;
+      return mark.includes(term) || n >= Math.max(3, Math.ceil(term.length * 0.6));
+    };
+    const refresh = () => {
+      const area = search.querySelector<HTMLElement>(".pagefind-ui__results-area");
+      const message = area?.querySelector<HTMLElement>(".pagefind-ui__message");
+      search.querySelector("[data-docs-search-notice]")?.remove();
+      if (!area || !message) { area?.removeAttribute("data-no-exact"); return; }
+      const found = /^(No|\d+) results? for (.+)$/.exec(message.textContent?.trim() || "");
+      area.toggleAttribute("data-no-exact", false);
+      if (!found) return;
+      const query = found[2];
+      const terms = query.toLowerCase().split(/\s+/).filter((term) => term.length > 1);
+      const marks = [...area.querySelectorAll("mark")].map((mark) => (mark.textContent || "").toLowerCase());
+      const missing = terms.filter((term) => !marks.some((mark) => sharesWord(mark, term)));
+      for (const result of area.querySelectorAll<HTMLElement>(".pagefind-ui__result-nested")) {
+        if (result.querySelector(".docs-search-copy")) continue;
+        const link = result.querySelector<HTMLAnchorElement>("a");
+        if (!link) continue;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "docs-search-copy";
+        button.textContent = "Copy link";
+        button.setAttribute("aria-label", `Copy link to section: ${link.textContent?.trim()}`);
+        button.addEventListener("click", async () => {
+          lastAnnouncement = "";
+          try { await navigator.clipboard.writeText(new URL(link.getAttribute("href") || "", location.href).href.replace(/#_top$/, "")); announce("Link copied"); button.textContent = "Copied"; }
+          catch { announce("Could not copy the link"); button.textContent = "Copy failed"; }
+          setTimeout(() => { button.textContent = "Copy link"; }, 1500);
+        });
+        result.append(button);
+      }
+      const fresh = `${message.textContent}` !== announcedFor;
+      announcedFor = `${message.textContent}`;
+      if (!terms.length || !missing.length) { if (fresh) announce(message.textContent?.trim() || ""); return; }
+      const all = missing.length === terms.length;
+      const notice = document.createElement("div");
+      notice.setAttribute("data-docs-search-notice", "");
+      notice.className = "docs-search-notice";
+      const title = document.createElement("strong");
+      title.textContent = `No exact match for \u201c${all ? query : missing.join(" ")}\u201d.`;
+      const detail = document.createElement("p");
+      detail.append(all
+        ? "Search found only fragments of the word, so anything listed below is probably not relevant. Check the spelling or try fewer words, or "
+        : "The results below match the other words in your search. Check the spelling of the missing word, or ");
+      const browse = document.createElement("a");
+      browse.href = browseUrl;
+      browse.textContent = "browse all article titles";
+      detail.append(browse, ".");
+      notice.append(title, detail);
+      area.toggleAttribute("data-no-exact", all);
+      message.before(notice);
+      if (fresh) announce(`${title.textContent} ${all ? "Results shown are partial-word matches only." : ""}`.trim());
+    };
+    let pending = 0;
+    const watcher = new MutationObserver(() => {
+      clearTimeout(pending);
+      pending = window.setTimeout(() => { refresh(); watcher.takeRecords(); }, 120);
+    });
+    watcher.observe(search, { childList: true, subtree: true, characterData: true });
   }
 </script>
