@@ -1,51 +1,44 @@
 ---
 title: "Contributing"
-description: "Contributor roles, teams, and project processes."
+description: "Roles, teams and project processes"
 ---
 
-Contributor roles, teams, and project processes. Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+This topic is now listed under [Contributing](../contribute/).
 
-- [Arbitration](../../wiki/arbitration/)
-- [Arbitrator](../../wiki/arbitrator/)
 - [Bisq 2 Roles](../../wiki/bisq-2-roles/)
 - [Bisq Maintainer](../../wiki/bisq-maintainer/)
 - [Community Manager](../../wiki/community-manager/)
-- [Compensation](../../wiki/compensation/)
 - [Compensation Maintainer](../../wiki/compensation-maintainer/)
-- [Contributor checklist](../../wiki/contributor-checklist/)
 - [Contributor privacy and opsec](../../wiki/contributor-privacy-and-opsec/)
-- [Critical bugs](../../wiki/critical-bugs/)
 - [Dev Team](../../wiki/dev-team/)
 - [Development process](../../wiki/development-process/)
 - [Donation Address Owner](../../wiki/donation-address-owner/)
 - [Events calendar](../../wiki/events-calendar/)
 - [Fee Reimbursement Agent](../../wiki/fee-reimbursement-agent/)
 - [Growth Team](../../wiki/growth-team/)
-- [How to run pricenode](../../wiki/how-to-run-pricenode/)
-- [Mediation](../../wiki/mediation/)
-- [Mediator](../../wiki/mediator/)
+- [How to run seednode](../../wiki/how-to-run-seednode/)
 - [Mempool Explorer Operator](../../wiki/mempool-explorer-operator/)
 - [Monero Explorer Operator](../../wiki/monero-explorer-operator/)
 - [Ops Team](../../wiki/ops-team/)
 - [Payment Method Maintainer](../../wiki/payment-method-maintainer/)
+- [Pricenode](../../wiki/pricenode/)
 - [Pricenode Operator](../../wiki/pricenode-operator/)
 - [Project management](../../wiki/project-management/)
-- [Proposals](../../wiki/proposals/)
 - [Proposals Maintainer](../../wiki/proposals-maintainer/)
-- [Roles](../../wiki/roles/)
 - [Roles Maintainer](../../wiki/roles-maintainer/)
 - [Security Team](../../wiki/security-team/)
 - [Security Team Lead](../../wiki/security-team-lead/)
 - [Standup](../../wiki/standup/)
 - [Support Agent](../../wiki/support-agent/)
+- [Support Agent Knowledge Base](../../wiki/support-agent-knowledge-base/)
 - [Support Team](../../wiki/support-team/)
 - [Support Team Lead](../../wiki/support-team-lead/)
 - [Teams](../../wiki/teams/)
+- [Templates as macros](../../wiki/templates-as-macros/)
 - [Translation](../../wiki/translation/)
-- [Updating BSQ trading fees](../../wiki/updating-bsq-trading-fees/)
-- [User support](../../wiki/user-support/)
 - [Wiki Operator](../../wiki/wiki-operator/)
 - [Wiki style guidelines](../../wiki/wiki-style-guidelines/)
 - [YouTube Admin](../../wiki/youtube-admin/)
+- [Bitcointalk Moderator](../../wiki/bitcointalk-moderator/)
 
 [Browse all articles](../all/)
