@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "source": "public/wiki-source/<slug>.wiki.txt; line numbers refer to the unmodified snapshot",
+  "items": [
+    {
+      "slug": "account-limits",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        5,
+        176
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "ach-transfer",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        61
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "bisq-1",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        31
+      ],
+      "reason": "The source is the Bisq 1 portal."
+    },
+    {
+      "slug": "bizum",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        105
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "celpay",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        112
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "domestic-wire-transfer",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        89
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "faster-payments-system-sbp",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        66,
+        99
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "faster-payments",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        66,
+        97
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "imps",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        119
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "monese",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        118
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "neft",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        116
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "nequi",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        105
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "paxum",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        104
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "paysera",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        119
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "paytm",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        133
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "pix",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        93
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "rtgs",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        108
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "satispay",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        100
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "security-deposit",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "sepa-instant",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        72,
+        103
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "sepa-p551",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        67,
+        98
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "skrill",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        52,
+        75
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "strike",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        147
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "tikkie",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        77
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "trading-rules",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        29,
+        103
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "upi",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        1,
+        109
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    },
+    {
+      "slug": "verse",
+      "target": "/wiki/dispute-resolution-in-bisq-1/",
+      "source_lines": [
+        3,
+        134
+      ],
+      "reason": "The original source identifies a Bisq 1 release or describes a security-deposit, 2-of-2 or arbitration process; the link is repaired by topic and context, not proof of the historical redirect destination."
+    }
+  ],
+  "classification": "contextual-link-repair; the old redirect destination is not established"
+}
