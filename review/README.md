@@ -4,6 +4,8 @@ The documentation baseline preserves the wording of the 209 recovered wiki artic
 
 This directory does not authorize a merge, publication, deployment, transaction, recovery operation or message to another person. Ready-for-review status allows CodeRabbit (CRAI) to review the PR; its feedback supplements human review. Potential human reviewers include sudden, pazza83 and mwithm; listing them does not claim that they have reviewed, approved or accepted responsibility for any change.
 
+The [proposal review index](PROPOSAL-INDEX.md) links the small PRs and records retained, rejected and unresolved changes from the complete comparison.
+
 ## Comparison material
 
 | Material | Location | How to use it |
