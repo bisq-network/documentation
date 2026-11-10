@@ -1,0 +1,31 @@
+// The preserved restoration materials that the fidelity gate is checked against.
+// They never change in a pull request: an edited article plus refreshed hashes
+// in the restoration manifest would otherwise pass every offline check. The
+// check job compares each pull request with its base (scripts/check-immutable-materials.mjs).
+// A deliberate new intake needs its own pull request that also changes this list.
+export const immutableMaterials = [
+  "migration/restoration-fidelity.json",
+  "migration/additional-articles.json",
+  "public/wiki-source/",
+  "public/media/",
+  "review/ai-edited/",
+];
+
+/** Paths (repository-relative, as git prints them) that touch an immutable material. */
+export function immutableChanges(paths) {
+  return paths.filter((path) => immutableMaterials.some((entry) => (entry.endsWith("/") ? path.startsWith(entry) || path === entry.slice(0, -1) : path === entry)));
+}
+
+/** Split `git diff --name-only -z` output into paths. */
+export const nulSeparated = (output) => output.split("\0").filter(Boolean);
+
+/** The failure message for changed immutable materials. */
+export function immutableMaterialsMessage(changed) {
+  return [
+    `This pull request changes ${changed.length === 1 ? "a preserved restoration material" : `${changed.length} preserved restoration materials`}. These never change in a pull request:`,
+    ...changed.map((path) => `- ${path}`),
+    "These are the originals the fidelity gate checks against: the restoration manifest, the additional-article records, raw wiki sources, media and the AI-edited snapshots.",
+    "Accepted wording goes through migration/accepted-edits.json (CONTRIBUTING.md#accepted-editorial-changes).",
+    "A deliberate new intake needs its own pull request that also changes this guard (scripts/lib/immutable-materials.mjs).",
+  ];
+}
