@@ -1003,29 +1003,6 @@
       "formatted_file_sha256": "ac683aae2a079641963da8e303ebfa3ae015aa927cefc3be0611e82ac792e37e"
     },
     {
-      "slug": "backing-up-your-wallet-seed",
-      "decoded_newline_entities": 15,
-      "decoded_newline_offsets": [
-        755,
-        989,
-        1150,
-        1291,
-        1443,
-        1734,
-        2083,
-        2628,
-        2634,
-        2641,
-        2822,
-        2954,
-        3249,
-        3401,
-        3557
-      ],
-      "original_file_sha256": "e949a876f4ca58e9f60173df724331740790abc5d8c2fcb70fa94dc1f1f0f50d",
-      "formatted_file_sha256": "58892f6fd672e67abdfaf479533d7fea30831dde7e821711083c5b7e1682921b"
-    },
-    {
       "slug": "bisq-2",
       "decoded_newline_entities": 135,
       "decoded_newline_offsets": [
