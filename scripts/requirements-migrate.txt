@@ -1,6 +1,8 @@
 # Python packages for scripts/migrate-wiki.py and scripts/derive-template-renderings.py.
-# The original conversion did not record its versions. With Python 3.13 and
-# pandoc 3.13, these reproduce all 209 committed articles byte for byte.
+# With Python 3.13 and pandoc 3.13, these reproduce all 209 committed articles
+# byte for byte. The recovery environment that produced them used Python 3.11.11
+# with beautifulsoup4 4.13.4, bleach 6.2.0 and soupsieve 4.0.1 (other packages
+# as below); that set reproduces them too.
 beautifulsoup4==4.15.0
 bleach==6.4.0
 mwparserfromhell==0.7.2
