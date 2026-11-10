@@ -92,6 +92,32 @@ const clip = (value) => (value.length > 90 ? `${value.slice(0, 90)}…` : value)
  * stay as they were. An image's alt text may change only when the receipt
  * lists that figure in changed_image_alt_text.
  */
+// What an accepted wording edit may add or remove, compared tag by tag with its base:
+// lowercase inline markup, paragraphs and list items, new IDs, and links to http(s),
+// relative or same-page targets. Anything else (other elements, attributes such as hidden, style or
+// on*, any capitalisation) could add, hide or run content and needs its own policy.
+const editableTags = new Set(["a", "strong", "em", "b", "i", "code", "br", "p", "ul", "ol", "li"]);
+const tagsOf = (body) => body.match(/<\/?[A-Za-z][^>]*>/g) ?? [];
+function changedTags(before, after) {
+  const counts = new Map();
+  for (const tag of tagsOf(before)) counts.set(tag, (counts.get(tag) ?? 0) - 1);
+  for (const tag of tagsOf(after)) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  return [...counts].filter(([, count]) => count !== 0).map(([tag]) => tag);
+}
+function editableTag(tag) {
+  const match = /^<(\/?)([a-z]+)((?:\s+[a-z]+="[^"<>]*")*)\s*\/?>$/.exec(tag);
+  if (!match || !editableTags.has(match[2])) return false;
+  const attributes = [...match[3].matchAll(/\s+([a-z]+)="([^"]*)"/g)].map(([, name, value]) => ({ name, value }));
+  const names = attributes.map(({ name }) => name);
+  if (new Set(names).size !== names.length) return false;
+  if (match[1]) return names.length === 0;
+  // New IDs are allowed (duplicates are rejected above); links also take href and rel.
+  if (match[2] !== "a") return names.every((name) => name === "id");
+  return names.includes("href") && names.every((name) => ["href", "rel", "id"].includes(name))
+    && attributes.every(({ name, value }) => name !== "href" || /^(?:https?:\/\/|\.\.\/|#)/.test(value));
+}
+const occurrences = (body, pattern) => body.match(pattern)?.length ?? 0;
+
 function checkAcceptedStructure(base, edited, item, receipt) {
   const pr = pullRequestLabel(receipt.pull_request);
   const before = splitArticle(base);
@@ -123,7 +149,26 @@ function checkAcceptedStructure(base, edited, item, receipt) {
   });
   const unused = [...listed].filter((id) => !altChanged.has(id));
   assert(!unused.length, `${pr} lists an alt-text change for ${unused.join(", ")}, but that image is unchanged`);
-  if (item.slug === "last-resort-restore") checkRestoreSafeguards(after.body);
+  // Headings, IDs and images are checked above; <img> tags whose alt text changed are not markup changes here.
+  const markup = changedTags(before.body, after.body).find((tag) => !/^<img\s/.test(tag) && !editableTag(tag));
+  assert(!markup, `${pr} adds or removes ${clip(markup ?? "")}; an accepted edit may change only text and plain a, strong, em, b, i, code, br, p, ul, ol and li markup`);
+  assert.equal(occurrences(after.body, /\n[ \t]*\n/g), occurrences(before.body, /\n[ \t]*\n/g), `${pr} adds or removes a blank line, which ends the article's HTML block`);
+  assert.equal(occurrences(after.body, /<[!?]/g), occurrences(before.body, /<[!?]/g), `${pr} adds or removes an HTML comment or declaration`);
+  if (item.slug === "last-resort-restore") {
+    checkRestoreSafeguards(after.body);
+    checkRestoreSafeguardContext(before.body, after.body, pr);
+  }
+}
+
+// An accepted edit may not touch the words around a recovery safeguard either, so
+// "Do not" or "(not reversible)" cannot be added next to an intact phrase.
+function checkRestoreSafeguardContext(base, edited, pr) {
+  const [before, after] = [authorText(base), authorText(edited)];
+  for (const phrase of restoreSafeguards) {
+    const at = before.indexOf(phrase);
+    const context = before.slice(Math.max(0, at - 60), at + phrase.length + 60);
+    assert(after.includes(context), `${pr} changes the text around the recovery safeguard "${clip(phrase)}"`);
+  }
 }
 
 const restoreSafeguards = [
