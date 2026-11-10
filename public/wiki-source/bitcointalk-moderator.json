@@ -1,0 +1,96 @@
+{
+  "title": "Bitcointalk Moderator",
+  "page_id": "202",
+  "revision_id": "1203",
+  "revision_timestamp": "2020-04-28T15:21:42Z",
+  "available_attribution": {
+    "username": "HunterNyan",
+    "id": "30"
+  },
+  "original_url": "https://bisq.wiki/Bitcointalk_Moderator",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=1203",
+  "wikitext_sha256": "0ca0b473ebb53c9b359021e93d33314c384966aba31065c4600569feb736240d",
+  "source_download": "/wiki-source/bitcointalk-moderator.wiki.txt",
+  "source_metadata": "/wiki-source/bitcointalk-moderator.json",
+  "capture_label": "2026-10-14",
+  "archive_item": "wiki-bisq.wiki-20261014",
+  "added_at": "2026-11-08",
+  "historical_only": true,
+  "source_language": "en",
+  "recovery_note": "Additional historical source recovered from the Internet Archive dump labelled 14 October 2026. Original wiki revision 2020-04-28T15:21:42Z. This is restored source text, not current operating advice. The original source starts with a redirect directive; the directive is recorded as metadata and omitted from the displayed body, while all following prose is retained.",
+  "render_transform": "Hide initial redirect directive only; original raw file preserved unchanged.",
+  "source_has_substantive_redirect_tail": true,
+  "original_redirect_directive": "#REDIRECT [[Community_Manager]]",
+  "slug": "bitcointalk-moderator",
+  "route": "/wiki/bitcointalk-moderator/",
+  "headings": [
+    {
+      "text": "Issue",
+      "anchor": "issue",
+      "legacy_id": "Issue",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 393,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Team",
+      "anchor": "team",
+      "legacy_id": "Team",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 588,
+      "explicit_source_id": null
+    },
+    {
+      "text": "github",
+      "anchor": "github",
+      "legacy_id": "github",
+      "level": 3,
+      "html_level": 3,
+      "source_offset": 693,
+      "explicit_source_id": null
+    },
+    {
+      "text": "wiki",
+      "anchor": "wiki",
+      "legacy_id": "wiki",
+      "level": 3,
+      "html_level": 3,
+      "source_offset": 813,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Duties",
+      "anchor": "duties",
+      "legacy_id": "Duties",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 825,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Rights",
+      "anchor": "rights",
+      "legacy_id": "Rights",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 1064,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Bonding",
+      "anchor": "bonding",
+      "legacy_id": "Bonding",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 1195,
+      "explicit_source_id": null
+    }
+  ],
+  "explicit_anchors": [],
+  "image_occurrences": [],
+  "template_gap_count": 0,
+  "link_gap_count": 1,
+  "snapshot_label": "14 October 2026 archive; original revision 2020-04-28"
+}
