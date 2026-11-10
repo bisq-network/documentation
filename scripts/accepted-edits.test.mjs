@@ -135,3 +135,47 @@ test("describeEdit records readable whole-word changes that undo exactly", () =>
   const shifted = changes.map((change) => ({ ...change, column: change.column + 1 }));
   assert.throws(() => undoAcceptedEdit(reworded, { pull_request: "https://github.com/a/b/pull/1", accepted_file_sha256: hash(reworded), based_on_file_sha256: hash(original), changes: shifted }), /PR #1 change 1 does not match the file/);
 });
+
+test("an accepted edit cannot add, hide or run content through markup", async () => {
+  const inject = (markup) => original.replace("(default: 1 BTC)", `(default: 1 BTC)${markup}`);
+  for (const [markup, pattern] of [
+    [' <IMG SRC="https://example.org/x.png">', /adds or removes <IMG SRC=/],
+    [" <span hidden>hidden</span>", /adds or removes <\/?span/],
+    ["<style>img { display: none }</style>", /adds or removes <\/?style>/],
+    ["<script>alert(1)</script>", /adds or removes <\/?script>/],
+    [' <strong style="display: none">x</strong>', /adds or removes <strong style=/],
+    [' <a href="javascript:alert(1)">x</a>', /adds or removes <a href="javascript:/],
+    [" <s>struck</s>", /adds or removes <\/?s>/],
+    ["<!-- hidden -->", /adds or removes an HTML comment/],
+    ["\n\n## Injected heading\n\n", /adds or removes a blank line/],
+  ]) {
+    const edited = inject(markup);
+    onlyFinding(await run({ [path]: edited }, [receipt(original, edited)]), pattern);
+  }
+  const plain = inject(' <strong>Note:</strong> see <a href="https://github.com/bisq-network/bisq" rel="noopener">the source</a>.');
+  assert.deepEqual((await run({ [path]: plain }, [receipt(original, plain)])).failures, []);
+});
+
+test("a receipt names a pull request of this repository, a real date and no endorsement", async () => {
+  for (const [fields, pattern] of [
+    [{ pull_request: "https://github.com/someone/fork/pull/1" }, /pull request URL of this repository/],
+    [{ summary: "Verified by Bisq support." }, /not call it verified, official or approved/],
+    [{ accepted_on: "2026-02-31" }, /accepted_on must be a real YYYY-MM-DD date/],
+  ]) {
+    const result = await run({ [path]: reworded }, [receipt(original, reworded, fields)]);
+    assert.ok(result.failures.some((failure) => pattern.test(failure)), result.failures.join("\n"));
+  }
+});
+
+test("an accepted edit may not change the words around a recovery safeguard", async () => {
+  const restorePath = "src/content/docs/wiki/last-resort-restore.md";
+  const restore = readFileSync(restorePath, "utf8");
+  for (const edited of [
+    restore.replace("Start Bisq again: it should start", "Do not Start Bisq again: it should start"),
+    restore.replace("after deleting the fresh one you created", "after deleting the fresh one you created (not reversible in practice)"),
+  ]) {
+    assert.notEqual(edited, restore);
+    const item = { ...receipt(restore, edited), slug: "last-resort-restore", note_ids: [] };
+    onlyFinding(await run({ [restorePath]: edited }, [item]), /changes the text around the recovery safeguard/);
+  }
+});

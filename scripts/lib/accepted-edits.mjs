@@ -10,7 +10,11 @@ export const acceptedEditsPath = "migration/accepted-edits.json";
 const hash = (value) => createHash("sha256").update(value).digest("hex");
 const sha256 = /^[a-f0-9]{64}$/;
 const githubLogin = /^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$/;
-const pullRequestUrl = /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/pull\/[1-9]\d*$/;
+// Pull requests of this repository, before and after the planned move.
+const pullRequestUrl = /^https:\/\/github\.com\/(?:hiciefte\/bisq-docs|bisq-network\/documentation)\/pull\/[1-9]\d*$/;
+// The summary is shown on the article; it must not read like an endorsement.
+const endorsement = /\b(?:verified|official|approved|endorsed|certified|guaranteed)\b/i;
+const calendarDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value) && new Date(`${value}T00:00:00Z`).toISOString().slice(0, 10) === value;
 const figureId = /^source-image-\d+$/;
 
 /** "PR #46" for messages and page labels. */
@@ -20,12 +24,13 @@ function itemProblems(item, { slugs, notes }) {
   const problems = [];
   const need = (condition, message) => { if (!condition) problems.push(message); };
   need(slugs.has(item.slug), "slug is not one of the 209 restored articles");
-  need(pullRequestUrl.test(item.pull_request ?? ""), "pull_request must be a GitHub pull request URL");
+  need(pullRequestUrl.test(item.pull_request ?? ""), "pull_request must be a pull request URL of this repository");
   need(typeof item.summary === "string" && /^[^\n]{1,200}$/.test(item.summary.trim()), "summary must be one line of at most 200 characters");
+  need(!endorsement.test(item.summary ?? ""), "summary must describe the change, not call it verified, official or approved");
   need(sha256.test(item.based_on_file_sha256 ?? ""), "based_on_file_sha256 must be a SHA-256 hex digest");
   need(sha256.test(item.accepted_file_sha256 ?? ""), "accepted_file_sha256 must be a SHA-256 hex digest");
   need(item.based_on_file_sha256 !== item.accepted_file_sha256, "based_on and accepted file hashes are equal; nothing was edited");
-  need(/^\d{4}-\d{2}-\d{2}$/.test(item.accepted_on ?? "") && !Number.isNaN(Date.parse(item.accepted_on)), "accepted_on must be a YYYY-MM-DD date");
+  need(typeof item.accepted_on === "string" && calendarDate(item.accepted_on), "accepted_on must be a real YYYY-MM-DD date");
   need(githubLogin.test(item.author ?? ""), "author must be a plain GitHub login (no @)");
   const approvals = Array.isArray(item.approvals) ? item.approvals : [];
   need(Array.isArray(item.approvals), "approvals must be a list");
