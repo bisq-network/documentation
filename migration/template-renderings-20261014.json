@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "capture_date": "2026-10-14",
+  "generator": "scripts/derive-template-renderings.py",
+  "occurrences": 71,
+  "items": [
+    {
+      "invocation": "{{MaxTradeSizeUnsigned}}",
+      "name": "MaxTradeSizeUnsigned",
+      "source_download": "/wiki-source/archive-templates/641.wiki.txt",
+      "definition_sha256": "047cca8f49ce9a24a70d047a75a793ca2a9dc74b88ac2a8aff92fb18176227c1",
+      "expanded_wikitext_sha256": "047cca8f49ce9a24a70d047a75a793ca2a9dc74b88ac2a8aff92fb18176227c1",
+      "rendered_sha256": "047cca8f49ce9a24a70d047a75a793ca2a9dc74b88ac2a8aff92fb18176227c1",
+      "html": ".002 BTC",
+      "scalar": true,
+      "inline": true,
+      "articles": [
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "account-limits",
+        "sepa-instant",
+        "sepa-p551",
+        "templates-as-macros"
+      ]
+    },
+    {
+      "invocation": "{{MinTradeSizeToBeSigned}}",
+      "name": "MinTradeSizeToBeSigned",
+      "source_download": "/wiki-source/archive-templates/646.wiki.txt",
+      "definition_sha256": "cde2ec3710e65c061b34511423798b5799cd3aa40e6bd3bcd58e0420bddd87e2",
+      "expanded_wikitext_sha256": "cde2ec3710e65c061b34511423798b5799cd3aa40e6bd3bcd58e0420bddd87e2",
+      "rendered_sha256": "cde2ec3710e65c061b34511423798b5799cd3aa40e6bd3bcd58e0420bddd87e2",
+      "html": ".0005",
+      "scalar": true,
+      "inline": true,
+      "articles": [
+        "account-limits",
+        "account-limits",
+        "templates-as-macros"
+      ]
+    },
+    {
+      "invocation": "{{MaxTradeSizeBisq1}}",
+      "name": "MaxTradeSizeBisq1",
+      "source_download": "/wiki-source/archive-templates/644.wiki.txt",
+      "definition_sha256": "892b64c9ffe1d064e98c06006e6e562b3f149301f52943cdfdd201e9e1174a2b",
+      "expanded_wikitext_sha256": "892b64c9ffe1d064e98c06006e6e562b3f149301f52943cdfdd201e9e1174a2b",
+      "rendered_sha256": "892b64c9ffe1d064e98c06006e6e562b3f149301f52943cdfdd201e9e1174a2b",
+      "html": "0.0624 BTC",
+      "scalar": true,
+      "inline": true,
+      "articles": [
+        "ach-transfer",
+        "capitual",
+        "capitual",
+        "celpay",
+        "domestic-wire-transfer",
+        "faster-payments-system-sbp",
+        "faster-payments",
+        "imps",
+        "main-page",
+        "monese",
+        "nequi",
+        "paxum",
+        "paxum",
+        "paysera",
+        "paysera",
+        "pix",
+        "rtgs",
+        "satispay",
+        "sepa-instant",
+        "sepa-p551",
+        "strike",
+        "templates-as-macros",
+        "tikkie",
+        "verse",
+        "wise-usd",
+        "zelle"
+      ]
+    },
+    {
+      "invocation": "{{ArbitrationCompensationTable}}",
+      "name": "ArbitrationCompensationTable",
+      "source_download": "/wiki-source/archive-templates/675.wiki.txt",
+      "definition_sha256": "ccf688037700b0385f11db3945423ca973bc7b472324c0f3eb53c24ffbf9a3cd",
+      "expanded_wikitext_sha256": "ccf688037700b0385f11db3945423ca973bc7b472324c0f3eb53c24ffbf9a3cd",
+      "rendered_sha256": "039d5613cfe6b3ec45df8a89ef9dbf8a26f3c42139401dfaf0785f9a019e05e8",
+      "html": "<aside class=\"wiki-admonition\" role=\"note\"><p><strong>Warning</strong><img alt=\"\" height=\"15\" src=\"../../media/wiki/71ac4d60df45d6a9e78a17fca683a0f374d3bc14c9ca39a1c03788c156be001c.png\" width=\"17\"/></p><p>All trades starting from 1st January 2023 use a new trade protocol (<a href=\"../burning-men/\">Burning Men Protocol</a>) that is designed to further improve the decentralization of Bisq. The new protocol is a result of the proposal <a href=\"https://github.com/bisq-network/proposals/issues/390\" rel=\"noopener noreferrer\">Distribute Burningman role to contributors who burned BSQ</a> which was voted in Bisq DAO cycle 41 with 100% approval.</p>\n<p>The protocol change means trades placed from 1st January 2023 will be treated differently in arbitration, as a result of the accepted proposal <a href=\"https://github.com/bisq-network/proposals/issues/386\" rel=\"noopener noreferrer\">do not pay out the security deposit of the trade peer to the arbitration case winner</a>, with further improvements from <a href=\"https://github.com/bisq-network/proposals/issues/411\" rel=\"noopener noreferrer\">Security deposit compensation table</a> that allows limited compensation under certain conditions.</p>\n<p>If a dispute escalates to arbitration, the RefundAgent will pay out the trade amount plus one deposit and, in some cases, a limited portion of the losing user's security deposit. Previously they paid out the trade amount plus both users' security deposits. Therefore, traders in arbitration will notice the following:</p>\n<ul>\n<li>The arbitration winning party will be compensated with the trade amount, their own deposit, and, depending on the deposit %, may also receive a limited portion of the losing peer's deposit.</li>\n<li>The arbitration losing party may lose only part of their deposit, rather than the full amount.</li>\n</ul>\n<p>This change is necessary for the security of the new protocol.</p>\n<p><strong>Arbitration should be seen as a last resort</strong>. All efforts should be made by traders to come to an agreement during mediation.</p>\n</aside>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "arbitration",
+        "arbitrator",
+        "dispute-resolution-in-bisq-1"
+      ]
+    },
+    {
+      "invocation": "{{Wallet_date_explainer}}",
+      "name": "Wallet_date_explainer",
+      "source_download": "/wiki-source/archive-templates/269.wiki.txt",
+      "definition_sha256": "319d6029fd8526b44f42cd9d0cfb068491590958c349a0026ddcf93f525ae597",
+      "expanded_wikitext_sha256": "319d6029fd8526b44f42cd9d0cfb068491590958c349a0026ddcf93f525ae597",
+      "rendered_sha256": "d4c46205d5573f9b558d82f4b7ccfd54a3db6be13691d331ded251b257994d1f",
+      "html": "<p>The date is not strictly required, but it makes the recovery process drastically quicker. Without a date, bitcoinj (the library Bisq uses to interact with the Bitcoin network) will resort to traversing the entire Bitcoin blockchain from 2013 (sometime around block 260,000) in order to rebuild your wallet state, and it will take a very long time. Specifying the date your wallet was created cuts recovery time significantly by telling bitcoinj where to start traversing the blockchain.</p>\n",
+      "scalar": false,
+      "inline": true,
+      "articles": [
+        "backing-up-your-wallet-seed",
+        "restoring-your-wallet-from-seed"
+      ]
+    },
+    {
+      "invocation": "{{Wallet derivation paths}}",
+      "name": "Wallet derivation paths",
+      "source_download": "/wiki-source/archive-templates/261.wiki.txt",
+      "definition_sha256": "f45b7c1e3eaa0550986f7f999953be1670315e814fae1a8b0b913fe20add1ccc",
+      "expanded_wikitext_sha256": "f45b7c1e3eaa0550986f7f999953be1670315e814fae1a8b0b913fe20add1ccc",
+      "rendered_sha256": "55fe48b0ea1e3170395bd2a66bb705dc91d49ccbfa2702e2c89211cb2fba7775",
+      "html": "<p>Bisq’s built-in bitcoin wallet is based on BIP-44. BTC segwit addresses have a <code class=\"wiki-source-code\" id=\"tpl-261-source-code-1\">m/44'/0'/1'</code> derivation path and legacy addresses have a <code class=\"wiki-source-code\" id=\"tpl-261-source-code-2\">m/44'/0'/0'</code> derivation path. BSQ wallets have a <code class=\"wiki-source-code\" id=\"tpl-261-source-code-3\">m/44'/142'/0'</code> derivation path.</p>\n<p>The same seed phrase is used for BTC and BSQ wallets.</p>\n<p><strong>Please do not try to send BSQ to a non-Bisq wallet, or to otherwise create your own BSQ transactions.</strong> The rules to form a valid BSQ transaction are rather complex, and even the slightest error can result in invalid BSQ. Bisq will NOT provide support for any such cases.</p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "backing-up-your-wallet-seed"
+      ]
+    },
+    {
+      "invocation": "{{MainPage_Intro}}",
+      "name": "MainPage_Intro",
+      "source_download": "/wiki-source/archive-templates/168.wiki.txt",
+      "definition_sha256": "1d98cd6f2b186d4d72725bdb967d556ea7b22b7d87288215eac1d8d6a426b037",
+      "expanded_wikitext_sha256": "2508fb7429b9cf5cf8754613b0319a99c9f3cb4ca54dc47c79b0f444ee2e97b7",
+      "rendered_sha256": "bb4c4d0dbeb0ee01cc0eee535a2f6feef3fe1eafdd5b12bef939e0089adc81ae",
+      "html": "<figure class=\"template-historical-image\" id=\"tpl-168-source-image-1\"><a href=\"../../media/wiki/02050897c13cd9db223d04692787e416d6e4207bf0af4ec3f6581aad7b50e40a.png\"><img alt=\"Bisq logo\" decoding=\"async\" height=\"234\" loading=\"lazy\" src=\"../../media/wiki/02050897c13cd9db223d04692787e416d6e4207bf0af4ec3f6581aad7b50e40a.png\" width=\"216\"/></a><figcaption>Bisq logo<br/><small>Historical full-size recovered source. <a href=\"../../recovered-media/\">Provenance catalogue</a>.</small></figcaption></figure>\n<p><span><strong>Bisq</strong></span> is a decentralized bitcoin exchange network that enables secure, private and censorship-resistant exchange of bitcoin for national currencies and other cryptocurrencies over the internet.</p>\n<p>The Bisq application forms a <strong>peer-to-peer network</strong> by discovering, connecting to, and working with one another to implement the Bisq trading protocol. The Bisq network is <em>fully</em> peer-to-peer in that it requires no centrally-controlled servers and has no single points of failure.</p>\n<p>See more details in the <a href=\"../introduction/\">introduction</a>.</p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "bisq-1"
+      ]
+    },
+    {
+      "invocation": "{{MainPage_Reasons}}",
+      "name": "MainPage_Reasons",
+      "source_download": "/wiki-source/archive-templates/169.wiki.txt",
+      "definition_sha256": "43db627f5d509870c59acdcfc539091fcc9f14d0014eb98dc274ebffd72998c3",
+      "expanded_wikitext_sha256": "12a728abe1c6b8ba1103aa2e0e7bd35e061b83f239e394e5cbb5f4e699301f29",
+      "rendered_sha256": "70cfd7b4e6b3360bb4da55a5136d507d573a62755f420770c8363e4620869b9f",
+      "html": "<p>Satoshi Nakamoto created Bitcoin to solve the problems of centralized payment systems, so it seems inconsistent for corporate, centralized bitcoin exchanges to be the primary way to acquire bitcoin. It often seems the dominance and vulnerability of centralized exchanges is the Achilles heel in the Bitcoin ecosystem.</p>\n<p>Bisq is built on pure P2P infrastructure: <strong>desktop software, Tor, local wallets, and no central accounts</strong>. Furthermore, <a href=\"../decentralized-autonomous-organization/\">it is not a company</a>, and its governance model actually <em>incentivizes</em> the protection of user privacy and freedoms.</p>\n<p>While the transfer of national currency requires traditional payment channels like banks and payment processors, Bisq is not dependent on any particular provider. The role of these payment channels is limited to what it should be: transferring national currency. That's it—no censoring, confiscating, monitoring, or controlling your financial transactions.</p>\n<p>Bisq is built for those who:</p>\n<ul>\n<li>Want to exchange a national currency such as dollars, euros, or yen for bitcoin.</li>\n<li>Want to exchange a wide range of alternative cryptocurrencies for bitcoin.</li>\n<li>Do not want to trust any entity to hold their funds.</li>\n<li>Do not want to forfeit control or privacy to a central authority in order to trade with other individuals.</li>\n<li>Regard financial transactions as a form of private speech that should be protected from surveillance by banks, governments, and other institutions.</li>\n</ul>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "bisq-1"
+      ]
+    },
+    {
+      "invocation": "{{MaxBisqEasyTrade}}",
+      "name": "MaxBisqEasyTrade",
+      "source_download": "/wiki-source/archive-templates/643.wiki.txt",
+      "definition_sha256": "1fee93f06902fae117b8950cd4c6b29ca5b1455d651fab0e1774f4f21e1ebd6a",
+      "expanded_wikitext_sha256": "1fee93f06902fae117b8950cd4c6b29ca5b1455d651fab0e1774f4f21e1ebd6a",
+      "rendered_sha256": "1fee93f06902fae117b8950cd4c6b29ca5b1455d651fab0e1774f4f21e1ebd6a",
+      "html": "the equivalent of 600 USD",
+      "scalar": true,
+      "inline": true,
+      "articles": [
+        "bisq-easy",
+        "bisq-easy",
+        "main-page",
+        "templates-as-macros"
+      ]
+    },
+    {
+      "invocation": "{{BSQ_Token_Intro}}",
+      "name": "BSQ_Token_Intro",
+      "source_download": "/wiki-source/archive-templates/447.wiki.txt",
+      "definition_sha256": "91397187a97b53367b2e527777043bf28b6d348f50e3b663fc73bda6da0a7b8c",
+      "expanded_wikitext_sha256": "91397187a97b53367b2e527777043bf28b6d348f50e3b663fc73bda6da0a7b8c",
+      "rendered_sha256": "65267177c4f476c9698f21ffca2b6907010dc3214ff0f7fa9551e8011d275671",
+      "html": "<p>A BSQ token is a <strong>colored coin</strong> on the Bitcoin blockchain. A single BSQ token is defined to be 100 satoshis with some additional properties that identify it as BSQ in Bisq software.</p>\n<p>Outside Bisq, a BSQ token just looks like a few satoshis. But on Bisq, the additional properties have the following results:</p>\n<ul>\n<li>the satoshis take on the market value of a BSQ token</li>\n<li>the owner of the satoshis is endowed with power to participate in various Bisq <a href=\"../introduction-to-the-dao/\">governance functions</a></li>\n</ul>\n<p>Technical details of BSQ tokens are available <a href=\"../dao-technical-overview/\">in this document</a>.</p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "bsq",
+        "introduction-to-the-dao"
+      ]
+    },
+    {
+      "invocation": "{{Default_data_directory_locations}}",
+      "name": "Default_data_directory_locations",
+      "source_download": "/wiki-source/archive-templates/313.wiki.txt",
+      "definition_sha256": "7be788b7e0b40354d446ce9967e6fbd6e8cb1779de6041ece768714f5916c212",
+      "expanded_wikitext_sha256": "7be788b7e0b40354d446ce9967e6fbd6e8cb1779de6041ece768714f5916c212",
+      "rendered_sha256": "9f417e2c2140f59540146d2791c13e2b644c3c4d92611db5f82e60155464a562",
+      "html": "<h3 id=\"tpl-313-1\"> Windows </h3>\n<p>Using PowerShell:</p>\n<p><code>$home\\AppData\\Roaming\\Bisq\\</code></p>\n<p>Using <code class=\"wiki-source-code\" id=\"tpl-313-source-code-1\">cmd</code>:</p>\n<p><code>%USERPROFILE%\\AppData\\Roaming\\Bisq\\</code></p>\n<h3 id=\"tpl-313-2\"> macOS </h3>\n<p><code>/Users/&lt;username&gt;/Library/Application Support/Bisq/</code></p>\n<p>This folder could be hidden and not normally accessible on Macs, check the documentation by Apple to see how to be able to work with it.</p>\n<h3 id=\"tpl-313-3\"> Linux </h3>\n<p><code>/home/&lt;username&gt;/.local/share/Bisq/</code></p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "data-directory",
+        "dumping-delayed-payout-transactions"
+      ]
+    },
+    {
+      "invocation": "{{Run_with_command_line_options|<nowiki>--dumpDelayedPayoutTxs=true</nowiki>}}",
+      "name": "Run_with_command_line_options",
+      "source_download": "/wiki-source/archive-templates/314.wiki.txt",
+      "definition_sha256": "a6d62f9428862242ae62341520352ec5234e531767d12076b872a69ee012736f",
+      "expanded_wikitext_sha256": "615b9c74928ca1018e1aeb4046bf8bd5945e8ebb3b1e4f24fe50e8ac6b386039",
+      "rendered_sha256": "c70fc839ca2e95bcf15d2e4b9f5616c56282313b35ae5972b168091dc5614f82",
+      "html": "<h3 id=\"tpl-314-1\"> Windows </h3>\n<p>Open PowerShell (search the Start menu for <code class=\"wiki-source-code\" id=\"tpl-314-source-code-1\">PowerShell</code>).</p>\n<p>Then from PowerShell, run the following command to switch to your Bisq application directory:</p>\n<p><code>cd  $home\\AppData\\Local\\Bisq</code></p>\n<p>Then run the following command to run Bisq:</p>\n<p><code>start Bisq.exe --dumpDelayedPayoutTxs=true</code></p>\n<h3 id=\"tpl-314-2\"> macOS </h3>\n<p>Open a terminal window by searching for Terminal with Spotlight, and then press <code class=\"wiki-source-code\" id=\"tpl-314-source-code-3\">Enter</code>.</p>\n<p>Then run the following command:</p>\n<p><code>/Applications/Bisq.app/Contents/MacOS/Bisq --dumpDelayedPayoutTxs=true</code></p>\n<h3 id=\"tpl-314-3\"> Linux </h3>\n<p>In a new terminal window, run the following command:</p>\n<p><code>/opt/bisq/bin/Bisq --dumpDelayedPayoutTxs=true</code></p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "dumping-delayed-payout-transactions"
+      ]
+    },
+    {
+      "invocation": "{{MaxTradeSizeAltcoin}}",
+      "name": "MaxTradeSizeAltcoin",
+      "source_download": "/wiki-source/archive-templates/645.wiki.txt",
+      "definition_sha256": "92c84adae5a26e265f4720a6aa254602b8dc0e00224032fea8e357a7cd1900a6",
+      "expanded_wikitext_sha256": "92c84adae5a26e265f4720a6aa254602b8dc0e00224032fea8e357a7cd1900a6",
+      "rendered_sha256": "92c84adae5a26e265f4720a6aa254602b8dc0e00224032fea8e357a7cd1900a6",
+      "html": "0.50 BTC",
+      "scalar": true,
+      "inline": true,
+      "articles": [
+        "main-page",
+        "templates-as-macros"
+      ]
+    },
+    {
+      "invocation": "{{Run_with_Java_options|<nowiki>-XX:MaxRAM=4g</nowiki>|Reduce Bisq's memory usage by setting a ceiling of 4GB}}",
+      "name": "Run_with_Java_options",
+      "source_download": "/wiki-source/archive-templates/472.wiki.txt",
+      "definition_sha256": "49c8345ae067ae5803837db346571dbf7005817d8e7dc5c6446bb251a9d1dbd0",
+      "expanded_wikitext_sha256": "e87bccc5f0cf6b8dbe4a19fc4aee45ab140ad22d0fab03ecc462bd91c51faac9",
+      "rendered_sha256": "10ba017e99ac00c0dacec6ac53242fc2b8f416a67ab0d0c1f489c2eaeccc99c3",
+      "html": "<h2 id=\"tpl-472-1\"> Command-line fix </h2>\n<p>Reduce Bisq's memory usage by setting a ceiling of 4GB:</p>\n<p><code>JAVA_TOOL_OPTIONS=\"-XX:MaxRAM=4g\" /opt/bisq/bin/Bisq</code></p>\n<p><code class=\"wiki-source-code\" id=\"tpl-472-source-code-2\">/opt/bisq/bin/Bisq</code> is the default application directory on Linux. If you run another operating system, you'll need to replace that path with <a href=\"../running-from-the-command-line/\">the one for your OS</a>.</p>\n<p>You can adjust the scaling factor as you wish, of course, and add any <a href=\"../command-line-options/\">runtime options for Bisq</a> as well.</p>\n<h2 id=\"tpl-472-2\"> GUI fix </h2>\n<p>To be able to launch the fix by double clicking an icon, rather than running a command in CLI, you can edit the launcher file to run, instead of the Bisq app directly, a shell script which injects said fix.</p>\n<p>1. Create a text file (for example <code class=\"wiki-source-code\" id=\"tpl-472-source-code-3\">/opt/bisq/Bisq-runner.sh</code>) containing the following code:</p>\n<p><code>#!/bin/bash</code><br/>\n<code>JAVA_TOOL_OPTIONS=\"-XX:MaxRAM=4g\" /opt/bisq/bin/Bisq</code></p>\n<p>2. Make it executable:</p>\n<p><code>chmod +x /opt/bisq/Bisq-runner.sh</code></p>\n<p>3. Edit the launcher file (<code class=\"wiki-source-code\" id=\"tpl-472-source-code-5\">/opt/bisq/Bisq.desktop</code> and/or <code class=\"wiki-source-code\" id=\"tpl-472-source-code-6\">/usr/share/applications/Bisq.desktop</code>) by opening it in a text editor and modifying the <code class=\"wiki-source-code\" id=\"tpl-472-source-code-7\">Exec</code> line like follows:</p>\n<p><code>Exec=/opt/bisq/Bisq-runner.sh</code></p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "reducing-memory-usage"
+      ]
+    },
+    {
+      "invocation": "{{Wallet_derivation_paths}}",
+      "name": "Wallet_derivation_paths",
+      "source_download": "/wiki-source/archive-templates/261.wiki.txt",
+      "definition_sha256": "f45b7c1e3eaa0550986f7f999953be1670315e814fae1a8b0b913fe20add1ccc",
+      "expanded_wikitext_sha256": "f45b7c1e3eaa0550986f7f999953be1670315e814fae1a8b0b913fe20add1ccc",
+      "rendered_sha256": "55fe48b0ea1e3170395bd2a66bb705dc91d49ccbfa2702e2c89211cb2fba7775",
+      "html": "<p>Bisq’s built-in bitcoin wallet is based on BIP-44. BTC segwit addresses have a <code class=\"wiki-source-code\" id=\"tpl-261-source-code-1\">m/44'/0'/1'</code> derivation path and legacy addresses have a <code class=\"wiki-source-code\" id=\"tpl-261-source-code-2\">m/44'/0'/0'</code> derivation path. BSQ wallets have a <code class=\"wiki-source-code\" id=\"tpl-261-source-code-3\">m/44'/142'/0'</code> derivation path.</p>\n<p>The same seed phrase is used for BTC and BSQ wallets.</p>\n<p><strong>Please do not try to send BSQ to a non-Bisq wallet, or to otherwise create your own BSQ transactions.</strong> The rules to form a valid BSQ transaction are rather complex, and even the slightest error can result in invalid BSQ. Bisq will NOT provide support for any such cases.</p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "restoring-your-wallet-from-seed",
+        "wallet"
+      ]
+    },
+    {
+      "invocation": "{{Run_with_command_line_options|<nowiki>[OPTIONS]</nowiki>}}",
+      "name": "Run_with_command_line_options",
+      "source_download": "/wiki-source/archive-templates/314.wiki.txt",
+      "definition_sha256": "a6d62f9428862242ae62341520352ec5234e531767d12076b872a69ee012736f",
+      "expanded_wikitext_sha256": "a3a456dfdcf072590af5bee9efbacc89ffd7c61bc56d21587c38f45d9113765d",
+      "rendered_sha256": "410848c935fed3f87f7ab2463e35b864a633d57599b252c00f25e49c2b061450",
+      "html": "<h3 id=\"tpl-314-1\"> Windows </h3>\n<p>Open PowerShell (search the Start menu for <code class=\"wiki-source-code\" id=\"tpl-314-source-code-1\">PowerShell</code>).</p>\n<p>Then from PowerShell, run the following command to switch to your Bisq application directory:</p>\n<p><code>cd  $home\\AppData\\Local\\Bisq</code></p>\n<p>Then run the following command to run Bisq:</p>\n<p><code>start Bisq.exe [OPTIONS]</code></p>\n<h3 id=\"tpl-314-2\"> macOS </h3>\n<p>Open a terminal window by searching for Terminal with Spotlight, and then press <code class=\"wiki-source-code\" id=\"tpl-314-source-code-3\">Enter</code>.</p>\n<p>Then run the following command:</p>\n<p><code>/Applications/Bisq.app/Contents/MacOS/Bisq [OPTIONS]</code></p>\n<h3 id=\"tpl-314-3\"> Linux </h3>\n<p>In a new terminal window, run the following command:</p>\n<p><code>/opt/bisq/bin/Bisq [OPTIONS]</code></p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "running-from-the-command-line"
+      ]
+    },
+    {
+      "invocation": "{{Run_with_Java_options|<nowiki>-Dglass.gtk.uiScale=1.4</nowiki>|Adjust scaling with the following prefix}}",
+      "name": "Run_with_Java_options",
+      "source_download": "/wiki-source/archive-templates/472.wiki.txt",
+      "definition_sha256": "49c8345ae067ae5803837db346571dbf7005817d8e7dc5c6446bb251a9d1dbd0",
+      "expanded_wikitext_sha256": "d0dd396c2723cc5c6ca0a9afe152d926a182f979989ab2fcbf7901839652653e",
+      "rendered_sha256": "59c5e7b20ce7a12165d664d224fc3a035f7c7354b38a79c7bb5ad911d7c5b491",
+      "html": "<h2 id=\"tpl-472-1\"> Command-line fix </h2>\n<p>Adjust scaling with the following prefix:</p>\n<p><code>JAVA_TOOL_OPTIONS=\"-Dglass.gtk.uiScale=1.4\" /opt/bisq/bin/Bisq</code></p>\n<p><code class=\"wiki-source-code\" id=\"tpl-472-source-code-2\">/opt/bisq/bin/Bisq</code> is the default application directory on Linux. If you run another operating system, you'll need to replace that path with <a href=\"../running-from-the-command-line/\">the one for your OS</a>.</p>\n<p>You can adjust the scaling factor as you wish, of course, and add any <a href=\"../command-line-options/\">runtime options for Bisq</a> as well.</p>\n<h2 id=\"tpl-472-2\"> GUI fix </h2>\n<p>To be able to launch the fix by double clicking an icon, rather than running a command in CLI, you can edit the launcher file to run, instead of the Bisq app directly, a shell script which injects said fix.</p>\n<p>1. Create a text file (for example <code class=\"wiki-source-code\" id=\"tpl-472-source-code-3\">/opt/bisq/Bisq-runner.sh</code>) containing the following code:</p>\n<p><code>#!/bin/bash</code><br/>\n<code>JAVA_TOOL_OPTIONS=\"-Dglass.gtk.uiScale=1.4\" /opt/bisq/bin/Bisq</code></p>\n<p>2. Make it executable:</p>\n<p><code>chmod +x /opt/bisq/Bisq-runner.sh</code></p>\n<p>3. Edit the launcher file (<code class=\"wiki-source-code\" id=\"tpl-472-source-code-5\">/opt/bisq/Bisq.desktop</code> and/or <code class=\"wiki-source-code\" id=\"tpl-472-source-code-6\">/usr/share/applications/Bisq.desktop</code>) by opening it in a text editor and modifying the <code class=\"wiki-source-code\" id=\"tpl-472-source-code-7\">Exec</code> line like follows:</p>\n<p><code>Exec=/opt/bisq/Bisq-runner.sh</code></p>\n",
+      "scalar": false,
+      "inline": false,
+      "articles": [
+        "running-on-hidpi-screen"
+      ]
+    }
+  ]
+}

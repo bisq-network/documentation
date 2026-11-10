@@ -1,0 +1,8 @@
+A BSQ token is a '''colored coin''' on the Bitcoin blockchain. A single BSQ token is defined to be 100 satoshis with some additional properties that identify it as BSQ in Bisq software. 
+
+Outside Bisq, a BSQ token just looks like a few satoshis. But on Bisq, the additional properties have the following results:
+
+* the satoshis take on the market value of a BSQ token
+* the owner of the satoshis is endowed with power to participate in various Bisq [[Introduction to the DAO|governance functions]]
+
+Technical details of BSQ tokens are available [[Bisq_DAO_technical_overview|in this document]].
