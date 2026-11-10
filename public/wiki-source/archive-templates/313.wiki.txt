@@ -1,0 +1,19 @@
+=== Windows ===
+
+Using PowerShell:
+
+ $home\AppData\Roaming\Bisq\
+
+Using <code>cmd</code>:
+
+ %USERPROFILE%\AppData\Roaming\Bisq\
+
+=== macOS ===
+
+ /Users/<username>/Library/Application Support/Bisq/
+
+This folder could be hidden and not normally accessible on Macs, check the documentation by Apple to see how to be able to work with it.
+
+=== Linux ===
+
+ /home/<username>/.local/share/Bisq/
