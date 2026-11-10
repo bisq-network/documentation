@@ -55,7 +55,7 @@ body:
     id: evidence
     attributes:
       label: Evidence
-      description: How you checked it, for example the screen in the application, release notes or a source link. Say whether you looked at the application, the code, or both.
+      description: How you checked it, for example the screen in the application, release notes or a source link. Say whether you looked at the application, the code, or both. Crop screenshots so they show no balances, addresses, trade or offer IDs, or onion addresses.
     validations:
       required: true
   - type: checkboxes
