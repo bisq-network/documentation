@@ -75,14 +75,33 @@ Henrik Jannsen (public key id <code class="wiki-source-code" id="source-code-10"
 <pre><code class="wiki-source-code" id="source-code-20">gpg&gt; fpr
 pub   rsa4096/0xF806F422E222AA02 2022-09-28 Alejandro García &lt;alejandro.garcia@disroot.org&gt;
  Primary key fingerprint: B493 3191 06CC 3D1F 252E  19CB F806 F422 E222 AA02</code></pre>
-<span id="source-code-21" aria-hidden="true"></span><span id="source-code-22" aria-hidden="true"></span><span id="source-code-23" aria-hidden="true"></span><span id="source-code-24" aria-hidden="true"></span><span id="source-code-25" aria-hidden="true"></span><span id="source-code-26" aria-hidden="true"></span><p>Compare the full fingerprint with the key published for the release through a trusted source. Do not assign ultimate ownertrust merely to silence a verification warning; type <code>quit</code> to leave the key editor, then verify the installer signature below.</p>
+<p>If the fingerprint matches the one listed above, you have the right key. You do not need to change its trust to verify a download: type <code>quit</code> to leave the key editor and continue with verifying the installer signature below. GPG’s trust setting says how far you rely on the key’s owner to certify other keys, which is separate from checking a downloaded file. For reference, the trust menu opens when you type:</p>
+<pre><code class="wiki-source-code" id="source-code-21">trust</code></pre>
+<p>Now you’ll see following output:</p>
+<pre><code class="wiki-source-code" id="source-code-22">gpg&gt; trust
+pub  rsa4096/0xF806F422E222AA02
+      created: 2022-09-28  expires: 2026-10-03  usage: SC  &#10;      trust: unknown        validity: unknown
+sub  rsa4096/0xE7F08D07C72561D0
+      created: 2022-09-28  expires: 2026-10-03  usage: E   &#10;[ unknown] (1). Alejandro García &lt;alejandro.garcia@disroot.org&gt;
+&#10;Please decide how far you trust this user to correctly verify other users' keys
+(by looking at passports, checking fingerprints from different sources, etc.)
+&#10;  1 = I don't know or won't say
+  2 = I do NOT trust
+  3 = I trust marginally
+  4 = I trust fully
+  5 = I trust ultimately
+  m = back to the main menu
+&#10;Your decision?</code></pre>
+<p>Do not type <code class="wiki-source-code" id="source-code-23">5</code> for a release signer’s key: ultimate trust is meant for your own keys, not for silencing a verification warning. Type <code>m</code> to go back to the main menu without changing the trust. If you type 5, you’ll see the following output:</p>
+<pre><code class="wiki-source-code" id="source-code-24">Do you really want to set this key to ultimate trust? (y/N) </code></pre>
+<p>Do not type <code class="wiki-source-code" id="source-code-25">y</code> here; answer N, then type <code>m</code> to go back to the main menu. Now you can quit by typing <code class="wiki-source-code" id="source-code-26">quit</code>.</p>
 <p><span id="verify-the-signature-of-the-binary-you-downloaded-1"></span></p>
 <span class="wiki-legacy-anchor" id="Verify_the_signature_of_the_binary_you_downloaded_2" aria-hidden="true"></span><h4 id="verify-the-signature-of-the-binary-you-downloaded-3"> Verify the signature of the binary you downloaded </h4>
 <p>With the installer file and installer signature file in the same directory, run:</p>
 <pre><code class="wiki-source-code" id="source-code-27">gpg --verify INSTALLER.asc INSTALLER</code></pre>
 <p>Where <code class="wiki-source-code" id="source-code-28">INSTALLER.asc</code> is the filename of the <code class="wiki-source-code" id="source-code-29">.asc</code> file you just downloaded.</p>
 <p>You should see an output similar to this:</p>
-<p>The example below includes a local trust setting from its author's keyring. Your result need not say <code>[ultimate]</code>; require a valid signature and the expected full fingerprint instead.</p>
+<p>The example below comes from a keyring in which the key has ultimate trust. Your result need not say <code>[ultimate]</code>: without that setting the line may end in <code>[unknown]</code>, followed by a warning that the key is not certified with a trusted signature. Require “Good signature” and the expected full fingerprint; a bad signature or a missing public key means the installer is not verified.</p>
 <pre><code class="wiki-source-code" id="source-code-30">gpg: Signature made Fri 22 Nov 2024 07:42:50 PM UTC
 gpg:                 using RSA key B493319106CC3D1F252E19CBF806F422E222AA02
 gpg: checking the trustdb
