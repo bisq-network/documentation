@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "archive_member": "images/Admonition-icon-notable.png",
+      "bytes": 1002,
+      "sha256": "a5d8326719e14cbc4884dd84910b902f06e70915c485c52856c6d308c89f8dd8",
+      "crc32": "40012082",
+      "verified_file": "verified-members/a5d8326719e14cbc4884dd84910b902f06e70915c485c52856c6d308c89f8dd8.png",
+      "canonical_filename": "Admonition-icon-notable.png",
+      "asset_path": "/media/wiki/a5d8326719e14cbc4884dd84910b902f06e70915c485c52856c6d308c89f8dd8.png",
+      "width": 100,
+      "height": 143,
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14"
+    },
+    {
+      "archive_member": "images/Admonition-icon-warning.png",
+      "bytes": 858,
+      "sha256": "71ac4d60df45d6a9e78a17fca683a0f374d3bc14c9ca39a1c03788c156be001c",
+      "crc32": "902D2EAB",
+      "verified_file": "verified-members/71ac4d60df45d6a9e78a17fca683a0f374d3bc14c9ca39a1c03788c156be001c.png",
+      "canonical_filename": "Admonition-icon-warning.png",
+      "asset_path": "/media/wiki/71ac4d60df45d6a9e78a17fca683a0f374d3bc14c9ca39a1c03788c156be001c.png",
+      "width": 100,
+      "height": 89,
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14"
+    },
+    {
+      "archive_member": "images/Bisq-logo.png",
+      "bytes": 11922,
+      "sha256": "02050897c13cd9db223d04692787e416d6e4207bf0af4ec3f6581aad7b50e40a",
+      "crc32": "F3332FC9",
+      "verified_file": "verified-members/02050897c13cd9db223d04692787e416d6e4207bf0af4ec3f6581aad7b50e40a.png",
+      "canonical_filename": "Bisq-logo.png",
+      "asset_path": "/media/wiki/02050897c13cd9db223d04692787e416d6e4207bf0af4ec3f6581aad7b50e40a.png",
+      "width": 216,
+      "height": 234,
+      "source_url": "https://archive.org/details/wiki-bisq.wiki-20261014",
+      "dump_date": "2026-10-14"
+    }
+  ]
+}
