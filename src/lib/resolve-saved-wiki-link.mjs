@@ -7,26 +7,46 @@ function decode(value) {
 
 /**
  * Normalize a pasted wiki address or same-site path without making a request.
- * Accept only HTTP(S) wiki hosts and the configured local/canonical origins;
+ * Accept only HTTP(S) wiki hosts, the configured local/canonical origins and
+ * listed previous sites (origin plus base path, e.g. an earlier preview host);
  * reject credentials, control characters and unsupported schemes. Return null
  * for invalid input, otherwise a lookup path, fragment and search suggestion.
  */
-export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = origin }) {
+export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = origin, previousSites = [] }) {
     const input = value.trim();
     if (!input || input.length > 4096 || /[\\\u0000-\u001f\u007f]/.test(input)) return null;
     const isWikiHost = /^(?:www\.)?bisq\.wiki(?:\/|$)/i.test(input);
+    // A previous site's address pasted without its scheme, e.g. "hiciefte.github.io/bisq-docs/...".
+    const isPreviousHost = previousSites.some((site) => {
+        const host = new URL(site.origin).host;
+        return input.toLowerCase() === host || input.toLowerCase().startsWith(host + "/");
+    });
     const hasScheme = !/^Category:/i.test(input) && /^[a-z][a-z\d+.-]*:/i.test(input);
     if (input.startsWith("//") || (hasScheme && !/^https?:\/\//i.test(input))) return null;
     let url;
     try {
-        url = new URL(isWikiHost ? `https://${input}` : input.startsWith("/") || hasScheme ? input : `/${input}`, origin);
+        url = new URL(isWikiHost || isPreviousHost ? `https://${input}` : input.startsWith("/") || hasScheme ? input : `/${input}`, origin);
     } catch { return null; }
     const wiki = ["bisq.wiki", "www.bisq.wiki"].includes(url.hostname.toLowerCase());
-    if (!["http:", "https:"].includes(url.protocol) || url.username || url.password ||
-        (!wiki && ![origin, siteOrigin].includes(url.origin))) return null;
+    if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) return null;
     let path = decode(url.pathname);
-    const prefix = base.replace(/\/$/, "");
-    if (!wiki && prefix && (path === prefix || path.startsWith(prefix + "/"))) path = path.slice(prefix.length);
+    const within = (prefix) => !prefix || path === prefix || path.startsWith(prefix + "/");
+    const current = base.replace(/\/$/, "");
+    if (!wiki) {
+        const sameSite = [origin, siteOrigin].includes(url.origin);
+        // Previous sites were served over HTTPS; also accept the http:// form of the same address.
+        const secureOrigin = url.protocol === "http:" ? `https://${url.host}` : url.origin;
+        // On this site, a path under a previous base path (e.g. "/bisq-docs/wiki/...") is an earlier preview path.
+        const previousBases = previousSites
+            .filter((site) => sameSite || site.origin === secureOrigin)
+            .map((site) => site.base.replace(/\/$/, ""));
+        const prefix = sameSite && current && within(current)
+            ? current
+            : previousBases.find(within) ?? (sameSite ? current : undefined);
+        if (prefix === undefined) return null;
+        if (prefix && within(prefix)) path = path.slice(prefix.length);
+    }
+    path = path.replace(/\/index\.html?$/i, "/");
     if (/^\/index\.php$/i.test(path)) {
         const title = url.searchParams.get("title");
         if (!title) return null;

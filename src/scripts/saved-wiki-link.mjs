@@ -1,3 +1,4 @@
+import { PREVIOUS_SITES } from "../lib/previous-sites.mjs";
 import { resolveSavedWikiLink } from "../lib/resolve-saved-wiki-link.mjs";
 
 let lookup;
@@ -76,7 +77,7 @@ function initialize() {
                 const map = await loadMap(form.dataset.mapUrl);
                 if (current !== generation || !form.isConnected) return;
                 const result = resolveSavedWikiLink(input.value, map, {
-                    base, origin: location.origin, siteOrigin: form.dataset.siteOrigin || location.origin,
+                    base, origin: location.origin, siteOrigin: form.dataset.siteOrigin || location.origin, previousSites: PREVIOUS_SITES,
                 });
                 output.replaceChildren();
                 if (result.kind === "invalid" || result.kind === "miss") {
