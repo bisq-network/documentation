@@ -1,0 +1,7 @@
+Teams are just a management layer for a select group of Roles.
+
+Contributors can have many roles and therefore many teams.
+
+The Team will have a Leader who will be responsible to granting access to resources the contributor needs, as well as to add a layer of efficiency and trust into the decentralised project.
+
+[[Category:DAO]]
