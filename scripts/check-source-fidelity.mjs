@@ -1,3 +1,5 @@
+import { verifyAdditionalArticles } from "./lib/additional-articles.mjs";
+import { acceptedEditsPath, parseAcceptedEdits, pullRequestLabel, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
@@ -7,11 +9,23 @@ import { fileURLToPath } from "node:url";
 // This checks the source restoration, not whether historical advice is current.
 // Its trusted baselines are the committed manifests; no external scratch files,
 // network requests, Git checkout, package installation, or build are required.
+// A human-approved wording change is accepted only through a receipt in
+// migration/accepted-edits.json: the receipt's recorded original text must
+// rebuild the preserved original exactly, which is then checked as before.
+//
+// By default a wording change without a receipt fails. Only the pull request
+// check passes --awaiting-receipt-base <dir>, a copy of the pull request's base
+// articles: an unreceipted edit then counts as awaiting a receipt, not as a
+// failure, if its base file in <dir> is exactly the restored article (or its last
+// accepted edit), passes every check above, and the edit keeps everything a
+// receipt would still require (see checkAcceptedStructure). The receipts job
+// fails while any article awaits a receipt.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = "migration/restoration-fidelity.json";
 const snapshotPath = "review/ai-edited/snapshot.json";
 const formattingPath = "migration/source-formatting.json";
 const hash = (value) => createHash("sha256").update(value).digest("hex");
+const short = (digest) => `${digest.slice(0, 12)}…`;
 const escapeHtml = (value) => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
   .replaceAll("'", "&#x27;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 const decodeHtml = (value) => value.replace(/&(#x[\da-f]+|#\d+|amp|lt|gt|quot|apos);/gi, (whole, entity) => {
@@ -70,6 +84,119 @@ function normalizeRecordedAnchors(body, anchors) {
   return normalized;
 }
 
+/** Split a source file into its article body and everything around it. */
+function splitArticle(text) {
+  const body = articleBody(text);
+  const start = text.indexOf(body);
+  return { body, outside: `${text.slice(0, start)}\0${text.slice(start + body.length)}` };
+}
+const idsOf = (body) => [...body.matchAll(/\bid="([^"]+)"/g)].map((match) => decodeHtml(match[1]));
+const clip = (value) => (value.length > 90 ? `${value.slice(0, 90)}…` : value);
+
+/**
+ * An accepted edit may change article wording only. Compare the edited file
+ * with the exact file it was based on: everything outside the article body,
+ * the container, headings, existing IDs, recorded legacy anchors and images
+ * stay as they were. An image's alt text may change only when the receipt
+ * lists that figure in changed_image_alt_text.
+ */
+// What an accepted wording edit may add or remove, compared tag by tag with its base:
+// lowercase inline markup, paragraphs and list items, new IDs, and links to http(s),
+// relative or same-page targets. Anything else (other elements, attributes such as hidden, style or
+// on*, any capitalisation) could add, hide or run content and needs its own policy.
+const editableTags = new Set(["a", "strong", "em", "b", "i", "code", "br", "p", "ul", "ol", "li"]);
+// An empty span that only carries an ID (a moved or legacy anchor) cannot hold content.
+const anchorPlaceholder = /<span(?:\s+(?:id="[^"<>]*"|class="wiki-legacy-anchor"|aria-hidden="true"))+\s*><\/span>/g;
+const tagsOf = (body) => body.replace(anchorPlaceholder, "").match(/<\/?[A-Za-z][^>]*>/g) ?? [];
+function changedTags(before, after) {
+  const counts = new Map();
+  for (const tag of tagsOf(before)) counts.set(tag, (counts.get(tag) ?? 0) - 1);
+  for (const tag of tagsOf(after)) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  return [...counts].filter(([, count]) => count !== 0).map(([tag]) => tag);
+}
+function editableTag(tag) {
+  const match = /^<(\/?)([a-z]+)((?:\s+[a-z]+="[^"<>]*")*)\s*\/?>$/.exec(tag);
+  if (!match || !editableTags.has(match[2])) return false;
+  const attributes = [...match[3].matchAll(/\s+([a-z]+)="([^"]*)"/g)].map(([, name, value]) => ({ name, value }));
+  const names = attributes.map(({ name }) => name);
+  if (new Set(names).size !== names.length) return false;
+  if (match[1]) return names.length === 0;
+  // New IDs are allowed (duplicates are rejected above); links also take href and rel.
+  if (match[2] !== "a") return names.every((name) => name === "id");
+  if (!names.length) return true; // a bare <a> links nowhere
+  return names.includes("href") && names.every((name) => ["href", "rel", "id"].includes(name))
+    && attributes.every(({ name, value }) => name !== "href" || /^(?:https?:\/\/|\.\.\/|#)/.test(value));
+}
+const occurrences = (body, pattern) => body.match(pattern)?.length ?? 0;
+
+// Stands in for the receipt of an edit that has none yet. Its alt-text changes
+// are reported instead, because the receipt will have to list those figures.
+const awaitingLabel = "The edit awaiting a receipt";
+const noReceipt = { changed_image_alt_text: [] };
+const figureId = /^source-image-\d+$/;
+
+function checkAcceptedStructure(base, edited, item, receipt, pr = pullRequestLabel(receipt.pull_request)) {
+  const before = splitArticle(base);
+  const after = splitArticle(edited);
+  assert(before.outside === after.outside, `${pr} changes text outside the article body (front matter, title, contents list or wrapper)`);
+  assert(after.body.match(/^<div\b[^>]*>/)[0] === before.body.match(/^<div\b[^>]*>/)[0], `${pr} changes the article container`);
+  const headings = (body) => [...body.matchAll(/<h([2-6])\b[^>]*>[\s\S]*?<\/h\1>/g)].map((match) => match[0]);
+  const [oldHeadings, newHeadings] = [headings(before.body), headings(after.body)];
+  const changed = [...oldHeadings, ...newHeadings].findIndex((_, index) => oldHeadings[index] !== newHeadings[index]);
+  assert(changed < 0, `${pr} changes heading ${changed + 1} (${clip(oldHeadings[changed] ?? "none")} became ${clip(newHeadings[changed] ?? "nothing")}); heading level, id and text must stay as restored`);
+  const ids = idsOf(after.body);
+  assert.equal(ids.length, new Set(ids).size, `${pr} creates duplicate IDs in the article`);
+  const lost = idsOf(before.body).filter((id) => !ids.includes(id));
+  assert(!lost.length, `${pr} removes anchor #${lost[0]}${lost.length > 1 ? ` and ${lost.length - 1} more` : ""}; section URLs and saved links would break`);
+  normalizeRecordedAnchors(after.body, item.added_legacy_anchors);
+  // A figure is compared together with the link that opens it, so the link cannot be pointed elsewhere.
+  const media = (body) => [...body.matchAll(/<figure\b[^>]*>(?:<a\b[^>]*>)?|<img\b[^>]*>/g)].map((match) => match[0]);
+  const [oldMedia, newMedia] = [media(before.body), media(after.body)];
+  assert.equal(newMedia.length, oldMedia.length, `${pr} adds or removes images or figures`);
+  const listed = new Set(receipt.changed_image_alt_text ?? []);
+  const altChanged = new Set();
+  let figure = "";
+  oldMedia.forEach((tag, index) => {
+    if (tag.startsWith("<figure")) figure = tag.match(/\bid="([^"]+)"/)?.[1] ?? "";
+    if (tag === newMedia[index]) return;
+    const withoutAlt = (value) => value.replace(/\salt="[^"]*"/, "");
+    const altOnly = tag.startsWith("<img") && withoutAlt(tag) === withoutAlt(newMedia[index]);
+    const unchanged = `only alt text may change, and only for figures listed in changed_image_alt_text`;
+    assert(altOnly, tag.startsWith("<img") ? `${pr} changes the image ${figure || `#${index + 1}`}; ${unchanged}`
+      : `${pr} changes the figure ${figure || `#${index + 1}`} or the link that opens it; figures and their links stay as restored`);
+    if (receipt === noReceipt) {
+      // Reported with the awaiting article; the receipt must then list the figure.
+      assert(figureId.test(figure), `${pr} changes the alt text of image #${index + 1}, which has no figure id a receipt could list`);
+    } else {
+      assert(listed.has(figure), `${pr} changes the image ${figure || `#${index + 1}`}; ${unchanged}`);
+    }
+    altChanged.add(figure);
+  });
+  const unused = [...listed].filter((id) => !altChanged.has(id));
+  assert(!unused.length, `${pr} lists an alt-text change for ${unused.join(", ")}, but that image is unchanged`);
+  // Headings, IDs and images are checked above; <img> tags whose alt text changed are not markup changes here.
+  const markup = changedTags(before.body, after.body).find((tag) => !/^<img\s/.test(tag) && !editableTag(tag));
+  assert(!markup, `${pr} adds or removes ${clip(markup ?? "")}; an accepted edit may change only text and plain a, strong, em, b, i, code, br, p, ul, ol and li markup`);
+  assert.equal(occurrences(after.body, /\n[ \t]*\n/g), occurrences(before.body, /\n[ \t]*\n/g), `${pr} adds or removes a blank line, which ends the article's HTML block`);
+  assert.equal(occurrences(after.body, /<[!?]/g), occurrences(before.body, /<[!?]/g), `${pr} adds or removes an HTML comment or declaration`);
+  if (item.slug === "last-resort-restore") {
+    checkRestoreSafeguards(after.body);
+    checkRestoreSafeguardContext(before.body, after.body, pr);
+  }
+  return [...altChanged];
+}
+
+// An accepted edit may not touch the words around a recovery safeguard either, so
+// "Do not" or "(not reversible)" cannot be added next to an intact phrase.
+function checkRestoreSafeguardContext(base, edited, pr) {
+  const [before, after] = [authorText(base), authorText(edited)];
+  for (const phrase of restoreSafeguards) {
+    const at = before.indexOf(phrase);
+    const context = before.slice(Math.max(0, at - 60), at + phrase.length + 60);
+    assert(after.includes(context), `${pr} changes the text around the recovery safeguard "${clip(phrase)}"`);
+  }
+}
+
 const restoreSafeguards = [
   "your Bisq instance won't start, and you don't have backups, or your backups do not start as well, or are too old to be useful",
   "hacky-workaround-last-resort-attempt",
@@ -122,8 +249,29 @@ async function filesBelow(directory) {
   return files.sort();
 }
 
-async function verify(overrides = new Map()) {
+/** Read base files below dir for verify({ readBase }); a missing file is undefined. */
+export function baseReader(dir) {
+  return async (path) => {
+    try {
+      return await readFile(resolve(dir, path));
+    } catch (error) {
+      if (error.code === "ENOENT") return undefined;
+      throw error;
+    }
+  };
+}
+
+/**
+ * Check the restored articles. Without options, any article no receipt covers
+ * fails. With readBase (path -> base file bytes or undefined), such an article
+ * is listed in `awaiting` instead when it passes everything a receipt would
+ * still require; changedImageAltText names the figures its receipt must list.
+ * `unreceipted` lists every article file no receipt covers, in either mode.
+ */
+export async function verify(overrides = new Map(), { readBase } = {}) {
   const failures = [];
+  const awaiting = [];
+  const unreceipted = [];
   const check = async (path, operation) => {
     try { await operation(); } catch (error) { failures.push(`${path}: ${error.message}`); }
   };
@@ -148,17 +296,64 @@ async function verify(overrides = new Map()) {
   assert.equal(manifest.count, 209, "manifest must account for 209 source articles");
   assert.equal(manifest.items.length, 209, "manifest article count mismatch");
   assert.equal(new Set(manifest.items.map((item) => item.slug)).size, 209, "duplicate source slug");
-  const expectedFiles = manifest.items.map((item) => `src/content/docs/wiki/${item.slug}.md`).sort();
+  let accepted = { bySlug: new Map(), problems: [] };
+  await check(acceptedEditsPath, async () => {
+    const notes = JSON.parse((await read("migration/source-review-notes.json")).toString()).items;
+    accepted = parseAcceptedEdits(JSON.parse((await read(acceptedEditsPath)).toString()), { slugs: new Set(manifest.items.map((item) => item.slug)), notes });
+  });
+  for (const problem of accepted.problems) failures.push(`${acceptedEditsPath}: ${problem}`);
+  const additions = verifyAdditionalArticles();
+  const expectedFiles = [...manifest.items.map((item) => `src/content/docs/wiki/${item.slug}.md`), ...additions.map((item) => item.file)].sort();
   await check("src/content/docs/wiki", async () => assert.deepEqual(await filesBelow("src/content/docs/wiki"), expectedFiles, "missing or unexpected source article files"));
   const images = new Set();
   let imageOccurrences = 0;
   let anchorCount = 0;
+  let counted = 0;
+  let acceptedCount = 0;
   let restoreBody;
   for (const item of manifest.items) {
     const path = `src/content/docs/wiki/${item.slug}.md`;
     await check(path, async () => {
       assert(/^[a-z0-9-]+$/.test(item.slug), "invalid source slug");
-      const text = restoreRecordedFormatting((await read(path)).toString(), formattingBySlug.get(item.slug));
+      const record = formattingBySlug.get(item.slug);
+      const baseline = record?.formatted_file_sha256 ?? item.restored_file_sha256;
+      const file = (await read(path)).toString();
+      const receipts = accepted.bySlug.get(item.slug) ?? [];
+      // The file the newest accepted edit produced, or the restored baseline.
+      const covered = receipts.length ? receipts.at(-1).accepted_file_sha256 : baseline;
+      const uncovered = hash(file) !== covered && !(receipts.length && hash(file) === baseline);
+      if (uncovered) unreceipted.push({ slug: item.slug, title: item.title, path });
+      let current = file;
+      let proposed;
+      if (uncovered && readBase) {
+        // Check the base file exactly as the article itself would be checked, then the edit against it.
+        const base = await readBase(path);
+        const why = !base ? "there is no base file to compare it with"
+          : hash(base) === covered ? ""
+          : record && !receipts.length && hash(base) === item.restored_file_sha256
+            ? `its base file has no line-break formatting yet, but this change also records it in ${formattingPath}; propose the formatting-only change on its own first (see CONTRIBUTING.md)`
+            : `its base file is sha256 ${short(hash(base))}, not the ${receipts.length ? "last accepted edit" : "restored article"} ${short(covered)}`;
+        assert(!why, `${item.title} changed ${receipts.length ? `after its accepted edit (${pullRequestLabel(receipts.at(-1).pull_request)})` : "since restoration"} and no receipt in ${acceptedEditsPath} covers it. It cannot be checked as awaiting a receipt: ${why}.`);
+        [current, proposed] = [base.toString(), file];
+      }
+      if (!receipts.length) {
+        assert(hash(current) === baseline, `${item.title} changed since restoration (sha256 ${short(hash(current))}, restored ${short(baseline)}) and no receipt in ${acceptedEditsPath} covers it. A wording change needs human approval and a receipt (see CONTRIBUTING.md); do not refresh the original hashes.`);
+      } else if (hash(current) === baseline) {
+        throw new Error(`${item.title} is unchanged since restoration, but ${pullRequestLabel(receipts.at(-1).pull_request)} has a receipt for it; apply the accepted edit or remove the receipt`);
+      }
+      receipts.forEach((receipt, index) => {
+        const expected = index ? receipts[index - 1].accepted_file_sha256 : baseline;
+        assert(receipt.based_on_file_sha256 === expected, `${pullRequestLabel(receipt.pull_request)} receipt is based on sha256 ${short(receipt.based_on_file_sha256)}, but ${index ? `the earlier accepted edit (${pullRequestLabel(receipts[index - 1].pull_request)}) produced` : `the restored baseline of this article${record ? " (original plus recorded line-break formatting)" : ""} is`} ${short(expected)}; record the receipt against the current article`);
+      });
+      // Undo accepted edits newest first; each must rebuild exactly the file it was based on.
+      const steps = [];
+      let unedited = current;
+      for (const receipt of [...receipts].reverse()) {
+        const base = undoAcceptedEdit(unedited, receipt);
+        steps.push([base, unedited, receipt]);
+        unedited = base;
+      }
+      const text = restoreRecordedFormatting(unedited, record);
       const front = text.match(/^---\n([\s\S]*?)\n---/);
       assert(front, "missing frontmatter");
       const title = front[1].match(/^title: (.+)$/m);
@@ -183,6 +378,13 @@ async function verify(overrides = new Map()) {
         checkRestoreSafeguards(body);
         restoreBody = body;
       }
+      counted += 1;
+      for (const [base, edited, receipt] of steps) checkAcceptedStructure(base, edited, item, receipt);
+      acceptedCount += steps.length;
+      if (proposed !== undefined) {
+        const changedImageAltText = checkAcceptedStructure(current, proposed, item, noReceipt, awaitingLabel);
+        awaiting.push({ slug: item.slug, title: item.title, path, changedImageAltText });
+      }
     });
     const rawPath = `public/wiki-source/${item.slug}.wiki.txt`;
     await check(rawPath, async () => assert.equal(hash(await read(rawPath)), item.raw_wikitext_sha256, "immutable raw wikitext drift"));
@@ -196,10 +398,13 @@ async function verify(overrides = new Map()) {
     });
   }
   await check(manifestPath, async () => {
-    assert.equal(imageOccurrences, 130, "expected 130 contextual image occurrences");
-    assert.equal(images.size, 120, "expected 120 unique contextual images");
-    assert.equal(imageOccurrences, manifest.image_occurrences_preserved);
-    assert.equal(images.size, manifest.unique_contextual_image_urls_preserved);
+    // Totals are meaningful only when every article was read; failed articles are reported above.
+    if (counted === manifest.items.length) {
+      assert.equal(imageOccurrences, 130, "expected 130 contextual image occurrences");
+      assert.equal(images.size, 120, "expected 120 unique contextual images");
+      assert.equal(imageOccurrences, manifest.image_occurrences_preserved);
+      assert.equal(images.size, manifest.unique_contextual_image_urls_preserved);
+    }
     const records = [...manifest.items].sort((a, b) => `${a.slug}.md` < `${b.slug}.md` ? -1 : `${a.slug}.md` > `${b.slug}.md` ? 1 : 0)
       .map((item) => `${item.slug}.md\0${item.original_whole_source_sha256}\n`).join("");
     assert.equal(hash(records), manifest.whole_rendered_snapshot_sha256, "whole original snapshot hash records changed");
@@ -219,43 +424,74 @@ async function verify(overrides = new Map()) {
     const local = `review/ai-edited/${path}`;
     await check(local, async () => assert.equal(hash(await read(local)), expected, "immutable AI-review snapshot drift"));
   }
-  return { failures, anchorCount, snapshotFiles: snapshots.length, restoreBody };
+  return { failures, awaiting, unreceipted, anchorCount, acceptedCount, acceptedArticles: accepted.bySlug.size, snapshotFiles: snapshots.length, restoreBody };
 }
 
-try {
-  const result = await verify();
-  if (result.failures.length) {
-    console.error(`Source fidelity FAILED (${result.failures.length} findings):\n${result.failures.map((failure) => `- ${failure}`).join("\n")}`);
-    process.exitCode = 1;
-  } else {
-    console.log(`Source fidelity passed: 209 original bodies/titles/raw sources, ${result.anchorCount} explicit anchor additions, 130 image occurrences/120 assets, 98 AI guides (${result.snapshotFiles} snapshot files), 14 recovery safeguards, ordered 27-file list and 8-step order.`);
-    if (process.argv.includes("--self-test")) {
-      const path = "src/content/docs/wiki/last-resort-restore.md";
-      const text = await readFile(resolve(root, path), "utf8");
-      const rawPath = "public/wiki-source/last-resort-restore.wiki.txt";
-      const snapshot = JSON.parse(await readFile(resolve(root, snapshotPath), "utf8"));
-      const guidePath = `review/ai-edited/${Object.keys(snapshot.files).find((file) => file.startsWith("guides/"))}`;
-      const teamsPath = "src/content/docs/wiki/teams.md";
-      const teams = await readFile(resolve(root, teamsPath), "utf8");
-      const mutations = [
-        [path, text.replace('title: "Last resort restore"', 'title: "Different title"')],
-        [path, text.replace("100% new instance", "90% new instance")],
-        [path, text.replace('<div class="wiki-recovered-article" lang="en">', '<div class="wiki-recovered-article" lang="en"><span>unlisted content</span>')],
-        [rawPath, `${await readFile(resolve(root, rawPath), "utf8")}\nchanged`],
-        [guidePath, "changed immutable AI draft"],
-        [teamsPath, teams.replace("is responsable", "is responsible")],
-        [teamsPath, teams.replace("Bisq is a", "Bisq  is a")],
-      ];
-      for (const [file, content] of mutations) {
-        const mutated = await verify(new Map([[file, content]]));
-        assert(mutated.failures.some((failure) => failure.startsWith(`${file}:`)), `negative test did not catch drift at ${file}`);
+/** For an awaiting article whose alt text changed: which figures its receipt must list ("" if none). */
+export function altTextNote(item) {
+  const figures = item.changedImageAltText ?? [];
+  if (!figures.length) return "";
+  return `alt text of ${figures.join(", ")} changed; its receipt must list ${figures.length === 1 ? "it" : "them"} in changed_image_alt_text`;
+}
+
+/** One awaiting article for messages: its slug, plus any alt-text note. */
+export const awaitingLine = (item) => (altTextNote(item) ? `${item.slug}: ${altTextNote(item)}` : item.slug);
+
+/** The value of --awaiting-receipt-base, or undefined when the flag is absent. */
+export function awaitingReceiptBase(argv) {
+  const index = argv.indexOf("--awaiting-receipt-base");
+  if (index < 0) return undefined;
+  const dir = argv[index + 1];
+  if (!dir || dir.startsWith("--")) throw new Error("--awaiting-receipt-base needs the directory holding the pull request's base files");
+  return dir;
+}
+
+const runAsScript = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (runAsScript) await main();
+
+async function main() {
+  try {
+    const base = awaitingReceiptBase(process.argv);
+    const result = await verify(new Map(), base === undefined ? {} : { readBase: baseReader(base) });
+    const plural = (count, noun) => `${count} ${noun}${count === 1 ? "" : "s"}`;
+    const awaiting = result.awaiting.length
+      ? `\nAwaiting an accepted-edit receipt (${plural(result.awaiting.length, "article")}; not a failure here, the receipts job reports them until reviewers accept the wording):\n${result.awaiting.map((item) => `- ${awaitingLine(item)}`).join("\n")}`
+      : "";
+    if (result.failures.length) {
+      console.error(`Source fidelity FAILED (${result.failures.length} finding${result.failures.length === 1 ? "" : "s"}):\n${result.failures.map((failure) => `- ${failure}`).join("\n")}${awaiting}`);
+      process.exitCode = 1;
+    } else {
+      const edits = result.acceptedCount ? ` (${plural(result.acceptedArticles, "article")} with ${plural(result.acceptedCount, "accepted edit")}; originals rebuilt exactly)` : "";
+      const proposals = result.awaiting.length ? ` (${result.awaiting.length} awaiting a receipt, checked against their base files)` : "";
+      console.log(`Source fidelity passed: 209 original bodies/titles/raw sources${edits}${proposals}, ${result.anchorCount} explicit anchor additions, 130 image occurrences/120 assets, 98 AI guides (${result.snapshotFiles} snapshot files), 14 recovery safeguards, ordered 27-file list and 8-step order.${awaiting}`);
+      if (process.argv.includes("--self-test")) {
+        const path = "src/content/docs/wiki/last-resort-restore.md";
+        const text = await readFile(resolve(root, path), "utf8");
+        const rawPath = "public/wiki-source/last-resort-restore.wiki.txt";
+        const snapshot = JSON.parse(await readFile(resolve(root, snapshotPath), "utf8"));
+        const guidePath = `review/ai-edited/${Object.keys(snapshot.files).find((file) => file.startsWith("guides/"))}`;
+        const teamsPath = "src/content/docs/wiki/teams.md";
+        const teams = await readFile(resolve(root, teamsPath), "utf8");
+        const mutations = [
+          [path, text.replace('title: "Last resort restore"', 'title: "Different title"')],
+          [path, text.replace("100% new instance", "90% new instance")],
+          [path, text.replace('<div class="wiki-recovered-article" lang="en">', '<div class="wiki-recovered-article" lang="en"><span>unlisted content</span>')],
+          [rawPath, `${await readFile(resolve(root, rawPath), "utf8")}\nchanged`],
+          [guidePath, "changed immutable AI draft"],
+          [teamsPath, teams.replace("is responsable", "is responsible")],
+          [teamsPath, teams.replace("Bisq is a", "Bisq  is a")],
+        ];
+        for (const [file, content] of mutations) {
+          const mutated = await verify(new Map([[file, content]]));
+          assert(mutated.failures.some((failure) => failure.startsWith(`${file}:`)), `negative test did not catch drift at ${file}`);
+        }
+        assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("btc_mainnet/tor/hiddenservice", "hiddenservice")), /lost recovery safeguard/);
+        assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("Copy all the above files", "Copy selected files")), /procedure reordered or missing/);
+        console.log("Nine negative regression checks passed; test mutations were in memory only.");
       }
-      assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("btc_mainnet/tor/hiddenservice", "hiddenservice")), /lost recovery safeguard/);
-      assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("Copy all the above files", "Copy selected files")), /procedure reordered or missing/);
-      console.log("Nine negative regression checks passed; test mutations were in memory only.");
     }
+  } catch (error) {
+    console.error(`Source fidelity FAILED: ${error.message}`);
+    process.exitCode = 1;
   }
-} catch (error) {
-  console.error(`Source fidelity FAILED: ${error.message}`);
-  process.exitCode = 1;
 }
