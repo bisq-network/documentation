@@ -1,0 +1,27 @@
+---
+import { collectGuides, loadIntegration, sections } from "../../scripts/lib/documentation.mjs";
+import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
+const originals = new Map(loadIntegration().map((article) => [article.slug, article]));
+const articles = collectGuides().map((article) => ({ ...article, products: productEvidence(originals.get(article.slug)) }));
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const productFilters = [["all", "Any product"], ["Bisq 2", "Names Bisq 2"], ["Bisq 1", "Names Bisq 1"], ["none", "Not stated"]];
+---
+<div class="article-directory" data-article-directory>
+  <p>Every restored article, by topic. Filter by title, topic or the product an article names.</p>
+  <div class="directory-tools" hidden>
+    <label for="docs-title-filter">Filter by title</label>
+    <input id="docs-title-filter" name="q" type="search" placeholder="Filter article titles…" autocomplete="off" />
+    <div class="directory-chiprow" role="group" aria-label="Topic"><span>Topic</span>{[{ directory: "all", label: "All topics" }, ...sections].map((section) => <button type="button" data-topic-filter={section.directory} aria-pressed={section.directory === "all" ? "true" : "false"}>{section.label} <span data-filter-count></span></button>)}</div>
+    <div class="directory-chiprow" role="group" aria-label="Product named in the article"><span>Product</span>{productFilters.map(([id, label]) => <button type="button" data-product-filter={id} aria-pressed={id === "all" ? "true" : "false"}>{label} <span data-filter-count></span></button>)}</div>
+  </div>
+  <p class="directory-count" role="status" aria-live="polite" data-directory-count>All articles</p>
+  <div class="directory-empty" hidden><p>No article titles match these filters.</p><button type="button" class="docs-button" data-directory-reset>Clear filters</button><button type="button" class="docs-button" data-docs-search="">Search inside articles</button></div>
+  {sections.map((section) => <section class="directory-group" data-directory-group aria-labelledby={`directory-${section.directory}`}>
+    <h2 id={`directory-${section.directory}`}>{section.label} <span data-group-count>{section.count}</span></h2>
+    {(section.subgroups || [{ label: "", articles: section.articles }]).map((subgroup) => <div data-directory-subgroup>
+      {subgroup.label && <h3>{subgroup.label}</h3>}
+      <ul class="directory-list">{articles.filter((article) => article.directory === section.directory && (!subgroup.label || article.subgroup === subgroup.label)).map((article) => <li data-directory-item data-title={article.title} data-topic={article.directory} data-products={JSON.stringify(article.products.map((product) => product.label))}><a href={`${base}${article.route}`}>{article.title}</a><span class="product-labels">{article.products.map((product) => <span class="docs-chip product" title={product.basis}>{product.label}</span>)}</span></li>)}</ul>
+    </div>)}
+  </section>)}
+</div>
+<script src="../scripts/docs-discovery.ts"></script>
