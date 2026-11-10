@@ -12,7 +12,8 @@ removes GitHub's redirects for git remotes, issues and pull requests.
 - `404.html` sends any `/bisq-docs/...` path to the same path under
   `https://bisq-network.github.io/documentation/`, keeping the query and
   the `#section`. Without JavaScript, and for any other path on the user
-  site, it shows a short "has moved" notice with a link to the new site.
+  site, it shows "Page not found" with a pointer to the new site. It becomes
+  the 404 page for every unknown path on `hiciefte.github.io`.
 - The target origin is fixed in the script, so the page cannot be used as
   an open redirect.
 
