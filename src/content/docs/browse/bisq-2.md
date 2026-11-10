@@ -1,9 +1,9 @@
 ---
 title: "Bisq 2"
-description: "Original articles about Bisq 2 and Bisq Easy."
+description: "Original wiki articles with Bisq 2 migration grouping."
 ---
 
-Original articles about Bisq 2 and Bisq Easy. Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+This saved browse address lists articles with Bisq 2 migration grouping. Grouping can refer to historical material; it does not certify current product applicability. Use the [task-based directory](../) to browse by what you need to do.
 
 - [Backup](../../wiki/backup/)
 - [Bisq 2](../../wiki/bisq-2/)
