@@ -8,6 +8,8 @@ import { reconcile, renderMarkdown, templateNames } from "./reconcile-wiki-backu
 
 const escape = (value) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 const source = (slug) => readFileSync(`public/wiki-source/${slug}.wiki.txt`, "utf8");
+// What the wiki stored: the snapshot text without the downloader's trailing version comment.
+const stored = (slug) => source(slug).replace(/<!-- BISQ VERSION: [^>]*? -->$/, "");
 const revision = (id, timestamp, text, contributor = "<username>Editor</username><id>7</id>") =>
   `<revision><id>${id}</id><timestamp>${timestamp}</timestamp><contributor>${contributor}</contributor><model>wikitext</model><format>text/x-wiki</format><text bytes="${Buffer.byteLength(text)}" xml:space="preserve">${escape(text)}</text><sha1>x</sha1></revision>`;
 const page = (title, id, revisions, ns = 0, redirect = "") =>
@@ -21,11 +23,11 @@ function fixture() {
   const restore = articles.find((item) => item.slug === "last-resort-restore");
   const sstap = JSON.parse(readFileSync("migration/additional-articles.json", "utf8")).items.find((item) => item.slug === "running-bisq-in-china-sstap");
   const pages = [
-    page(ach.title, ach.page_id, [revision(ach.revision_id, ach.revision_timestamp, source("ach-transfer"))]),
+    page(ach.title, ach.page_id, [revision(ach.revision_id, ach.revision_timestamp, stored("ach-transfer"))]),
     page(restore.title, restore.page_id, [
       revision(restore.revision_id, restore.revision_timestamp, source("last-resort-restore")),
-      revision(String(Number(restore.revision_id) + 900), "2026-11-01T10:00:00Z", source("last-resort-restore") + "\nAdded line.", "<ip>192.0.2.44</ip>"),
-      revision(String(Number(restore.revision_id) + 901), "2026-11-02T10:00:00Z", source("last-resort-restore") + "\nAdded line, edited."),
+      revision(String(Number(restore.revision_id) + 900), "2026-11-01T10:00:00Z", stored("last-resort-restore") + "\nAdded line.", "<ip>192.0.2.44</ip>"),
+      revision(String(Number(restore.revision_id) + 901), "2026-11-02T10:00:00Z", stored("last-resort-restore") + "\nAdded line, edited."),
     ]),
     page("Brand new page", "99001", [revision("99002", "2026-11-03T10:00:00Z", "Hello")]),
     page("Template:Note", "99003", [revision("99004", "2020-01-01T00:00:00Z", "note")], 10),
@@ -60,6 +62,7 @@ test("backup export is reconciled against the restored snapshot", async () => {
   assert.equal(restore.recorded_revision_text_matches, true);
   assert.match(restore.latest_text, /Added line, edited\.$/);
   assert.equal(bySlug.get("wise").status, "missing-from-backup");
+  assert.equal(bySlug.get("ach-transfer").text_sha256s, undefined);
   assert.equal(report.summary.restored_articles, 212);
   assert.deepEqual(report.new_pages.map((item) => item.title), ["Brand new page"]);
   const sstap = bySlug.get("running-bisq-in-china-sstap");
