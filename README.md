@@ -25,10 +25,10 @@ Run `npm test` and `npm run build` after changes. Source preservation checks do 
 
 ## GitHub Pages
 
-The intended community preview is [hiciefte.github.io/bisq-docs](https://hiciefte.github.io/bisq-docs/); check the Actions deployment result for the actual published revision. The included workflow is manual and derives the Pages origin and project base from the repository. For a local project-path check:
+The intended community preview is [bisq-network.github.io/documentation](https://bisq-network.github.io/documentation/); check the Actions deployment result for the actual published revision. The included workflow is manual and derives the Pages origin and project base from the repository. For a local project-path check:
 
 ```sh
-DOCS_SITE=https://hiciefte.github.io DOCS_BASE=/bisq-docs/ npm run build
+DOCS_SITE=https://bisq-network.github.io DOCS_BASE=/documentation/ npm run build
 ```
 
 See [PUBLISHING.md](PUBLISHING.md) for publishing steps. Custom domains, official adoption, attribution and reuse terms need separate decisions; no `CNAME` is included.
