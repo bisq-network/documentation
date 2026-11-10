@@ -1,19 +1,55 @@
 import { readFileSync } from "node:fs";
+import { additionalArticles } from "./additional-articles.mjs";
 
-export const sections = [
-  { directory: "bisq-2", label: "Bisq 2", intro: "Original articles about Bisq 2 and Bisq Easy." },
-  { directory: "bisq-1", label: "Bisq 1", intro: "Original articles about Bisq 1 trading, accounts, and operation." },
-  { directory: "payment-methods", label: "Payment methods", intro: "Payment methods, account limits, and signing." },
-  { directory: "troubleshooting", label: "Troubleshooting", intro: "Recovery procedures, troubleshooting, and support." },
-  { directory: "dao", label: "DAO and BSQ", intro: "BSQ, governance, proposals, and DAO operation." },
-  { directory: "contribute", label: "Contributing", intro: "Contributor roles, teams, and project processes." },
-  { directory: "reference", label: "Reference", intro: "Additional articles and technical background." },
-];
+const navigation = JSON.parse(readFileSync("migration/nav-groups.json", "utf8"));
+const expectedGroupCounts = [10, 29, 45, 22, 14, 13, 13, 20, 34, 9];
 
+// The approved handoff lists are authoritative; no product classification is inferred.
+export const sections = navigation.groups.map((group, index) => {
+  const articles = group.subgroups
+    ? group.subgroups.flatMap((subgroup) => subgroup.articles)
+    : group.articles;
+  if (group.count !== expectedGroupCounts[index] || articles.length !== group.count) {
+    throw new Error(`Unexpected navigation count for ${group.id}.`);
+  }
+  return { ...group, directory: group.id, intro: group.blurb, articles };
+});
+if (sections.length !== expectedGroupCounts.length) throw new Error("Expected ten navigation groups.");
+
+// Keep the approved original groups intact, then add the separately preserved
+// historical sources to the appropriate existing task group.
+for (const article of additionalArticles) {
+  const section = sections.find((group) => group.directory === article.directory);
+  if (!section || section.subgroups) throw new Error(`Invalid additional article placement: ${article.title}`);
+  if (sections.some((group) => group.articles.some((item) => item.title === article.title || item.route === article.route))) throw new Error(`Duplicate additional article: ${article.title}`);
+  section.articles.push({ title: article.title, route: article.route });
+  section.count += 1;
+}
+
+
+const placementByTitle = new Map();
+for (const section of sections) {
+  const subgroups = section.subgroups || [{ articles: section.articles }];
+  let navigationOrder = 0;
+  for (const subgroup of subgroups) {
+    for (const article of subgroup.articles) {
+      if (placementByTitle.has(article.title)) throw new Error(`Duplicate navigation title: ${article.title}`);
+      placementByTitle.set(article.title, {
+        route: article.route,
+        directory: section.directory,
+        subgroup: subgroup.label,
+        navigationOrder: navigationOrder++,
+      });
+    }
+  }
+}
+if (placementByTitle.size !== 209 + additionalArticles.length) throw new Error("Expected all original and additional navigation titles exactly once.");
+
+/** Load original and separately verified additional article metadata. */
 export function loadIntegration() {
   const articles = JSON.parse(readFileSync("migration/articles.json", "utf8")).items;
   if (articles.length !== 209 || new Set(articles.map((a) => a.slug)).size !== 209) throw new Error("Expected all 209 original wiki articles.");
-  return articles.map((article) => {
+  return [...articles, ...additionalArticles].map((article) => {
     if (article.route !== `/wiki/${article.slug}/`) throw new Error(`Unexpected original route: ${article.title}`);
     const fragment_map = {};
     for (const heading of article.headings || []) {
@@ -29,12 +65,28 @@ export function loadIntegration() {
   });
 }
 
+/**
+ * Join preserved article metadata to the approved task navigation, then sort by
+ * title. Reject missing placements or changed routes instead of silently hiding
+ * an article. Navigation order is retained separately for sidebar rendering.
+ */
 export function collectGuides() {
-  const taxonomy = new Map(JSON.parse(readFileSync("migration/taxonomy.json", "utf8")).items.map((item) => [item.title, item.topics]));
-  const priority = ["payment-methods", "troubleshooting", "dao", "contribute", "bisq-2", "bisq-1", "reference"];
-  return loadIntegration().map((article) => {
-    const topics = (taxonomy.get(article.title) || []).map((topic) => topic === "contributing" ? "contribute" : topic).filter((topic) => sections.some((s) => s.directory === topic));
-    if (!topics.length) topics.push("reference");
-    return { title: article.title, route: article.route, directory: priority.find((topic) => topics.includes(topic)), topics, file: `src/content/docs/wiki/${article.slug}.md`, slug: article.slug };
-  }).sort((a, b) => a.title.localeCompare(b.title, "en", { numeric: true, sensitivity: "base" }));
+  const articles = loadIntegration();
+  const guides = articles.map((article) => {
+    const placement = placementByTitle.get(article.title);
+    if (!placement || placement.route !== article.route) {
+      throw new Error(`Navigation title or route differs from source metadata: ${article.title}`);
+    }
+    return {
+      title: article.title,
+      route: article.route,
+      directory: placement.directory,
+      topics: [placement.directory],
+      subgroup: placement.subgroup,
+      navigationOrder: placement.navigationOrder,
+      file: `src/content/docs/wiki/${article.slug}.md`,
+      slug: article.slug,
+    };
+  });
+  return guides.sort((a, b) => a.title.localeCompare(b.title, "en", { numeric: true, sensitivity: "base" }));
 }

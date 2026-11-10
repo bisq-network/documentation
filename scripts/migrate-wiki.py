@@ -1,42 +1,73 @@
 #!/usr/bin/env python3
 """Rebuild the 209 historical source articles with parsed, sanitized local output.
-Run with ../migration/venv/bin/python scripts/migrate-wiki.py from site/.
+
+Run from the repository root (see INTAKE.md for the environment):
+  python scripts/migrate-wiki.py [--out DIR] [--newer-revisions FILE]
+Inputs come from the repository; outputs go to a scratch directory and are
+compared with the committed articles. Nothing in the repository is overwritten.
 """
 
 from __future__ import annotations
 
+import argparse
 import copy
+import difflib
 import hashlib
 import html
 import json
+import os
 import re
+import shutil
 import subprocess
+import sys
 import unicodedata
 from collections import Counter
 from pathlib import Path
 from urllib.parse import quote, unquote, urlsplit
 
 import bleach
+import bs4
 import mwparserfromhell as mw
 from bs4 import BeautifulSoup, NavigableString
 from mwparserfromhell import nodes as N
 
-ROOT = Path(__file__).resolve().parents[2]
-MIG = ROOT / "migration"
-SITE = ROOT / "site"
-PANDOC = MIG / "bin/pandoc"
+REPO = Path(__file__).resolve().parents[1]
+SITE = REPO  # read-only inputs: public/media/wiki images and their mapping
 TOKEN = "BISQMIGTOKEN"
-RAW = [
-    json.loads(x) for x in (ROOT / "recovery/raw-pages.jsonl").read_text().splitlines()
+# Pandoc releases that reproduce all 209 committed articles byte for byte.
+# 3.11 and older wrap table cells in <p>; 3.1.x also adds row classes.
+REPRODUCING_PANDOC = {"3.12", "3.12.1", "3.13"}
+ROW_FIELDS = [
+    "title",
+    "page_id",
+    "revision_id",
+    "revision_timestamp",
+    "available_attribution",
+    "original_url",
+    "original_revision_url",
+    "wikitext_sha256",
 ]
-META = json.loads((MIG / "articles.json").read_text())["items"]
-BY_TITLE = {x["title"]: x for x in META}
-MEDIA = json.loads((ROOT / "image-recovery/recovered-manifest.json").read_text())[
-    "items"
-]
-MEDIA = {x["canonical_filename"]: x for x in MEDIA}
-MAPPING = json.loads((SITE / "public/media/wiki/mapping.json").read_text())["files"]
-ASSETS = {x["sha256"]: x["file"] for x in MAPPING}
+# Written into every output directory; only a directory carrying it is cleaned before a run.
+OUTPUT_MARKER = ".wiki-converter-output"
+SNAPSHOT_INGEST = "<!-- BISQ VERSION:"
+
+
+def check_pandoc(binary, any_pandoc=False):
+    """Return pandoc's version line, or exit unless it is a release that reproduces the snapshot."""
+    try:
+        version = subprocess.check_output([binary, "--version"], text=True, encoding="utf-8").splitlines()[0]
+    except (OSError, subprocess.CalledProcessError) as error:
+        sys.exit(f"Cannot run pandoc ({binary}): {error}. Pass --pandoc or set PANDOC.")
+    if version.split()[-1] not in REPRODUCING_PANDOC and not any_pandoc:
+        sys.exit(f"{version} does not reproduce the snapshot; use pandoc "
+                 f"{' or '.join(sorted(REPRODUCING_PANDOC))} via --pandoc or PANDOC, or pass --any-pandoc")
+    return version
+
+
+# Set by load(); scratch output defaults to the git-ignored tmp/ directory.
+PANDOC = os.environ.get("PANDOC", "pandoc")
+OUT = REPO / "tmp/wiki-converter"
+RAW = META = BY_TITLE = MEDIA = ASSETS = CODES = None
 LITERAL_TAGS = {"code", "pre", "nowiki", "syntaxhighlight", "source"}
 CONTAINER_TAGS = {
     "div",
@@ -234,10 +265,122 @@ def build_headings(row, meta):
     return code
 
 
-CODES = {}
-for row, meta in zip(RAW, META):
-    assert row["title"] == meta["title"]
-    CODES[row["title"]] = build_headings(row, meta)
+def sha256(text):
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
+def source_categories(wikitext):
+    """Categories as articles.json records them: sorted, unique [[Category:...]] names."""
+    found = re.findall(r"\[\[\s*Category\s*:\s*([^\]|]+)", wikitext)
+    return sorted({c.strip().replace("_", " ") for c in found})
+
+
+def repo_rows(meta):
+    """Rebuild the converter's raw rows from the committed source downloads."""
+    rows = []
+    for m in meta:
+        source = REPO / "public/wiki-source"
+        record = json.loads((source / (m["slug"] + ".json")).read_text(encoding="utf-8"))
+        row = {k: record[k] for k in ROW_FIELDS}
+        row["wikitext"] = (source / (m["slug"] + ".wiki.txt")).read_bytes().decode("utf-8")
+        assert row["title"] == m["title"] and sha256(row["wikitext"]) == row["wikitext_sha256"], m["slug"]
+        rows.append(row)
+    return rows
+
+
+def apply_newer_revisions(rows, meta, path):
+    """Replace rows with the newer revisions written by reconcile-wiki-backup.mjs.
+
+    Rows are matched by page id, then title. Returns the indexes of replaced rows.
+    """
+    by_id = {str(r["page_id"]): i for i, r in enumerate(rows)}
+    by_title = {canon(r["title"]): i for i, r in enumerate(rows)}
+    updated = []
+    # Split on LF only: JSON.stringify leaves U+2028 and similar characters raw.
+    for number, line in enumerate(Path(path).read_bytes().decode("utf-8").split("\n"), 1):
+        if not line.strip():
+            continue
+        try:
+            new = json.loads(line)
+        except json.JSONDecodeError as error:
+            sys.exit(f"{path}:{number}: not valid JSON ({error})")
+        if not isinstance(new, dict):
+            sys.exit(f"{path}:{number}: expected one JSON object per line")
+        where = f"{path}:{number} ({new.get('title')!r})"
+        i = by_id.get(str(new.get("page_id")))
+        j = by_title.get(canon(str(new.get("title", ""))))
+        if i is None and j is None:
+            sys.exit(f"{where}: not one of the 209 converted articles; additional articles use their own layout")
+        if i != j:
+            sys.exit(f"{where}: page id {new.get('page_id')!r} and title {new.get('title')!r} do not name the same article")
+        revision_id = new.get("revision_id")
+        if isinstance(revision_id, bool) or not re.fullmatch(r"[1-9]\d*", str(revision_id)):
+            sys.exit(f"{where}: revision_id must be a positive integer")
+        if not isinstance(new.get("revision_timestamp"), str) or not re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ", new["revision_timestamp"]):
+            sys.exit(f"{where}: revision_timestamp must look like 2026-11-10T12:00:00Z")
+        attribution = new.get("available_attribution")
+        if attribution is not None and not (
+            isinstance(attribution, dict) and set(attribution) <= {"username", "id"}
+            and isinstance(attribution.get("username"), str)
+        ):
+            sys.exit(f"{where}: available_attribution must be null or {{\"username\": ..., \"id\": ...}}")
+        if i in updated:
+            sys.exit(f"{where}: article listed twice")
+        text = new.get("wikitext")
+        if not isinstance(text, str) or not text.strip():
+            sys.exit(f"{where}: missing wikitext")
+        if "\r" in text or TOKEN in text:
+            sys.exit(f"{where}: wikitext contains CR line endings or the converter token")
+        if int(new["revision_id"]) <= int(rows[i]["revision_id"]):
+            sys.exit(f"{where}: revision {new['revision_id']} is not newer than {rows[i]['revision_id']}")
+        row = dict(rows[i])
+        row.update(
+            {
+                "revision_id": str(new["revision_id"]),
+                "revision_timestamp": new["revision_timestamp"],
+                # The intake writes null for anonymous editors; IPs are never accepted.
+                "available_attribution": attribution or {},
+                "original_revision_url": f"https://bisq.wiki/index.php?oldid={new['revision_id']}",
+                "wikitext_sha256": sha256(text),
+                "wikitext": text,
+                # Not a snapshot field: marks a revision taken from the full backup.
+                "from_backup": True,
+            }
+        )
+        rows[i] = row
+        meta[i].update({k: row[k] for k in ROW_FIELDS if k in meta[i]})
+        meta[i]["categories"] = source_categories(text)
+        updated.append(i)
+    return updated
+
+
+def load(raw_pages=None, newer=None, media_manifest=None, pandoc=None, out=None):
+    """Load the snapshot inputs into the module globals the converter uses.
+
+    Defaults read everything from the repository. raw_pages selects an original
+    recovery/raw-pages.jsonl instead of public/wiki-source; newer replaces the
+    listed articles' rows before headings are built, so links into them resolve
+    against the newer text. Returns the indexes of the replaced rows.
+    """
+    global RAW, META, BY_TITLE, MEDIA, ASSETS, CODES, PANDOC, OUT
+    PANDOC = pandoc or PANDOC
+    OUT = Path(out) if out else OUT
+    META = json.loads((REPO / "migration/articles.json").read_text(encoding="utf-8"))["items"]
+    if raw_pages:
+        RAW = [json.loads(x) for x in Path(raw_pages).read_bytes().decode("utf-8").split("\n") if x.strip()]
+    else:
+        RAW = repo_rows(META)
+    updated = apply_newer_revisions(RAW, META, newer) if newer else []
+    BY_TITLE = {x["title"]: x for x in META}
+    manifest = Path(media_manifest or REPO / "recovery-evidence/recovered-manifest.json")
+    MEDIA = {x["canonical_filename"]: x for x in json.loads(manifest.read_text(encoding="utf-8"))["items"]}
+    mapping = json.loads((SITE / "public/media/wiki/mapping.json").read_text(encoding="utf-8"))["files"]
+    ASSETS = {x["sha256"]: x["file"] for x in mapping}
+    CODES = {}
+    for row, meta in zip(RAW, META):
+        assert row["title"] == meta["title"]
+        CODES[row["title"]] = build_headings(row, meta)
+    return updated
 
 
 class Article:
@@ -273,15 +416,18 @@ class Article:
         return "\n\n" + key + "\n\n" if block else key
 
     def render(self, prepared, inline=False, allow_failure=False):
+        """Run Pandoc and restore protected tokens, recording conversion failures."""
         result = subprocess.run(
             [str(PANDOC), "--from=mediawiki", "--to=html5", "--wrap=none"],
             input=prepared,
             text=True,
+            encoding="utf-8",
             capture_output=True,
         )
         if result.returncode:
-            (MIG / "pandoc-failure.mediawiki").write_text(prepared)
-            (MIG / "pandoc-failure.json").write_text(
+            OUT.mkdir(parents=True, exist_ok=True)
+            (OUT / "pandoc-failure.mediawiki").write_text(prepared, encoding="utf-8")
+            (OUT / "pandoc-failure.json").write_text(
                 json.dumps(
                     {
                         "title": self.row["title"],
@@ -289,7 +435,8 @@ class Article:
                         "code": result.returncode,
                     },
                     indent=2,
-                )
+                ),
+                encoding="utf-8",
             )
             if allow_failure:
                 self.gap(
@@ -873,6 +1020,7 @@ class Article:
         return note + str(soup) + raw
 
     def convert(self):
+        """Write one sanitized source article and its hash-checked source metadata."""
         body = self.render(self.prepare(CODES[self.row["title"]]))
         body = CLEANER.clean(body)
         body = self.adapt_legacy_portal(body)
@@ -901,10 +1049,9 @@ class Article:
         body = body.replace("\n", "&#10;")
         r = self.row
         m = self.meta
-        contributor = r["available_attribution"].get(
-            "username", r["available_attribution"].get("ip", "Not supplied")
-        )
-        provenance = f'<details class="wiki-source-provenance"><summary>Source, revision and attribution</summary><p>Source revision <a href="{esc(r["original_revision_url"])}">{esc(r["revision_id"])}</a>, dated {esc(r["revision_timestamp"])}. Snapshot last successful ingest: 2026-10-18. Exported revision contributor: {esc(contributor)}; full author history and licensing remain unresolved.</p><p><a href="../../wiki-source/{m["slug"]}.wiki.txt" download>Download exact snapshot wikitext</a> · <a href="../../wiki-source/{m["slug"]}.json">Source metadata</a></p><p>SHA-256: <code>{r["wikitext_sha256"]}</code>. Ingest-added product classification comments are not original author metadata.</p></details>'
+        attribution = r["available_attribution"] or {}
+        contributor = attribution.get("username", attribution.get("ip", "Not supplied"))
+        provenance = f'<details class="wiki-source-provenance"><summary>Source, revision and attribution</summary><p>Source revision <a href="{esc(r["original_revision_url"])}">{esc(r["revision_id"])}</a>, dated {esc(r["revision_timestamp"])}. {"Taken from the full wiki backup." if r.get("from_backup") else "Snapshot last successful ingest: 2026-10-18."} Exported revision contributor: {esc(contributor)}; full author history and licensing remain unresolved.</p><p><a href="../../wiki-source/{m["slug"]}.wiki.txt" download>Download exact snapshot wikitext</a> · <a href="../../wiki-source/{m["slug"]}.json">Source metadata</a></p><p>SHA-256: <code>{r["wikitext_sha256"]}</code>.{" Ingest-added product classification comments are not original author metadata." if SNAPSHOT_INGEST in r["wikitext"] else ""}</p></details>'
         categories = (
             '<p class="wiki-source-categories"><strong>Source categories:</strong> '
             + esc(", ".join(m["categories"]))
@@ -939,10 +1086,11 @@ class Article:
             + categories
             + "\n"
         )
-        output = SITE / "src/content/docs/wiki" / (m["slug"] + ".md")
+        # The converter's own output, before the restoration in restore_article().
+        output = OUT / "converted" / (m["slug"] + ".md")
         output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(content)
-        source = SITE / "public/wiki-source"
+        output.write_text(content, encoding="utf-8")
+        source = OUT / "site/public/wiki-source"
         source.mkdir(parents=True, exist_ok=True)
         data = r["wikitext"].encode()
         assert hashlib.sha256(data).hexdigest() == r["wikitext_sha256"]
@@ -970,8 +1118,15 @@ class Article:
                 "classification_comment_provenance": m["product_hint_provenance"],
             }
         )
+        if r.get("from_backup"):
+            # A newer revision from the full backup: no snapshot ingest, and no
+            # downloader comment unless the text still contains one.
+            del meta["snapshot_last_successful_ingest_utc"]
+            meta["source_origin"] = "Full wiki backup, via scripts/reconcile-wiki-backup.mjs"
+            if SNAPSHOT_INGEST not in r["wikitext"]:
+                del meta["classification_comment_provenance"]
         (source / (m["slug"] + ".json")).write_text(
-            json.dumps(meta, indent=2, ensure_ascii=False) + "\n"
+            json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
         )
         m.update(
             {
@@ -1002,77 +1157,320 @@ class Article:
             "gaps": self.gaps,
             "resolved_fragment_links": self.fragments,
             "rendered_html": body,
+            "content": content,
         }
 
 
-def main():
+# Post-conversion restoration. The committed articles are the converter output
+# after two recorded steps: migration/restoration-fidelity.json (wrappers removed,
+# TOC excluded from search, empty legacy-anchor spans added) and, for the articles
+# in migration/source-formatting.json, newline entities decoded for readable diffs.
+# Both functions reproduce those records exactly for all 209 articles.
+BODY_START = '<div class="wiki-recovered-article"'
+# Committed records that a source update replaces with values from this run.
+RECORDS = {"articles.json", "title-route-map.json", "restoration-fidelity.json", "source-formatting.json"}
+
+
+def restore_article(content, headings):
+    """Return the committed form of one converted article and its fidelity record."""
+    front = re.match(
+        r"---\n(title: .*\n)(slug: .*\n)description: .*\n(tableOfContents: false\n)---\n\n",
+        content,
+    )
+    assert front, "unexpected converter front matter"
+    rest = content[front.end() :]
+    wrappers = re.match(
+        r'<aside class="wiki-recovery-status" role="note">.*?</aside>\n\n'
+        r'<details class="wiki-source-provenance">.*?</details>\n\n'
+        r'(<nav class="wiki-source-toc"[^\n]*</nav>)?\n\n',
+        rest,
+    )
+    assert wrappers and rest.startswith(BODY_START, wrappers.end()), "unexpected wrappers"
+    rest = rest[wrappers.end() :]
+    end = rest.index("</div>\n\n") + len("</div>")  # the body is one physical line
+    body = rest[:end]
+    assert re.fullmatch(r'\n\n(<p class="wiki-source-categories">[^\n]*</p>)?\n', rest[end:])
+    # A heading whose MediaWiki anchor differs from its stable id keeps the old
+    # anchor as an empty span, unless that id already exists in the article.
+    ids = {html.unescape(x) for x in re.findall(r'\bid="([^"]+)"', body)}
+    restored = body
+    anchors = []
+    for h in headings:
+        legacy = h["legacy_id"]
+        if legacy == h["anchor"] or legacy in ids or legacy in [a["legacy_id"] for a in anchors]:
+            continue
+        span = f'<span class="wiki-legacy-anchor" id="{esc(legacy)}" aria-hidden="true"></span>'
+        at = [m.start() for m in re.finditer(r'<h[2-6] id="' + re.escape(esc(h["anchor"])) + '"', restored)]
+        assert len(at) == 1, f"heading {h['anchor']} not found exactly once"
+        restored = restored[: at[0]] + span + restored[at[0] :]
+        anchors.append({"legacy_id": legacy, "stable_id": h["anchor"], "exact_added_span": span})
+    text = "---\n" + front.group(1) + front.group(2) + front.group(3) + "---\n\n"
+    if wrappers.group(1):
+        text += wrappers.group(1).replace("<nav ", "<nav data-pagefind-ignore ", 1) + "\n\n"
+    text += restored + "\n"
+    return text, {
+        "original_whole_source_sha256": sha256(content),
+        "original_article_body_sha256": sha256(body),
+        "restored_article_body_sha256": sha256(restored),
+        "restored_article_body_without_recorded_anchor_spans_sha256": sha256(body),
+        "restored_file_sha256": sha256(text),
+        "added_legacy_anchors": anchors,
+        "image_occurrences": len(re.findall(r"<img\b[^>]*>", restored)),
+    }
+
+
+def format_source(text):
+    """Decode newline entities into line breaks where that cannot change the page.
+
+    An entity stays when its line would be blank or end in whitespace: Markdown
+    ends raw HTML at a blank line, and editors strip trailing spaces. Returns the
+    text and the decoded offsets in UTF-16 code units, as the record stores them.
+    """
+    parts, offsets = [], []
+    units = 0
+    last = ""  # last character of the current output line
+    cursor = 0
+    for match in re.finditer("&#10;", text):
+        chunk = text[cursor : match.start()]
+        cursor = match.end()
+        parts.append(chunk)
+        units += len(chunk.encode("utf-16-le")) // 2
+        if "\n" in chunk:
+            last = chunk[chunk.rfind("\n") + 1 :][-1:]
+        elif chunk:
+            last = chunk[-1]
+        if last and last not in " \t":
+            offsets.append(units)
+            parts.append("\n")
+            units += 1
+            last = ""
+        else:
+            parts.append("&#10;")
+            units += 5
+            last = ";"
+    parts.append(text[cursor:])
+    return "".join(parts), offsets
+
+
+def first_difference(old, new):
+    """Locate the first differing character for a short comparison note."""
+    at = next((i for i, (a, b) in enumerate(zip(old, new)) if a != b), min(len(old), len(new)))
+    return {"offset": at, "committed": old[max(0, at - 60) : at + 60], "regenerated": new[max(0, at - 60) : at + 60]}
+
+
+def review_diff(old, new, label):
+    """Unified diff with lines also split after newline entities, for review."""
+
+    def split(text):
+        lines = [x for x in re.split(r"(?<=&#10;)|(?<=\n)", text) if x]
+        if lines and not lines[-1].endswith("\n"):
+            lines[-1] += "\n\\ No newline at end of file\n"
+        return lines
+
+    return "".join(difflib.unified_diff(split(old), split(new), "a/" + label, "b/" + label, n=2))
+
+
+def anchor_set(meta):
+    """Every fragment an article answers to: stable, legacy and explicit ids."""
+    return {h["anchor"] for h in meta["headings"]} | {h["legacy_id"] for h in meta["headings"]} | set(meta["explicit_anchors"])
+
+
+def references(slug, anchors):
+    """Committed files that link to the given anchors of an article."""
+    hits = {}
+    for path in sorted((REPO / "src").rglob("*")):
+        if path.is_file() and path.suffix in {".md", ".mdx", ".astro", ".ts", ".mjs", ".json"}:
+            text = path.read_text(encoding="utf-8", errors="replace")
+            for anchor in anchors:
+                if f"{slug}/#{quote(anchor, safe='-._~')}" in text:
+                    hits.setdefault(anchor, []).append(str(path.relative_to(REPO)))
+    return hits
+
+
+def write_json(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--out", type=Path, default=REPO / "tmp/wiki-converter",
+                        help="scratch directory (default: tmp/wiki-converter); inside the repository only under tmp/")
+    parser.add_argument("--newer-revisions", type=Path,
+                        help="newer-revisions.jsonl from reconcile-wiki-backup.mjs; re-render only these articles")
+    parser.add_argument("--pandoc", default=os.environ.get("PANDOC", "pandoc"),
+                        help="pandoc binary (default: $PANDOC, else pandoc on PATH)")
+    parser.add_argument("--any-pandoc", action="store_true",
+                        help="allow a pandoc release that is not known to reproduce the snapshot")
+    parser.add_argument("--raw-pages", type=Path,
+                        help="original recovery/raw-pages.jsonl instead of public/wiki-source")
+    parser.add_argument("--media-manifest", type=Path, default=REPO / "recovery-evidence/recovered-manifest.json",
+                        help="recovered image manifest (default: recovery-evidence/recovered-manifest.json)")
+    return parser.parse_args(argv)
+
+
+def main(argv=None):
+    """Convert the snapshot or newer revisions, restore the committed layout, compare."""
+    args = parse_args(argv)
+    out = args.out.resolve()
+    if out.is_relative_to(REPO) and not out.is_relative_to(REPO / "tmp"):
+        sys.exit(f"--out {args.out} is inside the repository; use a directory under tmp/ or outside it")
+    pandoc_version = check_pandoc(args.pandoc, args.any_pandoc)
+    # Clean only a directory this converter created; never delete folders in someone else's.
+    if out.exists() and any(out.iterdir()) and not (out / OUTPUT_MARKER).exists():
+        sys.exit(f"--out {args.out} is not empty and was not created by this converter; use a new or empty directory")
+    out.mkdir(parents=True, exist_ok=True)
+    (out / OUTPUT_MARKER).write_text("Output of scripts/migrate-wiki.py. Each run deletes and rewrites the generated folders here.\n", encoding="utf-8")
+    for name in ["converted", "site", "migration", "diffs"]:
+        if (out / name).exists():
+            shutil.rmtree(out / name)
+    for name in ["comparison.json", "fidelity-records.json", "pandoc-failure.json", "pandoc-failure.mediawiki"]:
+        (out / name).unlink(missing_ok=True)
+    committed_meta = {x["slug"]: x for x in json.loads((REPO / "migration/articles.json").read_text(encoding="utf-8"))["items"]}
+    fidelity = {x["slug"]: x for x in json.loads((REPO / "migration/restoration-fidelity.json").read_text(encoding="utf-8"))["items"]}
+    formatting = {x["slug"]: x for x in json.loads((REPO / "migration/source-formatting.json").read_text(encoding="utf-8"))["items"]}
+    updated = load(args.raw_pages, args.newer_revisions, args.media_manifest, args.pandoc, out)
     assert len(RAW) == len(META) == 209 and all(TOKEN not in r["wikitext"] for r in RAW)
-    results = []
-    for i, (row, meta) in enumerate(zip(RAW, META), 1):
+    selected = updated if args.newer_revisions else list(range(len(META)))
+    results, comparison, fidelity_items, formatting_items = [], [], [], []
+    for n, i in enumerate(selected, 1):
+        row, meta = RAW[i], META[i]
+        slug = meta["slug"]
         result = Article(row, meta).convert()
         results.append(result)
-        evidence = MIG / "pages"
-        evidence.mkdir(exist_ok=True)
-        (evidence / (meta["slug"] + ".json")).write_text(
-            json.dumps(
-                {k: v for k, v in result.items() if k != "rendered_html"},
-                indent=2,
-                ensure_ascii=False,
-            )
-            + "\n"
-        )
-        html_dir = MIG / "rendered-html"
-        html_dir.mkdir(exist_ok=True)
-        (html_dir / (meta["slug"] + ".html")).write_text(result["rendered_html"])
-        if i % 25 == 0:
-            print(f"Converted {i}/209 articles", flush=True)
+        write_json(OUT / "migration/pages" / (slug + ".json"),
+                   {k: v for k, v in result.items() if k not in {"rendered_html", "content"}})
+        (OUT / "migration/rendered-html").mkdir(parents=True, exist_ok=True)
+        (OUT / "migration/rendered-html" / (slug + ".html")).write_text(result["rendered_html"], encoding="utf-8")
+        restored, record = restore_article(result["content"], meta["headings"])
+        record = {
+            "title": row["title"],
+            "slug": slug,
+            "raw_wikitext_sha256": row["wikitext_sha256"],
+            "source_revision_id": row["revision_id"],
+            "source_revision_timestamp": row["revision_timestamp"],
+            **record,
+        }
+        fidelity_items.append(record)
+        text = restored
+        if slug in formatting:
+            text, offsets = format_source(restored)
+            formatting_items.append({
+                "slug": slug,
+                "decoded_newline_entities": len(offsets),
+                "decoded_newline_offsets": offsets,
+                "original_file_sha256": sha256(restored),
+                "formatted_file_sha256": sha256(text),
+            })
+        site_file = OUT / "site/src/content/docs/wiki" / (slug + ".md")
+        site_file.parent.mkdir(parents=True, exist_ok=True)
+        site_file.write_text(text, encoding="utf-8")
+        committed = (REPO / "src/content/docs/wiki" / (slug + ".md")).read_bytes().decode("utf-8")
+        sources = {
+            ext: (REPO / "public/wiki-source" / (slug + ext)).read_bytes()
+            == (OUT / "site/public/wiki-source" / (slug + ext)).read_bytes()
+            for ext in [".wiki.txt", ".json"]
+        }
+        expected = {k: v for k, v in fidelity[slug].items() if k in record}
+        entry = {
+            "slug": slug,
+            "converted_matches_snapshot_receipt": result["output_sha256"] == committed_meta[slug]["output_sha256"],
+            "restoration_record_matches_manifest": record == expected,
+            "formatting_record_matches_manifest": slug not in formatting or formatting_items[-1] == formatting[slug],
+            "article_matches_committed": text == committed,
+            "wikitext_matches_committed": sources[".wiki.txt"],
+            "metadata_matches_committed": sources[".json"],
+        }
+        if text != committed:
+            entry["first_difference"] = first_difference(committed, text)
+        if args.newer_revisions:
+            diff = review_diff(committed, text, f"src/content/docs/wiki/{slug}.md")
+            for ext in [".wiki.txt", ".json"]:
+                diff += review_diff((REPO / "public/wiki-source" / (slug + ext)).read_text(encoding="utf-8"),
+                                    (OUT / "site/public/wiki-source" / (slug + ext)).read_text(encoding="utf-8"),
+                                    f"public/wiki-source/{slug}{ext}")
+            (OUT / "diffs").mkdir(parents=True, exist_ok=True)
+            (OUT / "diffs" / (slug + ".diff")).write_text(diff, encoding="utf-8")
+            removed = sorted(anchor_set(committed_meta[slug]) - anchor_set(meta))
+            entry.update({
+                "revision": f"{committed_meta[slug]['revision_id']} -> {row['revision_id']}",
+                "removed_anchors": removed,
+                "links_to_removed_anchors": references(slug, removed),
+                "manifests_mentioning_article": sorted(
+                    p.name for p in (REPO / "migration").glob("*.json")
+                    if p.name not in RECORDS and f'"{slug}"' in p.read_text(encoding="utf-8")),
+            })
+        comparison.append(entry)
+        if n % 25 == 0:
+            print(f"Converted {n}/{len(selected)} articles", flush=True)
     for name in ["articles.json", "title-route-map.json"]:
-        (MIG / name).write_text(
-            json.dumps(
-                {"schema_version": 1, "count": len(META), "items": META},
-                indent=2,
-                ensure_ascii=False,
-            )
-            + "\n"
-        )
+        write_json(OUT / "migration" / name, {"schema_version": 1, "count": len(META), "items": META})
+    # Records of articles that were not re-rendered must stay exactly as committed.
+    rendered = {META[i]["slug"] for i in selected}
+    records_match = {
+        name: (OUT / "migration" / name).read_bytes() == (REPO / "migration" / name).read_bytes()
+        for name in ["articles.json", "title-route-map.json"]
+    }
+    unchanged_records = [m["slug"] for m in META if m["slug"] not in rendered and m != committed_meta[m["slug"]]]
+    if unchanged_records:
+        sys.exit(f"Records changed for articles that were not re-rendered: {', '.join(unchanged_records)}")
+    write_json(OUT / "fidelity-records.json", {
+        "note": "Values for migration/restoration-fidelity.json items and migration/source-formatting.json records",
+        "restoration_fidelity_items": fidelity_items,
+        "source_formatting_items": formatting_items,
+    })
     occurrences = [
         dict(page_id=r["page_id"], title=r["title"], route=r["route"], **image)
         for r in results
         for image in r["images"]
     ]
-    (MIG / "image-occurrences.json").write_text(
-        json.dumps(
-            {"schema_version": 1, "count": len(occurrences), "items": occurrences},
-            indent=2,
-            ensure_ascii=False,
-        )
-        + "\n"
-    )
+    write_json(OUT / "migration/image-occurrences.json", {"schema_version": 1, "count": len(occurrences), "items": occurrences})
     report = {
         "article_count": len(results),
         "image_occurrences": len(occurrences),
         "unique_image_filenames": len({i["canonical_filename"] for i in occurrences}),
-        "inline_recovered_image_occurrences": sum(
-            i["disposition"] == "inline_recovered_image" for i in occurrences
-        ),
-        "missing_image_placeholders": sum(
-            i["disposition"] == "explicit_missing_image_placeholder"
-            for i in occurrences
-        ),
+        "inline_recovered_image_occurrences": sum(i["disposition"] == "inline_recovered_image" for i in occurrences),
+        "missing_image_placeholders": sum(i["disposition"] == "explicit_missing_image_placeholder" for i in occurrences),
         "headings": sum(len(r["headings"]) for r in results),
         "code_or_literal_occurrences": sum(len(r["codes"]) for r in results),
         "gap_counts": dict(Counter(g["kind"] for r in results for g in r["gaps"])),
         "all_source_hashes_verified": True,
         "all_local_images_hash_verified": True,
-        "pandoc_version": subprocess.check_output(
-            [str(PANDOC), "--version"], text=True
-        ).splitlines()[0],
+        "pandoc_version": pandoc_version,
         "parser_version": mw.__version__,
+        "python_version": sys.version.split()[0],
+        "python_packages": {"bleach": bleach.__version__, "beautifulsoup4": bs4.__version__, "mwparserfromhell": mw.__version__},
+        "input": str(args.newer_revisions or args.raw_pages or "public/wiki-source"),
         "scope": "Historical source conversion; reviewed guides unchanged; no publication or current-product validation",
     }
-    (MIG / "conversion-report.json").write_text(json.dumps(report, indent=2) + "\n")
-    print(json.dumps(report, indent=2))
+    write_json(OUT / "migration/conversion-report.json", report)
+    checks = [k for k in comparison[0] if k.endswith(("_receipt", "_manifest", "_committed"))] if comparison else []
+    summary = {k: sum(bool(c[k]) for c in comparison) for k in checks}
+    differing = [c["slug"] for c in comparison if not all(c[k] for k in checks)]
+    write_json(OUT / "comparison.json", {"articles": len(comparison), "matching": summary, "differing": differing, "items": comparison})
+    print(f"{pandoc_version}; wrote {OUT}")
+    if args.newer_revisions:
+        print(f"  Re-rendered {len(comparison)} articles at newer revisions; they differ from the committed snapshot by design.")
+        print(f"  New records for {', '.join(sorted(RECORDS))}: {OUT / 'migration'} and {OUT / 'fidelity-records.json'}")
+        for c in comparison:
+            print(f"  {c['slug']} {c['revision']}: review {OUT / 'diffs' / (c['slug'] + '.diff')}")
+            if c["removed_anchors"]:
+                print(f"    removed anchors: {', '.join(c['removed_anchors'])}; linked from: {c['links_to_removed_anchors'] or 'nothing in src/'}")
+            if c["manifests_mentioning_article"]:
+                print(f"    also check: {', '.join('migration/' + m for m in c['manifests_mentioning_article'])}")
+        return 0
+    for key, count in summary.items():
+        print(f"  {key}: {count}/{len(comparison)}")
+    for name, same in records_match.items():
+        print(f"  migration/{name} {'matches' if same else 'DIFFERS from'} the committed file")
+    if not all(records_match.values()):
+        return 1
+    if differing:
+        print(f"  {len(differing)} articles differ from the committed files (details in comparison.json): {', '.join(differing)}")
+        return 1
+    print("  All regenerated articles, sources and records are byte-identical to the committed files.")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

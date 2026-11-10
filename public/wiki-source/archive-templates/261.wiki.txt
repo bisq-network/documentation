@@ -1,0 +1,5 @@
+Bisq’s built-in bitcoin wallet is based on BIP-44. BTC segwit addresses have a <code>m/44'/0'/1'</code> derivation path and legacy addresses have a <code>m/44'/0'/0'</code> derivation path. BSQ wallets have a <code>m/44'/142'/0'</code> derivation path.
+
+The same seed phrase is used for BTC and BSQ wallets.
+
+'''Please do not try to send BSQ to a non-Bisq wallet, or to otherwise create your own BSQ transactions.''' The rules to form a valid BSQ transaction are rather complex, and even the slightest error can result in invalid BSQ. Bisq will NOT provide support for any such cases.
