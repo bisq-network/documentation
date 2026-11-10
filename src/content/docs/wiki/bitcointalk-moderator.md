@@ -1,0 +1,12 @@
+---
+title: "Bitcointalk Moderator"
+slug: "wiki/bitcointalk-moderator"
+description: "Additional historical source, wiki revision 1203"
+tableOfContents: false
+---
+
+<aside class="additional-source-notice" role="note" data-pagefind-ignore><p>Additional historical source recovered from the Internet Archive dump labelled 14 October 2026. Original wiki revision 2020-04-28T15:21:42Z. This is restored source text, not current operating advice. The original source starts with a redirect directive; the directive is recorded as metadata and omitted from the displayed body, while all following prose is retained.</p></aside>
+
+<nav class="wiki-source-toc" data-pagefind-ignore aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#issue">Issue</a></li><li><a href="#team">Team</a></li><li><a href="#github">github</a></li><li><a href="#wiki">wiki</a></li><li><a href="#duties">Duties</a></li><li><a href="#rights">Rights</a></li><li><a href="#bonding">Bonding</a></li></ul></details></nav>
+
+<div class="wiki-recovered-article" lang="en"><p><strong><big>This Role has been superseded by the <a href="../community-manager/">Community Manager</a> as stated in <a href="https://github.com/bisq-network/roles/issues/37#issuecomment-620416643" rel="noopener noreferrer">Bitcointalk Moderator Role Issue</a> and <a href="https://github.com/bisq-network/roles/issues/95" rel="noopener noreferrer">Community Manager Role</a></big></strong></p>&#10;<p>This article documents the <em>Bitcointalk Moderator</em> <span class="wiki-link-gap">role <small>[unrecovered article: role]</small></span>.</p>&#10;<p><br>&#10;<br>&#10;<br>&#10;</p>&#10;<h2 id="issue"> Issue </h2>&#10;<ul>&#10;<li><a href="https://github.com/bisq-network/roles/issues/37" rel="noopener noreferrer">Bitcointalk Moderator #37</a></li>&#10;</ul>&#10;<h2 id="team"> Team </h2>&#10;<h3 id="github">github</h3>&#10;<ul>&#10;<li><a href="https://github.com/orgs/bisq-network/teams/bitcointalk-moderators" rel="noopener noreferrer">@bisq-network/bitcointalk-moderators</a></li>&#10;</ul>&#10;<h3 id="wiki">wiki</h3>&#10;<h2 id="duties"> Duties </h2>&#10;<ul>&#10;<li>This role is about keeping the <a href="https://bitcointalk.org/index.php?topic=4509053.0" rel="noopener noreferrer">Bisq thread</a> on the Bitcointalk forum up-to-date.</li>&#10;</ul>&#10;<h2 id="rights"> Rights </h2>&#10;<h2 id="bonding"> Bonding </h2>&#10;<p>N/A</p>&#10;</div>
