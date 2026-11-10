@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "source_slug": "payment-methods-en",
+      "source_sha256": "10515d425f0490f311edc9865646ac5aa47d841a0f939dd7386d2483c0005916",
+      "source_line": 98,
+      "original_title": "XMR",
+      "target": "/wiki/trading-monero/",
+      "evidence": "Unique first-letter-case exception: XMR compared with archived Xmr redirect to Trading Monero."
+    },
+    {
+      "source_slug": "payment-methods-es",
+      "source_sha256": "c613c98cfa8f25a997ea38e7d02b84dfc577520f6681019d7fe6fef72226982b",
+      "source_line": 98,
+      "original_title": "XMR",
+      "target": "/wiki/trading-monero/",
+      "evidence": "Unique first-letter-case exception: XMR compared with archived Xmr redirect to Trading Monero."
+    },
+    {
+      "source_slug": "satispay",
+      "source_sha256": "3e52312b65a2b4bf2f7e2a48f34e4ae657d940a329b5af3fcfab9af89abf313f",
+      "source_line": 31,
+      "original_title": "satispay.com/it-it/privati/",
+      "target": "https://satispay.com/it-it/privati/",
+      "evidence": "Explicit provider address in source; the https scheme repairs link syntax without a provider availability claim."
+    },
+    {
+      "source_slug": "paying-trading-fees-with-bsq",
+      "source_sha256": "64e374d0a39d252307abdb737fc53b317967b129d96c3ca77f22d170e801654b",
+      "source_line": 15,
+      "original_title": "BSQ technically bitcoin",
+      "target": "/wiki/bsq/",
+      "evidence": "The source describes BSQ as colored bitcoin; the recovered BSQ article defines the same subject."
+    },
+    {
+      "source_slug": "ops-team",
+      "source_sha256": "74b88f2ceee625a1eef5b03304e860a1a7b679114834cea3aacd3960ea943a16",
+      "source_line": 36,
+      "original_title": "Matrix",
+      "target": "/wiki/matrix-bisq-chat/",
+      "evidence": "Source identifies Matrix for team chat, and the target describes Bisq Matrix chat."
+    },
+    {
+      "source_slug": "bisq-price-indices",
+      "source_sha256": "c57c9a1334b08fb396587669975a097f8808a6f7e0720bca413d0d305bd4d63e",
+      "source_line": 1,
+      "original_title": "Bisq pricenode",
+      "target": "/wiki/pricenode/",
+      "evidence": "The recovered Pricenode article is the directly named source subject; it is a stub."
+    },
+    {
+      "source_slug": "project-management",
+      "source_sha256": "3dfe53fcd22d2545136a2db20f2e02d16c48bf1440c997d9c527c0b45e83d0e8",
+      "source_line": 16,
+      "original_title": ":Category:Teams",
+      "target": "/categories/teams/",
+      "evidence": "The 2020 Category:Teams source is recovered exactly; membership shown separately is restricted to explicitly tagged recovered articles."
+    }
+  ]
+}
