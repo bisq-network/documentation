@@ -10,8 +10,9 @@
 // usernames. Anonymous editors are counted, never listed. Nothing in the
 // repository is modified, and no network request is made.
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { createReadStream, mkdirSync, readFileSync, readdirSync, realpathSync, statSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { readMediaWikiExport } from "./lib/mediawiki-export.mjs";
 
@@ -78,9 +79,16 @@ function editors(revisions) {
     return { usernames: [...usernames].sort(), anonymous, hidden };
 }
 
+const pageSummary = (page) => {
+    const latest = page.revisions.at(-1);
+    return { title: page.title, page_id: page.id, revision_id: latest?.id ?? null, timestamp: latest?.timestamp ?? null, bytes: latest?.bytes ?? null, revisions: page.revisions.length };
+};
+
 /**
  * Reconcile the export with the snapshot. Returns the report object; pages are
- * matched by page id first, then by title, so renamed pages are still found.
+ * matched by page id first, then by title, so renamed pages are still found. A
+ * page id match always wins: after a move, MediaWiki keeps the page id under the
+ * new title and leaves a redirect with a new id at the old title.
  */
 export async function reconcile({ xml, images, root = "." }) {
     const snapshot = loadSnapshot(root);
@@ -100,14 +108,23 @@ export async function reconcile({ xml, images, root = "." }) {
         if (page.ns === 6) files.push(page.title.replace(/^[^:]+:/, ""));
         if (page.ns !== 0) continue;
         if (page.redirect) redirects.push({ title: page.title, target: page.redirect });
-        const article = byId.get(page.id) || byTitle.get(key(page.title));
+        const idMatch = byId.get(page.id);
+        const article = idMatch || byTitle.get(key(page.title));
         if (page.redirect && !article) continue;
         if (!article) {
-            newPages.push({ title: page.title, page_id: page.id, revision_id: latest?.id ?? null, timestamp: latest?.timestamp ?? null, bytes: latest?.bytes ?? null, revisions: page.revisions.length });
+            newPages.push(pageSummary(page));
             continue;
         }
-        found.set(article.slug, { page, latest });
+        const previous = found.get(article.slug);
+        if (previous?.byId && !idMatch) {
+            // Another page now holds this title; the article itself was matched by id.
+            if (!page.redirect) newPages.push(pageSummary(page));
+            continue;
+        }
+        if (previous && !previous.byId && idMatch && !previous.page.redirect) newPages.push(pageSummary(previous.page));
+        found.set(article.slug, { page, latest, byId: !!idMatch });
     }
+    if (!pageCount) throw new Error(`${xml} contains no pages.`);
 
     const articles = snapshot.map((article) => {
         const match = found.get(article.slug);
@@ -161,11 +178,11 @@ export async function reconcile({ xml, images, root = "." }) {
         };
     });
 
-    const imageReport = images ? compareImages(images, root) : null;
+    const imageReport = images ? await compareImages(images, root) : null;
     const count = (status) => articles.filter((article) => article.status === status).length;
     return {
         schema_version: 1,
-        generated_from: { export_file_sha256: hashFile(xml), siteinfo, pages: pageCount, revisions: revisionCount, file_pages: files.length, template_pages: templates.size },
+        generated_from: { export_file_sha256: await hashFile(xml), siteinfo, pages: pageCount, revisions: revisionCount, file_pages: files.length, template_pages: templates.size },
         summary: {
             restored_articles: articles.length,
             unchanged: count("unchanged"),
@@ -188,12 +205,14 @@ export async function reconcile({ xml, images, root = "." }) {
     };
 }
 
-function hashFile(path) {
-    return createHash("sha256").update(readFileSync(path)).digest("hex");
+async function hashFile(path) {
+    const hash = createHash("sha256");
+    for await (const chunk of createReadStream(path)) hash.update(chunk);
+    return hash.digest("hex");
 }
 
 /** Compare a MediaWiki images/ folder with the recovered media by filename and hash. */
-function compareImages(dir, root) {
+async function compareImages(dir, root) {
     const mapping = read(join(root, "public/media/wiki/mapping.json")).files;
     const recovered = new Map(mapping.map((item) => [item.filename, item]));
     const backup = new Map();
@@ -210,7 +229,7 @@ function compareImages(dir, root) {
     for (const [filename, item] of recovered) {
         const file = backup.get(filename) ?? backup.get(filename.replaceAll(" ", "_"));
         if (!file) { missing.push(filename); continue; }
-        const sha256 = hashFile(file);
+        const sha256 = await hashFile(file);
         if (sha256 !== item.sha256) differs.push({ filename, recovered_status: item.status, backup_bytes: statSync(file).size });
     }
     return { backup_files: backup.size, recovered_files: recovered.size, identical: recovered.size - differs.length - missing.length, differs, missing_from_backup: missing };
@@ -233,7 +252,7 @@ export function renderMarkdown(report) {
     lines.push(`| ${s.restored_articles} | ${s.unchanged} | ${s.newer_revision} | ${s.same_revision_text_differs} | ${s.missing_from_backup} | ${s.new_pages} | ${s.redirect_disagreements} |`, "");
     lines.push("## 1. Source updates first", "", "These articles changed after the restored revision. Update the source in its own pull request before reviewing wording; re-check the listed notes and proposals against the newer text.", "");
     table(["Article", "Restored rev", "Latest rev", "Latest edit", "Edits after", "Notes", "Open proposals"],
-        report.articles.filter((a) => a.status === "newer-revision").map((a) => [a.title, a.revision_id, a.latest_revision_id, a.latest_timestamp, a.revisions_after, a.notes.join(", "), prs(a)]));
+        report.articles.filter((a) => a.status === "newer-revision").map((a) => [a.origin === "additional" ? `${a.title} (additional article: update by hand, not in newer-revisions.jsonl)` : a.title, a.revision_id, a.latest_revision_id, a.latest_timestamp, a.revisions_after, a.notes.join(", "), prs(a)]));
     lines.push("## 2. Needs a closer look", "");
     table(["Article", "Status", "Detail"], report.articles.filter((a) => !["unchanged", "newer-revision"].includes(a.status)).map((a) => [a.title, a.status,
         a.status === "same-revision-text-differs" ? "Revision id matches but text hash differs; check export normalization before changing anything" : a.status === "missing-from-backup" ? "Not found by page id or title" : a.status === "now-a-redirect" ? `Now redirects to ${a.redirect_target}; restored revision ${a.revision_id} is ${a.recorded_revision_in_backup ? "in" : "not in"} the history` : `Backup latest ${a.latest_revision_id}`]));
@@ -259,7 +278,9 @@ async function main() {
     }
     const report = await reconcile({ xml: values.xml, images: values.images });
     mkdirSync(values.out, { recursive: true });
-    const newer = report.articles.filter((article) => article.status === "newer-revision");
+    // The converter handles only the 209 snapshot articles; the three additional articles
+    // are listed in REPORT.md and updated by hand.
+    const newer = report.articles.filter((article) => article.status === "newer-revision" && article.origin === "snapshot");
     // Candidate converter rows for newer revisions, in the field names the converter reads.
     writeFileSync(join(values.out, "newer-revisions.jsonl"), newer.map((article) => JSON.stringify({
         title: article.title, page_id: article.page_id, revision_id: article.latest_revision_id, revision_timestamp: article.latest_timestamp,
@@ -273,4 +294,4 @@ async function main() {
     console.log(`Reconciled ${s.restored_articles} articles: ${s.unchanged} unchanged, ${s.newer_revision} newer, ${s.same_revision_text_differs} text differs, ${s.missing_from_backup} missing; ${s.new_pages} new pages; ${s.redirect_disagreements} redirect disagreements. Wrote ${values.out}/REPORT.md`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) await main();
+if (process.argv[1] && realpathSync(resolve(process.argv[1])) === fileURLToPath(import.meta.url)) await main();

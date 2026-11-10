@@ -78,3 +78,45 @@ test("backup export is reconciled against the restored snapshot", async () => {
 test("template names skip parser functions and magic words", () => {
   assert.deepEqual(templateNames("{{note|x}} {{#if:a|b}} {{PAGENAME}} {{DISPLAYTITLE:x}} {{Template:warning}} {{ main page }}"), ["Main page", "Note", "Warning"]);
 });
+
+const writeExport = (body, name = "export.xml") => {
+  const dir = mkdtempSync(join(tmpdir(), "intake-"));
+  writeFileSync(join(dir, name), body);
+  return join(dir, name);
+};
+const wrap = (pages) => `<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" version="0.11"><siteinfo><sitename>Bisq Wiki</sitename></siteinfo>${pages}</mediawiki>\n`;
+
+test("empty, compressed, truncated and page-less exports fail instead of reporting missing articles", async () => {
+  const full = readFileSync(fixture(), "utf8");
+  await assert.rejects(reconcile({ xml: writeExport("") }), /not a MediaWiki XML export/);
+  await assert.rejects(reconcile({ xml: writeExport(Buffer.from([0x1f, 0x8b, 0x08, 0x00, 0x42, 0x5a, 0x68]), "export.xml.gz") }), /not a MediaWiki XML export/);
+  await assert.rejects(reconcile({ xml: writeExport(full.slice(0, Math.floor(full.length / 2))) }), /truncated/);
+  await assert.rejects(reconcile({ xml: writeExport(full.replace(/<\/mediawiki>\s*$/, "")) }), /truncated/);
+  await assert.rejects(reconcile({ xml: writeExport(wrap("")) }), /contains no pages/);
+});
+
+test("CRLF exports read like the original, and stub text is rejected", async () => {
+  const report = await reconcile({ xml: writeExport(readFileSync(fixture(), "utf8").replaceAll("\n", "\r\n")) });
+  assert.equal(report.articles.find((article) => article.slug === "ach-transfer").status, "unchanged");
+  assert.equal(decodeXml("a\r\nb\rc&#13;"), "a\nb\nc\r");
+  assert.throws(() => parsePage(`<title>T</title><ns>0</ns><id>1</id><revision><id>5</id><timestamp>2026-01-01T00:00:00Z</timestamp><contributor><username>E</username><id>7</id></contributor><text bytes="4600" /></revision>`), /stub dump/);
+  assert.equal(parsePage(`<title>T</title><ns>0</ns><id>1</id><revision><id>5</id><timestamp>2026-01-01T00:00:00Z</timestamp><contributor><username>E</username><id>7</id></contributor><text bytes="4600" deleted="deleted" /></revision>`).revisions[0].sha256, null);
+});
+
+test("a moved page keeps its newer text when a redirect takes the old title", async () => {
+  const ach = JSON.parse(readFileSync("migration/articles.json", "utf8")).items.find((item) => item.slug === "ach-transfer");
+  const moved = page("ACH bank transfer", ach.page_id, [
+    revision(ach.revision_id, ach.revision_timestamp, stored("ach-transfer")),
+    revision("99100", "2026-11-05T10:00:00Z", stored("ach-transfer") + "\nNewer."),
+  ]);
+  const redirect = page(ach.title, "99999", [revision("99101", "2026-11-05T10:00:01Z", "#REDIRECT [[ACH bank transfer]]")], 0, "ACH bank transfer");
+  const takenOver = page(ach.title, "99998", [revision("99102", "2026-11-05T10:00:02Z", "A different page")]);
+  for (const pages of [moved + redirect, redirect + moved, moved + takenOver, takenOver + moved]) {
+    const report = await reconcile({ xml: writeExport(wrap(pages)) });
+    const article = report.articles.find((item) => item.slug === "ach-transfer");
+    assert.equal(article.status, "newer-revision");
+    assert.equal(article.latest_revision_id, "99100");
+    assert.equal(article.backup_title, "ACH bank transfer");
+    assert.deepEqual(report.new_pages.map((item) => item.page_id), pages.includes("99998") ? ["99998"] : []);
+  }
+});

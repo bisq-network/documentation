@@ -10,7 +10,8 @@ a reviewer decides to.
 
 Preferred, because it contains no private account data:
 
-- a full-history XML export: `php maintenance/dumpBackup.php --full --quiet > bisq-wiki-full.xml`
+- a full-history XML export: `php -d display_errors=stderr maintenance/dumpBackup.php --full --quiet > bisq-wiki-full.xml`
+  (uncompressed; PHP notices must not end up inside the XML)
 - the `images/` folder from the web root (without `thumb/`, `temp/` and `deleted/`)
 
 The documented daily backups of [bisq-network/wiki](https://github.com/bisq-network/wiki)
@@ -28,10 +29,18 @@ Restore it into a throwaway MediaWiki 1.34 and export the XML there. The wiki
 runs 1.34, so use the same version to match the database schema. Not tested in
 this repository; adjust names to the dump.
 
+The daily backups are `mysqldump --all-databases` output compressed with bzip2.
+Import only the wiki database: the dump also holds MariaDB's own `mysql` schema,
+which would clash with the container's. Take `WIKI_DB` from `$wgDBname` in the
+original `LocalSettings.php`.
+
 ```sh
+bunzip2 -k bisq-wiki-backup.sql.bz2
 docker network create wiki-intake
 docker run -d --name wiki-db --network wiki-intake -e MARIADB_ROOT_PASSWORD=intake mariadb:10.5
-docker exec -i wiki-db mariadb -uroot -pintake < all-databases.sql
+until docker exec wiki-db mysqladmin -uroot -pintake ping --silent; do sleep 2; done
+docker exec wiki-db mysql -uroot -pintake -e 'CREATE DATABASE `WIKI_DB`'
+docker exec -i wiki-db mysql -uroot -pintake --one-database WIKI_DB < bisq-wiki-backup.sql
 ```
 
 Create a minimal `LocalSettings.php` for the export only. Copy `$wgDBname` and
@@ -50,7 +59,7 @@ $wgDBpassword = "intake";
 
 ```sh
 docker run --rm --network wiki-intake -v "$PWD/LocalSettings.php:/var/www/html/LocalSettings.php:ro" \
-  mediawiki:1.34 php maintenance/dumpBackup.php --full --quiet > bisq-wiki-full.xml
+  mediawiki:1.34 php -d display_errors=stderr maintenance/dumpBackup.php --full --quiet > bisq-wiki-full.xml
 docker rm -f wiki-db && docker network rm wiki-intake
 ```
 
@@ -61,13 +70,16 @@ node scripts/reconcile-wiki-backup.mjs --xml ../backup/bisq-wiki-full.xml --imag
 ```
 
 It reads the export page by page, makes no network request and changes nothing
-in the repository. It writes:
+in the repository. It stops with an error if the file is empty, compressed, not a
+MediaWiki export, cut off before `</mediawiki>`, or a stub dump without text, so a
+damaged file never reads as a backup with missing articles. It writes:
 
 - `REPORT.md`: the ordered work list below, for maintainers and support staff
 - `report.json`: every restored article with its status, the notes and proposal
   PRs that touch it, edits after the restored revision, and the full editor list
 - `newer-revisions.jsonl`: the latest text of each changed article, in the field
-  names the converter reads
+  names the converter reads. The three additional historical articles are left
+  out; the report lists them for an update by hand.
 
 Usernames are public wiki data and are kept for attribution. Anonymous editors
 are counted only; IP addresses never reach the output.
@@ -169,7 +181,8 @@ rewrites `migration/template-renderings-20261014.json` in place:
 Reviewers use the **Review an article** issue form. One issue per article and
 finding; staff do not need to edit files or open pull requests.
 
-Suggested labels, created once by a maintainer:
+Suggested labels, created once by a maintainer. Create `review: article` before
+the issue form is used: GitHub only applies labels that already exist.
 
 ```sh
 gh label create "review: article" --color 0e8a16 --description "Support staff finding on one article"
