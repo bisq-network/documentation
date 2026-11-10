@@ -3,7 +3,7 @@ title: Review this documentation
 description: Compare the recovered wiki articles and help review their accuracy.
 ---
 
-Help review the documentation in [hiciefte/bisq-docs](https://github.com/hiciefte/bisq-docs). Article wording is preserved from the wiki; proposed edits are reviewed separately. An accepted edit is named on the article itself, with a link to its pull request.
+Help review the documentation in [hiciefte/bisq-docs](https://github.com/hiciefte/bisq-docs). Article wording is preserved from the wiki unless an article names an accepted edit; proposed edits are reviewed separately. An accepted edit is named on the article itself, with a link to its pull request.
 
 ## What to review
 

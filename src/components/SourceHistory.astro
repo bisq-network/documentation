@@ -61,7 +61,7 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>
   <p>{edits.length
-    ? `This article keeps its recovered headings, step order and available images. Some wording was changed after restoration in the reviewed pull request${edits.length === 1 ? "" : "s"} listed below; the original wikitext keeps the earlier wording.`
+    ? `This article keeps its recovered headings and available images. Some wording was changed after restoration in the pull request${edits.length === 1 ? "" : "s"} listed below; the original wikitext keeps the earlier wording.`
     : "This article keeps its recovered wording, headings, step order and available images."} Formatting and links are adapted for this site. {article.recovery_note || "The snapshot does not guarantee that every instruction is current."}</p>
   <dl>
     <dt>Original page</dt><dd><a href={article.original_url}>{article.title}</a></dd>
