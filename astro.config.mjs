@@ -6,12 +6,16 @@ import { collectGuides, sections } from "./scripts/lib/documentation.mjs";
 const site = process.env.DOCS_SITE || undefined;
 const base = process.env.DOCS_BASE || "/";
 const guides = collectGuides();
+// GitHub sets GITHUB_REPOSITORY in Actions, so the header link follows a repository transfer.
+const repository = process.env.DOCS_REPOSITORY || process.env.GITHUB_REPOSITORY || "bisq-network/documentation";
 
 export default defineConfig({
   site,
   base,
   integrations: [
     starlight({
+      // src/pages/404.astro is the 404 page; stop Starlight registering a second /404 route.
+      disable404Route: true,
       title: "Documentation",
       favicon: "/favicon.ico",
       logo: { src: "./src/assets/bisq-logo.svg", alt: "Bisq" },
@@ -23,7 +27,7 @@ export default defineConfig({
         Search: "./src/components/Search.astro",
         MarkdownContent: "./src/components/SourceHistory.astro",
       },
-      social: [{ icon: "github", label: "GitHub", href: "https://github.com/hiciefte/bisq-docs" }],
+      social: [{ icon: "github", label: "GitHub", href: `https://github.com/${repository}` }],
       sidebar: [
         { label: "Overview", link: "/" },
         ...sections.map((section) => ({
