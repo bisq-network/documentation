@@ -1,0 +1,194 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+#
+# CodeRabbit settings for bisq-network/documentation.
+#
+# The articles under src/content/docs/wiki/ are the original Bisq wiki text,
+# restored word for word. CodeRabbit must never push that text toward a rewrite,
+# and reviews are limited where possible because the organization is on the
+# free plan and hits its rate limit.
+
+# Values not set below come from the organization settings.
+inheritance: true
+
+reviews:
+  # Same as the organization settings, repeated so this file never undoes them.
+  profile: chill
+  auto_approvals:
+    enabled: false # no request-changes workflow
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true # summary in the walkthrough, not the PR description
+  poem: false
+  in_progress_fortune: false
+  review_status: true
+  fail_commit_status: true # a review that stops with an error is reported as failed
+
+  # Wording proposals are reviewed by people, not by CodeRabbit. Every wording
+  # proposal pull request carries the `wording-proposal` label; labelled pull
+  # requests are skipped, all others are reviewed as usual. Open the pull
+  # request with the label (`gh pr create --label wording-proposal`) so it is
+  # present when the pull request opens.
+  auto_review:
+    labels:
+      - "!wording-proposal"
+
+  # Nothing that pushes commits or opens pull requests.
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+    simplify:
+      enabled: false
+    autofix:
+      enabled: false
+    fix_ci:
+      enabled: false
+    resolve_merge_conflict:
+      enabled: false
+
+  pre_merge_checks:
+    docstrings:
+      mode: "off" # not a code base that uses docstrings
+
+  # Exclusions only: an include pattern would restrict the review to the
+  # matching files. Everything listed is immutable or generated. Files that
+  # people edit during review (review/PROPOSAL-INDEX.md, review/proposal-coverage.json,
+  # migration/accepted-edits.json, migration/source-formatting.json,
+  # migration/source-review-notes.json and the small repair records) stay in scope.
+  # So does the restoration receipt, migration/restoration-fidelity.json: any change
+  # to it must draw a comment (see path_instructions).
+  path_filters:
+    # Immutable comparison snapshot of the earlier AI-edited guides.
+    - "!review/ai-edited/**"
+    # Raw wikitext and revision metadata exports, including archived redirects and templates.
+    - "!public/wiki-source/**"
+    # Recovered images and their mapping.
+    - "!public/media/**"
+    # Build output and dependencies.
+    - "!dist/**"
+    - "!node_modules/**"
+    # Generated indexes of the acquisition (the two files are byte-identical).
+    - "!migration/articles.json"
+    - "!migration/title-route-map.json"
+    # Dated records of the 14 October 2026 archive capture and the template renderings derived from it.
+    - "!migration/*-20261014.json"
+    # Evidence for the dispute link aliases, with line numbers into the raw snapshot.
+    - "!migration/recovered-dispute-alias-evidence.json"
+    # Media and archive acquisition manifests.
+    - "!recovery-evidence/**"
+    # Dated claim ledgers from the review of the earlier guides.
+    - "!review-evidence/**"
+    # Generated comparison index of originals against the earlier AI edits.
+    - "!review/comparison-index.json"
+    # Automated raw and normalized design extraction.
+    - "!design-reference/.extract-design-system/**"
+
+  path_instructions:
+    - path: "src/content/docs/wiki/**"
+      instructions: |
+        These files are original Bisq wiki articles, restored word for word. The
+        wording is canonical. scripts/check-source-fidelity.mjs rejects any change
+        to the article text unless a human-reviewed accepted-edit receipt exists.
+
+        Never suggest rewording, restyling, restructuring, reordering, tone,
+        grammar, spelling, punctuation, capitalization or terminology changes,
+        and never suggest a rewrite for clarity. Treat typos, dated phrasing and
+        unusual formatting in the original as intentional. Do not comment on the
+        generated markup around the text: the table of contents, legacy anchor
+        spans, image figures, unresolved-template notes and code ids.
+
+        Comment on the text only when a statement could cause loss of funds,
+        expose a seed phrase, private key or other secret, leak private data, or
+        contradicts current Bisq behaviour. Such a comment must name the source
+        you checked (official Bisq documentation, release notes, or the
+        bisq-network source code, with the release or commit and the date), say
+        what the article states and what the source states, and must not propose
+        replacement wording. If you cannot name a source, do not comment. A
+        dated statement or a discontinued product is not a finding by itself:
+        the site labels historical content separately.
+
+        You may flag broken links (missing pages, wrong relative paths, dead
+        anchors) and broken markup (unclosed tags, malformed tables). Give only
+        the link or markup fix.
+
+        In a pull request that deliberately edits an article, review only the
+        changed lines, apply the same criteria, and do not ask for a different
+        phrasing of the proposed text.
+
+    - path: "scripts/**"
+      instructions: |
+        Check that the source-fidelity gate is not weakened. That covers
+        scripts/check-source-fidelity.mjs, scripts/lib/accepted-edits.mjs and the
+        other check-*.mjs scripts. Flag any change that:
+        - skips, loosens or removes an assertion or a hash comparison;
+        - lets an article body change without a reviewed accepted-edit receipt in
+          migration/accepted-edits.json;
+        - rewrites or rehashes a restoration receipt, a raw export or a snapshot
+          so that a check passes;
+        - catches and ignores an error, or turns a failure into a warning.
+
+        Check that tests change along with the code: new or changed behaviour needs
+        a matching change in a scripts/*.test.mjs file, and a new test file must
+        be added to the `test` script in package.json, otherwise it never runs.
+        Scripts run in CI, so flag network access, unpinned downloads and shell
+        interpolation of untrusted input.
+
+    - path: ".github/**"
+      instructions: |
+        Check that workflows keep least-privilege permissions: a top-level
+        `permissions` block that grants read access by default, with write access
+        (pages, id-token, pull-requests) only on the job that needs it. Flag
+        pull_request_target, secrets exposed to fork pull requests, and
+        interpolating untrusted pull request fields into a shell step.
+
+        Check that actions are pinned: a full commit SHA, never a branch or an
+        unpinned tag such as @main or @latest.
+
+        Check that the required `check` job keeps running `npm ci`, `npm test`, the
+        source-fidelity gate with `--awaiting-receipt-base` and
+        `npm run build:after-fidelity` (everything `npm run build` runs after the
+        gate), so that the gate and the build stay required for every pull request.
+        The base directory reaches the gate only through that flag, never through
+        an environment variable or default, because `npm run build` and pages.yml
+        must stay strict. The `receipts` job must keep failing while any article
+        awaits a receipt.
+
+    - path: "package.json"
+      instructions: |
+        The `build` script runs the source-fidelity gate, then
+        `npm run build:after-fidelity` with the other check scripts, and `test`
+        lists the test files explicitly. Flag any change
+        that removes or reorders those gate steps, or drops a test file from the
+        list.
+
+    - path: "migration/restoration-fidelity.json"
+      instructions: |
+        This file is the restoration receipt: the hashes of the preserved original
+        articles. It must not change in any pull request. Flag every modification
+        as a problem, and quote the changed slugs or hashes. State that
+        restoration receipts are never rehashed or edited to make a check pass;
+        accepted wording changes go through migration/accepted-edits.json instead.
+
+    - path: "migration/accepted-edits.json"
+      instructions: |
+        Each item is a receipt for one human-approved wording change to one
+        article, and the only way an article body may differ from the preserved
+        original. Flag any change that lowers `required_approvals`, edits or
+        removes an existing receipt, or adds a receipt whose `pull_request`
+        does not point to the pull request that approved the wording, whose
+        approvals are not distinct people other than the author, or whose
+        `changes` do not list the exact replaced text.
+
+  tools:
+    # They would flag original wiki prose and markup as wording or style issues.
+    languagetool:
+      enabled: false
+    markdownlint:
+      enabled: false
+    # Keep the secret scanner: a seed, key or token in an article is a finding.
+    gitleaks:
+      enabled: true
+
+chat:
+  art: false
+  allow_non_org_members: false

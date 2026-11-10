@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "count": 6,
+  "items": [
+    {
+      "wiki_filename": "China-1.jpg",
+      "canonical_filename": "China-1.jpg",
+      "file": "public/media/wiki/0059984c7475047f6592923a210c9662aef898c6e738a3f2bd9cb93691acea72.jpg",
+      "sha256": "0059984c7475047f6592923a210c9662aef898c6e738a3f2bd9cb93691acea72",
+      "width": 428,
+      "height": 546,
+      "mime": "image/jpeg",
+      "source_archive_member": "images/China-1.jpg",
+      "source_archive_url": "https://archive.org/download/wiki-bisq.wiki-20261014/bisq.wiki-20261014-images.7z",
+      "source_archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "capture_label": "2026-10-14",
+      "historical_only": true
+    },
+    {
+      "wiki_filename": "China-2.jpg",
+      "canonical_filename": "China-2.jpg",
+      "file": "public/media/wiki/8714d6983940fd852e543ad862fb8c5efd68c5d56b2e9dbaf322aba995129d96.jpg",
+      "sha256": "8714d6983940fd852e543ad862fb8c5efd68c5d56b2e9dbaf322aba995129d96",
+      "width": 605,
+      "height": 550,
+      "mime": "image/jpeg",
+      "source_archive_member": "images/China-2.jpg",
+      "source_archive_url": "https://archive.org/download/wiki-bisq.wiki-20261014/bisq.wiki-20261014-images.7z",
+      "source_archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "capture_label": "2026-10-14",
+      "historical_only": true
+    },
+    {
+      "wiki_filename": "China-3.jpg",
+      "canonical_filename": "China-3.jpg",
+      "file": "public/media/wiki/4f41d8962998828b0bebfcb20a043f23dd99e44f5658db9c8e7d0d9ba81e39e2.jpg",
+      "sha256": "4f41d8962998828b0bebfcb20a043f23dd99e44f5658db9c8e7d0d9ba81e39e2",
+      "width": 373,
+      "height": 436,
+      "mime": "image/jpeg",
+      "source_archive_member": "images/China-3.jpg",
+      "source_archive_url": "https://archive.org/download/wiki-bisq.wiki-20261014/bisq.wiki-20261014-images.7z",
+      "source_archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "capture_label": "2026-10-14",
+      "historical_only": true
+    },
+    {
+      "wiki_filename": "China-4.jpg",
+      "canonical_filename": "China-4.jpg",
+      "file": "public/media/wiki/db7b0d8af1594610330903b51bf403ca89d96fc6fa1b58ddb070f61c5626a723.jpg",
+      "sha256": "db7b0d8af1594610330903b51bf403ca89d96fc6fa1b58ddb070f61c5626a723",
+      "width": 606,
+      "height": 544,
+      "mime": "image/jpeg",
+      "source_archive_member": "images/China-4.jpg",
+      "source_archive_url": "https://archive.org/download/wiki-bisq.wiki-20261014/bisq.wiki-20261014-images.7z",
+      "source_archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "capture_label": "2026-10-14",
+      "historical_only": true
+    },
+    {
+      "wiki_filename": "China-5.jpg",
+      "canonical_filename": "China-5.jpg",
+      "file": "public/media/wiki/2c1c876a12bf3c1a21256bb20940aab40821deb5a61d93a6379033ca8f148a95.jpg",
+      "sha256": "2c1c876a12bf3c1a21256bb20940aab40821deb5a61d93a6379033ca8f148a95",
+      "width": 362,
+      "height": 462,
+      "mime": "image/jpeg",
+      "source_archive_member": "images/China-5.jpg",
+      "source_archive_url": "https://archive.org/download/wiki-bisq.wiki-20261014/bisq.wiki-20261014-images.7z",
+      "source_archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "capture_label": "2026-10-14",
+      "historical_only": true
+    },
+    {
+      "wiki_filename": "Bisq-cny.png",
+      "canonical_filename": "Bisq-cny.png",
+      "file": "public/media/wiki/4c7a83ca37fc116f424e45dc8dbc1fb958fac6c0feb73de54ba87360bc005388.png",
+      "sha256": "4c7a83ca37fc116f424e45dc8dbc1fb958fac6c0feb73de54ba87360bc005388",
+      "width": 1200,
+      "height": 710,
+      "mime": "image/png",
+      "source_archive_member": "images/Bisq-cny.png",
+      "source_archive_url": "https://archive.org/download/wiki-bisq.wiki-20261014/bisq.wiki-20261014-images.7z",
+      "source_archive_sha1": "57cb7219e40833601880b2c500afd6cc13613222",
+      "capture_label": "2026-10-14",
+      "historical_only": true
+    }
+  ]
+}
