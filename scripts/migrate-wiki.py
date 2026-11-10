@@ -47,6 +47,23 @@ ROW_FIELDS = [
     "original_revision_url",
     "wikitext_sha256",
 ]
+# Written into every output directory; only a directory carrying it is cleaned before a run.
+OUTPUT_MARKER = ".wiki-converter-output"
+SNAPSHOT_INGEST = "<!-- BISQ VERSION:"
+
+
+def check_pandoc(binary, any_pandoc=False):
+    """Return pandoc's version line, or exit unless it is a release that reproduces the snapshot."""
+    try:
+        version = subprocess.check_output([binary, "--version"], text=True, encoding="utf-8").splitlines()[0]
+    except (OSError, subprocess.CalledProcessError) as error:
+        sys.exit(f"Cannot run pandoc ({binary}): {error}. Pass --pandoc or set PANDOC.")
+    if version.split()[-1] not in REPRODUCING_PANDOC and not any_pandoc:
+        sys.exit(f"{version} does not reproduce the snapshot; use pandoc "
+                 f"{' or '.join(sorted(REPRODUCING_PANDOC))} via --pandoc or PANDOC, or pass --any-pandoc")
+    return version
+
+
 # Set by load(); scratch output defaults to the git-ignored tmp/ directory.
 PANDOC = os.environ.get("PANDOC", "pandoc")
 OUT = REPO / "tmp/wiki-converter"
@@ -283,11 +300,30 @@ def apply_newer_revisions(rows, meta, path):
     for number, line in enumerate(Path(path).read_bytes().decode("utf-8").split("\n"), 1):
         if not line.strip():
             continue
-        new = json.loads(line)
+        try:
+            new = json.loads(line)
+        except json.JSONDecodeError as error:
+            sys.exit(f"{path}:{number}: not valid JSON ({error})")
+        if not isinstance(new, dict):
+            sys.exit(f"{path}:{number}: expected one JSON object per line")
         where = f"{path}:{number} ({new.get('title')!r})"
-        i = by_id.get(str(new.get("page_id")), by_title.get(canon(str(new.get("title", "")))))
-        if i is None:
+        i = by_id.get(str(new.get("page_id")))
+        j = by_title.get(canon(str(new.get("title", ""))))
+        if i is None and j is None:
             sys.exit(f"{where}: not one of the 209 converted articles; additional articles use their own layout")
+        if i != j:
+            sys.exit(f"{where}: page id {new.get('page_id')!r} and title {new.get('title')!r} do not name the same article")
+        revision_id = new.get("revision_id")
+        if isinstance(revision_id, bool) or not re.fullmatch(r"[1-9]\d*", str(revision_id)):
+            sys.exit(f"{where}: revision_id must be a positive integer")
+        if not isinstance(new.get("revision_timestamp"), str) or not re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ", new["revision_timestamp"]):
+            sys.exit(f"{where}: revision_timestamp must look like 2026-11-10T12:00:00Z")
+        attribution = new.get("available_attribution")
+        if attribution is not None and not (
+            isinstance(attribution, dict) and set(attribution) <= {"username", "id"}
+            and isinstance(attribution.get("username"), str)
+        ):
+            sys.exit(f"{where}: available_attribution must be null or {{\"username\": ..., \"id\": ...}}")
         if i in updated:
             sys.exit(f"{where}: article listed twice")
         text = new.get("wikitext")
@@ -302,11 +338,13 @@ def apply_newer_revisions(rows, meta, path):
             {
                 "revision_id": str(new["revision_id"]),
                 "revision_timestamp": new["revision_timestamp"],
-                # The intake writes null for anonymous editors; IPs are never kept.
-                "available_attribution": new.get("available_attribution") or {},
+                # The intake writes null for anonymous editors; IPs are never accepted.
+                "available_attribution": attribution or {},
                 "original_revision_url": f"https://bisq.wiki/index.php?oldid={new['revision_id']}",
                 "wikitext_sha256": sha256(text),
                 "wikitext": text,
+                # Not a snapshot field: marks a revision taken from the full backup.
+                "from_backup": True,
             }
         )
         rows[i] = row
@@ -1013,7 +1051,7 @@ class Article:
         m = self.meta
         attribution = r["available_attribution"] or {}
         contributor = attribution.get("username", attribution.get("ip", "Not supplied"))
-        provenance = f'<details class="wiki-source-provenance"><summary>Source, revision and attribution</summary><p>Source revision <a href="{esc(r["original_revision_url"])}">{esc(r["revision_id"])}</a>, dated {esc(r["revision_timestamp"])}. Snapshot last successful ingest: 2026-10-18. Exported revision contributor: {esc(contributor)}; full author history and licensing remain unresolved.</p><p><a href="../../wiki-source/{m["slug"]}.wiki.txt" download>Download exact snapshot wikitext</a> · <a href="../../wiki-source/{m["slug"]}.json">Source metadata</a></p><p>SHA-256: <code>{r["wikitext_sha256"]}</code>. Ingest-added product classification comments are not original author metadata.</p></details>'
+        provenance = f'<details class="wiki-source-provenance"><summary>Source, revision and attribution</summary><p>Source revision <a href="{esc(r["original_revision_url"])}">{esc(r["revision_id"])}</a>, dated {esc(r["revision_timestamp"])}. {"Taken from the full wiki backup." if r.get("from_backup") else "Snapshot last successful ingest: 2026-10-18."} Exported revision contributor: {esc(contributor)}; full author history and licensing remain unresolved.</p><p><a href="../../wiki-source/{m["slug"]}.wiki.txt" download>Download exact snapshot wikitext</a> · <a href="../../wiki-source/{m["slug"]}.json">Source metadata</a></p><p>SHA-256: <code>{r["wikitext_sha256"]}</code>.{" Ingest-added product classification comments are not original author metadata." if SNAPSHOT_INGEST in r["wikitext"] else ""}</p></details>'
         categories = (
             '<p class="wiki-source-categories"><strong>Source categories:</strong> '
             + esc(", ".join(m["categories"]))
@@ -1080,6 +1118,13 @@ class Article:
                 "classification_comment_provenance": m["product_hint_provenance"],
             }
         )
+        if r.get("from_backup"):
+            # A newer revision from the full backup: no snapshot ingest, and no
+            # downloader comment unless the text still contains one.
+            del meta["snapshot_last_successful_ingest_utc"]
+            meta["source_origin"] = "Full wiki backup, via scripts/reconcile-wiki-backup.mjs"
+            if SNAPSHOT_INGEST not in r["wikitext"]:
+                del meta["classification_comment_provenance"]
         (source / (m["slug"] + ".json")).write_text(
             json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
         )
@@ -1270,13 +1315,12 @@ def main(argv=None):
     out = args.out.resolve()
     if out.is_relative_to(REPO) and not out.is_relative_to(REPO / "tmp"):
         sys.exit(f"--out {args.out} is inside the repository; use a directory under tmp/ or outside it")
-    try:
-        pandoc_version = subprocess.check_output([args.pandoc, "--version"], text=True, encoding="utf-8").splitlines()[0]
-    except (OSError, subprocess.CalledProcessError) as error:
-        sys.exit(f"Cannot run pandoc ({args.pandoc}): {error}. Pass --pandoc or set PANDOC.")
-    if pandoc_version.split()[-1] not in REPRODUCING_PANDOC and not args.any_pandoc:
-        sys.exit(f"{pandoc_version} does not reproduce the snapshot; use pandoc "
-                 f"{' or '.join(sorted(REPRODUCING_PANDOC))} via --pandoc or PANDOC, or pass --any-pandoc")
+    pandoc_version = check_pandoc(args.pandoc, args.any_pandoc)
+    # Clean only a directory this converter created; never delete folders in someone else's.
+    if out.exists() and any(out.iterdir()) and not (out / OUTPUT_MARKER).exists():
+        sys.exit(f"--out {args.out} is not empty and was not created by this converter; use a new or empty directory")
+    out.mkdir(parents=True, exist_ok=True)
+    (out / OUTPUT_MARKER).write_text("Output of scripts/migrate-wiki.py. Each run deletes and rewrites the generated folders here.\n", encoding="utf-8")
     for name in ["converted", "site", "migration", "diffs"]:
         if (out / name).exists():
             shutil.rmtree(out / name)
@@ -1361,6 +1405,15 @@ def main(argv=None):
             print(f"Converted {n}/{len(selected)} articles", flush=True)
     for name in ["articles.json", "title-route-map.json"]:
         write_json(OUT / "migration" / name, {"schema_version": 1, "count": len(META), "items": META})
+    # Records of articles that were not re-rendered must stay exactly as committed.
+    rendered = {META[i]["slug"] for i in selected}
+    records_match = {
+        name: (OUT / "migration" / name).read_bytes() == (REPO / "migration" / name).read_bytes()
+        for name in ["articles.json", "title-route-map.json"]
+    }
+    unchanged_records = [m["slug"] for m in META if m["slug"] not in rendered and m != committed_meta[m["slug"]]]
+    if unchanged_records:
+        sys.exit(f"Records changed for articles that were not re-rendered: {', '.join(unchanged_records)}")
     write_json(OUT / "fidelity-records.json", {
         "note": "Values for migration/restoration-fidelity.json items and migration/source-formatting.json records",
         "restoration_fidelity_items": fidelity_items,
@@ -1408,6 +1461,10 @@ def main(argv=None):
         return 0
     for key, count in summary.items():
         print(f"  {key}: {count}/{len(comparison)}")
+    for name, same in records_match.items():
+        print(f"  migration/{name} {'matches' if same else 'DIFFERS from'} the committed file")
+    if not all(records_match.values()):
+        return 1
     if differing:
         print(f"  {len(differing)} articles differ from the committed files (details in comparison.json): {', '.join(differing)}")
         return 1
