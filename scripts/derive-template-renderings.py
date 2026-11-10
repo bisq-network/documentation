@@ -1,30 +1,31 @@
 #!/usr/bin/env python3
 """Regenerate derived template HTML from archived wikitext using the existing converter.
 
-Run the original recovery environment's Python with --recovery-root pointing to
-wiki-recovery-20261107. Normal npm builds consume and verify the derived JSON;
-they do not need Python, Pandoc or the acquisition workspace.
+Run from the repository root with the converter environment described in
+INTAKE.md (PANDOC selects the binary). Normal npm builds consume and verify the
+derived JSON; they do not need Python or Pandoc.
 """
-import argparse
 import copy
 import hashlib
 import html
 import json
+import os
 import re
+import sys
 from pathlib import Path
 
 import mwparserfromhell as mw
 from bs4 import BeautifulSoup
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--recovery-root', type=Path, required=True)
-args = parser.parse_args()
+if sys.argv[1:]:
+    sys.exit('derive-template-renderings.py takes no arguments: it reads its inputs from the repository '
+             '(the earlier --recovery-root is no longer needed). Run it from the repository root; PANDOC selects pandoc.')
 site = Path.cwd().resolve()
 converter = (site / 'scripts/migrate-wiki.py').read_text(encoding='utf-8')
-converter = converter.replace('ROOT = Path(__file__).resolve().parents[2]', f'ROOT = Path({str(args.recovery_root.resolve())!r})')
-converter = converter.replace('SITE = ROOT / "site"', f'SITE = Path({str(site)!r})')
 ns = {'__name__': 'template_converter', '__file__': str(site / 'scripts/migrate-wiki.py')}
 exec(compile(converter, 'scripts/migrate-wiki.py', 'exec'), ns)
+ns['check_pandoc'](os.environ.get('PANDOC', 'pandoc'))
+ns['load']()  # the snapshot inputs, read from the repository
 # Resolve recorded fragment-free redirect chains against the current snapshot.
 redirects = json.loads((site / 'migration/archive-redirects-20261014.json').read_text(encoding='utf-8'))['items']
 for _ in range(len(redirects)):
