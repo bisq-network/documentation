@@ -1,0 +1,32 @@
+#REDIRECT [[Community_Manager]]
+
+'''<big>This Role has been superseded by the [[Community_Manager]] as stated in [https://github.com/bisq-network/roles/issues/37#issuecomment-620416643 Bitcointalk Moderator Role Issue] and [https://github.com/bisq-network/roles/issues/95 Community Manager Role]</big>
+'''
+
+This article documents the ''Bitcointalk Moderator'' [[role]].
+
+<br><br><br>
+__TOC__
+
+== Issue ==
+<!-- link to this role's corresponding issue in the https://github.com/bisq-network/roles repository -->
+* [https://github.com/bisq-network/roles/issues/37 Bitcointalk Moderator #37]
+== Team ==
+<!-- link to this role's corresponding team at https://github.com/orgs/bisq-network/teams -->
+===github===
+* [https://github.com/orgs/bisq-network/teams/bitcointalk-moderators @bisq-network/bitcointalk-moderators]
+===wiki===
+
+== Duties ==
+<!-- list in bullet points each of the duties that owner(s) of this role must fulfill -->
+* This role is about keeping the [https://bitcointalk.org/index.php?topic=4509053.0 Bisq thread] on the Bitcointalk forum up-to-date.
+
+
+== Rights ==
+<!-- list in bullet points all special privileges that owner(s) of this role are granted, e.g. repository access -->
+
+== Bonding ==
+<!-- indicate whether bonding is required for this role, and if so, how much -->
+N/A
+
+[[Category:Roles]]

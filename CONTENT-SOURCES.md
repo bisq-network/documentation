@@ -8,6 +8,6 @@ The separate `review/ai-edited/` collection preserves 98 earlier AI-edited guide
 
 ## Media and branding
 
-`public/media/wiki/mapping.json` maps recovered wiki filenames to unchanged SHA-256-addressed assets. Of 123 inventoried filenames, 120 have recovered assets: 97 full-size files and 23 thumbnails or partial recoveries. The restored articles use those assets in 130 inline occurrences. Three files remain missing. Acquisition evidence is retained in `recovery-evidence/`; the catalogue describes provenance and inferred filename mappings. A historical image may not match current software, and individual reuse terms remain unresolved.
+`public/media/wiki/mapping.json` preserves the initial recovery mapping. A checksum-verified [14 October 2026 WikiTeam archive](https://archive.org/details/wiki-bisq.wiki-20261014) supplied full-size files for 23 partial and three missing entries, plus the separately linked Arrow screenshot. All 123 inventoried filenames now have full-size historical files, with 133 inline occurrences. Supplemental mappings and hashes are recorded in `recovery-evidence/supplemental-media.json`; the catalogue retains earlier provenance. These files need not match the 18 October snapshot, and reuse terms remain unresolved.
 
 The Bisq logo and visual reference sources are recorded in `design-reference/PROVENANCE.md`. The locally hosted IBM Plex Sans font retains its supplied OFL licence. These assets retain their own terms; this repository does not claim new ownership of them.
