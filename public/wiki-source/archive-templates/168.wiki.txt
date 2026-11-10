@@ -1,0 +1,7 @@
+[[File:Bisq-logo.png|frameless|left|middle|60px|Bisq logo]]
+<span style="font-size:100%;">'''Bisq'''</span> is a decentralized bitcoin exchange network that enables secure, private and censorship-resistant exchange of bitcoin for national currencies and other cryptocurrencies over the internet.
+
+The Bisq application forms a '''peer-to-peer network''' by discovering, connecting to, and working with one another to implement the Bisq trading protocol. The Bisq network is ''fully'' peer-to-peer in that it requires no centrally-controlled servers and has no single points of failure.
+
+See more details in the [[introduction]].
+<noinclude>{{p-move}}</noinclude>
