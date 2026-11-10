@@ -37,30 +37,36 @@ import Default from "@astrojs/starlight/components/Search.astro";
       lastAnnouncement = text;
       if (!announcer) {
         announcer = document.createElement("div");
-        announcer.className = "sr-only";
+        announcer.className = "docs-search-status sr-only";
         announcer.setAttribute("role", "status");
         announcer.setAttribute("aria-live", "polite");
         search.querySelector(".pagefind-ui")?.append(announcer);
       }
       announcer.textContent = text;
     };
+    // Compare words without case or accents ("metodos" matches a highlighted "métodos"), and split the
+    // query on anything that is not a letter or digit, so quotes and hyphens do not count as part of a word.
+    const fold = (text: string) => text.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+    const wordsOf = (text: string) => text.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean);
     const sharesWord = (mark: string, term: string) => {
       let n = 0;
       while (n < mark.length && n < term.length && mark[n] === term[n]) n++;
       return mark.includes(term) || n >= Math.max(3, Math.ceil(term.length * 0.6));
     };
+    const clearNotice = (area?: HTMLElement | null) => {
+      search.querySelector("[data-docs-search-notice]")?.remove();
+      area?.removeAttribute("data-no-exact");
+    };
     const refresh = () => {
       const area = search.querySelector<HTMLElement>(".pagefind-ui__results-area");
       const message = area?.querySelector<HTMLElement>(".pagefind-ui__message");
-      search.querySelector("[data-docs-search-notice]")?.remove();
-      if (!area || !message) { area?.removeAttribute("data-no-exact"); return; }
+      if (!area || !message) { clearNotice(area); return; }
       const found = /^(No|\d+) results? for (.+)$/.exec(message.textContent?.trim() || "");
-      area.toggleAttribute("data-no-exact", false);
-      if (!found) return;
+      if (!found) { clearNotice(area); return; }
       const query = found[2];
-      const terms = query.toLowerCase().split(/\s+/).filter((term) => term.length > 1);
-      const marks = [...area.querySelectorAll("mark")].map((mark) => (mark.textContent || "").toLowerCase());
-      const missing = terms.filter((term) => !marks.some((mark) => sharesWord(mark, term)));
+      const terms = wordsOf(query).map((word) => ({ word, key: fold(word) })).filter(({ key }) => key.length > 1);
+      const marks = [...area.querySelectorAll("mark")].map((mark) => fold(mark.textContent || ""));
+      const missing = terms.filter(({ key }) => !marks.some((mark) => sharesWord(mark, key)));
       for (const result of area.querySelectorAll<HTMLElement>(".pagefind-ui__result-nested")) {
         if (result.querySelector(".docs-search-copy")) continue;
         const link = result.querySelector<HTMLAnchorElement>("a");
@@ -80,28 +86,46 @@ import Default from "@astrojs/starlight/components/Search.astro";
       }
       const fresh = `${message.textContent}` !== announcedFor;
       announcedFor = `${message.textContent}`;
-      if (!terms.length || !missing.length) { if (fresh) announce(message.textContent?.trim() || ""); return; }
+      if (!terms.length || !missing.length) { clearNotice(area); if (fresh) announce(message.textContent?.trim() || ""); return; }
       const all = missing.length === terms.length;
+      const none = found[1] === "No";
+      const heading = `No exact match for \u201c${all ? query : missing.map(({ word }) => word).join(" ")}\u201d.`;
+      const kind = none ? "none" : all ? "all" : "some";
+      area.toggleAttribute("data-no-exact", all);
+      // Keep an existing notice that already says the same thing, so a link in it keeps keyboard focus
+      // when unrelated parts of the dialog change (for example a Copy link label reverting).
+      const existing = search.querySelector<HTMLElement>("[data-docs-search-notice]");
+      if (existing?.dataset.docsSearchNotice === `${kind}\n${heading}` && existing.nextElementSibling === message) return;
+      existing?.remove();
       const notice = document.createElement("div");
-      notice.setAttribute("data-docs-search-notice", "");
+      notice.dataset.docsSearchNotice = `${kind}\n${heading}`;
       notice.className = "docs-search-notice";
       const title = document.createElement("strong");
-      title.textContent = `No exact match for \u201c${all ? query : missing.join(" ")}\u201d.`;
+      title.textContent = heading;
       const detail = document.createElement("p");
-      detail.append(all
-        ? "Search found only fragments of the word, so anything listed below is probably not relevant. Check the spelling or try fewer words, or "
-        : "The results below match the other words in your search. Check the spelling of the missing word, or ");
+      detail.append(none
+        ? "Search found no articles. Check the spelling or try fewer words, or "
+        : all
+          ? "Search found only fragments of the word, so the results below are probably not relevant. Check the spelling or try fewer words, or "
+          // Pagefind searches "bisq-easy" as "bisq" only, so suggest spaces rather than a spelling check.
+          : /[\p{L}\p{N}][^\p{L}\p{M}\p{N}\s]+[\p{L}\p{N}]/u.test(query)
+            ? "The results below match only part of what you typed. Try separating the words with spaces, or "
+            : "The results below match the other words in your search. Check the spelling of the missing word, or ");
       const browse = document.createElement("a");
       browse.href = browseUrl;
       browse.textContent = "browse all article titles";
       detail.append(browse, ".");
       notice.append(title, detail);
-      area.toggleAttribute("data-no-exact", all);
       message.before(notice);
-      if (fresh) announce(`${title.textContent} ${all ? "Results shown are partial-word matches only." : ""}`.trim());
+      if (fresh) announce(`${heading} ${kind === "all" ? "Results shown are partial-word matches only." : ""}`.trim());
     };
+    // Ignore mutations made by this script (notice, copy buttons, status text) so they do not trigger a refresh.
+    const isOwn = (node: Node) => !!(node instanceof Element ? node : node.parentElement)?.closest(".docs-search-copy, [data-docs-search-notice], .docs-search-status");
+    const ownRecord = (record: MutationRecord) => isOwn(record.target)
+      || (record.type === "childList" && [...record.addedNodes, ...record.removedNodes].every(isOwn));
     let pending = 0;
-    const watcher = new MutationObserver(() => {
+    const watcher = new MutationObserver((records) => {
+      if (records.every(ownRecord)) return;
       clearTimeout(pending);
       pending = window.setTimeout(() => { refresh(); watcher.takeRecords(); }, 120);
     });
