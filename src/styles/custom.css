@@ -395,6 +395,8 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 .source-history dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.5rem 1.5rem; margin-block: 1rem; font-size: 0.875rem; }
 .source-history dt { color: var(--sl-color-gray-3); }
 .source-history dd { margin: 0; overflow-wrap: anywhere; }
+.source-history .source-edits { margin: 0; padding-inline-start: 1.1rem; }
+.source-history .source-edits li { margin-block: 0 0.35rem; }
 @media (max-width: 40rem) { .source-history dl { grid-template-columns: 1fr; gap: 0; } .source-history dd { margin-bottom: 0.75rem; } }
 
 /* Custom controls use their gap spacing, without Markdown sibling margins. */
