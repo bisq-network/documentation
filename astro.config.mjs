@@ -14,6 +14,8 @@ export default defineConfig({
   base,
   integrations: [
     starlight({
+      // src/pages/404.astro is the 404 page; stop Starlight registering a second /404 route.
+      disable404Route: true,
       title: "Documentation",
       favicon: "/favicon.ico",
       logo: { src: "./src/assets/bisq-logo.svg", alt: "Bisq" },
