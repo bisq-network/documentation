@@ -1,8 +1,10 @@
 # Review original wording before proposing edits
 
-The documentation baseline preserves the wording of the 209 recovered wiki articles. Wording and cleanup proposals belong in a **separate draft GitHub pull request**, for human review before merging. The earlier AI-edited guides are preserved here as comparison material; they are not accepted replacements for the originals.
+The documentation baseline preserves the wording of the 209 recovered wiki articles. Wording and cleanup proposals belong in a **separate GitHub pull request marked ready for review**, for human review before merging. The earlier AI-edited guides are preserved here as comparison material; they are not accepted replacements for the originals.
 
-This directory does not authorize a merge, publication, deployment, transaction, recovery operation or message to another person. No automated reviewer is required. Potential human reviewers include sudden, pazza83 and mwithm; listing them does not claim that they have reviewed, approved or accepted responsibility for any change.
+This directory does not authorize a merge, publication, deployment, transaction, recovery operation or message to another person. Ready-for-review status allows CodeRabbit (CRAI) to review the PR; its feedback supplements human review. Potential human reviewers include sudden, pazza83 and mwithm; listing them does not claim that they have reviewed, approved or accepted responsibility for any change.
+
+The [proposal review index](PROPOSAL-INDEX.md) links the small PRs and records retained, rejected and unresolved changes from the complete comparison.
 
 ## Comparison material
 
@@ -19,7 +21,7 @@ This directory does not authorize a merge, publication, deployment, transaction,
 
 The snapshot contains **98 prior guide files**. Several originals were merged into one guide, and some originals had several destinations. Reading only the first target or only one original per merged guide is insufficient.
 
-## Review a draft PR in bounded article batches
+## Review a PR in bounded article batches
 
 1. Record the baseline and proposed PR commit hashes. Identify every original article and prior guide affected by the proposed change. For a proposal covering the complete prior rewrite, account for **all 209 originals and all 98 prior guides**; do not present a smaller reviewed sample as full coverage.
 2. Read each affected original wikitext and restored rendering in full, then all mapped prior/proposed sections. Check paragraphs, warnings, lists, tables, code, captions and links together. A short summary or a retained filename list does not establish that a procedure survived.
@@ -98,4 +100,4 @@ print("Raw-source and snapshot integrity verified; semantic review remains separ
 PY
 ```
 
-Checksum agreement proves byte identity only. It does not establish faithful rendering, preservation of meaning or present-day correctness. Human review of a draft PR is a separate step from publishing the original-wording baseline.
+Checksum agreement proves byte identity only. It does not establish faithful rendering, preservation of meaning or present-day correctness. Human review of a PR is a separate step from publishing the original-wording baseline.
