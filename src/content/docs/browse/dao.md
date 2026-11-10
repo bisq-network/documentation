@@ -1,9 +1,9 @@
 ---
 title: "DAO and BSQ"
-description: "BSQ, governance, proposals, and DAO operation."
+description: "BSQ, governance and compensation"
 ---
 
-BSQ, governance, proposals, and DAO operation. Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+BSQ, governance and compensation. **20 articles.**
 
 - [BSQ](../../wiki/bsq/)
 - [BSQ swaps](../../wiki/bsq-swaps/)
@@ -18,7 +18,6 @@ BSQ, governance, proposals, and DAO operation. Article wording is preserved from
 - [How to sell BSQ on Bisq](../../wiki/how-to-sell-bsq-on-bisq/)
 - [Introduction to the DAO](../../wiki/introduction-to-the-dao/)
 - [Making a compensation request](../../wiki/making-a-compensation-request/)
-- [Making a reimbursement request](../../wiki/making-a-reimbursement-request/)
 - [Participating in a DAO voting cycle](../../wiki/participating-in-a-dao-voting-cycle/)
 - [Paying trading fees with BSQ](../../wiki/paying-trading-fees-with-bsq/)
 - [Proposals](../../wiki/proposals/)

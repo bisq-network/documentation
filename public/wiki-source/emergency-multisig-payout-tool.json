@@ -1,0 +1,123 @@
+{
+  "title": "Emergency Multisig payout tool",
+  "page_id": "437",
+  "revision_id": "2011",
+  "revision_timestamp": "2021-01-20T07:11:12Z",
+  "available_attribution": {
+    "username": "Huey735",
+    "id": "8"
+  },
+  "original_url": "https://bisq.wiki/Emergency_Multisig_payout_tool",
+  "original_revision_url": "https://bisq.wiki/index.php?oldid=2011",
+  "wikitext_sha256": "9bc3c1e91e2a3e1ac13e055823e51663c9fac31c28861a9129b4cfdf23459fa9",
+  "source_download": "/wiki-source/emergency-multisig-payout-tool.wiki.txt",
+  "source_metadata": "/wiki-source/emergency-multisig-payout-tool.json",
+  "capture_label": "2026-10-14",
+  "archive_item": "wiki-bisq.wiki-20261014",
+  "added_at": "2026-11-08",
+  "historical_only": true,
+  "source_language": "en",
+  "recovery_note": "Additional historical source recovered from the Internet Archive dump labelled 14 October 2026. Original wiki revision 2021-01-20T07:11:12Z. This is restored source text, not current operating advice.",
+  "render_transform": "MediaWiki syntax parsed and safely rendered; no prose rewrite.",
+  "source_has_substantive_redirect_tail": false,
+  "original_redirect_directive": null,
+  "slug": "emergency-multisig-payout-tool",
+  "route": "/wiki/emergency-multisig-payout-tool/",
+  "headings": [
+    {
+      "text": "Summary",
+      "anchor": "summary",
+      "legacy_id": "Summary",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 0,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Warning",
+      "anchor": "warning",
+      "legacy_id": "Warning",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 364,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Precautions",
+      "anchor": "precautions",
+      "legacy_id": "Precautions",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 691,
+      "explicit_source_id": null
+    },
+    {
+      "text": "What you need",
+      "anchor": "what-you-need",
+      "legacy_id": "What_you_need",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 809,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Get multisig public keys",
+      "anchor": "get-multisig-public-keys",
+      "legacy_id": "Get_multisig_public_keys",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 1662,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Get private keys",
+      "anchor": "get-private-keys",
+      "legacy_id": "Get_private_keys",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 2074,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Get payout addresses",
+      "anchor": "get-payout-addresses",
+      "legacy_id": "Get_payout_addresses",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 2724,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Create Transaction",
+      "anchor": "create-transaction",
+      "legacy_id": "Create_Transaction",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 3022,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Sign Transaction",
+      "anchor": "sign-transaction",
+      "legacy_id": "Sign_Transaction",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 3231,
+      "explicit_source_id": null
+    },
+    {
+      "text": "Broadcast The Transaction",
+      "anchor": "broadcast-the-transaction",
+      "legacy_id": "Broadcast_The_Transaction",
+      "level": 2,
+      "html_level": 2,
+      "source_offset": 3627,
+      "explicit_source_id": null
+    }
+  ],
+  "explicit_anchors": [],
+  "image_occurrences": [],
+  "template_gap_count": 0,
+  "link_gap_count": 0,
+  "snapshot_label": "14 October 2026 archive; original revision 2021-01-20"
+}
