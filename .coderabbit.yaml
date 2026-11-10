@@ -55,6 +55,8 @@ reviews:
   # people edit during review (review/PROPOSAL-INDEX.md, review/proposal-coverage.json,
   # migration/accepted-edits.json, migration/source-formatting.json,
   # migration/source-review-notes.json and the small repair records) stay in scope.
+  # So does the restoration receipt, migration/restoration-fidelity.json: any change
+  # to it must draw a comment (see path_instructions).
   path_filters:
     # Immutable comparison snapshot of the earlier AI-edited guides.
     - "!review/ai-edited/**"
@@ -65,8 +67,6 @@ reviews:
     # Build output and dependencies.
     - "!dist/**"
     - "!node_modules/**"
-    # Restoration receipt: per-article hashes of the preserved originals.
-    - "!migration/restoration-fidelity.json"
     # Generated indexes of the acquisition (the two files are byte-identical).
     - "!migration/articles.json"
     - "!migration/title-route-map.json"
@@ -154,6 +154,14 @@ reviews:
         check scripts, and `test` lists the test files explicitly. Flag any change
         that removes or reorders those gate steps, or drops a test file from the
         list.
+
+    - path: "migration/restoration-fidelity.json"
+      instructions: |
+        This file is the restoration receipt: the hashes of the preserved original
+        articles. It must not change in any pull request. Flag every modification
+        as a problem, and quote the changed slugs or hashes. State that
+        restoration receipts are never rehashed or edited to make a check pass;
+        accepted wording changes go through migration/accepted-edits.json instead.
 
     - path: "migration/accepted-edits.json"
       instructions: |
