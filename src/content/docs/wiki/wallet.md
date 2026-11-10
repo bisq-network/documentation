@@ -33,7 +33,7 @@ tableOfContents: false
 <li>Locked - This is outside of your full control. It can relate to balance that you have locked in a trade either because you're selling that BTC or because it is related to the <a href="../security-deposit/">security deposit</a> (which in most cases will simply go back to your wallet after the trade is done)</li>
 </ul>
 <span class="wiki-template-gap" role="note"><strong>[Unresolved template: Wallet_derivation_paths]</strong> <code>{{Wallet_derivation_paths}}</code></span>
-<p>In Bisq 1 v1.10.11, the BSQ entry is incomplete: BSQ SegWit addresses use <code>m/44'/142'/1'</code>, and <code>m/44'/142'/0'</code> is the legacy BSQ path. That version creates new wallets with SegWit keychains and adds them to older legacy wallets, so this list is not a complete recipe for restoring a Bisq wallet in other software.</p>
+<p>In Bisq 1 v1.10.11, the BSQ path above is not the only one: BSQ native SegWit (P2WPKH) addresses use <code>m/44'/142'/1'</code>, and <code>m/44'/142'/0'</code> is the legacy BSQ path. That version creates new wallets with SegWit keychains and adds them to older legacy wallets, so these paths are not a complete recipe for restoring a Bisq wallet in other software. Other wallets show BSQ as ordinary bitcoin, and spending it there will probably lose the BSQ.</p>
 <p><a href="../watch-keys/">Watch keys</a> can be used to see balance from an external wallet.</p>
 <span class="wiki-legacy-anchor" id="SPV_file" aria-hidden="true"></span><h2 id="spv-file">SPV file</h2>
 <p>Most mobile wallets and in-application wallets are what is called a SPV wallet (Simple Payment Verification). Bisq is no different, for most cases.</p>

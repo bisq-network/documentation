@@ -29,5 +29,5 @@ tableOfContents: false
 </ul>
 <span class="wiki-legacy-anchor" id="Restoring_to_a_non-Bisq_wallet" aria-hidden="true"></span><h2 id="restoring-to-a-non-bisq-wallet"> Restoring to a non-Bisq wallet </h2>
 <span class="wiki-template-gap" role="note"><strong>[Unresolved template: Wallet_derivation_paths]</strong> <code>{{Wallet_derivation_paths}}</code></span>
-<p>In Bisq 1 v1.10.11, the BSQ entry is incomplete: BSQ SegWit addresses use <code>m/44'/142'/1'</code>, and <code>m/44'/142'/0'</code> is the legacy BSQ path. That version creates new wallets with SegWit keychains and adds them to older legacy wallets, so this list is not a complete recipe for restoring a Bisq wallet in other software.</p>
+<p>In Bisq 1 v1.10.11, the BSQ path above is not the only one: BSQ native SegWit (P2WPKH) addresses use <code>m/44'/142'/1'</code>, and <code>m/44'/142'/0'</code> is the legacy BSQ path. That version creates new wallets with SegWit keychains and adds them to older legacy wallets, so these paths are not a complete recipe for restoring a Bisq wallet in other software. Other wallets show BSQ as ordinary bitcoin, and spending it there will probably lose the BSQ.</p>
 </div>
