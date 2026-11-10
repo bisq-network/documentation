@@ -12,7 +12,7 @@ tableOfContents: false
 <div class="wiki-recovered-article" lang="en"><h2 id="summary"> Summary </h2>
 <p>This tool allows for a Mediator to create an unsigned transaction releasing the funds in the 2-of-2 multisig controlled by the traders and send it to each of them, have them sign it and return the signatures and have the the Mediator combine the three pieces (unsigned transaction and both signatures from the traders) to broadcast the transaction.</p>
 <h2 id="warning"> Warning </h2>
-<p>In this process traders copy and paste their private keys from the Bisq software into a notepad. As a precaution it is advised they remove all of their funds from this wallet before starting this procedure and consider <a href="../switching-to-a-new-data-directory/">switching to a new data directory</a> to get a new wallet.</p>
+<p>In the original 2021 process, traders copied and pasted their private keys from the Bisq software into a notepad. As a precaution it is advised they remove all of their funds from this wallet before starting this procedure and consider <a href="../switching-to-a-new-data-directory/">switching to a new data directory</a> to get a new wallet.</p>
 <h2 id="precautions"> Precautions </h2>
 <p>The traders need to make sure the transaction details match the correct resolution before signing.</p>
 <h2 id="what-you-need"> What you need </h2>
@@ -100,7 +100,7 @@ tableOfContents: false
 |-
 | privatekeyHex || your private key for this trade
 |}</code></pre></details>
-<p>Open a text editor where you can gather all this information.</p>
+<p>Open a text editor where you can gather all this information, except private keys.</p>
 <h2 id="get-multisig-public-keys"> Get multisig public keys </h2>
 <p>Each trader involved can get their public keys and the other trader's in their trade JSON contract.</p>
 <ol>
@@ -111,15 +111,8 @@ tableOfContents: false
 BuyerMultiSigPubKeyHex: &lt;hex value&gt;
 SellerMultiSigPubKeyHex: &lt;hex value&gt;</code></pre>
 <h2 id="get-private-keys"> Get private keys </h2>
-<p>To access your Bisq wallet private key</p>
-<ol>
-<li>Press ctrl + j, alt +j or cmd + j.</li>
-<li>Check Include private keys and click COPY TO CLIPBOARD and paste it to a text editor.</li>
-<li>In the text editor, search for the public key value. You are looking for an entry that reads DeterministicKey{pub HEX=&lt;hex value&gt; where &lt;hex value&gt; is the public key.</li>
-<li>When you've found this entry, select and copy the priv HEX=&lt;hex value&gt;. This value is the private key.</li>
-<li>Copy, paste and save that information in a bisqWallet.txt file.</li>
-</ol>
-<p>Note: If your wallet uses a password, you will need to remove the password to view the private keys in wallet data.</p>
+<p>In Bisq 1 v1.10.11, keep private keys inside Bisq. After you import the unsigned transaction (see <a href="#sign-transaction">Sign Transaction</a>), LOCATE KEY IN WALLET on the SIGN screen finds your key for this trade in the wallet and fills the <code>privateKeyHex</code> field; GENERATE SIGNATURE then signs on your computer. Share only the resulting signature: never send a private key or seed words to the mediator or anyone else.</p>
+<p>This replaces the original 2021 steps, which copied wallet data including private keys into a text editor and saved the key in a bisqWallet.txt file.</p>
 <h2 id="get-payout-addresses"> Get payout addresses </h2>
 <p>Open the trade details and click on VIEW CONTRACT IN JSON FORMAT. At the end of the JSON contract file you can also find the intended payout address for each trader:</p>
 <pre><code class="wiki-source-code" id="source-code-2">
@@ -133,7 +126,7 @@ takerPayoutAddressString: &lt;address value&gt; </code></pre>
 <h2 id="sign-transaction"> Sign Transaction </h2>
 <ol>
 <li>Press ctrl+g and click IMPORT. Copy the string you got on step 2, paste it in the first field and press IMPORT FROM STRING. It should populate the view with the information about the payout transaction.</li>
-<li>Go to SIGN and paste your private key for this trade (priv HEX=) and click GENERATE SIGNATURE.</li>
+<li>Go to SIGN, click LOCATE KEY IN WALLET to fill in your private key for this trade, and click GENERATE SIGNATURE.</li>
 <li>Copy the signature hex that you get and share it with the mediator</li>
 </ol>
 <h2 id="broadcast-the-transaction"> Broadcast The Transaction </h2>
