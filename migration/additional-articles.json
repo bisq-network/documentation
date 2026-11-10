@@ -1,0 +1,486 @@
+{
+  "schema_version": 1,
+  "count": 3,
+  "items": [
+    {
+      "title": "Emergency Multisig payout tool",
+      "page_id": "437",
+      "revision_id": "2011",
+      "revision_timestamp": "2021-01-20T07:11:12Z",
+      "available_attribution": {
+        "username": "Huey735",
+        "id": "8"
+      },
+      "original_url": "https://bisq.wiki/Emergency_Multisig_payout_tool",
+      "original_revision_url": "https://bisq.wiki/index.php?oldid=2011",
+      "wikitext_sha256": "9bc3c1e91e2a3e1ac13e055823e51663c9fac31c28861a9129b4cfdf23459fa9",
+      "source_download": "/wiki-source/emergency-multisig-payout-tool.wiki.txt",
+      "source_metadata": "/wiki-source/emergency-multisig-payout-tool.json",
+      "capture_label": "2026-10-14",
+      "archive_item": "wiki-bisq.wiki-20261014",
+      "added_at": "2026-11-08",
+      "historical_only": true,
+      "source_language": "en",
+      "recovery_note": "Additional historical source recovered from the Internet Archive dump labelled 14 October 2026. Original wiki revision 2021-01-20T07:11:12Z. This is restored source text, not current operating advice.",
+      "render_transform": "MediaWiki syntax parsed and safely rendered; no prose rewrite.",
+      "source_has_substantive_redirect_tail": false,
+      "original_redirect_directive": null,
+      "slug": "emergency-multisig-payout-tool",
+      "route": "/wiki/emergency-multisig-payout-tool/",
+      "output_sha256": "53036190745a027e92355d9204739ac93b3b746f5be3e7c975d6b8b0c8798a64",
+      "rendered_html_sha256": "4a9a914a65efd4824b0d3d8e52d2793e27e9c76f71731e641ef8e59b6102d325",
+      "directory": "wallet",
+      "headings": [
+        {
+          "text": "Summary",
+          "anchor": "summary",
+          "legacy_id": "Summary",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 0,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Warning",
+          "anchor": "warning",
+          "legacy_id": "Warning",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 364,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Precautions",
+          "anchor": "precautions",
+          "legacy_id": "Precautions",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 691,
+          "explicit_source_id": null
+        },
+        {
+          "text": "What you need",
+          "anchor": "what-you-need",
+          "legacy_id": "What_you_need",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 809,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Get multisig public keys",
+          "anchor": "get-multisig-public-keys",
+          "legacy_id": "Get_multisig_public_keys",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 1662,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Get private keys",
+          "anchor": "get-private-keys",
+          "legacy_id": "Get_private_keys",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 2074,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Get payout addresses",
+          "anchor": "get-payout-addresses",
+          "legacy_id": "Get_payout_addresses",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 2724,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Create Transaction",
+          "anchor": "create-transaction",
+          "legacy_id": "Create_Transaction",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 3022,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Sign Transaction",
+          "anchor": "sign-transaction",
+          "legacy_id": "Sign_Transaction",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 3231,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Broadcast The Transaction",
+          "anchor": "broadcast-the-transaction",
+          "legacy_id": "Broadcast_The_Transaction",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 3627,
+          "explicit_source_id": null
+        }
+      ],
+      "explicit_anchors": [],
+      "image_occurrences": [],
+      "code_occurrences": [
+        {
+          "element_id": "source-code-1",
+          "tag": "nowiki",
+          "source_offset": 1981,
+          "raw": "<nowiki>\nBuyerMultiSigPubKeyHex: <hex value>\nSellerMultiSigPubKeyHex: <hex value></nowiki>",
+          "rendered_literal": "\nBuyerMultiSigPubKeyHex: <hex value>\nSellerMultiSigPubKeyHex: <hex value>"
+        },
+        {
+          "element_id": "source-code-2",
+          "tag": "nowiki",
+          "source_offset": 2918,
+          "raw": "<nowiki>\nmakerPayoutAddressString: <address value>\ntakerPayoutAddressString: <address value> </nowiki>",
+          "rendered_literal": "\nmakerPayoutAddressString: <address value>\ntakerPayoutAddressString: <address value> "
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "table_source_fallback_available",
+          "source_offset": 842,
+          "source": "{| class=\"wikitable\"\n|-\n! fields !! description\n|-\n| depositTxId || ID for the transaction that sent both trader’s funds into the 2-of-2 multisig\n|-\n| amountInMultisig || Amount locked in the 2-of-2 multisig\n|-\n| buyerPayoutAmount || Amount to be released to the BTC buyer\n|-\n| sellerPayoutAmount || Amount to be released to the BTC seller\n|-\n| buyerPayoutAddress || Address onto which the BTC buyer should be paid\n|-\n| sellerPayoutAddress || Address onto which the BTC seller should be paid\n|-\n| buyerPubKeyAsHex || BTC buyer’s public key\n|-\n| sellerPubKeyAsHex || BTC seller’s public key\n|}"
+        },
+        {
+          "kind": "table_source_fallback_available",
+          "source_offset": 1493,
+          "source": "{| class=\"wikitable\"\n|-\n! fields !! description\n|-\n| privatekeyHex || your private key for this trade\n|}"
+        }
+      ],
+      "template_gap_count": 0,
+      "link_gap_count": 0,
+      "file": "src/content/docs/wiki/emergency-multisig-payout-tool.md",
+      "snapshot_label": "14 October 2026 archive; original revision 2021-01-20",
+      "source_metadata_sha256": "e2b341b1b234a6db21c48f0cb07a989518e6412de4a6bc1830f756fe9b0e9e1b"
+    },
+    {
+      "title": "Bitcointalk Moderator",
+      "page_id": "202",
+      "revision_id": "1203",
+      "revision_timestamp": "2020-04-28T15:21:42Z",
+      "available_attribution": {
+        "username": "HunterNyan",
+        "id": "30"
+      },
+      "original_url": "https://bisq.wiki/Bitcointalk_Moderator",
+      "original_revision_url": "https://bisq.wiki/index.php?oldid=1203",
+      "wikitext_sha256": "0ca0b473ebb53c9b359021e93d33314c384966aba31065c4600569feb736240d",
+      "source_download": "/wiki-source/bitcointalk-moderator.wiki.txt",
+      "source_metadata": "/wiki-source/bitcointalk-moderator.json",
+      "capture_label": "2026-10-14",
+      "archive_item": "wiki-bisq.wiki-20261014",
+      "added_at": "2026-11-08",
+      "historical_only": true,
+      "source_language": "en",
+      "recovery_note": "Additional historical source recovered from the Internet Archive dump labelled 14 October 2026. Original wiki revision 2020-04-28T15:21:42Z. This is restored source text, not current operating advice. The original source starts with a redirect directive; the directive is recorded as metadata and omitted from the displayed body, while all following prose is retained.",
+      "render_transform": "Hide initial redirect directive only; original raw file preserved unchanged.",
+      "source_has_substantive_redirect_tail": true,
+      "original_redirect_directive": "#REDIRECT [[Community_Manager]]",
+      "slug": "bitcointalk-moderator",
+      "route": "/wiki/bitcointalk-moderator/",
+      "output_sha256": "9a87ad46607aef59ced80d3e9440ff0df27fe3ce4ed6e18bb007147bc9fcfec9",
+      "rendered_html_sha256": "1eb937ac04f338bf7affb3ce7bba955929133410a1ebd64af94cad0043208109",
+      "directory": "contribute",
+      "headings": [
+        {
+          "text": "Issue",
+          "anchor": "issue",
+          "legacy_id": "Issue",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 393,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Team",
+          "anchor": "team",
+          "legacy_id": "Team",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 588,
+          "explicit_source_id": null
+        },
+        {
+          "text": "github",
+          "anchor": "github",
+          "legacy_id": "github",
+          "level": 3,
+          "html_level": 3,
+          "source_offset": 693,
+          "explicit_source_id": null
+        },
+        {
+          "text": "wiki",
+          "anchor": "wiki",
+          "legacy_id": "wiki",
+          "level": 3,
+          "html_level": 3,
+          "source_offset": 813,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Duties",
+          "anchor": "duties",
+          "legacy_id": "Duties",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 825,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Rights",
+          "anchor": "rights",
+          "legacy_id": "Rights",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 1064,
+          "explicit_source_id": null
+        },
+        {
+          "text": "Bonding",
+          "anchor": "bonding",
+          "legacy_id": "Bonding",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 1195,
+          "explicit_source_id": null
+        }
+      ],
+      "explicit_anchors": [],
+      "image_occurrences": [],
+      "code_occurrences": [],
+      "gaps": [
+        {
+          "kind": "unrecovered_internal_target",
+          "source_offset": 360,
+          "source": "role"
+        }
+      ],
+      "template_gap_count": 0,
+      "link_gap_count": 1,
+      "file": "src/content/docs/wiki/bitcointalk-moderator.md",
+      "snapshot_label": "14 October 2026 archive; original revision 2020-04-28",
+      "source_metadata_sha256": "d4b794b96d4fd4e94046b3bc3820cac4a06042ca2ab732ec1c6b3b68c931cfbe"
+    },
+    {
+      "title": "在中国运行Bisq (Running Bisq in China)",
+      "page_id": "120",
+      "revision_id": "2798",
+      "revision_timestamp": "2022-02-04T12:37:11Z",
+      "available_attribution": {
+        "username": "W000000t",
+        "id": "41"
+      },
+      "original_url": "https://bisq.wiki/在中国运行Bisq_(Running_Bisq_in_China)",
+      "original_revision_url": "https://bisq.wiki/index.php?oldid=2798",
+      "wikitext_sha256": "8c19fcea0d155bed154507bc77296bd4a188b34550b1ac87cdf7f7c8ebf264d0",
+      "source_download": "/wiki-source/running-bisq-in-china-sstap.wiki.txt",
+      "source_metadata": "/wiki-source/running-bisq-in-china-sstap.json",
+      "capture_label": "2026-10-14",
+      "archive_item": "wiki-bisq.wiki-20261014",
+      "added_at": "2026-11-08",
+      "historical_only": true,
+      "source_language": "zh",
+      "recovery_note": "Additional historical source recovered from the Internet Archive dump labelled 14 October 2026. Original wiki revision 2022-02-04T12:37:11Z. This is restored source text, not current operating advice. The original source starts with a redirect directive; the directive is recorded as metadata and omitted from the displayed body, while all following prose is retained.",
+      "render_transform": "Hide initial redirect directive only; original raw file preserved unchanged.",
+      "source_has_substantive_redirect_tail": true,
+      "original_redirect_directive": "#REDIRECT [[Running Bisq in China]]",
+      "slug": "running-bisq-in-china-sstap",
+      "route": "/wiki/running-bisq-in-china-sstap/",
+      "output_sha256": "25d0fac32b551afb09c18e8e3e9c25501456dcb36232eef1f6aaaca8b4160712",
+      "rendered_html_sha256": "4ecbbed0b06c8a821e091e1e9997bab99dd519ae0d6fb5791cdea1dcb41ff391",
+      "directory": "setup",
+      "headings": [
+        {
+          "text": "你需要以下工具 / Requirements",
+          "anchor": "requirements",
+          "legacy_id": "你需要以下工具_/_Requirements",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 219,
+          "explicit_source_id": null
+        },
+        {
+          "text": "示范如下 / Directions",
+          "anchor": "directions",
+          "legacy_id": "示范如下_/_Directions",
+          "level": 2,
+          "html_level": 2,
+          "source_offset": 322,
+          "explicit_source_id": null
+        },
+        {
+          "text": "先在 下载 SStap",
+          "anchor": "sstap",
+          "legacy_id": "先在_下载_SStap",
+          "level": 4,
+          "html_level": 4,
+          "source_offset": 366,
+          "explicit_source_id": null
+        },
+        {
+          "text": "然后打开之后添加你的 SS/SSR",
+          "anchor": "ss-ssr",
+          "legacy_id": "然后打开之后添加你的_SS/SSR",
+          "level": 4,
+          "html_level": 4,
+          "source_offset": 691,
+          "explicit_source_id": null
+        },
+        {
+          "text": "或者用 Socks5 添加 SS/SSR 本地代理",
+          "anchor": "socks5-ss-ssr",
+          "legacy_id": "或者用_Socks5_添加_SS/SSR_本地代理",
+          "level": 4,
+          "html_level": 4,
+          "source_offset": 882,
+          "explicit_source_id": null
+        },
+        {
+          "text": "若是 SS/SSR 可以如上图填写",
+          "anchor": "ss-ssr-2",
+          "legacy_id": "若是_SS/SSR_可以如上图填写",
+          "level": 4,
+          "html_level": 4,
+          "source_offset": 1050,
+          "explicit_source_id": null
+        },
+        {
+          "text": "其他的代理用不同端口来进行代理",
+          "anchor": "section",
+          "legacy_id": "其他的代理用不同端口来进行代理",
+          "level": 4,
+          "html_level": 4,
+          "source_offset": 1153,
+          "explicit_source_id": null
+        },
+        {
+          "text": "之后就进入你 Bisq 吧",
+          "anchor": "bisq",
+          "legacy_id": "之后就进入你_Bisq_吧",
+          "level": 4,
+          "html_level": 4,
+          "source_offset": 1233,
+          "explicit_source_id": null
+        }
+      ],
+      "explicit_anchors": [],
+      "image_occurrences": [
+        {
+          "wiki_filename": "China-1.jpg",
+          "canonical_filename": "China-1.jpg",
+          "source_offset": 768,
+          "source_line": 26,
+          "source_context": "打开之后添加你的 SS/SSR ====\n\n''Then open SStap, and add your SS/SSR.''\n<br>\n\n[[File:China-1.jpg|none|400px]]\n<br>\n\n[[File:China-2.jpg|none|400px]]\n<br>\n\n[[File:China-3.jpg|none|4",
+          "raw_reference": "[[File:China-1.jpg|none|400px]]",
+          "gallery": false,
+          "element_id": "source-image-1",
+          "disposition": "inline_recovered_image",
+          "status": "original",
+          "asset_path": "media/wiki/0059984c7475047f6592923a210c9662aef898c6e738a3f2bd9cb93691acea72.jpg",
+          "sha256": "0059984c7475047f6592923a210c9662aef898c6e738a3f2bd9cb93691acea72",
+          "source_kind": "internet_archive_full_dump",
+          "width": 428,
+          "height": 546
+        },
+        {
+          "wiki_filename": "China-2.jpg",
+          "canonical_filename": "China-2.jpg",
+          "source_offset": 806,
+          "source_line": 29,
+          "source_context": "p, and add your SS/SSR.''\n<br>\n\n[[File:China-1.jpg|none|400px]]\n<br>\n\n[[File:China-2.jpg|none|400px]]\n<br>\n\n[[File:China-3.jpg|none|400px]]\n<br>\n\n==== 或者用 Socks5 添加 SS/SSR",
+          "raw_reference": "[[File:China-2.jpg|none|400px]]",
+          "gallery": false,
+          "element_id": "source-image-2",
+          "disposition": "inline_recovered_image",
+          "status": "original",
+          "asset_path": "media/wiki/8714d6983940fd852e543ad862fb8c5efd68c5d56b2e9dbaf322aba995129d96.jpg",
+          "sha256": "8714d6983940fd852e543ad862fb8c5efd68c5d56b2e9dbaf322aba995129d96",
+          "source_kind": "internet_archive_full_dump",
+          "width": 605,
+          "height": 550
+        },
+        {
+          "wiki_filename": "China-3.jpg",
+          "canonical_filename": "China-3.jpg",
+          "source_offset": 844,
+          "source_line": 32,
+          "source_context": ":China-1.jpg|none|400px]]\n<br>\n\n[[File:China-2.jpg|none|400px]]\n<br>\n\n[[File:China-3.jpg|none|400px]]\n<br>\n\n==== 或者用 Socks5 添加 SS/SSR 本地代理 ====\n\n''Or use Socks5 to add a l",
+          "raw_reference": "[[File:China-3.jpg|none|400px]]",
+          "gallery": false,
+          "element_id": "source-image-3",
+          "disposition": "inline_recovered_image",
+          "status": "original",
+          "asset_path": "media/wiki/4f41d8962998828b0bebfcb20a043f23dd99e44f5658db9c8e7d0d9ba81e39e2.jpg",
+          "sha256": "4f41d8962998828b0bebfcb20a043f23dd99e44f5658db9c8e7d0d9ba81e39e2",
+          "source_kind": "internet_archive_full_dump",
+          "width": 373,
+          "height": 436
+        },
+        {
+          "wiki_filename": "China-4.jpg",
+          "canonical_filename": "China-4.jpg",
+          "source_offset": 972,
+          "source_line": 40,
+          "source_context": "S/SSR 本地代理 ====\n\n''Or use Socks5 to add a local proxy SS/SSR.''\n<br>\n\n[[File:China-4.jpg|none|400px]] \n<br>\n\n[[File:China-5.jpg|none|400px]] \n<br>\n\n==== 若是 SS/SSR 可以如上图填写 ",
+          "raw_reference": "[[File:China-4.jpg|none|400px]]",
+          "gallery": false,
+          "element_id": "source-image-4",
+          "disposition": "inline_recovered_image",
+          "status": "original",
+          "asset_path": "media/wiki/db7b0d8af1594610330903b51bf403ca89d96fc6fa1b58ddb070f61c5626a723.jpg",
+          "sha256": "db7b0d8af1594610330903b51bf403ca89d96fc6fa1b58ddb070f61c5626a723",
+          "source_kind": "internet_archive_full_dump",
+          "width": 606,
+          "height": 544
+        },
+        {
+          "wiki_filename": "China-5.jpg",
+          "canonical_filename": "China-5.jpg",
+          "source_offset": 1011,
+          "source_line": 43,
+          "source_context": " a local proxy SS/SSR.''\n<br>\n\n[[File:China-4.jpg|none|400px]] \n<br>\n\n[[File:China-5.jpg|none|400px]] \n<br>\n\n==== 若是 SS/SSR 可以如上图填写 ====\n\n''If SS/SSR, you can fill in the ",
+          "raw_reference": "[[File:China-5.jpg|none|400px]]",
+          "gallery": false,
+          "element_id": "source-image-5",
+          "disposition": "inline_recovered_image",
+          "status": "original",
+          "asset_path": "media/wiki/2c1c876a12bf3c1a21256bb20940aab40821deb5a61d93a6379033ca8f148a95.jpg",
+          "sha256": "2c1c876a12bf3c1a21256bb20940aab40821deb5a61d93a6379033ca8f148a95",
+          "source_kind": "internet_archive_full_dump",
+          "width": 362,
+          "height": 462
+        },
+        {
+          "wiki_filename": "Bisq-cny.png",
+          "canonical_filename": "Bisq-cny.png",
+          "source_offset": 1291,
+          "source_line": 60,
+          "source_context": "r proxy.''\n\n==== 之后就进入你 Bisq 吧 ====\n\n''Bisq should now work!''\n\n<br>\n\n[[File:Bisq-cny.png|none|600px]] \n<br>",
+          "raw_reference": "[[File:Bisq-cny.png|none|600px]]",
+          "gallery": false,
+          "element_id": "source-image-6",
+          "disposition": "inline_recovered_image",
+          "status": "original",
+          "asset_path": "media/wiki/4c7a83ca37fc116f424e45dc8dbc1fb958fac6c0feb73de54ba87360bc005388.png",
+          "sha256": "4c7a83ca37fc116f424e45dc8dbc1fb958fac6c0feb73de54ba87360bc005388",
+          "source_kind": "internet_archive_full_dump",
+          "width": 1200,
+          "height": 710
+        }
+      ],
+      "code_occurrences": [],
+      "gaps": [],
+      "template_gap_count": 0,
+      "link_gap_count": 0,
+      "file": "src/content/docs/wiki/running-bisq-in-china-sstap.md",
+      "snapshot_label": "14 October 2026 archive; original revision 2022-02-04",
+      "source_metadata_sha256": "5c8af2da8d173a8a5192812514eda8ad721b969bf8865ee26cf0b6c1dccda0f3"
+    }
+  ]
+}
