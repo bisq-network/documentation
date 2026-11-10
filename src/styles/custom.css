@@ -178,9 +178,10 @@ h1 { font-size: var(--sl-text-h1); font-weight: 500; }
 .wiki-recovered-article > :not(table, pre, figure, .table-wrap, .code-block) { max-width: 34rem; }
 .wiki-recovered-article :is(table, pre, figure) { max-width: 54rem; width: 100%; }
 .wiki-recovered-article :is(p, li) { text-wrap: pretty; }
-/* Hand-written pages (review, recovery status, recovered media) have no article wrapper; give their prose the same measure. */
-.sl-markdown-content:not(:has(.wiki-recovered-article)) > :is(p, ul, ol, dl, blockquote, h2, h3, h4) { max-width: 34rem; }
-.sl-markdown-content:not(:has(.wiki-recovered-article)) > :is(p, li) { text-wrap: pretty; }
+/* Pages without the restored-article wrapper (review, recovery status, recovered media, browse hubs, 404) get the same prose measure.
+   Starlight wraps headings in div.sl-heading-wrapper, so only paragraphs, lists and quotes are direct children here. */
+.sl-markdown-content:not(:has(.wiki-recovered-article)) > :is(p, ul, ol, dl, blockquote) { max-width: 34rem; }
+.sl-markdown-content:not(:has(.wiki-recovered-article)) > p { text-wrap: pretty; }
 .wiki-recovered-article figure img { width: auto; max-width: 100%; }
 .source-context a, .source-history a { color: var(--sl-color-text-accent); text-underline-offset: 0.15em; }
 .sidebar-content a[aria-current="page"] {
