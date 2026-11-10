@@ -12,6 +12,14 @@ test("additional historical sources retain raw, rendered and media receipts", ()
   }
 });
 
+test("a formatted addition accepts only its recorded line breaks", () => {
+  const item = additionalArticles.find((entry) => entry.slug === "emergency-multisig-payout-tool");
+  const formatted = readFileSync(item.file, "utf8");
+  assert.ok(formatted.split("\n").length > 100, "expected one source line per element");
+  const reformatted = formatted.replace("</h2>\n<p>", "</h2>&#10;<p>");
+  assert.throws(() => verifyAdditionalArticles((path) => path === item.file ? Buffer.from(reformatted) : readFileSync(path)), /rendered article drift/);
+});
+
 test("original articles and additions appear once in navigation and discovery", () => {
   const original = JSON.parse(readFileSync("migration/articles.json", "utf8")).items;
   const all = loadIntegration();

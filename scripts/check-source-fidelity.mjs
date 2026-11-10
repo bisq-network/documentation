@@ -1,4 +1,4 @@
-import { verifyAdditionalArticles } from "./lib/additional-articles.mjs";
+import { additionalArticles, verifyAdditionalArticles } from "./lib/additional-articles.mjs";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
@@ -141,8 +141,9 @@ async function verify(overrides = new Map()) {
   assert.equal(formattingBySlug.size, formatting.items.length, "duplicate source-formatting record");
   for (const record of formatting.items) {
     const original = manifest.items.find((item) => item.slug === record.slug);
-    assert(original, "source-formatting record has no original article");
-    assert.equal(record.original_file_sha256, original.restored_file_sha256, "source-formatting baseline differs from the preserved original");
+    const addition = additionalArticles.find((item) => item.slug === record.slug);
+    assert(original || addition, "source-formatting record has no original or additional article");
+    assert.equal(record.original_file_sha256, original ? original.restored_file_sha256 : addition.output_sha256, "source-formatting baseline differs from the preserved original");
     assert(Number.isSafeInteger(record.decoded_newline_entities) && record.decoded_newline_entities > 0, "invalid source-formatting line count");
   }
   assert.equal(manifest.schema_version, 1, "unsupported fidelity manifest schema");
