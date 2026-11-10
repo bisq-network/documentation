@@ -7,11 +7,12 @@ function decode(value) {
 
 /**
  * Normalize a pasted wiki address or same-site path without making a request.
- * Accept only HTTP(S) wiki hosts and the configured local/canonical origins;
+ * Accept only HTTP(S) wiki hosts, the configured local/canonical origins and
+ * listed previous sites (origin plus base path, e.g. an earlier preview host);
  * reject credentials, control characters and unsupported schemes. Return null
  * for invalid input, otherwise a lookup path, fragment and search suggestion.
  */
-export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = origin }) {
+export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = origin, previousSites = [] }) {
     const input = value.trim();
     if (!input || input.length > 4096 || /[\\\u0000-\u001f\u007f]/.test(input)) return null;
     const isWikiHost = /^(?:www\.)?bisq\.wiki(?:\/|$)/i.test(input);
@@ -22,11 +23,16 @@ export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = orig
         url = new URL(isWikiHost ? `https://${input}` : input.startsWith("/") || hasScheme ? input : `/${input}`, origin);
     } catch { return null; }
     const wiki = ["bisq.wiki", "www.bisq.wiki"].includes(url.hostname.toLowerCase());
-    if (!["http:", "https:"].includes(url.protocol) || url.username || url.password ||
-        (!wiki && ![origin, siteOrigin].includes(url.origin))) return null;
+    if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) return null;
     let path = decode(url.pathname);
-    const prefix = base.replace(/\/$/, "");
-    if (!wiki && prefix && (path === prefix || path.startsWith(prefix + "/"))) path = path.slice(prefix.length);
+    const within = (prefix) => !prefix || path === prefix || path.startsWith(prefix + "/");
+    const current = base.replace(/\/$/, "");
+    if (!wiki) {
+        const previous = previousSites.find((site) => site.origin === url.origin && within(site.base.replace(/\/$/, "")));
+        const prefix = [origin, siteOrigin].includes(url.origin) ? current : previous?.base.replace(/\/$/, "");
+        if (prefix === undefined) return null;
+        if (prefix && within(prefix)) path = path.slice(prefix.length);
+    }
     if (/^\/index\.php$/i.test(path)) {
         const title = url.searchParams.get("title");
         if (!title) return null;
