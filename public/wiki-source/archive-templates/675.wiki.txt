@@ -1,0 +1,12 @@
+{{Admonition_Warn|All trades starting from 1st January 2023 use a new trade protocol ([[Burning Men|Burning Men Protocol]]) that is designed to further improve the decentralization of Bisq. The new protocol is a result of the proposal [https://github.com/bisq-network/proposals/issues/390 Distribute Burningman role to contributors who burned BSQ] which was voted in Bisq DAO cycle 41 with 100% approval.
+
+The protocol change means trades placed from 1st January 2023 will be treated differently in arbitration, as a result of the accepted proposal [https://github.com/bisq-network/proposals/issues/386 do not pay out the security deposit of the trade peer to the arbitration case winner], with further improvements from [https://github.com/bisq-network/proposals/issues/411 Security deposit compensation table] that allows limited compensation under certain conditions.
+
+If a dispute escalates to arbitration, the RefundAgent will pay out the trade amount plus one deposit and, in some cases, a limited portion of the losing user's security deposit. Previously they paid out the trade amount plus both users' security deposits. Therefore, traders in arbitration will notice the following:
+
+* The arbitration winning party will be compensated with the trade amount, their own deposit, and, depending on the deposit %, may also receive a limited portion of the losing peer's deposit.
+* The arbitration losing party may lose only part of their deposit, rather than the full amount.
+
+This change is necessary for the security of the new protocol. 
+
+'''Arbitration should be seen as a last resort'''. All efforts should be made by traders to come to an agreement during mediation.}}

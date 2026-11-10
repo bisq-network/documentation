@@ -1,0 +1,61 @@
+#REDIRECT [[Running Bisq in China]]
+
+
+
+
+
+The [https://en.wikipedia.org/wiki/Great_Firewall Great Firewall of China] (GFW) makes it difficult to run Bisq from within mainland China.
+
+This article outlines a workaround.
+
+== 你需要以下工具 / Requirements == <!-- / Requirements -->
+
+1. SStap 保证 Bisq 在大陆的运行
+
+2. 一个 SS/SSR 或者其他形式的代理
+
+== 示范如下 / Directions == <!-- Directions -->
+==== [https://github.com/FQrabbit/SSTap-Rule/releases/tag/SSTap%E5%B8%B8%E7%94%A8%E7%89%88%E6%9C%AC%E5%8F%8A%E5%8E%BB%E5%B9%BF%E5%91%8A 先在 下载 SStap] ====
+''First [https://github.com/FQrabbit/SSTap-Rule/releases/tag/SSTap%E5%B8%B8%E7%94%A8%E7%89%88%E6%9C%AC%E5%8F%8A%E5%8E%BB%E5%B9%BF%E5%91%8A download SStap from GitHub].''
+
+==== 然后打开之后添加你的 SS/SSR ====
+
+''Then open SStap, and add your SS/SSR.''
+<br>
+
+[[File:China-1.jpg|none|400px]]
+<br>
+
+[[File:China-2.jpg|none|400px]]
+<br>
+
+[[File:China-3.jpg|none|400px]]
+<br>
+
+==== 或者用 Socks5 添加 SS/SSR 本地代理 ====
+
+''Or use Socks5 to add a local proxy SS/SSR.''
+<br>
+
+[[File:China-4.jpg|none|400px]] 
+<br>
+
+[[File:China-5.jpg|none|400px]] 
+<br>
+
+==== 若是 SS/SSR 可以如上图填写 ====
+
+''If SS/SSR, you can fill in the fields as shown in the picture above.''
+
+==== 其他的代理用不同端口来进行代理 ====
+
+''Otherwise, use the correct port for your proxy.''
+
+==== 之后就进入你 Bisq 吧 ====
+
+''Bisq should now work!''
+
+<br>
+
+[[File:Bisq-cny.png|none|600px]] 
+<br>

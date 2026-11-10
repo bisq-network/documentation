@@ -1,37 +1,80 @@
 ---
+import SavedWikiLink from "./SavedWikiLink.astro";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import Default from "@astrojs/starlight/components/MarkdownContent.astro";
-import { loadIntegration } from "../../scripts/lib/documentation.mjs";
+import { collectGuides, sections, loadIntegration } from "../../scripts/lib/documentation.mjs";
+import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import notes from "../../migration/source-review-notes.json";
+import { renderSectionRepairs } from "../../scripts/lib/section-repairs.mjs";
+import { renderArchivedTemplates } from "../../scripts/lib/archived-templates.mjs";
+import { addTableRowSummaries } from "../../scripts/lib/table-search-rows.mjs";
+import { renderSupplementalMedia } from "../../scripts/lib/supplemental-media.mjs";
+import { allRecoveredAliases, renderRecoveredLinks } from "../../scripts/lib/recovered-link-aliases.mjs";
+import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
 const route = id ? `/${id}/` : "/";
 const article = loadIntegration().find((item) => item.target === route);
 const checks = article ? notes.items.filter((note) => note.source_slugs.includes(article.slug)) : [];
+const needsReview = checks.filter((note) => note.status === "needs-maintainer-review").length;
+const guide = article ? collectGuides().find((item) => item.slug === article.slug) : undefined;
+const topic = sections.find((section) => section.directory === guide?.directory)?.label;
+const products = article ? productEvidence(article) : [];
+const rawContent = (await Astro.slots.render("default")).replace(
+  /<details\b([^>]*\bclass="[^"]*\bwiki-table-source\b[^"]*"[^>]*)>/g,
+  (tag, attributes) => attributes.includes("data-pagefind-ignore") ? tag : `<details${attributes} data-pagefind-ignore>`,
+);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const sourceText = article ? readFileSync(resolve(process.cwd(), `public${article.source_download}`), "utf8") : "";
+const links = article ? renderRecoveredLinks(rawContent, import.meta.env.BASE_URL, allRecoveredAliases(loadIntegration()), article.slug, sourceText) : { content: rawContent, unresolved: 0 };
+const sectionsRepaired = article ? renderSectionRepairs(links.content, article.slug) : { content: links.content, unresolved: 0 };
+const templates = article ? renderArchivedTemplates(sectionsRepaired.content, import.meta.env.BASE_URL, article.slug) : { content: links.content, restored: 0, unresolved: 0 };
+const updatedMedia = article ? renderSupplementalMedia(templates.content, article.image_occurrences || [], import.meta.env.BASE_URL) : { content: links.content, images: [] };
+const content = updatedMedia.content.replace(
+  "Missing introduction and reasons templates remain explicitly unresolved; no replacement prose has been invented.",
+  "The introduction and reasons sections are rendered from recovered historical templates."
+);
+const unresolvedSections = sectionsRepaired.unresolved;
+const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(value));
+const images = updatedMedia.images;
+const edits = article ? acceptedEditsFor(article.slug) : [];
 ---
-{article && (
-  <aside class="source-context" data-pagefind-ignore aria-label="Article source">
-    <p>Original wiki wording · recovered from the 18 October 2026 snapshot. <a href={`${base}/review/`}>Review status</a></p>
-    {checks.length > 0 && <details class="source-checks">
-      <summary>Separate source-check notes ({checks.length})</summary>
-      <p>Added during migration; these notes are not part of the original article. They identify specific differences or review needs, not a review of the entire procedure.</p>
-      {checks.map((note) => <section>
-        <h2>{note.title}</h2>
-        <p>{note.body}</p>
-        <p class="source-check-date">Checked {note.checked_at}{note.status === "needs-maintainer-review" ? " · maintainer review needed" : " · pinned sources below"}</p>
-        <ul>{note.sources.map((source) => <li><a href={source.url}>{source.label}</a></li>)}</ul>
-      </section>)}
-    </details>}
-  </aside>
-)}
-<Default><slot /></Default>
-{article && (
-  <details class="source-history" data-pagefind-ignore>
-    <summary>Source history and attribution</summary>
-    <p>This article retains its recovered wording, headings, step order and available images. Formatting and links have been adapted for this site. The snapshot is not a guarantee that every instruction is current.</p>
-    <p><strong>{article.title}</strong>: <a href={`${base}${article.source_download}`}>original wikitext</a> · <a href={`${base}${article.source_metadata}`}>revision metadata</a>
-      {article.available_attribution?.username && <> · last recorded editor: {article.available_attribution.username}</>}
-    </p>
-    <p>The last recorded editor is not a complete author list. <a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
+{article && checks.length > 0 && <aside class="source-context" data-pagefind-ignore aria-label="Migration notes">
+  <details class="source-checks" open={checks.some((note) => "display_priority" in note && note.display_priority === "prominent")}>
+    <summary><strong>Migration notes ({checks.length})</strong>{needsReview > 0 && <span class="docs-chip review">{needsReview} needs maintainer review</span>}<span class="source-note-origin">Added during migration, not part of the original</span></summary>
+    <p>These notes identify specific differences or review needs. They are not a review of the whole procedure.</p>
+    {checks.map((note) => <section>
+      <h2>{note.title}</h2>
+      <span class:list={["docs-chip", { review: note.status === "needs-maintainer-review" }]}>{note.status === "needs-maintainer-review" ? "Needs maintainer review" : "Checked against pinned source"}</span>
+      <p>{note.body}</p>
+      <p class="source-check-date">Checked {date(note.checked_at)}</p>
+      <ul>{note.sources.map((source) => <li><a href={source.url}>{source.label}</a></li>)}</ul>
+    </section>)}
   </details>
-)}
+</aside>}
+{article && <>
+  {topic && <span hidden data-pagefind-ignore data-pagefind-filter={`topic:${topic}`}></span>}
+  {(products.length ? products : [{ label: "Product not stated" }]).map((product) => <span hidden data-pagefind-ignore data-pagefind-filter={`product:${product.label}`}></span>)}
+</>}
+<Default><Fragment set:html={addTableRowSummaries(content)} /></Default>
+{["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
+{article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
+  <h2 id="docs-source-history">Source and history</h2>
+  <p>{edits.length
+    ? `This article keeps its recovered headings and available images. Some wording was changed after restoration in the pull request${edits.length === 1 ? "" : "s"} listed below; the original wikitext keeps the earlier wording.`
+    : "This article keeps its recovered wording, headings, step order and available images."} Formatting and links are adapted for this site. {article.recovery_note || "The snapshot does not guarantee that every instruction is current."}</p>
+  <dl>
+    <dt>Original page</dt><dd><a href={article.original_url}>{article.title}</a></dd>
+    <dt>Revision</dt><dd><a href={article.original_revision_url}>{article.revision_id}</a> · {date(article.revision_timestamp)}</dd>
+    <dt>Last recorded editor</dt><dd>{article.available_attribution?.username || "Not recorded"} <span class="source-note-origin">(not a complete author list)</span></dd>
+    <dt>Snapshot</dt><dd>{article.snapshot_label || "18 October 2026"}</dd>
+    {edits.length > 0 && <><dt>Edited after restoration</dt><dd><ul class="source-edits">{edits.map((edit) => <li>{date(edit.accepted_on)} · {edit.summary} · <a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></li>)}</ul></dd></>}
+    <dt>Source files</dt><dd><a href={`${base}${article.source_download}`}>Original wikitext</a> · <a href={`${base}${article.source_metadata}`}>Revision metadata</a></dd>
+    {images.length > 0 && <><dt>Image references</dt><dd>{images.filter((image) => image.asset_path).length} recovered, {images.filter((image) => !image.asset_path).length} missing{images.some((image) => image.status === "partial") && ` (${images.filter((image) => image.status === "partial").length} recovered as thumbnails or partial files)`} · <a href={`${base}/recovered-media/`}>Media catalogue</a></dd></>}
+    <dt>Recovery gaps</dt><dd>{templates.restored} restored historical template occurrences · {templates.unresolved} unresolved templates · {links.unresolved} unresolved article links · {unresolvedSections} unresolved sections</dd>
+  </dl>
+  <p><a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
+</section>}
+{article && <script type="application/json" id="article-media-data" set:html={JSON.stringify(images.map((image) => ({ id: image.element_id, status: image.status, width: image.width, height: image.height }))).replace(/</g, "\\u003c")} />}
+<script src="../scripts/article-experience.ts"></script>

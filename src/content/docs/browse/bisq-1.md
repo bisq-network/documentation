@@ -1,9 +1,9 @@
 ---
 title: "Bisq 1"
-description: "Original articles about Bisq 1 trading, accounts, and operation."
+description: "Original wiki articles with Bisq 1 migration grouping."
 ---
 
-Original articles about Bisq 1 trading, accounts, and operation. Article wording is preserved from the recovered wiki snapshot; added source-check notes are labeled separately.
+This saved browse address lists articles with Bisq 1 migration grouping. Grouping can refer to historical material; it does not certify current product applicability. Use the [task-based directory](../) to browse by what you need to do.
 
 - [ACH Transfer](../../wiki/ach-transfer/)
 - [Backup](../../wiki/backup/)
