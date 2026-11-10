@@ -10,7 +10,7 @@
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "node scripts/check-source-fidelity.mjs && node scripts/check-template-renderings.mjs && node scripts/check-section-repairs.mjs && node scripts/check-scoped-link-repairs.mjs && node scripts/check-recovered-category.mjs && node scripts/build-browse-indexes.mjs && ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/check-site.mjs",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
-    "test": "node --test scripts/legacy-routes.test.mjs scripts/recovered-link-aliases.test.mjs scripts/supplemental-media.test.mjs scripts/archived-templates.test.mjs scripts/section-repairs.test.mjs scripts/additional-articles.test.mjs scripts/check-archive-sources.test.mjs scripts/check-recovered-category.test.mjs scripts/previous-sites.test.mjs"
+    "test": "node --test scripts/legacy-routes.test.mjs scripts/recovered-link-aliases.test.mjs scripts/supplemental-media.test.mjs scripts/archived-templates.test.mjs scripts/section-repairs.test.mjs scripts/additional-articles.test.mjs scripts/check-archive-sources.test.mjs scripts/check-recovered-category.test.mjs scripts/previous-sites.test.mjs scripts/reconcile-wiki-backup.test.mjs"
   },
   "dependencies": {
     "@astrojs/starlight": "0.42.10",
