@@ -1,0 +1,86 @@
+name: Check documentation
+
+on:
+  pull_request:
+  # Run again when reviews change, so the receipts job compares recorded approvals
+  # with the current reviews. The check job runs again as well: a skipped job
+  # reports success and would replace a failing check result.
+  pull_request_review:
+    types: [submitted, dismissed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      # Same derivation as pages.yml, so the check follows the repository owner and name
+      # (bisq-network/documentation, or a fork under its own name).
+      DOCS_SITE: ${{ vars.DOCS_SITE || format('https://{0}.github.io', github.repository_owner) }}
+      DOCS_BASE: ${{ vars.DOCS_BASE || (github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name)) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          # The pull request's merge commit and its parents; the first parent is the base.
+          fetch-depth: 2
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Extract the base articles
+        if: github.event.pull_request
+        run: |
+          git rev-parse --verify --quiet 'HEAD^2' > /dev/null || { echo "::error::Expected the pull request's merge commit"; exit 1; }
+          mkdir -p "$RUNNER_TEMP/base"
+          git archive 'HEAD^1' src/content/docs/wiki migration/accepted-edits.json | tar -x -C "$RUNNER_TEMP/base"
+      # The restoration manifest, additional-article records, raw sources, media and
+      # AI-edited snapshots never change in a pull request.
+      - name: Preserved restoration materials are unchanged
+        if: github.event.pull_request
+        run: node scripts/check-immutable-materials.mjs 'HEAD^1' HEAD
+      - run: npm ci
+      - run: npm test
+      # npm run build (and pages.yml) fail on any wording edit without a receipt.
+      # Here such an edit fails only if it breaks something a receipt would still
+      # require; otherwise it is listed as awaiting a receipt and the receipts job
+      # fails instead. Outside a pull request there is no base, so it fails here too.
+      - name: Source fidelity (wording awaiting a receipt is reported by the receipts job)
+        run: node scripts/check-source-fidelity.mjs --awaiting-receipt-base "$RUNNER_TEMP/base"
+      - run: npm run build:after-fidelity
+
+  # Fails while any article awaits an accepted-edit receipt (expected for a wording
+  # proposal until reviewers accept it), and when recorded approvals do not match
+  # the pull request's approving reviews.
+  receipts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Extract the base articles and receipts
+        if: github.event.pull_request
+        run: |
+          git rev-parse --verify --quiet 'HEAD^2' > /dev/null || { echo "::error::Expected the pull request's merge commit"; exit 1; }
+          mkdir -p "$RUNNER_TEMP/base"
+          git archive 'HEAD^1' src/content/docs/wiki migration/accepted-edits.json | tar -x -C "$RUNNER_TEMP/base"
+      - name: Articles awaiting an accepted-edit receipt
+        run: node scripts/check-awaiting-receipts.mjs --base "$RUNNER_TEMP/base"
+      - name: Recorded approvals match approving reviews
+        if: ${{ !cancelled() }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-receipt-approvals.mjs --base "$RUNNER_TEMP/base"

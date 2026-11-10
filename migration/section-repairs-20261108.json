@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "classification": "Source-specific navigation repair based on related recovered section, not proof of the historical fragment destination.",
+  "items": [
+    {
+      "source_slug": "arbitration",
+      "source_sha256": "d87d64fa66ac41fb71ade7fd2155ab105616441a2719109ede30424ba0642dec",
+      "source_line": 59,
+      "source_excerpt": "# An arbitrator will investigate the case, just like a mediator would, and decide how a payout should be distributed. The arbitrator role currently has 2 parts: supreme mediator and refund agent (this is where the term ''refund agent'' comes from, but ''arbitrator'' is a better term for the role, as we will soon see). The supreme mediator part of the role is similar in function to that of a regular mediator (i.e., investigate a dispute). The refund agent reimburses traders BTC for disputed trades without requiring them to undergo the complex and time-consuming process of making a reimbursement request in the DAO. The ultimate goal, however, is to make such extreme dispute cases so ''rare'' that requiring users to request reimbursement from the DAO on their own becomes feasible (e.g., by reducing bugs, UX improvements, increasing security deposits, etc). But we’re not there yet, so for now, an arbitrator simply decides on a payout ''and'' funds this payout from their own pocket, and later makes a reimbursement request to the DAO to be reimbursed for their reimbursement to the user. To avoid [[#Avoiding_Fraud|potential fraud]], and to keep the DAO from losing money in each arbitration case, we use the [[#Donation_Address|donation address]] to receive the funds from the trade via the time-locked delayed payout payout tx.",
+      "target_slug": "arbitration",
+      "original_fragment": "Donation Address",
+      "target_fragment": "donation-address-owners-burningmen",
+      "link_label_html": "donation address"
+    },
+    {
+      "source_slug": "arbitration",
+      "source_sha256": "d87d64fa66ac41fb71ade7fd2155ab105616441a2719109ede30424ba0642dec",
+      "source_line": 164,
+      "source_excerpt": "[[#Why_We_Cannot_Merge_These_Roles|See longer explanation above]]. In short: to stay flexible, to be able to implement the target vision (reimbursement done by traders themselves), to avoid legal risks, to keep the arbitrator role scalable, and to address the trust/security issue with the current burningman model.",
+      "target_slug": "arbitration",
+      "original_fragment": "Why We Cannot Merge These Roles",
+      "target_fragment": "why-we-cannot-merge-the-arbitrator-and-burningman-roles",
+      "link_label_html": "See longer explanation above"
+    },
+    {
+      "source_slug": "cash-by-mail",
+      "source_sha256": "1e53b6f6dbff180ed9faadd6f29ac5c5c7e6b71d317be8481b72c97837f9c669",
+      "source_line": 77,
+      "source_excerpt": "* If a mediator is engaged, and if either peer rejects the mediator's suggestion, both peers' funds will be sent to a [https://bisq.wiki/Arbitration#Time-Locked_Payout_Transaction Bisq 'donation' address], and the trade will effectively be completed.",
+      "target_slug": "arbitration",
+      "original_fragment": "Time-Locked Payout Transaction",
+      "target_fragment": "time-locked-delayed-payout-payout-transaction",
+      "link_label_html": "Bisq 'donation' address"
+    },
+    {
+      "source_slug": "dispute-resolution-in-bisq-1",
+      "source_sha256": "7d55c7a9be9ae6515ebc2f0edefbf29d263aad50b24a3d95bf238a8f4aa3281b",
+      "source_line": 126,
+      "source_excerpt": "* The [[Arbitration#Time-Locked_Payout_Transaction|time-locked transaction]] (the delayed payout transaction created at the trade's start) is published by one of the traders.",
+      "target_slug": "arbitration",
+      "original_fragment": "Time-Locked Payout Transaction",
+      "target_fragment": "time-locked-delayed-payout-payout-transaction",
+      "link_label_html": "time-locked transaction"
+    },
+    {
+      "source_slug": "making-a-reimbursement-request",
+      "source_sha256": "4f396fa1cf27159c225706d8947144500d9ca87767d21d8f9ca1700db41171a9",
+      "source_line": 26,
+      "source_excerpt": "In order to make a reimbursement request, you need to publish the [[Arbitration#Time-Locked_Payout_Transaction|time-locked payout transaction]] signed at the start of your trade. This transaction sends ''all'' trade funds (yours and those of the counterparty) to arbitration.",
+      "target_slug": "arbitration",
+      "original_fragment": "Time-Locked Payout Transaction",
+      "target_fragment": "time-locked-delayed-payout-payout-transaction",
+      "link_label_html": "time-locked payout transaction"
+    },
+    {
+      "source_slug": "proposals",
+      "source_sha256": "90fe1ef5a664178730beda4671f306d58b64226df6150b022efec78d79f92108",
+      "source_line": 72,
+      "source_excerpt": "If rough consensus has not been achieved, e.g. because discussion is still ongoing, dissenting concerns have not been addressed, or the proposal has turned out to be contentious, the maintainer will indicate that they cannot close the proposal, and that it is up to the submitter to take next steps to move the proposal forward. One option is to [[#Submit_to_the_DAO|submit the proposal to the DAO]] for voting. If the proposal does not move forward after another two weeks, the maintainer will close and label it <code>was:stalled</code>.",
+      "target_slug": "proposals",
+      "original_fragment": "Submit to the DAO",
+      "target_fragment": "submit-to-the-dao-if-needed",
+      "link_label_html": "submit the proposal to the DAO"
+    },
+    {
+      "source_slug": "support-agent",
+      "source_sha256": "e1fe7ece7ca83fd94e19a179da3ee77fb52df53b301e8bbd8b2ee0246db36996",
+      "source_line": 44,
+      "source_excerpt": "Includes all of [[Support Team#Infrastructure]], plus the following:",
+      "target_slug": "support-team",
+      "original_fragment": "Infrastructure",
+      "target_fragment": "resources",
+      "link_label_html": "Support Team#Infrastructure"
+    },
+    {
+      "source_slug": "support-agent",
+      "source_sha256": "e1fe7ece7ca83fd94e19a179da3ee77fb52df53b301e8bbd8b2ee0246db36996",
+      "source_line": 89,
+      "source_excerpt": "* [https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#repository-access-for-each-permission-level Triage] access to [[Support Team#Repositories]]",
+      "target_slug": "support-team",
+      "original_fragment": "Repositories",
+      "target_fragment": "github-repositories",
+      "link_label_html": "Support Team#Repositories"
+    },
+    {
+      "source_slug": "switching-to-a-new-data-directory",
+      "source_sha256": "bf59df21bc31a8bfd322e6d7aa2e5b3b4284f597c181556a3e79d286d1434900",
+      "source_line": 49,
+      "source_excerpt": "# Delete (or rename) the <code>Bisq</code> data directory (see [[Data_directory#Operating_system_defaults|default locations for your operating system here]]).",
+      "target_slug": "data-directory",
+      "original_fragment": "Operating system defaults",
+      "target_fragment": "default-locations",
+      "link_label_html": "default locations for your operating system here"
+    },
+    {
+      "source_slug": "user-support",
+      "source_sha256": "6491615bfad9e07c63ab2729bc0deca4c497a516bb0f88eed9ea67c84aa5b1dd",
+      "source_line": 27,
+      "source_excerpt": "[[Support_Agent|Bisq support agents]] are often on hand to help answer any questions. You can see when support agents are due to work by looking on the [[Support_Agent#Coverage_calendar|support coverage calendar]].",
+      "target_slug": "support-agent",
+      "original_fragment": "Coverage calendar",
+      "target_fragment": "calendar",
+      "link_label_html": "support coverage calendar"
+    }
+  ]
+}
