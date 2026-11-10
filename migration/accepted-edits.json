@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "description": "Receipts for human-approved wording changes to restored articles. Each item records one pull request's change to one article: the exact file it was based on, the accepted file, the replaced text, and who approved it. The fidelity check rebuilds the preserved original from these records. See CONTRIBUTING.md (Accepted editorial changes).",
+  "required_approvals": 2,
+  "items": []
+}
