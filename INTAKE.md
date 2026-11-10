@@ -103,12 +103,16 @@ Step 2 uses the converter described in the next section.
 repository files: `public/wiki-source` (text and metadata), `migration/articles.json`,
 `recovery-evidence/recovered-manifest.json` and `public/media/wiki`. It writes to
 `tmp/wiki-converter` (ignored by git) or to `--out`; it refuses an output
-directory inside the repository other than under `tmp/`.
+directory inside the repository other than under `tmp/`. It cleans an output
+directory only when an earlier run created it (it holds a `.wiki-converter-output`
+file) and refuses any other directory that is not empty.
 
 Set up once, outside the repository. Of the pandoc releases tested, 3.12,
 3.12.1 and 3.13 reproduce the committed articles; 3.11 and older wrap table
 cells in `<p>`. The converter stops on any other version unless `--any-pandoc`
-is given. On macOS or Windows, use the 3.13 release file for that platform.
+is given. The commands below are for Linux. On macOS or Windows, use the 3.13
+release file for that platform (a `.zip` or `.pkg` with its own checksum on the
+release page).
 
 ```sh
 python3 -m venv ../venv-migrate
@@ -120,8 +124,8 @@ export PANDOC="$PWD/../pandoc-3.13/bin/pandoc"
 ```
 
 Check that the environment reproduces the snapshot. All 209 articles, their
-source files and their restoration and formatting records must be
-byte-identical; the command exits with status 1 otherwise and lists the
+source files, their restoration and formatting records, `migration/articles.json`
+and `migration/title-route-map.json` must be byte-identical; the command exits with status 1 otherwise and lists the
 differences in `tmp/wiki-converter/comparison.json`:
 
 ```sh
@@ -129,7 +133,12 @@ differences in `tmp/wiki-converter/comparison.json`:
 ```
 
 Render the newer revisions from the intake. Only the listed articles are
-converted; links in all articles resolve against the newer headings.
+converted; links in all articles resolve against the newer headings. Each line
+is checked first: page id and title must name the same article, the revision id
+must be a newer positive integer, the timestamp must be UTC (`2026-11-10T12:00:00Z`)
+and the attribution null or a username with its id. The source metadata of a
+re-rendered article names the full backup as its source instead of the
+18 October snapshot.
 
 ```sh
 ../venv-migrate/bin/python scripts/migrate-wiki.py --newer-revisions tmp/wiki-backup-intake/newer-revisions.jsonl --out tmp/source-updates
@@ -149,7 +158,7 @@ The output directory holds:
 - `diffs/<slug>.diff`: what the source-update PR changes, for review
 - `site/`: the article and its source files at their repository paths
 - `migration/articles.json`, `migration/title-route-map.json`: the updated records
-- `fidelity-records.json`: the article's new values for `migration/restoration-fidelity.json` and `migration/source-formatting.json`
+- `fidelity-records.json`: the converter-produced fields for `migration/restoration-fidelity.json` and `migration/source-formatting.json`. Baseline fields such as `git_baseline_sha256` are not included; they depend on how maintainers decide to record a source update (below).
 - `comparison.json`: removed section anchors, the files that still link to them, and other `migration/` records that name the article
 - `converted/`: the converter's own output before restoration, kept as evidence
 
@@ -166,14 +175,16 @@ snapshot (whole-snapshot hash and per-article baseline receipts), so a
 newer revision fails that check by design, like a wording change.
 
 Not covered: the three additional articles (`migration/additional-articles.json`)
-have their own layout and are rejected with a message. The snapshot sources
+have their own layout. The intake leaves them out of `newer-revisions.jsonl`; a
+hand-written line for one stops the converter before anything is written. The snapshot sources
 end with an ingest-added `<!-- BISQ VERSION: ... -->` comment that the backup
 will not have. The converter drops comments, except in three articles where
 it leaked into the output: the link text and address in How to run seednode
 and Phase Zero, and the layout source in Bisq 1.
 
-`scripts/derive-template-renderings.py` uses the same environment and
-rewrites `migration/template-renderings-20261014.json` in place:
+`scripts/derive-template-renderings.py` uses the same environment and pandoc
+check and rewrites `migration/template-renderings-20261014.json` in place. It
+takes no arguments (the earlier `--recovery-root` is no longer needed):
 `../venv-migrate/bin/python scripts/derive-template-renderings.py`.
 
 ## 5. Support staff review
