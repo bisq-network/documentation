@@ -12,7 +12,7 @@ tableOfContents: false
 <div class="wiki-recovered-article" lang="en"><h2 id="summary"> Summary </h2>
 <p>This tool allows for a Mediator to create an unsigned transaction releasing the funds in the 2-of-2 multisig controlled by the traders and send it to each of them, have them sign it and return the signatures and have the the Mediator combine the three pieces (unsigned transaction and both signatures from the traders) to broadcast the transaction.</p>
 <h2 id="warning"> Warning </h2>
-<p>In the original 2021 process, traders copied and pasted their private keys from the Bisq software into a notepad. As a precaution it is advised they remove all of their funds from this wallet before starting this procedure and consider <a href="../switching-to-a-new-data-directory/">switching to a new data directory</a> to get a new wallet.</p>
+<p>In the original 2021 process, traders copied and pasted their private keys from the Bisq software into a notepad. As a precaution it is advised they remove all of their funds from this wallet before starting this procedure and consider <a href="../switching-to-a-new-data-directory/">switching to a new data directory</a> to get a new wallet. If you use LOCATE KEY IN WALLET (see <a href="#get-private-keys">Get private keys</a>), switch only after the payout is confirmed: it finds keys only in the wallet that made the trade.</p>
 <h2 id="precautions"> Precautions </h2>
 <p>The traders need to make sure the transaction details match the correct resolution before signing.</p>
 <h2 id="what-you-need"> What you need </h2>
@@ -112,6 +112,7 @@ BuyerMultiSigPubKeyHex: &lt;hex value&gt;
 SellerMultiSigPubKeyHex: &lt;hex value&gt;</code></pre>
 <h2 id="get-private-keys"> Get private keys </h2>
 <p>In Bisq 1 v1.10.11, keep private keys inside Bisq. After you import the unsigned transaction (see <a href="#sign-transaction">Sign Transaction</a>), LOCATE KEY IN WALLET on the SIGN screen finds your key for this trade in the wallet and fills the <code>privateKeyHex</code> field; GENERATE SIGNATURE then signs on your computer. Share only the resulting signature: never send a private key or seed words to the mediator or anyone else.</p>
+<p>If the field shows Not found in wallet, check that Bisq is running with the data directory you used for this trade; do not paste a key from anywhere else, and ask the mediator for help. You do not need to remove your wallet password: Bisq uses the password you entered at startup.</p>
 <p>This replaces the original 2021 steps, which copied wallet data including private keys into a text editor and saved the key in a bisqWallet.txt file.</p>
 <h2 id="get-payout-addresses"> Get payout addresses </h2>
 <p>Open the trade details and click on VIEW CONTRACT IN JSON FORMAT. At the end of the JSON contract file you can also find the intended payout address for each trader:</p>
@@ -127,7 +128,7 @@ takerPayoutAddressString: &lt;address value&gt; </code></pre>
 <ol>
 <li>Press ctrl+g and click IMPORT. Copy the string you got on step 2, paste it in the first field and press IMPORT FROM STRING. It should populate the view with the information about the payout transaction.</li>
 <li>Go to SIGN, click LOCATE KEY IN WALLET to fill in your private key for this trade, and click GENERATE SIGNATURE.</li>
-<li>Copy the signature hex that you get and share it with the mediator</li>
+<li>Copy the signature hex that you get and share it with the mediator. Use the copy icon next to it; do not send a screenshot of the SIGN screen, because it shows your private key.</li>
 </ol>
 <h2 id="broadcast-the-transaction"> Broadcast The Transaction </h2>
 <ol>
