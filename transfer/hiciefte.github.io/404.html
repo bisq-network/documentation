@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found</title>
+<script>
+  // Old preview links: https://hiciefte.github.io/bisq-docs/<path>?<query>#<section>
+  // New location:      https://bisq-network.github.io/documentation/<path>?<query>#<section>
+  // The target origin is fixed; only the path, query and fragment are carried over.
+  (function () {
+    var target = "https://bisq-network.github.io/documentation";
+    var path = location.pathname;
+    var match = /^\/bisq-docs(\/.*)?$/.exec(path);
+    if (!match) return;
+    location.replace(target + (match[1] || "/") + location.search + location.hash);
+  })();
+</script>
+<style>
+  :root { color-scheme: light dark; --bg: #fbfdfb; --ink: #1a201b; --muted: #4b524c; --link: #147628; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #111511; --ink: #e7ece7; --muted: #b3bbb3; --link: #6fd77b; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 system-ui, sans-serif; }
+  main { max-width: 34rem; margin: 0 auto; padding: 4rem 1rem; }
+  h1 { font-size: 1.6rem; line-height: 1.2; font-weight: 600; margin: 0 0 1rem; }
+  p { margin: 0 0 1rem; color: var(--muted); }
+  a { color: var(--link); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Page not found</h1>
+  <p>Looking for the Bisq documentation preview that was at hiciefte.github.io/bisq-docs? It now lives at
+    <a href="https://bisq-network.github.io/documentation/">bisq-network.github.io/documentation</a>.</p>
+  <p>Old preview links work there with the same page path. Saved wiki links can be pasted into the
+    <a href="https://bisq-network.github.io/documentation/">link finder on the home page</a>.</p>
+</main>
+</body>
+</html>
