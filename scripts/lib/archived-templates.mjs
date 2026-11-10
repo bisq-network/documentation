@@ -17,7 +17,7 @@ function historicalValueLabel(name, sourceSlug) {
   if (!id) return "";
   const note = notes.items.find((item) => item.id === id);
   if (!note?.source_slugs.includes(sourceSlug)) throw new Error(`Migration note ${id} is not shown on ${sourceSlug}`);
-  return ` <small class="wiki-template-historical-value">(historical wiki value; <a href="#migration-note-${id}">check the limit shown in Bisq</a>)</small>`;
+  return ` <small class="wiki-template-historical-value">(historical wiki value; <a href="#migration-note-${id}">check the limit shown in Bisq 1</a>)</small>`;
 }
 const escape = (value) => String(value).replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 const decode = (value) => value.replace(/&#(x[\da-f]+|\d+);|&(amp|lt|gt|quot|apos);/gi, (all, numeric, named) => {
