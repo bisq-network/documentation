@@ -8,6 +8,30 @@ export const additionalManifest = JSON.parse(readFileSync("migration/additional-
 export const additionalArticles = additionalManifest.items;
 const expectedSlugs = ["bitcointalk-moderator", "emergency-multisig-payout-tool", "running-bisq-in-china-sstap"];
 const digest = (value) => createHash("sha256").update(value).digest("hex");
+const formatting = JSON.parse(readFileSync("migration/source-formatting.json", "utf8"));
+
+// Undo a recorded formatting-only change: each listed offset is a source line
+// break that replaced a `&#10;` entity in the imported file. The checks match the
+// ones check-source-fidelity.mjs applies to the 209 originals: a non-integer
+// offset would make slice() drop text, so it is rejected before use.
+export function restoreRecordedFormatting(bytes, slug, records = formatting.items) {
+  const record = records.find((entry) => entry.slug === slug);
+  if (!record) return bytes;
+  assert.equal(digest(bytes), record.formatted_file_sha256, `additional rendered article drift: ${slug} (formatted source)`);
+  const offsets = record.decoded_newline_offsets;
+  assert(Array.isArray(offsets), `missing exact formatting offsets: ${slug}`);
+  assert.equal(offsets.length, record.decoded_newline_entities, `recorded line-break count changed: ${slug}`);
+  assert.deepEqual(offsets, [...new Set(offsets)].sort((a, b) => a - b), `formatting offsets must be unique and ordered: ${slug}`);
+  const text = bytes.toString();
+  let restored = text;
+  for (const offset of [...offsets].reverse()) {
+    assert(Number.isSafeInteger(offset) && offset >= 0 && offset < text.length, `invalid formatting offset: ${slug}`);
+    assert.equal(restored[offset], "\n", `recorded line break moved: ${slug}`);
+    restored = restored.slice(0, offset) + "&#10;" + restored.slice(offset + 1);
+  }
+  assert.equal(digest(restored), record.original_file_sha256, `source formatting no longer reconstructs the imported bytes: ${slug}`);
+  return restored;
+}
 
 /** Verify each additional historical article, source record, and media hash. */
 export function verifyAdditionalArticles(read = (path) => readFileSync(path)) {
@@ -21,7 +45,7 @@ export function verifyAdditionalArticles(read = (path) => readFileSync(path)) {
     assert.equal(item.source_metadata, `/wiki-source/${item.slug}.json`);
     assert.equal(item.historical_only, true);
     assert(item.recovery_note && item.snapshot_label);
-    const rendered = read(item.file);
+    const rendered = restoreRecordedFormatting(read(item.file), item.slug);
     assert.equal(digest(rendered), item.output_sha256, `additional rendered article drift: ${item.slug}`);
     assert.equal(digest(read(`public${item.source_download}`)), item.wikitext_sha256, `additional raw source drift: ${item.slug}`);
     const metadataBytes = read(`public${item.source_metadata}`);
