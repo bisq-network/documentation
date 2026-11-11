@@ -12,9 +12,9 @@ By using Bisq you can turn an expensive, slow international transfer into two fa
 
 The role of remittance channel operator is similar to that of market maker (see [How to be a market maker on Bisq](../how-to-be-a-market-maker-on-bisq/)) the difference being that you operate on two markets at the same time and you need to have fiat accounts for both markets.
 
-1\. **Create an offer** to BUY Bitcoin on market 1 (eg: USD) at 1% below market price using a fast payment method.
+1\. **Create an offer** to SELL Bitcoin on market 1 (eg: USD) at 1% above market price using a fast payment method.
 
-2\. **Create an offer** to SELL Bitcoin on market 2 (eg: CNY) at 1% above market price using a fast payment method.
+2\. **Create an offer** to BUY Bitcoin on market 2 (eg: CNY) at 1% below market price using a fast payment method.
 
 3\. Tell your client in market 1 (the \"sender\") to **take** your first offer (buying Bitcoin from you for USD) -\-> you receive fiat in market 1.
 
@@ -24,7 +24,7 @@ The role of remittance channel operator is similar to that of market maker (see 
 
 6\. Repeat!
 
-Both fiat transactions are local. The remittance operator makes 2% profit with little risk. The remittance client has managed to send fiat internationally and perform currency exchange at very low cost and within 24 hours.
+Both fiat transactions are local. The example uses two 1% price margins, not a guaranteed profit. Fees, exchange-rate and price changes, payment issues, settlement delays and other risks can affect the result; completion time and costs are not guaranteed.
 
 This business model is perfect for someone who has a physical shop as you can even make the offers **F2F (in person)** cash deals and avoid financial institutions altogether.
 
