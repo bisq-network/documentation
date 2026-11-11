@@ -6,11 +6,21 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#asset-table">Asset Table</a></li><li><a href="#altcoins">Altcoins:</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>The <strong>Bisq Price Indices</strong> are the weighted average asset prices calculated by each of the <span class="wiki-link-gap">Bisq Pricenodes <small>[unrecovered article: Bisq pricenode]</small></span>. It was implemented in Bisq v1.3.8 as part of <a href="https://github.com/bisq-network/projects/issues/35" rel="noopener noreferrer">Project 35</a> in order to gain independence from Bitcoin Average as a price oracle, decentralizing data sources from 35+ different data providers around the world.</p>
-<p>Bisq Pricenodes fetch the latest price data, once per minute, from various providers for each asset. At the checked pricenode commit, a single available rate is used directly. With multiple rates, the node averages retained inliers and falls back to a plain average if filtering leaves none; this is an equal average of retained rates, not a volume-weighted average. For example, two retained rates contribute 50% each and four contribute 25% each.</p>
-<p>Providers are selected considering for each asset reliability of the data and trading volume. The following tables are from the recovered wiki snapshot; providers and weights may have changed.</p>
-<p>In the checked Bisq 1 v1.10.11 code, a market-based offer compares the taker’s calculated trade price with the maker’s calculated offer price and rejects a deviation greater than 1%. This is a take-offer calculation check, not a general guarantee about the difference between independently observed nodes.</p>
-<span class="wiki-legacy-anchor" id="Asset_Table" aria-hidden="true"></span><h2 id="asset-table"> Asset Table </h2>
+<div class="wiki-recovered-article" lang="en">
+
+The **Bisq Price Indices** are the weighted average asset prices calculated by each of the <span class="wiki-link-gap">Bisq Pricenodes <small>[unrecovered article: Bisq pricenode]</small></span>. It was implemented in Bisq v1.3.8 as part of [Project 35](https://github.com/bisq-network/projects/issues/35) in order to gain independence from Bitcoin Average as a price oracle, decentralizing data sources from 35+ different data providers around the world.
+
+Bisq Pricenodes fetch the latest price data, once per minute, from various providers for each asset. At the checked pricenode commit, a single available rate is used directly. With multiple rates, the node averages retained inliers and falls back to a plain average if filtering leaves none; this is an equal average of retained rates, not a volume-weighted average. For example, two retained rates contribute 50% each and four contribute 25% each.
+
+Providers are selected considering for each asset reliability of the data and trading volume. The following tables are from the recovered wiki snapshot; providers and weights may have changed.
+
+In the checked Bisq 1 v1.10.11 code, a market-based offer compares the taker’s calculated trade price with the maker’s calculated offer price and rejects a deviation greater than 1%. This is a take-offer calculation check, not a general guarantee about the difference between independently observed nodes.
+
+<span class="wiki-legacy-anchor" id="Asset_Table" aria-hidden="true">
+</span>
+
+## Asset Table {#asset-table}
+
 <table>
 <thead>
 <tr>
@@ -139,124 +149,17 @@ Bitcoin</th>
 |-
 | '''BTM''' || 100% ||  ||  ||  ||  ||  ||  ||  || &#10;|- style="background-color: #ECECF0"
 | '''CAD''' ||  || 50% ||  ||  || 50% ||  ||  ||  || &#10;|}</code></pre></details>
-<table>
-<thead>
-<tr>
-<th>Currency</th>
-<th>HUOBI</th>
-<th>Coingecko</th>
-<th>Binance</th>
-<th>CoinbasePro</th>
-<th>Kraken</th>
-<th>Bitstamp</th>
-<th>Exmo</th>
-<th>Bitfinex</th>
-<th>Quoine</th>
-<th>Coinmate</th>
-<th>Bitbay</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>CHF</strong></td>
-<td></td>
-<td>50%</td>
-<td></td>
-<td></td>
-<td>50%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>CLP</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>CNY</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>CZK</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>EUR</strong></td>
-<td></td>
-<td>20%</td>
-<td>20%</td>
-<td>20%</td>
-<td>20%</td>
-<td>20%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>GBP</strong></td>
-<td></td>
-<td>20%</td>
-<td>20%</td>
-<td>20%</td>
-<td>20%</td>
-<td>20%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+
+| Currency | HUOBI | Coingecko | Binance | CoinbasePro | Kraken | Bitstamp | Exmo | Bitfinex | Quoine | Coinmate | Bitbay |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **CHF** | | 50% | | | 50% | | | | | | |
+| **CLP** | | 100% | | | | | | | | | |
+| **CNY** | | 100% | | | | | | | | | |
+| **CZK** | | 100% | | | | | | | | | |
+| **EUR** | | 20% | 20% | 20% | 20% | 20% | | | | | |
+| **GBP** | | 20% | 20% | 20% | 20% | 20% | | | | | |
+| | | | | | | | | | | | |
+
 <details class="wiki-table-source"><summary>Original table source</summary><pre><code>{| class="wikitable"
 ! Currency || HUOBI || Coingecko || Binance || CoinbasePro || Kraken || Bitstamp || Exmo || Bitfinex || Quoine || Coinmate || Bitbay
 |-
@@ -267,111 +170,18 @@ Bitcoin</th>
 | '''EUR''' ||  || 20% || 20% || 20% || 20% || 20% ||  ||  ||  ||  || &#10;|- style="background-color: #ECECF0"
 | '''GBP''' ||  || 20% || 20% || 20% || 20% || 20% ||  ||  ||  ||  || &#10;|-
 |}</code></pre></details>
-<table>
-<thead>
-<tr>
-<th>Currency</th>
-<th>Luno</th>
-<th>Coingecko</th>
-<th>CoinbasePro</th>
-<th>Bitfinex</th>
-<th>Quoine</th>
-<th>Bitflyer</th>
-<th>Coinone</th>
-<th>Kranken</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>HKD</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>HUF</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>IDR</strong></td>
-<td>50%</td>
-<td>50%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>ILS</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>INR</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>JPY</strong></td>
-<td></td>
-<td>33%</td>
-<td></td>
-<td></td>
-<td></td>
-<td>33%</td>
-<td></td>
-<td>33%</td>
-</tr>
-<tr>
-<td><strong>KRW</strong></td>
-<td></td>
-<td>50%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>50%</td>
-<td></td>
-</tr>
-<tr>
-<td><strong>KWD</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+
+| Currency | Luno | Coingecko | CoinbasePro | Bitfinex | Quoine | Bitflyer | Coinone | Kranken |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **HKD** | | 100% | | | | | | |
+| **HUF** | | 100% | | | | | | |
+| **IDR** | 50% | 50% | | | | | | |
+| **ILS** | | 100% | | | | | | |
+| **INR** | | 100% | | | | | | |
+| **JPY** | | 33% | | | | 33% | | 33% |
+| **KRW** | | 50% | | | | | 50% | |
+| **KWD** | | 100% | | | | | | |
+
 <details class="wiki-table-source"><summary>Original table source</summary><pre><code>{| class="wikitable"
 ! Currency || Luno || Coingecko || CoinbasePro || Bitfinex || Quoine || Bitflyer || Coinone || Kranken
 |-
@@ -473,92 +283,17 @@ Reserve</th>
 |- style="background-color: #ECECF0"
 | '''NOK''' || 100% ||  ||  ||  || &#10;|-
 | '''NZD''' || 50% ||  ||  || 50% || &#10;|}</code></pre></details>
-<table>
-<thead>
-<tr>
-<th>Currency</th>
-<th>Huobi</th>
-<th>Coingecko</th>
-<th>Binance</th>
-<th>CoinbasePro</th>
-<th>Exmo</th>
-<th>Quoine</th>
-<th>Bitbay</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>PHP</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>PKR</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>PLN</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>RUB</strong></td>
-<td>33%</td>
-<td>33%</td>
-<td>33%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>SAR</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>SEK</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>SGD</strong></td>
-<td></td>
-<td>100%</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+
+| Currency | Huobi | Coingecko | Binance | CoinbasePro | Exmo | Quoine | Bitbay |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **PHP** | | 100% | | | | | |
+| **PKR** | | 100% | | | | | |
+| **PLN** | | 100% | | | | | |
+| **RUB** | 33% | 33% | 33% | | | | |
+| **SAR** | | 100% | | | | | |
+| **SEK** | | 100% | | | | | |
+| **SGD** | | 100% | | | | | |
+
 <details class="wiki-table-source"><summary>Original table source</summary><pre><code>{| class="wikitable"
 ! Currency || Huobi || Coingecko || Binance || CoinbasePro || Exmo || Quoine || Bitbay
 |-
@@ -713,8 +448,14 @@ Reserve</th>
 | '''USD''' ||  || 20% ||  || 20% || 20% || 20% ||  ||  || 20% ||  ||  ||  ||  &#10;|- style="background-color: #ECECF0"
 | '''VND''' ||  || 100% ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  || &#10;|-
 | '''ZAR''' ||  || 50% ||  ||  ||  ||  ||  ||  ||  ||  || 50% ||  || &#10;|}</code></pre></details>
-<span class="wiki-legacy-anchor" id="Altcoins:" aria-hidden="true"></span><h4 id="altcoins"> Altcoins: </h4>
-<p><small>A:Binance B:Huobi C:Kraken D:Poloniex E:Exmo F:Bitstamp G:Bitfinex H:CoinbasePro I:BTCmarkets J:Coingecko K:Bitbay LːBitflyer M:Quoine</small></p>
+
+<span class="wiki-legacy-anchor" id="Altcoins:" aria-hidden="true">
+</span>
+
+#### Altcoins: {#altcoins}
+
+<small>A:Binance B:Huobi C:Kraken D:Poloniex E:Exmo F:Bitstamp G:Bitfinex H:CoinbasePro I:BTCmarkets J:Coingecko K:Bitbay LːBitflyer M:Quoine</small>
+
 <table>
 <tbody>
 <tr>
@@ -942,5 +683,7 @@ Reserve</th>
 | ZEN || 33% || 33% ||  ||  ||  ||  ||  || 33% ||  ||  ||  ||  || &#10;|-
 |  || A || B || C || D || E || F || G || H || I || J || K || L || M
 |}</code></pre></details>
-<p><small>A:Binance B:Huobi C:Kraken D:Poloniex E:Exmo F:Bitstamp G:Bitfinex H:Bitpay I:BTCmarkets J:Coingecko K:Bitbay LːBitflyer M:Quobi</small></p>
+
+<small>A:Binance B:Huobi C:Kraken D:Poloniex E:Exmo F:Bitstamp G:Bitfinex H:Bitpay I:BTCmarkets J:Coingecko K:Bitbay LːBitflyer M:Quobi</small>
+
 </div>
