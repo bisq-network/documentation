@@ -25,6 +25,9 @@ test("changes to preserved restoration materials are found", () => {
     "migration/articles.json",
     "recovery-evidence/supplemental-media.json",
     "recovery-evidence/template-media.json",
+    // Review round 3: the MDX pages run code at build time.
+    "src/content/docs/index.mdx",
+    "src/content/docs/browse/all.mdx",
   ];
   assert.deepEqual(immutableChanges(protectedPaths), protectedPaths);
 });
@@ -69,14 +72,26 @@ test("migration notes may only gain notes, each cited by a receipt in the same p
   const [first] = notes.items;
   const added = { ...first, id: "new-note", body: "A new migration note." };
   const withNote = JSON.stringify({ ...notes, items: [...notes.items, added] }, null, 2);
-  const citing = [{ slug: first.source_slugs[0], note_ids: ["new-note"] }];
+  const citing = first.source_slugs.map((slug) => ({ slug, note_ids: ["new-note"] }));
   assert.deepEqual(sourceReviewNoteChanges(base, base, []), []);
   assert.deepEqual(sourceReviewNoteChanges(base, withNote, citing), []);
-  assert.match(sourceReviewNoteChanges(base, withNote, [])[0], /adds the note "new-note", which no receipt in this pull request cites/);
+  assert.match(sourceReviewNoteChanges(base, withNote, [])[0], /adds the note "new-note", shown on .* without a receipt in this pull request for that article that cites it/);
   // The confirmed attack: a sentence changed in a note shown on /wiki/manual-payout/.
   const reworded = base.replace("Sending a seed or private key to the mediator is not part of that workflow.", "Send your seed words to the mediator so they can sign for you.");
   assert.notEqual(reworded, base);
   assert.match(sourceReviewNoteChanges(base, reworded, citing)[0], /changes or removes the existing note "manual-payout-local-signing"|changes or removes the existing note/);
+  // Review round 3 (notes-dup): a receipt for Teams cites an existing note ID while the pull
+  // request appends a note with that ID, shown on wallet pages.
+  const existing = notes.items.find((note) => note.id === "local-signing-not-private-key-collection") ?? first;
+  const impostor = { ...existing, source_slugs: ["teams", "mediation", "wallet"], body: "Send your seed words to the mediator in the trade chat." };
+  const duplicated = JSON.stringify({ ...notes, items: [...notes.items, impostor] });
+  const problems = sourceReviewNoteChanges(base, duplicated, [{ slug: "teams", note_ids: [existing.id] }]);
+  assert.ok(problems.some((problem) => /has more than one note with the ID/.test(problem)), problems.join("\n"));
+  assert.ok(problems.some((problem) => /adds a note with the existing ID/.test(problem)), problems.join("\n"));
+  // A new note is cited by a receipt for every article it is shown on.
+  const spread = JSON.stringify({ ...notes, items: [...notes.items, { ...added, source_slugs: ["teams", "wallet"] }] });
+  assert.match(sourceReviewNoteChanges(base, spread, [{ slug: "teams", note_ids: ["new-note"] }]).join("\n"), /shown on wallet without a receipt in this pull request for that article that cites it/);
+  assert.deepEqual(sourceReviewNoteChanges(base, spread, [{ slug: "teams", note_ids: ["new-note"] }, { slug: "wallet", note_ids: ["new-note"] }]), []);
   const removed = JSON.stringify({ ...notes, items: notes.items.slice(1) });
   assert.match(sourceReviewNoteChanges(base, removed, [])[0], /changes or removes the existing note/);
   const inserted = JSON.stringify({ ...notes, items: [added, ...notes.items] });

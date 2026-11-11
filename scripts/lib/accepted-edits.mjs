@@ -119,6 +119,9 @@ export function parseAcceptedEdits(settings, files, { slugs, notes }) {
   const required = settings.required_approvals;
   if (!Number.isSafeInteger(required) || required < 1) throw new Error("required_approvals must be a whole number of at least 1");
   const reviewers = parseReviewers(settings.reviewers);
+  const noteIds = notes.map((note) => note.id);
+  const duplicate = noteIds.find((id, index) => noteIds.indexOf(id) !== index);
+  if (duplicate !== undefined) throw new Error(`migration/source-review-notes.json has more than one note with the ID ${JSON.stringify(duplicate)}; note IDs are unique`);
   const noteMap = new Map(notes.map((note) => [note.id, note]));
   const valid = [];
   const problems = [];
@@ -266,6 +269,11 @@ export function undoAcceptedEdit(text, receipt) {
     const start = lineStarts[change.line - 1] + change.column - 1;
     if (change.line > lineStarts.length || start > lineEnd) throw new Error(`${pr} change ${index + 1} points outside the file (line ${change.line}, column ${change.column})`);
     if (text.slice(start, start + change.accepted.length) !== change.accepted) throw new Error(`${pr} change ${index + 1} does not match the file at line ${change.line}, column ${change.column}`);
+    // A change that ends inside a character reference the following text completes
+    // ("&#x200" before "B") would hide what the reference stands for.
+    if (/&#?[0-9a-zA-Z]*$/.test(change.accepted) && /^[0-9a-zA-Z;]/.test(text.slice(start + change.accepted.length))) {
+      throw new Error(`${pr} change ${index + 1} ends in a character reference that the text after it continues; end the change after the whole reference`);
+    }
     return { ...change, start };
   });
   located.forEach((change, index) => {

@@ -14,6 +14,7 @@
 //   recovered media), what it shows about it (titles, original links, recovery notes,
 //   navigation, routes, the recovered category) and the source formatting the preserved
 //   originals depend on. Changing one would change pages without a receipt.
+// - The two MDX docs pages, which run code at build time.
 export const immutableMaterials = [
   "migration/restoration-fidelity.json",
   "migration/additional-articles.json",
@@ -32,6 +33,10 @@ export const immutableMaterials = [
   "migration/template-renderings-20261014.json",
   "migration/title-route-map.json",
   "recovery-evidence/",
+  // The two MDX pages run code when the site is built (an import could add a script to
+  // every page or change the records pages show); every other docs entry is Markdown.
+  "src/content/docs/index.mdx",
+  "src/content/docs/browse/all.mdx",
   "public/wiki-source/",
   "public/media/",
   "review/ai-edited/",
@@ -60,26 +65,37 @@ export function immutableChanges(paths, inBase = () => true) {
 /**
  * Problems with a change to the migration notes (migration/source-review-notes.json),
  * which article pages show. Existing notes stay byte for byte and in order; new notes
- * are added at the end, and each new note is cited by a receipt this pull request adds
- * or changes (its note_ids), so a documentation reviewer approves it with the receipt.
- * base and head are the file's text (base undefined when it is new); receipts are the
- * receipt items the pull request adds or changes.
+ * are added at the end, with IDs used nowhere else in the file; and every article a new
+ * note is shown on (its source_slugs) has a receipt for that article in this pull
+ * request that cites the note (note_ids), so a documentation reviewer approves the note
+ * with each article it appears on. base and head are the file's text (base undefined
+ * when it is new); receipts are the receipt items the pull request adds or changes.
  */
 export function sourceReviewNoteChanges(base, head, receipts) {
-  if (base === undefined || base === head) return [];
-  let before;
   let after;
-  try { [before, after] = [JSON.parse(base), JSON.parse(head)]; } catch { return [`${sourceReviewNotesPath} is not valid JSON`]; }
+  try { after = JSON.parse(head); } catch { return [`${sourceReviewNotesPath} is not valid JSON`]; }
+  const newItems = Array.isArray(after?.items) ? after.items : [];
+  const ids = newItems.map((note) => note?.id);
+  const duplicates = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+  const problems = duplicates.map((id) => `${sourceReviewNotesPath} has more than one note with the ID ${JSON.stringify(id)}; note IDs are unique`);
+  if (base === undefined || base === head) return problems;
+  let before;
+  try { before = JSON.parse(base); } catch { return [...problems, `${sourceReviewNotesPath} on the base is not valid JSON`]; }
   const { items: oldItems = [], ...oldRest } = before;
-  const { items: newItems = [], ...newRest } = after ?? {};
-  if (JSON.stringify(oldRest) !== JSON.stringify(newRest)) return [`${sourceReviewNotesPath} changes more than its notes`];
-  const problems = [];
+  const { items: ignored, ...newRest } = after ?? {};
+  if (JSON.stringify(oldRest) !== JSON.stringify(newRest)) return [...problems, `${sourceReviewNotesPath} changes more than its notes`];
   oldItems.forEach((note, index) => {
     if (JSON.stringify(newItems[index]) !== JSON.stringify(note)) problems.push(`${sourceReviewNotesPath} changes or removes the existing note ${JSON.stringify(note.id)}; existing notes never change`);
   });
-  const cited = new Set(receipts.flatMap((item) => (Array.isArray(item?.note_ids) ? item.note_ids : [])));
+  const oldIds = new Set(oldItems.map((note) => note?.id));
   for (const note of newItems.slice(oldItems.length)) {
-    if (!cited.has(note?.id)) problems.push(`${sourceReviewNotesPath} adds the note ${JSON.stringify(note?.id)}, which no receipt in this pull request cites; a new note is shown on article pages, so it is added with the receipt that cites it`);
+    if (oldIds.has(note?.id)) {
+      problems.push(`${sourceReviewNotesPath} adds a note with the existing ID ${JSON.stringify(note?.id)}; a new note needs an ID of its own`);
+      continue;
+    }
+    const slugs = Array.isArray(note?.source_slugs) && note.source_slugs.length ? note.source_slugs : [undefined];
+    const uncited = slugs.filter((slug) => !receipts.some((item) => item?.slug === slug && Array.isArray(item.note_ids) && item.note_ids.includes(note?.id)));
+    if (uncited.length) problems.push(`${sourceReviewNotesPath} adds the note ${JSON.stringify(note?.id)}, shown on ${uncited.map((slug) => slug ?? "no article").join(", ")} without a receipt in this pull request for that article that cites it; a new note is added with a receipt for each article it is shown on`);
   }
   return problems;
 }

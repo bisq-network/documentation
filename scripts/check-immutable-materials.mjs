@@ -22,7 +22,7 @@ try {
   const show = (ref, path) => { try { return git(["show", `${ref}:${path}`]); } catch { return undefined; } };
   const receipts = paths.filter((path) => path.startsWith(`${receiptsDir}/`)).map((path) => show(head, path)).filter((text) => text !== undefined)
     .map((text) => { try { return JSON.parse(text); } catch { return undefined; } });
-  const notes = paths.includes(sourceReviewNotesPath) ? sourceReviewNoteChanges(show(base, sourceReviewNotesPath), show(head, sourceReviewNotesPath) ?? "", receipts) : [];
+  const notes = sourceReviewNoteChanges(show(base, sourceReviewNotesPath), show(head, sourceReviewNotesPath) ?? "", receipts);
   if (changed.length) {
     const [first, ...rest] = immutableMaterialsMessage(changed);
     console.log(annotation("error", { title: "Preserved restoration materials changed" }, first));
