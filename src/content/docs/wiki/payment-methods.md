@@ -31,7 +31,7 @@ Fiat payment methods vary significantly in characteristics like chargeback risk,
 
 Suggestions for new payment methods, especially those enabling new markets, are welcome. See the criteria and process for adding methods [here on GitHub](https://github.com/bisq-network/growth/issues/new?assignees=&labels=re%3Apayment-method&template=add_payment_method.md&title=), or discuss them on [Matrix](https://bisq.chat) in the #payment-methods channel.
 
-Below is a list of fiat payment methods currently supported in Bisq v1.
+Below is a list of fiat payment methods currently supported in Bisq v1. The BTC amounts in this source table are historical reference figures, not a universal allowance for a current account. Bisq 1 v1.10.11 calculates method and account limits from protocol/DAO parameters and clamps its maximum at 0.25 BTC; confirm the amount shown by the client.
 
 **Note on Signing Requirement:** Methods marked with an asterisk (\*) **do not** require [account signing](../account-limits/#account-signing) to lift the initial low buying limit. All other listed fiat methods generally require signing.
 

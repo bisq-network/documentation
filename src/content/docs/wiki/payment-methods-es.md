@@ -30,7 +30,7 @@ Los métodos de pago varían según el riesgo de reversión de cargos, disponibi
 
 Agradecemos sugerencias de nuevos métodos de pago en Bisq, especialmente para habilitar nuevos mercados. La documentación sobre los criterios y proceso de adición de nuevos métodos de pago se encuentra en [forthcoming](https://github.com/bisq-network/bisq-docs/issues/172). Por ahora, realiza sugerencias contactando en el canal [#Growth](https://matrix.to/#/#bisq.growth:bitcoin.kyoto) de [bisq.chat](../matrix-bisq-chat/).
 
-A continuación mostramos una lista de métodos de pago soportados actualmente por Bisq.
+A continuación mostramos una lista de métodos de pago soportados actualmente por Bisq. Los importes BTC de esta tabla son valores históricos de referencia. En Bisq 1 v1.10.11, el límite efectivo depende del método y del estado de la cuenta; el cálculo del protocolo aplica un máximo de 0,25 BTC. Comprueba el importe permitido en el cliente.
 
 *Ten en cuenta: Los tamaños máximos de intercambio listados abajo no están disponibles para la mayoría de cuentas de pago recientemente creadas. Por favor consulta [Account signing](https://bisq.wiki/Account_signing) para obtener detalles acerca de cómo habilitar tamaños mayores para tus métodos de pago.*
 

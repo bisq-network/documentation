@@ -30,7 +30,7 @@ The payment methods vary in chargeback risk, regional availability, transaction 
 
 We welcome suggestions for new payment methods on Bisq, especially for those that enable new markets. Documentation on the criteria and process for adding new payment methods is [forthcoming](https://github.com/bisq-network/bisq-docs/issues/172). For now, feel free to make suggestions by reaching out on [Keybase](https://keybase.io/team/bisq).
 
-Below is a list of fiat payment methods Bisq currently supports.
+Below is a list of fiat payment methods Bisq currently supports. The BTC amounts in this source table are historical reference figures, not a universal allowance for a current account. Bisq 1 v1.10.11 calculates method and account limits from protocol/DAO parameters and clamps its maximum at 0.25 BTC; confirm the amount shown by the client.
 
 *Note: The maximum trade sizes listed below are not available for most newly-created payment accounts. Please refer to [Account signing](https://bisq.wiki/Account_signing) for details on how to enable larger trade sizes for your payment accounts.*
 
