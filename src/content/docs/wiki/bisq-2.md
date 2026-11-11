@@ -213,13 +213,13 @@ To import the key in Linux and MacOS:
 
 <p><code><code class="wiki-source-code" id="source-code-1">curl https://bisq.network/pubkey/E222AA02.asc | gpg --import </code></code></p>
 
-GPG will return \"This key is not certified with a trusted signature!\", this is normal (see [https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key) for background information what it means)
+An uncertified-key warning can accompany a cryptographically good signature, but does not establish the signer\'s identity. Compare the full key fingerprint with an independently obtained official source; do not treat a generic verification error as a reason to continue.
 
 To verify the installer against the signature:
 
-<code><code class="wiki-source-code" id="source-code-2">gpg -\-digest-algo SHA256 -\-verify BINARY{.asc\*,}</code></code>
+<code><code class="wiki-source-code" id="source-code-2">gpg -\-verify INSTALLER.asc INSTALLER</code></code>
 
-Replace BINARY with the name of the file you downloaded.
+Replace INSTALLER.asc with the exact matching detached-signature filename and INSTALLER with the exact installer filename. Require a good signature from the expected key; stop for bad signatures, a wrong signer, a missing key or unresolved expiry.
 
 In case you receive an error for an expired key, you can refresh the keys on your system from an official keyserver:
 
