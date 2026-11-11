@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
-import { acceptedEditsPath, describeEdit, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
+import { acceptedEditsPath, addReceiptLink, describeEdit, receiptDrafts, receiptFilesIn, receiptPath, receiptsDir, receiptText, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
 import { awaitingLine, verify } from "./check-source-fidelity.mjs";
 
 // All edits below exist only in memory; verify() reads them through overrides.
@@ -46,8 +46,11 @@ function receipt(base, edited, fields = {}) {
 
 /** Verify with the sample articles restored, the given files and receipts, and committed receipts for other articles. */
 async function run(files, items, required = 2, options = {}) {
-  const receipts = JSON.stringify({ ...committed, required_approvals: required, items: [...committed.items.filter((item) => !sampleSlugs.has(item.slug)), ...items] });
-  const result = await verify(new Map([...restoredFiles, ...Object.entries(files), [acceptedEditsPath, receipts]]), options);
+  const settings = JSON.stringify({ ...committed, required_approvals: required });
+  // Committed receipts for the sample articles are left out (null); the items given here stand in.
+  const samples = receiptFilesIn().filter((file) => sampleSlugs.has(file.slice(receiptsDir.length + 1).split(".pr-")[0]));
+  const receipts = [...samples.map((file) => [file, null]), ...items.map((item) => [receiptPath(item), receiptText(item)])];
+  const result = await verify(new Map([...restoredFiles, ...Object.entries(files), [acceptedEditsPath, settings], ...receipts]), options);
   const ours = (file) => !branchPending.includes(file);
   return { ...result, failures: result.failures.filter((failure) => ours(failure.slice(0, failure.indexOf(":")))), awaiting: result.awaiting.filter((item) => ours(item.path)) };
 }
@@ -98,7 +101,7 @@ test("an edit with a matching, approved receipt passes and the original is rebui
 });
 
 test("an edit without a receipt fails once, naming the article and the reason", async () => {
-  onlyFinding(await run({ [path]: reworded }, []), /^src\/content\/docs\/wiki\/trading-monero\.md: Trading Monero changed since restoration .*no receipt in migration\/accepted-edits\.json covers it/);
+  onlyFinding(await run({ [path]: reworded }, []), /^src\/content\/docs\/wiki\/trading-monero\.md: Trading Monero changed since restoration .*no receipt in migration\/accepted-edits\/ covers it/);
 });
 
 test("with its base, an edit a receipt could accept awaits a receipt instead of failing", async () => {
@@ -192,7 +195,7 @@ test("too few approvals, self-approval or an @-mention invalidate the receipt", 
   const one = receipt(original, reworded, { approvals: [{ login: "maintainer-a", role: "maintainer" }] });
   const result = await run({ [path]: reworded }, [one]);
   assert.equal(result.failures.length, 2, result.failures.join("\n"));
-  assert.match(result.failures.join("\n"), /accepted-edits\.json: receipt 1 \(trading-monero, PR #46\): 1 recorded approval; required_approvals is 2/);
+  assert.match(result.failures.join("\n"), /^migration\/accepted-edits\/trading-monero\.pr-46\.json: 1 recorded approval; required_approvals is 2/m);
   assert.match(result.failures.join("\n"), /trading-monero\.md: Trading Monero changed since restoration/);
   assert.deepEqual((await run({ [path]: reworded }, [one], 1)).failures, []);
   const self = receipt(original, reworded, { approvals: [{ login: "Contributor-A", role: "author" }, { login: "maintainer-a", role: "maintainer" }] });
@@ -233,8 +236,64 @@ test("later receipts chain on the earlier accepted file", async () => {
   const first = receipt(original, reworded);
   const next = receipt(reworded, second, { pull_request: "https://github.com/hiciefte/bisq-docs/pull/99" });
   assert.deepEqual((await run({ [path]: second }, [first, next])).failures, []);
-  onlyFinding(await run({ [path]: second }, [next, first]), /PR #99 receipt is based on sha256 .*restored baseline of this article/);
+  // The order comes from the hashes, not from file names or listing order.
+  assert.deepEqual((await run({ [path]: second }, [next, first])).failures, []);
+  // Two receipts based on the same file do not form one chain; the one that does not fit fails.
+  const rival = receipt(original, second, { pull_request: "https://github.com/hiciefte/bisq-docs/pull/98" });
+  onlyFinding(await run({ [path]: second }, [first, rival]), /PR #98 receipt is based on sha256 .*, but the earlier accepted edit \(PR #46\) produced/);
   onlyFinding(await run({}, [first]), /Trading Monero is unchanged since restoration, but PR #46 has a receipt/);
+});
+
+test("each receipt is its own file, named after its article and pull request", async () => {
+  const misnamed = `${receiptsDir}/trading-monero.pr-47.json`;
+  const result = await run({ [path]: reworded, [misnamed]: receiptText(receipt(original, reworded)) }, []);
+  assert.match(result.failures.join("\n"), /^migration\/accepted-edits\/trading-monero\.pr-47\.json: the file name must be trading-monero\.pr-46\.json/m);
+  // An unusable receipt is never applied, so the article itself is reported too.
+  assert.match(result.failures.join("\n"), /trading-monero\.md: Trading Monero changed since restoration/);
+  const broken = await run({ [`${receiptsDir}/trading-monero.pr-46.json`]: "{" }, []);
+  assert.match(broken.failures.join("\n"), /^migration\/accepted-edits\/trading-monero\.pr-46\.json: is not valid JSON/m);
+});
+
+test("the settings hold the approval rule and reviewers, never the receipts", async () => {
+  const failures = async (settings) => (await verify(new Map([[acceptedEditsPath, JSON.stringify(settings)]]))).failures.join("\n");
+  assert.match(await failures({ ...committed, items: [] }), /^migration\/accepted-edits\.json: receipts are files in migration\/accepted-edits\//m);
+  assert.match(await failures({ ...committed, schema_version: 1 }), /expected schema_version 2/);
+  assert.match(await failures({ ...committed, reviewers: [] }), /reviewers must list at least one/);
+  assert.match(await failures({ ...committed, reviewers: [{ login: "@reviewer", role: "support" }] }), /reviewer login "@reviewer" must be a plain GitHub login/);
+  assert.match(await failures({ ...committed, reviewers: [{ login: "a", role: "x" }, { login: "A", role: "y" }] }), /a reviewer is listed twice/);
+});
+
+test("the receipts job drafts a receipt for each reviewer who may approve, with a link that adds it", async () => {
+  const repository = "bisq-network/documentation";
+  const reviewers = [{ login: "suddenwhipvapor", role: "documentation reviewer" }, { login: "pazza83", role: "documentation reviewer" }];
+  const event = (fields = {}) => ({ pull_request: { number: 201, title: "Trading Monero: fix the (default) auto-confirm ceiling", user: { login: "suddenwhipvapor" }, head: { ref: "suddenwhipvapor-patch-1", repo: { full_name: repository } }, ...fields } });
+  const drafts = (fields) => receiptDrafts({ event: event(fields), repository, reviewers, awaiting: [{ slug: "trading-monero", path }], readBase: () => original, readHead: () => reworded, acceptedOn: "2026-11-11" });
+
+  // The author is never offered as the approver.
+  const [article] = drafts();
+  assert.deepEqual(article.drafts.map(({ reviewer }) => reviewer), ["pazza83"]);
+  const [{ item, url }] = article.drafts;
+  assert.equal(item.pull_request, `https://github.com/${repository}/pull/201`);
+  assert.equal(item.author, "suddenwhipvapor");
+  assert.equal(item.summary, "Trading Monero: fix the (default) auto-confirm ceiling");
+  assert.deepEqual(item.approvals, [{ login: "pazza83", role: "documentation reviewer" }]);
+  // GitHub's new-file page on the pull request's branch, holding exactly this receipt.
+  const link = new URL(url);
+  assert.equal(link.pathname, `/${repository}/new/suddenwhipvapor-patch-1`);
+  assert.equal(link.searchParams.get("filename"), "migration/accepted-edits/trading-monero.pr-201.json");
+  assert.equal(link.searchParams.get("value"), receiptText(item));
+  assert.doesNotMatch(url, /[()]/, "parentheses would end the Markdown link in the job summary");
+  // Committed as it is, the receipt passes the gate.
+  assert.deepEqual((await run({ [path]: reworded }, [item], 1)).failures, []);
+
+  // A third party's pull request can be approved by either reviewer.
+  assert.deepEqual(drafts({ user: { login: "contributor-a" } })[0].drafts.map(({ reviewer }) => reviewer), ["suddenwhipvapor", "pazza83"]);
+  // A title that reads like an endorsement is not put on the article page.
+  assert.equal(drafts({ title: "Verified fix" })[0].drafts[0].item.summary, "Wording change; see the pull request.");
+  // A branch name with slashes keeps them; a receipt too long for a link gets none.
+  assert.equal(new URL(drafts({ head: { ref: "edit/trading-monero", repo: { full_name: "contributor-a/documentation" } } })[0].drafts[0].url).pathname, "/contributor-a/documentation/new/edit/trading-monero");
+  assert.equal(addReceiptLink({ repository, branch: "b", item, maxLength: 100 }), undefined);
+  assert.deepEqual(receiptDrafts({ event: {}, repository, reviewers, awaiting: [{ slug: "trading-monero", path }] }), []);
 });
 
 test("the recovery safeguards still apply to an accepted edit", async () => {

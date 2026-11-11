@@ -25,7 +25,7 @@ export function immutableMaterialsMessage(changed) {
     `This pull request changes ${changed.length === 1 ? "a preserved restoration material" : `${changed.length} preserved restoration materials`}. These never change in a pull request:`,
     ...changed.map((path) => `- ${path}`),
     "These are the originals the fidelity gate checks against: the restoration manifest, the additional-article records, raw wiki sources, media and the AI-edited snapshots.",
-    "Accepted wording goes through migration/accepted-edits.json (CONTRIBUTING.md#accepted-editorial-changes).",
+    "Accepted wording goes through a receipt in migration/accepted-edits/ (CONTRIBUTING.md#accepted-editorial-changes).",
     "A deliberate new intake needs its own pull request that also changes this guard (scripts/lib/immutable-materials.mjs).",
   ];
 }
