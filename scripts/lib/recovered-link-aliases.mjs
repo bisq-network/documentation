@@ -101,7 +101,8 @@ export function renderRecoveredLinks(html, base = "/", aliases = allRecoveredAli
   const prefix = base.replace(/\/$/, "");
   let resolved = 0;
   let unresolved = 0;
-  const content = html.replace(/<span class="wiki-link-gap">([\s\S]*?) <small>\[unrecovered article: ([\s\S]*?)\]<\/small><\/span>/g, (match, label, target) => {
+  // Label and target are text only, so a match never reaches into another element.
+  const content = html.replace(/<span class="wiki-link-gap">([^<]*?) <small>\[unrecovered article: ([^<\]]*)\]<\/small><\/span>/g, (match, label, target) => {
     const scoped = /^(?:dispute resolution|Dispute resolution)$/.test(target) && disputeEvidence.items.find((item) => item.slug === sourceSlug);
     const resource = mediaSupplement.linked_resources?.find((item) => normalizeWikiTitle(item.source_target) === normalizeWikiTitle(target));
     const template = templateDefinitionTarget(target);

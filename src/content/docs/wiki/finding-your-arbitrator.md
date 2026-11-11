@@ -6,25 +6,57 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#get-in-touch-with-your-arbitrator">Get in touch with your arbitrator</a></li><li><a href="#how-to-find-the-arbitrator-for-a-trade">How to find the arbitrator for a trade</a></li><li><a href="#in-bisq-1">In Bisq 1</a></li><li><a href="#system-message">System message</a></li><li><a href="#view-contract-in-json">View contract in JSON</a></li><li><a href="#matrix-and-onion-addresses">Matrix and onion addresses</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>This article lists public arbitrator/refund-agent identity mappings and explains how to find the agent assigned to a specific trade. The table is a source snapshot, not a guarantee of current availability; use the trade's assigned in-app arbitration channel first.</p>
-<p>If you need to find your mediator see <a href="../finding-your-mediator/">here</a>.</p>
-<span class="wiki-legacy-anchor" id="Get_in_touch_with_your_arbitrator" aria-hidden="true"></span><h2 id="get-in-touch-with-your-arbitrator"> Get in touch with your arbitrator </h2>
-<p>For open trades, you should be able to get in touch with your arbitrator through Bisq arbitration chat itself.</p>
-<p>If you cannot get in touch with your arbitrator on Bisq for 72 hours (sometimes Bisq message system fails), or the issue needs urgent attention, you can get in touch with them on the <a href="../matrix-bisq-chat/">Matrix bisq.chat</a> group. Their Matrix handles and onion addresses are displayed in the headline for the #support channel as well.</p>
-<span class="wiki-legacy-anchor" id="How_to_find_the_arbitrator_for_a_trade" aria-hidden="true"></span><h2 id="how-to-find-the-arbitrator-for-a-trade"> How to find the arbitrator for a trade </h2>
-<span class="wiki-legacy-anchor" id="In_Bisq_1" aria-hidden="true"></span><h3 id="in-bisq-1"> In Bisq 1 </h3>
-<span class="wiki-legacy-anchor" id="System_message" aria-hidden="true"></span><h4 id="system-message"> System message </h4>
-<p>Go to 'Support &gt; Arbitration' tab since arbitration begins.</p>
-<span class="wiki-legacy-anchor" id="View_contract_in_JSON" aria-hidden="true"></span><h4 id="view-contract-in-json"> View contract in JSON </h4>
-<p>Alternatively, you can look for your arbitrator since the trade starts:</p>
-<ol>
-<li>Go to <code class="wiki-source-code" id="source-code-1">Portfolio &gt; Open Trades</code>, <code class="wiki-source-code" id="source-code-2">Portfolio &gt; History</code>, or <code class="wiki-source-code" id="source-code-3">Portfolio &gt; Failed Trades</code> (depending on the status of your trade)</li>
-<li>Click the <code class="wiki-source-code" id="source-code-4">i</code> icon next to the trade ID of the trade in question (it's on the very left in the first column)</li>
-<li>In the pop-up that appears, toward the bottom, click <code class="wiki-source-code" id="source-code-5">View Contract in JSON Format</code>.</li>
-<li>Scroll down and you'll find <code class="wiki-source-code" id="source-code-6">"refundAgentNodeAddress"</code> it is just below <code class="wiki-source-code" id="source-code-7">"lockTime"</code> after the refundAgentNodeAddress you will see your arbitrators's onion address.</li>
-</ol>
-<p>This is the onion address of the arbitrator for your trade.</p>
-<span class="wiki-legacy-anchor" id="Matrix_and_onion_addresses" aria-hidden="true"></span><h2 id="matrix-and-onion-addresses"> Matrix and onion addresses </h2>
+<div class="wiki-recovered-article" lang="en">
+
+This article lists public arbitrator/refund-agent identity mappings and explains how to find the agent assigned to a specific trade. The table is a source snapshot, not a guarantee of current availability; use the trade\'s assigned in-app arbitration channel first.
+
+If you need to find your mediator see [here](../finding-your-mediator/).
+
+<span class="wiki-legacy-anchor" id="Get_in_touch_with_your_arbitrator" aria-hidden="true">
+</span>
+
+## Get in touch with your arbitrator {#get-in-touch-with-your-arbitrator}
+
+For open trades, you should be able to get in touch with your arbitrator through Bisq arbitration chat itself.
+
+If you cannot get in touch with your arbitrator on Bisq for 72 hours (sometimes Bisq message system fails), or the issue needs urgent attention, you can get in touch with them on the [Matrix bisq.chat](../matrix-bisq-chat/) group. Their Matrix handles and onion addresses are displayed in the headline for the #support channel as well.
+
+<span class="wiki-legacy-anchor" id="How_to_find_the_arbitrator_for_a_trade" aria-hidden="true">
+</span>
+
+## How to find the arbitrator for a trade {#how-to-find-the-arbitrator-for-a-trade}
+
+<span class="wiki-legacy-anchor" id="In_Bisq_1" aria-hidden="true">
+</span>
+
+### In Bisq 1 {#in-bisq-1}
+
+<span class="wiki-legacy-anchor" id="System_message" aria-hidden="true">
+</span>
+
+#### System message {#system-message}
+
+Go to \'Support > Arbitration\' tab since arbitration begins.
+
+<span class="wiki-legacy-anchor" id="View_contract_in_JSON" aria-hidden="true">
+</span>
+
+#### View contract in JSON {#view-contract-in-json}
+
+Alternatively, you can look for your arbitrator since the trade starts:
+
+1. Go to <code class="wiki-source-code" id="source-code-1">Portfolio > Open Trades</code>, <code class="wiki-source-code" id="source-code-2">Portfolio > History</code>, or <code class="wiki-source-code" id="source-code-3">Portfolio > Failed Trades</code> (depending on the status of your trade)
+2. Click the <code class="wiki-source-code" id="source-code-4">i</code> icon next to the trade ID of the trade in question (it\'s on the very left in the first column)
+3. In the pop-up that appears, toward the bottom, click <code class="wiki-source-code" id="source-code-5">View Contract in JSON Format</code>.
+4. Scroll down and you\'ll find <code class="wiki-source-code" id="source-code-6">\"refundAgentNodeAddress\"</code> it is just below <code class="wiki-source-code" id="source-code-7">\"lockTime\"</code> after the refundAgentNodeAddress you will see your arbitrators\'s onion address.
+
+This is the onion address of the arbitrator for your trade.
+
+<span class="wiki-legacy-anchor" id="Matrix_and_onion_addresses" aria-hidden="true">
+</span>
+
+## Matrix and onion addresses {#matrix-and-onion-addresses}
+
 <table>
 <thead>
 <tr>
@@ -64,4 +96,5 @@ tableOfContents: false
 | [https://github.com/refundagent3 refundagent3]
 | [[Matrix bisq.chat |  @refundagent3:imagisphe.re]]
 |}</code></pre></details>
+
 </div>
