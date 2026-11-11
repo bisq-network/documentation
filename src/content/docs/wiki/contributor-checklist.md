@@ -12,7 +12,7 @@ If you\'re interested in contributing to Bisq, ​welcome! This **contributor ch
 
 Bisq is free and open source software, but contributing is not just about writing code. A contributor is any individual who works to improve and add value to the Bisq network and its users.
 
-This can mean anything from fixing typos in documentation, to providing support, to testing out new growth strategies, to implementing new Bisq features and everything in between. All such contributions are eligible for [compensation](../compensation/) from the Bisq DAO.
+This can mean anything from fixing typos in documentation, to providing support, to testing out new growth strategies, to implementing new Bisq features and everything in between. Contributors may request [compensation](../compensation/) from the Bisq DAO, subject to review and DAO approval. A 4 November 2026 Bisq update announced a temporary pause on accepting new contributors for compensated development and on routinely reviewing their pull requests; new contributors should discuss priorities, review capacity and available funding with maintainers before investing substantial time.
 
 <span class="wiki-legacy-anchor" id="Basics" aria-hidden="true">
 </span>
