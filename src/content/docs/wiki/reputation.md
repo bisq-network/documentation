@@ -60,29 +60,29 @@ Starting with **[Bisq 2](../bisq-2/) version 2.1.1**, several important rules li
 
 To make reputation easy to compare quickly, [Bisq Easy](../bisq-easy/) displays scores using a simple **0 to 5 star system**.
 
-<figure class="wiki-source-image" id="source-image-4"><a href="../../media/wiki/487b180fd114aa377eff356e141ed66650ea58235b1d56ac356054fcabfc3900.png"><img alt="The star system (0-5) provides an easy comparison of seller reputation based on their current rank among active users. 5 stars indicate the highest relative reputation." decoding="async" height="598" loading="lazy" src="../../media/wiki/487b180fd114aa377eff356e141ed66650ea58235b1d56ac356054fcabfc3900.png" width="1601"></a><figcaption>The star system (0-5) provides an easy comparison of seller reputation based on their current rank among active users. 5 stars indicate the highest relative reputation.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
+<figure class="wiki-source-image" id="source-image-4"><a href="../../media/wiki/487b180fd114aa377eff356e141ed66650ea58235b1d56ac356054fcabfc3900.png"><img alt="Historical star display. In v2.1.15, stars correspond to fixed score bands, while rank is relative to other scored users." decoding="async" height="598" loading="lazy" src="../../media/wiki/487b180fd114aa377eff356e141ed66650ea58235b1d56ac356054fcabfc3900.png" width="1601"></a><figcaption>Historical star display. In v2.1.15, stars correspond to fixed score bands, while rank is relative to other scored users.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 
-- **How it Works (Relative Ranking):** Your star rating shows how your reputation **compares to all other \*active\* users** on the Bisq network at that moment. It\'s your current rank, not a fixed score. The highest-ranked active sellers get 5 stars, the lowest get 0 stars.
-- **Why Stars Change (Dynamic):** Because it\'s a relative system based on active users, your star rating can change even if your score hasn\'t:
+- **How it Works (Fixed Score Bands):** In Bisq 2 v2.1.15, stars use fixed score bands: 0 below 1,200 points, then 0.5/1/1.5/2/2.5/3/3.5/4/4.5/5 stars at 1,200/5,000/15,000/20,000/25,000/30,000/35,000/40,000/60,000/100,000 points. The separate rank compares the profile with other scored users.
+- **Why Rank Changes:** Changes to the set of active users can affect relative rank. They do not move the fixed star-score thresholds in v2.1.15.
 
 <dl>
 <dt></dt>
 <dd>
-<strong>User Inactivity:</strong> If a user is inactive for <strong>two weeks</strong>, their profile is temporarily excluded from the ranking calculation. If a high-ranked user becomes inactive, others might see their star ratings go up.
+<strong>User Inactivity:</strong> The source described roughly two-week inactive-profile exclusion. In Bisq 2 v2.1.15, UserProfile declares a 15-day record TTL; that metadata alone does not guarantee an exact inactivity, refresh or removal time. If a profile leaves the observed set, other users' relative ranks may change; the fixed star-score thresholds do not change.
 </dd>
 <dd>
-<strong>User Reactivation:</strong> When an inactive user returns, their reputation is factored back in, potentially shifting star ratings again.
+<strong>User Reactivation:</strong> When an inactive user returns, their reputation is factored back in, potentially changing relative ranks again.
 </dd>
 </dl>
 
-**In short:** Stars give you a quick, dynamic view of a seller\'s current reputation rank compared to their active peers. The star display will change over time based on both your own score changes and the changing scores of other active users.<br>
+**In short:** Stars summarize the score band; rank compares the seller with other users. A changed rank is not by itself a changed star score.<br>
 
 <span class="wiki-legacy-anchor" id="How_to_Build_Reputation" aria-hidden="true">
 </span>
 
 ## How to Build Reputation {#how-to-build-reputation}
 
-You can build your reputation score in [Bisq Easy](../bisq-easy/) using four methods, accessed via the **\`Reputation\`** section on the main left-hand menu in Bisq 2. Your **total reputation score** is calculated as the **sum** of the points gained from all methods you use. This total score determines your reputation rank (stars) and your maximum trade offer size.
+You can build your reputation score in [Bisq Easy](../bisq-easy/) using four methods, accessed via the **\`Reputation\`** section on the main left-hand menu in Bisq 2. Your **total reputation score** is calculated as the **sum** of the points gained from all methods you use. This total score determines your reputation rank, fixed star band and maximum trade offer size.
 
 Reputation scores can change over time: points from [BSQ](../introduction-to-the-dao/) Bonds are lost when unlocked, but you can burn or bond [BSQ](../introduction-to-the-dao/) repeatedly. You can also import account age or signed account age, potentially replacing previous imported scores if the new import source is older.
 
