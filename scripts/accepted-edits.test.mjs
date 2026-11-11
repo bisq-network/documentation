@@ -600,6 +600,27 @@ test("invisible characters are added only when the receipt lists them", async ()
     assert.equal(awaitingLine((await run({ [path]: edited }, [], 2, withBase)).awaiting[0]), `trading-monero: invisible characters ${label} added; its receipt must list it in added_invisible_characters`);
   }
   onlyFinding(await run({ [path]: reworded }, [receipt(original, reworded, { added_invisible_characters: ["U+200B"] })]), /PR #46 lists U\+200B in added_invisible_characters, but adds no such character/);
+  // Judged by position, not by count: a later edit that moves one, or swaps one for
+  // another at the same place, must list it again.
+  const later = (base, edited) => receipt(base, edited, { pull_request: "https://github.com/hiciefte/bisq-docs/pull/99" });
+  const withZwsp = original.replace("one of the most active markets", "one of the most\u200b active markets");
+  const first = receipt(original, withZwsp, { added_invisible_characters: ["U+200B"] });
+  for (const [edited, label] of [
+    // Moved into a link's URL, and into a number: the same count before and after.
+    [withZwsp.replace("most\u200b active", "most active").replace("(https://monero.com/explorer)", "(https://monero\u200b.com/explorer)"), "U\\+200B"],
+    [withZwsp.replace("most\u200b active", "most active").replace("(default: 1 BTC)", "(default: 1\u200b0 BTC)"), "U\\+200B"],
+    [withZwsp.replace("most\u200b active", "most\u200e active"), "U\\+200E"],
+  ]) {
+    assert.notEqual(edited, withZwsp);
+    onlyFinding(await run({ [path]: edited }, [first, later(withZwsp, edited)]), new RegExp(`PR #99 adds invisible characters \\(${label}\\)`));
+  }
+  const withLrm = original.replace("one of the most active markets", "one of the most\u200e active markets");
+  const swapped = withLrm.replace("\u200e", "\u200f");
+  onlyFinding(await run({ [path]: swapped }, [receipt(original, withLrm, { added_invisible_characters: ["U+200E"] }), later(withLrm, swapped)]), /PR #99 adds invisible characters \(U\+200F\)/);
+  assert.deepEqual((await run({ [path]: swapped }, [receipt(original, withLrm, { added_invisible_characters: ["U+200E"] }), later(withLrm, swapped)].map((item, index) => (index ? { ...item, added_invisible_characters: ["U+200F"] } : item)))).failures, []);
+  // A character reference in Markdown counts as the character it stands for.
+  const encoded = original.replace("one of the most active markets", "one of the most&#x200B; active markets");
+  onlyFinding(await run({ [path]: encoded }, [receipt(original, encoded)]), /PR #46 adds invisible characters \(U\+200B\)/);
   assert.match((await run({ [path]: reworded }, [receipt(original, reworded, { added_invisible_characters: ["200B"] })])).failures.join("\n"), /added_invisible_characters must list code points such as U\+200B/);
 });
 

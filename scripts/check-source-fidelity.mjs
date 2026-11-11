@@ -1,9 +1,9 @@
 import { verifyAdditionalArticles } from "./lib/additional-articles.mjs";
-import { acceptedEditsPath, applyAcceptedEdit, parseAcceptedEdits, pullRequestLabel, receiptFilesIn, receiptsDir, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
+import { acceptedEditsPath, applyAcceptedEdit, describeEdit, parseAcceptedEdits, pullRequestLabel, receiptFilesIn, receiptsDir, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
 import { articlePageContent } from "./lib/article-page.mjs";
 import { articlePath, formatDifference, markdownFormatPath, parseMarkdownFormat, preservedArticlePath, preservedArticlesDir } from "./lib/markdown-format.mjs";
 import { renderArticle } from "./lib/render-markdown.mjs";
-import { attributeValue, classes, commentsOf, elementsOf, htmlParser, serialize, splitRenderedArticle, startTag, textContent } from "./lib/rendered-html.mjs";
+import { attributeValue, classes, commentsOf, documentParser, elementsOf, htmlParser, serialize, splitRenderedArticle, startTag, textContent } from "./lib/rendered-html.mjs";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
@@ -232,7 +232,8 @@ function lockedContent(body) {
 
 // Characters a reader does not see: format characters (zero-width spaces and joiners,
 // bidirectional controls, soft hyphens, tags), variation selectors and blank fillers.
-// An accepted edit may add them only when its receipt lists them in added_invisible_characters.
+// An accepted edit may put them in its changed text only when its receipt lists them
+// in added_invisible_characters.
 const invisibleCharacter = /[\p{Cf}\u034f\u115f\u1160\u2028\u2029\u2800\u3164\ufe00-\ufe0f\uffa0\u{e0100}-\u{e01ef}]/gu;
 const codePoint = (character) => `U+${character.codePointAt(0).toString(16).toUpperCase().padStart(4, "0")}`;
 function invisibleCharacters(body) {
@@ -378,14 +379,24 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
     const unusedLocked = [...lockedListed].filter((key) => !lockedChanged.includes(key));
     assert(!unusedLocked.length, `${pr} lists ${unusedLocked.join(", ")} in changed_locked_content, but it is unchanged`);
   }
-  // Characters a reader does not see are added only when the receipt lists them.
+  // Characters a reader does not see are added only when the receipt lists them. They
+  // are judged by position: every one in the text an edit puts in (each change's
+  // accepted text, also as HTML decodes it), so one cannot be moved into a link or a
+  // number unnoticed; and, as a backstop, every one the rendered article has more of.
+  const parseDocument = await documentParser(root);
+  const invisibleAdded = new Set();
+  for (const change of receipt === noReceipt ? describeEdit(base, edited) : receipt.changes) {
+    for (const text of [change.accepted, serialize(parseDocument(change.accepted))]) {
+      for (const [character] of text.matchAll(invisibleCharacter)) invisibleAdded.add(codePoint(character));
+    }
+  }
   const [oldInvisible, newInvisible] = [invisibleCharacters(before.raw.body), invisibleCharacters(after.raw.body)];
-  const invisibleAdded = [...newInvisible].filter(([character, count]) => count > (oldInvisible.get(character) ?? 0)).map(([character]) => character).sort();
+  for (const [character, count] of newInvisible) if (count > (oldInvisible.get(character) ?? 0)) invisibleAdded.add(character);
   const invisibleListed = new Set(receipt.added_invisible_characters ?? []);
   if (receipt !== noReceipt) {
-    const unlisted = invisibleAdded.filter((character) => !invisibleListed.has(character));
+    const unlisted = [...invisibleAdded].sort().filter((character) => !invisibleListed.has(character));
     assert(!unlisted.length, `${pr} adds invisible characters (${unlisted.join(", ")}); they are added only when the receipt lists them in added_invisible_characters`);
-    const unusedInvisible = [...invisibleListed].filter((character) => !invisibleAdded.includes(character));
+    const unusedInvisible = [...invisibleListed].filter((character) => !invisibleAdded.has(character));
     assert(!unusedInvisible.length, `${pr} lists ${unusedInvisible.join(", ")} in added_invisible_characters, but adds no such character`);
   }
   // Every element the edit adds or removes (by its start tag) must be editable.
@@ -404,7 +415,7 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
     checkRestoreSafeguards(restoreFacts(after.body));
     checkRestoreSafeguardContext(restoreFacts(before.body).text, restoreFacts(after.body).text, pr);
   }
-  return { changedImageAltText: [...altChanged], changedLockedContent: lockedChanged, addedInvisibleCharacters: invisibleAdded };
+  return { changedImageAltText: [...altChanged], changedLockedContent: lockedChanged, addedInvisibleCharacters: [...invisibleAdded].sort() };
 }
 
 /**
