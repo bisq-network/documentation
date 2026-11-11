@@ -80,8 +80,10 @@ jobs:
           mkdir -p "$RUNNER_TEMP/base"
           # The receipts directory exists only once a receipt has been merged.
           git archive 'HEAD^1' $(git ls-tree --name-only 'HEAD^1' -- src/content/docs/wiki migration/accepted-edits.json migration/accepted-edits) | tar -x -C "$RUNNER_TEMP/base"
-      # The gate renders Markdown articles with the site's own pipeline.
-      - run: npm ci
+      # The gate renders Markdown articles with the site's own pipeline. It needs no
+      # install script (only fsevents, a macOS file watcher, has one), and this job holds
+      # a token.
+      - run: npm ci --ignore-scripts
       - name: Articles awaiting an accepted-edit receipt
         run: node scripts/check-awaiting-receipts.mjs --base "$RUNNER_TEMP/base"
       - name: Recorded approvals match approving reviews
