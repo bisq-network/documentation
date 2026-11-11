@@ -22,7 +22,7 @@ First, click on **BUY BTC** and click on any of the available **TAKE OFFER TO BU
 \
 **Note on limits for new payment accounts:**
 
-To secure the network from scammers and other bad actors, unsigned Bisq payment accounts are limited to buying 0.01 BTC until they are signed by another trusted peer.
+For payment methods subject to account-signing restrictions, Bisq 1 v1.10.11 limits unsigned accounts to buying up to 0.002 BTC; the actual limit also depends on the account and payment method. Signing does not immediately remove all age-based limits.
 
 You can have your new payment account signed by selecting an offer to buy bitcoin from a seller who’s capable of signing your account. - Click \[[here](https://docs.bisq.network/payment-methods.html)\] for info on account signing
 
