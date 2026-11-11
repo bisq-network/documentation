@@ -4,16 +4,21 @@ slug: "wiki/automatic-backup"
 tableOfContents: false
 ---
 
-<div class="wiki-recovered-article" lang="en"><p>The Bisq application automatically creates a backup whenever a data storage file is updated. Recent backups are retained more densely, while older ones are gradually thinned out. This approach maintains a good balance between storage usage and ensuring that sufficiently recent backups are available when needed.</p>
-<p>Backup snapshots are created on every write (the backup filename is the store filename plus the timestamp format <code class="wiki-source-code" id="source-code-1">yyyy-MM-dd_HHmm</code>) and are grouped by the store’s parent filename.</p>
+<div class="wiki-recovered-article" lang="en">
+
+The Bisq application automatically creates a backup whenever a data storage file is updated. Recent backups are retained more densely, while older ones are gradually thinned out. This approach maintains a good balance between storage usage and ensuring that sufficiently recent backups are available when needed.
+
+Backup snapshots are created on every write (the backup filename is the store filename plus the timestamp format <code class="wiki-source-code" id="source-code-1">yyyy-MM-dd_HHmm</code>) and are grouped by the store’s parent filename.
+
 <figure class="wiki-image-gap" id="source-image-1"><p><strong>Image not recovered: Resources automatic backup.png</strong></p><p>The original file is unavailable in this local recovery.</p></figure>
-<p>The system keeps backup snapshots based on the following rules and the <code class="wiki-source-code" id="source-code-2">MaxBackupSize</code> (default 100MB):</p>
-<ul>
-<li>Last hour: a snapshot every minute</li>
-<li>Past hour → 24 hours: the most recent snapshot from each hour is kept</li>
-<li>Past day → 7 days: the most recent snapshot from each day is kept</li>
-<li>Past week → 28 days: the most recent snapshot from each week is kept</li>
-<li>Past month → 1 year: the most recent snapshot from each month is kept</li>
-<li>Older than a year: the most recent snapshot from each year is kept</li>
-</ul>
+
+The system keeps backup snapshots based on the following rules and the <code class="wiki-source-code" id="source-code-2">MaxBackupSize</code> (default 100MB):
+
+- Last hour: a snapshot every minute
+- Past hour → 24 hours: the most recent snapshot from each hour is kept
+- Past day → 7 days: the most recent snapshot from each day is kept
+- Past week → 28 days: the most recent snapshot from each week is kept
+- Past month → 1 year: the most recent snapshot from each month is kept
+- Older than a year: the most recent snapshot from each year is kept
+
 </div>
