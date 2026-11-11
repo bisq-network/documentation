@@ -3,13 +3,18 @@
 // (scripts/check-receipt-approvals.mjs); the offline fidelity gate and npm test
 // never call GitHub. See CONTRIBUTING.md ("Accepted editorial changes").
 //
-// A receipt item that this pull request adds or changes must name this pull
+// A receipt that this pull request adds or changes must name this pull
 // request, and every login in its approvals must belong to someone who
+//  - is one of the reviewers listed in the base's migration/accepted-edits.json
+//    (the base's list, so a pull request cannot add its own reviewer),
 //  - approved this pull request at its current head commit (an approval from
 //    before the last push does not count, nor one followed by a change request
 //    or a dismissal),
 //  - is neither the pull request author nor the receipt author, and
 //  - has push (write, maintain or admin) access to the repository.
+//
+// data and baseData are the settings with the receipts as items, each carrying
+// the repository-relative path of its file (see receiptItems).
 // Distinct valid approvers must number at least required_approvals (the higher
 // of the base and the pull request value, so a pull request cannot lower its own
 // bar). Receipt items the pull request leaves unchanged were checked in their own
@@ -71,7 +76,24 @@ export async function fetchPullRequest(graphql, { owner, name, number }) {
   return { author: pullRequest.author?.login ?? "", headSha: pullRequest.headRefOid, reviews };
 }
 
-/** Receipt items (with their position) that are new or different from the base receipts file. */
+/**
+ * The settings with each receipt file as an item: its parsed content plus its
+ * path. A file that is not a JSON object becomes { path } and fails the
+ * approval check like any receipt that names no pull request.
+ */
+export function receiptItems({ settings, files }) {
+  const items = files.map(({ path, text }) => {
+    try {
+      const parsed = JSON.parse(text);
+      return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? { ...parsed, path } : { path };
+    } catch {
+      return { path };
+    }
+  });
+  return { ...settings, items };
+}
+
+/** Receipt items (with their position) that are new or different from the base receipts. */
 export function changedReceiptItems(baseData, data) {
   const before = new Set((Array.isArray(baseData?.items) ? baseData.items : []).map((item) => JSON.stringify(item)));
   return (Array.isArray(data?.items) ? data.items : [])
@@ -98,10 +120,11 @@ export function checkReceiptApprovals({ data, baseData, pullRequest, reviews }) 
   const required = Math.max(...[data?.required_approvals, baseData?.required_approvals].filter(Number.isSafeInteger), 1);
   const latest = latestReviews(reviews);
   const author = String(pullRequest.author).toLowerCase();
+  const reviewers = new Set((Array.isArray(baseData?.reviewers) ? baseData.reviewers : []).map((reviewer) => String(reviewer?.login).toLowerCase()));
   const problems = [];
   const checked = [];
   for (const { item, index } of changedReceiptItems(baseData, data)) {
-    const label = `receipt ${index + 1} (${oneLine(item?.slug ?? "no slug")})`;
+    const label = item?.path ? oneLine(item.path) : `receipt ${index + 1} (${oneLine(item?.slug ?? "no slug")})`;
     if (item?.pull_request !== pullRequest.url) {
       problems.push(`${label} names ${oneLine(item?.pull_request ?? "no pull request")}, but this pull request (${pullRequest.url}) adds or changes it. A receipt is recorded in the pull request that makes the edit, and an accepted receipt is not changed later.`);
       continue;
@@ -114,6 +137,7 @@ export function checkReceiptApprovals({ data, baseData, pullRequest, reviews }) 
       const reason = !githubLogin.test(login) ? "is not a plain GitHub login"
         : key === author ? "is the pull request author, who cannot approve their own change"
         : key === String(item.author).toLowerCase() ? "is the receipt author, who cannot approve their own receipt"
+        : !reviewers.has(key) ? "is not one of the reviewers in the base's migration/accepted-edits.json"
         : !review ? "has not approved this pull request"
         : review.state !== "APPROVED" ? `has not approved this pull request (latest review: ${review.state.toLowerCase().replace("_", " ")})`
         : review.commit?.oid !== pullRequest.headSha ? `approved commit ${short(review.commit?.oid)}, not the head commit ${short(pullRequest.headSha)}; approve again after the last push`

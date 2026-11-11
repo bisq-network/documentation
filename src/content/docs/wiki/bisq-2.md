@@ -6,132 +6,261 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details><summary>On this page</summary><ul><li><a href="#why-bisq-2">Why Bisq 2?</a></li><li><a href="#multiple-trade-protocols">Multiple Trade Protocols</a></li><li><a href="#multiple-privacy-networks">Multiple privacy networks</a></li><li><a href="#multiple-identities">Multiple Identities</a></li><li><a href="#multiple-applications">Multiple applications</a></li><li><a href="#multiple-wallets">Multiple wallets</a></li><li><a href="#bonded-roles">Bonded Roles</a></li><li><a href="#bisq-1-vs-bisq-2">Bisq 1 vs Bisq 2</a></li><li><a href="#bisq-easy">Bisq Easy</a></li><li><a href="#main-differences-for-btc-buyers">Main differences for BTC buyers</a></li><li><a href="#main-differences-for-btc-sellers">Main differences for BTC sellers</a></li><li><a href="#how-bisq-2-keeps-data-private">How Bisq 2 keeps data private</a></li><li><a href="#how-bisq-2-resists-censorship">How Bisq 2 resists censorship</a></li><li><a href="#advanced-configurations-for-bisq-2">Advanced configurations for Bisq 2</a></li><li><a href="#installation">Installation</a></li><li><a href="#download-and-verify">Download and verify</a></li><li><a href="#known-issues-with-installation">Known issues with installation</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>Bisq 2 is the successor to the original Bisq (<a href="../bisq-1/">Bisq v1</a>). It has been developed from the ground up to allow for multiple trade protocols to be accessed via a single decentralized exchange platform, and it also sports a proper mobile version, <span class="wiki-link-gap">Bisq 2 mobile <small>[unrecovered article: Bisq 2 mobile]</small></span>.</p>
-<p>At the initial launch of Bisq 2 will support only one trading protocol '<a href="../bisq-easy/">Bisq Easy</a>'. Over time more trading protocols will be added.</p>
-<p>Once the Bisq Multisig protocol is implemented in Bisq 2, the old version of Bisq can fade out. <a href="../bisq-1/">Bisq 1</a> will still find its usage as Bisq DAO management tool and for BSQ-BTC trading.</p>
-<p>Similar to Bisq v1, Bisq 2 will be a decentralized bitcoin exchange that allows anyone to buy and sell bitcoin in exchange for national currencies or other cryptocurrencies.</p>
-<ul>
-<li>Bisq 2 is a desktop application that works across platforms.</li>
-<li>Bisq 2 allows users to choose between multiple trading protocols to find the best fit for their preference. Aspects like privacy and security, convenience, costs and trade duration will differ and the user can make the choice.</li>
-<li>Bisq 2 is a peer-to-peer network that enables users to find people to trade with, make and take offers to buy and sell bitcoin, communicate with their trading peers and when necessary access support.</li>
-<li>Bisq 2 is privacy focused, no verified accounts or KYC will be required and run over the Tor network (as well as I2P in future).</li>
-<li>Bisq 2 is self custodial. Your keys are always under your control.</li>
-<li>Bisq 2 is open source (AGPL) and built and maintained by contributors who form the Bisq DAO.</li>
-</ul>
-<span class="wiki-legacy-anchor" id="Why_Bisq_2?" aria-hidden="true"></span><h2 id="why-bisq-2"> Why Bisq 2? </h2>
-<p>Bisq v1 is a powerful tool for bitcoiners that want to be able to buy and sell bitcoin peer to peer whilst maintaining their privacy, not having to undergo arduous KYC processes, and keeping control of their bitcoin.</p>
-<p>Bisq v1 was launched on mainnet in April 2016 and whilst there has been constant improvements to the trade protocol and user interface over the years it was designed from the outset to support only one trade protocol. As bitcoin has developed and Bisq user base has grown there has been an obvious need for Bisq to expand its offerings to offer more options to its users for example trades over lightning and access via mobile devices. Bisq 2 is the first step to develop something that is built from the ground up to be more accessible to users and provide access to multiple trading protocols that can expand over time.</p>
-<p>The core benefits of Bisq 2 are:</p>
-<span class="wiki-legacy-anchor" id="Multiple_Trade_Protocols" aria-hidden="true"></span><h3 id="multiple-trade-protocols"> Multiple Trade Protocols </h3>
-<p>Bisq 2 will offer a variety of <a href="../trade-protocols/">trade protocols</a> for users. Each trade protocol will come with its own benefits and tradeoffs. Having multiple protocols allows users to choose what trade protocols are best for them based on; convenience, security, miner costs, trade fees, privacy, available support etc. All trade protocols can be accessed independently and users can switch between protocols for different trades.</p>
-<p>The follow trade protocols are on the roadmap:</p>
-<ul>
-<li><a href="../bisq-easy/">Bisq Easy</a>: Reputation based trading with no security deposit requirements (included in the initial launch)</li>
-<li>Bisq Multisig: Similar to the current trade protocol used by Bisq 1 but with some improvements</li>
-</ul>
-<ul>
-<li>Submarine Swaps: Atomic swap of LN BTC &lt;-&gt; mainnet BTC</li>
-</ul>
-<ul>
-<li>Liquid Submarine Swaps: Atomic swap of LN BTC &lt;-&gt; Liquid BTC</li>
-</ul>
-<ul>
-<li>Liquid Multisig: Bisq Multisig ported to Liquid network with faster confirmation, lower fees and better privacy (confidential transactions)</li>
-</ul>
-<ul>
-<li>Bisq Lightning: LN BTC &lt;-&gt; Fiat (chain of multiple protocols: Liquid Submarine Swaps, Liquid Multisig)</li>
-<li>Liquid Swaps: Atomic swap of Liquid BTC &lt;-&gt; Liquid assets like L-USDT</li>
-</ul>
-<ul>
-<li>BSQ Swaps: Atomic swap of BSQ &lt;-&gt; BTC</li>
-<li>Monero Swaps: Cross chain atomic swap of BTC &lt;-&gt; XMR</li>
-</ul>
-<p>Find out more about the <a href="../trade-protocols/">trade protocols</a> Bisq 2 will use.</p>
-<span class="wiki-legacy-anchor" id="Multiple_privacy_networks" aria-hidden="true"></span><h3 id="multiple-privacy-networks"> Multiple privacy networks </h3>
-<p>Bisq 2 will support multiple privacy networks. Initially it will only support Tor but I2P support is already implemented but in an experimental state. Upcoming privacy networks like Nym could be added in future if they fit the requirements.</p>
-<p>Having multiple networks adds resilience in case one network has availability issues (as it happened multiple times with Tor when DoS attacks decreased the Tor network stability and with that Bisq's availability and stability).</p>
-<p>The P2P network has also a built in DoS protection using Proof of Work and comes with many improvements compared to the Bisq 1 P2P network.</p>
-<span class="wiki-legacy-anchor" id="Multiple_Identities" aria-hidden="true"></span><h3 id="multiple-identities">Multiple Identities </h3>
-<p>Bisq 1 used a single onion address and key pair which represent the user's identity. Bisq 2 will allow users to create multiple identities, giving the user more control and better privacy. The user can choose between the highest level of convenience and use just one global identity for all interactions (like Bisq 1) or at the other extreme use a separate identity for any type of interaction (e.g. use a different identity for each trade as well as for each chat room). And anything in between (separating fiat and altcoin trades,...).</p>
-<p>Find out more about how Bisq 2 manages <a href="../identity/">identities</a>.</p>
-<span class="wiki-legacy-anchor" id="Multiple_applications" aria-hidden="true"></span><h3 id="multiple-applications"> Multiple applications </h3>
-<p>The reference implementation will be the Bisq 2 JavaFx desktop application.</p>
-<p>But there is also ongoing work on a HTML interface with a headless application to be used on personal Node projects like Start9, Umbrel, MyNode,...</p>
-<p>Beside that there will be a REST API (useful for trading bots,...).</p>
-<p>Bisq Easy can be implemented as a mobile app (at least for Android there are no conceptual or technical hurdles).</p>
-<span class="wiki-legacy-anchor" id="Multiple_wallets" aria-hidden="true"></span><h3 id="multiple-wallets"> Multiple wallets </h3>
-<p>At launch time Bisq 2 will not include a wallet, but work is underway to support multiple wallet options.</p>
-<p>Bitcoin core as a full wallet is already implemented (but not exposed in the UI). For users who do not want to run a full Bitcoin node, there will be a light wallet option. Currently Electrum is implemented but we might change to another solution.</p>
-<p>For the different trade protocols there will be the specific wallets required. E.g. for Liquid the Elements wallet is already integrated. For Monero Swaps we need to provide an interface for using the Monero wallet. Find out more about the <a href="../bisq-2-wallet/">Bisq 2 wallet</a>.</p>
-<span class="wiki-legacy-anchor" id="Bonded_Roles" aria-hidden="true"></span><h3 id="bonded-roles"> Bonded Roles </h3>
-<p>The contributors providing the resources and infrastructure for Bisq 2 will require their roles to be bonded. This concept was also used in Bisq 1 but as it was not strictly enforced by the system, not all roles are secured by bonds as it was envisioned. In Bisq 2 having set up a BSQ bond is mandatory for most roles and node operators and enforced by the system.</p>
-<p>Find out more about the <a href="../bisq-2-roles/">Bisq 2 roles</a>.</p>
-<span class="wiki-legacy-anchor" id="Bisq_1_vs_Bisq_2" aria-hidden="true"></span><h2 id="bisq-1-vs-bisq-2"> Bisq 1 vs Bisq 2 </h2>
-<p>When Bisq 2 is launched it will initially only use the one trade protocol '<a href="../bisq-easy/">Bisq Easy</a>' therefore the differences are based on a 2-of-2 multisig protocol (Bisq 1) vs a reputation based trade protocol (Bisq Easy).</p>
-<span class="wiki-legacy-anchor" id="Bisq_Easy" aria-hidden="true"></span><h2 id="bisq-easy"> Bisq Easy </h2>
-<p>Bisq Easy was designed for new Bitcoin users who have not yet purchased Bitcoin and therefore cannot use Bisq 1 due the requirements of the security deposit. A lot of effort was put into making it as simple to use as possible.</p>
-<p>Bisq Easy tries to replicate the experience of a novice Bitcoiner visiting a Bitcoin meetup and getting a gentle and friendly introduction into the Bitcoin world as well as the opportunity to purchase their first Bitcoin from a helpful peer. This is inspired by the famous Satoshi Squares (early days informal Bitcoin meetups), which was also the initial name inspiration for Bitsquare - the previous brand name of Bisq.</p>
-<p>The seller is expected to be an experienced Bitcoin and Bisq user and to have built up a reputation. The seller should be helpful and serve as guide through the newbie's first Bitcoin trade.</p>
-<p>Bisq Easy tries to be a much more social experience as it is the case on Bisq 2. It also provides a "learn" section where newbies can learn about important topics like wallets, privacy and security. The various sections for chat rooms should also boost the social and communicative aspect of Bisq Easy.</p>
-<span class="wiki-legacy-anchor" id="Main_differences_for_BTC_buyers" aria-hidden="true"></span><h3 id="main-differences-for-btc-buyers"> Main differences for BTC buyers </h3>
-<p>Initially when Bisq 2 is launched the difference between versions will be that Bisq 2 will allow for users to buy bitcoin with no security deposit, no trade fees and no miner fees. Whereas, Bisq 1 will allow users to buy bitcoin with a security deposit and incur trade fees and miner costs.</p>
-<p>The tradeoff for Bisq 2 is that the security of the trade will be based on seller reputation as opposed to Bisq 1 where the security of the trade is based on bitcoin collateral secured in the multisig.</p>
-<p>Therefore, Bisq 2 will be cheaper and more convenient to trade for bitcoin buyers but at the cost of less robust security than Bisq 1. This is opposed to Bisq 1 that will be more secure but also more expensive, in terms of trade and miner fees, and less convenient for bitcoin buyers.</p>
-<p>Bisq 2 will initially be more suitable for users wanting to complete trades for small amounts of bitcoin, whereas, Bisq 1 will continue to be suitable for users wanting to complete trades for larger amounts of bitcoin.</p>
-<span class="wiki-legacy-anchor" id="Main_differences_for_BTC_sellers" aria-hidden="true"></span><h3 id="main-differences-for-btc-sellers"> Main differences for BTC sellers </h3>
-<p>Initially when Bisq 2 is launched the difference between versions will be that Bisq 2 will allow users to sell bitcoin with no security deposit, no trade fees and no security deposit. Whereas, Bisq 1 will allow users to sell bitcoin with a security deposit and incur trade fees and miner costs.</p>
-<p>Sellers on Bisq 2 will be expected to build their reputation. This can be done in multiple ways but to achieve a high reputation they will need to either burn BSQ and / or create a BSQ bond that locks in a specific amount of BSQ for a specified length of time.</p>
-<p>The first iteration of Bisq 2 will have more buyers than sellers. That means a small number of sellers will be servicing the buyers. Bitcoin sellers on Bisq 2 will be required to make a judgement on how best to achieve their reputation and what the cost of doing so will involve. Bitcoin seller's using Bisq 2 will also need to account for the fact that bitcoin buyers are not putting down a security deposit for their trades so there will likely be a higher trade abandonment than in Bisq 1.</p>
-<p>It is expected that some bitcoin sellers currently active on Bisq 1 may choose to experiment with Bisq 2, and the number of buyers and sellers on Bisq 2 will grow over time.</p>
-<p>As in Bisq 1 seller's will be able to choose the price above or below market they wish to sell their bitcoin for.</p>
-<p>Due to the requirements on bonds and the potential higher effort on communication with a newbie Bitcoiner, the price premium can be expected to be much higher than in Bisq 1 (maybe 10-15% above market). The Seller is the one who sets the price.</p>
-<span class="wiki-legacy-anchor" id="How_Bisq_2_keeps_data_private" aria-hidden="true"></span><h2 id="how-bisq-2-keeps-data-private"> How Bisq 2 keeps data private </h2>
-<p>Bisq 2 achieves data privacy for users in the same way as Bisq 1:</p>
-<ul>
-<li>Using Bisq requires no registration or centralized identity verification</li>
-<li>Every Bisq application connects to the Bisq network with a Tor hidden service (as well as I2P in future)</li>
-<li>Bisq has no central servers or databases to record data</li>
-<li>Data is encrypted such that trade details are readable only by counter-parties</li>
-</ul>
-<span class="wiki-legacy-anchor" id="How_Bisq_2_resists_censorship" aria-hidden="true"></span><h2 id="how-bisq-2-resists-censorship"> How Bisq 2 resists censorship </h2>
-<p>Bisq 2 achieves censorship resistance in the same way as Bisq 1:</p>
-<ul>
-<li>Bisq’s network is a fully distributed P2P network, and thus difficult to shut down</li>
-<li>Bisq’s network is built on top of Tor (I2P), and thus inherits Tor’s own censorship resistance</li>
-<li>Bisq is an open source project and a DAO, not a company; it is not incorporated, and thus cannot be dis-incorporated</li>
-</ul>
-<span class="wiki-legacy-anchor" id="Advanced_configurations_for_Bisq_2" aria-hidden="true"></span><h2 id="advanced-configurations-for-bisq-2"> Advanced configurations for Bisq 2 </h2>
-<p>For users that want to tinker with the default config setting. Bisq 2 supports users to add a config file in the data directory which overrides the default config.</p>
-<p>This can be useful instead of dealing with command line options. Command-line options override values set in the configuration file.</p>
-<p>For more info see the GitHub pull request <a href="https://github.com/bisq-network/bisq2/pull/2201" rel="noopener noreferrer">here</a>.</p>
-<span class="wiki-legacy-anchor" id="Installation" aria-hidden="true"></span><h2 id="installation"> Installation </h2>
-<span class="wiki-legacy-anchor" id="Download_and_verify" aria-hidden="true"></span><h3 id="download-and-verify"> Download and verify </h3>
-<p>Bisq2 can be downloaded <a href="https://bisq.network/downloads/" rel="noopener noreferrer">here</a>. Before installing software that manages your funds, you should always verify the installer has not been tampered with, to avoid the risk of losing funds due to a compromised download.</p>
-<p>To import the key in Linux and MacOS:</p>
+<div class="wiki-recovered-article" lang="en">
+
+Bisq 2 is the successor to the original Bisq ([Bisq v1](../bisq-1/)). It has been developed from the ground up to allow for multiple trade protocols to be accessed via a single decentralized exchange platform, and it also sports a proper mobile version, <span class="wiki-link-gap">Bisq 2 mobile <small>[unrecovered article: Bisq 2 mobile]</small></span>.
+
+At the initial launch of Bisq 2 will support only one trading protocol \'[Bisq Easy](../bisq-easy/)\'. Over time more trading protocols will be added.
+
+Once the Bisq Multisig protocol is implemented in Bisq 2, the old version of Bisq can fade out. [Bisq 1](../bisq-1/) will still find its usage as Bisq DAO management tool and for BSQ-BTC trading.
+
+Similar to Bisq v1, Bisq 2 will be a decentralized bitcoin exchange that allows anyone to buy and sell bitcoin in exchange for national currencies or other cryptocurrencies.
+
+- Bisq 2 is a desktop application that works across platforms.
+- Bisq 2 allows users to choose between multiple trading protocols to find the best fit for their preference. Aspects like privacy and security, convenience, costs and trade duration will differ and the user can make the choice.
+- Bisq 2 is a peer-to-peer network that enables users to find people to trade with, make and take offers to buy and sell bitcoin, communicate with their trading peers and when necessary access support.
+- Bisq 2 is privacy focused, no verified accounts or KYC will be required and run over the Tor network (as well as I2P in future).
+- Bisq 2 is self custodial. Your keys are always under your control.
+- Bisq 2 is open source (AGPL) and built and maintained by contributors who form the Bisq DAO.
+
+<span class="wiki-legacy-anchor" id="Why_Bisq_2?" aria-hidden="true">
+</span>
+
+## Why Bisq 2? {#why-bisq-2}
+
+Bisq v1 is a powerful tool for bitcoiners that want to be able to buy and sell bitcoin peer to peer whilst maintaining their privacy, not having to undergo arduous KYC processes, and keeping control of their bitcoin.
+
+Bisq v1 was launched on mainnet in April 2016 and whilst there has been constant improvements to the trade protocol and user interface over the years it was designed from the outset to support only one trade protocol. As bitcoin has developed and Bisq user base has grown there has been an obvious need for Bisq to expand its offerings to offer more options to its users for example trades over lightning and access via mobile devices. Bisq 2 is the first step to develop something that is built from the ground up to be more accessible to users and provide access to multiple trading protocols that can expand over time.
+
+The core benefits of Bisq 2 are:
+
+<span class="wiki-legacy-anchor" id="Multiple_Trade_Protocols" aria-hidden="true">
+</span>
+
+### Multiple Trade Protocols {#multiple-trade-protocols}
+
+Bisq 2 will offer a variety of [trade protocols](../trade-protocols/) for users. Each trade protocol will come with its own benefits and tradeoffs. Having multiple protocols allows users to choose what trade protocols are best for them based on; convenience, security, miner costs, trade fees, privacy, available support etc. All trade protocols can be accessed independently and users can switch between protocols for different trades.
+
+The follow trade protocols are on the roadmap:
+
+- [Bisq Easy](../bisq-easy/): Reputation based trading with no security deposit requirements (included in the initial launch)
+- Bisq Multisig: Similar to the current trade protocol used by Bisq 1 but with some improvements
+
+* Submarine Swaps: Atomic swap of LN BTC <-> mainnet BTC
+
+- Liquid Submarine Swaps: Atomic swap of LN BTC <-> Liquid BTC
+
+* Liquid Multisig: Bisq Multisig ported to Liquid network with faster confirmation, lower fees and better privacy (confidential transactions)
+
+- Bisq Lightning: LN BTC <-> Fiat (chain of multiple protocols: Liquid Submarine Swaps, Liquid Multisig)
+- Liquid Swaps: Atomic swap of Liquid BTC <-> Liquid assets like L-USDT
+
+* BSQ Swaps: Atomic swap of BSQ <-> BTC
+* Monero Swaps: Cross chain atomic swap of BTC <-> XMR
+
+Find out more about the [trade protocols](../trade-protocols/) Bisq 2 will use.
+
+<span class="wiki-legacy-anchor" id="Multiple_privacy_networks" aria-hidden="true">
+</span>
+
+### Multiple privacy networks {#multiple-privacy-networks}
+
+Bisq 2 will support multiple privacy networks. Initially it will only support Tor but I2P support is already implemented but in an experimental state. Upcoming privacy networks like Nym could be added in future if they fit the requirements.
+
+Having multiple networks adds resilience in case one network has availability issues (as it happened multiple times with Tor when DoS attacks decreased the Tor network stability and with that Bisq\'s availability and stability).
+
+The P2P network has also a built in DoS protection using Proof of Work and comes with many improvements compared to the Bisq 1 P2P network.
+
+<span class="wiki-legacy-anchor" id="Multiple_Identities" aria-hidden="true">
+</span>
+
+### Multiple Identities {#multiple-identities}
+
+Bisq 1 used a single onion address and key pair which represent the user\'s identity. Bisq 2 will allow users to create multiple identities, giving the user more control and better privacy. The user can choose between the highest level of convenience and use just one global identity for all interactions (like Bisq 1) or at the other extreme use a separate identity for any type of interaction (e.g. use a different identity for each trade as well as for each chat room). And anything in between (separating fiat and altcoin trades,.\..).
+
+Find out more about how Bisq 2 manages [identities](../identity/).
+
+<span class="wiki-legacy-anchor" id="Multiple_applications" aria-hidden="true">
+</span>
+
+### Multiple applications {#multiple-applications}
+
+The reference implementation will be the Bisq 2 JavaFx desktop application.
+
+But there is also ongoing work on a HTML interface with a headless application to be used on personal Node projects like Start9, Umbrel, MyNode,.\..
+
+Beside that there will be a REST API (useful for trading bots,.\..).
+
+Bisq Easy can be implemented as a mobile app (at least for Android there are no conceptual or technical hurdles).
+
+<span class="wiki-legacy-anchor" id="Multiple_wallets" aria-hidden="true">
+</span>
+
+### Multiple wallets {#multiple-wallets}
+
+At launch time Bisq 2 will not include a wallet, but work is underway to support multiple wallet options.
+
+Bitcoin core as a full wallet is already implemented (but not exposed in the UI). For users who do not want to run a full Bitcoin node, there will be a light wallet option. Currently Electrum is implemented but we might change to another solution.
+
+For the different trade protocols there will be the specific wallets required. E.g. for Liquid the Elements wallet is already integrated. For Monero Swaps we need to provide an interface for using the Monero wallet. Find out more about the [Bisq 2 wallet](../bisq-2-wallet/).
+
+<span class="wiki-legacy-anchor" id="Bonded_Roles" aria-hidden="true">
+</span>
+
+### Bonded Roles {#bonded-roles}
+
+The contributors providing the resources and infrastructure for Bisq 2 will require their roles to be bonded. This concept was also used in Bisq 1 but as it was not strictly enforced by the system, not all roles are secured by bonds as it was envisioned. In Bisq 2 having set up a BSQ bond is mandatory for most roles and node operators and enforced by the system.
+
+Find out more about the [Bisq 2 roles](../bisq-2-roles/).
+
+<span class="wiki-legacy-anchor" id="Bisq_1_vs_Bisq_2" aria-hidden="true">
+</span>
+
+## Bisq 1 vs Bisq 2 {#bisq-1-vs-bisq-2}
+
+When Bisq 2 is launched it will initially only use the one trade protocol \'[Bisq Easy](../bisq-easy/)\' therefore the differences are based on a 2-of-2 multisig protocol (Bisq 1) vs a reputation based trade protocol (Bisq Easy).
+
+<span class="wiki-legacy-anchor" id="Bisq_Easy" aria-hidden="true">
+</span>
+
+## Bisq Easy {#bisq-easy}
+
+Bisq Easy was designed for new Bitcoin users who have not yet purchased Bitcoin and therefore cannot use Bisq 1 due the requirements of the security deposit. A lot of effort was put into making it as simple to use as possible.
+
+Bisq Easy tries to replicate the experience of a novice Bitcoiner visiting a Bitcoin meetup and getting a gentle and friendly introduction into the Bitcoin world as well as the opportunity to purchase their first Bitcoin from a helpful peer. This is inspired by the famous Satoshi Squares (early days informal Bitcoin meetups), which was also the initial name inspiration for Bitsquare - the previous brand name of Bisq.
+
+The seller is expected to be an experienced Bitcoin and Bisq user and to have built up a reputation. The seller should be helpful and serve as guide through the newbie\'s first Bitcoin trade.
+
+Bisq Easy tries to be a much more social experience as it is the case on Bisq 2. It also provides a \"learn\" section where newbies can learn about important topics like wallets, privacy and security. The various sections for chat rooms should also boost the social and communicative aspect of Bisq Easy.
+
+<span class="wiki-legacy-anchor" id="Main_differences_for_BTC_buyers" aria-hidden="true">
+</span>
+
+### Main differences for BTC buyers {#main-differences-for-btc-buyers}
+
+Initially when Bisq 2 is launched the difference between versions will be that Bisq 2 will allow for users to buy bitcoin with no security deposit, no trade fees and no miner fees. Whereas, Bisq 1 will allow users to buy bitcoin with a security deposit and incur trade fees and miner costs.
+
+The tradeoff for Bisq 2 is that the security of the trade will be based on seller reputation as opposed to Bisq 1 where the security of the trade is based on bitcoin collateral secured in the multisig.
+
+Therefore, Bisq 2 will be cheaper and more convenient to trade for bitcoin buyers but at the cost of less robust security than Bisq 1. This is opposed to Bisq 1 that will be more secure but also more expensive, in terms of trade and miner fees, and less convenient for bitcoin buyers.
+
+Bisq 2 will initially be more suitable for users wanting to complete trades for small amounts of bitcoin, whereas, Bisq 1 will continue to be suitable for users wanting to complete trades for larger amounts of bitcoin.
+
+<span class="wiki-legacy-anchor" id="Main_differences_for_BTC_sellers" aria-hidden="true">
+</span>
+
+### Main differences for BTC sellers {#main-differences-for-btc-sellers}
+
+Initially when Bisq 2 is launched the difference between versions will be that Bisq 2 will allow users to sell bitcoin with no security deposit, no trade fees and no security deposit. Whereas, Bisq 1 will allow users to sell bitcoin with a security deposit and incur trade fees and miner costs.
+
+Sellers on Bisq 2 will be expected to build their reputation. This can be done in multiple ways but to achieve a high reputation they will need to either burn BSQ and / or create a BSQ bond that locks in a specific amount of BSQ for a specified length of time.
+
+The first iteration of Bisq 2 will have more buyers than sellers. That means a small number of sellers will be servicing the buyers. Bitcoin sellers on Bisq 2 will be required to make a judgement on how best to achieve their reputation and what the cost of doing so will involve. Bitcoin seller\'s using Bisq 2 will also need to account for the fact that bitcoin buyers are not putting down a security deposit for their trades so there will likely be a higher trade abandonment than in Bisq 1.
+
+It is expected that some bitcoin sellers currently active on Bisq 1 may choose to experiment with Bisq 2, and the number of buyers and sellers on Bisq 2 will grow over time.
+
+As in Bisq 1 seller\'s will be able to choose the price above or below market they wish to sell their bitcoin for.
+
+Due to the requirements on bonds and the potential higher effort on communication with a newbie Bitcoiner, the price premium can be expected to be much higher than in Bisq 1 (maybe 10-15% above market). The Seller is the one who sets the price.
+
+<span class="wiki-legacy-anchor" id="How_Bisq_2_keeps_data_private" aria-hidden="true">
+</span>
+
+## How Bisq 2 keeps data private {#how-bisq-2-keeps-data-private}
+
+Bisq 2 achieves data privacy for users in the same way as Bisq 1:
+
+- Using Bisq requires no registration or centralized identity verification
+- Every Bisq application connects to the Bisq network with a Tor hidden service (as well as I2P in future)
+- Bisq has no central servers or databases to record data
+- Data is encrypted such that trade details are readable only by counter-parties
+
+<span class="wiki-legacy-anchor" id="How_Bisq_2_resists_censorship" aria-hidden="true">
+</span>
+
+## How Bisq 2 resists censorship {#how-bisq-2-resists-censorship}
+
+Bisq 2 achieves censorship resistance in the same way as Bisq 1:
+
+- Bisq’s network is a fully distributed P2P network, and thus difficult to shut down
+- Bisq’s network is built on top of Tor (I2P), and thus inherits Tor’s own censorship resistance
+- Bisq is an open source project and a DAO, not a company; it is not incorporated, and thus cannot be dis-incorporated
+
+<span class="wiki-legacy-anchor" id="Advanced_configurations_for_Bisq_2" aria-hidden="true">
+</span>
+
+## Advanced configurations for Bisq 2 {#advanced-configurations-for-bisq-2}
+
+For users that want to tinker with the default config setting. Bisq 2 supports users to add a config file in the data directory which overrides the default config.
+
+This can be useful instead of dealing with command line options. Command-line options override values set in the configuration file.
+
+For more info see the GitHub pull request [here](https://github.com/bisq-network/bisq2/pull/2201).
+
+<span class="wiki-legacy-anchor" id="Installation" aria-hidden="true">
+</span>
+
+## Installation {#installation}
+
+<span class="wiki-legacy-anchor" id="Download_and_verify" aria-hidden="true">
+</span>
+
+### Download and verify {#download-and-verify}
+
+Bisq2 can be downloaded [here](https://bisq.network/downloads/). Before installing software that manages your funds, you should always verify the installer has not been tampered with, to avoid the risk of losing funds due to a compromised download.
+
+To import the key in Linux and MacOS:
+
 <p><code><code class="wiki-source-code" id="source-code-1">curl https://bisq.network/pubkey/E222AA02.asc | gpg --import </code></code></p>
-<p>GPG will return "This key is not certified with a trusted signature!", this is normal (see <a href="https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key" rel="noopener noreferrer">https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key</a> for background information what it means)</p>
-<p>To verify the installer against the signature:</p>
-<p><code><code class="wiki-source-code" id="source-code-2">gpg --digest-algo SHA256 --verify BINARY{.asc*,}</code></code></p>
-<p>Replace BINARY with the name of the file you downloaded.</p>
-<p>In case you receive an error for an expired key, you can refresh the keys on your system from an official keyserver:</p>
-<p><code><code class="wiki-source-code" id="source-code-3">gpg --keyserver hkps://keys.openpgp.org --refresh-keys</code></code></p>
-<p>In Windows you can import the key, and subsequently verify the installer, by using <a href="https://www.gpg4win.org/download.html" rel="noopener noreferrer">Kleopatra</a>.</p>
-<span class="wiki-legacy-anchor" id="Known_issues_with_installation" aria-hidden="true"></span><h3 id="known-issues-with-installation"> Known issues with installation </h3>
-<p><strong>MacOS</strong></p>
-<p>Notarization was removed from the build pipeline because of the risk of Apple certification revocation (<a href="https://github.com/bisq-network/bisq/discussions/6341" rel="noopener noreferrer">GitHub issue</a>). Unfortunately this will require extra steps when installing Bisq on macOS.</p>
-<p>Please follow the guide at <a href="https://support.apple.com/en-us/HT202491" rel="noopener noreferrer">https://support.apple.com/en-us/HT202491</a> in the section "If you want to open an app that hasn’t been notarized or is from an unidentified developer".</p>
+
+GPG will return \"This key is not certified with a trusted signature!\", this is normal (see [https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key](https://serverfault.com/questions/569911/how-to-verify-an-imported-gpg-key) for background information what it means)
+
+To verify the installer against the signature:
+
+<code><code class="wiki-source-code" id="source-code-2">gpg -\-digest-algo SHA256 -\-verify BINARY{.asc\*,}</code></code>
+
+Replace BINARY with the name of the file you downloaded.
+
+In case you receive an error for an expired key, you can refresh the keys on your system from an official keyserver:
+
+<code><code class="wiki-source-code" id="source-code-3">gpg -\-keyserver hkps://keys.openpgp.org -\-refresh-keys</code></code>
+
+In Windows you can import the key, and subsequently verify the installer, by using [Kleopatra](https://www.gpg4win.org/download.html).
+
+<span class="wiki-legacy-anchor" id="Known_issues_with_installation" aria-hidden="true">
+</span>
+
+### Known issues with installation {#known-issues-with-installation}
+
+**MacOS**
+
+Notarization was removed from the build pipeline because of the risk of Apple certification revocation ([GitHub issue](https://github.com/bisq-network/bisq/discussions/6341)). Unfortunately this will require extra steps when installing Bisq on macOS.
+
+Please follow the guide at [https://support.apple.com/en-us/HT202491](https://support.apple.com/en-us/HT202491) in the section \"If you want to open an app that hasn’t been notarized or is from an unidentified developer\".
+
 <p>If you are using macOS Ventura (13.0+) you need to execute the following in your terminal to be able to start Bisq 2:</p>
 <code class="wiki-source-code" id="source-code-4">sudo xattr -rd com.apple.quarantine /Applications/Bisq2.app</code>
-<p>You will be prompted to enter your password to execute the command as super user, and this should allow you to start Bisq 2 normally.</p>
-<p><strong>Windows</strong></p>
-<p>The developer code signing was removed for the same reason as above. You can ignore the warning after having verified the installer.</p>
-<p>There are known issues with antivirus software: Bisq or Tor processes could be prevented from running, files could get deleted in the data directory [2] or the application directory [1]), or startup could be delayed to the point that Tor is terminated, and a lockfile is left behind preventing Bisq from being started again (this requires you to restart Windows in order to remove the lockfile). These issues are currently being evaluated and addressed.</p>
-<p>Windows suffers from a much wider attack surface compared to Linux or OSX, please consider using a different operating system when dealing with cryptocurrencies.</p>
-<p>[1] Application directory (contains application installation files): C:\Users&lt;username&gt;\AppData\Local\Bisq2</p>
-<p>[2] Data directory (contains all Bisq data): C:\Users&lt;username&gt;\AppData\Roaming\Bisq2</p>
-<p><strong>Linux</strong></p>
-<p>Debian users: if you have issues starting Bisq, run <code class="wiki-source-code" id="source-code-5">/opt/bisq2/bin/Bisq2</code></p>
-<p>If your Linux distribution does not support .deb files please follow these instructions:</p>
+
+You will be prompted to enter your password to execute the command as super user, and this should allow you to start Bisq 2 normally.
+
+**Windows**
+
+The developer code signing was removed for the same reason as above. You can ignore the warning after having verified the installer.
+
+There are known issues with antivirus software: Bisq or Tor processes could be prevented from running, files could get deleted in the data directory \[2\] or the application directory \[1\]), or startup could be delayed to the point that Tor is terminated, and a lockfile is left behind preventing Bisq from being started again (this requires you to restart Windows in order to remove the lockfile). These issues are currently being evaluated and addressed.
+
+Windows suffers from a much wider attack surface compared to Linux or OSX, please consider using a different operating system when dealing with cryptocurrencies.
+
+\[1\] Application directory (contains application installation files): C:\\Users\<username>\\AppData\\Local\\Bisq2
+
+\[2\] Data directory (contains all Bisq data): C:\\Users\<username>\\AppData\\Roaming\\Bisq2
+
+**Linux**
+
+Debian users: if you have issues starting Bisq, run <code class="wiki-source-code" id="source-code-5">/opt/bisq2/bin/Bisq2</code>
+
+If your Linux distribution does not support .deb files please follow these instructions:
+
 <pre><code class="wiki-source-code" id="source-code-6">
 cd ~/Downloads
 &#10;mkdir tmp
@@ -140,5 +269,7 @@ cd ~/Downloads
 &#10;sudo tar Jxvf data.tar.xz
 &#10;sudo cp -rp opt/Bisq2 /opt/
 </code></pre>
-<p>The above is not tested in all distributions, if you encounter issues please report them <a href="https://github.com/bisq-network/bisq2/issues" rel="noopener noreferrer">here</a>.</p>
+
+The above is not tested in all distributions, if you encounter issues please report them [here](https://github.com/bisq-network/bisq2/issues).
+
 </div>
