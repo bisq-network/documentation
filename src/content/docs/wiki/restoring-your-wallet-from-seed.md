@@ -19,6 +19,8 @@ Note that such a recovery only restores funds (BTC and BSQ) but does not restore
 
 Before restoring from seed, please try [restoring your wallet from a backup](../troubleshooting-wallet-issues/#restore-a-wallet-backup) first.
 
+For routine recovery, the application warns you to finish trades, close open offers and empty the wallet first; do not mix an old seed with a funded wallet, as this can invalidate backups. If active trades or disputes prevent that, preserve the data and obtain qualified recovery help before replacing the wallet.
+
 To restore a wallet using seed words, go to <code class="wiki-source-code" id="source-code-1">Account</code> > <code class="wiki-source-code" id="source-code-2">Wallet Seed</code>, enter the seed words and date in the \"Restore wallet from seed words\" section, and then click <code class="wiki-source-code" id="source-code-3">Restore Wallets</code>.
 
 <dl>
@@ -29,6 +31,8 @@ To restore a wallet using seed words, go to <code class="wiki-source-code" id="s
 </dl>
 
 Bisq will then restart and start to rebuild your wallet state. If you see a zero balance for BTC and/or BSQ after restoring from seed, wait until the program is done syncing with the Bitcoin network. You\'ll know syncing is done when the green bar on the bottom right labeled \"Synchronizing With Bitcoin Mainnet (using Tor) / Synchronizing DAO\" goes away.
+
+Restoring removes wallet encryption. After restarting and completing synchronization, set a new wallet password under `Account > Wallet Password`.
 
 <figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/d078ae4a42402145bcd8aa7cd3a8bc96b24ef4049b31825edfb1730017c177b0.png"><img alt="Go here to restore a Bisq wallet from seed." decoding="async" height="710" loading="lazy" src="../../media/wiki/d078ae4a42402145bcd8aa7cd3a8bc96b24ef4049b31825edfb1730017c177b0.png" width="1200"></a><figcaption>Go here to restore a Bisq wallet from seed.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 <div>
