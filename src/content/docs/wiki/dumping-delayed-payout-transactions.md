@@ -21,7 +21,7 @@ The instructions below contain specific commands for each of the major desktop o
 
 ## Where to find the delayed payout files {#where-to-find-the-delayed-payout-files}
 
-Shortly after running one of the commands above, you will find 3 newly-created files in your Bisq data directory:
+Shortly after running one of the commands above, you will find 3 newly-created files under `btc_mainnet/db` inside the selected Bisq data directory:
 
 1. <code class="wiki-source-code" id="source-code-3">delayed_payout_txs_closed.json</code>
 2. <code class="wiki-source-code" id="source-code-4">delayed_payout_txs_pending.json</code>

@@ -19,7 +19,7 @@ See a full list of available options [in the code](https://github.com/bisq-netwo
 
 The default data directory Bisq uses is called \"Bisq\". All Bisq data is fully contained in it. The [default path](../data-directory/#default-locations) of this data directory varies based on your operating system. To change the default path too, [see below](../command-line-options/#specify-a-different-data-directory-path).
 
-You can specify a different data directory with <code class="wiki-source-code" id="source-code-1">-\-appData=BisqTest</code> (change \"BisqTest\" to whatever you want; \"Bisq\" is the default) and Bisq will create a brand new data directory in the [default path](../data-directory/#default-locations) with a new wallet, keys, onion address, etc (or use the existing data directory with that name if it\'s already there).
+You can specify a different data directory with <code class="wiki-source-code" id="source-code-1">-\-appName=BisqTest</code> (change \"BisqTest\" to whatever you want; \"Bisq\" is the default) and Bisq will create a brand new data directory in the [default path](../data-directory/#default-locations) with a new wallet, keys, onion address, etc (or use the existing data directory with that name if it\'s already there).
 
 You can use this option to run more than one instance of Bisq at once, which can be helpful to send funds from one Bisq instance to another when [switching to a new data directory](../switching-to-a-new-data-directory/#send-funds).
 
@@ -39,7 +39,7 @@ If you\'d like to change the default path for the data directory altogether (e.g
 
 ## Dump delayed payout transactions {#dump-delayed-payout-transactions}
 
-Add the <code class="wiki-source-code" id="source-code-3">-\-dumpDelayedPayoutTxs=true</code> option to dump delayed payout transactions in the following files in your data directory, inside the <code class="wiki-source-code" id="source-code-4">db</code> folder:
+Add the <code class="wiki-source-code" id="source-code-3">-\-dumpDelayedPayoutTxs=true</code> option to dump delayed payout transactions in the following files in your data directory, inside the <code class="wiki-source-code" id="source-code-4">btc_mainnet/db</code> folder:
 
 1. delayed_payout_txs_closed.json
 2. delayed_payout_txs_pending.json
