@@ -164,7 +164,7 @@ const headingTag = /^h[1-6]$/;
 // and invisible-character changes are reported instead, because the receipt will
 // have to list them.
 const awaitingLabel = "The edit awaiting a receipt";
-const noReceipt = { changed_image_alt_text: [], changed_locked_content: [], added_invisible_characters: [] };
+const noReceipt = { changed_image_alt_text: [], changed_figure_captions: [], changed_locked_content: [], added_invisible_characters: [] };
 const figureId = /^source-image-\d+$/;
 const containerMarker = '<div class="wiki-recovered-article"';
 
@@ -314,7 +314,8 @@ function checkSourceStructure(base, edited, item, receipt, pr) {
  * the front matter, title and contents list (in the source, byte for byte), the page
  * around the article, the container, headings, existing IDs, recorded legacy anchors
  * and whole figures stay as they were. An image's alt text may change only when the
- * receipt lists that figure in changed_image_alt_text, code blocks, tables and gap
+ * receipt lists that figure in changed_image_alt_text, a figure's caption text only when
+ * it lists the figure in changed_figure_captions, code blocks, tables and gap
  * markers only when it lists them in changed_locked_content, and invisible characters
  * may be added only when it lists them in added_invisible_characters. Markdown adds
  * markup without any source tag (![image](…), ## heading, links, autolinks, raw
@@ -341,31 +342,50 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
   const lost = idList(oldElements).filter((id) => !ids.includes(id));
   assert(!lost.length, `${pr} removes anchor #${lost[0]}${lost.length > 1 ? ` and ${lost.length - 1} more` : ""}; section URLs and saved links would break`);
   checkRenderedAnchors(after.body, item.added_legacy_anchors);
-  // A figure is compared as a whole (its link, caption and layout), its images apart:
-  // an image may differ only in alt text, and only for figures the receipt lists.
+  // A figure is compared as a whole (its ID, link, layout and caption element), its
+  // images and caption text apart: an image may differ only in alt text, and only for
+  // figures the receipt lists in changed_image_alt_text; a caption's content (text and
+  // the markup any edit may use, checked with the rest of the article below) only for
+  // figures it lists in changed_figure_captions.
+  const captionMark = { type: "text", value: "\0caption" };
   const figureShape = (figure) => serialize([{ ...figure, children: figure.children.map(function strip(node) {
     if (node.type !== "element") return node;
-    return node.tag === "img" ? { ...node, attrs: [] } : { ...node, children: node.children.map(strip) };
+    if (node.tag === "img") return { ...node, attrs: [] };
+    if (node.tag === "figcaption") return { ...node, children: [captionMark] };
+    return { ...node, children: node.children.map(strip) };
   }) }]);
+  const captions = (figure) => elementsOf([figure]).filter((element) => element.tag === "figcaption").map((caption) => serialize(caption.children)).join("\0");
   const media = (elements) => elements.filter((element) => element.tag === "figure" || element.tag === "img").map((element) => {
     if (element.tag === "img") return { tag: startTag(element), image: element };
-    return { tag: figureShape(element), figure: attributeValue(element, "id") ?? "" };
+    return { tag: figureShape(element), caption: captions(element), figure: attributeValue(element, "id") ?? "" };
   });
   const [oldMedia, newMedia] = [media(oldElements), media(newElements)];
   assert.equal(newMedia.length, oldMedia.length, `${pr} adds or removes images or figures`);
   assert(oldMedia.every((entry, index) => !entry.image === !newMedia[index].image), `${pr} adds or removes images or figures`);
   const listed = new Set(receipt.changed_image_alt_text ?? []);
+  const captionsListed = new Set(receipt.changed_figure_captions ?? []);
   const altChanged = new Set();
+  const captionChanged = new Set();
   let figure = "";
   oldMedia.forEach((entry, index) => {
     if (!entry.image) figure = entry.figure;
     const next = newMedia[index];
+    if (!entry.image && entry.tag === next.tag && entry.caption !== next.caption) {
+      if (receipt === noReceipt) {
+        // Reported with the awaiting article; the receipt must then list the figure.
+        assert(figureId.test(figure), `${pr} changes the caption of figure #${index + 1}, which has no figure id a receipt could list`);
+      } else {
+        assert(captionsListed.has(figure), `${pr} changes the caption of figure ${figure || `#${index + 1}`}; a caption changes only for figures listed in changed_figure_captions`);
+      }
+      captionChanged.add(figure);
+      return;
+    }
     if (entry.tag === next.tag) return;
     const withoutAlt = (image) => startTag({ ...image, attrs: image.attrs.filter(([name]) => name !== "alt") });
     const altOnly = entry.image && next.image && withoutAlt(entry.image) === withoutAlt(next.image);
     const unchanged = `only alt text may change, and only for figures listed in changed_image_alt_text`;
     assert(altOnly, entry.image ? `${pr} changes the image ${figure || `#${index + 1}`}; ${unchanged}`
-      : `${pr} changes the figure ${figure || `#${index + 1}`} or the link that opens it; a figure, its link and its caption stay as restored`);
+      : `${pr} changes the figure ${figure || `#${index + 1}`} or the link that opens it; a figure, its link, its images and its caption element stay as restored`);
     if (receipt === noReceipt) {
       // Reported with the awaiting article; the receipt must then list the figure.
       assert(figureId.test(figure), `${pr} changes the alt text of image #${index + 1}, which has no figure id a receipt could list`);
@@ -376,6 +396,8 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
   });
   const unused = [...listed].filter((id) => !altChanged.has(id));
   assert(!unused.length, `${pr} lists an alt-text change for ${unused.join(", ")}, but that image is unchanged`);
+  const unusedCaptions = [...captionsListed].filter((id) => !captionChanged.has(id));
+  assert(!unusedCaptions.length, `${pr} lists a caption change for ${unusedCaptions.join(", ")}, but that caption is unchanged`);
   // Code blocks, tables and gap markers change only when the receipt lists them.
   const [oldLocked, newLocked] = [lockedContent(before.raw.body), lockedContent(after.raw.body)];
   const lockedGone = [...oldLocked.keys()].filter((key) => !newLocked.has(key));
@@ -427,7 +449,7 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
     checkRestoreSafeguards(restoreFacts(after.body));
     checkRestoreSafeguardContext(restoreFacts(before.body).text, restoreFacts(after.body).text, pr);
   }
-  return { changedImageAltText: [...altChanged], changedLockedContent: lockedChanged, addedInvisibleCharacters: [...invisibleAdded].sort() };
+  return { changedImageAltText: [...altChanged], changedFigureCaptions: [...captionChanged], changedLockedContent: lockedChanged, addedInvisibleCharacters: [...invisibleAdded].sort() };
 }
 
 /**
@@ -799,6 +821,7 @@ export function receiptNote(item) {
   const them = (list) => (list.length === 1 ? "it" : "them");
   return [
     [item.changedImageAltText, (list) => `alt text of ${list.join(", ")} changed; its receipt must list ${them(list)} in changed_image_alt_text`],
+    [item.changedFigureCaptions, (list) => `caption of ${list.join(", ")} changed; its receipt must list ${them(list)} in changed_figure_captions`],
     [item.changedLockedContent, (list) => `${list.join(", ")} (code block, table or recovery gap marker) changed; its receipt must list ${them(list)} in changed_locked_content`],
     [item.addedInvisibleCharacters, (list) => `invisible characters ${list.join(", ")} added; its receipt must list ${them(list)} in added_invisible_characters`],
   ].filter(([list]) => list?.length).map(([list, note]) => note(list)).join("; ");
