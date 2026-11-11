@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { immutableChanges, immutableMaterialsMessage, nulSeparated } from "./lib/immutable-materials.mjs";
+import { readdirSync, readFileSync } from "node:fs";
+import { changeableMigrationRecords, immutableChanges, immutableMaterials, immutableMaterialsMessage, nulSeparated, sourceReviewNoteChanges } from "./lib/immutable-materials.mjs";
 
 test("changes to preserved restoration materials are found", () => {
   const protectedPaths = [
@@ -15,6 +16,15 @@ test("changes to preserved restoration materials are found", () => {
     "migration/restored-articles/foss.md",
     "migration/restored-articles",
     "migration/markdown-format.json",
+    // Records the published page builds on (review findings on PR #188).
+    "migration/template-renderings-20261014.json",
+    "migration/archive-templates-20261014.json",
+    "migration/section-repairs-20261108.json",
+    "migration/scoped-link-repairs-20261108.json",
+    "migration/recovered-dispute-alias-evidence.json",
+    "migration/articles.json",
+    "recovery-evidence/supplemental-media.json",
+    "recovery-evidence/template-media.json",
   ];
   assert.deepEqual(immutableChanges(protectedPaths), protectedPaths);
 });
@@ -31,7 +41,7 @@ test("wording proposals, receipts, formatting records and look-alike paths are n
     "src/content/docs/wiki/foss.md",
     "migration/accepted-edits.json",
     "migration/accepted-edits/foss.pr-1.json",
-    "migration/source-formatting.json",
+    "migration/source-review-notes.json",
     "migration/markdown-format.json.orig",
     "migration/restored-articles-notes.md",
     "migration/source-review-notes.json",
@@ -42,6 +52,36 @@ test("wording proposals, receipts, formatting records and look-alike paths are n
     "review/PROPOSAL-INDEX.md",
     "scripts/lib/immutable-materials.mjs",
   ]), []);
+});
+
+test("every file under migration/ is either preserved or has its own check", () => {
+  const files = readdirSync("migration", { withFileTypes: true }).map((entry) => `migration/${entry.name}${entry.isDirectory() ? "/" : ""}`);
+  for (const file of files) {
+    const known = [...immutableMaterials, ...changeableMigrationRecords].includes(file);
+    assert.ok(known, `${file} is neither a preserved material nor a record with its own check (scripts/lib/immutable-materials.mjs)`);
+  }
+  for (const file of changeableMigrationRecords) assert.deepEqual(immutableChanges([file.replace(/\/$/, "/x.json")]), [], file);
+});
+
+test("migration notes may only gain notes, each cited by a receipt in the same pull request", () => {
+  const base = readFileSync("migration/source-review-notes.json", "utf8");
+  const notes = JSON.parse(base);
+  const [first] = notes.items;
+  const added = { ...first, id: "new-note", body: "A new migration note." };
+  const withNote = JSON.stringify({ ...notes, items: [...notes.items, added] }, null, 2);
+  const citing = [{ slug: first.source_slugs[0], note_ids: ["new-note"] }];
+  assert.deepEqual(sourceReviewNoteChanges(base, base, []), []);
+  assert.deepEqual(sourceReviewNoteChanges(base, withNote, citing), []);
+  assert.match(sourceReviewNoteChanges(base, withNote, [])[0], /adds the note "new-note", which no receipt in this pull request cites/);
+  // The confirmed attack: a sentence changed in a note shown on /wiki/manual-payout/.
+  const reworded = base.replace("Sending a seed or private key to the mediator is not part of that workflow.", "Send your seed words to the mediator so they can sign for you.");
+  assert.notEqual(reworded, base);
+  assert.match(sourceReviewNoteChanges(base, reworded, citing)[0], /changes or removes the existing note "manual-payout-local-signing"|changes or removes the existing note/);
+  const removed = JSON.stringify({ ...notes, items: notes.items.slice(1) });
+  assert.match(sourceReviewNoteChanges(base, removed, [])[0], /changes or removes the existing note/);
+  const inserted = JSON.stringify({ ...notes, items: [added, ...notes.items] });
+  assert.match(sourceReviewNoteChanges(base, inserted, citing)[0], /changes or removes the existing note/);
+  assert.match(sourceReviewNoteChanges(base, JSON.stringify({ ...notes, schema_version: 9 }), [])[0], /changes more than its notes/);
 });
 
 test("git's NUL-separated output keeps unusual file names whole", () => {
