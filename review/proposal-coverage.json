@@ -3058,8 +3058,8 @@
       "compared_ai_paths": [
         "review/ai-edited/guides/dao/governance.md"
       ],
-      "status": "proposed",
-      "rationale": "Read source, rendering and mapped AI guide; existing section link corrected without changing process.",
+      "status": "unresolved",
+      "rationale": "The proposed \"Submit to the DAO\" link fix was withdrawn on 10 November 2026 because changing that link's label breaks the recorded section repair in migration/section-repairs-20261108.json, so the link still needs a decision.",
       "group_ids": [
         "proposal-section-link"
       ],
@@ -3067,9 +3067,7 @@
       "review_group_ids": [
         "proposal-section-link"
       ],
-      "pull_requests": [
-        "https://github.com/bisq-network/documentation/pull/141"
-      ]
+      "pull_requests": []
     },
     {
       "slug": "proposals-maintainer",

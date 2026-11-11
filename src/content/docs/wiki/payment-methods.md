@@ -6,17 +6,37 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#fiat-payment-methods">Fiat payment methods</a></li><li><a href="#payment-method-guides">Payment method guides</a></li><li><a href="#altcoin-payment-methods">Altcoin payment methods</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p><span class="wiki-markup-gap" role="note"><strong>[Unsupported MediaWiki markup: languages]</strong> <code class="wiki-source-markup">&lt;languages/&gt;</code></span> Bisq offers several <strong>payment methods</strong> to buy and sell bitcoin for fiat currencies or other cryptocurrencies.</p>
-<aside class="wiki-admonition" role="note"><p><strong>Note</strong></p><p><strong>Version Context:</strong> The details on this page, particularly regarding trade limits and account signing, primarily apply to trading on <strong><a href="../bisq-1/">Bisq v1</a></strong>.</p>
+<div class="wiki-recovered-article" lang="en">
+
+<span class="wiki-markup-gap" role="note"><strong>[Unsupported MediaWiki markup: languages]</strong> <code class="wiki-source-markup">&lt;languages/&gt;</code></span> Bisq offers several **payment methods** to buy and sell bitcoin for fiat currencies or other cryptocurrencies.
+
+<aside class="wiki-admonition" role="note">
+
+**Note**
+
+**Version Context:** The details on this page, particularly regarding trade limits and account signing, primarily apply to trading on **[Bisq v1](../bisq-1/)**.
+
 </aside>
-<p>Every offer on Bisq designates a payment method for traders to settle payments. The Bisq software does not actually integrate with any payment methods—<strong>all non-bitcoin fund transfers are made outside of Bisq software</strong>.</p>
-<p>Unlike cryptocurrency transfers, many fiat payment transfers have limitations that require Bisq <a href="../bisq-1/">v1</a> to employ special measures like lower per-trade limits and <a href="../account-limits/#account-signing">account signing</a> to encourage fair trades.</p>
-<span class="wiki-legacy-anchor" id="Fiat_payment_methods" aria-hidden="true"></span><h2 id="fiat-payment-methods"> Fiat payment methods </h2>
-<p>Fiat payment methods vary significantly in characteristics like chargeback risk, regional availability, transaction limits, fees, privacy, and verification speed. The primary consideration for supporting a method on Bisq is <strong>chargeback risk</strong>. Methods with easy chargebacks (like PayPal, Venmo, Cash App) are generally not supported.</p>
-<p>Suggestions for new payment methods, especially those enabling new markets, are welcome. See the criteria and process for adding methods <a href="https://github.com/bisq-network/growth/issues/new?assignees=&amp;labels=re%3Apayment-method&amp;template=add_payment_method.md&amp;title=" rel="noopener noreferrer">here on GitHub</a>, or discuss them on <a href="https://bisq.chat" rel="noopener noreferrer">Matrix</a> in the #payment-methods channel.</p>
-<p>Below is a list of fiat payment methods currently supported in Bisq v1. The BTC amounts in this source table are historical reference figures, not a universal allowance for a current account. Bisq 1 v1.10.11 calculates method and account limits from protocol/DAO parameters and clamps its maximum at 0.25 BTC; confirm the amount shown by the client.</p>
-<p><strong>Note on Signing Requirement:</strong> Methods marked with an asterisk (*) <strong>do not</strong> require <a href="../account-limits/#account-signing">account signing</a> to lift the initial low buying limit. All other listed fiat methods generally require signing.</p>
-<p><strong>Note on Trade Limits:</strong> The maximum trade sizes listed below may not be available immediately for new payment accounts. Please refer to <a href="../account-limits/">Account limits</a> for details on account aging and signing required to enable larger trade sizes.</p>
+
+Every offer on Bisq designates a payment method for traders to settle payments. The Bisq software does not actually integrate with any payment methods—**all non-bitcoin fund transfers are made outside of Bisq software**.
+
+Unlike cryptocurrency transfers, many fiat payment transfers have limitations that require Bisq [v1](../bisq-1/) to employ special measures like lower per-trade limits and [account signing](../account-limits/#account-signing) to encourage fair trades.
+
+<span class="wiki-legacy-anchor" id="Fiat_payment_methods" aria-hidden="true">
+</span>
+
+## Fiat payment methods {#fiat-payment-methods}
+
+Fiat payment methods vary significantly in characteristics like chargeback risk, regional availability, transaction limits, fees, privacy, and verification speed. The primary consideration for supporting a method on Bisq is **chargeback risk**. Methods with easy chargebacks (like PayPal, Venmo, Cash App) are generally not supported.
+
+Suggestions for new payment methods, especially those enabling new markets, are welcome. See the criteria and process for adding methods [here on GitHub](https://github.com/bisq-network/growth/issues/new?assignees=&labels=re%3Apayment-method&template=add_payment_method.md&title=), or discuss them on [Matrix](https://bisq.chat) in the #payment-methods channel.
+
+Below is a list of fiat payment methods currently supported in Bisq v1. The BTC amounts in this source table are historical reference figures, not a universal allowance for a current account. Bisq 1 v1.10.11 calculates method and account limits from protocol/DAO parameters and clamps its maximum at 0.25 BTC; confirm the amount shown by the client.
+
+**Note on Signing Requirement:** Methods marked with an asterisk (\*) **do not** require [account signing](../account-limits/#account-signing) to lift the initial low buying limit. All other listed fiat methods generally require signing.
+
+**Note on Trade Limits:** The maximum trade sizes listed below may not be available immediately for new payment accounts. Please refer to [Account limits](../account-limits/) for details on account aging and signing required to enable larger trade sizes.
+
 <table>
 <caption>Supported Fiat Payment Methods (Bisq v1)</caption>
 <thead>
@@ -465,11 +485,23 @@ tableOfContents: false
 | [[Wise-USD]]* || Global ('''USD''' trades) || 4 days || 0.0624 || &#10;|-
 | [[Zelle]] || USA || 4 days || 0.0624 || Check your bank's Zelle support &amp; limits.
 |}</code></pre></details>
-<span class="wiki-legacy-anchor" id="Payment_method_guides" aria-hidden="true"></span><h3 id="payment-method-guides"> Payment method guides </h3>
+
+<span class="wiki-legacy-anchor" id="Payment_method_guides" aria-hidden="true">
+</span>
+
+### Payment method guides {#payment-method-guides}
+
 <div class="wiki-gallery"><figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/2200cb7e4e0e0b35eb276a25047fee62559487ee2c8deedf35458c186bc9adcb.png"><img alt="EUR payment methods overview." decoding="async" height="1958" loading="lazy" src="../../media/wiki/2200cb7e4e0e0b35eb276a25047fee62559487ee2c8deedf35458c186bc9adcb.png" width="1046"></a><figcaption>EUR payment methods overview.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure><figure class="wiki-source-image" id="source-image-2"><a href="../../media/wiki/88410f93192e7e3b20e5f65179f304332e8e8728b7431b14700fe7cfd6c9b5ef.png"><img alt="USD payment methods overview." decoding="async" height="1956" loading="lazy" src="../../media/wiki/88410f93192e7e3b20e5f65179f304332e8e8728b7431b14700fe7cfd6c9b5ef.png" width="1046"></a><figcaption>USD payment methods overview.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure></div>
-<span class="wiki-legacy-anchor" id="Altcoin_payment_methods" aria-hidden="true"></span><h2 id="altcoin-payment-methods"> Altcoin payment methods </h2>
-<p>Bisq also supports trading Bitcoin against various cryptocurrencies, like XMR, ETH, ZEC, L-BTC or LTC. A full list is available on the <a href="https://bisq.network/markets/" rel="noopener noreferrer">Bisq Network Markets page</a>.</p>
-<p>Because cryptocurrency transfers are generally irreversible and fast, altcoin trades usually have higher limits (up to 0.5 BTC) available immediately, without the need for account aging or signing required for many fiat methods.</p>
+
+<span class="wiki-legacy-anchor" id="Altcoin_payment_methods" aria-hidden="true">
+</span>
+
+## Altcoin payment methods {#altcoin-payment-methods}
+
+Bisq also supports trading Bitcoin against various cryptocurrencies, like XMR, ETH, ZEC, L-BTC or LTC. A full list is available on the [Bisq Network Markets page](https://bisq.network/markets/).
+
+Because cryptocurrency transfers are generally irreversible and fast, altcoin trades usually have higher limits (up to 0.5 BTC) available immediately, without the need for account aging or signing required for many fiat methods.
+
 <table>
 <caption>Supported Altcoin Payment Methods (Bisq v1)</caption>
 <thead>
@@ -501,6 +533,9 @@ tableOfContents: false
 |-
 | [[Altcoins Instant]] || 1 hour || 0.5
 |}</code></pre></details>
-<p><strong>Warning for Instant Trades:</strong> Altcoins Instant trades require quick confirmation (within 1 hour). Remember to disable any open Instant offers (via `Portfolio` &gt; `My Open Offers`) if you might be unavailable to complete the trade promptly.</p>
-<p>See the general Account setup process within Bisq for adding altcoin accounts.</p>
+
+**Warning for Instant Trades:** Altcoins Instant trades require quick confirmation (within 1 hour). Remember to disable any open Instant offers (via \`Portfolio\` > \`My Open Offers\`) if you might be unavailable to complete the trade promptly.
+
+See the general Account setup process within Bisq for adding altcoin accounts.
+
 </div>
