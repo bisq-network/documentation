@@ -25,45 +25,31 @@ repository altogether.
 
 ## 2. Only if you received a database dump
 
-Restore it into a throwaway MediaWiki 1.34 and export the XML there. The wiki
-runs 1.34, so use the same version to match the database schema. Not tested in
-this repository; adjust names to the dump.
+Turn the dump into an XML export on a private machine with Docker:
+
+```sh
+sh scripts/sql-dump-to-xml.sh ../backup/bisq-wiki-backup.sql.bz2 ../backup/xml
+```
+
+The script restores only the wiki database into a throwaway MariaDB 10.5
+container, runs MediaWiki 1.34's `dumpBackup.php --full` against it (the wiki
+runs 1.34, so the database schema matches) and writes
+`../backup/xml/bisq-wiki-full.xml`. The containers run on a network without
+internet access and are removed afterwards, also when a step fails or on Ctrl-C.
+The output folder must be outside the repository.
 
 The daily backups are `mysqldump --all-databases` output compressed with bzip2.
-Import only the wiki database: the dump also holds MariaDB's own `mysql` schema,
-which would clash with the container's. Take `WIKI_DB` from `$wgDBname` in the
-original `LocalSettings.php`.
-
-```sh
-bunzip2 -k bisq-wiki-backup.sql.bz2
-docker network create wiki-intake
-docker run -d --name wiki-db --network wiki-intake -e MARIADB_ROOT_PASSWORD=intake mariadb:10.5
-until docker exec wiki-db mysqladmin -uroot -pintake ping --silent; do sleep 2; done
-docker exec wiki-db mysql -uroot -pintake -e 'CREATE DATABASE `WIKI_DB`'
-docker exec -i wiki-db mysql -uroot -pintake --one-database WIKI_DB < bisq-wiki-backup.sql
-```
-
-Create a minimal `LocalSettings.php` for the export only. Copy `$wgDBname` and
-`$wgDBprefix` from the original file; nothing else from it is needed.
-
-```php
-<?php
-$wgSitename = "Bisq Wiki";
-$wgDBtype = "mysql";
-$wgDBserver = "wiki-db";
-$wgDBname = "COPY_FROM_ORIGINAL";
-$wgDBprefix = "COPY_FROM_ORIGINAL";
-$wgDBuser = "root";
-$wgDBpassword = "intake";
-```
-
-```sh
-docker run --rm --network wiki-intake -v "$PWD/LocalSettings.php:/var/www/html/LocalSettings.php:ro" \
-  mediawiki:1.34 php -d display_errors=stderr maintenance/dumpBackup.php --full --quiet > bisq-wiki-full.xml
-docker rm -f wiki-db && docker network rm wiki-intake
-```
+The script skips MariaDB's own `mysql` schema in such a dump. It takes the wiki
+database's name from the dump when there is only one, and finds the table prefix
+itself; otherwise pass `$wgDBname` and `$wgDBprefix` from the original
+`LocalSettings.php` as the third and fourth arguments. Nothing else from that
+file is needed. Delete the dump and the export when the intake is done.
 
 ## 3. Reconcile the export with the restored snapshot
+
+`npm run compare-backup -- <backup>` does this for a backup in any form (folder,
+archive or compressed export) and adds a readable `report.html`; see
+[CONTRIBUTING.md](CONTRIBUTING.md#compare-a-wiki-backup). The underlying script:
 
 ```sh
 node scripts/reconcile-wiki-backup.mjs --xml ../backup/bisq-wiki-full.xml --images ../backup/images --out tmp/wiki-backup-intake
