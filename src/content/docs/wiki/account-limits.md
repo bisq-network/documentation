@@ -87,7 +87,7 @@ If that SEPA account manages to get signed on the same day it\'s created, it wil
 | Time Since Creating SEPA Payment Account | Maximum Trade Size (Buy) | Maximum Trade Size (Sell) |
 | --- | --- | --- |
 | Day 0 - Account Signed | <span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeUnsigned]</strong> <code>{{MaxTradeSizeUnsigned}}</code></span> | 0.0624 BTC |
-| Day 30 | 0.03125 BTC | 0.0624 BTC |
+| Day 30 | 0.0312 BTC | 0.0624 BTC |
 | Day 60 | 0.0624 BTC | 0.0624 BTC |
 | Day 90 | 0.0624 BTC | 0.0624 BTC |
 
@@ -104,7 +104,7 @@ But if that SEPA account isn\'t signed until Day 30, it won\'t see its limits li
 | --- | --- | --- |
 | Day 0 | <span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeUnsigned]</strong> <code>{{MaxTradeSizeUnsigned}}</code></span> | 0.0624 BTC |
 | Day 30 - Account Signed | <span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeUnsigned]</strong> <code>{{MaxTradeSizeUnsigned}}</code></span> | 0.0624 BTC |
-| Day 60 | 0.0325 BTC | 0.0624 BTC |
+| Day 60 | 0.0312 BTC | 0.0624 BTC |
 | Day 90 | 0.0624 BTC | 0.0624 BTC |
 
 <details class="wiki-table-source"><summary>Original table source</summary><pre><code>{| class="wikitable"
