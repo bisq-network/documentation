@@ -10,7 +10,7 @@ tableOfContents: false
 
 An **arbitrator** resolves disputes that could not be resolved by traders on their own or with a [mediator](../mediator/)\'s help.
 
-<p>Arbitrators investigate disputes, just like mediators. But unlike mediators, whose suggestions encourage traders to make payouts from their own escrowed funds, an arbitrator's findings lead to a payout from the arbitrator themselves.</p>
+<p>Arbitrators investigate disputes, just like mediators. But unlike mediators, whose suggestions encourage traders to make payouts from their own escrowed funds, an arbitrator's findings determine proposed refund amounts; a refund agent may advance a separate payment, but it is not guaranteed.</p>
 <span class="wiki-template-gap" role="note"><strong>[Unresolved template: ArbitrationCompensationTable]</strong> <code>{{ArbitrationCompensationTable}}</code></span>
 
 <span class="wiki-legacy-anchor" id="Role_Notes" aria-hidden="true">
@@ -23,7 +23,7 @@ An **arbitrator** resolves disputes that could not be resolved by traders on the
 
 ### Arbitrator\'s Role in Dispute Resolution {#arbitrator-s-role-in-dispute-resolution}
 
-Currently, the arbitrator makes BTC payouts to aggrieved traders out of their own pocket and gets refunded by the Bisq DAO (hence the term *refund agent* used sometimes). But this arrangement is intended as a convenience so that traders can avoid making a reimbursement request to the DAO on their own.
+A refund agent may make BTC payouts to aggrieved traders out of their own pocket and then request reimbursement from the Bisq DAO (hence the term *refund agent* used sometimes). But this arrangement is intended as a convenience so that traders can avoid making a reimbursement request to the DAO on their own.
 
 The arbitrator role is one element of Bisq\'s decentralized dispute resolution process. Please see more details at [arbitration](../arbitration/).
 

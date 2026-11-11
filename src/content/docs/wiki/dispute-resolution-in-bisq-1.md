@@ -107,6 +107,8 @@ If issues persist after discussing them with the counterparty, you may need to i
 
 **[Mediation](../mediation/) can be initiated at any point during or after the trade period. To do this, select the trade from the \'Open Trades\' list and press \'Ctrl\' + \'O\'.**
 
+In Bisq 1 v1.10.11, Alt+O also opens this prompt (Option+O on macOS); Ctrl+O and the platform shortcut are accepted too.
+
 <figure class="wiki-source-image" id="source-image-2"><a href="../../media/wiki/e9caae88518b826efe3c4a9a7487bd7e324d79ccab5066aabecb448d91d7265d.png"><img alt="Engage a mediator. This button only appears after the trade period has ended." decoding="async" height="695" loading="lazy" src="../../media/wiki/e9caae88518b826efe3c4a9a7487bd7e324d79ccab5066aabecb448d91d7265d.png" width="681"></a><figcaption>Engage a mediator. This button only appears after the trade period has ended.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 
 <span class="wiki-legacy-anchor" id="How_Mediation_Works" aria-hidden="true">
@@ -207,7 +209,7 @@ Consider this transaction as a safeguard or fallback option, to be used only whe
 
 **Warning**
 
-[Mediation](../mediation/) is expected to be the best resolution for both traders. If a trade goes to [arbitration](../arbitration/), the [arbitrator](../arbitrator/) will pay out the trade amount plus one peer\'s [security deposit](../security-deposit/). This means the total [arbitration](../arbitration/) payout will be less than the [mediation](../mediation/) payout. Both traders agreeing to the [mediator\'s](../mediator/) suggestion is the preferred outcome. Requesting [arbitration](../arbitration/) should be reserved for exceptional circumstances, such as one peer not responding, or if a trader believes the [mediator](../mediator/) did not make a fair payout suggestion.
+[Mediation](../mediation/) is expected to be the best resolution for both traders. If a trade goes to [arbitration](../arbitration/), the [arbitrator](../arbitrator/) may advance a discretionary refund, which is not guaranteed to include the trade amount or a peer\'s [security deposit](../security-deposit/). The total [arbitration](../arbitration/) payout may differ from the [mediation](../mediation/) payout. Both traders agreeing to the [mediator\'s](../mediator/) suggestion is the preferred outcome. Requesting [arbitration](../arbitration/) should be reserved for exceptional circumstances, such as one peer not responding, or if a trader believes the [mediator](../mediator/) did not make a fair payout suggestion.
 
 This dynamic enables a form of mutually assured destruction, driving dispute resolution on Bisq without relying on trusted third parties.
 
@@ -218,7 +220,7 @@ Practically, here\'s how [arbitration](../arbitration/) works:
 <ol>
 <li>If you're trading with an unresponsive peer or feel the <a href="../mediator/">mediator's</a> suggestion was unfair, publish the time-locked transaction as soon as possible and request <a href="../arbitration/">arbitration</a>.</li>
 <li>Collaborate with the <a href="../arbitrator/">arbitrator</a> to clarify your case's details.</li>
-<li>If the <a href="../arbitrator/">arbitrator</a> sides with you, they will personally reimburse you.</li>
+<li>If the <a href="../arbitrator/">arbitrator</a> sides with you, a refund agent may reimburse you directly, but this is not guaranteed.</li>
 <li>The <a href="../arbitrator/">arbitrator</a> will then request reimbursement from the <a href="../dao-user-reference/#bisq-dao">Bisq DAO</a> for the reimbursements they've paid. This isn't something you need to worry about as a trader, but it's good to know how the process works on both sides.</li>
 <li><a href="../arbitrator/">Arbitrators</a> are required to respond to messages within 5 days, so it may take a bit longer for them to respond than mediators (you should still respond to messages within 2 days).</li>
 </ol>
