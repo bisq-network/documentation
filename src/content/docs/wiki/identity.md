@@ -63,7 +63,7 @@ OR
 
 Profile 1: Used for buying bitcoin on Bisq Easy Profile 2: Used for atomic swap protocols
 
-Allowing the creation of different multiple identities gives users complete control over what information / data they want to assign to which profile. It is also easy to delete a profile and start a new one at any point.
+Allowing the creation of different multiple identities gives users complete control over what information / data they want to assign to which profile. Before deleting a profile, preserve its application data and complete any open offers, trades, disputes and private conversations. The v2.1.15 identity service warns that deletion is unsafe with open private chats or messages.
 
 <span class="wiki-legacy-anchor" id="Negatives_of_Identities" aria-hidden="true">
 </span>
