@@ -19,7 +19,7 @@ When a trade doesn\'t go the happy path, a portion or the total amount of the of
 
 ## Note for new users {#note-for-new-users}
 
-Security deposits create a conundrum for new users: **bitcoin is required to buy bitcoin**. This can be inconvenient, but it\'s a core part of the security protocol. The initial amount of BTC required to do a trade can vary depending on the payment method, but the bare minimum BTC required to buy more BTC (as of this writing) is 0.002 BTC to cover the minimum security deposit and mining fees. Take a look at [this article](../funding-your-wallet/#how-to-obtain-your-first-bitcoin) for suggestion on how to get this initial BTC without KYC ([Bisq Easy](../bisq-easy/), [Get your first BTC](../getting-your-first-btc/) room, a friend, ATM, sell something, work for it, etc).
+Security deposits create a conundrum for new users: **bitcoin is required to buy bitcoin**. This can be inconvenient, but it\'s a core part of the security protocol. The initial amount of BTC required to do a trade can vary depending on the payment method, but the earlier 0.002 BTC starting estimate is not a universal minimum; check the chosen offer\'s deposit and fees. Take a look at [this article](../funding-your-wallet/#how-to-obtain-your-first-bitcoin) for suggestion on how to get this initial BTC without KYC ([Bisq Easy](../bisq-easy/), [Get your first BTC](../getting-your-first-btc/) room, a friend, ATM, sell something, work for it, etc).
 
 Why the hard security deposit requirement? Bisq never custodies your funds, and it avoids reputation mechanisms that would weaken your privacy (e.g., reviews: to such reputation data, it must be stored somewhere *and* tied to an identity). Such mechanisms would only give a false sense of security anyway due to [sybil attacks](https://en.wikipedia.org/wiki/Sybil_attack).
 
@@ -28,7 +28,7 @@ Why the hard security deposit requirement? Bisq never custodies your funds, and 
 
 ## Recommended amounts {#recommended-amounts}
 
-Bisq allows offer makers to choose a security deposit percentage: **minimum is 15%** of trade amount and **maximum is 50%** of trade amount (absolute minimum is 0.001 BTC). The offer taker must deposit the same amount as the offer maker.
+Bisq allows offer makers to choose a security deposit percentage: **minimum is 15%** of trade amount and **maximum is 50%** of trade amount (absolute minimum in Bisq 1 v1.10.11 is 0.0003 BTC). The offer taker must deposit the same amount as the offer maker.
 
 When creating an offer, Bisq recommends a security deposit based on recent volatility of the asset being traded: **the higher the volatility, the higher the recommended security deposit**. Using the recommended amount helps prevent trades from becoming future trades where the BTC buyer only sends payment to settle the trade if the BTC price has not fallen enough to compensate for losing the security deposit.
 

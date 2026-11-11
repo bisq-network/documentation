@@ -30,21 +30,21 @@ You can see the required deposits for an offer by clicking on the <code class="w
 
 ### For Buyers {#for-buyers}
 
-Buyers need to post a deposit of at least 15% of the trade amount, with an absolute minimum of 0.001 BTC. The maximum possible deposit for a buyer is 50% of the trade amount. The offer maker sets this percentage when creating an offer.
+Buyers need to post a deposit of at least 15% of the trade amount, with an absolute minimum of 0.0003 BTC in Bisq 1 v1.10.11. The maximum possible deposit for a buyer is 50% of the trade amount. The offer maker sets this percentage when creating an offer.
 
 <span class="wiki-legacy-anchor" id="For_Sellers" aria-hidden="true">
 </span>
 
 ### For Sellers {#for-sellers}
 
-Sellers need to post a deposit of 15% of the trade amount with an absolute minimum of 0.001 BTC (in addition to 100% of the bitcoin being sold). As of this writing, the security deposit percentage for sellers cannot be adjusted.
+In Bisq 1 v1.10.11, the seller posts the same security-deposit percentage as the buyer, with an absolute minimum of 0.0003 BTC, in addition to 100% of the bitcoin being sold.
 
 <span class="wiki-legacy-anchor" id="Notes_for_Buyers_and_Sellers" aria-hidden="true">
 </span>
 
 ### Notes for Buyers and Sellers {#notes-for-buyers-and-sellers}
 
-If the size of an offer is a range, the required security deposit is calculated according to the maximum possible trade size. Example: if the buyer\'s deposit is set to 20% for an offer with a 0.05-0.10 BTC trade size, the buyer will need to post a 0.02 BTC security deposit. The seller would need to post a deposit of 0.015 BTC (for a total deposit of 0.115 BTC, since they\'d also have to post the entire *possible* trade amount).
+If the size of an offer is a range, the required security deposit is calculated according to the maximum possible trade size. Example: if the buyer\'s deposit is set to 20% for an offer with a 0.05-0.10 BTC trade size, the buyer will need to post a 0.02 BTC security deposit. The seller would need to post a deposit of 0.02 BTC (for a total deposit of 0.12 BTC, since they\'d also have to post the entire *possible* trade amount).
 
 <span class="wiki-legacy-anchor" id="How_to_Obtain_Your_First_Bitcoin" aria-hidden="true">
 </span>
@@ -53,7 +53,7 @@ If the size of an offer is a range, the required security deposit is calculated 
 
 If you don’t already own any bitcoin, you’ll need to obtain some—ideally, as privately and securely as possible.
 
-How much do you need? In addition to covering a security deposit (as described above), traders also need to cover mining fees and [trading fees](../trading-fees/). Estimates for both are shown in the interface when making or taking an offer. As of this writing, a safe estimate for buying your first bitcoin on Bisq with fiat is **0.002 BTC**.
+How much do you need? In addition to covering a security deposit (as described above), traders also need to cover mining fees and [trading fees](../trading-fees/). Estimates for both are shown in the interface when making or taking an offer. The earlier 0.002 BTC estimate is not a universal funding requirement: use the deposit, trading fee and mining fee shown for your chosen offer.
 
 Here are some ideas for how to do that.
 
