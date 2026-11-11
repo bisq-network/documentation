@@ -6,4 +6,71 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#telltale-signs-of-the-address-reuse-bug">Telltale signs of the address reuse bug</a></li><li><a href="#prevention">Prevention</a></li><li><a href="#possible-solutions">Possible solutions</a></li><li><a href="#normal-payout-best-case-scenario">Normal payout (best case scenario)</a></li><li><a href="#mediation">Mediation</a></li><li><a href="#arbitration-worst-case-scenario">Arbitration (worst case scenario)</a></li><li><a href="#technical-explanation">Technical explanation</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>It can rarely happen that, while buying BTC on Bisq, your trade will be reported as completed, but you see no incoming transaction into your wallet for the expected amount (trade amount + security deposit).</p>&#10;<p>One of the possible causes of this event is what we call the "address reuse bug".</p>&#10;<span class="wiki-legacy-anchor" id="Telltale_signs_of_the_address_reuse_bug" aria-hidden="true"></span><h2 id="telltale-signs-of-the-address-reuse-bug"> Telltale signs of the address reuse bug </h2>&#10;<p>One very circumstantial evidence of this bug, is the trade completing almost instantly after you click the <code class="wiki-source-code" id="source-code-1">PAYMENT STARTED</code> button. This is especially true when you would expect, on the other side, that another human needs the time to notice that the payment notification was sent, then verify having received said payment, and that it corresponds to what the trade details say, and finally get back to Bisq to release the BTC locked in the deposit transaction. If instead the trade closed in a matter of a few minutes, usually much less, it is possible this issue occurred.</p>&#10;<p>Another obvious sign, is that you find no incoming transactions in your Bisq wallet, under FUNDS &gt; TRANSACTIONS, that correspond to (trade amount + security deposit).</p>&#10;<span class="wiki-legacy-anchor" id="Prevention" aria-hidden="true"></span><h2 id="prevention"> Prevention </h2>&#10;<p>Noticing the issue in due time allows to cover for possible escalations, if the best case scenario (see below) doesn't play out.</p>&#10;<p>All that is needed is to forewarn mediators (or any support agent) about the issue, using one of the <a href="../user-support/">support</a> channels, communicating the trade ID and your onion address, so if a dispute is opened, the assigned mediator will know how to contact the buyer outside of the application.</p>&#10;<span class="wiki-legacy-anchor" id="Possible_solutions" aria-hidden="true"></span><h2 id="possible-solutions">  Possible solutions </h2>&#10;<p>While this issue can be annoying, and especially worrying for new users who have just started experiencing a new trading platform, the usual resolution path is a spontaneous and uneventful one, and requires no intervention whatsoever on the buyer's part.</p>&#10;<span class="wiki-legacy-anchor" id="Normal_payout_(best_case_scenario)" aria-hidden="true"></span><h3 id="normal-payout-best-case-scenario"> Normal payout (best case scenario) </h3>&#10;<p>Even if the BTC buyer sees a completed trade on his side, the BTC seller will be presented with the correct state, where he has received the <em>Payment has been started</em> notification, and is prompted to verify that the money has reached his account before releasing the BTC (by pressing the <code class="wiki-source-code" id="source-code-2">PAYMENT RECEIVED</code> button, thus signing his part of the multisig and broadcasting the trade payout transaction).</p>&#10;<p>When the above happens, the trade really completes, and the buyer will receive the due BTC in his wallet.</p>&#10;<p>It is actually possible that some cases of this bug go unnoticed, for those trades where fast payment methods are used, and there is but a delay of 10-15 minutes between buyer's Bisq reporting the trade as closed, and seller's Bisq actually sending the funds.</p>&#10;<span class="wiki-legacy-anchor" id="Mediation" aria-hidden="true"></span><h3 id="mediation"><p><code><a href="../mediation/">Mediation</a> </code></p>&#10;</h3>&#10;<p>Since the buyer instance considers the trade completed, the trader chat will not be accessible to the buyer, not even in read only mode. This means that the seller will effectively see an unresponsive peer, which is not a problem per se (traders are not required to respond in trader chat, after all) but if other issues arise, that could be easily solved by a simple exchange between the peers, which won't be possible in this scenario, the seller could open a support ticket on his side, requesting the aid of a mediator. Just like the buyer will not have access to trader chat, he will also not be able to even know that mediation was opened. But, if he had followed the instructions in the Prevention section above, mediation would still be possible since he could communicate with his mediator via external chat, for example.</p>&#10;<span class="wiki-legacy-anchor" id="Arbitration_(worst_case_scenario)" aria-hidden="true"></span><h3 id="arbitration-worst-case-scenario"><p><code><a href="../arbitration/">Arbitration</a> (worst case scenario) </code></p>&#10;</h3>&#10;<p>Arbitration should be generally avoided at all costs, but if mediation is not successful, either because the seller opened mediation and the buyer didn't follow instructions in the Prevention section above, or, with a very unlucky turn of events, because the seller went missing for whatever reason, leaving the deposit tx locked, recurring to the <a href="../arbitrator/">Refund Agent</a> is the only way left to access the trade funds.</p>&#10;<p>If the latter is true, and the buyer needs to open arbitration, contacting <a href="../user-support/">support</a> is indispensable, because the buyer will have to be guided through the procedure to manually publish the Delayed Payout Transaction on the blockchain, that in turn will start arbitration.</p>&#10;<p>No matter who will open arbitration, either seller or buyer, the latter will have to communicate with Refund Agent through a separate channel, usually via <a href="../user-support/">support</a> chat, to follow through.</p>&#10;<span class="wiki-legacy-anchor" id="Technical_explanation" aria-hidden="true"></span><h2 id="technical-explanation"> Technical explanation </h2>&#10;<p>In order to consider a trade as closed, the Bisq instance on the buyer's side needs to monitor an incoming transaction to a specific address of the internal wallet, and as soon as the payout amount is received to this address, Bisq can consider the trade completed because the locked BTC was released.</p>&#10;<p>If, for any reason, the application associates to the ongoing trade a payout address which was already used in a previous trade, said address will have already received funds (from the previous trade), and that is why as soon as the buyer presses <code class="wiki-source-code" id="source-code-3">PAYMENT STARTED</code>, Bisq will start looking for incoming transaction to that previously used address, immediately finding the previous payout and closing the trade as completed.</p>&#10;<p>The presumed cause for this was identified once, and patched, but there appears to be another edge case which still leads to the issue. If you experience this bug, please send your logs through <a href="../user-support/">support</a>, so the additional causes can be identified and fixed.</p>&#10;</div>
+<div class="wiki-recovered-article" lang="en">
+
+It can rarely happen that, while buying BTC on Bisq, your trade will be reported as completed, but you see no incoming transaction into your wallet for the expected amount (trade amount + security deposit).
+
+One of the possible causes of this event is what we call the \"address reuse bug\".
+
+<span class="wiki-legacy-anchor" id="Telltale_signs_of_the_address_reuse_bug" aria-hidden="true">
+</span>
+
+## Telltale signs of the address reuse bug {#telltale-signs-of-the-address-reuse-bug}
+
+One very circumstantial evidence of this bug, is the trade completing almost instantly after you click the <code class="wiki-source-code" id="source-code-1">PAYMENT STARTED</code> button. This is especially true when you would expect, on the other side, that another human needs the time to notice that the payment notification was sent, then verify having received said payment, and that it corresponds to what the trade details say, and finally get back to Bisq to release the BTC locked in the deposit transaction. If instead the trade closed in a matter of a few minutes, usually much less, it is possible this issue occurred.
+
+Another obvious sign, is that you find no incoming transactions in your Bisq wallet, under FUNDS > TRANSACTIONS, that correspond to (trade amount + security deposit).
+
+<span class="wiki-legacy-anchor" id="Prevention" aria-hidden="true">
+</span>
+
+## Prevention {#prevention}
+
+Noticing the issue in due time allows to cover for possible escalations, if the best case scenario (see below) doesn\'t play out.
+
+All that is needed is to forewarn mediators (or any support agent) about the issue, using one of the [support](../user-support/) channels, communicating the trade ID and your onion address, so if a dispute is opened, the assigned mediator will know how to contact the buyer outside of the application.
+
+<span class="wiki-legacy-anchor" id="Possible_solutions" aria-hidden="true">
+</span>
+
+## Possible solutions {#possible-solutions}
+
+While this issue can be annoying, and especially worrying for new users who have just started experiencing a new trading platform, the usual resolution path is a spontaneous and uneventful one, and requires no intervention whatsoever on the buyer\'s part.
+
+<span class="wiki-legacy-anchor" id="Normal_payout_(best_case_scenario)" aria-hidden="true">
+</span>
+
+### Normal payout (best case scenario) {#normal-payout-best-case-scenario}
+
+Even if the BTC buyer sees a completed trade on his side, the BTC seller will be presented with the correct state, where he has received the *Payment has been started* notification, and is prompted to verify that the money has reached his account before releasing the BTC (by pressing the <code class="wiki-source-code" id="source-code-2">PAYMENT RECEIVED</code> button, thus signing his part of the multisig and broadcasting the trade payout transaction).
+
+When the above happens, the trade really completes, and the buyer will receive the due BTC in his wallet.
+
+It is actually possible that some cases of this bug go unnoticed, for those trades where fast payment methods are used, and there is but a delay of 10-15 minutes between buyer\'s Bisq reporting the trade as closed, and seller\'s Bisq actually sending the funds.
+
+<span class="wiki-legacy-anchor" id="Mediation" aria-hidden="true">
+</span><h3 id="mediation"><p><code><a href="../mediation/">Mediation</a> </code></p>&#10;</h3>
+
+Since the buyer instance considers the trade completed, the trader chat will not be accessible to the buyer, not even in read only mode. This means that the seller will effectively see an unresponsive peer, which is not a problem per se (traders are not required to respond in trader chat, after all) but if other issues arise, that could be easily solved by a simple exchange between the peers, which won\'t be possible in this scenario, the seller could open a support ticket on his side, requesting the aid of a mediator. Just like the buyer will not have access to trader chat, he will also not be able to even know that mediation was opened. But, if he had followed the instructions in the Prevention section above, mediation would still be possible since he could communicate with his mediator via external chat, for example.
+
+<span class="wiki-legacy-anchor" id="Arbitration_(worst_case_scenario)" aria-hidden="true">
+</span><h3 id="arbitration-worst-case-scenario"><p><code><a href="../arbitration/">Arbitration</a> (worst case scenario) </code></p>&#10;</h3>
+
+Arbitration should be generally avoided at all costs, but if mediation is not successful, either because the seller opened mediation and the buyer didn\'t follow instructions in the Prevention section above, or, with a very unlucky turn of events, because the seller went missing for whatever reason, leaving the deposit tx locked, recurring to the [Refund Agent](../arbitrator/) is the only way left to access the trade funds.
+
+If the latter is true, and the buyer needs to open arbitration, contacting [support](../user-support/) is indispensable, because the buyer will have to be guided through the procedure to manually publish the Delayed Payout Transaction on the blockchain, that in turn will start arbitration.
+
+No matter who will open arbitration, either seller or buyer, the latter will have to communicate with Refund Agent through a separate channel, usually via [support](../user-support/) chat, to follow through.
+
+<span class="wiki-legacy-anchor" id="Technical_explanation" aria-hidden="true">
+</span>
+
+## Technical explanation {#technical-explanation}
+
+In order to consider a trade as closed, the Bisq instance on the buyer\'s side needs to monitor an incoming transaction to a specific address of the internal wallet, and as soon as the payout amount is received to this address, Bisq can consider the trade completed because the locked BTC was released.
+
+If, for any reason, the application associates to the ongoing trade a payout address which was already used in a previous trade, said address will have already received funds (from the previous trade), and that is why as soon as the buyer presses <code class="wiki-source-code" id="source-code-3">PAYMENT STARTED</code>, Bisq will start looking for incoming transaction to that previously used address, immediately finding the previous payout and closing the trade as completed.
+
+The presumed cause for this was identified once, and patched, but there appears to be another edge case which still leads to the issue. If you experience this bug, please send your logs through [support](../user-support/), so the additional causes can be identified and fixed.
+
+</div>
