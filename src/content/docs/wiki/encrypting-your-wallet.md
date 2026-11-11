@@ -6,11 +6,11 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-Before **encrypting your wallet**, your Bisq wallet files are stored on your machine\'s drive in *plain text*.
+Before **encrypting your wallet**, the private-key material in your Bisq wallet files is stored without password encryption.
 
 This is not a good idea—anyone who gains access to your computer (whether by physically stealing it or by hacking it remotely) can gain access to your private keys and take your bitcoin.
 
-Setting a password encrypts your Bisq wallet files so they’re useless to anyone without the password.
+Setting a password encrypts the wallet\'s private-key material. It does not encrypt all payment-account and trade data, application backups, or separately stored seed words.
 
 To set a password, go to <code class="wiki-source-code" id="source-code-1">Account</code> > <code class="wiki-source-code" id="source-code-2">Wallet Password</code> and enter a strong password.
 
