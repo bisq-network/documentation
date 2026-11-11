@@ -16,6 +16,16 @@ DOCS_SITE=https://bisq-network.github.io DOCS_BASE=/documentation/ npm run build
 
 The deployment workflow is manual. Building or submitting a pull request does not publish the site.
 
+## Compare a wiki backup
+
+To see what a full wiki backup changes, run one command on it, in whatever form it arrived: a folder, an archive (`.tar`, `.tar.gz`, `.tar.bz2`, `.zip`, or `.7z` with 7-Zip installed) or a MediaWiki XML export (plain, `.gz` or `.bz2`).
+
+```sh
+npm run compare-backup -- ~/Downloads/bisq-wiki-backup.tar.gz --open
+```
+
+It finds the XML export and the `images/` folder, unpacks archives into a temporary folder outside the repository and removes it afterwards, then writes `report.html` to `tmp/wiki-backup-intake/` (ignored by git), with `REPORT.md`, `report.json` and `newer-revisions.jsonl`. The report shows each article the backup changed, word by word; the gaps in our articles the backup can fill; the articles and images we do not have; and redirects and templates. It holds public wiki data only: anonymous editors are counted, never listed. A database dump is never opened; if the backup has nothing else, the command explains how to export the pages, for example with `sh scripts/sql-dump-to-xml.sh` and Docker. If the backup holds several different XML exports, the command lists them and asks you to choose one with `--xml <name>`; `--images <name>` picks between images folders. Unpacking stops at 20 GB; raise that with `--max-unpacked 40G` only for a backup that really is larger. Never commit the report or any part of the backup. [INTAKE.md](INTAKE.md) describes how to act on the results.
+
 ## Wording-only review batches
 
 Keep initial proposals small and article-by-article, retaining titles, structure, facts and procedural order. Open documentation PRs as **ready for review**, so CodeRabbit (CRAI) can review them automatically. Keep the PR against the restored baseline so reviewers see the actual wording diff. The earlier AI edition can inform the comparison, but is not a replacement to apply wholesale.
