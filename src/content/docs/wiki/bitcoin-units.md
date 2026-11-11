@@ -6,8 +6,15 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#bitcoin-unit-names">Bitcoin unit names</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><span class="wiki-legacy-anchor" id="Bitcoin_unit_names" aria-hidden="true"></span><h2 id="bitcoin-unit-names">Bitcoin unit names</h2>
-<p>Some names have been proposed for different denominations of bitcoin for everyday use. One syllable words are preferred. Capital letter symbols for multiples of Bitcoin, lower case for fractions. Homage to the devs and other influences on the creation of Bitcoin.</p>
+<div class="wiki-recovered-article" lang="en">
+
+<span class="wiki-legacy-anchor" id="Bitcoin_unit_names" aria-hidden="true">
+</span>
+
+## Bitcoin unit names{#bitcoin-unit-names}
+
+Some names have been proposed for different denominations of bitcoin for everyday use. One syllable words are preferred. Capital letter symbols for multiples of Bitcoin, lower case for fractions. Homage to the devs and other influences on the creation of Bitcoin.
+
 <table>
 <caption>Bitcoin unit names and symbols</caption>
 <thead>
@@ -178,4 +185,5 @@ tableOfContents: false
 |-
 | 0.000000000001 || 0.0001 || nak || ns
 |}</code></pre></details>
+
 </div>
