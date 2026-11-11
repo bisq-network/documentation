@@ -18,16 +18,16 @@ Bisq is a [FOSS](../foss/) project. Governance is decentralised through the <spa
 ## List of Teams {#list-of-teams}
 
 - 1\. [Ops Team](../ops-team/) is responsible for operating Bisq infrastructure nodes and other services with high availability, decentralized and censorship-resistant.
-- 2\. [Dev Team](../dev-team/) focused on developing and launching new Bisq releases.
+- 2\. [Dev Team](../dev-team/) is focused on developing and launching new Bisq releases.
 - 3\. [Support Team](../support-team/) is responsible for providing support for Bisq users.
-- 4\. [Growth Team](../growth-team/) focused on promoting and growing Bisq, engaging with current and potential users to improve Bisq.
+- 4\. [Growth Team](../growth-team/) is focused on promoting and growing Bisq, engaging with current and potential users to improve Bisq.
 - 5\. [Security Team](../security-team/) is responsible for keeping an eye on Bisq\'s needs for security - hunt bugs, design counter measures.\..
-- 6\. <span class="wiki-link-gap">Infrastructure Team <small>[unrecovered article: Infrastructure Team]</small></span> is responsable for scaling infrastructure.
-- 7\. <span class="wiki-link-gap">Product Team <small>[unrecovered article: Product Team]</small></span> focused on launching new products, frontends, etc.
-- 8\. <span class="wiki-link-gap">UX Team <small>[unrecovered article: UX Team]</small></span> responsible for improving user experience and making Bisq easy to use.
+- 6\. <span class="wiki-link-gap">Infrastructure Team <small>[unrecovered article: Infrastructure Team]</small></span> is responsible for scaling infrastructure.
+- 7\. <span class="wiki-link-gap">Product Team <small>[unrecovered article: Product Team]</small></span> is focused on launching new products, frontends, etc.
+- 8\. <span class="wiki-link-gap">UX Team <small>[unrecovered article: UX Team]</small></span> is responsible for improving user experience and making Bisq easy to use.
 - 9\. <span class="wiki-link-gap">Projects Team <small>[unrecovered article: Projects Team]</small></span> coordinates projects developed by external contributors, creates bounties, etc.
 - 10\. <span class="wiki-link-gap">Decentralization Team <small>[unrecovered article: Decentralization Team]</small></span> guides the DAO to be more decentralised, guard against corporate capture, automate governance.
-- 11\. <span class="wiki-link-gap">Defense Team <small>[unrecovered article: Defense Team]</small></span> focused on legal, regulatory, privacy and other risks to contributors and the DAO.
+- 11\. <span class="wiki-link-gap">Defense Team <small>[unrecovered article: Defense Team]</small></span> is focused on legal, regulatory, privacy and other risks to contributors and the DAO.
 - 12\. <span class="wiki-link-gap">Financial Team <small>[unrecovered article: Financial Team]</small></span> is responsible for keeping the DAO profitable and markets liquid.
 
 <span class="wiki-legacy-anchor" id="Limits_on_growth" aria-hidden="true">
@@ -56,6 +56,6 @@ Experienced team members should take responsibility for control of new team memb
 
 ## Recruitment {#recruitment}
 
-There are no recruiters for Bisq. People interested in contributing for Bisq should check out the [Contributor Checklist](../contributor-checklist/).
+There are no recruiters for Bisq. People interested in contributing to Bisq should check out the [Contributor Checklist](../contributor-checklist/).
 
 </div>
