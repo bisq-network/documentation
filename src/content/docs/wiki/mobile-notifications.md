@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-A full Bisq mobile app doesn\'t exist yet, but you can get **mobile notifications** from Bisq while it runs on your computer.
+This guide covers the Bisq 1 notification companion, not the separate Bisq Easy mobile trading app. You can get **mobile notifications** from Bisq while it runs on your computer.
 
 The mobile notifications app currently works on iOS and Android devices with Google Play Services; only for Android platform, the latest APK can also be downloaded from the [github repository](https://github.com/bisq-network/bisqremote_Android/releases).
 
@@ -66,6 +66,8 @@ Here’s how trade alerts can be useful:
 Example 1: you’re buying BTC, just sent your deposit, and are waiting for the transaction to hit 1 blockchain confirmation so you can send payment. That can take approximately 10 minutes. Instead of waiting at your screen, you can go have a coffee and let your phone alert you when it’s time to send the fiat currency or altcoin payment.
 
 Example 2: you’re selling BTC, and you’re waiting for your trading partner to send you fiat currency or altcoin payment. It might take them minutes or hours. Instead of repeatedly checking your desktop Bisq app for updates, your mobile device will simply push an alert as soon as your trading partner marks their payment as sent, so you can then check for the payment and promptly complete the trade.
+
+A payment-started notification only reports the buyer\'s action; check your own bank or payment-provider account before confirming receipt and releasing BTC. Keep the desktop online and respond to trades even if no push notification arrives.
 
 <span class="wiki-legacy-anchor" id="Offer_alerts" aria-hidden="true">
 </span>
