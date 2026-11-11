@@ -53,7 +53,8 @@ reviews:
   # Exclusions only: an include pattern would restrict the review to the
   # matching files. Everything listed is immutable or generated. Files that
   # people edit during review (review/PROPOSAL-INDEX.md, review/proposal-coverage.json,
-  # migration/accepted-edits.json, migration/source-formatting.json,
+  # migration/accepted-edits.json and its receipts in migration/accepted-edits/,
+  # migration/source-formatting.json,
   # migration/source-review-notes.json and the small repair records) stay in scope.
   # So does the restoration receipt, migration/restoration-fidelity.json: any change
   # to it must draw a comment (see path_instructions).
@@ -122,7 +123,9 @@ reviews:
         other check-*.mjs scripts. Flag any change that:
         - skips, loosens or removes an assertion or a hash comparison;
         - lets an article body change without a reviewed accepted-edit receipt in
-          migration/accepted-edits.json;
+          migration/accepted-edits/;
+        - lets an approval count from someone who is not a reviewer listed in the
+          base's migration/accepted-edits.json;
         - rewrites or rehashes a restoration receipt, a raw export or a snapshot
           so that a check passes;
         - catches and ignores an error, or turns a failure into a warning.
@@ -167,17 +170,25 @@ reviews:
         articles. It must not change in any pull request. Flag every modification
         as a problem, and quote the changed slugs or hashes. State that
         restoration receipts are never rehashed or edited to make a check pass;
-        accepted wording changes go through migration/accepted-edits.json instead.
+        accepted wording changes go through receipts in migration/accepted-edits/ instead.
 
     - path: "migration/accepted-edits.json"
       instructions: |
-        Each item is a receipt for one human-approved wording change to one
-        article, and the only way an article body may differ from the preserved
-        original. Flag any change that lowers `required_approvals`, edits or
-        removes an existing receipt, or adds a receipt whose `pull_request`
-        does not point to the pull request that approved the wording, whose
-        approvals are not distinct people other than the author, or whose
-        `changes` do not list the exact replaced text.
+        The settings for accepted-edit receipts: `required_approvals` and the
+        `reviewers` whose approval counts. Flag any change that lowers
+        `required_approvals` or adds or removes a reviewer, and say that such a
+        change needs the maintainers' explicit agreement. It must not hold the
+        receipts themselves.
+
+    - path: "migration/accepted-edits/**"
+      instructions: |
+        Each file is a receipt for one human-approved wording change to one
+        article, named <slug>.pr-<number>.json, and the only way an article body
+        may differ from the preserved original. Flag any change that edits or
+        removes an existing receipt, or adds a receipt whose `pull_request` does
+        not point to this pull request, whose approvals are not reviewers other
+        than the author, or whose `summary` reads like an endorsement or does not
+        describe the change.
 
   tools:
     # They would flag original wiki prose and markup as wording or style issues.
