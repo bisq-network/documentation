@@ -130,7 +130,7 @@ Once you receive payment from the BTC Buyer you should confirm payment has been 
 
 ## Are there any limits for me to be aware of when using my Paxum account? {#are-there-any-limits-for-me-to-be-aware-of-when-using-my-paxum-account}
 
-None
+Paxum\'s published FAQ limits personal accounts to five P2P transfers per day. Its receiving and business-account rules differ; verify your account type and current allowances before trading.
 
 <span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_Paxum_account?" aria-hidden="true">
 </span>

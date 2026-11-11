@@ -128,7 +128,7 @@ The maximum amount of transactions you can receive using Bizum is 2000 Euros per
 - Minimum amount per operation: €0.50
 - Maximum amount per operation: €1,000
 - Amount of operations received per client per day: €2,000
-- Number of operations issued and received by a client in a month: 150 operations
+- Number of operations received by a client in a month: 60 operations, according to Bizum\'s current FAQ; check any additional limits imposed by your bank.
 - Maximum number of recipients to be included in a multiple request/remittance: 30 recipients
 - Duration of pending remittance to a Non-Client: 2 days
 - Duration of the pending request to a Non-Client: 7 days

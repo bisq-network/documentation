@@ -136,7 +136,7 @@ Please checked that the payment received description matches the Pix Key provide
 
 ## Are there any limits for me to be aware of when using my Pix account? {#are-there-any-limits-for-me-to-be-aware-of-when-using-my-pix-account}
 
-None.
+Pix transfers can have limits set by the institution, including time-of-day and device restrictions. Check your own available sending limit before taking an offer; Banco Central do Brasil does not describe Pix as universally unlimited.
 
 <span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_Pix_account?" aria-hidden="true">
 </span>
