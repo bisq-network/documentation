@@ -10,7 +10,7 @@ tableOfContents: false
 
 **PayTM** is a payment method added in Bisq v1.7.5.
 
-PayTM is an e-commerce payment system and financial technology company, based in India. PayTM has around 350 million users. Users can send funds to each other via the PayTM wallet.
+PayTM is an e-commerce payment system and financial technology company, based in India. PayTM has around 350 million users. The instructions below describe the PayTM wallet. RBI states that Paytm Payments Bank accounts and wallets could not accept further credits after 15 March 2024. This is distinct from the Paytm app using UPI through another bank; do not assume that a working UPI app makes an old PAYTM-wallet offer usable.
 
 <span class="wiki-legacy-anchor" id="Where_can_I_find_out_more_about_PayTM?" aria-hidden="true">
 </span>
