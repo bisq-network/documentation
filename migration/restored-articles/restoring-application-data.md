@@ -1,0 +1,68 @@
+---
+title: "Restoring application data"
+slug: "wiki/restoring-application-data"
+tableOfContents: false
+---
+
+<nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#restore-an-entire-data-directory">Restore an entire data directory</a></li><li><a href="#restore-payment-accounts">Restore payment accounts</a></li><li><a href="#restore-payment-account-metadata">Restore payment account metadata</a></li><li><a href="#restore-payment-account-aging-and-signing-status">Restore payment account aging and signing status</a></li><li><a href="#restore-onion-address">Restore onion address</a></li><li><a href="#restore-trade-history">Restore trade history</a></li><li><a href="#restore-wallet">Restore wallet</a></li></ul></details></nav>
+
+<div class="wiki-recovered-article" lang="en"><p><strong>Restoring application data</strong> can be useful to bring back payment accounts, onion addresses, and other items from a <a href="../backing-up-application-data/">backup</a>—or to move your Bisq instance to an entirely new machine.</p>
+<p>You can restore an entire data directory at once, or just the parts you want.</p>
+<span class="wiki-legacy-anchor" id="Restore_an_entire_data_directory" aria-hidden="true"></span><h2 id="restore-an-entire-data-directory"> Restore an entire data directory </h2>
+<p>First make sure Bisq is closed. Then copy the entire <code class="wiki-source-code" id="source-code-1">Bisq</code> directory from your backup and paste it in your machine's <a href="../data-directory/#default-locations">default data directory location</a>. If there already is a directory called <code class="wiki-source-code" id="source-code-2">Bisq</code> there, remove it (or rename it) and replace it with your backup.</p>
+<p>Data directories work across operating systems, so you can copy a data directory created on a Mac to the appropriate location on Linux or Windows, and it will work.</p>
+<p>Please <strong>do not</strong> run the same data directory on 2 machines at the same time, even if you don't run both instances at the same time, as data may get corrupted in strange ways.</p>
+<span class="wiki-legacy-anchor" id="Restore_payment_accounts" aria-hidden="true"></span><h2 id="restore-payment-accounts"> Restore payment accounts </h2>
+<p>A <a href="../backing-up-application-data/#back-up-payment-accounts">payment account export</a> only contains metadata (name, bank information, etc). For fiat accounts, this means that restoring payment accounts is a 2-step process.</p>
+<span class="wiki-legacy-anchor" id="Restore_payment_account_metadata" aria-hidden="true"></span><h3 id="restore-payment-account-metadata"> Restore payment account metadata </h3>
+<p>If you have a payment accounts export file, import it in <code class="wiki-source-code" id="source-code-3">Account</code> &gt; <code class="wiki-source-code" id="source-code-4">National Currency Accounts</code>.</p>
+<p>If you don't have an export file, but you do have a full backup, you can salvage your payment account metadata from <code class="wiki-source-code" id="source-code-5">btc_mainnet/db/UserPayload</code> by running the <code class="wiki-source-code" id="source-code-6">strings</code> utility on the <code class="wiki-source-code" id="source-code-7">UserPayload</code> file (e.g., run <code class="wiki-source-code" id="source-code-8">strings /path/to/backup/btc_mainnet/db/UserPayload</code> in a terminal window). The command will output a simplified version of the <code class="wiki-source-code" id="source-code-9">UserPayload</code> file to your terminal. Scroll up a bit and you should see your payment account information.</p>
+<p>Use the output to copy and paste the details into new payment accounts in Bisq, paying special attention to make sure each field is copied over with 100% accuracy (including the salt): even a 1 character difference in any field will cause the hash of the payment account to be different, which means aging and signing status will not be restored in the following step.</p>
+<p>There are quirks. Here's an example of output from a <code class="wiki-source-code" id="source-code-10">strings</code> command:</p>
+<p><code>SEPA</code><br>
+<code>Alice Liddell</code><br>
+<code>DE89370400440532013000</code><br>
+<code>DEUTDE5X*</code><br>
+<code>SKzH</code><br>
+<code>salt</code><br>
+<code>@56655c3738ea9dea3b20f482fff048985a2757e57dff206fbd9e8c4f267f7781</code></p>
+<p>From the output above:</p>
+<ul>
+<li>Be wary of extra characters at the beginning or end of a line. In the example above, the <code class="wiki-source-code" id="source-code-11">*</code> character is not part of the BIC "DEUTDE5X".</li>
+<li>Salts are alphanumeric, so the <code class="wiki-source-code" id="source-code-12">@</code> is not part of the salt "56655c3738ea9dea3b20f482fff048985a2757e57dff206fbd9e8c4f267f7781".</li>
+</ul>
+<p>If you're on Windows, or cannot use the <code class="wiki-source-code" id="source-code-13">strings</code> utility for some other reason, you can just open <code class="wiki-source-code" id="source-code-14">UserPayload</code> directly in a text editor, but there will be more cruft to sift through since the file isn't meant to be human-readable.</p>
+<p>It may be tempting to just replace the entire <code class="wiki-source-code" id="source-code-15">UserPayload</code> file from a backup, but this is <strong>not recommended</strong>, as it may contain other data that could result in data corruption in your new instance.</p>
+<span class="wiki-legacy-anchor" id="Restore_payment_account_aging_and_signing_status" aria-hidden="true"></span><h3 id="restore-payment-account-aging-and-signing-status"> Restore payment account aging and signing status </h3>
+<p>Once you've restored your payment account metadata, you'll see the accounts in Bisq, but they'll have no aging or signing status.</p>
+<p>You can get aging and signing status back by replacing <code class="wiki-source-code" id="source-code-16">btc_mainnet/keys/sig.key</code> from your backup.</p>
+<ol>
+<li>Make sure you have no active offers, trades or disputes; once you change <code class="wiki-source-code" id="source-code-17">sig.key</code>, you will become unreachable.</li>
+<li>Close Bisq. Also make sure you've made a <a href="../backing-up-application-data/">backup of your data directory</a> (just in case).</li>
+<li>Replace <code class="wiki-source-code" id="source-code-18">/path/to/data/directory/btc_mainnet/keys/sig.key</code> with the <code class="wiki-source-code" id="source-code-19">sig.key</code> from your backup.</li>
+</ol>
+<p>Upon opening Bisq, you should see account aging and signing status restored for your fiat payment accounts.</p>
+<p>If you don't, double-check:</p>
+<ul>
+<li>You copied account metadata and salt correctly <a href="../restoring-application-data/#restore-payment-account-metadata">in the previous step</a>.</li>
+<li>The <code class="wiki-source-code" id="source-code-20">sig.key</code> you copied is the correct one (i.e., the one you were using when your accounts accrued aging and/or got signed)</li>
+</ul>
+<span class="wiki-legacy-anchor" id="Restore_onion_address" aria-hidden="true"></span><h2 id="restore-onion-address"> Restore onion address </h2>
+<p>Your onion address determines your <a href="../local-reputation/">local reputation</a>, so depending on your preferences, you may want to reset it or restore it over time.</p>
+<p>If you want to restore it:</p>
+<ul>
+<li>Close Bisq. Also make sure you've made a <a href="../backing-up-application-data/">backup of your data directory</a> (just in case).</li>
+<li>Replace the <code class="wiki-source-code" id="source-code-21">/path/to/data/directory/btc_mainnet/tor/hiddenservices/</code> folder with the <code class="wiki-source-code" id="source-code-22">btc_mainnet/tor/hiddenservices/</code> folder from your backup.</li>
+</ul>
+<p>When you open Bisq, your onion address will be restored.</p>
+<p>This means that the peers that have traded with you will see <a href="../local-reputation/">bubbles with trade counts</a> in their offer books for <em>your</em> offers.</p>
+<span class="wiki-legacy-anchor" id="Restore_trade_history" aria-hidden="true"></span><h2 id="restore-trade-history"> Restore trade history </h2>
+<p>You may want to keep your trade history despite changing wallets. You can do so by:</p>
+<ul>
+<li>Closing Bisq.</li>
+<li>Replacing the <code class="wiki-source-code" id="source-code-23">/path/to/data/directory/btc_mainnet/db/ClosedTrades</code> file on your new directory with the file from backup with the same name.</li>
+</ul>
+<p>You will see <a href="../local-reputation/">bubbles with trade counts</a> in the offer books for any any peers you traded with.</p>
+<span class="wiki-legacy-anchor" id="Restore_wallet" aria-hidden="true"></span><h2 id="restore-wallet"> Restore wallet </h2>
+<p>It's good to start with a <a href="../create-a-new-wallet-for-your-data-directory/">clean wallet</a> every so often, because Bisq wallets use the bitcoinj library, which causes wallet files to get increasingly larger with every transaction. Wallet corruption becomes increasingly likely and performance suffers (e.g. long startup times). If starting a new data directory, it's generally best to just send funds from one Bisq instance to another with an on-chain transaction.</p>
+</div>
