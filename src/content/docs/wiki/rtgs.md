@@ -40,7 +40,7 @@ RTGS supports INR currency.
 
 ## What is the maximum trading duration for RTGS? {#what-is-the-maximum-trading-duration-for-rtgs}
 
-The maximum trade time is X days. Generally RTGS transfers will be completed within X days.
+Bisq 1 v1.10.11 sets the RTGS trade period to 1 day. This is the client deadline, not a guaranteed bank processing time.
 
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_RTGS_trade?" aria-hidden="true">
 </span>

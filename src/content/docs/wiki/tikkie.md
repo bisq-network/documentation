@@ -31,7 +31,7 @@ Tikkie supports the following currencies;
 
 ## What is the maximum trading duration for Tikkie? {#what-is-the-maximum-trading-duration-for-tikkie}
 
-The maximum trade time is X days. Generally Tikkie transfers will be completed within X days.
+Bisq 1 v1.10.11 sets the Tikkie trade period to 1 day. This is the client deadline; provider processing and eligibility must be checked separately.
 
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_Tikkie_trade?" aria-hidden="true">
 </span>

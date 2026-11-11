@@ -40,7 +40,7 @@ NEFT supports INR currency.
 
 ## What is the maximum trading duration for NEFT? {#what-is-the-maximum-trading-duration-for-neft}
 
-The maximum trade time is X days. Generally NEFT transfers will be completed within X days.
+Bisq 1 v1.10.11 sets the NEFT trade period to 1 day. This is the client deadline, not a guaranteed bank processing time.
 
 <span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_NEFT_trade?" aria-hidden="true">
 </span>
