@@ -78,6 +78,13 @@ export async function loadSatteri(root = process.cwd()) {
   return import(pathToFileURL(createRequire(resolve(dir, "package.json")).resolve("satteri")).href);
 }
 
+/** Astro's own front-matter parser (text -> { frontmatter, content }), as the content layer reads .md files. */
+export async function loadFrontmatterParser(root = process.cwd()) {
+  const astroDir = sitePackages(root).astro;
+  const helpers = createRequire(resolve(astroDir, "package.json")).resolve("@astrojs/internal-helpers/frontmatter");
+  return (await import(pathToFileURL(helpers).href)).parseFrontmatter;
+}
+
 export async function createSiteMarkdownRenderer(root = process.cwd()) {
   assertVerifiedVersions(root);
   const astroDir = sitePackages(root).astro;

@@ -4,9 +4,16 @@ import { readFileSync } from "node:fs";
 import archive from "../migration/archive-templates-20261014.json" with { type: "json" };
 import derived from "../migration/template-renderings-20261014.json" with { type: "json" };
 import { renderArticle } from "./lib/render-markdown.mjs";
+import { htmlParser } from "./lib/rendered-html.mjs";
+import { templateHtmlProblem } from "./lib/template-html.mjs";
 
 // The placements are counted on each article's rendered page, where
 // src/components/SourceHistory.astro replaces them, so Markdown articles count as well.
+// The renderings are preserved materials (scripts/lib/immutable-materials.mjs); as a
+// second line, the HTML they put into articles may use only the elements and
+// attributes that historical templates need, links only to http(s), relative or
+// same-page targets and images only from the recovered media.
+const parse = await htmlParser();
 
 const hash = (text) => createHash("sha256").update(text).digest("hex");
 const decode = (value) => value.replace(/&#(x[\da-f]+|\d+);|&(amp|lt|gt|quot|apos);/gi, (all, numeric, named) => numeric ? String.fromCodePoint(numeric[0].toLowerCase() === "x" ? parseInt(numeric.slice(1), 16) : Number(numeric)) : { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'" }[named.toLowerCase()]);
@@ -20,6 +27,8 @@ for (const item of derived.items) {
   assert.equal(hash(readFileSync(`public${item.source_download}`)), item.definition_sha256, `definition changed: ${item.name}`);
   assert.equal(item.definition_sha256, definition.wikitext_sha256);
   assert.equal(hash(item.html), item.rendered_sha256, `derived HTML changed: ${item.invocation}`);
+  const problem = templateHtmlProblem(parse(item.html));
+  assert.ok(!problem, `derived HTML of ${item.invocation} is not plain template HTML: ${problem}`);
   assert.ok(item.articles.length);
   for (const slug of new Set(item.articles)) {
     assert.match(slug, /^[a-z0-9-]+$/);
