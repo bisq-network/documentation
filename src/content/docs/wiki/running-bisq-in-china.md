@@ -6,4 +6,37 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#requirements">Requirements</a></li><li><a href="#steps-for-bisq1">Steps for Bisq1</a></li><li><a href="#steps-for-bisq2">Steps for Bisq2</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>The <a href="https://en.wikipedia.org/wiki/Great_Firewall" rel="noopener noreferrer">Great Firewall of China</a> (GFW) makes it difficult to run Bisq from within mainland China.</p>&#10;<p>This article outlines a workaround.</p>&#10;<span class="wiki-legacy-anchor" id="Requirements" aria-hidden="true"></span><h2 id="requirements"> Requirements </h2>&#10;<p>You will need a working solution to access the internet already available to you, for example a VPN or a local proxy, and know its IP and port number; Bisq will be made to use that proxy to reach the Tor entry nodes.</p>&#10;<p>Alternatively to the following, also look into the SSTap software bundle, which users report to have successfully implemented to connect to Bisq.</p>&#10;<span class="wiki-legacy-anchor" id="Steps_for_Bisq1" aria-hidden="true"></span><h2 id="steps-for-bisq1"> Steps for Bisq1 </h2>&#10;<p>You will edit the <code class="wiki-source-code" id="source-code-1">torrc</code> default settings that Bisq uses to connect to Tor, and to this extent you will modify a file inside the main <code class="wiki-source-code" id="source-code-2">jar</code> file of the application, <code class="wiki-source-code" id="source-code-3">desktop-''version-number''-all.jar</code> Depending on your operating system, this is where it should be locatedː</p>&#10;<ul>&#10;<li>Windowsː <code class="wiki-source-code" id="source-code-4">Cː\Users\&lt;yourusername&gt;\AppData\Local\Bisq\app\</code></li>&#10;<li>Linuxː <code class="wiki-source-code" id="source-code-5">/opt/bisq/lib/app/</code></li>&#10;<li>MacOSː <code class="wiki-source-code" id="source-code-6">$Home/Applications/Bisq.app/Contents/app/</code></li>&#10;</ul>&#10;<p>A <code class="wiki-source-code" id="source-code-7">jar</code> file is actually a zipped archive, that you can open with 7zip (a mac user reported WinZip working as well); inside the root of this archive, there is a file named <code class="wiki-source-code" id="source-code-8">torrc</code> that you have to open in a text editor; its contents will be likeː</p>&#10;<p><code>ControlPort auto</code><br>&#10;<code>CookieAuthentication 1</code><br>&#10;<code>DisableNetwork 1</code><br>&#10;<code>AvoidDiskWrites 1</code><br>&#10;<code>RunAsDaemon 1</code><br>&#10;<code>SOCKSPort auto</code></p>&#10;<p>Addː</p>&#10;<p><code>Socks5Proxy YourProxyIP:port</code></p>&#10;<p>on a new line, then save the file and make sure your archiving application updates the archive, then start Bisq.</p>&#10;<span class="wiki-legacy-anchor" id="Steps_for_Bisq2" aria-hidden="true"></span><h2 id="steps-for-bisq2"> Steps for Bisq2 </h2>&#10;<p>As above, pending the existence of a working solution to access the internet, this is how you can set a custom SOCKS5 proxy.</p>&#10;<p>Edit the <code class="wiki-source-code" id="source-code-9">bisq.conf</code> file in the root of the Bisq2 data directory (same path as Bisq1 data directory, but ending with "2") adding what follows:</p>&#10;<p><code>application {</code><br>&#10;<code>  network {</code><br>&#10;<code>    configByTransportType.tor {</code><br>&#10;<code>      torrcOverrides {</code><br>&#10;<code>        Socks5Proxy="ProxyIP:port"</code><br>&#10;<code>      }</code><br>&#10;<code>   }</code><br>&#10;<code>}</code></p>&#10;</div>
+<div class="wiki-recovered-article" lang="en"><p>The <a href="https://en.wikipedia.org/wiki/Great_Firewall" rel="noopener noreferrer">Great Firewall of China</a> (GFW) makes it difficult to run Bisq from within mainland China.</p>
+<p>This article outlines a workaround.</p>
+<span class="wiki-legacy-anchor" id="Requirements" aria-hidden="true"></span><h2 id="requirements"> Requirements </h2>
+<p>You will need a working solution to access the internet already available to you, for example a VPN or a local proxy, and know its IP and port number; Bisq will be made to use that proxy to reach the Tor entry nodes.</p>
+<p>Alternatively to the following, also look into the SSTap software bundle, which users report to have successfully implemented to connect to Bisq.</p>
+<span class="wiki-legacy-anchor" id="Steps_for_Bisq1" aria-hidden="true"></span><h2 id="steps-for-bisq1"> Steps for Bisq1 </h2>
+<p>You will edit the <code class="wiki-source-code" id="source-code-1">torrc</code> default settings that Bisq uses to connect to Tor, and to this extent you will modify a file inside the main <code class="wiki-source-code" id="source-code-2">jar</code> file of the application, <code class="wiki-source-code" id="source-code-3">desktop-''version-number''-all.jar</code> Depending on your operating system, this is where it should be locatedː</p>
+<ul>
+<li>Windowsː <code class="wiki-source-code" id="source-code-4">Cː\Users\&lt;yourusername&gt;\AppData\Local\Bisq\app\</code></li>
+<li>Linuxː <code class="wiki-source-code" id="source-code-5">/opt/bisq/lib/app/</code></li>
+<li>MacOSː <code class="wiki-source-code" id="source-code-6">$Home/Applications/Bisq.app/Contents/app/</code></li>
+</ul>
+<p>A <code class="wiki-source-code" id="source-code-7">jar</code> file is actually a zipped archive, that you can open with 7zip (a mac user reported WinZip working as well); inside the root of this archive, there is a file named <code class="wiki-source-code" id="source-code-8">torrc</code> that you have to open in a text editor; its contents will be likeː</p>
+<p><code>ControlPort auto</code><br>
+<code>CookieAuthentication 1</code><br>
+<code>DisableNetwork 1</code><br>
+<code>AvoidDiskWrites 1</code><br>
+<code>RunAsDaemon 1</code><br>
+<code>SOCKSPort auto</code></p>
+<p>Addː</p>
+<p><code>Socks5Proxy YourProxyIP:port</code></p>
+<p>on a new line, then save the file and make sure your archiving application updates the archive, then start Bisq.</p>
+<span class="wiki-legacy-anchor" id="Steps_for_Bisq2" aria-hidden="true"></span><h2 id="steps-for-bisq2"> Steps for Bisq2 </h2>
+<p>As above, pending the existence of a working solution to access the internet, this is how you can set a custom SOCKS5 proxy.</p>
+<p>Edit the <code class="wiki-source-code" id="source-code-9">bisq.conf</code> file in the root of the Bisq2 data directory (same path as Bisq1 data directory, but ending with "2") adding what follows:</p>
+<p><code>application {</code><br>
+<code>  network {</code><br>
+<code>    configByTransportType.tor {</code><br>
+<code>      torrcOverrides {</code><br>
+<code>        Socks5Proxy="ProxyIP:port"</code><br>
+<code>      }</code><br>
+<code>   }</code><br>
+<code>}</code></p>
+</div>
