@@ -4,15 +4,24 @@ slug: "wiki/set-up-a-sepa-payment-account"
 tableOfContents: false
 ---
 
-<div class="wiki-recovered-article" lang="en"><p>First download, install Bisq and create a backup (copy seed words - see <a href="../how-to-back-up-your-bisq-wallet-seed/">How to back up your Bisq wallet seed</a>).</p>
-<p>Now you can set up a <a href="../fiat/">fiat</a> payment account, that you will use to pay or receive payments when trading on Bisq.</p>
-<p>1. Go to <strong>Account</strong> tab on Bisq</p>
-<p>2. Click on <strong>Add new Account</strong></p>
-<p>3. Select <strong>SEPA</strong> as your payment method</p>
-<p>4. Enter your bank details, including IBAN, BIC and account user name.</p>
-<p>5. Click on <strong>Save New Account</strong>.</p>
-<p>You can now go to <strong>Market</strong> tab and start buying and selling. See <a href="../how-to-buy-btc-on-bisq-with-eur/">How to buy BTC on Bisq with EUR</a>.</p>
-<ul>
-<li>For more short guides see <a href="../howto/">Howto</a>. You can also find support on <strong><a href="https://bisq.chat" rel="noopener noreferrer">Matrix</a></strong>.</li>
-</ul>
+<div class="wiki-recovered-article" lang="en">
+
+First download, install Bisq and create a backup (copy seed words - see [How to back up your Bisq wallet seed](../how-to-back-up-your-bisq-wallet-seed/)).
+
+Now you can set up a [fiat](../fiat/) payment account, that you will use to pay or receive payments when trading on Bisq.
+
+1\. Go to **Account** tab on Bisq
+
+2\. Click on **Add new Account**
+
+3\. Select **SEPA** as your payment method
+
+4\. Enter your bank details, including IBAN, BIC and account user name.
+
+5\. Click on **Save New Account**.
+
+You can now go to **Market** tab and start buying and selling. See [How to buy BTC on Bisq with EUR](../how-to-buy-btc-on-bisq-with-eur/).
+
+- For more short guides see [Howto](../howto/). You can also find support on **[Matrix](https://bisq.chat)**.
+
 </div>
