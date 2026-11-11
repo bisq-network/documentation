@@ -66,12 +66,7 @@ Bisq support agents play a vital role in assisting users who encounter issues. I
 - Dedicate 10 hours per week to monitor various support channels and provide assistance.
 - Be familiar with Bisq\'s current \[knowledge base\] documents.
 
-If you\'re interested in becoming a support agent, see the <a href="../support-agent/#internship"></a>
-
-<ol><a href="../support-agent/#internship">
-<li>Internship</li>
-</a></ol><a href="../support-agent/#internship">
-</a> section below.<p></p>
+If you\'re interested in becoming a support agent, see the [Internship](../support-agent/#internship) section below.
 
 <span class="wiki-legacy-anchor" id="Infrastructure" aria-hidden="true">
 </span>

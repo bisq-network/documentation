@@ -10,12 +10,7 @@ tableOfContents: false
 
 The **Ops Team** is responsible for operating Bisq infrastructure nodes and other Bisq services with high availability, in a decentralized and censorship-resistant manner, while respecting the privacy and freedom of all Bisq users.
 
-See the individual <a href="../ops-team/#roles"></a>
-
-<ol><a href="../ops-team/#roles">
-<li>Roles</li>
-</a></ol><a href="../ops-team/#roles">
-</a> below for further details.<p></p>
+See the individual [Roles](../ops-team/#roles) below for further details.
 
 <span class="wiki-legacy-anchor" id="Roles" aria-hidden="true">
 </span>
