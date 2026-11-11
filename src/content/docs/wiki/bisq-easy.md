@@ -124,7 +124,7 @@ Sellers of Bisq Easy will however have to build up their [reputation](../reputat
 
 ## How to buy bitcoin on Bisq Easy {#how-to-buy-bitcoin-on-bisq-easy}
 
-Buying Bitcoin with Bisq Easy is recommended for small fiat amounts, or as a starting point if you still have no Bitcoin that you can use for the security deposits of other trade protocols.
+Buying Bitcoin with Bisq Easy is recommended for small fiat amounts, or as a starting point if you still have no Bitcoin that you can use for the security deposits of other trade protocols. Before accepting an offer, prepare a receiving wallet you control and protect its recovery information separately from Bisq 2 application data.
 
 You can opt for two ways to find a trading partner to get some Bitcoin: taking an existing offer or creating one.
 
@@ -252,7 +252,7 @@ Trade process for Bisq Easy is as follows:
 - Once the traders have agreed on the trade terms (e.g. payment method and trade price) the trade starts.
 - The seller transmits the payment account details to the buyer (e.g. bank account number). The buyer sends the BTC address to the seller.
 - The buyer starts the Fiat payment to the seller\'s account and sends the seller a message that the payment is in transit.
-- Once the seller has received the Fiat payment they send the Bitcoin to the buyer\'s address.
+- The seller checks actual payment receipt in their own bank or payment-provider account before sending Bitcoin to the buyer\'s address. A buyer\'s message or screenshot alone is not that receipt check.
 - After the buyer receives the Bitcoin the trade is completed.
 
 <span class="wiki-legacy-anchor" id="Trade_Rules" aria-hidden="true">
@@ -263,9 +263,9 @@ Trade process for Bisq Easy is as follows:
 Bisq Easy trading rules are as follows:
 
 - Before the payment details are exchanged the trade can be canceled by any party without justification.
-- After the payment details are exchanged, not fulfilling the trade obligations is considered a breach of the trade contract and can lead to getting banned from the network.
+- After the payment details are exchanged, not fulfilling the trade obligations is considered a breach of the trade contract and can lead to getting banned from the network; the v2.1.15 rule makes an exception if the trade peer is unresponsive.
 - When sending the Fiat, the buyer MUST leave the payment reason field blank, or, if that is not possible, fill it with their own name, and MUST NOT use any term related to \'Bitcoin\', \'Bisq\' or \'Trade\'.
-- If the trade cannot be completed instantly because the Fiat transfer takes longer, both traders have to be online at least once a day to follow up the trade process.
+- If the trade cannot be completed instantly because the Fiat transfer takes longer, both traders have to be online at least once a day to follow up the trade process. The v2.1.15 rules also require replies within 24 hours and make the sender responsible for fees charged by the sender\'s bank.
 - If there are any open questions or problems the traders can use the support chat, invite a mediator into their trade chat or get in touch with Bisq support team on the [Matrix channel](../matrix-bisq-chat/).
 
 <span class="wiki-legacy-anchor" id="Chat_Rules" aria-hidden="true">
@@ -307,7 +307,7 @@ Bitcoin buyers send the fiat payment before sending any bitcoin. For this reason
 3. Choose a seller with a high reputation. The higher the reputation of the seller the better. Sellers need a minimum reputation score of 30,000, ideally you should be choosing to trade with someone higher than this. Look at the star system for guidance. It will be safer to trade with a 5 star rated seller than a 1 star rated seller.
 4. Send payment as soon as possible once you have the seller\'s account details.
 5. Only send payment to the account details provided by the Seller in the trade chat window. If the seller is trying to change the account they want you to send payment to, it would be better to cancel the trade and open a new trade with another seller.
-6. Place the trade ID from Bisq Easy in the payment reason.
+6. Leave the payment reason blank if possible; if the provider requires a value, use your own name. Never include Bisq or Bitcoin.
 7. Send the payment from the same account you share the information with in trader chat. For example if you are having problems with the payment do not send payment from your partners, business, friends etc account. Instead try and resolve the issue so you can send payment from the correct account and failing that open mediation to get additional support.
 8. Keep the trade chat limited to using Bisq 2. Do not communicate with the seller via WhatsApp, Matrix etc as it will make mediation much harder if there is an issue.
 9. Avoid trading off platform with any Bisq sellers.
