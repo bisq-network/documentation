@@ -17,6 +17,8 @@ Unlike most operating systems, <a href="https://tails.boum.org/about/" rel="noop
 
 [Tails runs *entirely* in memory.](https://tails.boum.org/about/)
 
+**Version compatibility:** the script below predates Bisq 1 v1.10.11. That release rejects its `torControlPort`, `torControlCookieFile` and `torControlUseSafeCookieAuth` options outside special Whonix handling; do not run the script unchanged on v1.10.11. A current Tails port must review the external-Tor configuration and cookie-permission changes while retaining persistent wallet data.
+
 <a href="https://tails.boum.org/about/" rel="noopener noreferrer">
 </a> When Tails shuts down, memory contents are deleted, restoring the OS to its original state. Only files saved to the <a href="https://tails.boum.org/doc/persistent_storage/" rel="noopener noreferrer">Persistent Storage</a> survive a reboot.<p></p>
 
