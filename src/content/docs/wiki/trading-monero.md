@@ -48,7 +48,7 @@ Since transaction keys and destination addresses are stored in Monero wallet sof
 To verify that a certain sum of Monero was sent to a specific address:
 
 - Monero GUI: change wallet to Advanced mode and go to <code class="wiki-source-code" id="source-code-3">Advanced</code> > <code class="wiki-source-code" id="source-code-4">Prove/check</code> > <code class="wiki-source-code" id="source-code-5">Check Transaction</code>
-- Monero CLI: use the command <code class="wiki-source-code" id="source-code-6">check_tx_key \<TXID> \<TXKEY ADDRESS></code>
+- Monero CLI: use the command <code class="wiki-source-code" id="source-code-6">check_tx_key \<TXID> \<TXKEY> \<ADDRESS></code>
 
 * [Monero.com explorer](https://monero.com/explorer) - working checked 17.10.23
 * [P2pool explorer](https://p2pool.io/explorer/) - working checked 17.10.23
@@ -72,7 +72,7 @@ This feature is currently available for XMR trades where:
 
 Auto confirming works very well most of the time. However on some occasions users might be manually required to confirm payment, for example then the incorrect data is supplied by the BTC buyer.
 
-By default auto-confirming trades is turned on in the Bisq app, if you wist to turn if off it can be done in Settings > Preferences:
+In Bisq 1 v1.10.11, XMR auto-confirmation is disabled by default. Check or change your saved setting in Settings > Preferences; an existing installation may retain different preferences.
 
 <figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/b75fd0e6e142b52742239c81d39b9cbd745acb10a54024fffcaf8480e971cdca.png"><img alt="XMR auto confirm" decoding="async" height="318" loading="lazy" src="../../media/wiki/b75fd0e6e142b52742239c81d39b9cbd745acb10a54024fffcaf8480e971cdca.png" width="1456"></a><figcaption>XMR auto confirm<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 
@@ -124,7 +124,7 @@ If mediation or arbitration is open for a trade, auto-confirm will not confirm t
 
 On the Bisq settings screen, you can set:
 
-- Maximum amount of BTC that can be confirmed per trade (default: 1 BTC)
+- Maximum amount of BTC that can be confirmed per trade (Bisq 1 v1.10.11 default: 0.125 BTC)
 - Monero Explorer node address (default: nodes run by Bisq contributors; see [below](../trading-monero/#set-up-your-own-node) for how to run your own)
 - Number of required confirmations (default: 5)
 
