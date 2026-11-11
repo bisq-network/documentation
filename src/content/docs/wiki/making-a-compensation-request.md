@@ -190,7 +190,7 @@ Please copy your transaction ID and paste it as comment on your GitHub issue thu
 
 ### Fees and other costs {#fees-and-other-costs}
 
-A compensation request is a type of proposal, and proposals cost a fee to make in the Bisq DAO. Currently that fee is 2 BSQ. Since a compensation request is intended to issue new BSQ, you’ll also need to include a small amount of bitcoin to be colored into BSQ if your proposal is accepted—100 satoshis × \[requested BSQ amount\]. See more details in the [User Reference](../dao-user-reference/#proposal-phase).
+A compensation request is a type of proposal, and proposals cost a fee to make in the Bisq DAO. The Bisq 1 v1.10.11 source sets a default proposal fee of 2 BSQ; DAO parameters can change, so check the current fee shown in the application before submitting. Since a compensation request is intended to issue new BSQ, you’ll also need to include a small amount of bitcoin to be colored into BSQ if your proposal is accepted—100 satoshis × \[requested BSQ amount\]. See more details in the [User Reference](../dao-user-reference/#proposal-phase).
 
 Also remember that Bisq DAO proposals are Bitcoin transactions, so it costs mining fees and takes time for them to be confirmed. Consider watching mining fees to broadcast your proposal at a reasonable cost. Waiting until late in the proposal phase to submit may cause it to not be confirmed in time.
 

@@ -41,7 +41,7 @@ You can see approximate start and end dates for the current voting cycle at <cod
 
 In order to participate in DAO voting, you will need BSQ. See how to acquire BSQ [in this article](../paying-trading-fees-with-bsq/#acquire-bsq).
 
-As of this writing, making a proposal costs 2 BSQ and casting a ballot (voting) costs 2 BSQ. You\'ll also need some plain BTC for transaction fees (each DAO action is a bitcoin transaction which requires mining fees to be paid), and if you will be [asking for compensation](../making-a-compensation-request/) or reimbursement, you\'ll need to include some plain BTC to be colored into BTC (precise amount is 100 satoshis × \[requested BSQ amount\]).
+The Bisq 1 v1.10.11 source sets defaults of 2 BSQ for proposals and 2 BSQ for blind votes; DAO parameters can change, so check the current fees in the application. You\'ll also need some plain BTC for transaction fees (each DAO action is a bitcoin transaction which requires mining fees to be paid), and if you will be [asking for compensation](../making-a-compensation-request/) or reimbursement, you\'ll need to include some plain BTC to be colored into BSQ (precise amount is 100 satoshis × \[requested BSQ amount\]).
 
 Keep this in mind when buying BSQ to get started for the first time, and make sure you have a BTC balance in your Bisq wallet that\'s sufficient for what you want to do.
 
@@ -116,7 +116,7 @@ When you’re done selecting your votes, you will need to submit your votes.
 
 <figure class="wiki-source-image" id="source-image-4"><a href="../../media/wiki/121d495dc99f76bf055473c89a6175b58dac4dca88298f0dccef2697a50cac43.png"><img alt="Select voting weight and submit all votes." decoding="async" height="512" loading="lazy" src="../../media/wiki/121d495dc99f76bf055473c89a6175b58dac4dca88298f0dccef2697a50cac43.png" width="809"></a><figcaption>Select voting weight and submit all votes.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 
-All votes are submitted in a single ballot. Casting a ballot currently costs 2 BSQ + mining fees.
+All votes are submitted in a single ballot. Casting a ballot incurs a BSQ fee plus mining fees; check the application for the current amounts.
 
 In addition, to submit your votes, you need to specify a BSQ amount to use for **voting stake**. The more BSQ you stake for your vote, the more weight it will carry. This staked BSQ cannot be traded or otherwise transferred until your vote reveal transaction is published.
 
