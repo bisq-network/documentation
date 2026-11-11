@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-Here is a list of current Bisq arbitrators and their onion addresses, as well as how you can find the arbitrator for a specific Bisq trade.
+This article lists public arbitrator/refund-agent identity mappings and explains how to find the agent assigned to a specific trade. The table is a source snapshot, not a guarantee of current availability; use the trade\'s assigned in-app arbitration channel first.
 
 If you need to find your mediator see [here](../finding-your-mediator/).
 

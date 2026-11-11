@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-Here is a list of current Bisq mediators and their onion addresses, as well as how you can find the mediator for a specific Bisq trade.
+This article lists public mediator identity mappings and explains how to find the mediator assigned to a specific trade. The table is a source snapshot, not a guarantee that every listed person is currently available.
 
 If you need to find your arbitrator see [here](../finding-your-arbitrator/).
 
@@ -54,6 +54,8 @@ Alternatively, you can look for your mediator since the trade starts:
 5. Scroll down and you\'ll find <code class="wiki-source-code" id="source-code-7">\"mediatorNodeAddress\"</code> field with a single <code class="wiki-source-code" id="source-code-8">\"hostName\"</code> for the onion address.
 
 This is the onion address of the mediator for your trade.
+
+Bisq 1 v1.10.11 also shows **Selected mediator** in trade details. Its public lookup recognizes `luis3672`, `pazza83` and `suddenwhipvapor`; compare the full address assigned to your trade, not just a display name. Consult the official mediator-role reports for dated activity, and use the assigned in-app dispute channel first.
 
 <span class="wiki-legacy-anchor" id="In_Bisq_2" aria-hidden="true">
 </span>
