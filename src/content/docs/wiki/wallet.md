@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-As many other apps in the Bitcoin space, Bisq has a wallet embedded in it. It is not required in order to use Bisq, but it makes trading easier. This article explains the differences between the Bisq wallet and a generic wallet and answers a few common wallet-related questions.
+As many other apps in the Bitcoin space, Bisq has a wallet embedded in it. Prefunding it is optional: you can fund a trade from an external wallet, but Bisq still uses its embedded wallet and trade keys, which must be backed up. This article explains the differences between the Bisq wallet and a generic wallet and answers a few common wallet-related questions.
 
 See [backing up your wallet seed](../backing-up-your-wallet-seed/) if you haven\'t already backed up your Bisq wallet.
 

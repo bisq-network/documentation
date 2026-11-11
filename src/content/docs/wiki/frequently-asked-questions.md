@@ -224,7 +224,7 @@ Yes. Since there are no central servers, your Bisq application must be running a
 
 #### Do I have to use the built-in Bisq wallet? {#do-i-have-to-use-the-built-in-bisq-wallet}
 
-No. While convenient for holding trading funds (BTC, BSQ) and security deposits, you can choose to send funds \*from\* or receive funds \*to\* an external wallet address when initiating or completing trades.
+You do not have to prefund the wallet, but Bisq still uses its embedded wallet and trade keys. You can choose to send funds \*from\* or receive funds \*to\* an external wallet address when initiating or completing trades.
 
 <span class="wiki-legacy-anchor" id="Do_I_have_to_use_the_BSQ_token?" aria-hidden="true">
 </span>
