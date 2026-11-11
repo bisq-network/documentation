@@ -4,7 +4,7 @@ The comparison covered **209 restored original articles** and **98 retained AI-e
 
 The queue comprises **73 focused review groups**, containing **182 proposed edits** across **93 original articles**. [PR #100](https://github.com/bisq-network/documentation/pull/100) covers two additional original articles. Of the remaining originals, 31 have no identified beneficial change, 18 prior rewrites were rejected as lossy, and 65 have unresolved questions. These are article dispositions; proposed articles may still contain unresolved claims.
 
-Updated 10 November 2026: PRs #99, #122, #141 and #170 were narrowed to stay within accepted-edit receipt bounds. #141 now changes only Project management (its Proposals link fix was withdrawn, so Proposals moves to unresolved, which changes the article counts above from 94 and 64 to 93 and 65); the count of 182 proposed edits was not recomputed and may be slightly out of date.
+On 10 November 2026, PRs #99, #122, #141 and #170 were narrowed to stay within accepted-edit receipt bounds. #141 now changes only Project management: its Proposals link fix was withdrawn, so Proposals moved to unresolved, and the article counts above changed from 94 and 64 to 93 and 65 (updated 11 November). The count of 182 proposed edits was not recomputed and may be slightly out of date.
 
 All 73 new PRs were created **open and ready for review** on 8 November 2026, targeting `main`. Each changes one to three articles; the largest diff has 26 added/deleted source lines. Check GitHub for their current state. None was merged or deployed. Related articles sometimes have separate PRs, so consider the wider topic when approving a correction.
 
