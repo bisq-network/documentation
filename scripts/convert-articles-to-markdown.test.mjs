@@ -14,6 +14,8 @@ test("an HTML article converts to the expected Markdown and renders the same", a
   assert.equal(result.text, fixture("sample-article.md"));
   // Bare e-mail addresses and URLs would become links in Markdown: that paragraph stays HTML.
   assert.match(result.text, /\n<p>Write to support@example\.com today\.<\/p>\n/);
+  // The link before a "section not recovered" marker stays HTML for the section repair.
+  assert.match(result.text, /See the <a href="\.\.\/arbitration\/">payout<\/a> <small class="wiki-link-gap">\[section not recovered: Payout\]<\/small>\./);
 });
 
 test("conversion is deterministic", async () => {

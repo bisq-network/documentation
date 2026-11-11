@@ -44,4 +44,6 @@ https://github.com/bisq-network/roles/issues/1</a>
 Line one\
 line two.
 
+See the <a href="../arbitration/">payout</a> <small class="wiki-link-gap">[section not recovered: Payout]</small>.
+
 </div>

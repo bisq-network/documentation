@@ -78,7 +78,7 @@ If you\'re interested in becoming a support agent, see the <a href="../support-a
 
 ## Infrastructure{#infrastructure}
 
-Includes all of [Support Team#Infrastructure](../support-team/) <small class="wiki-link-gap">[section not recovered: Infrastructure]</small>, plus the following:
+Includes all of <a href="../support-team/">Support Team#Infrastructure</a> <small class="wiki-link-gap">[section not recovered: Infrastructure]</small>, plus the following:
 
 <span class="wiki-legacy-anchor" id="Calendar" aria-hidden="true">
 </span>
@@ -156,7 +156,7 @@ Bisq support agents will submit a report each DAO Cycle via the [GitHub roles pa
 ## Rights{#rights}
 
 - Writer access to the <code class="wiki-source-code" id="source-code-1">Support - Private</code> Matrix room
-- [Triage](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#repository-access-for-each-permission-level) access to [Support Team#Repositories](../support-team/) <small class="wiki-link-gap">[section not recovered: Repositories]</small>
+- [Triage](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#repository-access-for-each-permission-level) access to <a href="../support-team/">Support Team#Repositories</a> <small class="wiki-link-gap">[section not recovered: Repositories]</small>
 
 <span class="wiki-legacy-anchor" id="Policies" aria-hidden="true">
 </span>

@@ -47,7 +47,7 @@ The Bisq community is really helpful and users will frequently help to answer ot
 
 Matrix is a self-hosted place for live chat support. Hopefully you will not have to wait too long before your question is answered.
 
-[Bisq support agents](../support-agent/) are often on hand to help answer any questions. You can see when support agents are due to work by looking on the [support coverage calendar](../support-agent/) <small class="wiki-link-gap">[section not recovered: Coverage calendar]</small>.
+[Bisq support agents](../support-agent/) are often on hand to help answer any questions. You can see when support agents are due to work by looking on the <a href="../support-agent/">support coverage calendar</a> <small class="wiki-link-gap">[section not recovered: Coverage calendar]</small>.
 
 It is common for Bisq user\'s to message each other on Matrix to discussion topics related to all things Bitcoin, Bisq and more. However always be aware that scammers may attempt to impersonate other users. Matrix only allows person to person verification of identities. Check this [wiki page](../support-agent/) to make sure mediators and support agents are not imposters.
 

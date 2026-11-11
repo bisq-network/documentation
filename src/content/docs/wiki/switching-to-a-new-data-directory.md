@@ -74,7 +74,7 @@ There are a handful of methods to do this, depending on your situation.
 If you used methods 1 or 2 in the previous step:
 
 1. Close Bisq.
-2. Delete (or rename) the <code class="wiki-source-code" id="source-code-10">Bisq</code> data directory (see [default locations for your operating system here](../data-directory/) <small class="wiki-link-gap">[section not recovered: Operating system defaults]</small>).
+2. Delete (or rename) the <code class="wiki-source-code" id="source-code-10">Bisq</code> data directory (see <a href="../data-directory/">default locations for your operating system here</a> <small class="wiki-link-gap">[section not recovered: Operating system defaults]</small>).
 3. Start Bisq again. Bisq will create a new data directory with a new wallet, new Tor state, etc.
 4. Send funds from external wallet into Bisq.
 

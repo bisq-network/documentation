@@ -195,7 +195,7 @@ If, however, you have a trade not in mediation but would like to know your assig
 [Arbitration](../arbitration/) is the final tier of dispute resolution on Bisq. It\'s designed to be rare, and its measures are intended for extreme situations. [Arbitration](../arbitration/) is only available when:
 
 - One or both traders reject a [mediator\'s](../mediator/) proposed solution.
-- The [time-locked transaction](../arbitration/) <small class="wiki-link-gap">[section not recovered: Time-Locked Payout Transaction]</small> (the delayed payout transaction created at the trade\'s start) is published by one of the traders.
+- The <a href="../arbitration/">time-locked transaction</a> <small class="wiki-link-gap">[section not recovered: Time-Locked Payout Transaction]</small> (the delayed payout transaction created at the trade\'s start) is published by one of the traders.
 
 This transaction sends **all** funds in the multisig escrow (both traders\' funds) to the [Burning Men](../burning-men/).
 

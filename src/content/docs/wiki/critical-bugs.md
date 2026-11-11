@@ -74,7 +74,7 @@ If you stop working on a critical bug before it has been fixed, you should indic
 
 ### Compensation {#compensation}
 
-[Delivered](../glossary/) <small class="wiki-link-gap">[section not recovered: Delivered]</small> work on critical bugs is eligible for [compensation](../compensation/) under the Bisq DAO. In this case, delivered work could mean one of the following:
+<a href="../glossary/">Delivered</a> <small class="wiki-link-gap">[section not recovered: Delivered]</small> work on critical bugs is eligible for [compensation](../compensation/) under the Bisq DAO. In this case, delivered work could mean one of the following:
 
 - the bug was fixed and the associated pull request has been merged into master
 - the bug was investigated and a fix has been documented, but cannot be implemented due to an external dependency e.g.: a JDK / OpenJFX update is required.

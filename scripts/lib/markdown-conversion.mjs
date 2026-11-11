@@ -20,7 +20,8 @@
 // - quotes, double hyphens and ellipses are backslash-escaped, because the site renders
 //   Markdown with smart punctuation;
 // - HTML kept as is: figures, code with source-code IDs, gap markers (matched as exact
-//   strings by src/components/SourceHistory.astro), tables Markdown cannot express,
+//   strings by src/components/SourceHistory.astro) and the link before a "section not recovered"
+//   marker, tables Markdown cannot express,
 //   definition lists, <details> sources, admonition and <div> tags around Markdown content,
 //   and inline content placed directly in the article container.
 
@@ -94,6 +95,15 @@ function linkDestination(href) {
 }
 
 // ---------------------------------------------------------------- inline content
+// A link followed by a "section not recovered" marker stays HTML: src/components/SourceHistory.astro
+// repairs the pair, and scripts that read the article sources look for it as written.
+function precedesSectionGap(nodes, index) {
+  if (nodes[index].tag !== "a") return false;
+  let next = index + 1;
+  while (nodes[next] && isWhitespace(nodes[next])) next++;
+  return nodes[next]?.type === "element" && nodes[next].tag === "small" && (attr(nodes[next], "class") ?? "") === "wiki-link-gap";
+}
+
 function inline(nodes, source, ctx) {
   let out = "";
   let afterBreak = false;
@@ -105,7 +115,7 @@ function inline(nodes, source, ctx) {
       continue;
     }
     afterBreak = false;
-    if (isCritical(node)) { out += source.slice(node.start, node.end); continue; }
+    if (isCritical(node) || precedesSectionGap(nodes, index)) { out += source.slice(node.start, node.end); continue; }
     const inner = () => inline(node.children, source, ctx);
     const plain = !node.attrs.length;
     switch (node.tag) {

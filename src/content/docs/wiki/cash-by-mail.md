@@ -111,9 +111,11 @@ It is highly recommended for peers to make use of Bisq\'s trader chat to communi
 
 Regarding dispute resolution, please note:
 
-- Mediators can consider your case and make a suggestion, but they are NOT guaranteed to help.
-- If a mediator is engaged, and if either peer rejects the mediator\'s suggestion, both peers\' funds will be sent to a [Bisq \'donation\' address](../arbitration/) <small class="wiki-link-gap">[section not recovered: Time-Locked Payout Transaction]</small>, and the trade will effectively be completed.
-- If a trader rejects a mediation suggestion and opens arbitration, it could lead to lose both trading and deposit funds.
-- Arbitrators will make a decision based on the evidence provided to them. Therefore, please follow and document the above processes to have evidence in case of dispute. For cash-by-mail trades, arbitrator decisions are final, meaning reimbursement requests to the Bisq DAO for any funds lost in cash-by-mail trades will NOT be considered.
+<ul>
+<li>Mediators can consider your case and make a suggestion, but they are NOT guaranteed to help.</li>
+<li>If a mediator is engaged, and if either peer rejects the mediator's suggestion, both peers' funds will be sent to a <a href="../arbitration/">Bisq 'donation' address</a> <small class="wiki-link-gap">[section not recovered: Time-Locked Payout Transaction]</small>, and the trade will effectively be completed.</li>
+<li>If a trader rejects a mediation suggestion and opens arbitration, it could lead to lose both trading and deposit funds.</li>
+<li>Arbitrators will make a decision based on the evidence provided to them. Therefore, please follow and document the above processes to have evidence in case of dispute. For cash-by-mail trades, arbitrator decisions are final, meaning reimbursement requests to the Bisq DAO for any funds lost in cash-by-mail trades will NOT be considered.</li>
+</ul>
 
 </div>

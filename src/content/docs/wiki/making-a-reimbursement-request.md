@@ -46,7 +46,7 @@ Your mediator will likely let you know if/when no further action can be taken on
 
 ## Escalate your case {#escalate-your-case}
 
-In order to make a reimbursement request, you need to publish the [time-locked payout transaction](../arbitration/) <small class="wiki-link-gap">[section not recovered: Time-Locked Payout Transaction]</small> signed at the start of your trade. This transaction sends *all* trade funds (yours and those of the counterparty) to arbitration.
+In order to make a reimbursement request, you need to publish the <a href="../arbitration/">time-locked payout transaction</a> <small class="wiki-link-gap">[section not recovered: Time-Locked Payout Transaction]</small> signed at the start of your trade. This transaction sends *all* trade funds (yours and those of the counterparty) to arbitration.
 
 **The only way to do this is to reject your mediator\'s suggestion in Bisq.**
 
