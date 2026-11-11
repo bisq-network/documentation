@@ -304,7 +304,7 @@ Bitcoin buyers send the fiat payment before sending any bitcoin. For this reason
 
 1. Start with a small amount as a test trade
 2. Start chatting with the seller before sending the fiat payment to check that they are still active
-3. Choose a seller with a high reputation. The higher the reputation of the seller the better. Sellers need a minimum reputation score of 30,000, ideally you should be choosing to trade with someone higher than this. Look at the star system for guidance. It will be safer to trade with a 5 star rated seller than a 1 star rated seller.
+3. Choose a seller with a high reputation. The higher the reputation of the seller the better. In Bisq 2 v2.1.15, sellers need a score covering the trade amount at 200 points per USD, with at least 1,200 points for the 6 USD-equivalent minimum. Look at the star system for guidance. It will be safer to trade with a 5 star rated seller than a 1 star rated seller.
 4. Send payment as soon as possible once you have the seller\'s account details.
 5. Only send payment to the account details provided by the Seller in the trade chat window. If the seller is trying to change the account they want you to send payment to, it would be better to cancel the trade and open a new trade with another seller.
 6. Place the trade ID from Bisq Easy in the payment reason.
