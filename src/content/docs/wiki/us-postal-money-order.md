@@ -67,9 +67,9 @@ Similar to \"Cash by Mail,\" the name you enter into your Bisq payment account d
 
 While your Bisq UI profile can be anonymous, the physical instrument has strict requirements:
 
-- **Never Use Fake Info:** Writing a fake name or a pseudonym on a US Postal Money Order is a federal offense.
+- **Never Use Fake Info:** Complete the money order accurately with the USPS retail associate and follow the current USPS instructions; this guide does not establish a categorical criminal-law rule about pseudonyms.
 - **For the Seller:** To cash the money order, the \"To\" field must match your legal photo ID.
-- **For the Buyer:** You must decide between using your **real name** in the \"From\" field (best for seller\'s bank compliance) or leaving it **blank** (best for your privacy). Do **not** use your Bisq pseudonym on the physical document.
+- **For the Buyer:** Follow USPS and the cashing institution\'s current purchaser-field requirements. Do not assume that leaving the physical document blank is accepted merely because a Bisq account label can be pseudonymous.
 
 <span class="wiki-legacy-anchor" id="Step_2:_Purchase_the_Money_Order" aria-hidden="true">
 </span>
@@ -78,7 +78,7 @@ While your Bisq UI profile can be anonymous, the physical instrument has strict 
 
 - **Amount Limit:** Up to **$1,000** per money order. Multiple orders are allowed for larger trades.
 - **Payment Method:** It is **highly recommended** to use cash. Paying with a debit card creates a data trail; credit cards are not accepted.
-- **Fees:** As of January 2026, the fees are:
+- **Fees:** USPS lists the following fees, checked 8 November 2026; confirm them again before purchase:
 
 <table>
 <caption>USPMO Issuing Fees</caption>
@@ -91,15 +91,15 @@ While your Bisq UI profile can be anonymous, the physical instrument has strict 
 <tbody>
 <tr>
 <td>$0.01 to $500.00</td>
-<td>$2.55</td>
+<td>$2.65</td>
 </tr>
 <tr>
 <td>$500.01 to $1,000.00</td>
-<td>$3.60</td>
+<td>$3.75</td>
 </tr>
 <tr>
 <td>Postal Military Money Orders</td>
-<td>$0.84</td>
+<td>$0.85</td>
 </tr>
 </tbody>
 </table>
@@ -129,10 +129,10 @@ Because many banks now flag \"Same-to-Same\" transfers (where the same name is i
 
 #### Filling out the \"From\" Section {#filling-out-the-from-section}
 
-The \"To\" field must always be the Seller\'s legal name. For the \"From\" field, you have two choices:
+The \"To\" field must always be the Seller\'s legal name. For the \"From\" field, confirm the purchaser information required by USPS and the cashing institution before considering the options discussed below:
 
 1. **Your Information:** Most secure for the seller\'s bank deposits.
-2. **Leave Blank:** Provides maximum privacy for the buyer, but some banks may refuse to accept the deposit if the sender information is missing.
+2. **Leave Blank:** Ask the USPS associate and recipient\'s cashing institution what purchaser information is required; do not rely on this old option as general completion guidance.
 
 <span class="wiki-legacy-anchor" id="Mandatory_Video_Proof" aria-hidden="true">
 </span>
