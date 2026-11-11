@@ -1,0 +1,20 @@
+---
+title: "How to be a market maker on Bisq"
+slug: "wiki/how-to-be-a-market-maker-on-bisq"
+tableOfContents: false
+---
+
+<div class="wiki-recovered-article" lang="en"><p>Markets need liquidity to be useful. A <strong>market maker</strong> provides liquidity by creating offers and earns a profit for this very useful service. By publishing offers on Bisq, a market maker makes sure that when other traders come to market to buy or sell, they always have an option to do so immediately.</p>
+<p>Some markets on Bisq have few or no offers available. This means that new users see that market empty, they are discouraged and leave without trading. A market maker can bridge that coordination gap, helping kickstart a new market, while at the same time earning some Bitcoin.</p>
+<p>Here's a simple way to perform the market maker function:</p>
+<p>1. Find a market with few or no offers available.</p>
+<p>2. Create an offer to BUY Bitcoin at 3% below market price. (For example see <a href="../how-to-create-an-offer-to-buy-btc-with-eur/">How to create an offer to buy BTC with EUR</a>)</p>
+<p>3. Create an offer to SELL Bitcoin at 3% above market price. (For example see <a href="../how-to-create-an-offer-to-sell-btc-with-eur/">How to create an offer to sell BTC with EUR</a>)</p>
+<p>4. Stay online and keep Bisq running so that your offers are available.</p>
+<p>5. When one of your offers is taken, complete the trade and create a new one to replace it.</p>
+<p>6. Tell people about it! Let people from that market know that you are trying to kickstart it.</p>
+<p>In the example above if both your offers are taken you will have sold at 103 and bought at 97, making a profit of 6. You will also be performing a very valuable service for other Bisq users who don't have the time to stay online and just want to be able to take an offer quickly. Offer takers will be happy to pay a small % for the convenience of buying or selling when they want. Some markets are less liquid and you can charge more for your service, others have many more offers and will pay less for the convenience.</p>
+<ul>
+<li>For more short guides see <a href="../howto/">Howto</a>. You can also find support on <strong><a href="https://bisq.chat" rel="noopener noreferrer">Matrix</a></strong>.</li>
+</ul>
+</div>
