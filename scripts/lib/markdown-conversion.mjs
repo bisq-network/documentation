@@ -26,7 +26,7 @@
 //   and inline content placed directly in the article container.
 
 import { attr, parseHtml, textContent } from "./html-tree.mjs";
-import { EXTERNAL_URL, HEADING_ID } from "../../src/markdown/wiki-markdown.mjs";
+import { EXTERNAL_URL, HEADING_ID, linkRawHeading } from "../../src/markdown/wiki-markdown.mjs";
 
 const SMART_PUNCTUATION = true; // astro.config.mjs keeps Astro's default smart punctuation
 
@@ -281,13 +281,15 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
  *   article would not render like the original (then do not use text).
  */
 export function createArticleConverter({ render }) {
-  async function renders(markdown, originalNodes, path) {
+  // Compare with the original HTML as the site renders it: HTML headings get Starlight's heading link.
+  async function renders(markdown, originalNodes, path, source) {
     const { html } = await render(`${markdown}\n`, path);
     let tree;
     try { tree = parseHtml(html); } catch { return { ok: false, hint: "rendered HTML not parseable" }; }
-    if (same(normalize(tree.children), normalize(originalNodes))) return { ok: true, html };
+    const original = parseHtml(linkRawHeading(source.slice(originalNodes[0].start, originalNodes.at(-1).end))).children;
+    if (same(normalize(tree.children), normalize(original))) return { ok: true, html };
     const links = (nodes) => nodes.reduce((count, node) => count + (node.type === "element" ? (node.tag === "a" ? 1 : 0) + links(node.children) : 0), 0);
-    return { ok: false, hint: links(tree.children) > links(originalNodes) ? "GFM autolink literal (a bare URL or e-mail address in text)" : "structure or text differs" };
+    return { ok: false, hint: links(tree.children) > links(original) ? "GFM autolink literal (a bare URL or e-mail address in text)" : "structure or text differs" };
   }
 
   return async function convertArticle(text, slug) {
@@ -315,7 +317,7 @@ export function createArticleConverter({ render }) {
           reason = `not expressible in Markdown: ${error.message}`;
           return null;
         }
-        const result = await renders(markdown, compareNodes, path);
+        const result = await renders(markdown, compareNodes, path, source);
         if (!result.ok) { reason = `does not render the same: ${result.hint}`; return null; }
         const critical = [];
         const walk = (child) => { if (isCritical(child)) critical.push(source.slice(child.start, child.end)); else child.children?.forEach(walk); };
@@ -352,7 +354,7 @@ export function createArticleConverter({ render }) {
             const inner = await convertChildren(node.children, ctx);
             if (inner.every((block) => block.html)) return null;
             const markdown = await wrap(openTag(source, node), inner, `</${node.tag}>`);
-            if ((await renders(markdown, [node], path)).ok) return markdown;
+            if ((await renders(markdown, [node], path, source)).ok) return markdown;
             note(`<${node.tag}> container does not render the same`);
             return null;
           }
@@ -434,7 +436,7 @@ export function createArticleConverter({ render }) {
         while (blocks[j + 1]?.html) j++;
         if (j > i) {
           const nodes = blocks[i].siblings.filter((node) => node.start >= blocks[i].start && node.end <= blocks[j].end);
-          if (!(await renders(htmlSlice(blocks[i], blocks[j]), nodes, path)).ok) {
+          if (!(await renders(htmlSlice(blocks[i], blocks[j]), nodes, path, source)).ok) {
             j = i;
             while (blocks[j].joinNext && blocks[j + 1]?.html) j++;
           }
@@ -456,7 +458,7 @@ export function createArticleConverter({ render }) {
 
     const blocks = await convertChildren(container.children, {});
     const converted = `${text.slice(0, start)}${await wrap(openTag(source, container), blocks, "</div>")}\n`;
-    const whole = await renders(converted.slice(start), [container], path);
+    const whole = await renders(converted.slice(start), [container], path, source);
     return { text: converted, ok: whole.ok, stats };
   };
 }

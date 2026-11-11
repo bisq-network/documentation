@@ -12,6 +12,7 @@ import { addTableRowSummaries } from "../../scripts/lib/table-search-rows.mjs";
 import { renderSupplementalMedia } from "../../scripts/lib/supplemental-media.mjs";
 import { allRecoveredAliases, renderRecoveredLinks } from "../../scripts/lib/recovered-link-aliases.mjs";
 import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
+import { linkRawHeading } from "../markdown/wiki-markdown.mjs";
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
 const route = id ? `/${id}/` : "/";
@@ -57,7 +58,7 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
   {topic && <span hidden data-pagefind-ignore data-pagefind-filter={`topic:${topic}`}></span>}
   {(products.length ? products : [{ label: "Product not stated" }]).map((product) => <span hidden data-pagefind-ignore data-pagefind-filter={`product:${product.label}`}></span>)}
 </>}
-<Default><Fragment set:html={addTableRowSummaries(content)} /></Default>
+<Default><Fragment set:html={addTableRowSummaries(article ? linkRawHeading(content) : content)} /></Default>
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>

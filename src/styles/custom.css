@@ -76,6 +76,25 @@ header.header { border-bottom: 1px solid var(--sl-color-gray-5); }
 .hero h1 { max-width: 18ch; letter-spacing: -0.025em; font-weight: 500; text-wrap: balance; }
 .hero .tagline { max-width: 55ch; line-height: 1.55; font-weight: 300; }
 h1, h2, h3 { text-wrap: balance; }
+/* Article headings use Starlight's heading link: its icon, in its place right after the heading.
+   Starlight makes the heading inline inside its wrapper, so the wrapper takes the heading's weight
+   (same line metrics) and the balanced wrapping. The link keeps the size of the copy-link button it
+   replaced (2.75rem tall, 3.1rem of line including the gap), so headings wrap, take the same height
+   and every section anchor stays where it was. */
+.wiki-recovered-article .sl-heading-wrapper { font-weight: 600; }
+.wiki-recovered-article .sl-heading-wrapper:is(.level-h1, .level-h2, .level-h3) { text-wrap: balance; }
+.wiki-recovered-article .sl-heading-wrapper > :first-child:not([hidden]) { padding-inline-end: var(--sl-anchor-icon-gap); }
+.wiki-recovered-article .sl-anchor-link {
+  width: calc(3.1rem - var(--sl-anchor-icon-gap));
+  height: 2.75rem;
+  margin-inline-start: 0;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: flex-start;
+}
+.wiki-recovered-article .sl-anchor-icon > svg { transform: none; }
+/* The button got Starlight's content gap after a block-like last element (a <p> in a few headings). */
+.wiki-recovered-article .sl-heading-wrapper:has(> :first-child > :last-child:not(a, strong, em, del, span, input, code, br)) > .sl-anchor-link { margin-top: var(--sl-content-gap-y); }
 h1 { letter-spacing: -0.025em; font-weight: 500; }
 .sl-markdown-content { line-height: 1.7; }
 .sl-markdown-content a { text-underline-offset: 0.15em; }
@@ -228,25 +247,6 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 }
 @media (prefers-reduced-motion: reduce) { .reading-progress { display: none; } }
 
-.h-anchor {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  margin-inline-start: 0.35rem;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid transparent;
-  border-radius: var(--bd-radius-sm);
-  background: transparent;
-  color: var(--sl-color-text-accent);
-  font-size: 1rem;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity var(--bd-motion);
-}
-:where(h2, h3, h4, h5):is(:hover, :focus-within) .h-anchor { opacity: 1; }
-.h-anchor:hover { background: var(--sl-color-accent-low); }
 .link-toast {
   position: fixed;
   z-index: 30;
@@ -267,7 +267,6 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 .link-toast :is(strong, span, label) { display: block; }
 .link-toast input { display: block; width: 100%; margin-block: 0.5rem; color: var(--sl-color-text); background: var(--sl-color-bg); border: 1px solid var(--bd-control-line); }
 .link-toast button { min-height: 2.75rem; }
-@media (hover: none) { .h-anchor { opacity: 0.7; } }
 
 .article-title-context { margin-top: 0.75rem; }
 .article-crumbs { font-size: 0.875rem; margin-bottom: 0.75rem; }
