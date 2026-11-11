@@ -6,9 +6,17 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#cbdc-programs-around-the-world">CBDC programs around the world</a></li><li><a href="#external-links">External links</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>CBDC (Central Bank Digital Currency) is the final and most insidious form of <a href="../fiat/">fiat</a> money, since as programmable money it allows a much higher degree of control, including geofencing, time limits, restrictions on saving, blacklisting, censorship, etc. It can potentially lead to <a href="../ubiquitous-law-enforcement/">ubiquitous law enforcement</a> and facilitate social credit systems.</p>
-<span class="wiki-legacy-anchor" id="CBDC_programs_around_the_world" aria-hidden="true"></span><h2 id="cbdc-programs-around-the-world"> CBDC programs around the world </h2>
-<p>A large number of governments around the world are working on developing a CBDC. 3 have launched. 36 are in the pilot stage and 30 are in development. These are some of the most relevant.</p>
+<div class="wiki-recovered-article" lang="en">
+
+CBDC (Central Bank Digital Currency) is the final and most insidious form of [fiat](../fiat/) money, since as programmable money it allows a much higher degree of control, including geofencing, time limits, restrictions on saving, blacklisting, censorship, etc. It can potentially lead to [ubiquitous law enforcement](../ubiquitous-law-enforcement/) and facilitate social credit systems.
+
+<span class="wiki-legacy-anchor" id="CBDC_programs_around_the_world" aria-hidden="true">
+</span>
+
+## CBDC programs around the world {#cbdc-programs-around-the-world}
+
+A large number of governments around the world are working on developing a CBDC. 3 have launched. 36 are in the pilot stage and 30 are in development. These are some of the most relevant.
+
 <table>
 <caption>CBDC</caption>
 <thead>
@@ -210,9 +218,13 @@ tableOfContents: false
 |-
 | Ukraine || Pilot || Stellar || . || . || . || . || . || . || Bitt Inc || . ||
 |}</code></pre></details>
-<span class="wiki-legacy-anchor" id="External_links" aria-hidden="true"></span><h2 id="external-links"> External links </h2>
-<ul>
-<li>CBDCtracker <a href="https://www.atlanticcouncil.org/cbdctracker/" rel="noopener noreferrer">cbdctracker</a> lets you see how CBDC implementation around the world is advancing.</li>
-<li>HRF <a href="https://cbdctracker.hrf.org/home" rel="noopener noreferrer">HRF CBDCtracker</a>. The Human Rights Foundation is also keeping a critical eye on CBDC progress around the world.</li>
-</ul>
+
+<span class="wiki-legacy-anchor" id="External_links" aria-hidden="true">
+</span>
+
+## External links {#external-links}
+
+- CBDCtracker [cbdctracker](https://www.atlanticcouncil.org/cbdctracker/) lets you see how CBDC implementation around the world is advancing.
+- HRF [HRF CBDCtracker](https://cbdctracker.hrf.org/home). The Human Rights Foundation is also keeping a critical eye on CBDC progress around the world.
+
 </div>
