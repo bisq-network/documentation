@@ -1,5 +1,6 @@
 import { verifyAdditionalArticles } from "./lib/additional-articles.mjs";
 import { acceptedEditsPath, applyAcceptedEdit, parseAcceptedEdits, pullRequestLabel, receiptFilesIn, receiptsDir, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
+import { articlePageContent } from "./lib/article-page.mjs";
 import { articlePath, formatDifference, markdownFormatPath, parseMarkdownFormat, preservedArticlePath, preservedArticlesDir } from "./lib/markdown-format.mjs";
 import { renderArticle } from "./lib/render-markdown.mjs";
 import { attributeValue, classes, commentsOf, elementsOf, htmlParser, serialize, splitRenderedArticle, startTag, textContent } from "./lib/rendered-html.mjs";
@@ -159,10 +160,11 @@ const anchorSpan = (element) => element.tag === "span" && attributeValue(element
   && element.children.every((child) => child.type === "text" && !/[^\t\n\f\r ]/.test(child.value));
 const headingTag = /^h[1-6]$/;
 
-// Stands in for the receipt of an edit that has none yet. Its alt-text changes
-// are reported instead, because the receipt will have to list those figures.
+// Stands in for the receipt of an edit that has none yet. Its alt-text, locked-content
+// and invisible-character changes are reported instead, because the receipt will
+// have to list them.
 const awaitingLabel = "The edit awaiting a receipt";
-const noReceipt = { changed_image_alt_text: [] };
+const noReceipt = { changed_image_alt_text: [], changed_locked_content: [], added_invisible_characters: [] };
 const figureId = /^source-image-\d+$/;
 const containerMarker = '<div class="wiki-recovered-article"';
 
@@ -176,13 +178,67 @@ function sourcePrefix(text) {
   return text.slice(0, end + 1);
 }
 
-/** The rendered article of a file's text, as the site renders the article at path. */
+/**
+ * The article of a file's text as the site shows it at path: rendered with the
+ * site's Markdown pipeline, then given the page's string replacements
+ * (scripts/lib/article-page.mjs), and parsed as part of a page. raw is the rendered
+ * article before those replacements, where code blocks, tables and gap markers are
+ * as written.
+ */
 async function renderedArticle(text, path, pr) {
   let html;
-  try { html = await renderArticle(text, path, root); } catch (error) { throw new Error(`${pr} does not render: ${error.message}`); }
-  const tree = (await htmlParser(root))(html);
-  assert(tree.selfContained, `${pr} leaves an element open, closes one it did not open, or carries formatting past the article, changing the page around it`);
-  return splitRenderedArticle(tree.nodes);
+  let page;
+  try {
+    html = await renderArticle(text, path, root);
+    page = articlePageContent(html, path.replace(/^src\/content\/docs\//, "").replace(/\.md$/, "")).content;
+  } catch (error) {
+    throw new Error(`${pr} does not render: ${error.message}`);
+  }
+  const parse = await htmlParser(root);
+  const [shown, raw] = [parse(page), parse(html)];
+  assert(raw.selfContained && shown.selfContained, `${pr} changes the page around the article: ${raw.problem ?? shown.problem}`);
+  return { ...splitRenderedArticle(shown.nodes), raw: splitRenderedArticle(raw.nodes) };
+}
+
+// Parts of an article whose content an accepted edit may change only when its receipt
+// lists them in changed_locked_content: code blocks (by their code's ID), tables and
+// recovery gap markers, numbered in page order. Each is compared as a whole.
+const gapClasses = ["wiki-link-gap", "wiki-template-gap", "wiki-markup-gap", "wiki-image-gap"];
+const lockedKey = /^(?:source-code-\d+|pre-\d+|table-\d+|gap-\d+)$/;
+function lockedContent(body) {
+  const found = new Map();
+  const counters = { pre: 0, table: 0, gap: 0 };
+  const visit = (nodes) => nodes.forEach((node) => {
+    if (node.type !== "element") return;
+    let key;
+    if (node.tag === "pre") {
+      counters.pre += 1;
+      const code = node.children.find((child) => child.type === "element" && child.tag === "code");
+      const id = code && attributeValue(code, "id");
+      key = /^source-code-\d+$/.test(id ?? "") ? id : `pre-${counters.pre}`;
+    } else if (node.tag === "table") {
+      counters.table += 1;
+      key = `table-${counters.table}`;
+    } else if (classes(node).some((name) => gapClasses.includes(name))) {
+      counters.gap += 1;
+      key = `gap-${counters.gap}`;
+    }
+    if (key) found.set(key, serialize([node]));
+    else visit(node.children);
+  });
+  visit(body);
+  return found;
+}
+
+// Characters a reader does not see: format characters (zero-width spaces and joiners,
+// bidirectional controls, soft hyphens, tags), variation selectors and blank fillers.
+// An accepted edit may add them only when its receipt lists them in added_invisible_characters.
+const invisibleCharacter = /[\p{Cf}\u034f\u115f\u1160\u2028\u2029\u2800\u3164\ufe00-\ufe0f\uffa0\u{e0100}-\u{e01ef}]/gu;
+const codePoint = (character) => `U+${character.codePointAt(0).toString(16).toUpperCase().padStart(4, "0")}`;
+function invisibleCharacters(body) {
+  const counts = new Map();
+  for (const [character] of serialize(body).matchAll(invisibleCharacter)) counts.set(codePoint(character), (counts.get(codePoint(character)) ?? 0) + 1);
+  return counts;
 }
 
 /**
@@ -243,15 +299,19 @@ function checkSourceStructure(base, edited, item, receipt, pr) {
 
 /**
  * An accepted edit may change article wording only. Compare the edited file with
- * the exact file it was based on, on the page the site renders from each (the
- * Markdown is rendered with the site's own pipeline, scripts/lib/render-markdown.mjs):
- * the front matter, title and contents list (in the source, byte for byte), the
- * page around the article, the container, headings, existing IDs, recorded legacy
- * anchors and images stay as they were. An image's alt text may change only when the
- * receipt lists that figure in changed_image_alt_text. Markdown adds markup without
- * any source tag (![image](…), ## heading, links, autolinks, raw HTML, directives,
- * footnotes), so everything is decided on the rendered elements. While base and edit
- * are both HTML (format "html"), today's source-level rules apply as well.
+ * the exact file it was based on, on the page readers get from each (rendered with
+ * the site's own pipeline, scripts/lib/render-markdown.mjs, given the page's string
+ * replacements, scripts/lib/article-page.mjs, and parsed as part of a whole page):
+ * the front matter, title and contents list (in the source, byte for byte), the page
+ * around the article, the container, headings, existing IDs, recorded legacy anchors
+ * and whole figures stay as they were. An image's alt text may change only when the
+ * receipt lists that figure in changed_image_alt_text, code blocks, tables and gap
+ * markers only when it lists them in changed_locked_content, and invisible characters
+ * may be added only when it lists them in added_invisible_characters. Markdown adds
+ * markup without any source tag (![image](…), ## heading, links, autolinks, raw
+ * HTML, directives, footnotes), so everything is decided on the rendered elements.
+ * While base and edit are both HTML (format "html"), today's source-level rules
+ * apply as well. Returns what an awaiting edit's receipt will have to list.
  */
 async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
   assert(sourcePrefix(base) === sourcePrefix(edited), `${pr} changes text outside the article body (front matter, title, contents list or wrapper)`);
@@ -272,14 +332,19 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
   const lost = idList(oldElements).filter((id) => !ids.includes(id));
   assert(!lost.length, `${pr} removes anchor #${lost[0]}${lost.length > 1 ? ` and ${lost.length - 1} more` : ""}; section URLs and saved links would break`);
   checkRenderedAnchors(after.body, item.added_legacy_anchors);
-  // A figure is compared together with the link that opens it, so the link cannot be pointed elsewhere.
+  // A figure is compared as a whole (its link, caption and layout), its images apart:
+  // an image may differ only in alt text, and only for figures the receipt lists.
+  const figureShape = (figure) => serialize([{ ...figure, children: figure.children.map(function strip(node) {
+    if (node.type !== "element") return node;
+    return node.tag === "img" ? { ...node, attrs: [] } : { ...node, children: node.children.map(strip) };
+  }) }]);
   const media = (elements) => elements.filter((element) => element.tag === "figure" || element.tag === "img").map((element) => {
     if (element.tag === "img") return { tag: startTag(element), image: element };
-    const first = element.children[0];
-    return { tag: `${startTag(element)}${first?.type === "element" && first.tag === "a" ? startTag(first) : ""}`, figure: attributeValue(element, "id") ?? "" };
+    return { tag: figureShape(element), figure: attributeValue(element, "id") ?? "" };
   });
   const [oldMedia, newMedia] = [media(oldElements), media(newElements)];
   assert.equal(newMedia.length, oldMedia.length, `${pr} adds or removes images or figures`);
+  assert(oldMedia.every((entry, index) => !entry.image === !newMedia[index].image), `${pr} adds or removes images or figures`);
   const listed = new Set(receipt.changed_image_alt_text ?? []);
   const altChanged = new Set();
   let figure = "";
@@ -291,7 +356,7 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
     const altOnly = entry.image && next.image && withoutAlt(entry.image) === withoutAlt(next.image);
     const unchanged = `only alt text may change, and only for figures listed in changed_image_alt_text`;
     assert(altOnly, entry.image ? `${pr} changes the image ${figure || `#${index + 1}`}; ${unchanged}`
-      : `${pr} changes the figure ${figure || `#${index + 1}`} or the link that opens it; figures and their links stay as restored`);
+      : `${pr} changes the figure ${figure || `#${index + 1}`} or the link that opens it; a figure, its link and its caption stay as restored`);
     if (receipt === noReceipt) {
       // Reported with the awaiting article; the receipt must then list the figure.
       assert(figureId.test(figure), `${pr} changes the alt text of image #${index + 1}, which has no figure id a receipt could list`);
@@ -302,6 +367,27 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
   });
   const unused = [...listed].filter((id) => !altChanged.has(id));
   assert(!unused.length, `${pr} lists an alt-text change for ${unused.join(", ")}, but that image is unchanged`);
+  // Code blocks, tables and gap markers change only when the receipt lists them.
+  const [oldLocked, newLocked] = [lockedContent(before.raw.body), lockedContent(after.raw.body)];
+  assert.deepEqual([...newLocked.keys()], [...oldLocked.keys()], `${pr} adds or removes a code block, table or recovery gap marker`);
+  const lockedChanged = [...oldLocked.keys()].filter((key) => oldLocked.get(key) !== newLocked.get(key));
+  const lockedListed = new Set(receipt.changed_locked_content ?? []);
+  if (receipt !== noReceipt) {
+    const unlisted = lockedChanged.filter((key) => !lockedListed.has(key));
+    assert(!unlisted.length, `${pr} changes ${unlisted.join(", ")} (a code block, table or recovery gap marker); these change only when the receipt lists them in changed_locked_content`);
+    const unusedLocked = [...lockedListed].filter((key) => !lockedChanged.includes(key));
+    assert(!unusedLocked.length, `${pr} lists ${unusedLocked.join(", ")} in changed_locked_content, but it is unchanged`);
+  }
+  // Characters a reader does not see are added only when the receipt lists them.
+  const [oldInvisible, newInvisible] = [invisibleCharacters(before.raw.body), invisibleCharacters(after.raw.body)];
+  const invisibleAdded = [...newInvisible].filter(([character, count]) => count > (oldInvisible.get(character) ?? 0)).map(([character]) => character).sort();
+  const invisibleListed = new Set(receipt.added_invisible_characters ?? []);
+  if (receipt !== noReceipt) {
+    const unlisted = invisibleAdded.filter((character) => !invisibleListed.has(character));
+    assert(!unlisted.length, `${pr} adds invisible characters (${unlisted.join(", ")}); they are added only when the receipt lists them in added_invisible_characters`);
+    const unusedInvisible = [...invisibleListed].filter((character) => !invisibleAdded.includes(character));
+    assert(!unusedInvisible.length, `${pr} lists ${unusedInvisible.join(", ")} in added_invisible_characters, but adds no such character`);
+  }
   // Every element the edit adds or removes (by its start tag) must be editable.
   // Headings, IDs and images are checked above; images whose alt text changed are not markup changes here.
   const counts = new Map();
@@ -318,7 +404,7 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
     checkRestoreSafeguards(restoreFacts(after.body));
     checkRestoreSafeguardContext(restoreFacts(before.body).text, restoreFacts(after.body).text, pr);
   }
-  return [...altChanged];
+  return { changedImageAltText: [...altChanged], changedLockedContent: lockedChanged, addedInvisibleCharacters: invisibleAdded };
 }
 
 /**
@@ -636,8 +722,8 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
       }
       acceptedCount += htmlEdits.length + markdownEdits.length;
       if (proposed !== undefined) {
-        const changedImageAltText = await checkAcceptedStructure(current, proposed, item, noReceipt, awaitingLabel, conversion ? "markdown" : "html");
-        awaiting.push({ slug: item.slug, title: item.title, path, changedImageAltText });
+        const listed = await checkAcceptedStructure(current, proposed, item, noReceipt, awaitingLabel, conversion ? "markdown" : "html");
+        awaiting.push({ slug: item.slug, title: item.title, path, ...listed });
       }
     });
     const rawPath = `public/wiki-source/${item.slug}.wiki.txt`;
@@ -681,15 +767,22 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
   return { failures, awaiting, unreceipted, anchorCount, acceptedCount, acceptedArticles: accepted.bySlug.size, convertedCount, snapshotFiles: snapshots.length, restoreBody };
 }
 
-/** For an awaiting article whose alt text changed: which figures its receipt must list ("" if none). */
-export function altTextNote(item) {
-  const figures = item.changedImageAltText ?? [];
-  if (!figures.length) return "";
-  return `alt text of ${figures.join(", ")} changed; its receipt must list ${figures.length === 1 ? "it" : "them"} in changed_image_alt_text`;
+/**
+ * For an awaiting article: what its receipt must list ("" if nothing), the figures
+ * whose alt text changed, the code blocks, tables and gap markers that changed, and
+ * the invisible characters it adds.
+ */
+export function receiptNote(item) {
+  const them = (list) => (list.length === 1 ? "it" : "them");
+  return [
+    [item.changedImageAltText, (list) => `alt text of ${list.join(", ")} changed; its receipt must list ${them(list)} in changed_image_alt_text`],
+    [item.changedLockedContent, (list) => `${list.join(", ")} (code block, table or recovery gap marker) changed; its receipt must list ${them(list)} in changed_locked_content`],
+    [item.addedInvisibleCharacters, (list) => `invisible characters ${list.join(", ")} added; its receipt must list ${them(list)} in added_invisible_characters`],
+  ].filter(([list]) => list?.length).map(([list, note]) => note(list)).join("; ");
 }
 
-/** One awaiting article for messages: its slug, plus any alt-text note. */
-export const awaitingLine = (item) => (altTextNote(item) ? `${item.slug}: ${altTextNote(item)}` : item.slug);
+/** One awaiting article for messages: its slug, plus what its receipt must list. */
+export const awaitingLine = (item) => (receiptNote(item) ? `${item.slug}: ${receiptNote(item)}` : item.slug);
 
 /** The value of --awaiting-receipt-base, or undefined when the flag is absent. */
 export function awaitingReceiptBase(argv) {
@@ -739,14 +832,28 @@ async function main() {
           [teamsPath, teams.replace("Bisq is a", "Bisq  is a")],
           [preservedPath, preserved.replace("100% new instance", "90% new instance"), path],
         ];
-        for (const [file, content, reportedAt = file] of mutations) {
+        // A converted article changed and its conversion re-recorded, as a pull request
+        // could try: a <body> start tag (the page would apply its attributes), and a
+        // line break the page's link repair reads differently.
+        const record = JSON.parse(await readFile(resolve(root, markdownFormatPath), "utf8"));
+        const rerecord = async (slug, find, replacement) => {
+          const file = articlePath(slug);
+          const content = (await readFile(resolve(root, file), "utf8")).replace(find, replacement);
+          const items = record.items.map((entry) => (entry.slug === slug ? { ...entry, markdown_file_sha256: hash(content) } : entry));
+          return [file, content, file, [[markdownFormatPath, JSON.stringify({ ...record, items })]]];
+        };
+        if (record.items.some((entry) => entry.slug === "teams")) {
+          mutations.push(await rerecord("teams", "There is no CEO.", 'There is no CEO.<body onpageshow="document.title=1">'));
+          mutations.push(await rerecord("troubleshooting", "Delete and resync SPV file <small>", "Delete and resync SPV file\n<small>"));
+        }
+        for (const [file, content, reportedAt = file, extra = []] of mutations) {
           assert.notEqual(content, await readFile(resolve(root, file), "utf8"), `negative test did not change ${file}`);
-          const mutated = await verify(new Map([[file, content]]));
+          const mutated = await verify(new Map([[file, content], ...extra]));
           assert(mutated.failures.some((failure) => failure.startsWith(`${reportedAt}:`)), `negative test did not catch drift at ${file}`);
         }
         assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("btc_mainnet/tor/hiddenservice", "hiddenservice")), /lost recovery safeguard/);
         assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("Copy all the above files", "Copy selected files")), /procedure reordered or missing/);
-        console.log("Ten negative regression checks passed; test mutations were in memory only.");
+        console.log(`${mutations.length + 2} negative regression checks passed; test mutations were in memory only.`);
       }
     }
   } catch (error) {

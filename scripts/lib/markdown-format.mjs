@@ -10,6 +10,7 @@
 //
 // scripts/record-markdown-format.mjs writes the record after checking the conversion.
 import { createHash } from "node:crypto";
+import { articlePageContent } from "./article-page.mjs";
 import { renderArticle } from "./render-markdown.mjs";
 import { attribute, dropHeadingLinks, elementsOf, escapeText, firstDifference, htmlParser, normalizeFormat, serialize, splitRenderedArticle, startTag, textContent } from "./rendered-html.mjs";
 
@@ -49,7 +50,8 @@ const checked = new Map();
 /**
  * Why the Markdown file does not render to the same page as the HTML file it
  * replaced, or undefined when it does. Both are rendered as the article at
- * articlePath(slug), and compared after normalizeFormat (scripts/lib/rendered-html.mjs).
+ * articlePath(slug), given the page's string replacements (scripts/lib/article-page.mjs)
+ * and compared after normalizeFormat (scripts/lib/rendered-html.mjs).
  * The front matter must be identical. The HTML file must render as itself: its
  * article container exactly as in its source, everything else up to normalizeFormat,
  * apart from the link the site adds to each heading (headingLinkOf), which is site
@@ -69,27 +71,39 @@ async function compare(slug, html, markdown, root) {
   if (!htmlFront) return "the HTML file has no front matter";
   if (frontMatter(markdown) !== htmlFront) return "its front matter (title, route and options) differs from the HTML file's";
   const parse = await htmlParser(root);
+  const parsed = (output, which) => {
+    const tree = parse(output);
+    if (!tree.selfContained) throw new Error(`the ${which} changes the page around the article: ${tree.problem}`);
+    return tree.nodes;
+  };
+  // A file as rendered, and as its page shows it after the page's string replacements.
   const rendered = async (text, which) => {
     let output;
-    try { output = await renderArticle(text, path, root); } catch (error) { throw new Error(`the ${which} file does not render: ${error.message}`); }
-    const tree = parse(output);
-    if (!tree.selfContained) throw new Error(`the rendered ${which} file leaves an element open, closes one it did not open, or carries formatting past its end`);
-    return tree.nodes;
+    let page;
+    try {
+      output = await renderArticle(text, path, root);
+      page = articlePageContent(output, `wiki/${slug}`).content;
+    } catch (error) {
+      throw new Error(`the ${which} file does not render: ${error.message}`);
+    }
+    return { nodes: parsed(output, `rendered ${which} file`), page: parsed(page, `${which} file's page`) };
   };
   try {
     const headingLink = await headingLinkOf(path, root);
     const before = await rendered(html, "HTML");
     // The HTML renders as its source; the site only adds its link to each heading (exact form).
     const source = parse(html.slice(htmlFront.length));
-    const linked = headingLink ? dropHeadingLinks(before, headingLink) : before;
+    const linked = headingLink ? dropHeadingLinks(before.nodes, headingLink) : before.nodes;
     const container = (nodes) => serialize([splitRenderedArticle(nodes).container]);
     if (!source.selfContained || container(source.nodes) !== container(linked) || serialize(normalizeFormat(source.nodes)) !== serialize(normalizeFormat(linked))) {
       return "the HTML file does not render as itself, so it cannot anchor the comparison";
     }
     const after = await rendered(markdown, "Markdown");
-    splitRenderedArticle(after);
-    // Both pages carry the site's heading links; they are compared as rendered.
-    const [x, y] = [normalizeFormat(before), normalizeFormat(after)];
+    splitRenderedArticle(after.page);
+    // The pages are compared as readers get them: after the page's string replacements,
+    // which a difference the comparison ignores (such as a line break) could still
+    // change, and with the site's heading links on both.
+    const [x, y] = [normalizeFormat(before.page), normalizeFormat(after.page)];
     if (serialize(x) === serialize(y)) return undefined;
     return `the Markdown renders differently from the HTML it replaced, ${firstDifference(x, y)}`;
   } catch (error) {
@@ -134,5 +148,6 @@ async function learnHeadingLink(path, root) {
   if (template.split(linkTarget).length !== 2 || template.split(label).length !== 2) {
     throw new Error("the site's heading link does not name its heading exactly once; scripts/lib/markdown-format.mjs needs updating");
   }
-  return (element) => template.replace(linkTarget, `href="#${attribute(element, "id")}"`).replace(label, escapeText(headingTitle(textContent(element))));
+  // Function replacements, so "$&" or "$'" in a heading is not read as a pattern.
+  return (element) => template.replace(linkTarget, () => `href="#${attribute(element, "id")}"`).replace(label, () => escapeText(headingTitle(textContent(element))));
 }

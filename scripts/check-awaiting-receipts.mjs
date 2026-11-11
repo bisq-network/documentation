@@ -1,6 +1,6 @@
 import { appendFileSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { altTextNote, awaitingLine, baseReader, verify } from "./check-source-fidelity.mjs";
+import { awaitingLine, baseReader, receiptNote, verify } from "./check-source-fidelity.mjs";
 import { parseReviewers, readAcceptedEdits, receiptDrafts, receiptPath, receiptText } from "./lib/accepted-edits.mjs";
 import { annotation, oneLine } from "./lib/actions-output.mjs";
 
@@ -42,12 +42,12 @@ if (result.awaiting.length) {
   lines.push("This is expected for a wording proposal until a reviewer accepts it. When the wording is final, the reviewer adds the");
   lines.push(`receipt and approves, as described in CONTRIBUTING.md#accepted-editorial-changes (${guide}); this check then passes.`);
   for (const item of result.awaiting) {
-    const figures = altTextNote(item) ? ` The ${altTextNote(item)}.` : "";
+    const figures = receiptNote(item) ? ` The ${receiptNote(item)}.` : "";
     lines.push(`- ${awaitingLine(item)}`);
     lines.push(annotation("warning", { file: item.path, title: "Awaiting an accepted-edit receipt" }, `Wording changed without an accepted-edit receipt. Expected for a wording proposal until a reviewer accepts it; see CONTRIBUTING.md#accepted-editorial-changes.${figures}`));
   }
   summary.push(`**Awaiting a receipt (${result.awaiting.length}).** Expected for a wording proposal until a reviewer accepts it; see [Accepted editorial changes](${guide}).`, "");
-  summary.push(...result.awaiting.map((item) => `- \`${item.slug}\`${altTextNote(item) ? `: ${altTextNote(item)}` : ""}`), "");
+  summary.push(...result.awaiting.map((item) => `- \`${item.slug}\`${receiptNote(item) ? `: ${receiptNote(item)}` : ""}`), "");
   addReceiptInstructions();
 }
 if (result.failures.length) {

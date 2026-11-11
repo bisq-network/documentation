@@ -63,6 +63,8 @@ const item = draftReceipt({
   noteIds: previous?.note_ids ?? [],
   evidence: previous?.evidence ?? [],
   changedImageAltText: previous?.changed_image_alt_text ?? [],
+  changedLockedContent: previous?.changed_locked_content ?? [],
+  addedInvisibleCharacters: previous?.added_invisible_characters ?? [],
 });
 mkdirSync(dirname(target), { recursive: true });
 writeFileSync(target, receiptText(item));

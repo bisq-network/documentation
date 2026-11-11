@@ -20,7 +20,10 @@ import { loadSatteri } from "./render-markdown.mjs";
 const parsers = new Map();
 const parsed = new Map();
 
-/** A parser for rendered HTML fragments: html -> { nodes, selfContained }. Cached by content. */
+/**
+ * A parser for rendered article HTML: html -> { nodes, selfContained, problem }.
+ * Cached by content. problem says why the HTML is not self-contained.
+ */
 export async function htmlParser(root = process.cwd()) {
   if (!parsers.has(root)) parsers.set(root, loadSatteri(root).then((satteri) => (html) => parseWith(satteri, html)));
   const parse = await parsers.get(root);
@@ -31,18 +34,33 @@ export async function htmlParser(root = process.cwd()) {
   };
 }
 
-// The rendered article is inserted into the page inside Starlight's content element.
-// It is parsed inside a wrapper, followed by an end marker holding text. Unless the
-// marker comes out as the wrapper's last child holding only its text, the HTML leaves
-// an element open, closes one it did not open, or leaves formatting (such as a link)
-// that the parser would carry into the text after it: it would change the page
-// around the article.
+// The rendered article is inserted into a page, inside <main> and Starlight's content
+// element. It is parsed as a whole document with those ancestors: <html>, <head> and
+// <body> without attributes, <main>, a wrapper, an end marker holding text, and a
+// paragraph after <main>. A fragment parse would drop what the page applies: a
+// <body> or <html> start tag inside the article adds its attributes (onload, hidden,
+// style, dir…) to the page's own element, and </main> moves what follows out of
+// <main>. Unless everything comes out exactly as built here, with the end marker as the
+// wrapper's last child holding only its text, the HTML changes the page around the
+// article: it adds attributes to the page, leaves an element open, closes one it did not
+// open, or leaves formatting (such as a link) that the parser would carry into the text
+// after it.
 const wrapperId = "rendered-article-fragment";
 const endId = "rendered-article-fragment-end";
 const endText = "end of rendered article";
+const afterId = "rendered-article-after";
+const afterText = "after the article";
+// Tags that act on the page's own elements, refused in rendered output even where a
+// browser would ignore them.
+const pageTag = /<(?:html|head|body|frameset)(?=[\s/>])|<\/(?:html|head|body|main|frameset)(?=[\s/>])/i;
 
-function parseWith(satteri, html) {
-  const tree = satteri.htmlToHast(`<div id="${wrapperId}">${html}<p id="${endId}">${endText}</p></div>`, { fragment: true });
+/** A whole HTML document (such as a built page) as nodes, parsed as a browser does. */
+export async function documentParser(root = process.cwd()) {
+  const satteri = await loadSatteri(root);
+  return (html) => convertTree(satteri, satteri.htmlToHast(html, { fragment: false }));
+}
+
+function convertTree(satteri, tree) {
   const convert = (node) => {
     if (node.type === "text") return { type: "text", value: node.value };
     if (node.type === "comment") return { type: "comment", value: node.value };
@@ -52,13 +70,26 @@ function parseWith(satteri, html) {
     const start = html.endsWith(end) ? html.slice(0, -end.length) : html;
     return { type: "element", tag: node.tagName, attrs: attributesOf(start), children: (node.children ?? []).map(convert) };
   };
-  const nodes = tree.children.map(convert);
-  const wrapper = nodes[0];
-  const last = wrapper?.children.at(-1);
-  const selfContained = nodes.length === 1 && wrapper.type === "element" && wrapper.tag === "div" && sameAttributes(wrapper, [["id", wrapperId]])
-    && last?.type === "element" && last.tag === "p" && sameAttributes(last, [["id", endId]])
-    && last.children.length === 1 && last.children[0].type === "text" && last.children[0].value === endText;
-  return { nodes: selfContained ? wrapper.children.slice(0, -1) : nodes, selfContained };
+  return tree.children.map(convert);
+}
+
+function parseWith(satteri, html) {
+  const page = `<!doctype html><html><head></head><body><main><div id="${wrapperId}">${html}<p id="${endId}">${endText}</p></div></main><p id="${afterId}">${afterText}</p></body></html>`;
+  const nodes = convertTree(satteri, satteri.htmlToHast(page, { fragment: false }));
+  const element = (node, tag, attrs = []) => node?.type === "element" && node.tag === tag && sameAttributes(node, attrs);
+  const textOnly = (node, text) => node.children.length === 1 && node.children[0].type === "text" && node.children[0].value === text;
+  const [doctype, htmlElement, ...extra] = nodes;
+  const [head, body, ...afterBody] = htmlElement?.children ?? [];
+  const [main, after, ...afterMain] = body?.children ?? [];
+  const wrapper = main?.children[0];
+  const end = wrapper?.children.at(-1);
+  const problem = pageTag.exec(html)?.[0].replace(/^(<\/?[a-z]+).*$/i, (_, tag) => `it has a ${tag.toLowerCase()}> tag`)
+    ?? (!(doctype?.type === "doctype" && !extra.length && element(htmlElement, "html") && !afterBody.length && element(head, "head") && !head.children.length && element(body, "body"))
+      ? "it adds attributes or content to the page's html, head or body element" : undefined)
+    ?? (!(element(main, "main") && main.children.length === 1 && element(wrapper, "div", [["id", wrapperId]]) && element(after, "p", [["id", afterId]]) && textOnly(after, afterText) && !afterMain.length
+      && element(end, "p", [["id", endId]]) && textOnly(end, endText))
+      ? "it leaves an element open, closes one it did not open, or carries formatting past its end" : undefined);
+  return { nodes: problem ? nodes : wrapper.children.slice(0, -1), selfContained: !problem, problem };
 }
 
 const sameAttributes = (element, attrs) => JSON.stringify(element.attrs) === JSON.stringify(attrs);
@@ -149,7 +180,8 @@ const blocks = new Set(["address", "article", "aside", "blockquote", "caption", 
 // Elements shown as a box of their own: content on the line, never looked into.
 const atomic = new Set(["audio", "button", "canvas", "embed", "iframe", "img", "input", "math", "meter", "object", "picture", "progress", "select", "svg", "textarea", "video"]);
 // Characters with a right-to-left direction; dir="auto" on code holding one could change how it is shown.
-const rightToLeft = /[\u0590-\u08ff\ufb1d-\ufdff\ufe70-\ufefc\u{10800}-\u{10fff}\u{1e800}-\u{1efff}]/u;
+// Bidirectional control characters that set right-to-left (RLM, ALM, RLE, RLO, RLI) count as well.
+const rightToLeft = /[\u0590-\u08ff\ufb1d-\ufdff\ufe70-\ufefc\u{10800}-\u{10fff}\u{1e800}-\u{1efff}\u061c\u200f\u202b\u202e\u2067]/u;
 
 /**
  * Normalize rendered nodes for comparing a converted article with the HTML it

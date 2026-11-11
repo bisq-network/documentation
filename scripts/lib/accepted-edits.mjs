@@ -24,6 +24,8 @@ const pullRequestUrl = /^https:\/\/github\.com\/(?:hiciefte\/bisq-docs|bisq-netw
 const endorsement = /\b(?:verified|official|approved|endorsed|certified|guaranteed)\b/i;
 const calendarDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value) && new Date(`${value}T00:00:00Z`).toISOString().slice(0, 10) === value;
 const figureId = /^source-image-\d+$/;
+const lockedKey = /^(?:source-code-\d+|pre-\d+|table-\d+|gap-\d+)$/;
+const codePoint = /^U\+(?:[0-9A-F]{4,5}|10[0-9A-F]{4})$/;
 
 /** "PR #46" for messages and page labels. */
 export const pullRequestLabel = (url) => `PR #${url.split("/").pop()}`;
@@ -59,6 +61,10 @@ function itemProblems(item, { slugs, notes }) {
   need(Array.isArray(item.evidence) && item.evidence.every((url) => /^https:\/\/\S+$/.test(url)), "evidence must be a list of https links");
   const images = item.changed_image_alt_text ?? [];
   need(Array.isArray(images) && images.every((id) => figureId.test(id)), "changed_image_alt_text must list figure ids such as source-image-1");
+  const locked = item.changed_locked_content ?? [];
+  need(Array.isArray(locked) && locked.every((key) => lockedKey.test(key)), "changed_locked_content must list code blocks, tables and gap markers such as source-code-3, pre-1, table-2 or gap-4");
+  const invisible = item.added_invisible_characters ?? [];
+  need(Array.isArray(invisible) && invisible.every((character) => codePoint.test(character)), "added_invisible_characters must list code points such as U+200B");
   const changes = Array.isArray(item.changes) ? item.changes : [];
   need(changes.length > 0, "changes must list the replaced text");
   for (const change of changes) {
@@ -167,7 +173,7 @@ const endorsementFree = (summary) => {
  * scripts/record-accepted-edit.mjs and by the receipts job's "Add receipt"
  * links; the gate never trusts it and verifies every recorded change.
  */
-export function draftReceipt({ slug, pullRequest, author, summary, base, accepted, approvals = [], acceptedOn = new Date().toISOString().slice(0, 10), noteIds = [], evidence = [], changedImageAltText = [] }) {
+export function draftReceipt({ slug, pullRequest, author, summary, base, accepted, approvals = [], acceptedOn = new Date().toISOString().slice(0, 10), noteIds = [], evidence = [], changedImageAltText = [], changedLockedContent = [], addedInvisibleCharacters = [] }) {
   return {
     slug,
     pull_request: pullRequest,
@@ -180,6 +186,8 @@ export function draftReceipt({ slug, pullRequest, author, summary, base, accepte
     note_ids: noteIds,
     evidence,
     changed_image_alt_text: changedImageAltText,
+    changed_locked_content: changedLockedContent,
+    added_invisible_characters: addedInvisibleCharacters,
     changes: describeEdit(base, accepted),
   };
 }
@@ -229,6 +237,8 @@ export function receiptDrafts({ event, repository, server = "https://github.com"
           approvals: [{ login: reviewer.login, role: reviewer.role }],
           acceptedOn,
           changedImageAltText: article.changedImageAltText ?? [],
+          changedLockedContent: article.changedLockedContent ?? [],
+          addedInvisibleCharacters: article.addedInvisibleCharacters ?? [],
         });
         const url = pr.head?.ref ? addReceiptLink({ server, repository: pr.head.repo?.full_name ?? repository, branch: pr.head.ref, item }) : undefined;
         return { reviewer: reviewer.login, item, url };

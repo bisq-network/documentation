@@ -25,7 +25,7 @@ for (const item of derived.items) {
     assert.match(slug, /^[a-z0-9-]+$/);
     const path = `src/content/docs/wiki/${slug}.md`;
     const source = await renderArticle(readFileSync(path, "utf8"), path);
-    const invocations = [...source.matchAll(/<span class="wiki-template-gap" role="note"><strong>\[Unresolved template: [^<]+\]<\/strong> <code>([\s\S]*?)<\/code><\/span>/g)].map((match) => decode(match[1]));
+    const invocations = [...source.matchAll(/<span class="wiki-template-gap" role="note"><strong>\[Unresolved template: [^<]+\]<\/strong> <code>([^<]*)<\/code><\/span>/g)].map((match) => decode(match[1]));
     assert.equal(invocations.filter((value) => value === item.invocation).length, item.articles.filter((entry) => entry === slug).length, `source invocation changed: ${slug} ${item.name}`);
   }
 }
