@@ -10,11 +10,11 @@ tableOfContents: false
 
 The **Bisq Price Indices** are the weighted average asset prices calculated by each of the <span class="wiki-link-gap">Bisq Pricenodes <small>[unrecovered article: Bisq pricenode]</small></span>. It was implemented in Bisq v1.3.8 as part of [Project 35](https://github.com/bisq-network/projects/issues/35) in order to gain independence from Bitcoin Average as a price oracle, decentralizing data sources from 35+ different data providers around the world.
 
-Bisq Pricenodes fetch the latest price data, once per minute, from various providers for each asset. The price indices are equally weighted, so for example if there\'s a single provider for a given asset, the weight will be 100%. If there\'s 2 data providers for an asset, the weights will 50% each, if there are 4, 25% each, etc.
+Bisq Pricenodes fetch the latest price data, once per minute, from various providers for each asset. At the checked pricenode commit, a single available rate is used directly. With multiple rates, the node averages retained inliers and falls back to a plain average if filtering leaves none; this is an equal average of retained rates, not a volume-weighted average. For example, two retained rates contribute 50% each and four contribute 25% each.
 
-Providers are selected considering for each asset reliability of the data and trading volume. The following tables display which data providers are used to calculate prices for each actively traded asset on Bisq.
+Providers are selected considering for each asset reliability of the data and trading volume. The following tables are from the recovered wiki snapshot; providers and weights may have changed.
 
-In the case of nodes diverging more than 1% for a given asset, the prices will be outside the price tolerance protection, and Bisq will display an error to user preventing them from taking an offer.
+In the checked Bisq 1 v1.10.11 code, a market-based offer compares the taker’s calculated trade price with the maker’s calculated offer price and rejects a deviation greater than 1%. This is a take-offer calculation check, not a general guarantee about the difference between independently observed nodes.
 
 <span class="wiki-legacy-anchor" id="Asset_Table" aria-hidden="true">
 </span>
