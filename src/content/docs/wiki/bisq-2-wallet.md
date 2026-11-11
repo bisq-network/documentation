@@ -17,7 +17,7 @@ Initially Bisq 2 users will be able to use a bitcoin wallet of their choice for 
 
 ## Bitcoin wallet {#bitcoin-wallet}
 
-For the initial release of Bisq 2 there will be no integrated Bitcoin wallet.
+The initial release of Bisq 2 did not expose an integrated Bitcoin wallet. In v2.1.15, Wallet implementation code exists, but its navigation is tied to developer-gated MuSig activation; standard Bisq Easy guidance uses a separate wallet.
 
 Users will be able to use their own wallet for trading.
 

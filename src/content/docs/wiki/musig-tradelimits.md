@@ -13,7 +13,7 @@ tableOfContents: false
 
 ## Why are trade limits necessary? {#why-are-trade-limits-necessary}
 
-Most fiat payment methods carry a risk of bank chargebacks. To reduce this risk, Bisq applies both trade amount limits and trade rate limits to Bitcoin buyers, since buyers are the ones who could initiate a chargeback.
+This article describes MuSig design and implementation limits, not Bisq Easy. In Bisq 2 v2.1.15, MuSig activation requires developer mode. Most fiat payment methods carry a risk of bank chargebacks. To reduce this risk, Bisq applies both trade amount limits and trade rate limits to Bitcoin buyers, since buyers are the ones who could initiate a chargeback.
 
 <span class="wiki-legacy-anchor" id="Fiat_trades_–_Bitcoin_buyers" aria-hidden="true">
 </span>
