@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import data from "../migration/archive-templates-20261014.json" with { type: "json" };
 import { renderArchivedTemplates, templateDefinitionTarget } from "./lib/archived-templates.mjs";
+import { renderArticle } from "./lib/render-markdown.mjs";
 import { renderRecoveredLinks } from "./lib/recovered-link-aliases.mjs";
 
 test("all 18 archived definitions are available and hash-verified", () => {
@@ -12,8 +13,10 @@ test("all 18 archived definitions are available and hash-verified", () => {
   for (const item of data.items) assert.equal(createHash("sha256").update(readFileSync(`public${item.source_download}`)).digest("hex"), item.wikitext_sha256);
 });
 
-test("template source rendering retains historical text and provenance", () => {
-  const original = readFileSync("src/content/docs/wiki/backing-up-your-wallet-seed.md", "utf8");
+// The site renders templates on the rendered article (src/components/SourceHistory.astro).
+test("template source rendering retains historical text and provenance", async () => {
+  const path = "src/content/docs/wiki/backing-up-your-wallet-seed.md";
+  const original = await renderArticle(readFileSync(path, "utf8"), path);
   const result = renderArchivedTemplates(original, "/bisq-docs/", "backing-up-your-wallet-seed");
   assert.equal(result.restored, 2);
   assert.match(result.content, /href="\/bisq-docs\/wiki-source\/archive-templates\/261\.wiki\.txt"/);
