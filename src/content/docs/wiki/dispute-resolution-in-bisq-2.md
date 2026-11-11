@@ -53,7 +53,7 @@ If you\'re having any issues completing a trade, or if you just want to keep you
 
 ### Mediation in Bisq Easy {#mediation-in-bisq-easy}
 
-Mediation is available within Bisq Easy at any time. You can initiate it by selecting the \'request mediation\' link on the trade screen. A [mediator](../mediator/) will then join the trade chat and gather information to assist as much as possible. Since Bisq Easy trades do not require a security deposit, the mediator\'s abilities are somewhat limited. However, they can still provide valuable assistance and, if necessary, ban traders.
+Mediation is available within Bisq Easy at any time. You can initiate it by selecting the \'request mediation\' link on the trade screen. A [mediator](../mediator/) will then join the trade chat and gather information to assist as much as possible. Since Bisq Easy trades do not require a security deposit, the mediator\'s abilities are somewhat limited. However, they can still provide valuable assistance and report serious rule violations to moderators. They cannot enforce an outcome or guarantee recovery.
 
 <span class="wiki-legacy-anchor" id="If_all_else_fails" aria-hidden="true">
 </span>
@@ -62,6 +62,6 @@ Mediation is available within Bisq Easy at any time. You can initiate it by sele
 
 One advantage of a flat, decentralized governance structure that encourages user involvement is that no user should ever feel hindered from receiving a fair trade outcome because of a single individual\'s decision. Bisq isn\'t a black-box corporation with inscrutable processes. It\'s an open software project that is governed openly.
 
-Therefore, for whatever reason, if the process above doesn\'t work for you, you can make a [make a reimbursement request](../making-a-reimbursement-request/) yourself in the [Bisq DAO](../dao-user-reference/#bisq-dao). **The [Bisq DAO](../dao-user-reference/#bisq-dao), not any single individual, is the ultimate arbiter of policy and decision-making for all things Bisq.**
+Therefore, for whatever reason, if the process above doesn\'t work for you, you can submit a [reimbursement request](../making-a-reimbursement-request/) yourself in the [Bisq DAO](../dao-user-reference/#bisq-dao). **The [Bisq DAO](../dao-user-reference/#bisq-dao), not any single individual, is the ultimate arbiter of policy and decision-making for all things Bisq.** A request is not a guaranteed reimbursement or a Bisq 1 escrow/arbitration payout for a Bisq Easy trade.
 
 </div>
