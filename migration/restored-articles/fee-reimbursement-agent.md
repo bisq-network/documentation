@@ -1,0 +1,29 @@
+---
+title: "Fee Reimbursement Agent"
+slug: "wiki/fee-reimbursement-agent"
+tableOfContents: false
+---
+
+<nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#issue">Issue</a></li><li><a href="#team">Team</a></li><li><a href="#duties">Duties</a></li><li><a href="#rights">Rights</a></li><li><a href="#bonding">Bonding</a></li></ul></details></nav>
+
+<div class="wiki-recovered-article" lang="en"><p>The <strong>Fee Reimbursement Agent</strong> refunds traders who have lost fees on trades through software bugs.</p>
+<p>For more information see: <a href="../failed-trades-reimbursement-of-trade-fees-and-miner-fees/">Failed Trades - Reimbursement of Trade Fees and Miner Fees</a></p>
+<p>Reimbursements are made with BTC. Traders seeking fee reimbursements must provide a screenshot and details of trades for which they wish fee reimbursements (more details are in the <a href="https://github.com/bisq-network/support/issues/new?assignees=&amp;labels=&amp;template=reimbursement-template.md&amp;title=Fee+reimbursement+for+trade+XXXXX" rel="noopener noreferrer">issue template</a>).</p>
+<span class="wiki-legacy-anchor" id="Issue" aria-hidden="true"></span><h2 id="issue"> Issue </h2>
+<a href="https://github.com/bisq-network/roles/issues/76" rel="noopener noreferrer">https://github.com/bisq-network/roles/issues/76</a>
+<span class="wiki-legacy-anchor" id="Team" aria-hidden="true"></span><h2 id="team"> Team </h2>
+<a href="https://github.com/orgs/bisq-network/teams/fee-reimbursement-agents" rel="noopener noreferrer">https://github.com/orgs/bisq-network/teams/fee-reimbursement-agents</a>
+<span class="wiki-legacy-anchor" id="Duties" aria-hidden="true"></span><h2 id="duties"> Duties </h2>
+<ul>
+<li>Examine every Github proposal, verify that the taker and maker fee address are mentioned in the issue. then move to "ready" <a href="https://github.com/bisq-network/support/projects/1" rel="noopener noreferrer">Lost fee reimbursements</a></li>
+<li>Ensure reimbursement request was submitted within 3 months of the trade completing as per the accepted proposal <a href="https://github.com/bisq-network/proposals/issues/369" rel="noopener noreferrer">here</a></li>
+<li>When starting to process an individual issue, move it to "In progress". Then open the terminal.</li>
+<li>Make a clone of the support repository.</li>
+<li>Enter ./helpers/automate.sh</li>
+<li>Add issue number, verify the information is correct.</li>
+<li>Follow the next steps and publish. move issue to "staged"</li>
+<li>Now make the reimbursement and close issue.</li>
+</ul>
+<span class="wiki-legacy-anchor" id="Rights" aria-hidden="true"></span><h2 id="rights"> Rights </h2>
+<span class="wiki-legacy-anchor" id="Bonding" aria-hidden="true"></span><h2 id="bonding"> Bonding </h2>
+</div>
