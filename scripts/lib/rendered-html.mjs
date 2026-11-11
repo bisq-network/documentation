@@ -10,7 +10,8 @@
 // - formatDifference (scripts/lib/markdown-format.mjs): a converted Markdown article
 //   against the HTML it was converted from, after the narrow normalization in
 //   normalizeFormat (attribute order, whitespace a browser does not display, and
-//   Starlight's dir="auto" on inline code). Nothing else is normalized.
+//   Starlight's dir="auto" on inline code). Nothing else is normalized; the site's
+//   heading links are on both pages and must match.
 // - the accepted-edit structure checks in scripts/check-source-fidelity.mjs, on the
 //   exact trees (attribute order aside).
 import { createHash } from "node:crypto";
@@ -166,21 +167,16 @@ const rightToLeft = /[\u0590-\u08ff\ufb1d-\ufdff\ufe70-\ufefc\u{10800}-\u{10fff}
  *    inside a block element. Text left empty disappears; text next to text is joined.
  * 3. dir="auto" on a code element outside pre (Starlight adds it to Markdown inline
  *    code), unless the code holds a right-to-left character.
- * 4. With headingLink (scripts/lib/markdown-format.mjs): Starlight's heading-link
- *    wrapper around a Markdown heading, only in its exact form (wrappedHeading); the
- *    heading stays.
  * Text, elements, comments and every other attribute and value stay exactly as
- * rendered. Rules 1 to 3 are within the differences the converter tolerates
+ * rendered. These are within the differences the converter tolerates
  * (TOLERATED in scripts/lib/markdown-conversion.mjs) and narrower: whitespace inside
  * inline code, whitespace inside an ID span in the middle of a line, and dir="ltr" on
  * pre are not normalized.
  */
-export function normalizeFormat(nodes, { headingLink } = {}) {
+export function normalizeFormat(nodes) {
   const copy = (children, preserve, insidePre) => children.map((node) => {
     if (node.type === "text") return { type: "text", value: preserve ? node.value : node.value.replace(collapsible, " "), preserve };
     if (node.type !== "element") return node;
-    const heading = headingLink && wrappedHeading(node, headingLink);
-    if (heading) return copy([heading], preserve, insidePre)[0];
     let { attrs } = node;
     if (node.tag === "code" && !insidePre && attribute(node, "dir") === "auto" && !rightToLeft.test(textContent(node))) {
       attrs = attrs.filter(([name]) => name !== "dir");
@@ -191,6 +187,19 @@ export function normalizeFormat(nodes, { headingLink } = {}) {
   trimLineEdges(tree, true);
   trimLineEdges(tree, false);
   return clean(tree);
+}
+
+/**
+ * nodes with each exact heading-link wrapper (wrappedHeading) replaced by its
+ * heading; nothing else changes. Used only to see that an HTML article renders as
+ * its source, apart from the link the site adds to each heading.
+ */
+export function dropHeadingLinks(nodes, headingLink) {
+  return nodes.map((node) => {
+    if (node.type !== "element") return node;
+    const heading = wrappedHeading(node, headingLink);
+    return heading ?? { ...node, children: dropHeadingLinks(node.children, headingLink) };
+  });
 }
 
 /**

@@ -35,7 +35,6 @@ const baseFrom = (files) => async (file) => (files.has(file) ? Buffer.from(files
 const withBase = { readBase: baseFrom(convertedFiles) };
 const withHtmlBase = { readBase: baseFrom(restoredFiles) };
 
-
 const original = convertedFiles.get(path);
 const restore = convertedFiles.get(restorePath);
 const reworded = original

@@ -11,7 +11,7 @@
 // scripts/record-markdown-format.mjs writes the record after checking the conversion.
 import { createHash } from "node:crypto";
 import { renderArticle } from "./render-markdown.mjs";
-import { attribute, elementsOf, escapeText, firstDifference, htmlParser, normalizeFormat, serialize, splitRenderedArticle, startTag, textContent } from "./rendered-html.mjs";
+import { attribute, dropHeadingLinks, elementsOf, escapeText, firstDifference, htmlParser, normalizeFormat, serialize, splitRenderedArticle, startTag, textContent } from "./rendered-html.mjs";
 
 export const markdownFormatPath = "migration/markdown-format.json";
 export const preservedArticlesDir = "migration/restored-articles";
@@ -51,12 +51,11 @@ const checked = new Map();
  * replaced, or undefined when it does. Both are rendered as the article at
  * articlePath(slug), and compared after normalizeFormat (scripts/lib/rendered-html.mjs).
  * The front matter must be identical. The HTML file must render as itself: its
- * article container exactly as in its source, everything else up to normalizeFormat.
- * So a renderer that dropped or changed content cannot make the two match.
- * Starlight's link next to a Markdown heading (headingLinkOf) is the one rendered
- * difference that is not whitespace or dir="auto": it is site navigation derived
- * from the heading, not article text, and normalizeFormat drops it only in its exact
- * form.
+ * article container exactly as in its source, everything else up to normalizeFormat,
+ * apart from the link the site adds to each heading (headingLinkOf), which is site
+ * navigation derived from the heading and is accepted only in its exact form. So a
+ * renderer that dropped or changed content cannot make the two match. The two
+ * rendered pages, heading links included, may then differ only by normalizeFormat.
  */
 export async function formatDifference({ slug, html, markdown, root = process.cwd() }) {
   const key = [root, slug, hash(html), hash(markdown)].join("\0");
@@ -78,16 +77,19 @@ async function compare(slug, html, markdown, root) {
     return tree.nodes;
   };
   try {
-    const options = { headingLink: await headingLinkOf(path, root) };
+    const headingLink = await headingLinkOf(path, root);
     const before = await rendered(html, "HTML");
+    // The HTML renders as its source; the site only adds its link to each heading (exact form).
     const source = parse(html.slice(htmlFront.length));
+    const linked = headingLink ? dropHeadingLinks(before, headingLink) : before;
     const container = (nodes) => serialize([splitRenderedArticle(nodes).container]);
-    if (!source.selfContained || container(source.nodes) !== container(before) || serialize(normalizeFormat(source.nodes, options)) !== serialize(normalizeFormat(before, options))) {
+    if (!source.selfContained || container(source.nodes) !== container(linked) || serialize(normalizeFormat(source.nodes)) !== serialize(normalizeFormat(linked))) {
       return "the HTML file does not render as itself, so it cannot anchor the comparison";
     }
     const after = await rendered(markdown, "Markdown");
     splitRenderedArticle(after);
-    const [x, y] = [normalizeFormat(before, options), normalizeFormat(after, options)];
+    // Both pages carry the site's heading links; they are compared as rendered.
+    const [x, y] = [normalizeFormat(before), normalizeFormat(after)];
     if (serialize(x) === serialize(y)) return undefined;
     return `the Markdown renders differently from the HTML it replaced, ${firstDifference(x, y)}`;
   } catch (error) {
@@ -98,12 +100,14 @@ async function compare(slug, html, markdown, root) {
 const headingLinks = new Map();
 
 /**
- * Starlight can wrap a Markdown heading with a link to it (its "heading links"); the
- * HTML headings it replaced had none. Learn the exact link the site renders for an
- * article heading, by rendering a sample heading at the article's path, and return a
- * function heading -> the canonical HTML of the link Starlight adds to that heading
- * (or undefined when the site adds none). normalizeFormat drops a wrapper only when
- * it holds the heading and exactly this link, so nothing else can hide in it.
+ * The site renders every article heading with a link to it: Starlight's heading
+ * link on Markdown headings, and the same link added to headings that stay HTML
+ * (src/markdown/wiki-markdown.mjs). The restored HTML had none. Learn the exact link
+ * the site renders for an article heading, by rendering a sample heading at the
+ * article's path, and return a function heading -> the canonical HTML of the link
+ * the site adds to that heading (or undefined when it adds none). A wrapper is
+ * dropped only when it holds the heading and exactly this link, so nothing else can
+ * hide in it.
  */
 function headingLinkOf(path, root) {
   const key = `${root}\0${path}`;
@@ -111,20 +115,24 @@ function headingLinkOf(path, root) {
   return headingLinks.get(key);
 }
 
+// The link's label names the heading with its whitespace collapsed and trimmed
+// (headingLinkLabels in src/markdown/wiki-markdown.mjs); the sample checks this.
+const headingTitle = (text) => text.replace(/\s+/g, " ").trim();
+
 async function learnHeadingLink(path, root) {
-  const [title, id] = ["Sample heading title", "sample-heading-id"];
-  const html = await renderArticle(`---\ntitle: "Sample"\n---\n\n## ${title} {#${id}}\n`, path, root);
+  const [title, id] = ["Sample  heading title ", "sample-heading-id"];
+  const html = await renderArticle(`---\ntitle: "Sample"\n---\n\n## ${title}{#${id}}\n`, path, root);
   const { nodes } = (await htmlParser(root))(html);
   const wrapper = elementsOf(nodes).find((element) => element.tag === "div" && startTag(element) === '<div class="sl-heading-wrapper level-h2">');
   if (!wrapper) return undefined;
   const [heading, link, ...rest] = wrapper.children;
-  if (rest.length || heading?.type !== "element" || heading.tag !== "h2" || attribute(heading, "id") !== id || textContent(heading).trim() !== title || link?.type !== "element" || link.tag !== "a") {
+  if (rest.length || heading?.type !== "element" || heading.tag !== "h2" || attribute(heading, "id") !== id || textContent(heading) !== title || link?.type !== "element" || link.tag !== "a") {
     throw new Error("the site's heading link has an unexpected form; scripts/lib/markdown-format.mjs needs updating");
   }
   const template = serialize([link]);
-  const [linkTarget, label] = [`href="#${id}"`, escapeText(textContent(heading))];
+  const [linkTarget, label] = [`href="#${id}"`, escapeText(headingTitle(title))];
   if (template.split(linkTarget).length !== 2 || template.split(label).length !== 2) {
     throw new Error("the site's heading link does not name its heading exactly once; scripts/lib/markdown-format.mjs needs updating");
   }
-  return (element) => template.replace(linkTarget, `href="#${attribute(element, "id")}"`).replace(label, escapeText(textContent(element)));
+  return (element) => template.replace(linkTarget, `href="#${attribute(element, "id")}"`).replace(label, escapeText(headingTitle(textContent(element))));
 }

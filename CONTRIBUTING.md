@@ -83,10 +83,9 @@ On every run the fidelity check rebuilds the HTML (applying any accepted HTML ed
 
 - attribute order;
 - whitespace outside `pre`, `code`, `kbd`, `samp` and `textarea`: a run of spaces, tabs or line breaks counts as one space, and a space where a line starts or ends (at the edge of a block element, after `<br>`, also inside a link or empty anchor span at that edge) does not count;
-- `dir="auto"` that Starlight adds to Markdown inline code, unless the code holds right-to-left text;
-- Starlight's link icon next to a Markdown heading, only in the exact form the site renders for that heading's ID and text.
+- `dir="auto"` that Starlight adds to Markdown inline code, unless the code holds right-to-left text.
 
-Text, elements, other attributes and comments must be identical, the front matter byte for byte, and the HTML file must render as itself, so a broken renderer cannot make both pages match. A doubled space would pass this comparison, but once the conversion is recorded the Markdown is pinned by its hash: any later change to it is a wording change.
+Text, elements, other attributes and comments must be identical, including the link the site adds to every heading, and the front matter byte for byte. The HTML file must also render as itself, apart from that heading link in the exact form the site renders for the heading's ID and text, so a broken renderer cannot make both pages match. A doubled space would pass this comparison, but once the conversion is recorded the Markdown is pinned by its hash: any later change to it is a wording change.
 
 A conversion is its own pull request and needs no receipt. Convert the article, then run `node scripts/record-markdown-format.mjs <slug>`, which checks the conversion and writes its record. An article without a record stays HTML and is checked as before, so articles can be converted one at a time.
 

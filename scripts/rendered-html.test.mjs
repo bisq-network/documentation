@@ -1,13 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { assertVerifiedVersions, installedVersions, verifiedWith } from "./lib/render-markdown.mjs";
-import { htmlParser, normalizeFormat, serialize, wrappedHeading } from "./lib/rendered-html.mjs";
+import { dropHeadingLinks, htmlParser, normalizeFormat, serialize, wrappedHeading } from "./lib/rendered-html.mjs";
 
 // The normalization that lets a converted article match the HTML it replaced
 // (scripts/lib/rendered-html.mjs) may only drop what a browser does not show.
 const parse = await htmlParser();
 const nodes = (html) => parse(html).nodes;
-const same = (a, b, options) => serialize(normalizeFormat(nodes(a), options)) === serialize(normalizeFormat(nodes(b), options));
+const same = (a, b) => serialize(normalizeFormat(nodes(a))) === serialize(normalizeFormat(nodes(b)));
 
 test("whitespace a browser does not show, attribute order and Starlight's dir=auto are normalized", () => {
   for (const [a, b] of [
@@ -41,11 +41,12 @@ test("text, visible whitespace and everything else still differ", () => {
   ]) assert.ok(!same(a, b), `${a} should differ from ${b}`);
 });
 
-test("Starlight's heading link is dropped only in its exact form", () => {
+test("the site's heading link is dropped only in its exact form", () => {
   const headingLink = (heading) => `<a class="sl-anchor-link" href="#${heading.attrs.find(([name]) => name === "id")[1]}"><span class="sr-only">Section titled ${serialize(heading.children)}</span></a>`;
+  const dropped = (html) => serialize(dropHeadingLinks(nodes(html), headingLink));
   const wrapper = (inner, cls = "sl-heading-wrapper level-h2") => `<div class="${cls}"><h2 id="setup">Setup</h2>${inner}</div>`;
   const exact = wrapper('<a class="sl-anchor-link" href="#setup"><span class="sr-only">Section titled Setup</span></a>');
-  assert.ok(same(exact, '<h2 id="setup">Setup</h2>', { headingLink }));
+  assert.equal(dropped(`<p>a</p>${exact}`), '<p>a</p><h2 id="setup">Setup</h2>');
   assert.equal(wrappedHeading(nodes(exact)[0], headingLink)?.tag, "h2");
   for (const changed of [
     wrapper('<a class="sl-anchor-link" href="#other"><span class="sr-only">Section titled Setup</span></a>'),
@@ -53,8 +54,8 @@ test("Starlight's heading link is dropped only in its exact form", () => {
     wrapper('<a class="sl-anchor-link" href="#setup"><span class="sr-only">Section titled Setup</span></a>extra'),
     wrapper('<a class="sl-anchor-link" href="#setup"><span class="sr-only">Section titled Setup</span></a>', "sl-heading-wrapper level-h3"),
     `<div class="sl-heading-wrapper level-h2" hidden><h2 id="setup">Setup</h2><a class="sl-anchor-link" href="#setup"><span class="sr-only">Section titled Setup</span></a></div>`,
-  ]) assert.ok(!same(changed, '<h2 id="setup">Setup</h2>', { headingLink }), changed);
-  // Without the site's heading link the wrapper always counts.
+  ]) assert.equal(dropped(changed), serialize(nodes(changed)), changed);
+  // The comparison of two rendered pages never drops it: both pages must carry the same links.
   assert.ok(!same(exact, '<h2 id="setup">Setup</h2>'));
 });
 
