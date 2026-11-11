@@ -30,6 +30,8 @@ In addition, to make restoring payment accounts easier, you may want to back up 
 
 Go to <code class="wiki-source-code" id="source-code-1">Account</code> > <code class="wiki-source-code" id="source-code-2">Backup</code> and put in a location for your backup to be exported to (note that this section is titled \"Backup wallet\" in the software but it actually exports the entire data directory).
 
+In Bisq 1 v1.10.11, the backup omits selected Tor runtime entries and does not follow links or copy special files. Read the backup result: if it lists skipped entries, preserve any needed linked data separately and verify the result before relying on it.
+
 <figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/26782ecb73f26760dab0f720c3d9eb40fc2f8c1112e55c8bd1360d3ecf153449.png"><img alt="Data directory backup screen." decoding="async" height="710" loading="lazy" src="../../media/wiki/26782ecb73f26760dab0f720c3d9eb40fc2f8c1112e55c8bd1360d3ecf153449.png" width="1200"></a><figcaption>Data directory backup screen.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 <div>
 </div>
