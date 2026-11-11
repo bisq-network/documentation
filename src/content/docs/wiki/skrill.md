@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-**XXXXXXX** is a payment method added in Bisq vX.X.X.
+This source is an unfinished Skrill article template, not a supported-method setup guide. Bisq 1 v1.10.11 does not register Skrill as a payment method. The original placeholder text is preserved below: **XXXXXXX** is a payment method added in Bisq vX.X.X.
 
 XXXXXXX is a payment.\..\...
 

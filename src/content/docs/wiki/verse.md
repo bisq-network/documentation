@@ -16,7 +16,7 @@ tableOfContents: false
 
 </aside>
 
-**Verse** is a payment method added in Bisq v1.7.5.
+**Verse** is a payment method added in Bisq v1.7.5. Bisq 1 v1.10.11 explicitly marks it as shut down and excludes it from the new fiat-account selector; the remaining instructions below are historical, not new-account guidance.
 
 Verse is a mobile payment app based in Europe owned by Square. Users can pay and request money from your friends. Payments are immediate and free. It is easy to use.
 

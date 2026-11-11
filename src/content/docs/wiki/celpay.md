@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-**CelPay** is a payment method added in Bisq v1.7.5.
+**CelPay** is a payment method added in Bisq v1.7.5. This is a historical service reference: Celsius\'s official distribution notice states that its mobile and web apps closed on 29 February 2024. A retained CelPay entry in Bisq is not evidence that those old transfers remain available.
 
 CelPay is a peer to peer payment service run by Celsius is a popular saving / earning crypto service.
 
