@@ -51,7 +51,7 @@ Imagine you want to buy bitcoin (BTC) in exchange for Euros (EUR). Using Bisq\'s
 
 The basic steps would be:
 
-1. You download, install, and run the [Bisq 2](../bisq-2/) desktop application.
+1. You download, install, and run the [Bisq 1](../bisq-1/) desktop application.
 2. You add your EUR payment method details (e.g., [SEPA](../sepa-p551/) bank account) to your Bisq client.
 3. You browse Bisq’s offer book for existing offers to sell BTC for EUR.
 4. You take an existing offer, agreeing to the seller\'s price and terms. This initiates the trade process, including locking BTC from both parties into escrow.
