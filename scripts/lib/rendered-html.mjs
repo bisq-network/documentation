@@ -89,7 +89,12 @@ function parseWith(satteri, html) {
     ?? (!(element(main, "main") && main.children.length === 1 && element(wrapper, "div", [["id", wrapperId]]) && element(after, "p", [["id", afterId]]) && textOnly(after, afterText) && !afterMain.length
       && element(end, "p", [["id", endId]]) && textOnly(end, endText))
       ? "it leaves an element open, closes one it did not open, or carries formatting past its end" : undefined);
-  return { nodes: problem ? nodes : wrapper.children.slice(0, -1), selfContained: !problem, problem };
+  // Browsers run scripts, so they show <noscript> as text and attach <template
+  // shadowrootmode> content in place of the element's own; this parse (scripting off)
+  // would see something else. Article content uses neither.
+  const unlike = problem ? undefined : elementsOf(wrapper.children).find((element) => element.tag === "noscript" || element.tag === "template");
+  const found = problem ?? (unlike && `it has a <${unlike.tag}> element, which a browser shows differently than this check sees it`);
+  return { nodes: found ? nodes : wrapper.children.slice(0, -1), selfContained: !found, problem: found };
 }
 
 const sameAttributes = (element, attrs) => JSON.stringify(element.attrs) === JSON.stringify(attrs);

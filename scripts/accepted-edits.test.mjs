@@ -92,7 +92,9 @@ test("npm run build is the strict gate plus exactly the steps the check job runs
   const { scripts } = JSON.parse(readFileSync("package.json", "utf8"));
   assert.equal(scripts.build, "node scripts/check-source-fidelity.mjs && npm run build:after-fidelity");
   // After astro build, the offline renderer the gate uses is compared with the build.
-  assert.match(scripts["build:after-fidelity"], /astro build && node scripts\/check-rendered-articles\.mjs && node scripts\/check-site\.mjs$/);
+  // Astro runs through scripts/astro-build.mjs, which fails when one page replaces another.
+  assert.match(scripts["build:after-fidelity"], / && node scripts\/astro-build\.mjs && node scripts\/check-rendered-articles\.mjs && node scripts\/check-site\.mjs$/);
+  assert.doesNotMatch(scripts["build:after-fidelity"], /(?:^|&& )(?:\S+=\S+ )*astro build/);
   const check = readFileSync(".github/workflows/check.yml", "utf8");
   assert.match(check, /\n {8}run: node scripts\/check-source-fidelity\.mjs --awaiting-receipt-base "\$RUNNER_TEMP\/base"\n {6}- run: npm run build:after-fidelity\n/);
   // The receipts job renders articles too, so it installs the same packages first.
@@ -554,7 +556,7 @@ test("the page is checked as readers get it, after the page's string replacement
   const html = readFileSync(preservedArticlePath("troubleshooting"), "utf8");
   assert.match(await formatDifference({ slug: "troubleshooting", html, markdown: edited }), /the Markdown renders differently from the HTML it replaced/);
   onlyFinding(await run({ "src/content/docs/wiki/troubleshooting.md": edited, [markdownFormatPath]: rerecorded("troubleshooting", edited) }, []), /troubleshooting\.md: its Markdown conversion .* does not render as the HTML it replaced/);
-  onlyFinding(await run({ "src/content/docs/wiki/troubleshooting.md": edited }, [receiptFor("troubleshooting", troubleshooting, edited)]), /troubleshooting\.md: PR #46 (?:adds or removes|changes gap-)/);
+  onlyFinding(await run({ "src/content/docs/wiki/troubleshooting.md": edited }, [receiptFor("troubleshooting", troubleshooting, edited)]), /troubleshooting\.md: PR #46 (?:adds or removes|changes gap:#my-wallet-has-an-incorrect-balance:1)/);
 });
 
 test("a figure, its link and its caption stay as restored", async () => {
@@ -576,24 +578,48 @@ test("code blocks, tables and gap markers change only when the receipt lists the
   assert.deepEqual((await run({ [scriptPath]: code }, [receiptFor("automatic-backup-script", script, code, { changed_locked_content: ["source-code-3"] })])).failures, []);
   const awaiting = await run({ [scriptPath]: code }, [], 2, { readBase: baseFrom(new Map([[scriptPath, script]])) });
   assert.deepEqual([awaiting.failures, awaiting.awaiting.map(awaitingLine)], [[], ["automatic-backup-script: source-code-3 (code block, table or recovery gap marker) changed; its receipt must list it in changed_locked_content"]]);
-  onlyFinding(await run({ [path]: reworded }, [receipt(original, reworded, { changed_locked_content: ["table-1"] })]), /PR #46 lists table-1 in changed_locked_content, but it is unchanged/);
+  onlyFinding(await run({ [path]: reworded }, [receipt(original, reworded, { changed_locked_content: ["table:top:1"] })]), /PR #46 lists table:top:1 in changed_locked_content, but it is unchanged/);
+  assert.match((await run({ [path]: reworded }, [receipt(original, reworded, { changed_locked_content: ["table-1"] })])).failures.join("\n"), /changed_locked_content must list code blocks, tables and gap markers such as source-code-3/);
   // A table cell and a gap marker in other articles.
   for (const [slug, find, replacement, key] of [
-    ["bitcoin-units", "<td>100,000,000,000,000</td>", "<td>200,000,000,000,000</td>", "table-"],
-    ["critical-bugs", "[section not recovered: Delivered]", "[section recovered]", "gap-"],
-    ["critical-bugs", ' <small class="wiki-link-gap">[section not recovered: Delivered]</small>', "", "gap-"],
+    ["bitcoin-units", "<td>100,000,000,000,000</td>", "<td>200,000,000,000,000</td>", "table:"],
+    ["critical-bugs", "[section not recovered: Delivered]", "[section recovered]", "gap:"],
+    ["critical-bugs", ' <small class="wiki-link-gap">[section not recovered: Delivered]</small>', "", "gap:"],
   ]) {
     const article = committedArticle(slug);
     const edited = article.replace(find, replacement);
     assert.notEqual(edited, article);
     const result = await run({ [`src/content/docs/wiki/${slug}.md`]: edited }, [receiptFor(slug, article, edited)]);
     assert.equal(result.failures.length, 1, result.failures.join("\n"));
-    assert.match(result.failures[0], new RegExp(`${slug}\\.md: PR #46 (?:changes ${key}\\d+|adds or removes a code block, table or recovery gap marker)`));
+    assert.match(result.failures[0], new RegExp(`${slug}\\.md: PR #46 (?:changes ${key}\\S+:\\d+|adds or removes a code block, table or recovery gap marker)`));
   }
 });
 
+test("code blocks, tables and gap markers keep their names when others change, and count as changed when moved", async () => {
+  // Review round 2 (PR #188): dropping one gap renumbered every later one, and a moved
+  // code block needed no listing.
+  const teams = committedArticle("teams");
+  const gapless = teams.replace('<span class="wiki-link-gap">DAO <small>[unrecovered article: DAO]</small></span>', "DAO");
+  const moved = gapless.replace("should check out the [Contributor Checklist](../contributor-checklist/).", 'should check out the [Contributor Checklist](../contributor-checklist/) and <span class="wiki-link-gap">DAO <small>[unrecovered article: DAO]</small></span>.');
+  assert.notEqual(moved, gapless);
+  const result = await run({ "src/content/docs/wiki/teams.md": moved }, [receiptFor("teams", teams, moved)]);
+  assert.equal(result.failures.length, 1, result.failures.join("\n"));
+  assert.match(result.failures[0], /teams\.md: PR #46 (?:adds or removes a code block, table or recovery gap marker \(gap:top:1 gone, gap:#\S+:\d+ new\)|changes gap:)/);
+  const scriptPath = "src/content/docs/wiki/automatic-backup-script.md";
+  const script = committedArticle("automatic-backup-script");
+  const block = script.match(/<pre><code class="wiki-source-code" id="source-code-3">[\s\S]*?<\/code><\/pre>\n/)[0];
+  // Moved above the paragraph it followed, unchanged.
+  const before = 'Create a <code class="wiki-source-code" id="source-code-1">scripts</code> folder';
+  const reordered = script.replace(block, "").replace(before, `${block}\n${before}`);
+  assert.notEqual(reordered, script);
+  onlyFinding(await run({ [scriptPath]: reordered }, [receiptFor("automatic-backup-script", script, reordered)]), /PR #46 changes source-code-3 \(a code block, table or recovery gap marker\)/);
+});
+
 test("invisible characters are added only when the receipt lists them", async () => {
-  for (const [character, label] of [["\u200b", "U+200B"], ["\u202e", "U+202E"], ["\u2066", "U+2066"], ["\u00ad", "U+00AD"]]) {
+  // Review round 2 added default-ignorable, control, unassigned and private-use characters.
+  for (const [character, label] of [["\u200b", "U+200B"], ["\u202e", "U+202E"], ["\u2066", "U+2066"], ["\u00ad", "U+00AD"],
+    ["\u17b4", "U+17B4"], ["\u17b5", "U+17B5"], ["\u180b", "U+180B"], ["\u180f", "U+180F"], ["\ufff0", "U+FFF0"], ["\u{e0080}", "U+E0080"],
+    ["\u0001", "U+0001"], ["\u0085", "U+0085"], ["\ue000", "U+E000"]]) {
     const edited = original.replace("one of the most active markets", `one of the most${character} active markets`);
     onlyFinding(await run({ [path]: edited }, [receipt(original, edited)]), new RegExp(`PR #46 adds invisible characters \\(${label.replace("+", "\\+")}\\)`));
     assert.deepEqual((await run({ [path]: edited }, [receipt(original, edited, { added_invisible_characters: [label] })])).failures, []);
@@ -618,6 +644,18 @@ test("invisible characters are added only when the receipt lists them", async ()
   const swapped = withLrm.replace("\u200e", "\u200f");
   onlyFinding(await run({ [path]: swapped }, [receipt(original, withLrm, { added_invisible_characters: ["U+200E"] }), later(withLrm, swapped)]), /PR #99 adds invisible characters \(U\+200F\)/);
   assert.deepEqual((await run({ [path]: swapped }, [receipt(original, withLrm, { added_invisible_characters: ["U+200E"] }), later(withLrm, swapped)].map((item, index) => (index ? { ...item, added_invisible_characters: ["U+200F"] } : item)))).failures, []);
+  // A hand-written receipt whose change boundary splits a character reference
+  // ({ original: "", accepted: "&#x200" } before an existing "B"): in HTML the parser
+  // reads "&#x200Bisq" as U+200B and "isq", so the rendered text decides, not the change
+  // strings or the count. (Markdown text needs the semicolon, so there it stays visible.)
+  const htmlWithZwsp = htmlOriginal.replace("one of the most active markets", "one of the most\u200b active markets");
+  const htmlSplit = htmlWithZwsp.replace("most\u200b active", "most active").replace("markets on Bisq.", "markets on &#x200Bisq.");
+  const firstHtml = receipt(htmlOriginal, htmlWithZwsp, { added_invisible_characters: ["U+200B"] });
+  const handMade = later(htmlWithZwsp, htmlSplit);
+  handMade.changes = handMade.changes.map((change) => (change.accepted.includes("&#x200Bisq") ? { ...change, column: change.column + change.accepted.indexOf("&#x200"), original: "", accepted: "&#x200" } : change));
+  assert.ok(handMade.changes.some((change) => change.accepted === "&#x200" && change.original === ""), JSON.stringify(handMade.changes));
+  assert.equal(undoAcceptedEdit(htmlSplit, handMade), htmlWithZwsp);
+  onlyFinding(await runHtml({ [path]: htmlSplit }, [firstHtml, handMade]), /trading-monero\.md: PR #99 adds invisible characters \(U\+200B\)/);
   // A character reference in Markdown counts as the character it stands for.
   const encoded = original.replace("one of the most active markets", "one of the most&#x200B; active markets");
   onlyFinding(await run({ [path]: encoded }, [receipt(original, encoded)]), /PR #46 adds invisible characters \(U\+200B\)/);

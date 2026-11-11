@@ -201,40 +201,48 @@ async function renderedArticle(text, path, pr) {
 }
 
 // Parts of an article whose content an accepted edit may change only when its receipt
-// lists them in changed_locked_content: code blocks (by their code's ID), tables and
-// recovery gap markers, numbered in page order. Each is compared as a whole.
+// lists them in changed_locked_content: code blocks, tables and recovery gap markers.
+// A code block is named by its code's ID (source-code-3); anything else by its kind,
+// the ID of the heading it follows ("top" before the first) and its number there
+// (table:#limits:1, gap:top:2), so dropping one leaves the others' names alone. Each is
+// compared as a whole together with the text right around it, so moving one counts as
+// changing it.
 const gapClasses = ["wiki-link-gap", "wiki-template-gap", "wiki-markup-gap", "wiki-image-gap"];
-const lockedKey = /^(?:source-code-\d+|pre-\d+|table-\d+|gap-\d+)$/;
+const contextLength = 24;
 function lockedContent(body) {
-  const found = new Map();
-  const counters = { pre: 0, table: 0, gap: 0 };
+  const items = [];
+  const segments = [];
+  let section = "top";
+  const counters = new Map();
   const visit = (nodes) => nodes.forEach((node) => {
+    if (node.type === "text") { segments.push(node.value); return; }
     if (node.type !== "element") return;
-    let key;
-    if (node.tag === "pre") {
-      counters.pre += 1;
-      const code = node.children.find((child) => child.type === "element" && child.tag === "code");
-      const id = code && attributeValue(code, "id");
-      key = /^source-code-\d+$/.test(id ?? "") ? id : `pre-${counters.pre}`;
-    } else if (node.tag === "table") {
-      counters.table += 1;
-      key = `table-${counters.table}`;
-    } else if (classes(node).some((name) => gapClasses.includes(name))) {
-      counters.gap += 1;
-      key = `gap-${counters.gap}`;
-    }
-    if (key) found.set(key, serialize([node]));
-    else visit(node.children);
+    if (headingTag.test(node.tag) && attributeValue(node, "id") !== undefined) section = `#${attributeValue(node, "id")}`;
+    let kind;
+    if (node.tag === "pre") kind = "pre";
+    else if (node.tag === "table") kind = "table";
+    else if (classes(node).some((name) => gapClasses.includes(name))) kind = "gap";
+    if (!kind) { visit(node.children); return; }
+    const number = (counters.get(`${kind}:${section}`) ?? 0) + 1;
+    counters.set(`${kind}:${section}`, number);
+    const code = kind === "pre" && node.children.find((child) => child.type === "element" && child.tag === "code");
+    const id = code && attributeValue(code, "id");
+    items.push({ key: /^source-code-\d+$/.test(id ?? "") ? id : `${kind}:${section}:${number}`, html: serialize([node]), at: segments.length });
+    segments.push(null);
   });
   visit(body);
-  return found;
+  const flat = (list) => list.filter((segment) => segment !== null).join("").replace(/[\t\n\f\r ]+/g, " ");
+  return new Map(items.map(({ key, html, at }) => [key, `${html}\0${flat(segments.slice(0, at)).slice(-contextLength)}\0${flat(segments.slice(at + 1)).slice(0, contextLength)}`]));
 }
 
-// Characters a reader does not see: format characters (zero-width spaces and joiners,
-// bidirectional controls, soft hyphens, tags), variation selectors and blank fillers.
-// An accepted edit may put them in its changed text only when its receipt lists them
-// in added_invisible_characters.
-const invisibleCharacter = /[\p{Cf}\u034f\u115f\u1160\u2028\u2029\u2800\u3164\ufe00-\ufe0f\uffa0\u{e0100}-\u{e01ef}]/gu;
+// Characters a reader does not see or cannot tell apart: default-ignorable code points
+// (zero-width spaces and joiners, bidirectional controls, soft hyphens, variation
+// selectors, fillers, tags), other format characters, control characters other than
+// tab, line feed and carriage return, unassigned, private-use and surrogate code
+// points, line and paragraph separators and the blank braille pattern. An accepted edit
+// may put them in its changed text only when its receipt lists them in
+// added_invisible_characters.
+const invisibleCharacter = /(?![\t\n\r])[\p{Default_Ignorable_Code_Point}\p{Cf}\p{Cc}\p{Cn}\p{Co}\p{Cs}\u2028\u2029\u2800]/gu;
 const codePoint = (character) => `U+${character.codePointAt(0).toString(16).toUpperCase().padStart(4, "0")}`;
 function invisibleCharacters(body) {
   const counts = new Map();
@@ -370,7 +378,9 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
   assert(!unused.length, `${pr} lists an alt-text change for ${unused.join(", ")}, but that image is unchanged`);
   // Code blocks, tables and gap markers change only when the receipt lists them.
   const [oldLocked, newLocked] = [lockedContent(before.raw.body), lockedContent(after.raw.body)];
-  assert.deepEqual([...newLocked.keys()], [...oldLocked.keys()], `${pr} adds or removes a code block, table or recovery gap marker`);
+  const lockedGone = [...oldLocked.keys()].filter((key) => !newLocked.has(key));
+  const lockedNew = [...newLocked.keys()].filter((key) => !oldLocked.has(key));
+  assert(!lockedGone.length && !lockedNew.length, `${pr} adds or removes a code block, table or recovery gap marker (${[...lockedGone.map((key) => `${key} gone`), ...lockedNew.map((key) => `${key} new`)].join(", ")})`);
   const lockedChanged = [...oldLocked.keys()].filter((key) => oldLocked.get(key) !== newLocked.get(key));
   const lockedListed = new Set(receipt.changed_locked_content ?? []);
   if (receipt !== noReceipt) {
@@ -380,15 +390,17 @@ async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
     assert(!unusedLocked.length, `${pr} lists ${unusedLocked.join(", ")} in changed_locked_content, but it is unchanged`);
   }
   // Characters a reader does not see are added only when the receipt lists them. They
-  // are judged by position: every one in the text an edit puts in (each change's
-  // accepted text, also as HTML decodes it), so one cannot be moved into a link or a
-  // number unnoticed; and, as a backstop, every one the rendered article has more of.
+  // are judged by position: every one in what the rendered article gains, comparing
+  // its decoded text and attributes before and after (so neither a character reference
+  // split across changes nor a move into a link or a number goes unnoticed); every one
+  // in the text an edit puts in, also as HTML decodes it; and, as a backstop, every one
+  // the rendered article has more of.
   const parseDocument = await documentParser(root);
   const invisibleAdded = new Set();
-  for (const change of receipt === noReceipt ? describeEdit(base, edited) : receipt.changes) {
-    for (const text of [change.accepted, serialize(parseDocument(change.accepted))]) {
-      for (const [character] of text.matchAll(invisibleCharacter)) invisibleAdded.add(codePoint(character));
-    }
+  const gained = describeEdit(serialize(before.raw.body), serialize(after.raw.body)).map((change) => change.accepted);
+  const putIn = (receipt === noReceipt ? describeEdit(base, edited) : receipt.changes).flatMap((change) => [change.accepted, serialize(parseDocument(change.accepted))]);
+  for (const text of [...gained, ...putIn]) {
+    for (const [character] of text.matchAll(invisibleCharacter)) invisibleAdded.add(codePoint(character));
   }
   const [oldInvisible, newInvisible] = [invisibleCharacters(before.raw.body), invisibleCharacters(after.raw.body)];
   for (const [character, count] of newInvisible) if (count > (oldInvisible.get(character) ?? 0)) invisibleAdded.add(character);

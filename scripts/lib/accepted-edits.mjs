@@ -24,7 +24,7 @@ const pullRequestUrl = /^https:\/\/github\.com\/(?:hiciefte\/bisq-docs|bisq-netw
 const endorsement = /\b(?:verified|official|approved|endorsed|certified|guaranteed)\b/i;
 const calendarDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value) && new Date(`${value}T00:00:00Z`).toISOString().slice(0, 10) === value;
 const figureId = /^source-image-\d+$/;
-const lockedKey = /^(?:source-code-\d+|pre-\d+|table-\d+|gap-\d+)$/;
+const lockedKey = /^(?:source-code-\d+|(?:pre|table|gap):(?:top|#\S+):\d+)$/;
 const codePoint = /^U\+(?:[0-9A-F]{4,5}|10[0-9A-F]{4})$/;
 
 /** "PR #46" for messages and page labels. */
@@ -62,7 +62,7 @@ function itemProblems(item, { slugs, notes }) {
   const images = item.changed_image_alt_text ?? [];
   need(Array.isArray(images) && images.every((id) => figureId.test(id)), "changed_image_alt_text must list figure ids such as source-image-1");
   const locked = item.changed_locked_content ?? [];
-  need(Array.isArray(locked) && locked.every((key) => lockedKey.test(key)), "changed_locked_content must list code blocks, tables and gap markers such as source-code-3, pre-1, table-2 or gap-4");
+  need(Array.isArray(locked) && locked.every((key) => lockedKey.test(key)), "changed_locked_content must list code blocks, tables and gap markers such as source-code-3, table:#limits:1 or gap:top:2");
   const invisible = item.added_invisible_characters ?? [];
   need(Array.isArray(invisible) && invisible.every((character) => codePoint.test(character)), "added_invisible_characters must list code points such as U+200B");
   const changes = Array.isArray(item.changes) ? item.changes : [];

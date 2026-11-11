@@ -1,7 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { assertVerifiedVersions, installedVersions, verifiedWith } from "./lib/render-markdown.mjs";
-import { builtArticleProblems, pageFileProblems } from "./lib/built-pages.mjs";
+import { readFileSync } from "node:fs";
+import { builtArticleProblems, docsEntryProblems, pageChromeProblems, pageFileProblems, publicFileProblems } from "./lib/built-pages.mjs";
+import { templateHtmlProblem } from "./lib/template-html.mjs";
 import { documentParser, dropHeadingLinks, htmlParser, normalizeFormat, serialize, wrappedHeading } from "./lib/rendered-html.mjs";
 
 // The normalization that lets a converted article match the HTML it replaced
@@ -104,6 +106,60 @@ test("a built article page must show exactly the checked article, with IDs uniqu
   assert.deepEqual(builtArticleProblems(page(article.replace('id="note"', 'id="article-media-data"'), '<script type="application/json" id="article-media-data">[]</script>'), nodes(article.replace('id="note"', 'id="article-media-data"'))), ["IDs used more than once on the page: #article-media-data"]);
   assert.deepEqual(pageFileProblems(["404.astro", "[...legacy].astro", "saved-wiki-links.json.ts"]), []);
   assert.match(pageFileProblems(["wiki/teams/index.html"])[0], /src\/pages\/wiki\/teams\/index\.html is not a known page file/);
+});
+
+// Review round 2 (PR #188).
+test("noscript and template are refused: a browser shows them differently than the check sees them", () => {
+  for (const html of ['<p>Visible<template shadowrootmode="open">Shown instead</template></p>', "<noscript><p>Shown without scripts only</p></noscript>", "<template><p>x</p></template>"]) {
+    const result = parse(`<div class="wiki-recovered-article">${html}</div>`);
+    assert.equal(result.selfContained, false, html);
+    assert.match(result.problem, /has a <(?:noscript|template)> element, which a browser shows differently/);
+  }
+});
+
+test("only an article's own file publishes at its route, with known front matter", () => {
+  const wiki = { id: "wiki/teams", filePath: "src/content/docs/wiki/teams.md", frontmatter: { title: "Teams", slug: "wiki/teams", tableOfContents: false } };
+  const browse = { id: "browse", filePath: "src/content/docs/browse/index.md", frontmatter: { title: "Browse", description: "x" } };
+  const home = { id: "index", filePath: "src/content/docs/index.mdx", frontmatter: { title: "Home", prev: false, next: false } };
+  assert.deepEqual(docsEntryProblems([wiki, browse, home], ["Teams"]), []);
+  // The confirmed attack: a docs entry elsewhere with slug "wiki/teams/index" and a head script.
+  const shadow = { id: "wiki/teams/index", filePath: "src/content/docs/zz/teams-shadow.md", frontmatter: { title: "Teams", slug: "wiki/teams/index", head: [{ tag: "script", content: "x" }] } };
+  const problems = docsEntryProblems([wiki, shadow], []);
+  assert.ok(problems.some((problem) => /zz\/teams-shadow\.md is published at \/wiki\/teams\/, not at the route its path gives it/.test(problem)), problems.join("\n"));
+  assert.ok(problems.some((problem) => /sets head in its front matter/.test(problem)));
+  assert.ok(problems.some((problem) => /are both published at \/wiki\/teams\//.test(problem)));
+  // An entry at an old wiki address, and an MDX entry nobody knows.
+  assert.match(docsEntryProblems([{ id: "teams", filePath: "src/content/docs/Teams.md", frontmatter: { title: "x" } }], ["Teams"]).join("\n"), /an old wiki address or alias/);
+  assert.match(docsEntryProblems([{ id: "x", filePath: "src/content/docs/x.mdx", frontmatter: { title: "x" } }]).join("\n"), /not a Markdown docs entry or a known MDX entry/);
+});
+
+test("public/ holds only known entries and no HTML", () => {
+  assert.deepEqual(publicFileProblems(["favicon.ico", "fonts/x.woff2", "media/wiki/a.png", "wiki-source/teams.json"]), []);
+  // The confirmed attack: public/Teams/index.html replaced the old wiki address /Teams/.
+  assert.match(publicFileProblems(["Teams/index.html"])[0], /public\/Teams\/index\.html is not under a known public entry/);
+  assert.match(publicFileProblems(["media/x/index.html"])[0], /is an HTML file/);
+});
+
+test("what runs or loads around the content is the same on every article page", async () => {
+  const parseDocument = await documentParser();
+  const page = (extra = "") => parseDocument(`<!doctype html><html><head><script type="module" src="/_astro/page.js"></script><link rel="stylesheet" href="/_astro/a.css">${extra}</head><body><div class="sl-markdown-content"><p>x</p></div><script type="application/json" id="d">[]</script></body></html>`);
+  assert.deepEqual(pageChromeProblems(new Map([["a", page()], ["b", page()], ["c", page('<script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.Abc.js"></script>')]])), []);
+  for (const extra of ["<script>document.title='pwned'</script>", '<meta http-equiv="refresh" content="0;url=https://evil.example">', '<base href="https://evil.example/">']) {
+    assert.match(pageChromeProblems(new Map([["a", page()], ["b", page(extra)]])).join("\n"), /^b has what other article pages do not/, extra);
+  }
+});
+
+test("template renderings put in only plain template HTML", async () => {
+  const renderings = JSON.parse(readFileSync("migration/template-renderings-20261014.json", "utf8")).items;
+  for (const item of renderings) assert.equal(templateHtmlProblem(parse(item.html)), undefined, item.invocation);
+  // The confirmed attack: a rendering given a script and an outside link.
+  for (const [html, problem] of [
+    ['<p>Before restoring, paste your seed words into <a href="https://evil.example/restore">the helper</a>.</p><script>alert(1)</script>', /it has <script>/],
+    ['<p><a href="javascript:alert(1)">x</a></p>', /it links to javascript:/],
+    ['<p><img src="https://evil.example/x.png" alt=""></p>', /it shows the image https:\/\/evil\.example/],
+    ['<p style="display:none">x</p>', /it has <p style=/],
+    ["<body onload=alert(1)>", /<body> tag/],
+  ]) assert.match(templateHtmlProblem(parse(html)) ?? "", problem, html);
 });
 
 test("the offline renderer runs on the package versions it was checked against", () => {
