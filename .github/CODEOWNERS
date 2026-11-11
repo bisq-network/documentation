@@ -1,0 +1,6 @@
+# GitHub asks the documentation reviewers to review any change to the wording of
+# the restored articles or to their accepted-edit receipts. Who may approve, and
+# how many approvals a receipt needs: CONTRIBUTING.md ("Accepted editorial changes").
+/src/content/docs/wiki/ @suddenwhipvapor @pazza83
+/migration/accepted-edits.json @suddenwhipvapor @pazza83
+/migration/accepted-edits/ @suddenwhipvapor @pazza83
