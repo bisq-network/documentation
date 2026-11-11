@@ -13,7 +13,7 @@ tableOfContents: false
 
 ## Bitcoin unit names{#bitcoin-unit-names}
 
-Some names have been proposed for different denominations of bitcoin for everyday use. One syllable words are preferred. Capital letter symbols for multiples of Bitcoin, lower case for fractions. Homage to the devs and other influences on the creation of Bitcoin.
+Some names have been proposed for different denominations of bitcoin for everyday use. One syllable words are preferred. Capital letter symbols for multiples of Bitcoin, lower case for fractions. Homage to the devs and other influences on the creation of Bitcoin. Amounts below one satoshi are not separately spendable Bitcoin transaction outputs; for example, Lightning uses millisatoshis for some off-chain accounting.
 
 <table>
 <caption>Bitcoin unit names and symbols</caption>
