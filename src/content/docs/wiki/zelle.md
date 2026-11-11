@@ -42,7 +42,7 @@ Zelle allows users to easily send and receive money using only the recipient’s
 - **Spending Limits:** Zelle limits (daily, weekly, monthly) vary significantly between banks and credit unions. **Buyers are responsible for checking their own Zelle sending limits** (usually visible within their banking app) before starting a trade.
 - **Maximum Trade Duration:** 4 days.
 - **Maximum BTC per Trade:** <span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span> (This is the standard [Bisq v1](../bisq-1/) limit).
-- **Account Signing:** Yes, Zelle accounts **require [signing](../account-limits/)** in [Bisq v1](../bisq-1/). Until your Zelle payment account is signed, trades using it are limited to 0.01 BTC.
+- **Account Signing:** Yes, Zelle accounts **require [signing](../account-limits/)** in [Bisq v1](../bisq-1/). In Bisq 1 v1.10.11, the unsigned BTC-buying allowance is 0.002 BTC; higher buying limits phase in after eligible signing. Selling is governed by the method\'s applicable maximum.
 
 <span class="wiki-legacy-anchor" id="Setting_Up_Your_Zelle_Account_in_Bisq" aria-hidden="true">
 </span>
@@ -129,6 +129,6 @@ If a problem occurs (e.g., payment not received, wrong amount sent, sender name 
 
 ### Bank Blocking Payment {#bank-blocking-payment}
 
-Banks or credit unions may sometimes block Zelle payments based on their own risk algorithms or policies. If you (as the buyer) are unable to send the Zelle payment for reasons beyond your control: 1. Do **not** try to send payment from a different Zelle account or a friend/family member\'s account. 2. Immediately open a support ticket with a [Mediator](../mediator/): select the trade in Bisq and press **Ctrl + O** (or Cmd + O on Mac). 3. Explain the situation clearly to the [Mediator](../mediator/).
+Banks or credit unions may sometimes block Zelle payments based on their own risk algorithms or policies. If you (as the buyer) are unable to send the Zelle payment for reasons beyond your control: 1. Do **not** try to send payment from a different Zelle account or a friend/family member\'s account. 2. Immediately open a support ticket with a [Mediator](../mediator/): select the trade in Bisq and press **Alt + O** (Option + O on macOS; Ctrl + O is also accepted). 3. Explain the situation clearly to the [Mediator](../mediator/).
 
 </div>
