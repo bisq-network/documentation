@@ -20,7 +20,7 @@ Funds for a Bisq trade are locked in a 2-of-2 multisig that is controlled only b
 
 ## Using Bisq\'s Manual Payout tool {#using-bisq-s-manual-payout-tool}
 
-The emergency payout tool is in Bisq, if you do a CTRL-G it will open.
+In Bisq 1 v1.10.11, open the emergency payout tool with Alt+G (Option+G on macOS), or Ctrl+G (Command+G on macOS).
 
 The purpose of the tool is to allow owners of a 2of2 multisig to issue a transaction which pays out the funds to their addresses. The tool is designed to be used in collaboration with mediators but it could conceivably be used by the multisig key holders alone.
 
@@ -62,6 +62,8 @@ Note that if the two traders have access to the mediation ticket they can Import
 Both participants have to sign the inputs. This is done from the Sign menu, for convenience there is a \"Locate key in wallet\" button which will scan the user\'s wallet for a key which matches the inputs. \"Generate signature\" will sign the inputs using the key at the top of the screen. Users could alternatively choose to locate the key themselves, and paste it into the \"privateKeyHex\" field before doing \"Generate signature\".
 
 Once the signature has been generated each participant should send it to the person who will build and broadcast the transaction (usually the Mediator).
+
+Keep the private key and seed words on the owner\'s computer: send only the generated signature and agreed transaction details, never the `privateKeyHex` value. Each trader should check the deposit, payout addresses, amounts and fee before signing.
 
 <span class="wiki-legacy-anchor" id="Build_&amp;_Broadcast" aria-hidden="true">
 </span>
