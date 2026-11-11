@@ -60,7 +60,7 @@ In instances like the above ideally the trade would end up in mediation and the 
 
 Any user that has lost trade and miner fees is eligible for reimbursement.
 
-Trades are also only eligible for reimbursement if submitted within 3 months from the date of the trade.
+Under the accepted policy in proposal 369, submit fee-agent requests within three months of the latest of trade completion, trade failure, the proposed mediation summary or the received arbitration summary. The proposal routes older cases to the DAO with an explanation and trader-prepared evidence.
 
 <span class="wiki-legacy-anchor" id="When_to_consider_reimbursement?" aria-hidden="true">
 </span>

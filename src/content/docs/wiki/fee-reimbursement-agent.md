@@ -36,7 +36,7 @@ https://github.com/orgs/bisq-network/teams/fee-reimbursement-agents</a>
 ## Duties {#duties}
 
 - Examine every Github proposal, verify that the taker and maker fee address are mentioned in the issue. then move to \"ready\" [Lost fee reimbursements](https://github.com/bisq-network/support/projects/1)
-- Ensure reimbursement request was submitted within 3 months of the trade completing as per the accepted proposal [here](https://github.com/bisq-network/proposals/issues/369)
+- Ensure reimbursement request was submitted within 3 months of the latest of trade completion, trade failure, the proposed mediation summary or the received arbitration summary as per the accepted proposal [here](https://github.com/bisq-network/proposals/issues/369)
 - When starting to process an individual issue, move it to \"In progress\". Then open the terminal.
 - Make a clone of the support repository.
 - Enter ./helpers/automate.sh
