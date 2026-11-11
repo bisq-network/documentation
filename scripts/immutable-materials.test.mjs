@@ -20,6 +20,7 @@ test("wording proposals, receipts, formatting records and look-alike paths are n
   assert.deepEqual(immutableChanges([
     "src/content/docs/wiki/foss.md",
     "migration/accepted-edits.json",
+    "migration/accepted-edits/foss.pr-1.json",
     "migration/source-formatting.json",
     "migration/source-review-notes.json",
     "migration/restoration-fidelity.json.orig",
@@ -41,7 +42,7 @@ test("the message names each path and the way forward", () => {
   const lines = immutableMaterialsMessage(["migration/restoration-fidelity.json"]);
   assert.match(lines[0], /changes a preserved restoration material\. These never change in a pull request:/);
   assert.equal(lines[1], "- migration/restoration-fidelity.json");
-  assert.match(lines.join("\n"), /migration\/accepted-edits\.json/);
+  assert.match(lines.join("\n"), /a receipt in migration\/accepted-edits\//);
   assert.match(lines.join("\n"), /its own pull request that also changes this guard/);
   assert.match(immutableMaterialsMessage(["a", "b"])[0], /changes 2 preserved restoration materials/);
 });

@@ -1,5 +1,5 @@
 import { verifyAdditionalArticles } from "./lib/additional-articles.mjs";
-import { acceptedEditsPath, parseAcceptedEdits, pullRequestLabel, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
+import { acceptedEditsPath, parseAcceptedEdits, pullRequestLabel, receiptFilesIn, receiptsDir, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 // Its trusted baselines are the committed manifests; no external scratch files,
 // network requests, Git checkout, package installation, or build are required.
 // A human-approved wording change is accepted only through a receipt in
-// migration/accepted-edits.json: the receipt's recorded original text must
+// migration/accepted-edits/: the receipt's recorded original text must
 // rebuild the preserved original exactly, which is then checked as before.
 //
 // By default a wording change without a receipt fails. Only the pull request
@@ -299,9 +299,14 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
   let accepted = { bySlug: new Map(), problems: [] };
   await check(acceptedEditsPath, async () => {
     const notes = JSON.parse((await read("migration/source-review-notes.json")).toString()).items;
-    accepted = parseAcceptedEdits(JSON.parse((await read(acceptedEditsPath)).toString()), { slugs: new Set(manifest.items.map((item) => item.slug)), notes });
+    const settings = JSON.parse((await read(acceptedEditsPath)).toString());
+    // Receipt files on disk, plus or minus those given in overrides (null removes one).
+    const paths = new Set(receiptFilesIn(root));
+    for (const [path, value] of overrides) if (path.startsWith(`${receiptsDir}/`)) (value === null ? paths.delete(path) : paths.add(path));
+    const files = await Promise.all([...paths].sort().map(async (path) => ({ path, text: (await read(path)).toString() })));
+    accepted = parseAcceptedEdits(settings, files, { slugs: new Set(manifest.items.map((item) => item.slug)), notes });
   });
-  for (const problem of accepted.problems) failures.push(`${acceptedEditsPath}: ${problem}`);
+  failures.push(...accepted.problems);
   const additions = verifyAdditionalArticles();
   const expectedFiles = [...manifest.items.map((item) => `src/content/docs/wiki/${item.slug}.md`), ...additions.map((item) => item.file)].sort();
   await check("src/content/docs/wiki", async () => assert.deepEqual(await filesBelow("src/content/docs/wiki"), expectedFiles, "missing or unexpected source article files"));
@@ -333,11 +338,11 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
           : record && !receipts.length && hash(base) === item.restored_file_sha256
             ? `its base file has no line-break formatting yet, but this change also records it in ${formattingPath}; propose the formatting-only change on its own first (see CONTRIBUTING.md)`
             : `its base file is sha256 ${short(hash(base))}, not the ${receipts.length ? "last accepted edit" : "restored article"} ${short(covered)}`;
-        assert(!why, `${item.title} changed ${receipts.length ? `after its accepted edit (${pullRequestLabel(receipts.at(-1).pull_request)})` : "since restoration"} and no receipt in ${acceptedEditsPath} covers it. It cannot be checked as awaiting a receipt: ${why}.`);
+        assert(!why, `${item.title} changed ${receipts.length ? `after its accepted edit (${pullRequestLabel(receipts.at(-1).pull_request)})` : "since restoration"} and no receipt in ${receiptsDir}/ covers it. It cannot be checked as awaiting a receipt: ${why}.`);
         [current, proposed] = [base.toString(), file];
       }
       if (!receipts.length) {
-        assert(hash(current) === baseline, `${item.title} changed since restoration (sha256 ${short(hash(current))}, restored ${short(baseline)}) and no receipt in ${acceptedEditsPath} covers it. A wording change needs human approval and a receipt (see CONTRIBUTING.md); do not refresh the original hashes.`);
+        assert(hash(current) === baseline, `${item.title} changed since restoration (sha256 ${short(hash(current))}, restored ${short(baseline)}) and no receipt in ${receiptsDir}/ covers it. A wording change needs human approval and a receipt (see CONTRIBUTING.md); do not refresh the original hashes.`);
       } else if (hash(current) === baseline) {
         throw new Error(`${item.title} is unchanged since restoration, but ${pullRequestLabel(receipts.at(-1).pull_request)} has a receipt for it; apply the accepted edit or remove the receipt`);
       }
