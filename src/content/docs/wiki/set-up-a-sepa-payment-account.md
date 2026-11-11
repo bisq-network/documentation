@@ -6,7 +6,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-First download, install Bisq and create a backup (copy seed words - see [How to back up your Bisq wallet seed](../how-to-back-up-your-bisq-wallet-seed/)).
+First download, install Bisq and make a full application-data backup and separately record your wallet seed (see [How to back up your Bisq wallet seed](../how-to-back-up-your-bisq-wallet-seed/)). A seed alone does not restore payment accounts, application keys or trade state.
 
 Now you can set up a [fiat](../fiat/) payment account, that you will use to pay or receive payments when trading on Bisq.
 
