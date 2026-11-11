@@ -10,6 +10,8 @@ tableOfContents: false
 
 This guide will have you follow the steps needed to run Bisq on a headless server (could even be a VPS), running Linux (preferably Debian or one of its derivatives), and accessing it using a web browser as if you were in front of the application itself (tested with Firefox, should work with any other major alternative).
 
+**Remote-access warning:** the `--bind-tcp=0.0.0.0:9876` example below exposes the desktop on every interface and does not itself configure authentication or encrypted transport. Do not expose a wallet desktop this way; use authenticated, encrypted access such as xpra\'s SSH transport, and never reuse the example password `123`. The following commands are a historical setup example, not a secure current deployment recipe.
+
 <span class="wiki-legacy-anchor" id="Requirements" aria-hidden="true">
 </span>
 
