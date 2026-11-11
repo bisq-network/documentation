@@ -574,13 +574,43 @@ test("the page is checked as readers get it, after the page's string replacement
   onlyFinding(await run({ "src/content/docs/wiki/troubleshooting.md": edited }, [receiptFor("troubleshooting", troubleshooting, edited)]), /troubleshooting\.md: PR #46 (?:adds or removes|changes gap:#my-wallet-has-an-incorrect-balance:1)/);
 });
 
-test("a figure, its link and its caption stay as restored", async () => {
+test("a figure, its link and its caption element stay as restored; its caption text changes only when listed", async () => {
   const wrapped = original.replace(/(<figure class="wiki-source-image" id="source-image-1"><a href="[^"]+">)(<img [^>]+>)(<\/a>)/, '$1$3<a href="https://evil.example/">$2</a>');
-  const captioned = original.replace("<figcaption>XMR auto confirm<br>", "<figcaption>Official XMR settings<br>");
-  for (const edited of [wrapped, captioned]) {
+  assert.notEqual(wrapped, original);
+  onlyFinding(await run({ [path]: wrapped }, [receipt(original, wrapped, { changed_figure_captions: ["source-image-1"] })]), /PR #46 changes the figure source-image-1 or the link that opens it/);
+  const captioned = original.replace("<figcaption>XMR auto confirm<br>", "<figcaption>XMR auto-confirm settings<br>");
+  assert.notEqual(captioned, original);
+  // Unlisted, the caption change fails; listed, it passes; listed but unchanged, it fails.
+  onlyFinding(await run({ [path]: captioned }, [receipt(original, captioned)]), /PR #46 changes the caption of figure source-image-1; a caption changes only for figures listed in changed_figure_captions/);
+  assert.deepEqual((await run({ [path]: captioned }, [receipt(original, captioned, { changed_figure_captions: ["source-image-1"] })])).failures, []);
+  onlyFinding(await run({ [path]: reworded }, [receipt(original, reworded, { changed_figure_captions: ["source-image-2"] })]), /PR #46 lists a caption change for source-image-2, but that caption is unchanged/);
+  assert.match((await run({ [path]: captioned }, [receipt(original, captioned, { changed_figure_captions: ["image-1"] })])).failures.join("\n"), /changed_figure_captions must list figure ids such as source-image-1/);
+  // A listed caption does not unlock the image, the link that opens it or the caption element.
+  const resized = captioned.replace('height="318"', 'height="300"');
+  onlyFinding(await run({ [path]: resized }, [receipt(original, resized, { changed_figure_captions: ["source-image-1"] })]), /PR #46 changes the image source-image-1; only alt text may change/);
+  const relinked = captioned.replace('<figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/b75fd0e6e142b52742239c81d39b9cbd745acb10a54024fffcaf8480e971cdca.png">', '<figure class="wiki-source-image" id="source-image-1"><a href="https://evil.example/x.png">');
+  assert.notEqual(relinked, captioned);
+  onlyFinding(await run({ [path]: relinked }, [receipt(original, relinked, { changed_figure_captions: ["source-image-1"] })]), /PR #46 changes the figure source-image-1 or the link that opens it/);
+  const element = captioned.replace("<figcaption>XMR auto-confirm", '<figcaption class="x">XMR auto-confirm');
+  onlyFinding(await run({ [path]: element }, [receipt(original, element, { changed_figure_captions: ["source-image-1"] })]), /PR #46 changes the figure source-image-1 or the link that opens it/);
+  // Inside a listed caption, the same rules as for article text.
+  for (const [edited, pattern] of [
+    [original.replace("<figcaption>XMR auto confirm<br>", '<figcaption>XMR auto confirm <span hidden>hidden</span><br>'), /PR #46 adds or removes <span hidden>/],
+    [original.replace("<figcaption>XMR auto confirm<br>", '<figcaption>XMR auto confirm <a href="javascript:alert(1)">x</a><br>'), /PR #46 adds or removes <a href="javascript:/],
+    [original.replace("<figcaption>XMR auto confirm<br>", "<figcaption>XMR auto\u200b confirm<br>"), /PR #46 adds invisible characters \(U\+200B\)/],
+    [original.replace("<br><small>Historical full-size recovered source. <a href=\"../../recovered-media/\">Provenance catalogue</a>.</small></figcaption></figure>\n\n<span class=\"wiki-legacy-anchor\" id=\"How_it_works\"", "</figcaption></figure>\n\n<span class=\"wiki-legacy-anchor\" id=\"How_it_works\""), /PR #46 adds or removes <small>/],
+  ]) {
     assert.notEqual(edited, original);
-    onlyFinding(await run({ [path]: edited }, [receipt(original, edited)]), /PR #46 changes the figure source-image-1 or the link that opens it/);
+    onlyFinding(await run({ [path]: edited }, [receipt(original, edited, { changed_figure_captions: ["source-image-1"] })]), pattern);
   }
+  // Without a receipt, a caption-only change awaits one that lists the figure.
+  const awaiting = await run({ [path]: captioned }, [], 2, withBase);
+  assert.deepEqual(awaiting.failures, []);
+  assert.deepEqual(awaiting.awaiting.map(awaitingLine), ["trading-monero: caption of source-image-1 changed; its receipt must list it in changed_figure_captions"]);
+  // Committed as drafted, that receipt passes.
+  const [draft] = receiptDrafts({ event: { pull_request: { number: 201, title: "Trading Monero: reword a caption", user: { login: "contributor-a" }, head: { ref: "b", repo: { full_name: "bisq-network/documentation" } } } }, repository: "bisq-network/documentation", reviewers: [{ login: "maintainer-a", role: "maintainer" }], awaiting: awaiting.awaiting, readBase: () => original, readHead: () => captioned, acceptedOn: "2026-11-11" })[0].drafts;
+  assert.deepEqual(draft.item.changed_figure_captions, ["source-image-1"]);
+  assert.deepEqual((await run({ [path]: captioned }, [draft.item], 1)).failures, []);
 });
 
 test("code blocks, tables and gap markers change only when the receipt lists them", async () => {

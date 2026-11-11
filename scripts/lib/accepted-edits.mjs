@@ -61,6 +61,8 @@ function itemProblems(item, { slugs, notes }) {
   need(Array.isArray(item.evidence) && item.evidence.every((url) => /^https:\/\/\S+$/.test(url)), "evidence must be a list of https links");
   const images = item.changed_image_alt_text ?? [];
   need(Array.isArray(images) && images.every((id) => figureId.test(id)), "changed_image_alt_text must list figure ids such as source-image-1");
+  const captions = item.changed_figure_captions ?? [];
+  need(Array.isArray(captions) && captions.every((id) => figureId.test(id)), "changed_figure_captions must list figure ids such as source-image-1");
   const locked = item.changed_locked_content ?? [];
   need(Array.isArray(locked) && locked.every((key) => lockedKey.test(key)), "changed_locked_content must list code blocks, tables and gap markers such as source-code-3, table:#limits:1 or gap:top:2");
   const invisible = item.added_invisible_characters ?? [];
@@ -176,7 +178,7 @@ const endorsementFree = (summary) => {
  * scripts/record-accepted-edit.mjs and by the receipts job's "Add receipt"
  * links; the gate never trusts it and verifies every recorded change.
  */
-export function draftReceipt({ slug, pullRequest, author, summary, base, accepted, approvals = [], acceptedOn = new Date().toISOString().slice(0, 10), noteIds = [], evidence = [], changedImageAltText = [], changedLockedContent = [], addedInvisibleCharacters = [] }) {
+export function draftReceipt({ slug, pullRequest, author, summary, base, accepted, approvals = [], acceptedOn = new Date().toISOString().slice(0, 10), noteIds = [], evidence = [], changedImageAltText = [], changedFigureCaptions = [], changedLockedContent = [], addedInvisibleCharacters = [] }) {
   return {
     slug,
     pull_request: pullRequest,
@@ -189,6 +191,7 @@ export function draftReceipt({ slug, pullRequest, author, summary, base, accepte
     note_ids: noteIds,
     evidence,
     changed_image_alt_text: changedImageAltText,
+    changed_figure_captions: changedFigureCaptions,
     changed_locked_content: changedLockedContent,
     added_invisible_characters: addedInvisibleCharacters,
     changes: describeEdit(base, accepted),
@@ -240,6 +243,7 @@ export function receiptDrafts({ event, repository, server = "https://github.com"
           approvals: [{ login: reviewer.login, role: reviewer.role }],
           acceptedOn,
           changedImageAltText: article.changedImageAltText ?? [],
+          changedFigureCaptions: article.changedFigureCaptions ?? [],
           changedLockedContent: article.changedLockedContent ?? [],
           addedInvisibleCharacters: article.addedInvisibleCharacters ?? [],
         });

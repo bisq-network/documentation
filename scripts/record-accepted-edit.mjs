@@ -5,7 +5,7 @@
 // The receipt goes to migration/accepted-edits/<slug>.pr-<number>.json and
 // describes how the article differs from the version on the base branch. Run it
 // again after each wording change: it refreshes the hashes and recorded changes, lists
-// what the fidelity gate requires the receipt to list (figures whose alt text changed,
+// what the fidelity gate requires the receipt to list (figures whose alt text or caption changed,
 // code blocks, tables and gap markers, invisible characters), and keeps the summary,
 // approvals, notes and evidence already in the file. The
 // fidelity check verifies every recorded change and hash, so a wrong receipt
@@ -48,7 +48,7 @@ if (!author || !summary) {
   console.error(`${target} does not exist yet, so --author and --summary are needed.\n${usage}`);
   process.exit(2);
 }
-// What the receipt must list (figures whose alt text changed, code blocks, tables and
+// What the receipt must list (figures whose alt text or caption changed, code blocks, tables and
 // gap markers, invisible characters): the fidelity gate's findings for the edit as it
 // awaits a receipt, with this receipt left out, exactly as the receipts job drafts it.
 const baseRef = option("base", "origin/main");
@@ -80,6 +80,7 @@ const item = draftReceipt({
   noteIds: previous?.note_ids ?? [],
   evidence: previous?.evidence ?? [],
   changedImageAltText: findings.changedImageAltText ?? [],
+  changedFigureCaptions: findings.changedFigureCaptions ?? [],
   changedLockedContent: findings.changedLockedContent ?? [],
   addedInvisibleCharacters: findings.addedInvisibleCharacters ?? [],
 });
