@@ -1,6 +1,52 @@
-# Review and improve the documentation
+# Contributing to the Bisq documentation
 
-This is a community preview, not official Bisq approval. The main articles reproduce a recovered October 2026 wiki snapshot; their age and preservation do not establish current accuracy.
+This site reproduces the Bisq wiki as it was recovered in October 2026. It is a community preview, not official Bisq approval, and an article's age and preservation do not establish that it is still accurate. Corrections are welcome: anyone can report a problem or propose new wording, a documentation reviewer accepts each wording change, and a maintainer publishes it.
+
+## How a change reaches the site
+
+1. **Propose.** Someone [reports a problem](#report-a-problem) in an issue, or [edits an article](#edit-an-article-in-the-browser) on GitHub and opens a pull request.
+2. **Check.** GitHub runs two checks on the pull request. `check` confirms that the change keeps everything a wording change must keep; `receipts` stays red until a reviewer accepts the change.
+3. **Review.** A documentation reviewer reads the change and settles the final wording with its author.
+4. **Accept.** The reviewer [adds a receipt and approves](#review-and-accept-a-change). Both checks turn green.
+5. **Merge.** A maintainer [merges](#merge-and-publish) the pull request.
+6. **Publish.** A maintainer runs the deployment. Merging alone publishes nothing. GitHub lets a wording change reach `main` only with both checks green and a reviewer's approval, and the deployment builds only `main`. That build fails on any wording change that has no receipt.
+
+| Who | Does what |
+| --- | --- |
+| Anyone with a GitHub account | Reports problems and proposes wording changes. |
+| Documentation reviewers: [suddenwhipvapor](https://github.com/suddenwhipvapor) and [pazza83](https://github.com/pazza83) (team `documentation-reviewers`) | Review and accept wording changes to the articles. Nobody accepts their own change, so a change by one reviewer is accepted by the other. |
+| Maintainers (the repository's administrators) | Label proposals, start the checks for first-time contributors, merge and publish. |
+
+## Propose a change
+
+### Report a problem
+
+If you would rather not edit an article yourself, use the [Review an article](https://github.com/bisq-network/documentation/issues/new?template=article-review.yml) issue form. Link the section (the link button next to each heading gives its address), say which product and version you checked, quote the current sentence and suggest your wording. A reviewer or maintainer can turn the report into a pull request.
+
+### Edit an article in the browser
+
+1. **Open the article's file.** An article's address on the site ends in `/wiki/<name>/`, and its file is `src/content/docs/wiki/<name>.md`. This address opens the file in GitHub's editor: `https://github.com/bisq-network/documentation/edit/main/src/content/docs/wiki/<name>.md`, for example [the Wallet article](https://github.com/bisq-network/documentation/edit/main/src/content/docs/wiki/wallet.md). On the file's page, the pencil (**Edit this file**) does the same. If you cannot write to the repository, GitHub first offers to fork it: accept.
+   This works for every article except the three additional historical ones (Emergency Multisig payout tool, Bitcointalk Moderator, 在中国运行Bisq), which receipts do not cover. For those, use the issue form.
+2. **Change only the wording.** Text, links, bold and italic, paragraphs and list items can change. Leave the rest as it is: the lines between the two `---` at the top, the "On this page" list, each heading with its `{#id}`, the `<span class="wiki-legacy-anchor" …>` lines and the HTML of figures. The restored text writes apostrophes as `\'`; leave those, and type a plain `'` in new text. Tables, code blocks, image descriptions and captions can change as well, but the reviewer accepts each of them explicitly. A new section, image or article is more than a wording change: open an issue about it first. **Preview** shows the result.
+3. **Propose it.** Click **Commit changes…**. Reviewers and maintainers see "You can't commit to main because it is a protected branch": keep **Create a new branch for this commit and start a pull request** with GitHub's branch name (`<login>-patch-<n>`). Everyone else commits to their fork. Click **Propose changes**.
+4. **Open the pull request.** On the next page, click **Create pull request** and fill in the template:
+   - **Title:** describe the change plainly, for example "Wallet: link the seed backup article". The title becomes the summary line the article page shows once the change is accepted. A title with "verified", "official", "approved", "endorsed", "certified" or "guaranteed" is shown as "Wording change; see the pull request." instead.
+   - **Description:** why the change is needed, the product and version, and the source you checked (release notes, the application's code or screens).
+   - **Label:** `wording-proposal`, under **Labels** in the sidebar. Only reviewers and maintainers can set labels; a maintainer adds it for everyone else. CodeRabbit skips labelled pull requests and leaves the wording to the reviewers.
+
+   Then click **Create pull request**.
+
+Keep one article, or a few closely related ones, per pull request.
+
+### After you open the pull request
+
+- On your first pull request to this repository, the checks start once a maintainer approves them.
+- `check` should turn green. If it fails, open **Details**: the log names what changed besides the wording. Fix it with another edit (in **Files changed**, the file's **⋯** menu, **Edit file**), or ask in the pull request.
+- `receipts` turns red and lists the article as awaiting a receipt. That is expected until a reviewer accepts the change.
+- GitHub asks both documentation reviewers for a review.
+- Every further commit runs both checks again.
+
+### What makes a good proposal
 
 For a focused correction, identify the article, affected product and version, the wording to change, and a supporting source or reproducible observation. Prefer immutable links to official application source, release notes or other primary material. Explain whether you inspected code, exercised the application, or both. Human review remains necessary, especially for payments, recovery and dispute instructions. Never perform a funded trade or irreversible operation merely to validate wording.
 
@@ -8,48 +54,43 @@ The original source and available revision metadata remain in `public/wiki-sourc
 
 Preserve prerequisites and warnings, identify old interfaces in images, and do not include secrets, payment details or private trade conversations in public material. When changing a route or heading, check the corresponding wiki-title and earlier-guide compatibility links, including saved sections. Content and media reuse terms and full authorship remain unresolved; see [CONTENT-SOURCES.md](CONTENT-SOURCES.md).
 
-Run `npm ci`, `npm test`, and `npm run build`; check affected pages, images and links at desktop and narrow widths. Also check the project base path:
+### Change the site or tooling
 
-```sh
-DOCS_SITE=https://bisq-network.github.io DOCS_BASE=/documentation/ npm run build
-```
-
-The deployment workflow is manual. Building or submitting a pull request does not publish the site.
-
-## Compare a wiki backup
-
-To see what a full wiki backup changes, run one command on it, in whatever form it arrived: a folder, an archive (`.tar`, `.tar.gz`, `.tar.bz2`, `.zip`, or `.7z` with 7-Zip installed) or a MediaWiki XML export (plain, `.gz` or `.bz2`).
-
-```sh
-npm run compare-backup -- ~/Downloads/bisq-wiki-backup.tar.gz --open
-```
-
-It finds the XML export and the `images/` folder, unpacks archives into a temporary folder outside the repository and removes it afterwards, then writes `report.html` to `tmp/wiki-backup-intake/` (ignored by git), with `REPORT.md`, `report.json` and `newer-revisions.jsonl`. The report shows each article the backup changed, word by word; the gaps in our articles the backup can fill; the articles and images we do not have; and redirects and templates. It holds public wiki data only: anonymous editors are counted, never listed. A database dump is never opened; if the backup has nothing else, the command explains how to export the pages, for example with `sh scripts/sql-dump-to-xml.sh` and Docker. If the backup holds several different XML exports, the command lists them and asks you to choose one with `--xml <name>`; `--images <name>` picks between images folders. Unpacking stops at 20 GB; raise that with `--max-unpacked 40G` only for a backup that really is larger. Never commit the report or any part of the backup. [INTAKE.md](INTAKE.md) describes how to act on the results.
-
-## Wording-only review batches
-
-Keep initial proposals small and article-by-article, retaining titles, structure, facts and procedural order. Open documentation PRs as **ready for review**, so CodeRabbit (CRAI) can review them automatically. Keep the PR against the restored baseline so reviewers see the actual wording diff. The earlier AI edition can inform the comparison, but is not a replacement to apply wholesale.
-
-The restoration fidelity gate intentionally rejects changes to article wording unless a reviewed receipt covers them (see [Accepted editorial changes](#accepted-editorial-changes)). On a pull request this shows as two checks: `check` stays green while the edit keeps everything a receipt would still require, and `receipts` fails, listing each article awaiting a receipt, until a reviewer adds the receipt and approves. That `receipts` failure is expected while the wording is under review. Do not refresh the original hashes to hide the difference.
-
-When imported HTML has an entire article on one source line, separate a formatting-only change from its wording proposal first. Teams uses one paragraph or list item per line by decoding existing `&#10;` newline entities. `migration/source-formatting.json` records this reversible change; the fidelity check reconstructs and verifies the exact original bytes before checking author content. This does not permit arbitrary whitespace changes or edits to the preserved original hash receipts.
-
-The restored articles are Markdown. Each was converted from the restored HTML, which stays in `migration/restored-articles/` and never changes. `migration/markdown-format.json` records each conversion by hash, and the fidelity check confirms on every run that the Markdown renders to the same page as that HTML (see [Markdown conversion](#markdown-conversion)). After that, any change to the Markdown, even one the page does not show, is a wording change that needs a receipt.
+Changes outside the articles (layout, scripts, workflows, these guides) are ordinary pull requests without the label: CodeRabbit reviews them, a maintainer reviews and merges them, and they need no receipt. A change under `migration/` also needs a documentation reviewer's approval. Like every pull request they must pass `check` and `receipts`; [run the checks locally](#run-the-checks-locally) first.
 
 ## Accepted editorial changes
 
-A wording change to a restored article can merge only with a receipt that a documentation reviewer approved. A receipt is a file in `migration/accepted-edits/`, named `<slug>.pr-<number>.json`; it records the exact text the change replaced. `migration/accepted-edits.json` lists the reviewers (suddenwhipvapor and pazza83) and how many must approve (one). The author's own approval never counts, so a change by one reviewer is approved by the other, and a change by anyone else by either of them.
+A wording change to a restored article can merge only with a receipt that a documentation reviewer approved. A receipt is a file in `migration/accepted-edits/`, named `<slug>.pr-<number>.json`; it records the exact text the change replaced. `migration/accepted-edits.json` lists the reviewers (suddenwhipvapor and pazza83) and how many must approve (one). The author's own approval never counts, so a change by one reviewer is approved by the other, and a change by anyone else by either of them. Receipts let the site show readers which text changed after restoration and who accepted it, and they make the build refuse any wording change nobody accepted.
 
-### In the browser
+### Review and accept a change
 
-1. **Edit.** Open the article's file in `src/content/docs/wiki/` on GitHub and click the pencil (**Edit this file**). Change only the wording. The article is Markdown: keep headings with their `{#id}`, links, figures and the HTML parts as they are. Click **Commit changes…**, choose **Create a new branch for this commit and start a pull request**, and keep GitHub's suggested branch name (`<login>-patch-<n>`). Fill in the template and add the `wording-proposal` label.
-2. **Checks.** `check` turns green. `receipts` turns red and lists the article as awaiting a receipt, which is expected. GitHub asks the reviewers for a review (`.github/CODEOWNERS`).
-3. **Review.** The reviewer reads **Files changed** and comments, or proposes wording with **Add a suggestion**. The author applies it with **Commit suggestion** or edits again.
-4. **Add the receipt.** When the wording is final, the reviewer who will approve opens **Details** next to the `receipts` check, then the run's **Summary**, and clicks **Add receipt, approved by** their login. GitHub's new-file page opens on the pull request's branch with the receipt filled in. Check the one-line summary: it is shown on the article page and must describe the change, not call it verified or official. Then commit.
-5. **Approve.** The same reviewer clicks **Review changes**, then **Approve**. `receipts` runs again and turns green.
-6. **Merge and publish.** A maintainer merges with a merge commit and runs the **Build and deploy documentation** workflow.
+For the documentation reviewers. GitHub asks for your review on every pull request that changes an article.
 
-If the wording changes after the receipt was added, the receipt no longer matches and `check` fails. Delete the receipt file on the branch (in **Files changed**, its **⋯** menu, **Delete file**), wait for the checks, and add a fresh receipt from the new link.
+1. **Read** the change in **Files changed**. For a Markdown file, **Display the rich diff** in the file's header shows the rendered text. Check the change against the source its author cites.
+2. **Discuss.** Comment on a line, or propose exact wording with **Add a suggestion** in the comment box. The author applies it with **Commit suggestion** or edits again.
+3. **Add the receipt** once the wording is final. Open **Details** next to the `receipts` check, then the run's **Summary**, and click **Add receipt, approved by** your login. GitHub's new-file page opens on the pull request's branch with the receipt filled in. Check its `summary` line: it is shown on the article page and must describe the change, not call it verified or official. Click **Commit changes…** and commit to the branch.
+4. **Approve.** Click **Review changes**, choose **Approve** and submit. `receipts` runs again and turns green. Approve only after committing the receipt: any later commit dismisses the approval.
+
+If a change should not be made, say why and submit the review with **Request changes**; a maintainer closes the pull request.
+
+### Merge and publish
+
+For the maintainers.
+
+1. **Merge** once `check` and `receipts` are green and a documentation reviewer has approved. GitHub enforces all three and allows only merge commits.
+2. **Merge changes to the same article one at a time.** GitHub does not run the checks again when `main` moves. If another pull request that changes the same article has merged since this one's checks ran, merging this one as well would break the build on `main`, because both receipts start from the same text. Bring the branch up to date first (merge `main` into it): `check` then fails on the outdated receipt, and the reviewer deletes it, adds a fresh one and approves again.
+3. **Publish** with **Actions → Build and deploy documentation → Run workflow** on `main`; the `github-pages` environment accepts no other branch. The workflow tests and builds the site again before it deploys. One run publishes everything merged so far.
+4. **Check the live article.** It shows the new wording, and its "Source and history" section lists the accepted change under "Edited after restoration", with the date, summary and pull request.
+
+[PUBLISHING.md](PUBLISHING.md) has the deployment checklist.
+
+### If something goes wrong
+
+- **The wording changed after the receipt was added.** The receipt no longer matches, and `check` fails. Delete the receipt file on the branch (in **Files changed**, its **⋯** menu, **Delete file**), wait for the checks, add a fresh receipt from the new link and approve again.
+- **The receipt link offers to fork instead of committing.** The pull request's branch is in a fork you cannot commit to. Comment that the wording is final and that you will approve; the author opens the same link from the run's **Summary** and commits the receipt, then you approve.
+- **"Too long for a link" instead of a link.** Create the file the **Summary** names on the pull request's branch, with the receipt text printed in the job log.
+- **`receipts` is still red after approving.** The job log names the rule that failed. Usually the approval came before the last commit (approve again), or the receipt names a reviewer other than the one who approved.
+- **`check` fails.** Its log names what changed besides the wording. Undo that part, or ask a maintainer whether it needs its own pull request.
 
 ### In a local checkout
 
@@ -115,3 +156,33 @@ The fidelity check guards article wording and what article pages show from the r
 - have write access to the repository. This comes from the review's `authorCanPushToRepository` field in GitHub's GraphQL API. The REST collaborator-permission endpoint needs push access itself, which a fork pull request's token does not have.
 
 At least `required_approvals` distinct approvers must pass, using the base's value if the pull request lowers it. Receipts from earlier pull requests that stay unchanged are not checked again, and outside a pull request the comparison is skipped. Like every pull request check, the job runs the pull request's own copy of the workflow and scripts, so `main` should also require the reviewers' approval through GitHub itself: a ruleset rule that requires one approval from a team of the reviewers for changes to `src/content/docs/wiki/**` and `migration/**`. Changing the reviewers or `required_approvals` needs the maintainers' agreement.
+
+## Run the checks locally
+
+For anything beyond a single wording edit, run `npm ci`, `npm test`, and `npm run build`; check affected pages, images and links at desktop and narrow widths. Also check the project base path:
+
+```sh
+DOCS_SITE=https://bisq-network.github.io DOCS_BASE=/documentation/ npm run build
+```
+
+`npm run build` fails on a wording change until its receipt is added; on a pull request, `check` and `receipts` report it as awaiting a receipt instead. The deployment workflow is manual. Building or submitting a pull request does not publish the site.
+
+## Compare a wiki backup
+
+To see what a full wiki backup changes, run one command on it, in whatever form it arrived: a folder, an archive (`.tar`, `.tar.gz`, `.tar.bz2`, `.zip`, or `.7z` with 7-Zip installed) or a MediaWiki XML export (plain, `.gz` or `.bz2`).
+
+```sh
+npm run compare-backup -- ~/Downloads/bisq-wiki-backup.tar.gz --open
+```
+
+It finds the XML export and the `images/` folder, unpacks archives into a temporary folder outside the repository and removes it afterwards, then writes `report.html` to `tmp/wiki-backup-intake/` (ignored by git), with `REPORT.md`, `report.json` and `newer-revisions.jsonl`. The report shows each article the backup changed, word by word; the gaps in our articles the backup can fill; the articles and images we do not have; and redirects and templates. It holds public wiki data only: anonymous editors are counted, never listed. A database dump is never opened; if the backup has nothing else, the command explains how to export the pages, for example with `sh scripts/sql-dump-to-xml.sh` and Docker. If the backup holds several different XML exports, the command lists them and asks you to choose one with `--xml <name>`; `--images <name>` picks between images folders. Unpacking stops at 20 GB; raise that with `--max-unpacked 40G` only for a backup that really is larger. Never commit the report or any part of the backup. [INTAKE.md](INTAKE.md) describes how to act on the results.
+
+## Wording-only review batches
+
+Keep initial proposals small and article-by-article, retaining titles, structure, facts and procedural order. Open them as **ready for review** with the `wording-proposal` label: the documentation reviewers review the wording, and CodeRabbit skips labelled pull requests. Keep the PR against the restored baseline so reviewers see the actual wording diff. The earlier AI edition can inform the comparison, but is not a replacement to apply wholesale.
+
+The restoration fidelity gate intentionally rejects changes to article wording unless a reviewed receipt covers them (see [Accepted editorial changes](#accepted-editorial-changes)). On a pull request this shows as two checks: `check` stays green while the edit keeps everything a receipt would still require, and `receipts` fails, listing each article awaiting a receipt, until a reviewer adds the receipt and approves. That `receipts` failure is expected while the wording is under review. Do not refresh the original hashes to hide the difference.
+
+When imported HTML has an entire article on one source line, separate a formatting-only change from its wording proposal first. Teams uses one paragraph or list item per line by decoding existing `&#10;` newline entities. `migration/source-formatting.json` records this reversible change; the fidelity check reconstructs and verifies the exact original bytes before checking author content. This does not permit arbitrary whitespace changes or edits to the preserved original hash receipts.
+
+The restored articles are Markdown. Each was converted from the restored HTML, which stays in `migration/restored-articles/` and never changes. `migration/markdown-format.json` records each conversion by hash, and the fidelity check confirms on every run that the Markdown renders to the same page as that HTML (see [Markdown conversion](#markdown-conversion)). After that, any change to the Markdown, even one the page does not show, is a wording change that needs a receipt.
