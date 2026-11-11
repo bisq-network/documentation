@@ -10,7 +10,7 @@ tableOfContents: false
 
 Ordinary Altcoins accounts have a trade period of 1 day. Altcoins Instant payment accounts are identical to ordinary [Altcoins](../altcoins/) payment accounts in every other way aside from their trade period.
 
-Only use this payment method for making or taking offers if you know you\'ll on your machine while the offer is available. Disable it other times to avoid disputes.
+Only use this payment method for making or taking offers if you know you\'ll be at your machine while the offer is available. Disable it other times to avoid disputes.
 
 See [how to create an Altcoins Instant payment account](../creating-a-payment-account/#creating-an-altcoin-account).
 
