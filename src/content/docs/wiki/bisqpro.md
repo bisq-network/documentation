@@ -16,6 +16,6 @@ Be warned.
 
 **DON\'T TRUST, VERIFY!**
 
-As a [FOSS](../foss/) (Free Open Source Software) project Bisq has no copyright, trademarks or other traditional ways to fight this type of abuse. It is up to users to beware and warn others of this type of fraud.
+As a [FOSS](../foss/) (Free Open Source Software) project, Bisq publishes its code under the GNU Affero General Public License v3. Open-source licensing does not mean that a site using its name or logo is affiliated with Bisq. It is up to users to beware and warn others of this type of fraud.
 
 </div>
