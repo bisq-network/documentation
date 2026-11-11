@@ -2,7 +2,9 @@
 
 The comparison covered **209 restored original articles** and **98 retained AI-edited guides**. The proposed edits preserve the originals as the review baseline. Reading and comparing material does not verify every historical claim, establish current applicability, or replace human review. Each pull request should be assessed against its affected article, source evidence and stated risks.
 
-The queue comprises **73 focused review groups**, containing **182 proposed edits** across **94 original articles**. [PR #100](https://github.com/bisq-network/documentation/pull/100) covers two additional original articles. Of the remaining originals, 31 have no identified beneficial change, 18 prior rewrites were rejected as lossy, and 64 have unresolved questions. These are article dispositions; proposed articles may still contain unresolved claims.
+The queue comprises **73 focused review groups**, containing **182 proposed edits** across **93 original articles**. [PR #100](https://github.com/bisq-network/documentation/pull/100) covers two additional original articles. Of the remaining originals, 31 have no identified beneficial change, 18 prior rewrites were rejected as lossy, and 65 have unresolved questions. These are article dispositions; proposed articles may still contain unresolved claims.
+
+Updated 10 November 2026: PRs #99, #122, #141 and #170 were narrowed to stay within accepted-edit receipt bounds. #141 now changes only Project management (its Proposals link fix was withdrawn, so Proposals moves to unresolved, which changes the article counts above from 94 and 64 to 93 and 65); the count of 182 proposed edits was not recomputed and may be slightly out of date.
 
 All 73 new PRs were created **open and ready for review** on 8 November 2026, targeting `main`. Each changes one to three articles; the largest diff has 26 added/deleted source lines. Check GitHub for their current state. None was merged or deployed. Related articles sometimes have separate PRs, so consider the wider topic when approving a correction.
 
@@ -99,7 +101,7 @@ See [proposal coverage](proposal-coverage.json) for the complete article and gui
 | Correct support-data privacy guidance | Support Agent | [#138](https://github.com/bisq-network/documentation/pull/138) |
 | Clarify price aggregation and offer tolerance | Bisq Price Indices | [#139](https://github.com/bisq-network/documentation/pull/139) |
 | Clarify support backup and file-change guidance | Support Agent Knowledge Base | [#140](https://github.com/bisq-network/documentation/pull/140) |
-| Restore two DAO section links | Proposals, Project management | [#141](https://github.com/bisq-network/documentation/pull/141) |
+| Restore the Committee anchor in Project management | Project management | [#141](https://github.com/bisq-network/documentation/pull/141) |
 | Use Bisq 1 for the Bisq 1 trade example | Introduction | [#142](https://github.com/bisq-network/documentation/pull/142) |
 | Clarify DAO fee defaults and issuance units | Making a compensation request, Participating in a DAO voting cycle | [#143](https://github.com/bisq-network/documentation/pull/143) |
 | Correct the Burning Men burn asset | Burning Men | [#144](https://github.com/bisq-network/documentation/pull/144) |
@@ -161,6 +163,7 @@ The following records explain why an original was retained without a proposed re
 | [Payment Method Maintainer](https://bisq-network.github.io/documentation/wiki/payment-method-maintainer/) | Unresolved | Original, rendering and mapped guide read; current status or other narrow edits remain to be checked. |
 | [Pricenode](https://bisq-network.github.io/documentation/wiki/pricenode/) | Unresolved | Original and rendered article plus mapped AI guide read; historical role or process claims need more primary-source checking before a proposal. |
 | [Pricenode Operator](https://bisq-network.github.io/documentation/wiki/pricenode-operator/) | Unresolved | Original, rendering and mapped AI guide read; current role or process details require further primary-source verification before a narrow edit. |
+| [Proposals](https://bisq-network.github.io/documentation/wiki/proposals/) | Unresolved | The proposed fix for the "Submit to the DAO" link was withdrawn on 10 November 2026 because changing that link's label breaks the recorded section repair in `migration/section-repairs-20261108.json`; the article still needs a decision on that link. |
 | [Proposals Maintainer](https://bisq-network.github.io/documentation/wiki/proposals-maintainer/) | Unresolved | Original and rendered article plus mapped AI guide read; historical role or process claims need more primary-source checking before a proposal. |
 | [Roles](https://bisq-network.github.io/documentation/wiki/roles/) | Unresolved | Read complete source, rendering and AI guide; rights, role ownership and bonding assumptions require current primary-source checks. |
 | [Roles Maintainer](https://bisq-network.github.io/documentation/wiki/roles-maintainer/) | Unresolved | Original and rendered article plus mapped AI guide read; historical role or process claims need more primary-source checking before a proposal. |
