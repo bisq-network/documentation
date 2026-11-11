@@ -20,7 +20,7 @@ Here is a list of Satispay resources:
 
 ## What countries are available for Satispay? {#what-countries-are-available-for-satispay}
 
-Satispay is only currently available in Italy.
+Satispay\'s signup guidance lists eligible residents/domiciliaries in multiple European countries, not Italy alone. Check its current country list for your own eligibility.
 
 <span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Satispay?" aria-hidden="true">
 </span>
@@ -57,7 +57,7 @@ No, Satispay accounts do not require signing.
 
 Download the <span class="wiki-link-gap">Satispay app <small>[unrecovered article: satispay.com/it-it/privati/]</small></span> and get started.
 
-To create an account you will need an ID, the IBAN code of your bank account of a country where the SEPA scheme is available and an Italian tax code.
+The provider\'s signup guidance requires an identity document and an eligible IBAN; it specifies an Italian tax code when using an Italian IBAN. Check the current accepted-country exceptions before signing up.
 
 <span class="wiki-legacy-anchor" id="How_do_I_add_Satispay_as_a_payment_method_in_Bisq?" aria-hidden="true">
 </span>

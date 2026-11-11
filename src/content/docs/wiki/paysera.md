@@ -74,7 +74,7 @@ No, Paysera accounts do not require signing.
 
 ## How do I set up a Paysera account? {#how-do-i-set-up-a-paysera-account}
 
-Vist the [Paysera website](https://www.paysera.com/) to set up an account. You will need a Spanish bank account.
+Vist the [Paysera website](https://www.paysera.com/) to set up an account. Follow Paysera\'s own registration and identity-verification requirements for your country; its published personal-account guide uses a phone and identity document, not a universal Spanish-bank-account requirement.
 
 <span class="wiki-legacy-anchor" id="How_do_I_add_Paysera_as_a_payment_method_in_Bisq?" aria-hidden="true">
 </span>

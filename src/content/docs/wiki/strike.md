@@ -30,7 +30,7 @@ Here is a list of Strike resources:
 
 ## What countries are available for Strike? {#what-countries-are-available-for-strike}
 
-Strike is available only in the United States, and some states may not have access.
+Strike\'s current provider guidance lists availability in multiple countries. Separately, Bisq 1 v1.10.11\'s STRIKE account implementation is restricted to United States/USD; broader app availability does not expand that Bisq payment route.
 
 <span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Strike?" aria-hidden="true">
 </span>
