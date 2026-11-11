@@ -6,4 +6,166 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details><summary>On this page</summary><ul><li><a href="#where-can-i-find-out-more-about-capitual">Where can I find out more about Capitual?</a></li><li><a href="#what-countries-are-available-for-capitual">What countries are available for Capitual?</a></li><li><a href="#what-currencies-are-available-for-capitual">What currencies are available for Capitual?</a></li><li><a href="#what-is-the-maximum-trading-duration-for-capitual">What is the maximum trading duration for Capitual?</a></li><li><a href="#what-is-the-maximum-btc-limit-for-an-capitual-trade">What is the maximum BTC limit for an Capitual trade?</a></li><li><a href="#is-capitual-a-payment-method-that-can-be-signed">Is Capitual a payment method that can be signed?</a></li><li><a href="#how-do-i-add-capitual-as-a-payment-method-in-bisq">How do I add Capitual as a payment method in Bisq?</a></li><li><a href="#what-are-capcodes">What are CapCodes?</a></li><li><a href="#how-do-i-buy-btc-with-my-capitual-account">How do I buy BTC with my Capitual account?</a></li><li><a href="#how-do-i-sell-btc-with-my-capitual-account">How do I sell BTC with my Capitual account?</a></li><li><a href="#are-there-any-limits-for-me-to-be-aware-of-when-using-my-capitual-account">Are there any limits for me to be aware of when using my Capitual account?</a></li><li><a href="#are-there-any-fees-for-me-to-be-aware-of-when-using-my-capitual-account">Are there any fees for me to be aware of when using my Capitual account?</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p><strong>Capitual</strong> is a payment method added in Bisq v1.7.2.</p>&#10;<p>Capitual is a payment service that combines fiat and crypto payments. Capitual is especially of benefit to users in Brazil and Europe due to it facilitating free BRL and EUR deposits and withdrawals via TED (Express Wire Transfer) and SEPA respectively. Capitual enables all users to send and receive fiat and crypto between users for free.</p>&#10;<p>Capitual operate in 48+ countries (unfortunately US residents are excluded). Currently only EUR, BRL currencies are able to be withdrawn / deposited to and from a fiat account via SEPA or TED (Express Wire Transfer). USD and GBP are also supported currencies but they can only be added by exchanging other currencies / cryptos and stablecoins.</p>&#10;<ul>&#10;<li>Currencies supported: BRL, EUR, GBP, USD</li>&#10;<li>Cryptos supported: Bitcoin, Litecoin, Dash, Ethereum, USDT, BUSD, USDC, DAI</li>&#10;<li>Trade window: 24 hours</li>&#10;<li>Signing required: No</li>&#10;<li>Bisq buy/sell limits: <span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span></li>&#10;</ul>&#10;<span class="wiki-legacy-anchor" id="Where_can_I_find_out_more_about_Capitual?" aria-hidden="true"></span><h2 id="where-can-i-find-out-more-about-capitual"> Where can I find out more about Capitual? </h2>&#10;<p>Here is a list of Capitual resources:</p>&#10;<ul>&#10;<li><a href="https://www.capitual.com/" rel="noopener noreferrer">Capitual Website</a></li>&#10;<li><a href="https://exchange.capitual.com/" rel="noopener noreferrer">Capitual Fees &amp; Limits</a></li>&#10;<li><a href="https://github.com/capitual" rel="noopener noreferrer">Capitual GitHub</a></li>&#10;<li><a href="https://help.capitual.com/" rel="noopener noreferrer">Capitual Help Centre</a></li>&#10;<li><a href="https://my.capitual.com/legal#tos" rel="noopener noreferrer">Terms and conditions</a></li>&#10;<li><a href="https://static.capitual.net/legal/prohibited-businesses.pdf?view" rel="noopener noreferrer">Prohibited uses</a></li>&#10;<li><a href="https://twitter.com/capitual" rel="noopener noreferrer">Capitual Twitter</a></li>&#10;</ul>&#10;<span class="wiki-legacy-anchor" id="What_countries_are_available_for_Capitual?" aria-hidden="true"></span><h2 id="what-countries-are-available-for-capitual"> What countries are available for Capitual? </h2>&#10;<p>Capitual operates in 48+ countries (US residents are excluded). Fiat on/off ramps are free for users in Brazil and Europe.</p>&#10;<span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Capitual?" aria-hidden="true"></span><h2 id="what-currencies-are-available-for-capitual"> What currencies are available for Capitual? </h2>&#10;<p>Multiple currencies are supported, these are:</p>&#10;<ul>&#10;<li>EUR</li>&#10;<li>BRL</li>&#10;<li>USD</li>&#10;<li>GBP</li>&#10;</ul>&#10;<p>Currently only EUR and BRL are the ones that are able to be withdrawn / deposited to and from a fiat account via SEPA or TED (Express Wire Transfer).</p>&#10;<p>USD and GBP can be added in the app by exchanging other currencies / cryptos.</p>&#10;<p>Stablecoins; BUSD, USDT, USDC and DAI can also be deposited and used to send / receive payments.</p>&#10;<span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_Capitual?" aria-hidden="true"></span><h2 id="what-is-the-maximum-trading-duration-for-capitual"> What is the maximum trading duration for Capitual? </h2>&#10;<p>The maximum trade time is 1 day. Generally Capitual transfers will be completed instantly.</p>&#10;<span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_Capitual_trade?" aria-hidden="true"></span><h2 id="what-is-the-maximum-btc-limit-for-an-capitual-trade"> What is the maximum BTC limit for an Capitual trade? </h2>&#10;<p><span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span>.</p>&#10;<span class="wiki-legacy-anchor" id="Is_Capitual_a_payment_method_that_can_be_signed?" aria-hidden="true"></span><h2 id="is-capitual-a-payment-method-that-can-be-signed"> Is Capitual a payment method that can be signed? </h2>&#10;<p>No, Capitual accounts do not require signing.</p>&#10;<span class="wiki-legacy-anchor" id="How_do_I_add_Capitual_as_a_payment_method_in_Bisq?" aria-hidden="true"></span><h2 id="how-do-i-add-capitual-as-a-payment-method-in-bisq"> How do I add Capitual as a payment method in Bisq? </h2>&#10;<p>It is easy to add your Capitual account to Bisq.</p>&#10;<ol>&#10;<li>Go to the top menu in Bisq and select Account.</li>&#10;<li>Then select National Currency Accounts.</li>&#10;<li>Click add new account</li>&#10;<li>Select Capitual</li>&#10;<li>Complete the details</li>&#10;<li>Choose to use a custom account name this helps makes it easier for you to manage multiple payment methods in Bisq (this will be visible only to you, for example: Capitual - João da Silva)</li>&#10;<li>Click save new account</li>&#10;</ol>&#10;<p>Make sure all the details are correct when you add.</p>&#10;<span class="wiki-legacy-anchor" id="What_are_CapCodes?" aria-hidden="true"></span><h2 id="what-are-capcodes"> What are CapCodes? </h2>&#10;<p>Transfers take place using CapCodes. CapCodes are like coupon codes you can generate at any time and use it to transfer funds</p>&#10;<p>CapCodes are an electronic cheque system that makes it possible to store amounts of money, precious metals or cryupto-currencies in a short code, easy to be written down, that can be written in a piece of paper to make transactions even when you are not connected to the internet.</p>&#10;<p>When you generate a CapCode, you get a voucher (coupon code) that you must take note (don’t worry: it’s always possible to recover a CapCode that you have lost!). Such code stores funds in any of the currencies supported by Capitual, and you can share it with someone else, allowing the payment in any of these currencies. It’s needed to have a Capitual account to redeem a CapCode.</p>&#10;<p>After generating a CapCode, the amount gets “locked in”, and is already deducted from your balance. If you have given up or will no longer need to use the CapCode, you can redeem it yourself, onto your own account. It’s also possible to track, from your account, whether a CapCode has already been redeemed.</p>&#10;<p>CapCodes are only available when accessing your account using a computer.</p>&#10;<span class="wiki-legacy-anchor" id="How_do_I_buy_BTC_with_my_Capitual_account?" aria-hidden="true"></span><h2 id="how-do-i-buy-btc-with-my-capitual-account"> How do I buy BTC with my Capitual account? </h2>&#10;<p>You can buy BTC with Capitual on Bisq in 2 waysː</p>&#10;<ol>&#10;<li>Make an offer to buy BTC on the BRL, EUR, GBP, or USD market.</li>&#10;<li>Take an offer to buy BTC on the BRL, EUR, GBP, or USD market.</li>&#10;</ol>&#10;<p>When the offer is confirmed Bisq will provide you with the BTC Sellers Capitual details for you to complete the payment. You should send payment immediately and confirm you have done so in Bisq by clicking 'payment started'.</p>&#10;<p>If you have the option to include a payment reference please leave it blank. If your bank requires one, please just use your name that matches your bank account.</p>&#10;<p>Once the BTC Seller receives your payment they will confirm in Bisq and your security deposit and your purchased trade amount will be available in your wallet.</p>&#10;<span class="wiki-legacy-anchor" id="How_do_I_sell_BTC_with_my_Capitual_account?" aria-hidden="true"></span><h2 id="how-do-i-sell-btc-with-my-capitual-account"> How do I sell BTC with my Capitual account? </h2>&#10;<p>You can sell BTC with Capitual on Bisq in 2 waysː</p>&#10;<ol>&#10;<li>Make an offer to sell BTC on the BRL, EUR, GBP, or USD market.</li>&#10;<li>Take an offer to sell BTC on the BRL, EUR, GBP, or USD market.</li>&#10;</ol>&#10;<p>When the offer is confirmed Bisq will provide with the BTC Buyer with your Capitual details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking 'payment started'.</p>&#10;<p>Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.</p>&#10;<span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_Capitual_account?" aria-hidden="true"></span><h2 id="are-there-any-limits-for-me-to-be-aware-of-when-using-my-capitual-account"> Are there any limits for me to be aware of when using my Capitual account? </h2>&#10;<p>Unconfirmed accounts have a fixed transfer limit of US$ 9,999.00. As this limit is reached, the account must be confirmed for continued usage.</p>&#10;<span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_Capitual_account?" aria-hidden="true"></span><h2 id="are-there-any-fees-for-me-to-be-aware-of-when-using-my-capitual-account"> Are there any fees for me to be aware of when using my Capitual account? </h2>&#10;<p>There are a few fees to be aware of when using your Capitual Account. Almost everything is fee free apart from crypto withdrawals. Here is a table showing fees correct of September 2021:</p>&#10;<table>&#10;<thead>&#10;<tr>&#10;<th>Description</th>&#10;<th>Fee</th>&#10;</tr>&#10;</thead>&#10;<tbody>&#10;<tr>&#10;<td>Transfer fiat to other users</td>&#10;<td>Free</td>&#10;</tr>&#10;<tr>&#10;<td>Transfer crypto to other users</td>&#10;<td>Free</td>&#10;</tr>&#10;<tr>&#10;<td>Deposit BRL or EUR</td>&#10;<td>Free</td>&#10;</tr>&#10;<tr>&#10;<td>Withdraw BRL or EUR</td>&#10;<td>Free</td>&#10;</tr>&#10;<tr>&#10;<td>Deposit crypto</td>&#10;<td>Free</td>&#10;</tr>&#10;<tr>&#10;<td>Withdraw crypto</td>&#10;<td>BTC 0.0001, LTC 0.01, DSH 0.01, ETH 0.01, USDT 0.50, BUSD 0.50, USDC 0.50, DAI 0.50</td>&#10;</tr>&#10;</tbody>&#10;</table>&#10;<details class="wiki-table-source"><summary>Original table source</summary><pre><code>{| class="wikitable"&#10;|-&#10;! Description !! Fee&#10;|-&#10;| Transfer fiat to other users || Free&#10;|-&#10;| Transfer crypto to other users|| Free&#10;|-&#10;| Deposit BRL or EUR || Free&#10;|-&#10;| Withdraw BRL or EUR|| Free&#10;|-&#10;| Deposit crypto || Free&#10;|-&#10;| Withdraw crypto || BTC 0.0001, LTC 0.01, DSH 0.01, ETH 0.01, USDT 0.50, BUSD 0.50, USDC 0.50, DAI 0.50&#10;|}</code></pre></details>&#10;</div>
+<div class="wiki-recovered-article" lang="en">
+
+**Capitual** is a payment method added in Bisq v1.7.2.
+
+Capitual is a payment service that combines fiat and crypto payments. Capitual is especially of benefit to users in Brazil and Europe due to it facilitating free BRL and EUR deposits and withdrawals via TED (Express Wire Transfer) and SEPA respectively. Capitual enables all users to send and receive fiat and crypto between users for free.
+
+Capitual operate in 48+ countries (unfortunately US residents are excluded). Currently only EUR, BRL currencies are able to be withdrawn / deposited to and from a fiat account via SEPA or TED (Express Wire Transfer). USD and GBP are also supported currencies but they can only be added by exchanging other currencies / cryptos and stablecoins.
+
+- Currencies supported: BRL, EUR, GBP, USD
+- Cryptos supported: Bitcoin, Litecoin, Dash, Ethereum, USDT, BUSD, USDC, DAI
+- Trade window: 24 hours
+- Signing required: No
+- Bisq buy/sell limits: <span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span>
+
+<span class="wiki-legacy-anchor" id="Where_can_I_find_out_more_about_Capitual?" aria-hidden="true">
+</span>
+
+## Where can I find out more about Capitual? {#where-can-i-find-out-more-about-capitual}
+
+Here is a list of Capitual resources:
+
+- [Capitual Website](https://www.capitual.com/)
+- [Capitual Fees & Limits](https://exchange.capitual.com/)
+- [Capitual GitHub](https://github.com/capitual)
+- [Capitual Help Centre](https://help.capitual.com/)
+- [Terms and conditions](https://my.capitual.com/legal#tos)
+- [Prohibited uses](https://static.capitual.net/legal/prohibited-businesses.pdf?view)
+- [Capitual Twitter](https://twitter.com/capitual)
+
+<span class="wiki-legacy-anchor" id="What_countries_are_available_for_Capitual?" aria-hidden="true">
+</span>
+
+## What countries are available for Capitual? {#what-countries-are-available-for-capitual}
+
+Capitual operates in 48+ countries (US residents are excluded). Fiat on/off ramps are free for users in Brazil and Europe.
+
+<span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Capitual?" aria-hidden="true">
+</span>
+
+## What currencies are available for Capitual? {#what-currencies-are-available-for-capitual}
+
+Multiple currencies are supported, these are:
+
+- EUR
+- BRL
+- USD
+- GBP
+
+Currently only EUR and BRL are the ones that are able to be withdrawn / deposited to and from a fiat account via SEPA or TED (Express Wire Transfer).
+
+USD and GBP can be added in the app by exchanging other currencies / cryptos.
+
+Stablecoins; BUSD, USDT, USDC and DAI can also be deposited and used to send / receive payments.
+
+<span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_Capitual?" aria-hidden="true">
+</span>
+
+## What is the maximum trading duration for Capitual? {#what-is-the-maximum-trading-duration-for-capitual}
+
+The maximum trade time is 1 day. Generally Capitual transfers will be completed instantly.
+
+<span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_Capitual_trade?" aria-hidden="true">
+</span>
+
+## What is the maximum BTC limit for an Capitual trade? {#what-is-the-maximum-btc-limit-for-an-capitual-trade}
+
+<span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span>.
+
+<span class="wiki-legacy-anchor" id="Is_Capitual_a_payment_method_that_can_be_signed?" aria-hidden="true">
+</span>
+
+## Is Capitual a payment method that can be signed? {#is-capitual-a-payment-method-that-can-be-signed}
+
+No, Capitual accounts do not require signing.
+
+<span class="wiki-legacy-anchor" id="How_do_I_add_Capitual_as_a_payment_method_in_Bisq?" aria-hidden="true">
+</span>
+
+## How do I add Capitual as a payment method in Bisq? {#how-do-i-add-capitual-as-a-payment-method-in-bisq}
+
+It is easy to add your Capitual account to Bisq.
+
+1. Go to the top menu in Bisq and select Account.
+2. Then select National Currency Accounts.
+3. Click add new account
+4. Select Capitual
+5. Complete the details
+6. Choose to use a custom account name this helps makes it easier for you to manage multiple payment methods in Bisq (this will be visible only to you, for example: Capitual - João da Silva)
+7. Click save new account
+
+Make sure all the details are correct when you add.
+
+<span class="wiki-legacy-anchor" id="What_are_CapCodes?" aria-hidden="true">
+</span>
+
+## What are CapCodes? {#what-are-capcodes}
+
+Transfers take place using CapCodes. CapCodes are like coupon codes you can generate at any time and use it to transfer funds
+
+CapCodes are an electronic cheque system that makes it possible to store amounts of money, precious metals or cryupto-currencies in a short code, easy to be written down, that can be written in a piece of paper to make transactions even when you are not connected to the internet.
+
+When you generate a CapCode, you get a voucher (coupon code) that you must take note (don’t worry: it’s always possible to recover a CapCode that you have lost!). Such code stores funds in any of the currencies supported by Capitual, and you can share it with someone else, allowing the payment in any of these currencies. It’s needed to have a Capitual account to redeem a CapCode.
+
+After generating a CapCode, the amount gets “locked in”, and is already deducted from your balance. If you have given up or will no longer need to use the CapCode, you can redeem it yourself, onto your own account. It’s also possible to track, from your account, whether a CapCode has already been redeemed.
+
+CapCodes are only available when accessing your account using a computer.
+
+<span class="wiki-legacy-anchor" id="How_do_I_buy_BTC_with_my_Capitual_account?" aria-hidden="true">
+</span>
+
+## How do I buy BTC with my Capitual account? {#how-do-i-buy-btc-with-my-capitual-account}
+
+You can buy BTC with Capitual on Bisq in 2 waysː
+
+1. Make an offer to buy BTC on the BRL, EUR, GBP, or USD market.
+2. Take an offer to buy BTC on the BRL, EUR, GBP, or USD market.
+
+When the offer is confirmed Bisq will provide you with the BTC Sellers Capitual details for you to complete the payment. You should send payment immediately and confirm you have done so in Bisq by clicking \'payment started\'.
+
+If you have the option to include a payment reference please leave it blank. If your bank requires one, please just use your name that matches your bank account.
+
+Once the BTC Seller receives your payment they will confirm in Bisq and your security deposit and your purchased trade amount will be available in your wallet.
+
+<span class="wiki-legacy-anchor" id="How_do_I_sell_BTC_with_my_Capitual_account?" aria-hidden="true">
+</span>
+
+## How do I sell BTC with my Capitual account? {#how-do-i-sell-btc-with-my-capitual-account}
+
+You can sell BTC with Capitual on Bisq in 2 waysː
+
+1. Make an offer to sell BTC on the BRL, EUR, GBP, or USD market.
+2. Take an offer to sell BTC on the BRL, EUR, GBP, or USD market.
+
+When the offer is confirmed Bisq will provide with the BTC Buyer with your Capitual details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking \'payment started\'.
+
+Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.
+
+<span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_Capitual_account?" aria-hidden="true">
+</span>
+
+## Are there any limits for me to be aware of when using my Capitual account? {#are-there-any-limits-for-me-to-be-aware-of-when-using-my-capitual-account}
+
+Unconfirmed accounts have a fixed transfer limit of US$ 9,999.00. As this limit is reached, the account must be confirmed for continued usage.
+
+<span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_Capitual_account?" aria-hidden="true">
+</span>
+
+## Are there any fees for me to be aware of when using my Capitual account? {#are-there-any-fees-for-me-to-be-aware-of-when-using-my-capitual-account}
+
+There are a few fees to be aware of when using your Capitual Account. Almost everything is fee free apart from crypto withdrawals. Here is a table showing fees correct of September 2021:
+
+| Description | Fee |
+| --- | --- |
+| Transfer fiat to other users | Free |
+| Transfer crypto to other users | Free |
+| Deposit BRL or EUR | Free |
+| Withdraw BRL or EUR | Free |
+| Deposit crypto | Free |
+| Withdraw crypto | BTC 0.0001, LTC 0.01, DSH 0.01, ETH 0.01, USDT 0.50, BUSD 0.50, USDC 0.50, DAI 0.50 |
+
+<details class="wiki-table-source"><summary>Original table source</summary><pre><code>{| class="wikitable"&#10;|-&#10;! Description !! Fee&#10;|-&#10;| Transfer fiat to other users || Free&#10;|-&#10;| Transfer crypto to other users|| Free&#10;|-&#10;| Deposit BRL or EUR || Free&#10;|-&#10;| Withdraw BRL or EUR|| Free&#10;|-&#10;| Deposit crypto || Free&#10;|-&#10;| Withdraw crypto || BTC 0.0001, LTC 0.01, DSH 0.01, ETH 0.01, USDT 0.50, BUSD 0.50, USDC 0.50, DAI 0.50&#10;|}</code></pre></details>
+
+</div>
