@@ -90,7 +90,7 @@ Your onion address determines your [local reputation](../local-reputation/), so 
 If you want to restore it:
 
 - Close Bisq. Also make sure you\'ve made a [backup of your data directory](../backing-up-application-data/) (just in case).
-- Replace the <code class="wiki-source-code" id="source-code-21">/path/to/data/directory/btc_mainnet/tor/hiddenservices/</code> folder with the <code class="wiki-source-code" id="source-code-22">btc_mainnet/tor/hiddenservices/</code> folder from your backup.
+- Replace the <code class="wiki-source-code" id="source-code-21">/path/to/data/directory/btc_mainnet/tor/hiddenservice/</code> folder with the <code class="wiki-source-code" id="source-code-22">btc_mainnet/tor/hiddenservice/</code> folder from your backup.
 
 When you open Bisq, your onion address will be restored.
 
