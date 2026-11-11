@@ -1,17 +1,11 @@
 ---
 import SavedWikiLink from "./SavedWikiLink.astro";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import Default from "@astrojs/starlight/components/MarkdownContent.astro";
 import { collectGuides, sections, loadIntegration } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import notes from "../../migration/source-review-notes.json";
-import { renderSectionRepairs } from "../../scripts/lib/section-repairs.mjs";
-import { renderArchivedTemplates } from "../../scripts/lib/archived-templates.mjs";
-import { addTableRowSummaries } from "../../scripts/lib/table-search-rows.mjs";
-import { renderSupplementalMedia } from "../../scripts/lib/supplemental-media.mjs";
-import { allRecoveredAliases, renderRecoveredLinks } from "../../scripts/lib/recovered-link-aliases.mjs";
 import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
+import { articlePageContent } from "../../scripts/lib/article-page.mjs";
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
 const route = id ? `/${id}/` : "/";
@@ -21,23 +15,14 @@ const needsReview = checks.filter((note) => note.status === "needs-maintainer-re
 const guide = article ? collectGuides().find((item) => item.slug === article.slug) : undefined;
 const topic = sections.find((section) => section.directory === guide?.directory)?.label;
 const products = article ? productEvidence(article) : [];
-const rawContent = (await Astro.slots.render("default")).replace(
-  /<details\b([^>]*\bclass="[^"]*\bwiki-table-source\b[^"]*"[^>]*)>/g,
-  (tag, attributes) => attributes.includes("data-pagefind-ignore") ? tag : `<details${attributes} data-pagefind-ignore>`,
-);
+// The page shows the rendered article after the string replacements in
+// scripts/lib/article-page.mjs; the fidelity gate checks the same result.
+const page = articlePageContent(await Astro.slots.render("default"), id, import.meta.env.BASE_URL);
+const { links, templates } = page;
+const unresolvedSections = page.sections.unresolved;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const sourceText = article ? readFileSync(resolve(process.cwd(), `public${article.source_download}`), "utf8") : "";
-const links = article ? renderRecoveredLinks(rawContent, import.meta.env.BASE_URL, allRecoveredAliases(loadIntegration()), article.slug, sourceText) : { content: rawContent, unresolved: 0 };
-const sectionsRepaired = article ? renderSectionRepairs(links.content, article.slug) : { content: links.content, unresolved: 0 };
-const templates = article ? renderArchivedTemplates(sectionsRepaired.content, import.meta.env.BASE_URL, article.slug) : { content: links.content, restored: 0, unresolved: 0 };
-const updatedMedia = article ? renderSupplementalMedia(templates.content, article.image_occurrences || [], import.meta.env.BASE_URL) : { content: links.content, images: [] };
-const content = updatedMedia.content.replace(
-  "Missing introduction and reasons templates remain explicitly unresolved; no replacement prose has been invented.",
-  "The introduction and reasons sections are rendered from recovered historical templates."
-);
-const unresolvedSections = sectionsRepaired.unresolved;
 const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(value));
-const images = updatedMedia.images;
+const images = page.media.images;
 const edits = article ? acceptedEditsFor(article.slug) : [];
 ---
 {article && checks.length > 0 && <aside class="source-context" data-pagefind-ignore aria-label="Migration notes">
@@ -57,7 +42,7 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
   {topic && <span hidden data-pagefind-ignore data-pagefind-filter={`topic:${topic}`}></span>}
   {(products.length ? products : [{ label: "Product not stated" }]).map((product) => <span hidden data-pagefind-ignore data-pagefind-filter={`product:${product.label}`}></span>)}
 </>}
-<Default><Fragment set:html={addTableRowSummaries(content)} /></Default>
+<Default><Fragment set:html={page.content} /></Default>
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>

@@ -416,7 +416,7 @@
         "zelle"
       ],
       "title": "Trade limits: restored macro values are historical",
-      "body": "The restored templates contain 0.0624 BTC for MaxTradeSizeBisq1 and 0.50 BTC for MaxTradeSizeAltcoin. Bisq 1 v1.10.11 clamps trade limits to 0.25 BTC and calculates method limits from the DAO parameter and payment-method risk factor, with additional account restrictions. The historical macro values are not universal current limits; use the limit shown for the actual account and offer. In Bisq 1, the payment account screen shows the account's limits under Limitations, and the create-offer screen does not accept a larger amount. Tikkie scales its own limit instead: under v1.10.11 it is at most 0.00625 BTC, so the 0.0624 BTC shown on the Tikkie page does not apply.",
+      "body": "The restored templates contain 0.0624 BTC for MaxTradeSizeBisq1 and 0.50 BTC for MaxTradeSizeAltcoin. Bisq 1 v1.10.11 clamps trade limits to 0.25 BTC and calculates method limits from the DAO parameter and payment-method risk factor, with additional account restrictions. The historical macro values are not universal current limits; use the limit shown for the actual account and offer.",
       "status": "verified-against-pinned-source",
       "checked_at": "2026-11-08",
       "display_priority": "prominent",
@@ -428,14 +428,6 @@
         {
           "label": "Bisq 1 v1.10.11 method-specific limit calculation",
           "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L395-L431"
-        },
-        {
-          "label": "Bisq 1 v1.10.11 Tikkie default limit",
-          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/core/src/main/java/bisq/core/payment/payload/PaymentMethod.java#L266"
-        },
-        {
-          "label": "Bisq 1 v1.10.11 account limits shown under Limitations",
-          "url": "https://github.com/bisq-network/bisq/blob/ea9d5dff90c99ac462f2b0a7bf9ef92683956619/desktop/src/main/java/bisq/desktop/components/paymentmethods/PaymentMethodForm.java#L195-L216"
         }
       ]
     },
