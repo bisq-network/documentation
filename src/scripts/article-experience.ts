@@ -38,18 +38,13 @@ if (article) {
   const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href ?? location.href;
 
   /**
-   * Copy a canonical article/section URL and update only the local fragment.
+   * Copy the canonical article URL. (Section links are Starlight's heading anchor links.)
    * Announce success briefly; on denial keep a selectable URL available until
    * dismissed, then return focus to the control that requested the copy.
    */
-  const copyLink = async (heading: HTMLElement | null, title: string, trigger: HTMLButtonElement) => {
+  const copyLink = async (title: string, trigger: HTMLButtonElement) => {
     const url = new URL(canonical);
-    url.hash = heading?.id ?? "";
-    if (heading) {
-      const local = new URL(location.href);
-      local.hash = heading.id;
-      history.replaceState(history.state, "", local);
-    }
+    url.hash = "";
     clearTimeout(toastTimeout);
     toast.replaceChildren();
     toast.hidden = false;
@@ -84,19 +79,7 @@ if (article) {
 
   document.querySelectorAll<HTMLButtonElement>("[data-copy-page]").forEach((button) => {
     button.hidden = false;
-    button.addEventListener("click", () => { void copyLink(null, document.querySelector("h1")?.textContent ?? "article", button); });
-  });
-
-  article.querySelectorAll<HTMLElement>("h2[id], h3[id], h4[id], h5[id]").forEach((heading) => {
-    const title = heading.textContent?.trim() ?? "section";
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "h-anchor";
-    button.setAttribute("aria-label", `Copy link to section: ${title}`);
-    button.setAttribute("data-pagefind-ignore", "");
-    button.textContent = "#";
-    button.addEventListener("click", () => { void copyLink(heading, title, button); });
-    heading.append(button);
+    button.addEventListener("click", () => { void copyLink(document.querySelector("h1")?.textContent ?? "article", button); });
   });
 }
 
