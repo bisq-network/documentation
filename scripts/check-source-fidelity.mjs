@@ -1,5 +1,9 @@
 import { verifyAdditionalArticles } from "./lib/additional-articles.mjs";
-import { acceptedEditsPath, parseAcceptedEdits, pullRequestLabel, receiptFilesIn, receiptsDir, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
+import { acceptedEditsPath, applyAcceptedEdit, describeEdit, parseAcceptedEdits, pullRequestLabel, receiptFilesIn, receiptsDir, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
+import { articlePageContent } from "./lib/article-page.mjs";
+import { articlePath, formatDifference, markdownFormatPath, parseMarkdownFormat, preservedArticlePath, preservedArticlesDir } from "./lib/markdown-format.mjs";
+import { renderArticle } from "./lib/render-markdown.mjs";
+import { attributeValue, classes, commentsOf, documentParser, elementsOf, htmlParser, serialize, splitRenderedArticle, startTag, textContent } from "./lib/rendered-html.mjs";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
@@ -7,19 +11,28 @@ import { dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // This checks the source restoration, not whether historical advice is current.
-// Its trusted baselines are the committed manifests; no external scratch files,
-// network requests, Git checkout, package installation, or build are required.
-// A human-approved wording change is accepted only through a receipt in
-// migration/accepted-edits/: the receipt's recorded original text must
-// rebuild the preserved original exactly, which is then checked as before.
+// Its trusted baselines are the committed manifests and the preserved restored
+// articles in migration/restored-articles/; no external scratch files, network
+// requests, Git checkout or build are required (the installed packages are, to
+// render Markdown exactly as the site does: scripts/lib/render-markdown.mjs).
+//
+// Each article is a chain from its preserved restored original, every link checked:
+// - accepted edits: a human-approved wording change is accepted only through a
+//   receipt in migration/accepted-edits/, whose recorded original text must rebuild
+//   the file it was based on exactly;
+// - at most one Markdown conversion (migration/markdown-format.json): the Markdown
+//   must render to the same page as the HTML it replaced (scripts/lib/markdown-format.mjs).
+// The original is then checked as before, and every edit is compared with the file
+// it changed on the rendered page (checkAcceptedStructure).
 //
 // By default a wording change without a receipt fails. Only the pull request
 // check passes --awaiting-receipt-base <dir>, a copy of the pull request's base
 // articles: an unreceipted edit then counts as awaiting a receipt, not as a
-// failure, if its base file in <dir> is exactly the restored article (or its last
-// accepted edit), passes every check above, and the edit keeps everything a
-// receipt would still require (see checkAcceptedStructure). The receipts job
-// fails while any article awaits a receipt.
+// failure, if its base file in <dir> is exactly the end of its chain (the
+// restored article, its Markdown conversion or its last accepted edit), passes
+// every check above, and the edit keeps everything a receipt would still require
+// (see checkAcceptedStructure). The receipts job fails while any article awaits a
+// receipt.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = "migration/restoration-fidelity.json";
 const snapshotPath = "review/ai-edited/snapshot.json";
@@ -93,18 +106,17 @@ function splitArticle(text) {
 const idsOf = (body) => [...body.matchAll(/\bid="([^"]+)"/g)].map((match) => decodeHtml(match[1]));
 const clip = (value) => (value.length > 90 ? `${value.slice(0, 90)}…` : value);
 
-/**
- * An accepted edit may change article wording only. Compare the edited file
- * with the exact file it was based on: everything outside the article body,
- * the container, headings, existing IDs, recorded legacy anchors and images
- * stay as they were. An image's alt text may change only when the receipt
- * lists that figure in changed_image_alt_text.
- */
-// What an accepted wording edit may add or remove, compared tag by tag with its base:
-// lowercase inline markup, paragraphs and list items, new IDs, and links to http(s),
-// relative or same-page targets. Anything else (other elements, attributes such as hidden, style or
-// on*, any capitalisation) could add, hide or run content and needs its own policy.
+// What an accepted wording edit may add or remove: lowercase inline markup,
+// paragraphs and list items, new IDs, and links to http(s), relative or same-page
+// targets. Anything else (other elements, attributes such as hidden, style or on*)
+// could add, hide or run content and needs its own policy.
 const editableTags = new Set(["a", "strong", "em", "b", "i", "code", "br", "p", "ul", "ol", "li"]);
+const editableList = "plain a, strong, em, b, i, code, br, p, ul, ol and li markup";
+const linkTarget = /^(?:https?:\/\/|\.\.\/|#)/;
+
+// The source-level rules of an HTML article, compared tag by tag with its base
+// (checkSourceStructure). They apply while both files are HTML, a single raw HTML
+// block; the rendered checks in checkAcceptedStructure apply to every edit.
 // An empty span that only carries an ID (a moved or legacy anchor) cannot hold content.
 const anchorPlaceholder = /<span(?:\s+(?:id="[^"<>]*"|class="wiki-legacy-anchor"|aria-hidden="true"))+\s*><\/span>/g;
 const tagsOf = (body) => body.replace(anchorPlaceholder, "").match(/<\/?[A-Za-z][^>]*>/g) ?? [];
@@ -125,17 +137,125 @@ function editableTag(tag) {
   if (match[2] !== "a") return names.every((name) => name === "id");
   if (!names.length) return true; // a bare <a> links nowhere
   return names.includes("href") && names.every((name) => ["href", "rel", "id"].includes(name))
-    && attributes.every(({ name, value }) => name !== "href" || /^(?:https?:\/\/|\.\.\/|#)/.test(value));
+    && attributes.every(({ name, value }) => name !== "href" || linkTarget.test(value));
 }
 const occurrences = (body, pattern) => body.match(pattern)?.length ?? 0;
 
-// Stands in for the receipt of an edit that has none yet. Its alt-text changes
-// are reported instead, because the receipt will have to list those figures.
-const awaitingLabel = "The edit awaiting a receipt";
-const noReceipt = { changed_image_alt_text: [] };
-const figureId = /^source-image-\d+$/;
+/**
+ * The same rule for an element of the rendered page (attributes unescaped). Inline
+ * code may also carry dir="auto": Starlight adds it to Markdown inline code.
+ */
+function editableElement(element) {
+  if (!editableTags.has(element.tag) || element.attrs.some(([, value]) => value === null)) return false;
+  const names = element.attrs.map(([name]) => name);
+  if (element.tag === "code") return names.every((name) => name === "id" || (name === "dir" && attributeValue(element, "dir") === "auto"));
+  if (element.tag !== "a") return names.every((name) => name === "id");
+  if (!names.length) return true; // a bare <a> links nowhere
+  return names.includes("href") && names.every((name) => ["href", "rel", "id"].includes(name)) && linkTarget.test(attributeValue(element, "href"));
+}
+// An empty span that only carries an ID (a moved or legacy anchor) cannot hold content;
+// in Markdown it may hold the line break that keeps it an HTML block.
+const anchorSpan = (element) => element.tag === "span" && attributeValue(element, "id") !== undefined
+  && element.attrs.every(([name]) => name === "id" || (name === "class" && attributeValue(element, "class") === "wiki-legacy-anchor") || (name === "aria-hidden" && attributeValue(element, "aria-hidden") === "true"))
+  && element.children.every((child) => child.type === "text" && !/[^\t\n\f\r ]/.test(child.value));
+const headingTag = /^h[1-6]$/;
 
-function checkAcceptedStructure(base, edited, item, receipt, pr = pullRequestLabel(receipt.pull_request)) {
+// Stands in for the receipt of an edit that has none yet. Its alt-text, locked-content
+// and invisible-character changes are reported instead, because the receipt will
+// have to list them.
+const awaitingLabel = "The edit awaiting a receipt";
+const noReceipt = { changed_image_alt_text: [], changed_locked_content: [], added_invisible_characters: [] };
+const figureId = /^source-image-\d+$/;
+const containerMarker = '<div class="wiki-recovered-article"';
+
+/** The source up to and including the article container's start tag: front matter, title and contents list. */
+function sourcePrefix(text) {
+  const start = text.indexOf(containerMarker);
+  assert(start >= 0, "missing original article container");
+  assert.equal(text.indexOf(containerMarker, start + containerMarker.length), -1, "duplicate article container");
+  const end = text.indexOf(">", start);
+  assert(end >= 0, "unclosed article container tag");
+  return text.slice(0, end + 1);
+}
+
+/**
+ * The article of a file's text as the site shows it at path: rendered with the
+ * site's Markdown pipeline, then given the page's string replacements
+ * (scripts/lib/article-page.mjs), and parsed as part of a page. raw is the rendered
+ * article before those replacements, where code blocks, tables and gap markers are
+ * as written.
+ */
+async function renderedArticle(text, path, pr) {
+  let html;
+  let page;
+  try {
+    html = await renderArticle(text, path, root);
+    page = articlePageContent(html, path.replace(/^src\/content\/docs\//, "").replace(/\.md$/, "")).content;
+  } catch (error) {
+    throw new Error(`${pr} does not render: ${error.message}`);
+  }
+  const parse = await htmlParser(root);
+  const [shown, raw] = [parse(page), parse(html)];
+  assert(raw.selfContained && shown.selfContained, `${pr} changes the page around the article: ${raw.problem ?? shown.problem}`);
+  return { ...splitRenderedArticle(shown.nodes), raw: splitRenderedArticle(raw.nodes) };
+}
+
+// Parts of an article whose content an accepted edit may change only when its receipt
+// lists them in changed_locked_content: code blocks, tables and recovery gap markers.
+// A code block is named by its code's ID (source-code-3); anything else by its kind,
+// the ID of the heading it follows ("top" before the first) and its number there
+// (table:#limits:1, gap:top:2), so dropping one leaves the others' names alone. Each is
+// compared as a whole together with its section, its place among the locked parts and
+// the text right around it, so moving or swapping one counts as changing it.
+const gapClasses = ["wiki-link-gap", "wiki-template-gap", "wiki-markup-gap", "wiki-image-gap"];
+const contextLength = 24;
+function lockedContent(body) {
+  const items = [];
+  const segments = [];
+  let section = "top";
+  const counters = new Map();
+  const visit = (nodes) => nodes.forEach((node) => {
+    if (node.type === "text") { segments.push(node.value); return; }
+    if (node.type !== "element") return;
+    if (headingTag.test(node.tag) && attributeValue(node, "id") !== undefined) section = `#${attributeValue(node, "id")}`;
+    let kind;
+    if (node.tag === "pre") kind = "pre";
+    else if (node.tag === "table") kind = "table";
+    else if (classes(node).some((name) => gapClasses.includes(name))) kind = "gap";
+    if (!kind) { visit(node.children); return; }
+    const number = (counters.get(`${kind}:${section}`) ?? 0) + 1;
+    counters.set(`${kind}:${section}`, number);
+    const code = kind === "pre" && node.children.find((child) => child.type === "element" && child.tag === "code");
+    const id = code && attributeValue(code, "id");
+    items.push({ key: /^source-code-\d+$/.test(id ?? "") ? id : `${kind}:${section}:${number}`, html: serialize([node]), at: segments.length, section, order: items.length });
+    segments.push(null);
+  });
+  visit(body);
+  const flat = (list) => list.filter((segment) => segment !== null).join("").replace(/[\t\n\f\r ]+/g, " ");
+  return new Map(items.map(({ key, html, at, section: under, order }) => [key, `${html}\0${under}\0${order}\0${flat(segments.slice(0, at)).slice(-contextLength)}\0${flat(segments.slice(at + 1)).slice(0, contextLength)}`]));
+}
+
+// Characters a reader does not see or cannot tell apart: default-ignorable code points
+// (zero-width spaces and joiners, bidirectional controls, soft hyphens, variation
+// selectors, fillers, tags), other format characters, control characters other than
+// tab, line feed and carriage return, unassigned, private-use and surrogate code
+// points, line and paragraph separators and the blank braille pattern. An accepted edit
+// may put them in its changed text only when its receipt lists them in
+// added_invisible_characters.
+const invisibleCharacter = /(?![\t\n\r])[\p{Default_Ignorable_Code_Point}\p{Cf}\p{Cc}\p{Cn}\p{Co}\p{Cs}\u2028\u2029\u2800]/gu;
+const codePoint = (character) => `U+${character.codePointAt(0).toString(16).toUpperCase().padStart(4, "0")}`;
+function invisibleCharacters(body) {
+  const counts = new Map();
+  for (const [character] of serialize(body).matchAll(invisibleCharacter)) counts.set(codePoint(character), (counts.get(codePoint(character)) ?? 0) + 1);
+  return counts;
+}
+
+/**
+ * The source-level checks of an edit while base and edit are both HTML: today's
+ * rules, compared tag by tag in the source. Rendered checks follow in
+ * checkAcceptedStructure.
+ */
+function checkSourceStructure(base, edited, item, receipt, pr) {
   const before = splitArticle(base);
   const after = splitArticle(edited);
   assert(before.outside === after.outside, `${pr} changes text outside the article body (front matter, title, contents list or wrapper)`);
@@ -176,20 +296,172 @@ function checkAcceptedStructure(base, edited, item, receipt, pr = pullRequestLab
   assert(!unused.length, `${pr} lists an alt-text change for ${unused.join(", ")}, but that image is unchanged`);
   // Headings, IDs and images are checked above; <img> tags whose alt text changed are not markup changes here.
   const markup = changedTags(before.body, after.body).find((tag) => !/^<img\s/.test(tag) && !editableTag(tag));
-  assert(!markup, `${pr} adds or removes ${clip(markup ?? "")}; an accepted edit may change only text and plain a, strong, em, b, i, code, br, p, ul, ol and li markup`);
+  assert(!markup, `${pr} adds or removes ${clip(markup ?? "")}; an accepted edit may change only text and ${editableList}`);
   assert.equal(occurrences(after.body, /\n[ \t]*\n/g), occurrences(before.body, /\n[ \t]*\n/g), `${pr} adds or removes a blank line, which ends the article's HTML block`);
   assert.equal(occurrences(after.body, /<[!?]/g), occurrences(before.body, /<[!?]/g), `${pr} adds or removes an HTML comment or declaration`);
   if (item.slug === "last-resort-restore") {
     checkRestoreSafeguards(after.body);
-    checkRestoreSafeguardContext(before.body, after.body, pr);
+    checkRestoreSafeguardContext(authorText(before.body), authorText(after.body), pr);
   }
   return [...altChanged];
 }
 
+/**
+ * An accepted edit may change article wording only. Compare the edited file with
+ * the exact file it was based on, on the page readers get from each (rendered with
+ * the site's own pipeline, scripts/lib/render-markdown.mjs, given the page's string
+ * replacements, scripts/lib/article-page.mjs, and parsed as part of a whole page):
+ * the front matter, title and contents list (in the source, byte for byte), the page
+ * around the article, the container, headings, existing IDs, recorded legacy anchors
+ * and whole figures stay as they were. An image's alt text may change only when the
+ * receipt lists that figure in changed_image_alt_text, code blocks, tables and gap
+ * markers only when it lists them in changed_locked_content, and invisible characters
+ * may be added only when it lists them in added_invisible_characters. Markdown adds
+ * markup without any source tag (![image](…), ## heading, links, autolinks, raw
+ * HTML, directives, footnotes), so everything is decided on the rendered elements.
+ * While base and edit are both HTML (format "html"), today's source-level rules
+ * apply as well. Returns what an awaiting edit's receipt will have to list.
+ */
+async function checkAcceptedStructure(base, edited, item, receipt, pr, format) {
+  assert(sourcePrefix(base) === sourcePrefix(edited), `${pr} changes text outside the article body (front matter, title, contents list or wrapper)`);
+  if (format === "html") checkSourceStructure(base, edited, item, receipt, pr);
+  const path = articlePath(item.slug);
+  const before = await renderedArticle(base, path, `the file ${pr} is based on`);
+  const after = await renderedArticle(edited, path, pr);
+  assert(before.outside === after.outside, `${pr} changes the page outside the article body (contents list or wrapper)`);
+  assert(startTag(after.container) === startTag(before.container), `${pr} changes the article container`);
+  const [oldElements, newElements] = [elementsOf(before.body), elementsOf(after.body)];
+  const headings = (elements) => elements.filter((element) => headingTag.test(element.tag)).map((element) => serialize([element]));
+  const [oldHeadings, newHeadings] = [headings(oldElements), headings(newElements)];
+  const changed = [...oldHeadings, ...newHeadings].findIndex((_, index) => oldHeadings[index] !== newHeadings[index]);
+  assert(changed < 0, `${pr} changes heading ${changed + 1} (${clip(oldHeadings[changed] ?? "none")} became ${clip(newHeadings[changed] ?? "nothing")}); heading level, id and text must stay as restored`);
+  const idList = (elements) => elements.map((element) => attributeValue(element, "id")).filter((id) => id !== undefined);
+  const ids = idList(newElements);
+  assert.equal(ids.length, new Set(ids).size, `${pr} creates duplicate IDs in the article`);
+  const lost = idList(oldElements).filter((id) => !ids.includes(id));
+  assert(!lost.length, `${pr} removes anchor #${lost[0]}${lost.length > 1 ? ` and ${lost.length - 1} more` : ""}; section URLs and saved links would break`);
+  checkRenderedAnchors(after.body, item.added_legacy_anchors);
+  // A figure is compared as a whole (its link, caption and layout), its images apart:
+  // an image may differ only in alt text, and only for figures the receipt lists.
+  const figureShape = (figure) => serialize([{ ...figure, children: figure.children.map(function strip(node) {
+    if (node.type !== "element") return node;
+    return node.tag === "img" ? { ...node, attrs: [] } : { ...node, children: node.children.map(strip) };
+  }) }]);
+  const media = (elements) => elements.filter((element) => element.tag === "figure" || element.tag === "img").map((element) => {
+    if (element.tag === "img") return { tag: startTag(element), image: element };
+    return { tag: figureShape(element), figure: attributeValue(element, "id") ?? "" };
+  });
+  const [oldMedia, newMedia] = [media(oldElements), media(newElements)];
+  assert.equal(newMedia.length, oldMedia.length, `${pr} adds or removes images or figures`);
+  assert(oldMedia.every((entry, index) => !entry.image === !newMedia[index].image), `${pr} adds or removes images or figures`);
+  const listed = new Set(receipt.changed_image_alt_text ?? []);
+  const altChanged = new Set();
+  let figure = "";
+  oldMedia.forEach((entry, index) => {
+    if (!entry.image) figure = entry.figure;
+    const next = newMedia[index];
+    if (entry.tag === next.tag) return;
+    const withoutAlt = (image) => startTag({ ...image, attrs: image.attrs.filter(([name]) => name !== "alt") });
+    const altOnly = entry.image && next.image && withoutAlt(entry.image) === withoutAlt(next.image);
+    const unchanged = `only alt text may change, and only for figures listed in changed_image_alt_text`;
+    assert(altOnly, entry.image ? `${pr} changes the image ${figure || `#${index + 1}`}; ${unchanged}`
+      : `${pr} changes the figure ${figure || `#${index + 1}`} or the link that opens it; a figure, its link and its caption stay as restored`);
+    if (receipt === noReceipt) {
+      // Reported with the awaiting article; the receipt must then list the figure.
+      assert(figureId.test(figure), `${pr} changes the alt text of image #${index + 1}, which has no figure id a receipt could list`);
+    } else {
+      assert(listed.has(figure), `${pr} changes the image ${figure || `#${index + 1}`}; ${unchanged}`);
+    }
+    altChanged.add(figure);
+  });
+  const unused = [...listed].filter((id) => !altChanged.has(id));
+  assert(!unused.length, `${pr} lists an alt-text change for ${unused.join(", ")}, but that image is unchanged`);
+  // Code blocks, tables and gap markers change only when the receipt lists them.
+  const [oldLocked, newLocked] = [lockedContent(before.raw.body), lockedContent(after.raw.body)];
+  const lockedGone = [...oldLocked.keys()].filter((key) => !newLocked.has(key));
+  const lockedNew = [...newLocked.keys()].filter((key) => !oldLocked.has(key));
+  assert(!lockedGone.length && !lockedNew.length, `${pr} adds or removes a code block, table or recovery gap marker (${[...lockedGone.map((key) => `${key} gone`), ...lockedNew.map((key) => `${key} new`)].join(", ")})`);
+  const lockedChanged = [...oldLocked.keys()].filter((key) => oldLocked.get(key) !== newLocked.get(key));
+  const lockedListed = new Set(receipt.changed_locked_content ?? []);
+  if (receipt !== noReceipt) {
+    const unlisted = lockedChanged.filter((key) => !lockedListed.has(key));
+    assert(!unlisted.length, `${pr} changes ${unlisted.join(", ")} (a code block, table or recovery gap marker); these change only when the receipt lists them in changed_locked_content`);
+    const unusedLocked = [...lockedListed].filter((key) => !lockedChanged.includes(key));
+    assert(!unusedLocked.length, `${pr} lists ${unusedLocked.join(", ")} in changed_locked_content, but it is unchanged`);
+  }
+  // Characters a reader does not see are added only when the receipt lists them. They
+  // are judged by position: every one in what the rendered article gains, comparing
+  // its decoded text and attributes before and after (so neither a character reference
+  // split across changes nor a move into a link or a number goes unnoticed); every one
+  // in the text an edit puts in, also as HTML decodes it; and, as a backstop, every one
+  // the rendered article has more of.
+  const parseDocument = await documentParser(root);
+  const invisibleAdded = new Set();
+  const gained = describeEdit(serialize(before.raw.body), serialize(after.raw.body)).map((change) => change.accepted);
+  const putIn = (receipt === noReceipt ? describeEdit(base, edited) : receipt.changes).flatMap((change) => [change.accepted, serialize(parseDocument(change.accepted))]);
+  for (const text of [...gained, ...putIn]) {
+    for (const [character] of text.matchAll(invisibleCharacter)) invisibleAdded.add(codePoint(character));
+  }
+  const [oldInvisible, newInvisible] = [invisibleCharacters(before.raw.body), invisibleCharacters(after.raw.body)];
+  for (const [character, count] of newInvisible) if (count > (oldInvisible.get(character) ?? 0)) invisibleAdded.add(character);
+  const invisibleListed = new Set(receipt.added_invisible_characters ?? []);
+  if (receipt !== noReceipt) {
+    const unlisted = [...invisibleAdded].sort().filter((character) => !invisibleListed.has(character));
+    assert(!unlisted.length, `${pr} adds invisible characters (${unlisted.join(", ")}); they are added only when the receipt lists them in added_invisible_characters`);
+    const unusedInvisible = [...invisibleListed].filter((character) => !invisibleAdded.has(character));
+    assert(!unusedInvisible.length, `${pr} lists ${unusedInvisible.join(", ")} in added_invisible_characters, but adds no such character`);
+  }
+  // Every element the edit adds or removes (by its start tag) must be editable.
+  // Headings, IDs and images are checked above; images whose alt text changed are not markup changes here.
+  const counts = new Map();
+  const count = (elements, step) => elements.filter((element) => element.tag !== "img" && !anchorSpan(element)).forEach((element) => {
+    const tag = startTag(element);
+    counts.set(tag, { element, count: (counts.get(tag)?.count ?? 0) + step });
+  });
+  count(oldElements, -1);
+  count(newElements, 1);
+  const markup = [...counts.values()].find(({ element, count: difference }) => difference !== 0 && !editableElement(element));
+  assert(!markup, `${pr} adds or removes ${clip(markup ? startTag(markup.element) : "")}; an accepted edit may change only text and ${editableList}`);
+  assert.equal(commentsOf(after.body).length, commentsOf(before.body).length, `${pr} adds or removes an HTML comment or declaration`);
+  if (item.slug === "last-resort-restore") {
+    checkRestoreSafeguards(restoreFacts(after.body));
+    checkRestoreSafeguardContext(restoreFacts(before.body).text, restoreFacts(after.body).text, pr);
+  }
+  return { changedImageAltText: [...altChanged], changedLockedContent: lockedChanged, addedInvisibleCharacters: [...invisibleAdded].sort() };
+}
+
+/**
+ * Each recorded legacy anchor is still an empty span (whitespace aside) right before
+ * its heading on the rendered page: exactly once, with only its class, id and
+ * aria-hidden, and the heading with its stable ID as the next element (or first in
+ * the next element, Starlight's heading-link wrapper).
+ */
+function checkRenderedAnchors(body, anchors) {
+  const siblings = new Map();
+  const index = (nodes) => nodes.forEach((node, position) => {
+    if (node.type !== "element") return;
+    siblings.set(node, nodes.slice(position + 1));
+    index(node.children);
+  });
+  index(body);
+  const elements = elementsOf(body);
+  for (const anchor of anchors) {
+    const matches = elements.filter((element) => attributeValue(element, "id") === anchor.legacy_id);
+    assert(matches.length, `missing recorded legacy anchor ${anchor.legacy_id}`);
+    assert.equal(matches.length, 1, `duplicate legacy anchor ${anchor.legacy_id}`);
+    const [span] = matches;
+    assert(span.tag === "span" && span.attrs.length === 3 && classes(span).join(" ") === "wiki-legacy-anchor" && attributeValue(span, "aria-hidden") === "true" && anchorSpan(span),
+      `legacy anchor ${anchor.legacy_id} must stay an empty metadata span`);
+    let next = siblings.get(span).find((node) => node.type !== "text" || /[^\t\n\f\r ]/.test(node.value));
+    // A Markdown heading may sit in Starlight's heading-link wrapper.
+    if (next?.type === "element" && next.tag === "div" && classes(next)[0] === "sl-heading-wrapper") next = next.children[0];
+    assert(next?.type === "element" && /^h[2-6]$/.test(next.tag) && attributeValue(next, "id") === anchor.stable_id, `legacy anchor ${anchor.legacy_id} moved away from its heading`);
+  }
+}
+
 // An accepted edit may not touch the words around a recovery safeguard either, so
 // "Do not" or "(not reversible)" cannot be added next to an intact phrase.
-function checkRestoreSafeguardContext(base, edited, pr) {
-  const [before, after] = [authorText(base), authorText(edited)];
+function checkRestoreSafeguardContext(before, after, pr) {
   for (const phrase of restoreSafeguards) {
     const at = before.indexOf(phrase);
     const context = before.slice(Math.max(0, at - 60), at + phrase.length + 60);
@@ -225,8 +497,24 @@ const databaseNames = [
   "PeerList", "RemovedPayloadsMap", "TradeStatistics3Store", "SignedWitnessStore",
 ];
 
+/**
+ * What the recovery safeguards are checked on: the article's text and the word lists
+ * of its code blocks. From the HTML source of a restored article (a string), or from
+ * rendered nodes.
+ */
+function restoreFacts(body) {
+  if (typeof body === "string") {
+    return {
+      text: authorText(body),
+      lists: [...body.matchAll(/<pre><code\b[^>]*>([\s\S]*?)<\/code><\/pre>/g)].map((match) => decodeHtml(match[1]).split(/\s+/).filter(Boolean)),
+    };
+  }
+  const code = elementsOf(body).filter((element) => element.tag === "pre" && element.children.length === 1 && element.children[0].type === "element" && element.children[0].tag === "code");
+  return { text: body.map(textContent).join(""), lists: code.map((pre) => textContent(pre).split(/\s+/).filter(Boolean)) };
+}
+
 function checkRestoreSafeguards(body) {
-  const text = authorText(body);
+  const { text, lists } = typeof body === "string" ? restoreFacts(body) : body;
   for (const phrase of restoreSafeguards) assert(text.includes(phrase), `lost recovery safeguard: ${phrase}`);
   let previous = -1;
   for (const phrase of restoreOrder) {
@@ -234,9 +522,31 @@ function checkRestoreSafeguards(body) {
     assert(position > previous, `recovery procedure reordered or missing: ${phrase}`);
     previous = position;
   }
-  const lists = [...body.matchAll(/<pre><code\b[^>]*>([\s\S]*?)<\/code><\/pre>/g)]
-    .map((match) => decodeHtml(match[1]).split(/\s+/).filter(Boolean));
   assert(lists.some((list) => JSON.stringify(list) === JSON.stringify(databaseNames)), "the ordered 27-file database list changed");
+}
+
+/**
+ * An article's steps from its restored baseline, in chain order: accepted edits
+ * ({ receipt }) and at most one Markdown conversion ({ conversion }), each from one
+ * file hash to the next. Steps that do not continue the chain follow in their given
+ * order, so the caller reports the first one that does not fit.
+ */
+function chainSteps(baseline, receipts, conversion) {
+  const steps = [
+    ...receipts.map((receipt) => ({ receipt, from: receipt.based_on_file_sha256, to: receipt.accepted_file_sha256 })),
+    ...(conversion ? [{ conversion, from: conversion.html_file_sha256, to: conversion.markdown_file_sha256 }] : []),
+  ];
+  const order = [];
+  for (let at = baseline; ;) {
+    const next = steps.filter((step) => !order.includes(step) && step.from === at);
+    // When a receipt and the conversion start from the same file, the conversion (a
+    // record of the whole article) comes first and the receipt is reported as not fitting.
+    const conversionStep = next.find((step) => step.conversion);
+    if (next.length !== 1 && !(next.length === 2 && conversionStep)) break;
+    order.push(conversionStep ?? next[0]);
+    at = order.at(-1).to;
+  }
+  return [...order, ...steps.filter((step) => !order.includes(step))];
 }
 
 async function filesBelow(directory) {
@@ -307,27 +617,42 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
     accepted = parseAcceptedEdits(settings, files, { slugs: new Set(manifest.items.map((item) => item.slug)), notes });
   });
   failures.push(...accepted.problems);
+  const slugs = new Set(manifest.items.map((item) => item.slug));
+  let conversions = new Map();
+  await check(markdownFormatPath, async () => {
+    conversions = parseMarkdownFormat(JSON.parse((await read(markdownFormatPath)).toString()), slugs);
+  });
   const additions = verifyAdditionalArticles();
-  const expectedFiles = [...manifest.items.map((item) => `src/content/docs/wiki/${item.slug}.md`), ...additions.map((item) => item.file)].sort();
+  const expectedFiles = [...manifest.items.map((item) => articlePath(item.slug)), ...additions.map((item) => item.file)].sort();
   await check("src/content/docs/wiki", async () => assert.deepEqual(await filesBelow("src/content/docs/wiki"), expectedFiles, "missing or unexpected source article files"));
+  const preservedFiles = manifest.items.map((item) => preservedArticlePath(item.slug)).sort();
+  await check(preservedArticlesDir, async () => assert.deepEqual(await filesBelow(preservedArticlesDir), preservedFiles, "missing or unexpected preserved restored articles"));
   const images = new Set();
   let imageOccurrences = 0;
   let anchorCount = 0;
   let counted = 0;
   let acceptedCount = 0;
+  let convertedCount = 0;
   let restoreBody;
   for (const item of manifest.items) {
-    const path = `src/content/docs/wiki/${item.slug}.md`;
+    const path = articlePath(item.slug);
     await check(path, async () => {
       assert(/^[a-z0-9-]+$/.test(item.slug), "invalid source slug");
       const record = formattingBySlug.get(item.slug);
       const baseline = record?.formatted_file_sha256 ?? item.restored_file_sha256;
+      // The preserved restored article starts the chain; it never changes.
+      const preservedPath = preservedArticlePath(item.slug);
+      const preserved = (await read(preservedPath)).toString();
+      assert(hash(preserved) === baseline, `${preservedPath} is not the restored article (sha256 ${short(hash(preserved))}, restored ${short(baseline)}); the preserved original never changes`);
+      const conversion = conversions.get(item.slug);
+      const steps = chainSteps(baseline, accepted.bySlug.get(item.slug) ?? [], conversion);
+      const last = steps.at(-1);
       const file = (await read(path)).toString();
-      const receipts = accepted.bySlug.get(item.slug) ?? [];
-      // The file the newest accepted edit produced, or the restored baseline.
-      const covered = receipts.length ? receipts.at(-1).accepted_file_sha256 : baseline;
-      const uncovered = hash(file) !== covered && !(receipts.length && hash(file) === baseline);
+      // The file the newest step produced (an accepted edit or the Markdown conversion), or the restored baseline.
+      const covered = last ? last.to : baseline;
+      const uncovered = hash(file) !== covered && !(last && hash(file) === baseline);
       if (uncovered) unreceipted.push({ slug: item.slug, title: item.title, path });
+      const since = !last ? "since restoration" : last.receipt ? `after its accepted edit (${pullRequestLabel(last.receipt.pull_request)})` : "since its Markdown conversion";
       let current = file;
       let proposed;
       if (uncovered && readBase) {
@@ -335,28 +660,59 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
         const base = await readBase(path);
         const why = !base ? "there is no base file to compare it with"
           : hash(base) === covered ? ""
-          : record && !receipts.length && hash(base) === item.restored_file_sha256
+          : record && !last && hash(base) === item.restored_file_sha256
             ? `its base file has no line-break formatting yet, but this change also records it in ${formattingPath}; propose the formatting-only change on its own first (see CONTRIBUTING.md)`
-            : `its base file is sha256 ${short(hash(base))}, not the ${receipts.length ? "last accepted edit" : "restored article"} ${short(covered)}`;
-        assert(!why, `${item.title} changed ${receipts.length ? `after its accepted edit (${pullRequestLabel(receipts.at(-1).pull_request)})` : "since restoration"} and no receipt in ${receiptsDir}/ covers it. It cannot be checked as awaiting a receipt: ${why}.`);
+          : conversion && !last.receipt && hash(base) === conversion.html_file_sha256
+            ? `its base file is the HTML before its Markdown conversion, but this change also converts it (${markdownFormatPath}); propose the conversion on its own first (see CONTRIBUTING.md)`
+          : `its base file is sha256 ${short(hash(base))}, not the ${!last ? "restored article" : last.receipt ? "last accepted edit" : "Markdown conversion"} ${short(covered)}`;
+        assert(!why, `${item.title} changed ${since} and no receipt in ${receiptsDir}/ covers it. It cannot be checked as awaiting a receipt: ${why}.`);
         [current, proposed] = [base.toString(), file];
       }
-      if (!receipts.length) {
+      if (!last) {
         assert(hash(current) === baseline, `${item.title} changed since restoration (sha256 ${short(hash(current))}, restored ${short(baseline)}) and no receipt in ${receiptsDir}/ covers it. A wording change needs human approval and a receipt (see CONTRIBUTING.md); do not refresh the original hashes.`);
       } else if (hash(current) === baseline) {
-        throw new Error(`${item.title} is unchanged since restoration, but ${pullRequestLabel(receipts.at(-1).pull_request)} has a receipt for it; apply the accepted edit or remove the receipt`);
+        throw new Error(last.receipt
+          ? `${item.title} is unchanged since restoration, but ${pullRequestLabel(last.receipt.pull_request)} has a receipt for it; apply the accepted edit or remove the receipt`
+          : `${item.title} is the restored HTML, but ${markdownFormatPath} records its Markdown conversion; apply the conversion or remove its record`);
       }
-      receipts.forEach((receipt, index) => {
-        const expected = index ? receipts[index - 1].accepted_file_sha256 : baseline;
-        assert(receipt.based_on_file_sha256 === expected, `${pullRequestLabel(receipt.pull_request)} receipt is based on sha256 ${short(receipt.based_on_file_sha256)}, but ${index ? `the earlier accepted edit (${pullRequestLabel(receipts[index - 1].pull_request)}) produced` : `the restored baseline of this article${record ? " (original plus recorded line-break formatting)" : ""} is`} ${short(expected)}; record the receipt against the current article`);
-      });
-      // Undo accepted edits newest first; each must rebuild exactly the file it was based on.
-      const steps = [];
+      steps.reduce((expected, step, index) => {
+        const previous = steps[index - 1];
+        const producer = !previous ? `the restored baseline of this article${record ? " (original plus recorded line-break formatting)" : ""} is`
+          : previous.receipt ? `the earlier accepted edit (${pullRequestLabel(previous.receipt.pull_request)}) produced`
+          : `its Markdown conversion (${markdownFormatPath}) produced`;
+        assert(step.from === expected, step.receipt
+          ? `${pullRequestLabel(step.receipt.pull_request)} receipt is based on sha256 ${short(step.from)}, but ${producer} ${short(expected)}; record the receipt against the current article`
+          : `its Markdown conversion in ${markdownFormatPath} is based on sha256 ${short(step.from)}, but ${producer} ${short(expected)}; record the conversion against the HTML it replaced`);
+        return step.to;
+      }, baseline);
+      if (last && !last.receipt) {
+        assert(hash(current) === covered, `${item.title} changed since its Markdown conversion (sha256 ${short(hash(current))}, converted ${short(covered)}) and no receipt in ${receiptsDir}/ covers it. A wording change needs human approval and a receipt (see CONTRIBUTING.md); do not refresh the hashes in ${markdownFormatPath}.`);
+      }
+      // Undo the accepted edits newest first, down to the Markdown conversion or the
+      // restored baseline; each must rebuild exactly the file it was based on.
+      const split = steps.findIndex((step) => step.conversion);
+      const markdownEdits = [];
       let unedited = current;
-      for (const receipt of [...receipts].reverse()) {
-        const base = undoAcceptedEdit(unedited, receipt);
-        steps.push([base, unedited, receipt]);
+      for (const step of steps.slice(split + 1).reverse()) {
+        const base = undoAcceptedEdit(unedited, step.receipt);
+        markdownEdits.unshift([base, unedited, step.receipt, split < 0 ? "html" : "markdown"]);
         unedited = base;
+      }
+      const htmlEdits = [];
+      if (split >= 0) {
+        // unedited is the converted Markdown. Rebuild the HTML it replaced from the
+        // preserved original through the accepted HTML edits, then compare the pages.
+        let html = preserved;
+        for (const step of steps.slice(0, split)) {
+          const next = applyAcceptedEdit(html, step.receipt);
+          assert(undoAcceptedEdit(next, step.receipt) === html, `${pullRequestLabel(step.receipt.pull_request)} recorded changes do not undo exactly`);
+          htmlEdits.push([html, next, step.receipt, "html"]);
+          html = next;
+        }
+        const difference = await formatDifference({ slug: item.slug, html, markdown: unedited, root });
+        assert(!difference, `its Markdown conversion (${markdownFormatPath}) does not render as the HTML it replaced: ${difference}`);
+        unedited = preserved;
+        convertedCount += 1;
       }
       const text = restoreRecordedFormatting(unedited, record);
       const front = text.match(/^---\n([\s\S]*?)\n---/);
@@ -384,11 +740,13 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
         restoreBody = body;
       }
       counted += 1;
-      for (const [base, edited, receipt] of steps) checkAcceptedStructure(base, edited, item, receipt);
-      acceptedCount += steps.length;
+      for (const [base, edited, receipt, format] of [...htmlEdits, ...markdownEdits]) {
+        await checkAcceptedStructure(base, edited, item, receipt, pullRequestLabel(receipt.pull_request), format);
+      }
+      acceptedCount += htmlEdits.length + markdownEdits.length;
       if (proposed !== undefined) {
-        const changedImageAltText = checkAcceptedStructure(current, proposed, item, noReceipt, awaitingLabel);
-        awaiting.push({ slug: item.slug, title: item.title, path, changedImageAltText });
+        const listed = await checkAcceptedStructure(current, proposed, item, noReceipt, awaitingLabel, conversion ? "markdown" : "html");
+        awaiting.push({ slug: item.slug, title: item.title, path, ...listed });
       }
     });
     const rawPath = `public/wiki-source/${item.slug}.wiki.txt`;
@@ -429,18 +787,25 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
     const local = `review/ai-edited/${path}`;
     await check(local, async () => assert.equal(hash(await read(local)), expected, "immutable AI-review snapshot drift"));
   }
-  return { failures, awaiting, unreceipted, anchorCount, acceptedCount, acceptedArticles: accepted.bySlug.size, snapshotFiles: snapshots.length, restoreBody };
+  return { failures, awaiting, unreceipted, anchorCount, acceptedCount, acceptedArticles: accepted.bySlug.size, convertedCount, snapshotFiles: snapshots.length, restoreBody };
 }
 
-/** For an awaiting article whose alt text changed: which figures its receipt must list ("" if none). */
-export function altTextNote(item) {
-  const figures = item.changedImageAltText ?? [];
-  if (!figures.length) return "";
-  return `alt text of ${figures.join(", ")} changed; its receipt must list ${figures.length === 1 ? "it" : "them"} in changed_image_alt_text`;
+/**
+ * For an awaiting article: what its receipt must list ("" if nothing), the figures
+ * whose alt text changed, the code blocks, tables and gap markers that changed, and
+ * the invisible characters it adds.
+ */
+export function receiptNote(item) {
+  const them = (list) => (list.length === 1 ? "it" : "them");
+  return [
+    [item.changedImageAltText, (list) => `alt text of ${list.join(", ")} changed; its receipt must list ${them(list)} in changed_image_alt_text`],
+    [item.changedLockedContent, (list) => `${list.join(", ")} (code block, table or recovery gap marker) changed; its receipt must list ${them(list)} in changed_locked_content`],
+    [item.addedInvisibleCharacters, (list) => `invisible characters ${list.join(", ")} added; its receipt must list ${them(list)} in added_invisible_characters`],
+  ].filter(([list]) => list?.length).map(([list, note]) => note(list)).join("; ");
 }
 
-/** One awaiting article for messages: its slug, plus any alt-text note. */
-export const awaitingLine = (item) => (altTextNote(item) ? `${item.slug}: ${altTextNote(item)}` : item.slug);
+/** One awaiting article for messages: its slug, plus what its receipt must list. */
+export const awaitingLine = (item) => (receiptNote(item) ? `${item.slug}: ${receiptNote(item)}` : item.slug);
 
 /** The value of --awaiting-receipt-base, or undefined when the flag is absent. */
 export function awaitingReceiptBase(argv) {
@@ -468,7 +833,8 @@ async function main() {
     } else {
       const edits = result.acceptedCount ? ` (${plural(result.acceptedArticles, "article")} with ${plural(result.acceptedCount, "accepted edit")}; originals rebuilt exactly)` : "";
       const proposals = result.awaiting.length ? ` (${result.awaiting.length} awaiting a receipt, checked against their base files)` : "";
-      console.log(`Source fidelity passed: 209 original bodies/titles/raw sources${edits}${proposals}, ${result.anchorCount} explicit anchor additions, 130 image occurrences/120 assets, 98 AI guides (${result.snapshotFiles} snapshot files), 14 recovery safeguards, ordered 27-file list and 8-step order.${awaiting}`);
+      const converted = result.convertedCount ? ` (${result.convertedCount} converted to Markdown, each rendering as the HTML it replaced)` : "";
+      console.log(`Source fidelity passed: 209 original bodies/titles/raw sources${converted}${edits}${proposals}, ${result.anchorCount} explicit anchor additions, 130 image occurrences/120 assets, 98 AI guides (${result.snapshotFiles} snapshot files), 14 recovery safeguards, ordered 27-file list and 8-step order.${awaiting}`);
       if (process.argv.includes("--self-test")) {
         const path = "src/content/docs/wiki/last-resort-restore.md";
         const text = await readFile(resolve(root, path), "utf8");
@@ -477,6 +843,8 @@ async function main() {
         const guidePath = `review/ai-edited/${Object.keys(snapshot.files).find((file) => file.startsWith("guides/"))}`;
         const teamsPath = "src/content/docs/wiki/teams.md";
         const teams = await readFile(resolve(root, teamsPath), "utf8");
+        const preservedPath = preservedArticlePath("last-resort-restore");
+        const preserved = await readFile(resolve(root, preservedPath), "utf8");
         const mutations = [
           [path, text.replace('title: "Last resort restore"', 'title: "Different title"')],
           [path, text.replace("100% new instance", "90% new instance")],
@@ -485,14 +853,30 @@ async function main() {
           [guidePath, "changed immutable AI draft"],
           [teamsPath, teams.replace("is responsable", "is responsible")],
           [teamsPath, teams.replace("Bisq is a", "Bisq  is a")],
+          [preservedPath, preserved.replace("100% new instance", "90% new instance"), path],
         ];
-        for (const [file, content] of mutations) {
-          const mutated = await verify(new Map([[file, content]]));
-          assert(mutated.failures.some((failure) => failure.startsWith(`${file}:`)), `negative test did not catch drift at ${file}`);
+        // A converted article changed and its conversion re-recorded, as a pull request
+        // could try: a <body> start tag (the page would apply its attributes), and a
+        // line break the page's link repair reads differently.
+        const record = JSON.parse(await readFile(resolve(root, markdownFormatPath), "utf8"));
+        const rerecord = async (slug, find, replacement) => {
+          const file = articlePath(slug);
+          const content = (await readFile(resolve(root, file), "utf8")).replace(find, replacement);
+          const items = record.items.map((entry) => (entry.slug === slug ? { ...entry, markdown_file_sha256: hash(content) } : entry));
+          return [file, content, file, [[markdownFormatPath, JSON.stringify({ ...record, items })]]];
+        };
+        if (record.items.some((entry) => entry.slug === "teams")) {
+          mutations.push(await rerecord("teams", "There is no CEO.", 'There is no CEO.<body onpageshow="document.title=1">'));
+          mutations.push(await rerecord("troubleshooting", "Delete and resync SPV file <small>", "Delete and resync SPV file\n<small>"));
+        }
+        for (const [file, content, reportedAt = file, extra = []] of mutations) {
+          assert.notEqual(content, await readFile(resolve(root, file), "utf8"), `negative test did not change ${file}`);
+          const mutated = await verify(new Map([[file, content], ...extra]));
+          assert(mutated.failures.some((failure) => failure.startsWith(`${reportedAt}:`)), `negative test did not catch drift at ${file}`);
         }
         assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("btc_mainnet/tor/hiddenservice", "hiddenservice")), /lost recovery safeguard/);
         assert.throws(() => checkRestoreSafeguards(result.restoreBody.replace("Copy all the above files", "Copy selected files")), /procedure reordered or missing/);
-        console.log("Nine negative regression checks passed; test mutations were in memory only.");
+        console.log(`${mutations.length + 2} negative regression checks passed; test mutations were in memory only.`);
       }
     }
   } catch (error) {
