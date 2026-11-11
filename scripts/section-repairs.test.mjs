@@ -1,10 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { renderArticle } from "./lib/render-markdown.mjs";
 import { renderSectionRepairs } from "./lib/section-repairs.mjs";
 
-test("reviewed source link preserves its label and adds the exact target section", () => {
-  const input = readFileSync("src/content/docs/wiki/cash-by-mail.md", "utf8");
+// The site repairs links on the rendered article (src/components/SourceHistory.astro).
+test("reviewed source link preserves its label and adds the exact target section", async () => {
+  const path = "src/content/docs/wiki/cash-by-mail.md";
+  const input = await renderArticle(readFileSync(path, "utf8"), path);
   const result = renderSectionRepairs(input, "cash-by-mail");
   assert.equal(result.restored, 1);
   assert.match(result.content, /href="\.\.\/arbitration\/#time-locked-delayed-payout-payout-transaction"/);
