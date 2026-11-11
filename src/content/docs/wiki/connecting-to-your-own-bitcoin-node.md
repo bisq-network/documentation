@@ -28,8 +28,8 @@ mempoolexpiry=24
 
 which in turn:
 
-- enables the block server mode
-- disables the pruning of old blocks
+- enables Bitcoin Core\'s JSON-RPC server (`server=1`); Bisq\'s normal Bitcoin connection uses the P2P port, not RPC
+- disables pruning so historical blocks remain available; pruning changes retained data, not whether the node fully validates blocks
 - allows Bisq to run its SPV wallet
 - prevents Bisq from repeatedly losing connection to your node in case your wallet history has many transactions, by limiting the tx retention in the local mempool to 24hrs
 
