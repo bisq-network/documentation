@@ -138,7 +138,7 @@ After verifying that the fingerprint is correct, press on “Close” and press 
 
 With the <code class="wiki-source-code" id="source-code-14">install-file.exe</code> and <code class="wiki-source-code" id="source-code-15">signature-file.exe.asc</code> in the same directory, double-click on the <code class="wiki-source-code" id="source-code-16">.exe.asc</code> file.
 
-You should see a Kleopatra window pop up with a green progress bar that says “Verified .exe with .exe.asc”. The program will continue to say “The data could not be verified” in bold but you can disregard that message.
+You should see a Kleopatra window pop up with a green progress bar that says “Verified .exe with .exe.asc”. Do not disregard an unresolved verification error. Proceed only when the detached signature is valid and its full signer fingerprint matches the expected release key; an uncertified-key warning is different from a bad or unchecked signature.
 
 This means the installer file we downloaded is intact and as intended. You can proceed to install Bisq by double-clicking the .exe file.
 
@@ -160,7 +160,7 @@ To import the signing keys for Alejandro García and Henrik Jannsen, open a term
 
 <pre><code class="wiki-source-code" id="source-code-17">gpg --receive-keys 0xF806F422E222AA02 0x02AA2BAE387C8307</code></pre>
 
-Next you need to verify key’s fingerprint and tell GPG to trust the key. For example, to verify Alejandro\'s key, run:
+Next you need to verify key’s fingerprint against the expected release signer. For example, to verify Alejandro\'s key, run:
 
 <pre><code class="wiki-source-code" id="source-code-18">gpg --edit-key 0xF806F422E222AA02</code></pre>
 
@@ -174,7 +174,7 @@ Now ensure that you see the same output as here:
 pub   rsa4096/0xF806F422E222AA02 2022-09-28 Alejandro García &lt;alejandro.garcia@disroot.org&gt;
  Primary key fingerprint: B493 3191 06CC 3D1F 252E  19CB F806 F422 E222 AA02</code></pre>
 
-If the fingerprint matches you can trust the key. To trust the key type:
+If the fingerprint matches the one listed above, you have the right key. You do not need to change its trust to verify a download: type `quit` to leave the key editor and continue with verifying the installer signature below. GPG’s trust setting says how far you rely on the key’s owner to certify other keys, which is separate from checking a downloaded file. For reference, the trust menu opens when you type:
 
 <pre><code class="wiki-source-code" id="source-code-21">trust</code></pre>
 
@@ -195,11 +195,11 @@ sub  rsa4096/0xE7F08D07C72561D0
   m = back to the main menu
 &#10;Your decision?</code></pre>
 
-Type <code class="wiki-source-code" id="source-code-23">5</code> to trust to the key and you’ll see following output:
+Do not type <code class="wiki-source-code" id="source-code-23">5</code> for a release signer’s key: ultimate trust is meant for your own keys, not for silencing a verification warning. Type `m` to go back to the main menu without changing the trust. If you type 5, you’ll see the following output:
 
 <pre><code class="wiki-source-code" id="source-code-24">Do you really want to set this key to ultimate trust? (y/N) </code></pre>
 
-Now type <code class="wiki-source-code" id="source-code-25">y</code> to confirm. Now you can quit by typing <code class="wiki-source-code" id="source-code-26">quit</code>.
+Do not type <code class="wiki-source-code" id="source-code-25">y</code> here; answer N, then type `m` to go back to the main menu. Now you can quit by typing <code class="wiki-source-code" id="source-code-26">quit</code>.
 
 <span id="verify-the-signature-of-the-binary-you-downloaded-1"></span>
 
@@ -215,6 +215,8 @@ With the installer file and installer signature file in the same directory, run:
 Where <code class="wiki-source-code" id="source-code-28">INSTALLER.asc</code> is the filename of the <code class="wiki-source-code" id="source-code-29">.asc</code> file you just downloaded.
 
 You should see an output similar to this:
+
+The example below comes from a keyring in which the key has ultimate trust. Your result need not say `[ultimate]`: without that setting the line may end in `[unknown]`, followed by a warning that the key is not certified with a trusted signature. Require “Good signature” and the expected full fingerprint; a bad signature or a missing public key means the installer is not verified.
 
 <pre><code class="wiki-source-code" id="source-code-30">gpg: Signature made Fri 22 Nov 2024 07:42:50 PM UTC
 gpg:                 using RSA key B493319106CC3D1F252E19CBF806F422E222AA02
