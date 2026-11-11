@@ -6,58 +6,109 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#contributing-as-a-burningmen">Contributing as a Burningmen</a></li><li><a href="#eligibility">Eligibility</a></li><li><a href="#considerations-before-burning-bsq">Considerations before burning BSQ</a></li><li><a href="#burning-bsq-and-receiving-btc">Burning BSQ and receiving BTC</a></li><li><a href="#contributors">Contributors</a></li><li><a href="#receivers-of-the-genesis-distribution">Receivers of the genesis distribution</a></li><li><a href="#burning-men-protocol-ui">Burning Men Protocol UI</a></li><li><a href="#burning-men-candidates-fields">Burning Men Candidates fields</a></li><li><a href="#profit-fields">Profit fields</a></li><li><a href="#dao-fields">DAO fields</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p><strong>Burning Men</strong> is the name given to Bisq contributors who choose to burn BSQ in order to receive bitcoin from Bisq trading activity: <a href="../trading-fees/">Trade fees</a> and Delayed payout transactions. It's an evolution of the previous '<a href="../donation-address-owner/">burning man</a>' role. The change, implemented since January 2023 in this <a href="https://github.com/bisq-network/proposals/issues/390" rel="noopener noreferrer">proposal</a>, aimed to increase Bisq's decentralization by distributing this role within many contributors. A single burning man could have gone missing, ran away with the BTC before trading them for BSQ and burning these BSQ, or could have been otherwise compromised.<br>
-As each burning men burns an undetermined amount of BSQ as a condition to receive a share of BTC from Trading fees and Delayed payout transactions, trust requirements and single points of failure are almost nonexistent. Please note: The burningmen protocol described here is entirely different from burns made in Bisq 2 for increasing reputation. Burns made in Bisq 2 do not affect the burningmen protocol.</p>
-<span class="wiki-legacy-anchor" id="Contributing_as_a_Burningmen" aria-hidden="true"></span><h2 id="contributing-as-a-burningmen"> Contributing as a Burningmen </h2>
-<span class="wiki-legacy-anchor" id="Eligibility" aria-hidden="true"></span><h3 id="eligibility"> Eligibility </h3>
-<p>There are two ways to contribute as a Burningmen. Since the system is not exempt of trust requirements, burningmen need to have provided value to Bisq in the past:</p>
-<ul>
-<li>Contributors who received compensation for their contributions within the last 24 cycles.</li>
-<li>Contributors who received a BSQ from the DAO genesis transaction.</li>
-</ul>
-<p>After burning some BSQ (it does not matter if they were previously earned or bought in the BSQ market) they will get a share percentage in the distribution of BTC from Trading fees and Delayed payout transactions. The more value they've provided to Bisq, the bigger the portion of BSQ they are allowed to burn.</p>
-<span class="wiki-legacy-anchor" id="Considerations_before_burning_BSQ" aria-hidden="true"></span><h3 id="considerations-before-burning-bsq"> Considerations before burning BSQ </h3>
-<p>Burningmen seek profit from burning BSQ, otherwise they would keep their BSQ or sell them for BTC at the market. But profit, coming from estimating the amount of BSQ to burn now to receive a share of future Trading fees and Delayed payout transactions, is not granted. There are many sources of uncertainty:</p>
-<ul>
-<li>Trading volume: affected by BTC trend, Bisq competitors, mining fees, etc.</li>
-<li>Changes to trade protocol: traders could burn more or less BSQ directly, Delayed payout transactions could be reduced considerably.</li>
-<li>BSQ/BTC price volatility.</li>
-<li>BSQ burnt by competing Burningmen.</li>
-</ul>
-<p>Since the launch of the Burningmen protocol up to the moment of this writing (Cycle 61), more bitcoin has been distributed to the Burningmen than the bitcoin equivalent amount of BSQ that has been burnt. This means that, historically, burning BSQ has been profitable for most contributors.<br>
-Although Bisq provides an estimation of BSQ to burn based in the past, each of the Burningmen should estimate their risk/reward scenarios based in their predictions. Becoming a Burningmen is optional. Depending on how they value the BSQ they have now, the BTC they can obtain on the future, or even if they just want to help Bisq grow, they will not burn BSQ at all, burn all the BSQ from their compensation requests or even buy more BSQ to burn up to their limit.<br>
-The less competition between Burningmen there is, the more profitable it will be for each of them, and vice versa. The less profitable Burningmen role is, the better for the DAO, as more BSQ is burnt, reducing or containing BSQ supply and therefore pressuring its price up.</p>
-<span class="wiki-legacy-anchor" id="Burning_BSQ_and_receiving_BTC" aria-hidden="true"></span><h2 id="burning-bsq-and-receiving-btc"> Burning BSQ and receiving BTC </h2>
-<span class="wiki-legacy-anchor" id="Contributors" aria-hidden="true"></span><h3 id="contributors"> Contributors </h3>
-<p>When doing their compensation request, a contributor should fill the "Burningman receiving address" with a BTC address to receive the funds to. Once the compensation request is approved, that address will be used for any burning men payouts they receive up until they ever change it in a subsequent approved compensation request. If that field is never completed, an address from Bisq wallet will be used as receiving address.<br>
-It is highly recommended to use an external wallet like electrum or sparrow, which are able to handle many UTXOs and can connect to a signing device for cold storage.</p>
-<p>To burn BSQ for the BSQ burning man role the current contributor will see their assigned name 'contributor_name' in the <a href="../burning-men/#burning-men-protocol-ui">Burningmen Protocol UI</a>. They can then choose to burn an amount of BSQ and press burn.<br>
-Since <em>Issuance share</em> is capped depending on how many BTC were earned in the last 2 years (decaying linearly) it's important to make sure that the amount of BSQ to burn will not exceed the cap. It would be prudent to begin with small amounts and never exceed the lower amount in the <em>burn target</em> column.</p>
-<span class="wiki-legacy-anchor" id="Receivers_of_the_genesis_distribution" aria-hidden="true"></span><h3 id="receivers-of-the-genesis-distribution"> Receivers of the genesis distribution </h3>
-<p>If a contributor has funds from the genesis output(s) in their Bisq wallet they will see their assigned name 'Bisq co founder XX' in the <a href="../burning-men/#burning-men-protocol-ui">Burningmen Protocol UI</a>. They should chose the BTC address to receive funds and follow the instructions in the <a href="https://github.com/bisq-network/proposals/issues/390#issuecomment-1306075295" rel="noopener noreferrer">github proposal</a>.</p>
-<p>Burning BSQ works as described in the second paragraph at <a href="../burning-men/#contributors">contributors</a> section.</p>
-<span class="wiki-legacy-anchor" id="Burning_Men_Protocol_UI" aria-hidden="true"></span><h2 id="burning-men-protocol-ui"> Burning Men Protocol UI </h2>
-<p>The user interface to interact with the Burning Men User protocol user interface can be found at <code class="wiki-source-code" id="source-code-1">DAO &gt; Proof of Burn &gt; Burning Men</code>.</p>
-<span class="wiki-legacy-anchor" id="Burning_Men_Candidates_fields" aria-hidden="true"></span><h3 id="burning-men-candidates-fields"> Burning Men Candidates fields </h3>
-<ul>
-<li>Contributor name: Always use the same name as per github handle when doing compensation requests to avoid duplicated similar contributors with different names and shares.</li>
-<li>Burn target: Click the <code class="wiki-source-code" id="source-code-2">?</code> icon to get more info. Take these numbers as broad estimates and do not use the one on the right as your cap will be exceeded. Even using the left value could make you reach your cap. Do not make decisions based on what to burn on these numbers alone.</li>
-<li>Receiver share: It informs about the % chance of receiving a trade fee and % amount of the delayed payout transactions you'll receive. It's updated every block and changes based on who burns BSQ <strong>and</strong> the decay over time of the burns made by the burningmen. Each BSQ burnt amount decays linearly to zero over 12 months. To protect the DAO from an attack from a malicious contributor who self trades sending their trades to arbitration, the maximum share each contributor can get is 11%, no matter how many BSQ they burn.</li>
-<li>Issuance share: It's the amount of BSQ compensation each contributor has received over the last 24 cycles, decaying linearly. Recent contributions have a higher weight. It bears maximum receiver share. A burning man can get a receiver share of up to 10 times their issuance share amount, up to a maximum of 11%. A 0.7% percent issuance share will limit the receiver share to 7%.</li>
-<li>Burned amount: Total amount of BSQ burned by contributor over time</li>
-<li>Decayed burn amount: Total amount of BSQ burned by the contributor when taking into account the decay their burns have over time. It is essentially represented in percentage terms by the 'receiver share' value and changes every block.</li>
-<li>Issued amount: Total amount of BSQ issued to a contributor over time.</li>
-<li>Decayed issued amount: Total amount of BSQ issued to a contributor when taking into account the decay over time. It is essentially represented in percentage terms by the 'issuance share' value.</li>
-</ul>
-<span class="wiki-legacy-anchor" id="Profit_fields" aria-hidden="true"></span><h3 id="profit-fields"> Profit fields</h3>
-<p>When selecting a burningmen, individual profit stats are displayed. It can be filtered by burning, trading fee and/or DPT eventsand by month or individual events. Looking at monthly profits can be used as an indicator of how many BSQ to burn. Note that it's normal to have a negative profit at the beginning, since receiver shares decay linearly over 12 cycles. A burning man should not expect to regain in one month what will be distributed during a longer period.<br>
-Scrolling down at the _Profit_ table, it's possible to export all burningman data from a contributor by clicking <code class="wiki-source-code" id="source-code-3">export to CSV</code>.</p>
-<span class="wiki-legacy-anchor" id="DAO_fields" aria-hidden="true"></span><h3 id="dao-fields"> DAO fields </h3>
-<p>It gives an overview of BSQ burning and bitcoin distribution across all DAO contributors.</p>
-<ul>
-<li>Total amount of burned BSQ: All time amount of BSQ that has been burnt by all contributors acting as burning men.</li>
-<li>Total amount of distributed BTC/BSQ: All time amount of bitcoin that has been distributed to all contributors acting as burning men. For ease of comparison this figure is also given as a BSQ amount.</li>
-<li>Export to CSV: To see the results by month rather than all time in a CSV file, getting a more granular data.</li>
-</ul>
-<p>If the amount of BSQ being distributed is greater than the amount being burnt then the burning men are generally in profit from their activities. If the amount of BSQ being distributed is less than the amount being burnt then the burning men are in a loss from their activities.</p>
+<div class="wiki-recovered-article" lang="en">
+
+**Burning Men** is the name given to Bisq contributors who choose to burn BSQ in order to receive bitcoin from Bisq trading activity: [Trade fees](../trading-fees/) and Delayed payout transactions. It\'s an evolution of the previous \'[burning man](../donation-address-owner/)\' role. The change, implemented since January 2023 in this [proposal](https://github.com/bisq-network/proposals/issues/390), aimed to increase Bisq\'s decentralization by distributing this role within many contributors. A single burning man could have gone missing, ran away with the BTC before trading them for BSQ and burning these BSQ, or could have been otherwise compromised.\
+As each burning men burns an undetermined amount of BSQ as a condition to receive a share of BTC from Trading fees and Delayed payout transactions, trust requirements and single points of failure are almost nonexistent. Please note: The burningmen protocol described here is entirely different from burns made in Bisq 2 for increasing reputation. Burns made in Bisq 2 do not affect the burningmen protocol.
+
+<span class="wiki-legacy-anchor" id="Contributing_as_a_Burningmen" aria-hidden="true">
+</span>
+
+## Contributing as a Burningmen {#contributing-as-a-burningmen}
+
+<span class="wiki-legacy-anchor" id="Eligibility" aria-hidden="true">
+</span>
+
+### Eligibility {#eligibility}
+
+There are two ways to contribute as a Burningmen. Since the system is not exempt of trust requirements, burningmen need to have provided value to Bisq in the past:
+
+- Contributors who received compensation for their contributions within the last 24 cycles.
+- Contributors who received a BSQ from the DAO genesis transaction.
+
+After burning some BSQ (it does not matter if they were previously earned or bought in the BSQ market) they will get a share percentage in the distribution of BTC from Trading fees and Delayed payout transactions. The more value they\'ve provided to Bisq, the bigger the portion of BSQ they are allowed to burn.
+
+<span class="wiki-legacy-anchor" id="Considerations_before_burning_BSQ" aria-hidden="true">
+</span>
+
+### Considerations before burning BSQ {#considerations-before-burning-bsq}
+
+Burningmen seek profit from burning BSQ, otherwise they would keep their BSQ or sell them for BTC at the market. But profit, coming from estimating the amount of BSQ to burn now to receive a share of future Trading fees and Delayed payout transactions, is not granted. There are many sources of uncertainty:
+
+- Trading volume: affected by BTC trend, Bisq competitors, mining fees, etc.
+- Changes to trade protocol: traders could burn more or less BSQ directly, Delayed payout transactions could be reduced considerably.
+- BSQ/BTC price volatility.
+- BSQ burnt by competing Burningmen.
+
+Since the launch of the Burningmen protocol up to the moment of this writing (Cycle 61), more bitcoin has been distributed to the Burningmen than the bitcoin equivalent amount of BSQ that has been burnt. This means that, historically, burning BSQ has been profitable for most contributors.\
+Although Bisq provides an estimation of BSQ to burn based in the past, each of the Burningmen should estimate their risk/reward scenarios based in their predictions. Becoming a Burningmen is optional. Depending on how they value the BSQ they have now, the BTC they can obtain on the future, or even if they just want to help Bisq grow, they will not burn BSQ at all, burn all the BSQ from their compensation requests or even buy more BSQ to burn up to their limit.\
+The less competition between Burningmen there is, the more profitable it will be for each of them, and vice versa. The less profitable Burningmen role is, the better for the DAO, as more BSQ is burnt, reducing or containing BSQ supply and therefore pressuring its price up.
+
+<span class="wiki-legacy-anchor" id="Burning_BSQ_and_receiving_BTC" aria-hidden="true">
+</span>
+
+## Burning BSQ and receiving BTC {#burning-bsq-and-receiving-btc}
+
+<span class="wiki-legacy-anchor" id="Contributors" aria-hidden="true">
+</span>
+
+### Contributors {#contributors}
+
+When doing their compensation request, a contributor should fill the \"Burningman receiving address\" with a BTC address to receive the funds to. Once the compensation request is approved, that address will be used for any burning men payouts they receive up until they ever change it in a subsequent approved compensation request. If that field is never completed, an address from Bisq wallet will be used as receiving address.\
+It is highly recommended to use an external wallet like electrum or sparrow, which are able to handle many UTXOs and can connect to a signing device for cold storage.
+
+To burn BSQ for the BSQ burning man role the current contributor will see their assigned name \'contributor_name\' in the [Burningmen Protocol UI](../burning-men/#burning-men-protocol-ui). They can then choose to burn an amount of BSQ and press burn.\
+Since *Issuance share* is capped depending on how many BTC were earned in the last 2 years (decaying linearly) it\'s important to make sure that the amount of BSQ to burn will not exceed the cap. It would be prudent to begin with small amounts and never exceed the lower amount in the *burn target* column.
+
+<span class="wiki-legacy-anchor" id="Receivers_of_the_genesis_distribution" aria-hidden="true">
+</span>
+
+### Receivers of the genesis distribution {#receivers-of-the-genesis-distribution}
+
+If a contributor has funds from the genesis output(s) in their Bisq wallet they will see their assigned name \'Bisq co founder XX\' in the [Burningmen Protocol UI](../burning-men/#burning-men-protocol-ui). They should chose the BTC address to receive funds and follow the instructions in the [github proposal](https://github.com/bisq-network/proposals/issues/390#issuecomment-1306075295).
+
+Burning BSQ works as described in the second paragraph at [contributors](../burning-men/#contributors) section.
+
+<span class="wiki-legacy-anchor" id="Burning_Men_Protocol_UI" aria-hidden="true">
+</span>
+
+## Burning Men Protocol UI {#burning-men-protocol-ui}
+
+The user interface to interact with the Burning Men User protocol user interface can be found at <code class="wiki-source-code" id="source-code-1">DAO > Proof of Burn > Burning Men</code>.
+
+<span class="wiki-legacy-anchor" id="Burning_Men_Candidates_fields" aria-hidden="true">
+</span>
+
+### Burning Men Candidates fields {#burning-men-candidates-fields}
+
+- Contributor name: Always use the same name as per github handle when doing compensation requests to avoid duplicated similar contributors with different names and shares.
+- Burn target: Click the <code class="wiki-source-code" id="source-code-2">?</code> icon to get more info. Take these numbers as broad estimates and do not use the one on the right as your cap will be exceeded. Even using the left value could make you reach your cap. Do not make decisions based on what to burn on these numbers alone.
+- Receiver share: It informs about the % chance of receiving a trade fee and % amount of the delayed payout transactions you\'ll receive. It\'s updated every block and changes based on who burns BSQ **and** the decay over time of the burns made by the burningmen. Each BSQ burnt amount decays linearly to zero over 12 months. To protect the DAO from an attack from a malicious contributor who self trades sending their trades to arbitration, the maximum share each contributor can get is 11%, no matter how many BSQ they burn.
+- Issuance share: It\'s the amount of BSQ compensation each contributor has received over the last 24 cycles, decaying linearly. Recent contributions have a higher weight. It bears maximum receiver share. A burning man can get a receiver share of up to 10 times their issuance share amount, up to a maximum of 11%. A 0.7% percent issuance share will limit the receiver share to 7%.
+- Burned amount: Total amount of BSQ burned by contributor over time
+- Decayed burn amount: Total amount of BSQ burned by the contributor when taking into account the decay their burns have over time. It is essentially represented in percentage terms by the \'receiver share\' value and changes every block.
+- Issued amount: Total amount of BSQ issued to a contributor over time.
+- Decayed issued amount: Total amount of BSQ issued to a contributor when taking into account the decay over time. It is essentially represented in percentage terms by the \'issuance share\' value.
+
+<span class="wiki-legacy-anchor" id="Profit_fields" aria-hidden="true">
+</span>
+
+### Profit fields{#profit-fields}
+
+When selecting a burningmen, individual profit stats are displayed. It can be filtered by burning, trading fee and/or DPT eventsand by month or individual events. Looking at monthly profits can be used as an indicator of how many BSQ to burn. Note that it\'s normal to have a negative profit at the beginning, since receiver shares decay linearly over 12 cycles. A burning man should not expect to regain in one month what will be distributed during a longer period.\
+Scrolling down at the \_Profit\_ table, it\'s possible to export all burningman data from a contributor by clicking <code class="wiki-source-code" id="source-code-3">export to CSV</code>.
+
+<span class="wiki-legacy-anchor" id="DAO_fields" aria-hidden="true">
+</span>
+
+### DAO fields {#dao-fields}
+
+It gives an overview of BSQ burning and bitcoin distribution across all DAO contributors.
+
+- Total amount of burned BSQ: All time amount of BSQ that has been burnt by all contributors acting as burning men.
+- Total amount of distributed BTC/BSQ: All time amount of bitcoin that has been distributed to all contributors acting as burning men. For ease of comparison this figure is also given as a BSQ amount.
+- Export to CSV: To see the results by month rather than all time in a CSV file, getting a more granular data.
+
+If the amount of BSQ being distributed is greater than the amount being burnt then the burning men are generally in profit from their activities. If the amount of BSQ being distributed is less than the amount being burnt then the burning men are in a loss from their activities.
+
 </div>
