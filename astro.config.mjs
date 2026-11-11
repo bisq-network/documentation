@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import { collectGuides, sections } from "./scripts/lib/documentation.mjs";
+import { wikiMarkdown } from "./src/markdown/wiki-markdown.mjs";
 
 // Set these only when the final GitHub Pages destination is known.
 const site = process.env.DOCS_SITE || undefined;
@@ -47,5 +48,7 @@ export default defineConfig({
         { label: "Review status", link: "/review/" },
       ],
     }),
+    // After Starlight, so these rules see its heading wrappers (src/markdown/wiki-markdown.mjs).
+    wikiMarkdown(),
   ],
 });
