@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { annotation } from "./lib/actions-output.mjs";
-import { changedReceiptItems, checkReceiptApprovals, fetchPullRequest, githubGraphql, latestReviews, runApprovalCheck } from "./lib/receipt-approvals.mjs";
+import { changedReceiptItems, checkReceiptApprovals, fetchPullRequest, githubGraphql, latestReviews, receiptItems, runApprovalCheck } from "./lib/receipt-approvals.mjs";
 
 // Recorded GitHub responses in the shape of reviewsQuery; no network access.
 const repository = "bisq-network/documentation";
@@ -13,7 +13,7 @@ const pullRequest = { url, author: "contributor-a", headSha: head };
 let clock = 0;
 function review(login, state = "APPROVED", { commit = head, canPush = true } = {}) {
   clock += 1;
-  return { author: { login }, state, submittedAt: `2026-11-10T10:${String(clock).padStart(2, "0")}:00Z`, commit: { oid: commit }, authorCanPushToRepository: canPush };
+  return { author: { login }, state, submittedAt: new Date(Date.UTC(2026, 10, 10, 10, 0, clock)).toISOString(), commit: { oid: commit }, authorCanPushToRepository: canPush };
 }
 
 function item(fields = {}) {
@@ -26,7 +26,8 @@ function item(fields = {}) {
   };
 }
 
-const receipts = (items, required = 2) => ({ schema_version: 1, required_approvals: required, items });
+const reviewers = [{ login: "maintainer-a", role: "maintainer" }, { login: "reviewer-b", role: "support agent" }];
+const receipts = (items, required = 2) => ({ schema_version: 2, required_approvals: required, reviewers, items });
 const base = receipts([]);
 const check = (items, reviews, options = {}) => checkReceiptApprovals({ data: receipts(items, options.required), baseData: options.baseData ?? base, pullRequest: options.pullRequest ?? pullRequest, reviews });
 
@@ -70,6 +71,33 @@ test("a recorded approver without an approving review fails", () => {
   assert.match(dismissed.problems.join("\n"), /reviewer-b has not approved this pull request \(latest review: dismissed\)/);
   const typed = check([item({ approvals: [{ login: "@maintainer-a", role: "maintainer" }, { login: "reviewer-b", role: "support" }] })], [review("maintainer-a"), review("reviewer-b")]);
   assert.match(typed.problems.join("\n"), /"@maintainer-a" is not a plain GitHub login/);
+});
+
+test("only reviewers listed in the base's settings count", () => {
+  const outsider = item({ approvals: [{ login: "maintainer-a", role: "maintainer" }, { login: "outsider", role: "admin" }] });
+  assert.deepEqual(check([outsider], [review("maintainer-a"), review("outsider")]).problems, [
+    "receipt 1 (trading-monero): outsider is not one of the reviewers in the base's migration/accepted-edits.json",
+    "receipt 1 (trading-monero): 1 valid approval; required_approvals is 2",
+  ]);
+  // A pull request cannot add its own reviewer: the base's list decides.
+  const added = { ...receipts([outsider]), reviewers: [...reviewers, { login: "outsider", role: "admin" }] };
+  assert.match(checkReceiptApprovals({ data: added, baseData: base, pullRequest, reviews: [review("maintainer-a"), review("outsider")] }).problems.join("\n"), /outsider is not one of the reviewers/);
+  // A base without a reviewer list accepts no approval.
+  const listless = { schema_version: 1, required_approvals: 2, items: [] };
+  assert.match(check([item()], [review("maintainer-a"), review("reviewer-b")], { baseData: listless }).problems.join("\n"), /maintainer-a is not one of the reviewers/);
+});
+
+test("receipt files become items labelled by their path", () => {
+  const files = [
+    { path: "migration/accepted-edits/trading-monero.pr-200.json", text: JSON.stringify(item()) },
+    { path: "migration/accepted-edits/broken.pr-1.json", text: "{" },
+  ];
+  const data = receiptItems({ settings: { schema_version: 2, required_approvals: 1, reviewers }, files });
+  assert.equal(data.items[0].path, files[0].path);
+  assert.deepEqual(data.items[1], { path: files[1].path });
+  const result = checkReceiptApprovals({ data, baseData: base, pullRequest, reviews: [review("maintainer-a"), review("reviewer-b")] });
+  assert.match(result.problems.join("\n"), /^migration\/accepted-edits\/broken\.pr-1\.json names no pull request/m);
+  assert.deepEqual(result.checked.map(({ label, approvers }) => [label, approvers]), [[files[0].path, ["maintainer-a", "reviewer-b"]]]);
 });
 
 test("an approver without write access does not count", () => {
