@@ -4,8 +4,8 @@
 // Policy allows only its own inline style and script, by hash, and data: images),
 // and previews of changed images are embedded as data: URLs.
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
 import { extname } from "node:path";
+import { readRegularFile } from "./safe-files.mjs";
 import { diffTexts } from "./word-diff.mjs";
 
 const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -38,6 +38,7 @@ const GAP_STATUS = {
     "in-backup": ["In the backup", "same"],
     "restored-via-redirect": ["Redirects to a restored article", "same"],
     "elsewhere-in-backup": ["Only in another page", "warn"],
+    "redirect-unresolved": ["Redirect leads nowhere", "warn"],
     "file-page-only": ["Description page only", "warn"],
     "already-restored": ["Already restored", "missing"],
     "not-in-backup": ["Not in the backup", "missing"],
@@ -76,14 +77,11 @@ function imageData(path, budget) {
     const types = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".gif": "image/gif", ".webp": "image/webp", ".svg": "image/svg+xml" };
     const type = types[extname(path).toLowerCase()];
     if (!type) return null;
-    try {
-        const data = readFileSync(path);
-        if (data.length > 3 * 1024 * 1024 || data.length > budget.left) return null;
-        budget.left -= data.length;
-        return `data:${type};base64,${data.toString("base64")}`;
-    } catch {
-        return null;
-    }
+    // Only a regular file is read, never through a link, and only up to the size limits.
+    const data = readRegularFile(path, Math.min(3 * 1024 * 1024, budget.left));
+    if (!data) return null;
+    budget.left -= data.length;
+    return `data:${type};base64,${data.toString("base64")}`;
 }
 
 /** A table that becomes a list of cards on narrow screens (labels from data-label). */
@@ -227,11 +225,11 @@ export function renderHtml(report, { root = ".", generatedAt = new Date() } = {}
 
     // Verdict
     const verdict = [];
-    const changed = s.newer_revision + s.same_revision_text_differs + s.now_a_redirect + s.backup_older;
-    if (!changed && !s.missing_from_backup) verdict.push(`Every one of the ${s.restored_articles} restored articles is the same in the backup.`);
+    // Every status other than unchanged counts, including ones added later.
+    if (s.unchanged === s.restored_articles) verdict.push(`Every one of the ${s.restored_articles} restored articles is the same in the backup.`);
     else {
         if (s.newer_revision) verdict.push(`${plural(s.newer_revision, "article was", "articles were")} edited after our snapshot.`);
-        const other = changed - s.newer_revision + s.missing_from_backup;
+        const other = s.restored_articles - s.unchanged - s.newer_revision;
         if (other) verdict.push(`${plural(other, "article needs", "articles need")} a closer look (see below).`);
         verdict.push(`${s.unchanged} of ${s.restored_articles} are unchanged.`);
     }
@@ -246,7 +244,7 @@ export function renderHtml(report, { root = ".", generatedAt = new Date() } = {}
         ["Backup", esc((source.inputs ?? []).join(", ") || "not recorded")],
         ["XML export", `${esc(source.xml ?? "")}${source.xml ? " · " : ""}${esc(from.siteinfo?.sitename ?? "unknown site")}${from.siteinfo?.generator ? `, ${esc(from.siteinfo.generator)}` : ""} · ${plural(from.pages, "page")}, ${plural(from.revisions, "revision")}${source.xml_bytes ? ` · ${size(source.xml_bytes)}` : ""}`],
         ["Images", images ? `${esc(source.images ?? "folder")} · ${plural(images.backup_files, "file")}` : "No images folder found in the backup, so images were not compared."],
-        ...(source.other_xml?.length ? [["Other XML files", `${esc(source.other_xml.join(", "))} <small>(the largest export was used)</small>`]] : []),
+        ...(source.other_images?.length ? [["Other images folders", `${esc(source.other_images.join(", "))} <small>(not compared)</small>`]] : []),
         ...(source.sql?.length ? [["Database dumps", `${esc(source.sql.join(", "))} <small>(not opened)</small>`]] : []),
         ...(source.notes?.length ? [["Notes", source.notes.map(esc).join("<br>")]] : []),
         ["Compared with", `${s.restored_articles} restored articles: the 18 Oct 2026 snapshot and ${articles.filter((article) => article.origin === "additional").length} additional historical articles`],

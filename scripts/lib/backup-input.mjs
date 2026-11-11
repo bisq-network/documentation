@@ -9,12 +9,16 @@
 // archives nested inside. Database dumps, LocalSettings.php and everything else are
 // noted by name only and never read. Archive members with an absolute path, a ".."
 // segment, or a link type are skipped, and every output path is checked to stay
-// inside the extraction folder, so an archive cannot write anywhere else.
+// inside the extraction folder, so an archive cannot write anywhere else. Unpacking
+// stops at a byte limit (maxBytes), and ZIP entries may not overlap, so a small
+// archive cannot fill the disk. Names from the backup are cleaned of control
+// characters before they are shown.
 import { spawn, spawnSync } from "node:child_process";
 import { closeSync, createReadStream, fstatSync, mkdirSync, mkdtempSync, openSync, readSync, readdirSync, rmSync, statSync, writeFileSync, writeSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve, sep } from "node:path";
 import { createGunzip, createInflateRaw, crc32 } from "node:zlib";
+import { clean, hashRegularFile } from "./safe-files.mjs";
 
 export class BackupError extends Error {
     constructor(code, message) {
@@ -31,6 +35,18 @@ const DATABASE_NAME = /\.(?:sqlite3?|sqlite\.(?:gz|bz2|xz))$/i;
 // versions (archive/), deleted files and lock files. Only current uploads are compared.
 const SKIP_IMAGE_DIRS = new Set(["thumb", "temp", "deleted", "lockdir", "archive", "transcoded"]);
 const MAX_ARCHIVE_DEPTH = 3;
+/** Default limit on everything unpacked from one backup: 20 GB. */
+export const DEFAULT_MAX_BYTES = 20 * 1024 ** 3;
+
+/** Parse a size such as "500M", "20G" or "1048576" into bytes. */
+export function parseSize(text) {
+    const match = /^\s*(\d+(?:\.\d+)?)\s*([kmgt]?)b?\s*$/i.exec(String(text));
+    if (!match) throw new BackupError("USAGE", `Not a size: ${clean(text)}. Use a number of bytes or, for example, 500M or 40G.`);
+    const power = { "": 0, k: 1, m: 2, g: 3, t: 4 }[match[2].toLowerCase()];
+    return Math.floor(Number(match[1]) * 1024 ** power);
+}
+
+const sizeText = (bytes) => bytes >= 1024 ** 3 ? `${(bytes / 1024 ** 3).toFixed(1)} GB` : `${Math.max(1, Math.round(bytes / 1024 ** 2))} MB`;
 
 /** What a member of the backup is used for, judged by its path only. */
 function memberKind(segments) {
@@ -72,8 +88,12 @@ function readHead(path, bytes = 4096) {
     }
 }
 
-/** Identify a file by its first bytes; the name only decides between text formats. */
+/**
+ * Identify a file. A database dump's name (.sql, .sql.gz, …) decides first, so a
+ * dump is never opened as XML; otherwise the first bytes decide.
+ */
 export function sniff(head, name = "") {
+    if (SQL_NAME.test(name) || DATABASE_NAME.test(name)) return "sql";
     const starts = (...bytes) => bytes.every((byte, index) => head[index] === byte);
     if (starts(0x1f, 0x8b)) return "gzip";
     if (starts(0x42, 0x5a, 0x68)) return "bzip2";
@@ -85,7 +105,7 @@ export function sniff(head, name = "") {
     if (head.subarray(0, 16).toString("latin1") === "SQLite format 3\0") return "database";
     const text = head.toString("utf8").replace(/^\uFEFF/, "");
     if (/<mediawiki[\s>]/.test(text)) return "xml";
-    if (SQL_NAME.test(name) || /^--\s*(?:MySQL|MariaDB|PostgreSQL) (?:dump|database dump)/m.test(text)) return "sql";
+    if (/^--\s*(?:MySQL|MariaDB|PostgreSQL) (?:dump|database dump)/m.test(text)) return "sql";
     return "unknown";
 }
 
@@ -137,10 +157,13 @@ async function peek(chunks, bytes = 4096) {
     return Buffer.concat(parts).subarray(0, bytes);
 }
 
-async function writeChunks(chunks, path) {
+async function writeChunks(chunks, path, context, display) {
     const fd = openSync(path, "wx");
     try {
-        for await (const chunk of chunks) writeSync(fd, chunk);
+        for await (const chunk of chunks) {
+            context.charge(chunk.length, display);
+            writeSync(fd, chunk);
+        }
     } finally {
         closeSync(fd);
     }
@@ -263,8 +286,11 @@ async function extractTar(chunks, dest, context, display) {
             if ((type === "0" || type === "7") && !name.endsWith("/")) fd = context.claim(name, dest, display);
             else if (type === "1" || type === "2") context.links++;
             try {
-                const complete = await reader.pass(size, fd === null ? undefined : (chunk) => writeSync(fd, chunk));
-                if (!complete || !(await reader.pass(padding))) throw new BackupError("DAMAGED", `${display} ends in the middle of ${name}: the archive is incomplete.`);
+                const complete = await reader.pass(size, fd === null ? undefined : (chunk) => {
+                    context.charge(chunk.length, display);
+                    writeSync(fd, chunk);
+                });
+                if (!complete || !(await reader.pass(padding))) throw new BackupError("DAMAGED", `${display} ends in the middle of ${clean(name)}: the archive is incomplete.`);
             } finally {
                 if (fd !== null) closeSync(fd);
             }
@@ -298,63 +324,86 @@ function findEndOfCentralDirectory(fd, size) {
     return null;
 }
 
+/** Read a ZIP central directory and check it before anything is unpacked. */
+function readZipDirectory(fd, size, display) {
+    const end = findEndOfCentralDirectory(fd, size);
+    if (!end) throw new BackupError("DAMAGED", `${display} is not a readable ZIP archive (no central directory). It may be incomplete.`);
+    if (end.cdOffset + end.cdSize > size || end.entries * 46 > end.cdSize) throw new BackupError("DAMAGED", `${display} has a damaged ZIP directory.`);
+    const cd = Buffer.alloc(end.cdSize);
+    readSync(fd, cd, 0, end.cdSize, end.cdOffset);
+    const entries = [];
+    let at = 0;
+    for (let n = 0; n < end.entries; n++) {
+        if (at + 46 > cd.length || cd.readUInt32LE(at) !== 0x02014b50) throw new BackupError("DAMAGED", `${display} has a damaged ZIP directory.`);
+        const madeBy = cd.readUInt16LE(at + 4) >> 8, flags = cd.readUInt16LE(at + 8), method = cd.readUInt16LE(at + 10);
+        const crc = cd.readUInt32LE(at + 16);
+        let compressed = cd.readUInt32LE(at + 20), uncompressed = cd.readUInt32LE(at + 24);
+        const nameLength = cd.readUInt16LE(at + 28), extraLength = cd.readUInt16LE(at + 30), commentLength = cd.readUInt16LE(at + 32);
+        const attributes = cd.readUInt32LE(at + 38);
+        let offset = cd.readUInt32LE(at + 42);
+        const name = cd.subarray(at + 46, at + 46 + nameLength).toString(flags & 0x800 ? "utf8" : "latin1");
+        const extra = cd.subarray(at + 46 + nameLength, at + 46 + nameLength + extraLength);
+        at += 46 + nameLength + extraLength + commentLength;
+        for (let e = 0; e + 4 <= extra.length;) {
+            const id = extra.readUInt16LE(e), length = extra.readUInt16LE(e + 2);
+            if (id === 0x0001) {
+                let z = e + 4;
+                if (uncompressed === 0xffffffff) { uncompressed = Number(extra.readBigUInt64LE(z)); z += 8; }
+                if (compressed === 0xffffffff) { compressed = Number(extra.readBigUInt64LE(z)); z += 8; }
+                if (offset === 0xffffffff) offset = Number(extra.readBigUInt64LE(z));
+            }
+            e += 4 + length;
+        }
+        // Where the entry's data really is, from its local header.
+        const local = Buffer.alloc(30);
+        if (offset + 30 > end.cdOffset || readSync(fd, local, 0, 30, offset) !== 30 || local.readUInt32LE(0) !== 0x04034b50) throw new BackupError("DAMAGED", `${display} › ${clean(name)}: damaged ZIP entry.`);
+        const start = offset + 30 + local.readUInt16LE(26) + local.readUInt16LE(28);
+        if (start + compressed > end.cdOffset) throw new BackupError("DAMAGED", `${display} › ${clean(name)}: damaged ZIP entry.`);
+        entries.push({ name, madeBy, flags, method, crc, compressed, uncompressed, attributes, offset, start });
+    }
+    // Entries that share data unpack the same bytes many times (a "zip bomb").
+    const ordered = [...entries].sort((a, b) => a.offset - b.offset);
+    for (let i = 1; i < ordered.length; i++) {
+        if (ordered[i].offset < ordered[i - 1].start + ordered[i - 1].compressed) throw new BackupError("DAMAGED", `${display} has ZIP entries that overlap, which a real backup never has. Refusing to unpack it.`);
+    }
+    return entries;
+}
+
 /** Extract the wanted members of a ZIP file; links, encrypted and unsafe members are skipped. */
 async function extractZip(path, dest, context, display) {
     const fd = openSync(path, "r");
     try {
-        const size = fstatSync(fd).size;
-        const end = findEndOfCentralDirectory(fd, size);
-        if (!end) throw new BackupError("DAMAGED", `${display} is not a readable ZIP archive (no central directory). It may be incomplete.`);
-        const cd = Buffer.alloc(end.cdSize);
-        readSync(fd, cd, 0, end.cdSize, end.cdOffset);
-        let at = 0;
-        for (let n = 0; n < end.entries; n++) {
-            if (cd.readUInt32LE(at) !== 0x02014b50) throw new BackupError("DAMAGED", `${display} has a damaged ZIP directory.`);
-            const madeBy = cd.readUInt16LE(at + 4) >> 8, flags = cd.readUInt16LE(at + 8), method = cd.readUInt16LE(at + 10);
-            const crc = cd.readUInt32LE(at + 16);
-            let compressed = cd.readUInt32LE(at + 20), uncompressed = cd.readUInt32LE(at + 24);
-            const nameLength = cd.readUInt16LE(at + 28), extraLength = cd.readUInt16LE(at + 30), commentLength = cd.readUInt16LE(at + 32);
-            const attributes = cd.readUInt32LE(at + 38);
-            let offset = cd.readUInt32LE(at + 42);
-            const name = cd.subarray(at + 46, at + 46 + nameLength).toString(flags & 0x800 ? "utf8" : "latin1");
-            const extra = cd.subarray(at + 46 + nameLength, at + 46 + nameLength + extraLength);
-            at += 46 + nameLength + extraLength + commentLength;
-            for (let e = 0; e + 4 <= extra.length;) {
-                const id = extra.readUInt16LE(e), length = extra.readUInt16LE(e + 2);
-                if (id === 0x0001) {
-                    let z = e + 4;
-                    if (uncompressed === 0xffffffff) { uncompressed = Number(extra.readBigUInt64LE(z)); z += 8; }
-                    if (compressed === 0xffffffff) { compressed = Number(extra.readBigUInt64LE(z)); z += 8; }
-                    if (offset === 0xffffffff) offset = Number(extra.readBigUInt64LE(z));
-                }
-                e += 4 + length;
-            }
+        const entries = readZipDirectory(fd, fstatSync(fd).size, display);
+        for (const { name, madeBy, flags, method, crc, compressed, uncompressed, attributes, start } of entries) {
             if (name.endsWith("/")) continue;
             if (madeBy === 3 && ((attributes >>> 16) & 0o170000) === 0o120000) { context.links++; continue; }
-            if (flags & 1) { context.note(`${display} › ${name}: encrypted, skipped.`); continue; }
+            if (flags & 1) { context.note(`${display} › ${clean(name)}: encrypted, skipped.`); continue; }
             if (method !== 0 && method !== 8) {
-                if (context.accept(name, display)) context.note(`${display} › ${name}: not extracted, its ZIP compression method (${method}) is not supported. Extract the archive yourself and pass the folder.`);
+                if (context.accept(name, display)) context.note(`${display} › ${clean(name)}: not extracted, its ZIP compression method (${method}) is not supported. Extract the archive yourself and pass the folder.`);
                 continue;
             }
             const target = context.claim(name, dest, display);
             if (target === null) continue;
             try {
-                const local = Buffer.alloc(30);
-                readSync(fd, local, 0, 30, offset);
-                if (local.readUInt32LE(0) !== 0x04034b50) throw new BackupError("DAMAGED", `${display} › ${name}: damaged ZIP entry.`);
-                const start = offset + 30 + local.readUInt16LE(26) + local.readUInt16LE(28);
                 let checksum = 0, written = 0;
                 if (compressed > 0) {
                     const source = createReadStream(path, { start, end: start + compressed - 1 });
                     const data = method === 8 ? source.pipe(createInflateRaw()) : source;
                     if (data !== source) source.on("error", (error) => data.destroy(error));
-                    for await (const chunk of data) {
-                        checksum = crc32(chunk, checksum);
-                        written += chunk.length;
-                        writeSync(target, chunk);
+                    try {
+                        for await (const chunk of data) {
+                            written += chunk.length;
+                            // Stop as soon as an entry grows past the size it declares.
+                            if (written > uncompressed) throw new BackupError("DAMAGED", `${display} › ${clean(name)} unpacks to more than the ${uncompressed} bytes it declares. Refusing to continue.`);
+                            context.charge(chunk.length, display);
+                            checksum = crc32(chunk, checksum);
+                            writeSync(target, chunk);
+                        }
+                    } finally {
+                        source.destroy();
                     }
                 }
-                if (checksum !== crc || written !== uncompressed) throw new BackupError("DAMAGED", `${display} › ${name} is damaged (checksum mismatch).`);
+                if (checksum !== crc || written !== uncompressed) throw new BackupError("DAMAGED", `${display} › ${clean(name)} is damaged (checksum mismatch).`);
             } finally {
                 closeSync(target);
             }
@@ -376,19 +425,33 @@ async function extract7z(path, dest, context, display) {
     if (list.status !== 0) throw new BackupError("DAMAGED", `${display} could not be listed by ${tool}: ${(list.stderr || list.stdout).trim().split("\n").at(-1)}`);
     const body = list.stdout.split(/^-{10}$/m)[1] ?? "";
     const wanted = [];
+    let declared = 0;
     for (const block of body.split(/\n\s*\n/)) {
         const fields = Object.fromEntries([...block.matchAll(/^([^=\n]+?) = (.*)$/gm)].map((match) => [match[1], match[2]]));
         if (!fields.Path || /^D/.test(fields.Attributes ?? "") || fields.Folder === "+") continue;
         if (/\sl[rwxsStT-]{9}/.test(fields.Attributes ?? "")) { context.links++; continue; }
         const segments = context.accept(fields.Path, display);
-        if (segments) wanted.push(fields.Path);
+        if (segments) { wanted.push(fields.Path); declared += Number(fields.Size) || 0; }
     }
     if (!wanted.length) return;
+    context.ensure(declared, display);
     const listFile = join(context.workDir, `7z-members-${++context.counter}.txt`);
     writeFileSync(listFile, wanted.join("\n") + "\n");
     const run = spawnSync(tool, ["x", "-y", "-spd", "-scsUTF-8", `-o${dest}`, path, `@${listFile}`], { encoding: "utf8", maxBuffer: 1 << 26 });
     if (run.status !== 0) throw new BackupError("DAMAGED", `${display} could not be extracted by ${tool}: ${(run.stderr || run.stdout).trim().split("\n").at(-1)}`);
     removeLinks(dest);
+    context.charge(sizeOf(dest), display);
+}
+
+/** Bytes of the regular files in a folder. */
+function sizeOf(dir) {
+    let total = 0;
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const path = join(dir, entry.name);
+        if (entry.isDirectory()) total += sizeOf(path);
+        else if (entry.isFile()) total += statSync(path).size;
+    }
+    return total;
 }
 
 /** Delete any symbolic link inside an extraction folder. */
@@ -422,17 +485,28 @@ function countFiles(dir) {
     return count;
 }
 
-const joinDisplay = (base, segments) => [base, segments.join("/")].filter(Boolean).join(" › ");
+const joinDisplay = (base, segments) => [base, segments.join("/")].filter(Boolean).map(clean).join(" › ");
 
-function newContext(workDir) {
+function newContext(workDir, maxBytes) {
     const context = {
-        workDir, counter: 0, links: 0,
+        workDir, counter: 0, links: 0, unpacked: 0,
         xml: [], images: [], sql: [], settings: [], notes: [], unsafe: [], ignored: [], pending: [],
-        note(text) { context.notes.push(text); },
+        note(text) { context.notes.push(clean(text)); },
+        /** Check that `bytes` more would stay within the limit. */
+        ensure(bytes, display) {
+            if (context.unpacked + bytes > maxBytes) {
+                throw new BackupError("TOO_LARGE", `Unpacking ${display} would pass the limit of ${sizeText(maxBytes)} for one backup. If the backup really is that large, raise the limit, for example with --max-unpacked ${Math.ceil((context.unpacked + bytes) / 1024 ** 3) * 2}G.`);
+            }
+        },
+        /** Count `bytes` just unpacked against the limit. */
+        charge(bytes, display) {
+            context.ensure(bytes, display);
+            context.unpacked += bytes;
+        },
         /** Decide whether an archive member is unpacked; returns its safe segments or null. */
         accept(name, display) {
             const segments = safeSegments(name);
-            if (!segments) { context.unsafe.push(`${display} › ${name}`); return null; }
+            if (!segments) { context.unsafe.push(`${display} › ${clean(name)}`); return null; }
             const kind = memberKind(segments);
             if (kind === "sql" || kind === "database") context.sql.push(joinDisplay(display, segments));
             if (kind === "settings") context.settings.push(joinDisplay(display, segments));
@@ -443,12 +517,12 @@ function newContext(workDir) {
             const segments = context.accept(name, display);
             if (!segments) return null;
             const path = outputPath(dest, segments);
-            if (!path) { context.unsafe.push(`${display} › ${name}`); return null; }
+            if (!path) { context.unsafe.push(`${display} › ${clean(name)}`); return null; }
             try {
                 mkdirSync(dirname(path), { recursive: true });
                 return openSync(path, "w");
             } catch (error) {
-                context.note(`${display} › ${name}: not extracted (${error.code ?? error.message}).`);
+                context.note(`${display} › ${clean(name)}: not extracted (${error.code ?? error.message}).`);
                 return null;
             }
         },
@@ -507,7 +581,7 @@ async function handleFile(path, display, context, depth) {
         if (innerFormat === "tar") return unpackInto(context, display, depth, (dest) => extractTar(decompress(path, format), dest, context, display));
         if (innerFormat === "xml") {
             const out = join(context.workDir, `export-${++context.counter}.xml`);
-            await writeChunks(decompress(path, format), out);
+            await writeChunks(decompress(path, format), out, context, display);
             context.xml.push({ path: out, display, bytes: statSync(out).size });
             return;
         }
@@ -534,28 +608,42 @@ function sqlOnlyMessage(sql, settings) {
     ].join("\n");
 }
 
+const megabytes = (bytes) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+
+/** The one item whose display name is `wanted` or ends with it as a path. */
+function pick(items, wanted) {
+    const name = String(wanted).replaceAll("\\", "/").replace(/^\/+/, "");
+    const matches = items.filter((item) => item.display === name || item.display.endsWith(` › ${name}`) || item.display.endsWith(`/${name}`));
+    return matches.length === 1 ? matches[0] : null;
+}
+
 /**
  * Locate the XML export and images folder in a backup. `inputs` is one path or
  * several (for example an XML export made from a database dump, plus the web-root
- * archive that holds images/). Returns { xml, xmlDisplay, xmlBytes, images,
- * imagesDisplay, imageFiles, otherXml, sql, notes, cleanup }. Throws BackupError:
- * SQL_ONLY when only a database dump is present, NO_EXPORT when no MediaWiki
- * export is found, NOT_FOUND, DAMAGED, TOOL_MISSING or UNSUPPORTED otherwise.
+ * archive that holds images/). Options: workRoot (where to unpack), maxBytes
+ * (limit on everything unpacked), xml and images (which export or images folder
+ * to use when the backup has several, by the name the error message lists).
+ * Returns { xml, xmlDisplay, xmlBytes, images, imagesDisplay, imageFiles,
+ * otherImages, sql, notes, cleanup }. Throws BackupError: SQL_ONLY when only a
+ * database dump is present, NO_EXPORT when no MediaWiki export is found,
+ * CHOOSE_EXPORT when there are several different exports and none was chosen,
+ * NOT_FOUND, TOO_LARGE, DAMAGED, TOOL_MISSING or UNSUPPORTED otherwise.
  */
-export async function openBackup(inputs, { workRoot = tmpdir() } = {}) {
+export async function openBackup(inputs, { workRoot = tmpdir(), maxBytes = DEFAULT_MAX_BYTES, xml: wantedXml, images: wantedImages } = {}) {
     const paths = [inputs].flat().map((input) => resolve(input));
     const stats = paths.map((path, index) => {
-        try { return statSync(path); } catch { throw new BackupError("NOT_FOUND", `${[inputs].flat()[index]} does not exist.`); }
+        try { return statSync(path); } catch { throw new BackupError("NOT_FOUND", `${clean([inputs].flat()[index])} does not exist.`); }
     });
     const workDir = mkdtempSync(join(workRoot, "bisq-wiki-backup-"));
     const cleanup = () => rmSync(workDir, { recursive: true, force: true });
     try {
-        const context = newContext(workDir);
+        const context = newContext(workDir, maxBytes);
         paths.forEach((path, index) => {
+            const display = clean(basename(path));
             // A folder given on its own may be the images folder itself.
-            if (stats[index].isDirectory() && (basename(path).toLowerCase() === "images" || hashedUploads(path))) context.images.push({ path, display: basename(path) });
-            else if (stats[index].isDirectory()) scanFolder(path, paths.length > 1 ? basename(path) : "", context, 0);
-            else context.pending.push({ path, display: basename(path), depth: 0 });
+            if (stats[index].isDirectory() && (basename(path).toLowerCase() === "images" || hashedUploads(path))) context.images.push({ path, display });
+            else if (stats[index].isDirectory()) scanFolder(path, paths.length > 1 ? display : "", context, 0);
+            else context.pending.push({ path, display, depth: 0 });
         });
         while (context.pending.length) {
             const { path, display, depth } = context.pending.shift();
@@ -563,21 +651,53 @@ export async function openBackup(inputs, { workRoot = tmpdir() } = {}) {
         }
         if (context.unsafe.length) context.note(`Skipped ${context.unsafe.length} archive member(s) with an unsafe path: ${context.unsafe.slice(0, 5).join(", ")}${context.unsafe.length > 5 ? ", …" : ""}`);
         if (context.links) context.note(`Ignored ${context.links} symbolic or hard link(s).`);
-        const [xml, ...otherXml] = context.xml.sort((a, b) => b.bytes - a.bytes);
-        if (!xml) {
+        if (!context.xml.length) {
             if (context.sql.length) throw new BackupError("SQL_ONLY", sqlOnlyMessage(context.sql, context.settings));
             throw new BackupError("NO_EXPORT", [
-                `No MediaWiki XML export was found in ${[inputs].flat().join(", ")}.`,
+                `No MediaWiki XML export was found in ${[inputs].flat().map(clean).join(", ")}.`,
                 "Looked for .xml files (plain, .gz, .bz2 or .xz), also inside .tar, .tar.gz, .tar.bz2, .tar.xz, .zip and .7z archives.",
                 ...(context.ignored.length ? [`Not recognised: ${context.ignored.slice(0, 10).join(", ")}`] : []),
                 ...context.notes,
             ].join("\n"));
         }
-        const images = context.images
+
+        // Several exports: identical copies count once; different ones must be chosen.
+        const exports = [];
+        const seen = new Set();
+        for (const item of context.xml.sort((a, b) => b.bytes - a.bytes)) {
+            const hash = context.xml.length > 1 ? await hashRegularFile(item.path) : "only";
+            if (seen.has(hash)) continue;
+            seen.add(hash);
+            exports.push(item);
+        }
+        let xml = exports[0];
+        if (wantedXml !== undefined) {
+            xml = pick(exports, wantedXml);
+            if (!xml) throw new BackupError("CHOOSE_EXPORT", `No single XML export matches ${clean(wantedXml)}. The backup holds:\n${exports.map((item) => `  ${item.display} (${megabytes(item.bytes)})`).join("\n")}`);
+        } else if (exports.length > 1) {
+            throw new BackupError("CHOOSE_EXPORT", [
+                `The backup holds ${exports.length} different XML exports:`,
+                ...exports.map((item) => `  ${item.display} (${megabytes(item.bytes)})`),
+                "Comparing the wrong one would give a misleading report, so choose one. The full-history export (dumpBackup.php --full) is usually the largest. Run the command again with, for example:",
+                `  --xml "${exports[0].display.split(" › ").at(-1)}"`,
+            ].join("\n"));
+        }
+
+        // Images: MediaWiki's hashed layout wins; any other upload folder is named, not silently dropped.
+        const candidates = context.images
             .map((dir) => ({ ...dir, hashed: hashedUploads(dir.path) }))
             .map((dir) => ({ ...dir, files: dir.hashed || countFiles(dir.path) }))
             .filter((dir) => dir.files > 0)
-            .sort((a, b) => b.hashed - a.hashed || b.files - a.files)[0] ?? null;
+            .sort((a, b) => b.hashed - a.hashed || b.files - a.files);
+        let images = candidates[0] ?? null;
+        if (wantedImages !== undefined) {
+            images = pick(candidates, wantedImages);
+            if (!images) throw new BackupError("CHOOSE_IMAGES", `No single images folder matches ${clean(wantedImages)}. The backup holds:\n${candidates.map((dir) => `  ${dir.display} (${dir.files} files)`).join("\n") || "  none"}`);
+        }
+        const otherImages = candidates.filter((dir) => dir !== images && (dir.hashed || !images?.hashed));
+        if (otherImages.length) {
+            context.note(`Other images folders were found and not compared: ${otherImages.map((dir) => `${dir.display} (${dir.files} files)`).join(", ")}. To compare one of them instead, add --images "${otherImages[0].display.split(" › ").at(-1)}".`);
+        }
         return {
             xml: xml.path,
             xmlDisplay: xml.display,
@@ -585,7 +705,7 @@ export async function openBackup(inputs, { workRoot = tmpdir() } = {}) {
             images: images?.path ?? null,
             imagesDisplay: images?.display ?? null,
             imageFiles: images?.files ?? 0,
-            otherXml: otherXml.map((item) => item.display),
+            otherImages: otherImages.map((dir) => dir.display),
             sql: context.sql,
             notes: context.notes,
             cleanup,
@@ -595,10 +715,3 @@ export async function openBackup(inputs, { workRoot = tmpdir() } = {}) {
         throw error;
     }
 }
-
-/** True when `path` is inside `root` (or is root). */
-export function isInside(path, root) {
-    const full = resolve(path), base = resolve(root);
-    return full === base || full.startsWith(base + sep);
-}
-

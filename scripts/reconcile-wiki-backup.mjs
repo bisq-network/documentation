@@ -12,12 +12,13 @@
 // counted, never listed. Nothing in the repository is modified, and no network
 // request is made.
 import { createHash } from "node:crypto";
-import { createReadStream, mkdirSync, readFileSync, readdirSync, realpathSync, statSync, writeFileSync } from "node:fs";
-import { join, relative, resolve } from "node:path";
+import { createReadStream, mkdirSync, readFileSync, readdirSync, realpathSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { renderHtml } from "./lib/backup-report-html.mjs";
 import { decodeXml, readMediaWikiExport } from "./lib/mediawiki-export.mjs";
+import { clean, hashRegularFile, isInsidePath, listRegularFiles } from "./lib/safe-files.mjs";
 
 const read = (path) => JSON.parse(readFileSync(path, "utf8"));
 const sha256 = (text) => createHash("sha256").update(text, "utf8").digest("hex");
@@ -31,6 +32,7 @@ const TEXT_NAMESPACES = new Set([0, 4, 10, 12, 14]);
 const NAMESPACE_ALIASES = { file: 6, image: 6, media: 6, category: 14, template: 10, help: 12, project: 4, user: 2, mediawiki: 8 };
 // Gap statuses where the backup supplies what the marker lacks.
 const FILLABLE = new Set(["in-backup", "restored-via-redirect"]);
+const MAX_REDIRECT_HOPS = 5;
 const fileKey = (name) => key(name).replaceAll(" ", "_");
 const sourceText = (root, slug) => readFileSync(join(root, "public/wiki-source", `${slug}.wiki.txt`), "utf8").replace(INGEST_COMMENT, "");
 
@@ -111,13 +113,30 @@ function sectionKey(value) {
     return text.replaceAll("_", " ").replace(/\s+/g, " ").trim();
 }
 
+/**
+ * The text of a wikitext heading line ("== Text =="), or null. Parsed by counting
+ * "=" at both ends rather than with a regular expression, so a long line of
+ * spaces or tabs cannot make it slow; lines over 1,000 characters are no heading.
+ */
+export function headingText(line) {
+    if (line.length > 1000 || line[0] !== "=") return null;
+    const trimmed = line.trimEnd();
+    let open = 0, close = 0;
+    while (open < 6 && trimmed[open] === "=") open++;
+    while (close < 6 && trimmed[trimmed.length - 1 - close] === "=") close++;
+    const level = Math.min(open, close);
+    if (!level || trimmed.length <= level * 2) return null;
+    const text = trimmed.slice(level, trimmed.length - level).trim();
+    return text || null;
+}
+
 /** Headings and explicit anchors in wikitext, with the line each starts on. */
 export function sectionAnchors(wikitext) {
     const anchors = [];
     wikitext.split("\n").forEach((line, index) => {
-        const heading = /^(={1,6})\s*(.+?)\s*\1\s*$/.exec(line);
+        const heading = headingText(line);
         if (heading) {
-            const text = heading[2]
+            const text = heading
                 .replace(/\[\[(?:[^\]|]*\|)?([^\]]*)\]\]/g, "$1")
                 .replace(/'{2,}/g, "")
                 .replace(/<[^>]*>/g, "")
@@ -301,14 +320,19 @@ export async function reconcile({ xml, images, root = "." }) {
         const hit = lookup(target);
         if (!hit) return { status: "not-in-backup" };
         let { entry } = hit;
-        const via = [];
-        for (let hops = 0; entry.redirect && hops < 3; hops++) {
+        const via = [], seen = new Set();
+        // Follow redirects to a page with content; a loop or a chain longer than
+        // MAX_REDIRECT_HOPS fills nothing.
+        while (entry.redirect) {
             const redirectTitle = key(entry.redirect.split("#")[0]);
             const restored = byTitle.get(redirectTitle) ?? restoredByBackupTitle.get(redirectTitle);
             if (restored) return { status: "restored-via-redirect", detail: `The backup redirects ${entry.title} to ${restored.title}, which is restored: the link can point there`, restored_slug: restored.slug };
+            seen.add(`${entry.ns}:${key(entry.title)}`);
             via.push(entry.title);
             const next = lookup(entry.redirect.split("#")[0]);
-            if (!next) return { status: "not-in-backup", detail: `${entry.title} redirects to ${entry.redirect}, which the backup lacks` };
+            if (!next) return { status: "not-in-backup", detail: `${via.join(" → ")} redirects to ${entry.redirect}, which the backup lacks` };
+            if (seen.has(`${next.entry.ns}:${key(next.entry.title)}`)) return { status: "redirect-unresolved", detail: `Redirect loop: ${[...via, next.entry.title].join(" → ")}` };
+            if (via.length >= MAX_REDIRECT_HOPS) return { status: "redirect-unresolved", detail: `More than ${MAX_REDIRECT_HOPS} redirects in a row: ${via.join(" → ")} → …` };
             entry = next.entry;
         }
         const restored = entry.ns === 0 ? restoredByBackupTitle.get(key(entry.title)) ?? byTitle.get(key(entry.title)) : null;
@@ -440,6 +464,7 @@ export async function reconcile({ xml, images, root = "." }) {
             now_a_redirect: count("now-a-redirect"),
             backup_older: count("backup-older"),
             missing_from_backup: count("missing-from-backup"),
+            no_revisions: count("no-revisions"),
             new_pages: newPages.length,
             new_pages_linked: newPageList.filter((page) => page.linked_from.length).length,
             gap_markers: gaps.reduce((sum, gap) => sum + gap.markers, 0),
@@ -471,30 +496,23 @@ async function hashFile(path) {
 /**
  * Compare a MediaWiki images/ folder with the recovered media by filename and
  * hash. In MediaWiki's hashed layout (images/a/ab/File.png) only those files
- * count; thumbnails, old versions and deleted files are skipped.
+ * count; thumbnails, old versions and deleted files are skipped. Only regular
+ * files inside the folder are read: links, FIFOs and devices are ignored.
  */
 async function compareImages(dir, root) {
     const mapping = read(join(root, "public/media/wiki/mapping.json")).files;
     const recovered = new Map(mapping.map((item) => [item.filename, item]));
-    const all = [];
-    const walk = (path, depth) => {
-        for (const name of readdirSync(path)) {
-            const full = join(path, name);
-            if (["thumb", "archive", "deleted", "temp", "lockdir", "transcoded"].includes(name)) continue;
-            const stat = statSync(full);
-            if (stat.isDirectory()) walk(full, [...depth, name]);
-            else if (!name.startsWith(".")) all.push({ name, path: full, bytes: stat.size, hashed: depth.length === 2 && /^[0-9a-f]$/.test(depth[0]) && /^[0-9a-f]{2}$/.test(depth[1]) });
-        }
-    };
-    walk(resolve(dir), []);
+    const all = listRegularFiles(dir, { skip: new Set(["thumb", "archive", "deleted", "temp", "lockdir", "transcoded"]) })
+        .filter((file) => !file.name.startsWith("."))
+        .map((file) => ({ ...file, hashed: file.segments.length === 3 && /^[0-9a-f]$/.test(file.segments[0]) && /^[0-9a-f]{2}$/.test(file.segments[1]) }));
     const uploads = all.some((file) => file.hashed) ? all.filter((file) => file.hashed) : all;
     const backup = new Map(uploads.map((file) => [fileKey(file.name), file]));
     const differs = [], missing = [], matched = new Set();
     for (const [filename, item] of recovered) {
         const file = backup.get(fileKey(filename));
-        if (!file) { missing.push(filename); continue; }
+        const sha256 = file ? await hashRegularFile(file.path) : null;
+        if (!sha256) { missing.push(filename); continue; }
         matched.add(fileKey(filename));
-        const sha256 = await hashFile(file.path);
         if (sha256 !== item.sha256) differs.push({ filename, recovered_status: item.status, backup_bytes: file.bytes, recovered_bytes: statSync(join(root, "public", item.file)).size, backup_file: file.path, recovered_file: join(root, "public", item.file) });
     }
     const added = uploads.filter((file) => !matched.has(fileKey(file.name))).map((file) => ({ filename: file.name, bytes: file.bytes, backup_file: file.path }))
@@ -518,6 +536,14 @@ export function publicReport(report) {
     return copy;
 }
 
+/**
+ * Backup text for a Markdown table cell or line: one line, with Markdown and HTML
+ * metacharacters escaped so a title cannot add links, images or markup.
+ */
+export const markdownText = (value) => clean(String(value ?? "").replace(/[\r\n]+/g, " "))
+    .replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c])
+    .replace(/[\\`*_[\]()|~!#]/g, "\\$&");
+
 /** Render the human summary support staff and maintainers read first. */
 export function renderMarkdown(report) {
     const s = report.summary;
@@ -525,20 +551,20 @@ export function renderMarkdown(report) {
     const table = (head, rows) => {
         if (!rows.length) { lines.push("None.", ""); return; }
         lines.push(`| ${head.join(" | ")} |`, `| ${head.map(() => "---").join(" | ")} |`);
-        for (const row of rows) lines.push(`| ${row.map((cell) => String(cell ?? "").replaceAll("|", "\\|")).join(" | ")} |`);
+        for (const row of rows) lines.push(`| ${row.map(markdownText).join(" | ")} |`);
         lines.push("");
     };
     const prs = (article) => article.pull_requests.map((url) => `#${url.split("/").at(-1)}`).join(", ");
     lines.push("# Wiki backup intake report", "");
-    lines.push(`Export: ${report.generated_from.siteinfo?.sitename ?? "unknown site"}, ${report.generated_from.pages} pages, ${report.generated_from.revisions} revisions (sha256 ${report.generated_from.export_file_sha256.slice(0, 12)}…).`, "");
-    lines.push("| Restored articles | Unchanged | Newer revision | Same revision, text differs | Missing | New pages | Redirect disagreements |", "| --- | --- | --- | --- | --- | --- | --- |");
-    lines.push(`| ${s.restored_articles} | ${s.unchanged} | ${s.newer_revision} | ${s.same_revision_text_differs} | ${s.missing_from_backup} | ${s.new_pages} | ${s.redirect_disagreements} |`, "");
+    lines.push(`Export: ${markdownText(report.generated_from.siteinfo?.sitename ?? "unknown site")}, ${report.generated_from.pages} pages, ${report.generated_from.revisions} revisions (sha256 ${report.generated_from.export_file_sha256.slice(0, 12)}…).`, "");
+    lines.push("| Restored articles | Unchanged | Newer revision | Same revision, text differs | Now a redirect | Backup older | No revisions | Missing | New pages | Redirect disagreements |", "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |");
+    lines.push(`| ${s.restored_articles} | ${s.unchanged} | ${s.newer_revision} | ${s.same_revision_text_differs} | ${s.now_a_redirect} | ${s.backup_older} | ${s.no_revisions ?? 0} | ${s.missing_from_backup} | ${s.new_pages} | ${s.redirect_disagreements} |`, "");
     lines.push("## 1. Source updates first", "", "These articles changed after the restored revision. Update the source in its own pull request before reviewing wording; re-check the listed notes and proposals against the newer text.", "");
     table(["Article", "Restored rev", "Latest rev", "Latest edit", "Edits after", "Notes", "Open proposals"],
         report.articles.filter((a) => a.status === "newer-revision").map((a) => [a.origin === "additional" ? `${a.title} (additional article: update by hand, not in newer-revisions.jsonl)` : a.title, a.revision_id, a.latest_revision_id, a.latest_timestamp, a.revisions_after, a.notes.join(", "), prs(a)]));
     lines.push("## 2. Needs a closer look", "");
     table(["Article", "Status", "Detail"], report.articles.filter((a) => !["unchanged", "newer-revision"].includes(a.status)).map((a) => [a.title, a.status,
-        a.status === "same-revision-text-differs" ? "Revision id matches but text hash differs; check export normalization before changing anything" : a.status === "missing-from-backup" ? "Not found by page id or title" : a.status === "now-a-redirect" ? `Now redirects to ${a.redirect_target}; restored revision ${a.revision_id} is ${a.recorded_revision_in_backup ? "in" : "not in"} the history` : `Backup latest ${a.latest_revision_id}`]));
+        a.status === "same-revision-text-differs" ? "Revision id matches but text hash differs; check export normalization before changing anything" : a.status === "missing-from-backup" ? "Not found by page id or title" : a.status === "now-a-redirect" ? `Now redirects to ${a.redirect_target}; restored revision ${a.revision_id} is ${a.recorded_revision_in_backup ? "in" : "not in"} the history` : a.status === "no-revisions" ? "The backup has the page but none of its revisions" : `Backup latest ${a.latest_revision_id}`]));
     lines.push("## 3. Pages in the backup that are not restored", "", "Candidates for new articles. Decide per page; do not import in bulk.", "");
     table(["Title", "Page id", "Latest rev", "Latest edit", "Bytes", "Revisions", "Linked from"], report.new_pages.map((p) => [p.title, p.page_id, p.revision_id, p.timestamp, p.bytes, p.revisions, (p.linked_from ?? []).map((a) => a.title).join(", ")]));
     if (report.gaps) {
@@ -561,31 +587,49 @@ export function renderMarkdown(report) {
  * Write report.html, report.json, REPORT.md and newer-revisions.jsonl to `out`.
  * `source` describes where the export and images came from, for the report header.
  */
+const REPORT_FILES = ["report.html", "report.json", "REPORT.md", "newer-revisions.jsonl"];
+
+/** Remove the files of an earlier run, so a failed run never leaves an old report behind. */
+export function clearReports(out) {
+    for (const name of REPORT_FILES) rmSync(join(out, name), { force: true });
+}
+
 export function writeReports(report, out, { root = ".", source = null } = {}) {
     mkdirSync(out, { recursive: true });
+    clearReports(out);
+    // Each file is written under a temporary name; all are renamed once every one is written.
+    const staged = [];
+    const stage = (name, data) => {
+        const temporary = join(out, `.${name}.partial`);
+        writeFileSync(temporary, data);
+        staged.push([temporary, join(out, name)]);
+    };
     // The converter handles only the 209 snapshot articles; the three additional articles
     // are listed in REPORT.md and updated by hand.
     const newer = report.articles.filter((article) => article.status === "newer-revision" && article.origin === "snapshot");
     // Candidate converter rows for newer revisions, in the field names the converter reads.
-    writeFileSync(join(out, "newer-revisions.jsonl"), newer.map((article) => JSON.stringify({
+    stage("newer-revisions.jsonl", newer.map((article) => JSON.stringify({
         title: article.title, page_id: article.page_id, revision_id: article.latest_revision_id, revision_timestamp: article.latest_timestamp,
         available_attribution: article.latest_contributor?.username ? { username: article.latest_contributor.username, id: article.latest_contributor.id } : null,
         wikitext: article.latest_text,
     })).join("\n") + (newer.length ? "\n" : ""));
     if (source) report.source = source;
-    writeFileSync(join(out, "report.html"), renderHtml(report, { root }));
+    stage("report.html", renderHtml(report, { root }));
     const published = publicReport(report);
-    writeFileSync(join(out, "report.json"), JSON.stringify(published, null, 2) + "\n");
-    writeFileSync(join(out, "REPORT.md"), renderMarkdown(published));
+    stage("report.json", JSON.stringify(published, null, 2) + "\n");
+    stage("REPORT.md", renderMarkdown(published));
+    for (const [temporary, path] of staged) renameSync(temporary, path);
     return { html: join(out, "report.html"), markdown: join(out, "REPORT.md"), json: join(out, "report.json") };
 }
 
-/** Refuse an output folder inside the repository unless it is under tmp/ (ignored by git). */
+/**
+ * Refuse an output folder inside the repository unless it is under tmp/ (ignored
+ * by git). Links are resolved and letter case is ignored, so neither a link into
+ * the repository nor a differently capitalised path gets around it.
+ */
 export function checkOutputFolder(out, root) {
-    const full = resolve(out), base = resolve(root);
-    const inside = (path, dir) => path === dir || path.startsWith(dir + "/");
-    if (inside(full, base) && !inside(full, join(base, "tmp"))) {
-        throw new Error(`Write the report outside the repository or under tmp/ (ignored by git), not to ${relative(base, full) || "."}.`);
+    if (isInsidePath(out, root) && !isInsidePath(out, join(root, "tmp"))) {
+        throw new Error(`Write the report outside the repository or under tmp/ (ignored by git), not to ${out}.`);
     }
 }
 
@@ -597,6 +641,7 @@ async function main() {
         process.exit(2);
     }
     checkOutputFolder(values.out, ".");
+    clearReports(values.out);
     const report = await reconcile({ xml: values.xml, images: values.images });
     writeReports(report, values.out);
     const s = report.summary;

@@ -80,8 +80,10 @@ export const tokenize = (text) => text.match(TOKEN) ?? [];
  * "=", "-" or "+". A lone space between two changes is folded into them, so a
  * rewritten phrase reads as one removal and one addition.
  */
-export function diffWords(before, after, { maxCost = 2000 } = {}) {
-    const runs = diffSequences(tokenize(before), tokenize(after), { maxCost });
+export function diffWords(before, after, { maxCost = 2000, maxTokens = 50000 } = {}) {
+    const a = tokenize(before), b = tokenize(after);
+    // Very large blocks are shown as a plain replacement, so a huge page cannot stall the report.
+    const runs = a.length + b.length > maxTokens ? null : diffSequences(a, b, { maxCost });
     if (!runs) return [...(before ? [["-", before]] : []), ...(after ? [["+", after]] : [])];
     const parts = runs.map(([type, items]) => [type, items.join("")]);
     const result = [];
@@ -112,7 +114,7 @@ const countWords = (text) => tokenize(text).filter((token) => /[\p{L}\p{N}]/u.te
  */
 export function diffTexts(before, after, { context = 2 } = {}) {
     const a = before.split("\n"), b = after.split("\n");
-    const runs = diffSequences(a, b, { maxCost: 4000 }) ?? [["-", a], ["+", b]];
+    const runs = (a.length + b.length <= 100000 && diffSequences(a, b, { maxCost: 4000 })) || [["-", a], ["+", b]];
     const raw = [];
     for (let i = 0; i < runs.length; i++) {
         const [type, lines] = runs[i];

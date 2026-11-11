@@ -18,28 +18,38 @@ import { tmpdir } from "node:os";
 import { basename, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { BackupError, openBackup } from "./lib/backup-input.mjs";
-import { checkOutputFolder, reconcile, writeReports } from "./reconcile-wiki-backup.mjs";
+import { BackupError, DEFAULT_MAX_BYTES, openBackup, parseSize } from "./lib/backup-input.mjs";
+import { clean } from "./lib/safe-files.mjs";
+import { checkOutputFolder, clearReports, reconcile, writeReports } from "./reconcile-wiki-backup.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const usage = `Usage: npm run compare-backup -- <backup folder, archive or XML export> [more backup parts] [--out <folder>] [--open]
+const usage = `Usage: npm run compare-backup -- <backup folder, archive or XML export> [more backup parts] [options]
 
 Examples:
-  npm run compare-backup -- ~/Downloads/bisq-wiki-backup.tar.gz
+  npm run compare-backup -- ~/Downloads/bisq-wiki-backup.tar.gz --open
   npm run compare-backup -- ~/Downloads/bisq-wiki-backup/            (a folder)
-  npm run compare-backup -- bisq-wiki-full.xml.bz2 webroot.tar.gz    (export and images apart)`;
+  npm run compare-backup -- bisq-wiki-full.xml.bz2 webroot.tar.gz    (export and images apart)
+
+Options:
+  --open                  open the report in the browser when done
+  --out <folder>          where to write the report (default: tmp/wiki-backup-intake)
+  --xml <name>            which XML export to use, when the backup holds several
+  --images <name>         which images folder to use, when the backup holds several
+  --max-unpacked <size>   stop if unpacking needs more than this (default: 20G)`;
 
 // Temporary folders in use, removed on exit even when the command is interrupted.
 const workFolders = new Set();
 
-export async function compareBackup(inputs, { out, cwd = process.cwd(), log = console.log } = {}) {
+export async function compareBackup(inputs, { out, cwd = process.cwd(), log = console.log, xml, images, maxBytes = DEFAULT_MAX_BYTES } = {}) {
     const output = resolve(cwd, out ?? resolve(root, "tmp/wiki-backup-intake"));
     checkOutputFolder(output, root);
-    log(`Reading the backup: ${inputs.join(", ")}`);
+    // An old report must not survive a run that fails.
+    clearReports(output);
+    log(`Reading the backup: ${inputs.map(clean).join(", ")}`);
     const work = mkdtempSync(join(tmpdir(), "bisq-wiki-compare-"));
     workFolders.add(work);
     try {
-        const backup = await openBackup(inputs.map((input) => resolve(cwd, input)), { workRoot: work });
+        const backup = await openBackup(inputs.map((input) => resolve(cwd, input)), { workRoot: work, maxBytes, xml, images });
         log(`  XML export: ${backup.xmlDisplay} (${(backup.xmlBytes / 1024 / 1024).toFixed(1)} MB)`);
         log(backup.images ? `  Images:     ${backup.imagesDisplay} (${backup.imageFiles} files)` : "  Images:     none found, images are not compared");
         for (const note of backup.notes) log(`  Note: ${note}`);
@@ -48,9 +58,9 @@ export async function compareBackup(inputs, { out, cwd = process.cwd(), log = co
         const files = writeReports(report, output, {
             root,
             source: {
-                inputs: inputs.map((input) => basename(resolve(cwd, input))),
+                inputs: inputs.map((input) => clean(basename(resolve(cwd, input)))),
                 xml: backup.xmlDisplay, xml_bytes: backup.xmlBytes,
-                images: backup.imagesDisplay, other_xml: backup.otherXml, sql: backup.sql, notes: backup.notes,
+                images: backup.imagesDisplay, other_images: backup.otherImages, sql: backup.sql, notes: backup.notes,
             },
         });
         const s = report.summary;
@@ -66,7 +76,10 @@ export async function compareBackup(inputs, { out, cwd = process.cwd(), log = co
 async function main() {
     let parsed;
     try {
-        parsed = parseArgs({ allowPositionals: true, options: { out: { type: "string" }, open: { type: "boolean", default: false }, help: { type: "boolean", short: "h", default: false } } });
+        parsed = parseArgs({ allowPositionals: true, options: {
+            out: { type: "string" }, xml: { type: "string" }, images: { type: "string" }, "max-unpacked": { type: "string" },
+            open: { type: "boolean", default: false }, help: { type: "boolean", short: "h", default: false },
+        } });
     } catch (error) {
         console.error(`${error.message}\n\n${usage}`);
         process.exit(2);
@@ -79,23 +92,21 @@ async function main() {
     // npm runs scripts from the repository root; resolve paths from where the command was typed.
     const cwd = process.env.INIT_CWD || process.cwd();
     try {
-        const { files } = await compareBackup(positionals, { out: values.out, cwd });
+        const maxBytes = values["max-unpacked"] === undefined ? DEFAULT_MAX_BYTES : parseSize(values["max-unpacked"]);
+        const { files } = await compareBackup(positionals, { out: values.out, cwd, xml: values.xml, images: values.images, maxBytes });
         if (values.open) {
             const opener = process.platform === "darwin" ? "open" : process.platform === "win32" ? "explorer" : "xdg-open";
             spawn(opener, [files.html], { stdio: "ignore", detached: true }).on("error", () => console.log(`Open ${files.html} in a browser.`)).unref();
         } else console.log("Open it in a browser, or add --open next time.");
     } catch (error) {
-        if (error instanceof BackupError && error.code === "SQL_ONLY") {
-            console.error(`\n${error.message}`);
-            process.exit(3);
-        }
-        console.error(`\n${error.message}`);
-        process.exit(1);
+        console.error(`\n${String(error.message).split("\n").map(clean).join("\n")}`);
+        process.exit(error instanceof BackupError && error.code === "SQL_ONLY" ? 3 : error instanceof BackupError && error.code === "USAGE" ? 2 : 1);
     }
 }
 
 if (process.argv[1] && realpathSync(resolve(process.argv[1])) === fileURLToPath(import.meta.url)) {
-    for (const signal of ["SIGINT", "SIGTERM"]) {
+    // A closed terminal (SIGHUP) cleans up too: the work folder holds the unpacked export.
+    for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"]) {
         process.once(signal, () => {
             for (const work of workFolders) rmSync(work, { recursive: true, force: true });
             process.exit(130);

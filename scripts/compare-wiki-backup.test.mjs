@@ -1,45 +1,22 @@
 import test, { after } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { createHash } from "node:crypto";
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import { crc32, gzipSync } from "node:zlib";
+import { gzipSync } from "node:zlib";
 import { compareBackup } from "./compare-wiki-backup.mjs";
 import { BackupError, hasTool, openBackup, safeSegments } from "./lib/backup-input.mjs";
 import { renderHtml } from "./lib/backup-report-html.mjs";
 import { diffSequences, diffTexts, diffWords } from "./lib/word-diff.mjs";
 import { publicReport, readGapMarkers, reconcile } from "./reconcile-wiki-backup.mjs";
+import { bySlug, cleanupScratch, hashedPath, mkdirFor, named, original, page, put, restored, revision, roundTrip, scratch, stored, tarArchive, wrap, zipArchive } from "./fixtures/backup-fixtures.mjs";
 
 // Synthetic backups built from the restored snapshot itself, so every case is
 // known: an exact round trip, newer revisions, pages that fill gap markers,
 // pages we do not have, and an images folder with a changed and a new file.
 
-const escape = (value) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
-const stored = (slug) => readFileSync(`public/wiki-source/${slug}.wiki.txt`, "utf8").replace(/<!-- BISQ VERSION: [^>]*? -->$/, "");
-const restored = [
-  ...JSON.parse(readFileSync("migration/articles.json", "utf8")).items,
-  ...JSON.parse(readFileSync("migration/additional-articles.json", "utf8")).items,
-];
-const bySlug = new Map(restored.map((item) => [item.slug, item]));
-const named = (name, id = "7") => `<username>${escape(name)}</username><id>${id}</id>`;
-const revision = (id, timestamp, text, contributor = named("Editor A")) =>
-  `<revision><id>${id}</id><timestamp>${timestamp}</timestamp><contributor>${contributor}</contributor><model>wikitext</model><format>text/x-wiki</format><text bytes="${Buffer.byteLength(text)}" xml:space="preserve">${escape(text)}</text><sha1>x</sha1></revision>`;
-const page = (title, id, revisions, { ns = 0, redirect = "" } = {}) =>
-  `<page><title>${escape(title)}</title><ns>${ns}</ns><id>${id}</id>${redirect ? `<redirect title="${escape(redirect)}" />` : ""}${revisions.join("")}</page>`;
-const wrap = (pages) => `<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" version="0.11"><siteinfo><sitename>Bisq Wiki</sitename><base>https://bisq.wiki/Main_Page</base><generator>MediaWiki 1.34.4</generator></siteinfo>\n${pages.join("\n")}\n</mediawiki>\n`;
-const original = (item) => page(item.title, item.page_id, [revision(item.revision_id, item.revision_timestamp, stored(item.slug))]);
-const scratchDirs = [];
-const scratch = () => {
-  const dir = mkdtempSync(join(tmpdir(), "compare-backup-test-"));
-  scratchDirs.push(dir);
-  return dir;
-};
-after(() => { for (const dir of scratchDirs) rmSync(dir, { recursive: true, force: true }); });
-
-/** (a) Every restored article at its recorded revision, as the wiki stored it. */
-const roundTrip = () => wrap(restored.map(original));
+after(cleanupScratch);
 
 const NEW_TEXT = "'''Dispute resolution''' covers mediation and arbitration.\n\n== Mediation ==\nA mediator suggests a payout.";
 const ESCAPE_TITLE = 'Brand new <script>alert("x")</script> page';
@@ -76,12 +53,6 @@ function changedExport() {
 }
 
 const mapping = JSON.parse(readFileSync("public/media/wiki/mapping.json", "utf8")).files;
-const hashedPath = (images, name) => {
-  const file = name.replaceAll(" ", "_");
-  const md5 = createHash("md5").update(file).digest("hex");
-  return join(images, md5[0], md5.slice(0, 2), file);
-};
-const put = (path, data) => { mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, data); };
 
 /**
  * (e) An images/ folder in MediaWiki's layout: the recovered files except one
@@ -98,7 +69,6 @@ function writeImages(images, { few = false } = {}) {
   put(join(images, "README"), "MediaWiki images folder");
   return { missing: missing.filename, changed: changed.filename };
 }
-const mkdirFor = (path) => { mkdirSync(dirname(path), { recursive: true }); return path; };
 
 /** A backup folder: bisq-wiki-full.xml and images/. */
 function backupFolder(xml, { images = true, few = false } = {}) {
@@ -277,52 +247,6 @@ test("(g) a backup with only a database dump explains how to get the XML export"
   writeFileSync(join(empty, "notes.txt"), "nothing here");
   await assert.rejects(openBackup(empty), { code: "NO_EXPORT" });
 });
-
-// Minimal archive writers, so unsafe members can be tested without relying on tools.
-function tarArchive(entries) {
-  const blocks = [];
-  for (const [name, data = Buffer.alloc(0), type = "0", link = ""] of entries) {
-    const header = Buffer.alloc(512);
-    header.write(name, 0, 100);
-    header.write("0000644\0", 100);
-    header.write("0000000\0", 108);
-    header.write("0000000\0", 116);
-    header.write(`${data.length.toString(8).padStart(11, "0")}\0`, 124);
-    header.write("00000000000\0", 136);
-    header.fill(" ", 148, 156);
-    header.write(type, 156);
-    header.write(link, 157, 100);
-    header.write("ustar\0", 257);
-    header.write("00", 263);
-    let sum = 0;
-    for (const byte of header) sum += byte;
-    header.write(`${sum.toString(8).padStart(6, "0")}\0 `, 148);
-    blocks.push(header, data, Buffer.alloc((512 - (data.length % 512)) % 512));
-  }
-  return Buffer.concat([...blocks, Buffer.alloc(1024)]);
-}
-
-function zipArchive(entries) {
-  const locals = [], centrals = [];
-  let offset = 0;
-  for (const [name, data, mode = 0o100644] of entries) {
-    const file = Buffer.from(name), crc = crc32(data);
-    const local = Buffer.alloc(30);
-    local.writeUInt32LE(0x04034b50, 0); local.writeUInt16LE(20, 4); local.writeUInt16LE(0x800, 6);
-    local.writeUInt32LE(crc, 14); local.writeUInt32LE(data.length, 18); local.writeUInt32LE(data.length, 22); local.writeUInt16LE(file.length, 26);
-    const central = Buffer.alloc(46);
-    central.writeUInt32LE(0x02014b50, 0); central.writeUInt16LE((3 << 8) | 20, 4); central.writeUInt16LE(20, 6); central.writeUInt16LE(0x800, 8);
-    central.writeUInt32LE(crc, 16); central.writeUInt32LE(data.length, 20); central.writeUInt32LE(data.length, 24); central.writeUInt16LE(file.length, 28);
-    central.writeUInt32LE((mode << 16) >>> 0, 38); central.writeUInt32LE(offset, 42);
-    locals.push(local, file, data);
-    centrals.push(central, file);
-    offset += 30 + file.length + data.length;
-  }
-  const directory = Buffer.concat(centrals), end = Buffer.alloc(22);
-  end.writeUInt32LE(0x06054b50, 0); end.writeUInt16LE(entries.length, 8); end.writeUInt16LE(entries.length, 10);
-  end.writeUInt32LE(directory.length, 12); end.writeUInt32LE(offset, 16);
-  return Buffer.concat([...locals, directory, end]);
-}
 
 test("archive members cannot write outside the extraction folder", async () => {
   assert.equal(safeSegments("../evil.xml"), null);
