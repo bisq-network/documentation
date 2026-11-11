@@ -15,7 +15,7 @@ CBDC (Central Bank Digital Currency) is the final and most insidious form of [fi
 
 ## CBDC programs around the world {#cbdc-programs-around-the-world}
 
-A large number of governments around the world are working on developing a CBDC. 3 have launched. 36 are in the pilot stage and 30 are in development. These are some of the most relevant.
+A large number of governments around the world are working on developing a CBDC. 3 have launched. 36 are in the pilot stage and 30 are in development. These are some of the most relevant. The counts and table below come from the recovered wiki snapshot and may be out of date; check current primary sources for each program.
 
 <table>
 <caption>CBDC</caption>
@@ -67,14 +67,14 @@ A large number of governments around the world are working on developing a CBDC.
 <tr>
 <td>Jamaica</td>
 <td>Live</td>
-<td>NZIA</td>
+<td>.</td>
 <td>NO</td>
 <td>.</td>
 <td>.</td>
 <td>.</td>
 <td>0.120</td>
-<td>Sand Dollar</td>
-<td>NZIA</td>
+<td>JAM-DEX</td>
+<td>.</td>
 <td>.</td>
 <td></td>
 </tr>
@@ -87,7 +87,7 @@ A large number of governments around the world are working on developing a CBDC.
 <td>.</td>
 <td>.</td>
 <td>.</td>
-<td>.</td>
+<td>Sand Dollar</td>
 <td>.</td>
 <td>.</td>
 <td></td>
