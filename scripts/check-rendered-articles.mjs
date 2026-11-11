@@ -54,7 +54,7 @@ try {
   const integration = loadIntegration();
   const originals = buildPublicLegacyRoutes(integration);
   const reserved = [...originals, ...buildRecoveredAliasRoutes(integration, originals), ...loadEditedRouteAliases(integration), ...recoveredCategoryRoutes()].map((route) => route.path);
-  const entries = [...docs.values()].map((entry) => ({ id: entry.id, filePath: entry.filePath, frontmatter: parseFrontmatter(readFileSync(entry.filePath, "utf8")).frontmatter }));
+  const entries = [...docs.values()].map((entry) => ({ id: entry.id, filePath: entry.filePath, ...parseFrontmatter(readFileSync(entry.filePath, "utf8")) }));
   const stored = new Set(entries.map((entry) => entry.filePath));
   for (const file of filesBelow("src/content/docs").map((path) => relative(".", path)).sort()) {
     if (!stored.has(file)) differ.push(`${file} is in src/content/docs/ but not in the build's content store`);

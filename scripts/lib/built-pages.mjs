@@ -47,13 +47,15 @@ export const knownMdxEntries = ["src/content/docs/index.mdx", "src/content/docs/
 // outside its content; such a field needs a deliberate change here.
 export const knownFrontmatterFields = ["title", "description", "tableOfContents", "prev", "next", "slug"];
 
+const moduleStatement = /^(?:import\s+(?:[\w*{][^\n]*?\sfrom\s+)?["']|export\s+(?:const|let|var|function|class|default|async|\{|\*))/m;
+
 /** The route of a docs entry id, as Starlight turns ids into routes ("browse/index" -> "browse"). */
 export const routeOfId = (id) => (id === "index" ? "" : id.replace(/\/index$/, ""));
 /** The route a docs file has by its path. */
 export const routeOfFile = (file) => routeOfId(file.replace(/^src\/content\/docs\//, "").replace(/\.mdx?$/, ""));
 
 /**
- * Problems with the docs entries of a build: entries [{ id, filePath, frontmatter }],
+ * Problems with the docs entries of a build: entries [{ id, filePath, frontmatter, content }],
  * reservedRoutes the routes other pages generate (old wiki addresses and aliases).
  * Every entry is a known kind of file, keeps the route its path gives it (a slug in
  * the front matter may only repeat it), sets only known front-matter fields, has a
@@ -63,8 +65,10 @@ export function docsEntryProblems(entries, reservedRoutes = []) {
   const problems = [];
   const routes = new Map();
   const reserved = new Set(reservedRoutes.map((route) => route.replace(/^\/|\/$/g, "").toLowerCase()));
-  for (const { id, filePath, frontmatter = {} } of entries) {
+  for (const { id, filePath, frontmatter = {}, content = "" } of entries) {
     if (!/^src\/content\/docs\/.+\.md$/.test(filePath) && !knownMdxEntries.includes(filePath)) problems.push(`${filePath} is not a Markdown docs entry or a known MDX entry`);
+    // Module statements run only in MDX, but no other entry may carry one either.
+    if (!knownMdxEntries.includes(filePath) && moduleStatement.test(content)) problems.push(`${filePath} has an import or export statement; only the known MDX pages may`);
     const route = routeOfId(id);
     if (route !== routeOfFile(filePath)) problems.push(`${filePath} is published at /${route}/, not at the route its path gives it (/${routeOfFile(filePath)}/)`);
     const unknown = Object.keys(frontmatter).filter((key) => !knownFrontmatterFields.includes(key));
@@ -78,16 +82,23 @@ export function docsEntryProblems(entries, reservedRoutes = []) {
 }
 
 // What public/ may hold: files are copied into the site as they are, so one could take
-// the place of an article or an old wiki address. Only these top-level entries, and no
-// HTML anywhere.
-export const knownPublicEntries = ["favicon.ico", "fonts", "media", "wiki-source"];
+// the place of an article or an old wiki address, or be a page of its own (an SVG or
+// XHTML file can hold scripts and forms). Only these entries, each with only these file
+// types.
+export const knownPublicEntries = {
+  "favicon.ico": /^favicon\.ico$/,
+  fonts: /^fonts\/[^/]+\.(?:woff2|woff|ttf|otf|txt)$/,
+  media: /^media\/(?:[^/]+\/)*[^/]+\.(?:png|jpe?g|gif|webp|json)$/,
+  "wiki-source": /^wiki-source\/(?:[^/]+\/)*[^/]+\.(?:txt|json)$/,
+};
 
 /** Problems with the files under public/ (paths relative to public/). */
 export function publicFileProblems(files) {
   const problems = [];
   for (const file of files) {
-    if (!knownPublicEntries.includes(file.split("/")[0])) problems.push(`public/${file} is not under a known public entry (${knownPublicEntries.join(", ")})`);
-    else if (/\.x?html?$/i.test(file)) problems.push(`public/${file} is an HTML file; it could take the place of a page`);
+    const entry = knownPublicEntries[file.split("/")[0]];
+    if (!entry) problems.push(`public/${file} is not under a known public entry (${Object.keys(knownPublicEntries).join(", ")})`);
+    else if (!entry.test(file)) problems.push(`public/${file} is not a file type public/${file.split("/")[0]} may hold; it could be a page of its own`);
   }
   return problems;
 }

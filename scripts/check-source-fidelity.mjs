@@ -205,8 +205,8 @@ async function renderedArticle(text, path, pr) {
 // A code block is named by its code's ID (source-code-3); anything else by its kind,
 // the ID of the heading it follows ("top" before the first) and its number there
 // (table:#limits:1, gap:top:2), so dropping one leaves the others' names alone. Each is
-// compared as a whole together with the text right around it, so moving one counts as
-// changing it.
+// compared as a whole together with its section, its place among the locked parts and
+// the text right around it, so moving or swapping one counts as changing it.
 const gapClasses = ["wiki-link-gap", "wiki-template-gap", "wiki-markup-gap", "wiki-image-gap"];
 const contextLength = 24;
 function lockedContent(body) {
@@ -227,12 +227,12 @@ function lockedContent(body) {
     counters.set(`${kind}:${section}`, number);
     const code = kind === "pre" && node.children.find((child) => child.type === "element" && child.tag === "code");
     const id = code && attributeValue(code, "id");
-    items.push({ key: /^source-code-\d+$/.test(id ?? "") ? id : `${kind}:${section}:${number}`, html: serialize([node]), at: segments.length });
+    items.push({ key: /^source-code-\d+$/.test(id ?? "") ? id : `${kind}:${section}:${number}`, html: serialize([node]), at: segments.length, section, order: items.length });
     segments.push(null);
   });
   visit(body);
   const flat = (list) => list.filter((segment) => segment !== null).join("").replace(/[\t\n\f\r ]+/g, " ");
-  return new Map(items.map(({ key, html, at }) => [key, `${html}\0${flat(segments.slice(0, at)).slice(-contextLength)}\0${flat(segments.slice(at + 1)).slice(0, contextLength)}`]));
+  return new Map(items.map(({ key, html, at, section: under, order }) => [key, `${html}\0${under}\0${order}\0${flat(segments.slice(0, at)).slice(-contextLength)}\0${flat(segments.slice(at + 1)).slice(0, contextLength)}`]));
 }
 
 // Characters a reader does not see or cannot tell apart: default-ignorable code points

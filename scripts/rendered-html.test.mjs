@@ -131,13 +131,20 @@ test("only an article's own file publishes at its route, with known front matter
   // An entry at an old wiki address, and an MDX entry nobody knows.
   assert.match(docsEntryProblems([{ id: "teams", filePath: "src/content/docs/Teams.md", frontmatter: { title: "x" } }], ["Teams"]).join("\n"), /an old wiki address or alias/);
   assert.match(docsEntryProblems([{ id: "x", filePath: "src/content/docs/x.mdx", frontmatter: { title: "x" } }]).join("\n"), /not a Markdown docs entry or a known MDX entry/);
+  // Review round 3: only the two known MDX pages may hold module statements.
+  for (const content of ['import config from "virtual:starlight/user-config";\n', "export const tamper = 1;\n", 'import "../x.js";\n']) {
+    assert.match(docsEntryProblems([{ id: "review", filePath: "src/content/docs/review.md", frontmatter: { title: "x" }, content }]).join("\n"), /has an import or export statement/, content);
+  }
+  assert.deepEqual(docsEntryProblems([{ id: "review", filePath: "src/content/docs/review.md", frontmatter: { title: "x" }, content: "export PATH=/opt/bisq\nImport your wallet.\n" }]), []);
 });
 
 test("public/ holds only known entries and no HTML", () => {
   assert.deepEqual(publicFileProblems(["favicon.ico", "fonts/x.woff2", "media/wiki/a.png", "wiki-source/teams.json"]), []);
   // The confirmed attack: public/Teams/index.html replaced the old wiki address /Teams/.
   assert.match(publicFileProblems(["Teams/index.html"])[0], /public\/Teams\/index\.html is not under a known public entry/);
-  assert.match(publicFileProblems(["media/x/index.html"])[0], /is an HTML file/);
+  assert.match(publicFileProblems(["media/x/index.html"])[0], /not a file type public\/media may hold/);
+  // Review round 3 (public-svg): an SVG with a script and a form, and an XHTML file, under fonts/.
+  assert.equal(publicFileProblems(["fonts/wallet-recovery.svg", "fonts/wallet-recovery.xht", "fonts/OFL.txt"]).length, 2);
 });
 
 test("what runs or loads around the content is the same on every article page", async () => {
@@ -154,8 +161,12 @@ test("template renderings put in only plain template HTML", async () => {
   for (const item of renderings) assert.equal(templateHtmlProblem(parse(item.html)), undefined, item.invocation);
   // The confirmed attack: a rendering given a script and an outside link.
   for (const [html, problem] of [
-    ['<p>Before restoring, paste your seed words into <a href="https://evil.example/restore">the helper</a>.</p><script>alert(1)</script>', /it has <script>/],
+    ['<p>Before restoring, paste your seed words into <a href="https://evil.example/restore">the helper</a>.</p><script>alert(1)</script>', /it links to https:\/\/evil\.example|it has <script>/],
+    ["<p>Text</p><script>alert(1)</script>", /it has <script>/],
     ['<p><a href="javascript:alert(1)">x</a></p>', /it links to javascript:/],
+    // Only the outside host the archived renderings use.
+    ['<p><a href="https://evil.example/restore">helper</a></p>', /it links to https:\/\/evil\.example/],
+    ['<p><a href="https://github.com.evil.example/x">x</a></p>', /it links to https:\/\/github\.com\.evil/],
     ['<p><img src="https://evil.example/x.png" alt=""></p>', /it shows the image https:\/\/evil\.example/],
     ['<p style="display:none">x</p>', /it has <p style=/],
     ["<body onload=alert(1)>", /<body> tag/],
