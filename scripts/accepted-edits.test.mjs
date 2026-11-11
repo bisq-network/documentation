@@ -18,19 +18,28 @@ const hash = (value) => createHash("sha256").update(value).digest("hex");
 const path = "src/content/docs/wiki/trading-monero.md";
 const restorePath = "src/content/docs/wiki/last-resort-restore.md";
 const slugOf = (file) => file.split("/").pop().replace(/\.md$/, "");
-const sampleSlugs = new Set(["trading-monero", "last-resort-restore"]);
+const articleFile = (slug) => `src/content/docs/wiki/${slug}.md`;
 const fixtures = (dir) => new Map([path, restorePath].map((file) => [file, readFileSync(`scripts/fixtures/${dir}/${slugOf(file)}.md`, "utf8")]));
 const restoredFiles = fixtures("restored");
 const convertedFiles = fixtures("converted");
-const conversionOf = (file, html = restoredFiles.get(file), markdown = convertedFiles.get(file)) => ({ slug: slugOf(file), html_file_sha256: hash(html), markdown_file_sha256: hash(markdown) });
-const html = { files: restoredFiles, conversions: [] };
-const markdown = { files: convertedFiles, conversions: [conversionOf(path), conversionOf(restorePath)] };
+// More converted articles for tests that need a gap marker, a table, a code block or
+// raw HTML. They are fixtures too, so a wording proposal on the real article does not
+// change what the tests see; their originals are the preserved restored articles.
+const extraSlugs = ["teams", "troubleshooting", "automatic-backup-script", "bitcoin-units", "critical-bugs", "contributor-checklist"];
+const extraFiles = new Map(extraSlugs.map((slug) => [articleFile(slug), readFileSync(`scripts/fixtures/converted/${slug}.md`, "utf8")]));
+const sampleSlugs = new Set(["trading-monero", "last-resort-restore", ...extraSlugs]);
+const conversionOf = (file, html = restoredFiles.get(file) ?? readFileSync(preservedArticlePath(slugOf(file)), "utf8"), markdown = convertedFiles.get(file) ?? extraFiles.get(file)) => ({ slug: slugOf(file), html_file_sha256: hash(html), markdown_file_sha256: hash(markdown) });
+const extraConversions = [...extraFiles.keys()].map((file) => conversionOf(file));
+const html = { files: new Map([...restoredFiles, ...extraFiles]), conversions: extraConversions };
+const markdown = { files: new Map([...convertedFiles, ...extraFiles]), conversions: [conversionOf(path), conversionOf(restorePath), ...extraConversions] };
 const committed = JSON.parse(readFileSync(acceptedEditsPath, "utf8"));
 const committedFormat = JSON.parse(readFileSync(markdownFormatPath, "utf8")).items.filter((item) => !sampleSlugs.has(item.slug));
+// The tests' own approval rule, so they never depend on the repository's settings.
+const testSettings = (required) => JSON.stringify({ schema_version: 2, required_approvals: required, reviewers: [{ login: "maintainer-a", role: "maintainer" }, { login: "reviewer-b", role: "support agent" }] });
 // Articles this branch changes without a receipt (a wording proposal under review).
 // The tests ignore their findings; the check and receipts jobs judge them.
 // If verify() cannot run at all (say, an additional article drifted), each test reports that error itself.
-const branchPending = await verify().then((result) => result.unreceipted.map((item) => item.path).filter((file) => !restoredFiles.has(file)), () => []);
+const branchPending = await verify().then((result) => result.unreceipted.map((item) => item.path).filter((file) => !restoredFiles.has(file) && !extraFiles.has(file)), () => []);
 const baseFrom = (files) => async (file) => (files.has(file) ? Buffer.from(files.get(file)) : undefined);
 const withBase = { readBase: baseFrom(convertedFiles) };
 const withHtmlBase = { readBase: baseFrom(restoredFiles) };
@@ -64,15 +73,15 @@ function receipt(base, edited, fields = {}) {
 }
 const restoreReceipt = (base, edited) => ({ ...receipt(base, edited), slug: "last-resort-restore", note_ids: [] });
 
+
 /**
  * Verify with the sample articles in one form (Markdown unless world is html), the
- * given files and receipts, and committed receipts and conversions for other articles.
+ * given files and receipts, and the committed conversions for other articles. The
+ * repository's receipts are all left out (null) and its settings replaced, so the
+ * tests pass whatever receipts the repository holds; settings may be given.
  */
-async function run(files, items, required = 2, options = {}, world = markdown) {
-  const settings = JSON.stringify({ ...committed, required_approvals: required });
-  // Committed receipts for the sample articles are left out (null); the items given here stand in.
-  const samples = receiptFilesIn().filter((file) => sampleSlugs.has(file.slice(receiptsDir.length + 1).split(".pr-")[0]));
-  const receipts = [...samples.map((file) => [file, null]), ...items.map((item) => [receiptPath(item), receiptText(item)])];
+async function run(files, items, required = 2, options = {}, world = markdown, settings = testSettings(required)) {
+  const receipts = [...receiptFilesIn().map((file) => [file, null]), ...items.map((item) => [receiptPath(item), receiptText(item)])];
   const format = markdownFormatText([...committedFormat, ...world.conversions]);
   const result = await verify(new Map([...world.files, [acceptedEditsPath, settings], [markdownFormatPath, format], ...receipts, ...Object.entries(files)]), options);
   const ours = (file) => !branchPending.includes(file);
@@ -122,6 +131,13 @@ test("the sample articles are the restored originals, and their Markdown renders
     // The conversion record pins the converted article; the sample is that file.
     assert.equal(hash(convertedFiles.get(file)), JSON.parse(readFileSync(markdownFormatPath, "utf8")).items.find((item) => item.slug === slug)?.markdown_file_sha256, `scripts/fixtures/converted/${slug}.md is not the recorded conversion of ${slug}.md`);
     assert.equal(await formatDifference({ slug, html: text, markdown: convertedFiles.get(file) }), undefined, `scripts/fixtures/converted/${slug}.md`);
+  }
+  // The other converted fixtures are the recorded conversions of their preserved originals.
+  const record = JSON.parse(readFileSync(markdownFormatPath, "utf8")).items;
+  for (const [file, text] of extraFiles) {
+    const slug = slugOf(file);
+    assert.equal(hash(text), record.find((item) => item.slug === slug)?.markdown_file_sha256, `scripts/fixtures/converted/${slug}.md is not the recorded conversion of ${slug}.md`);
+    assert.equal(await formatDifference({ slug, html: readFileSync(preservedArticlePath(slug), "utf8"), markdown: text }), undefined, `scripts/fixtures/converted/${slug}.md`);
   }
 });
 
@@ -208,7 +224,7 @@ test("without a receipt, raw sources, restoration hashes, the conversion record 
   const rawPath = "public/wiki-source/trading-monero.wiki.txt";
   onlyFinding(await run({ [rawPath]: `${readFileSync(rawPath, "utf8")}\nchanged` }, [], 2, withBase), /^public\/wiki-source\/trading-monero\.wiki\.txt: immutable raw wikitext drift/);
   // Recording the edited Markdown as the conversion does not make it the original: it must render as the HTML.
-  const recorded = markdownFormatText([...committedFormat, conversionOf(path, restoredFiles.get(path), reworded), conversionOf(restorePath)]);
+  const recorded = markdownFormatText([...committedFormat, conversionOf(path, restoredFiles.get(path), reworded), conversionOf(restorePath), ...extraConversions]);
   onlyFinding(await run({ [path]: reworded, [markdownFormatPath]: recorded }, [], 2, withBase), /trading-monero\.md: its Markdown conversion \(migration\/markdown-format\.json\) does not render as the HTML it replaced: the Markdown renders differently .*"\(default: 1 BTC\)"|trading-monero\.md: its Markdown conversion .* does not render as the HTML it replaced/);
   // Refreshing the restored hashes to the edited file does not make it an original either.
   const formatting = JSON.parse(readFileSync("migration/source-formatting.json", "utf8"));
@@ -504,27 +520,26 @@ test("an accepted HTML edit can be converted: the HTML is rebuilt and every link
   const second = markdownReworded.replace("Number of required confirmations (default: 5)", "Number of required confirmations (Bisq 1 v1.10.11 default: 5)");
   const htmlEdit = receipt(htmlOriginal, htmlReworded);
   const markdownEdit = receipt(markdownReworded, second, { pull_request: "https://github.com/hiciefte/bisq-docs/pull/99" });
-  const world = { files: convertedFiles, conversions: [conversionOf(path, htmlReworded, markdownReworded), conversionOf(restorePath)] };
+  const world = { files: markdown.files, conversions: [conversionOf(path, htmlReworded, markdownReworded), conversionOf(restorePath), ...extraConversions] };
   const result = await run({ [path]: second }, [htmlEdit, markdownEdit], 2, {}, world);
   assert.deepEqual(result.failures, []);
   assert.equal(result.acceptedCount, 2);
   // The conversion must start where the HTML edit ended.
-  const early = { files: convertedFiles, conversions: [conversionOf(path, htmlOriginal, markdownReworded), conversionOf(restorePath)] };
+  const early = { files: markdown.files, conversions: [conversionOf(path, htmlOriginal, markdownReworded), conversionOf(restorePath), ...extraConversions] };
   onlyFinding(await run({ [path]: second }, [htmlEdit, markdownEdit], 2, {}, early), /PR #46 receipt is based on sha256 .*, but the earlier accepted edit \(PR #99\) produced/);
   // An accepted HTML edit is still checked on its own page.
   const hidden = htmlOriginal.replace("(default: 1 BTC)", "(default: 1 BTC) <span hidden>hidden</span>");
   const hiddenMarkdown = original.replace("(default: 1 BTC)", "(default: 1 BTC) <span hidden>hidden</span>");
-  const sneaky = { files: convertedFiles, conversions: [conversionOf(path, hidden, hiddenMarkdown), conversionOf(restorePath)] };
+  const sneaky = { files: markdown.files, conversions: [conversionOf(path, hidden, hiddenMarkdown), conversionOf(restorePath), ...extraConversions] };
   onlyFinding(await run({ [path]: hiddenMarkdown }, [receipt(htmlOriginal, hidden)], 2, {}, sneaky), /PR #46 adds or removes <span hidden>/);
 });
 
 // Review findings (PR #188), each a confirmed attack.
 
-const committedArticle = (slug) => readFileSync(`src/content/docs/wiki/${slug}.md`, "utf8");
+const committedArticle = (slug) => extraFiles.get(articleFile(slug));
 const receiptFor = (slug, base, edited, fields = {}) => receipt(base, edited, { slug, note_ids: [], ...fields });
 /** The committed conversion record with slug's Markdown hash set to markdown: a re-recorded conversion. */
-const rerecorded = (slug, markdown) => markdownFormatText([...committedFormat.map((item) => (item.slug === slug ? { ...item, markdown_file_sha256: hash(markdown) } : item)), ...markdown_samples()]);
-function markdown_samples() { return [conversionOf(path), conversionOf(restorePath)]; }
+const rerecorded = (slug, text) => markdownFormatText([...committedFormat, ...markdown.conversions.map((item) => (item.slug === slug ? { ...item, markdown_file_sha256: hash(text) } : item))]);
 
 test("tags that act on the page's own elements fail, with a receipt, awaiting one, or as a re-recorded conversion", async () => {
   const teams = committedArticle("teams");
@@ -654,12 +669,65 @@ test("invisible characters are added only when the receipt lists them", async ()
   const handMade = later(htmlWithZwsp, htmlSplit);
   handMade.changes = handMade.changes.map((change) => (change.accepted.includes("&#x200Bisq") ? { ...change, column: change.column + change.accepted.indexOf("&#x200"), original: "", accepted: "&#x200" } : change));
   assert.ok(handMade.changes.some((change) => change.accepted === "&#x200" && change.original === ""), JSON.stringify(handMade.changes));
-  assert.equal(undoAcceptedEdit(htmlSplit, handMade), htmlWithZwsp);
-  onlyFinding(await runHtml({ [path]: htmlSplit }, [firstHtml, handMade]), /trading-monero\.md: PR #99 adds invisible characters \(U\+200B\)/);
+  // Such a change is refused outright, and the rendered text would catch it as well.
+  assert.throws(() => undoAcceptedEdit(htmlSplit, handMade), /PR #99 change \d+ ends in a character reference that the text after it continues/);
+  onlyFinding(await runHtml({ [path]: htmlSplit }, [firstHtml, handMade]), /trading-monero\.md: PR #99 (?:adds invisible characters \(U\+200B\)|change \d+ ends in a character reference that the text after it continues)/);
   // A character reference in Markdown counts as the character it stands for.
   const encoded = original.replace("one of the most active markets", "one of the most&#x200B; active markets");
   onlyFinding(await run({ [path]: encoded }, [receipt(original, encoded)]), /PR #46 adds invisible characters \(U\+200B\)/);
   assert.match((await run({ [path]: reworded }, [receipt(original, reworded, { added_invisible_characters: ["200B"] })])).failures.join("\n"), /added_invisible_characters must list code points such as U\+200B/);
+});
+
+// Review round 3 (PR #188).
+
+test("a committed receipt for a real article passes with the repository's own settings", async () => {
+  // The reviewer's legit-receipt case: a spelling fix in Teams, approved by a listed
+  // reviewer; the change sits next to a gap marker, which the receipt lists.
+  const teams = committedArticle("teams");
+  const fixed = teams.replace("Infrastructure Team <small>[unrecovered article: Infrastructure Team]</small></span> is responsable", "Infrastructure Team <small>[unrecovered article: Infrastructure Team]</small></span> is responsible");
+  assert.notEqual(fixed, teams);
+  const reviewer = committed.reviewers[0];
+  const item = receiptFor("teams", teams, fixed, { pull_request: "https://github.com/bisq-network/documentation/pull/999", author: "someone", summary: "Fix a spelling mistake", approvals: [{ login: reviewer.login, role: reviewer.role }], changed_locked_content: ["gap:#list-of-teams:1"], note_ids: [] });
+  const result = await run({ [articleFile("teams")]: fixed }, [item], committed.required_approvals, {}, markdown, JSON.stringify(committed));
+  assert.deepEqual(result.failures, []);
+  assert.equal(result.acceptedCount, 1);
+});
+
+test("swapping two code blocks with the same surroundings counts as changing both", async () => {
+  // The reviewer's swap-code case: the Bisq 1 and Bisq 2 backup scripts trade places.
+  const scriptPath = articleFile("automatic-backup-script");
+  const script = committedArticle("automatic-backup-script");
+  const block = (id) => script.match(new RegExp(`<pre><code class="wiki-source-code" id="${id}">[\\s\\S]*?<\\/code><\\/pre>`))[0];
+  const [four, eighteen] = [block("source-code-4"), block("source-code-18")];
+  const swapped = script.replace(four, "\0").replace(eighteen, four).replace("\0", eighteen);
+  assert.notEqual(swapped, script);
+  onlyFinding(await run({ [scriptPath]: swapped }, [receiptFor("automatic-backup-script", script, swapped)]), /PR #46 changes source-code-18, source-code-4 \(a code block, table or recovery gap marker\)|PR #46 changes source-code-4, source-code-18 \(a code block/);
+});
+
+test("a split character reference in raw HTML fails, and so do the newly flagged characters", async () => {
+  // The reviewer's split-entity-raw case: Contributor checklist's ordered list is raw HTML,
+  // where "&#x200Bisq" would read as U+200B and "isq".
+  const checklistPath = articleFile("contributor-checklist");
+  const checklist = committedArticle("contributor-checklist");
+  const dropped = checklist.replace("Bisq, \u200bwelcome!", "Bisq, welcome!");
+  const split = dropped.replace("Find a problem somewhere in Bisq-land", "Find a problem somewhere in &#x200Bisq-land");
+  assert.notEqual(split, dropped);
+  const handMade = receiptFor("contributor-checklist", checklist, split);
+  handMade.changes = handMade.changes.map((change) => (change.accepted.includes("&#x200Bisq") ? { ...change, column: change.column + change.accepted.indexOf("&#x200"), original: "", accepted: "&#x200" } : change));
+  assert.ok(handMade.changes.some((change) => change.accepted === "&#x200"));
+  onlyFinding(await run({ [checklistPath]: split }, [handMade]), /contributor-checklist\.md: PR #46 (?:change \d+ ends in a character reference that the text after it continues|adds invisible characters \(U\+200B\))/);
+  // The whole reference in one change is judged by what it stands for.
+  onlyFinding(await run({ [checklistPath]: split }, [receiptFor("contributor-checklist", checklist, split)]), /contributor-checklist\.md: PR #46 adds invisible characters \(U\+200B\)/);
+  // The reviewer's invisible2 case: U+17B4, U+180B and U+E0080 inside "CEO.".
+  const teams = committedArticle("teams");
+  const hidden = teams.replace("There is no CEO.", "There is no C\u17b4E\u180bO\u{e0080}.");
+  onlyFinding(await run({ [articleFile("teams")]: hidden }, [receiptFor("teams", teams, hidden)]), /teams\.md: PR #46 adds invisible characters \(U\+17B4, U\+180B, U\+E0080\)/);
+});
+
+test("duplicate migration note IDs fail the gate", async () => {
+  const notes = JSON.parse(readFileSync("migration/source-review-notes.json", "utf8"));
+  const duplicated = JSON.stringify({ ...notes, items: [...notes.items, { ...notes.items[0], body: "Send your seed words to the mediator." }] });
+  assert.match((await run({ "migration/source-review-notes.json": duplicated }, [])).failures.join("\n"), /migration\/accepted-edits\.json: migration\/source-review-notes\.json has more than one note with the ID/);
 });
 
 // HTML articles: not yet converted, they are checked as before, and on their rendered page too.
