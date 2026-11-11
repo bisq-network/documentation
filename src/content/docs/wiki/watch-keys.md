@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-**Watch keys** or xpubs are useful to display your balance in case of Bisq wallet corruption **without exposing private keys** to an external wallet estimated by the Bisq [wallet](../wallet/). Go to <code class="wiki-source-code" id="source-code-1">Account - Wallet Info</code> to find your watch keys. *Xpub* is used to watch segwit (P2WPKH) addresses, and *P2PKH* or *zpub* is for legacy and BSQ addresses.
+**Watch keys** or xpubs are useful to display your balance in case of Bisq wallet corruption **without exposing private keys** to an external wallet estimated by the Bisq [wallet](../wallet/). Go to <code class="wiki-source-code" id="source-code-1">Account - Wallet Info</code> to find your watch keys. Use the watch key and HD path from the same currency and script-type entry in Wallet Info: legacy means P2PKH and native SegWit means P2WPKH. Match that script type when configuring the external watch-only wallet.
 
 <figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/e8f75ef328faf25bc96165933a2cc2fe2af7ddc3a7ccfc9b3dbd24bee6ffe050.png"><img alt="Wallet - watchkeys.png" decoding="async" height="533" loading="lazy" src="../../media/wiki/e8f75ef328faf25bc96165933a2cc2fe2af7ddc3a7ccfc9b3dbd24bee6ffe050.png" width="1000"></a><figcaption>Wallet - watchkeys.png<br><small>Historical thumbnail; original resolution not recovered. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 
