@@ -9,7 +9,7 @@ This site reproduces the Bisq wiki as it was recovered in October 2026. It is a 
 3. **Review.** A documentation reviewer reads the change and settles the final wording with its author.
 4. **Accept.** The reviewer [adds a receipt and approves](#review-and-accept-a-change). Both checks turn green.
 5. **Merge.** A maintainer [merges](#merge-and-publish) the pull request.
-6. **Publish.** A maintainer runs the deployment. Merging alone publishes nothing, and nothing unaccepted can be published: the deployment builds only `main`, and the build fails on any wording change without an approved receipt.
+6. **Publish.** A maintainer runs the deployment. Merging alone publishes nothing. GitHub lets a wording change reach `main` only with both checks green and a reviewer's approval, and the deployment builds only `main`. That build fails on any wording change that has no receipt.
 
 | Who | Does what |
 | --- | --- |
@@ -26,6 +26,7 @@ If you would rather not edit an article yourself, use the [Review an article](ht
 ### Edit an article in the browser
 
 1. **Open the article's file.** An article's address on the site ends in `/wiki/<name>/`, and its file is `src/content/docs/wiki/<name>.md`. This address opens the file in GitHub's editor: `https://github.com/bisq-network/documentation/edit/main/src/content/docs/wiki/<name>.md`, for example [the Wallet article](https://github.com/bisq-network/documentation/edit/main/src/content/docs/wiki/wallet.md). On the file's page, the pencil (**Edit this file**) does the same. If you cannot write to the repository, GitHub first offers to fork it: accept.
+   This works for every article except the three additional historical ones (Emergency Multisig payout tool, Bitcointalk Moderator, 在中国运行Bisq), which receipts do not cover. For those, use the issue form.
 2. **Change only the wording.** Text, links, bold and italic, paragraphs and list items can change. Leave the rest as it is: the lines between the two `---` at the top, the "On this page" list, each heading with its `{#id}`, the `<span class="wiki-legacy-anchor" …>` lines and the HTML of figures. The restored text writes apostrophes as `\'`; leave those, and type a plain `'` in new text. Tables, code blocks, image descriptions and captions can change as well, but the reviewer accepts each of them explicitly. A new section, image or article is more than a wording change: open an issue about it first. **Preview** shows the result.
 3. **Propose it.** Click **Commit changes…**. Reviewers and maintainers see "You can't commit to main because it is a protected branch": keep **Create a new branch for this commit and start a pull request** with GitHub's branch name (`<login>-patch-<n>`). Everyone else commits to their fork. Click **Propose changes**.
 4. **Open the pull request.** On the next page, click **Create pull request** and fill in the template:
