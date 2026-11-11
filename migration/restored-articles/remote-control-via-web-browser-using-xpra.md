@@ -1,0 +1,83 @@
+---
+title: "Remote control via web browser using xpra"
+slug: "wiki/remote-control-via-web-browser-using-xpra"
+tableOfContents: false
+---
+
+<nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#requirements">Requirements</a></li><li><a href="#installing-xpra">Installing xpra</a></li><li><a href="#installing-bisq-from-source">Installing Bisq from source</a></li><li><a href="#create-bisq-user">Create Bisq user</a></li><li><a href="#install-git-and-java">Install git and Java</a></li><li><a href="#prepare-paths-for-bisq">Prepare paths for Bisq</a></li><li><a href="#install-bisq">Install Bisq</a></li><li><a href="#use-bisq-remotely">Use Bisq remotely</a></li><li><a href="#tips">Tips</a></li></ul></details></nav>
+
+<div class="wiki-recovered-article" lang="en"><p>This guide will have you follow the steps needed to run Bisq on a headless server (could even be a VPS), running Linux (preferably Debian or one of its derivatives), and accessing it using a web browser as if you were in front of the application itself (tested with Firefox, should work with any other major alternative).</p>
+<span class="wiki-legacy-anchor" id="Requirements" aria-hidden="true"></span><h2 id="requirements"> Requirements </h2>
+<p>As a rule of thumb, at least 1GB of free RAM is needed, as are 2GB of disk space, on an amd64 architecture (no Raspberry Pi will work, nor old 32bit CPUs, while your average 64bit desktop CPU will run just fine).</p>
+<span class="wiki-legacy-anchor" id="Installing_xpra" aria-hidden="true"></span><h2 id="installing-xpra"> Installing xpra </h2>
+<p>As customary, update your system:</p>
+<pre><code class="wiki-source-code" id="source-code-1">
+sudo apt update
+sudo apt dist-upgrade
+</code></pre>
+<p>For good measure, add xpra repository</p>
+<pre><code class="wiki-source-code" id="source-code-2">sudo nano /etc/apt/sources.list</code></pre>
+<p>Add the following to bottom of file and then save with <strong>Ctrl-X</strong> followed by <strong>Y</strong></p>
+<pre><code class="wiki-source-code" id="source-code-3">deb https://xpra.org/ bullseye main # edit "bullseye" with your version if needed</code></pre>
+<p>Add xpra GPG key</p>
+<pre><code class="wiki-source-code" id="source-code-4">wget -q https://xpra.org/gpg.asc -O- | sudo apt-key add -</code></pre>
+<p>Refresh repositories</p>
+<pre><code class="wiki-source-code" id="source-code-5">sudo apt update</code></pre>
+<p>and install</p>
+<pre><code class="wiki-source-code" id="source-code-6">sudo apt install xpra</code></pre>
+<p>Verify</p>
+<pre><code class="wiki-source-code" id="source-code-7">xpra --version</code></pre>
+<span class="wiki-legacy-anchor" id="Installing_Bisq_from_source" aria-hidden="true"></span><h2 id="installing-bisq-from-source"> Installing Bisq from source </h2>
+<p>We are going to run Bisq on a headless system (no desktop environment) so installing the deb file will most likely not work. Since we are nerds and like to do things the hard way, we will get the source from github, and build the application ourselves.</p>
+<span class="wiki-legacy-anchor" id="Create_Bisq_user" aria-hidden="true"></span><h3 id="create-bisq-user"> Create Bisq user </h3>
+<p>If you deem it functional, add a user specifically for Bisq</p>
+<pre><code class="wiki-source-code" id="source-code-8">sudo adduser --gecos "" --disabled-password bisq</code></pre>
+<span class="wiki-legacy-anchor" id="Install_git_and_Java" aria-hidden="true"></span><h3 id="install-git-and-java"> Install git and Java </h3>
+<p>We will need the git package to clone Bisq repository, and Java so that Bisq will run</p>
+<pre><code class="wiki-source-code" id="source-code-9">sudo apt install default-jre default-jdk git</code></pre>
+<span class="wiki-legacy-anchor" id="Prepare_paths_for_Bisq" aria-hidden="true"></span><h3 id="prepare-paths-for-bisq"> Prepare paths for Bisq </h3>
+<p>Move in a folder where you want the <code class="wiki-source-code" id="source-code-10">bisq</code> application folder to reside, we will use the <code class="wiki-source-code" id="source-code-11">bisq</code> user as per the example above, and the custom <code class="wiki-source-code" id="source-code-12">myapps</code> subfolder of your home (you can place it direcly in home, or wherever you please where the running user has r/w access)</p>
+<pre><code class="wiki-source-code" id="source-code-13">
+sudo su - bisq
+mkdir -p myapps
+cd myapps
+</code></pre>
+<span class="wiki-legacy-anchor" id="Install_Bisq" aria-hidden="true"></span><h3 id="install-bisq"> Install Bisq </h3>
+<p>Clone the latest version repository and compile the source:</p>
+<pre><code class="wiki-source-code" id="source-code-14">
+git clone --branch release/v1.9.10 https://github.com/bisq-network/bisq # change 1.9.10 with current latest version
+cd bisq
+./gradlew build
+</code></pre>
+<span class="wiki-legacy-anchor" id="Use_Bisq_remotely" aria-hidden="true"></span><h2 id="use-bisq-remotely"> Use Bisq remotely </h2>
+<p>Now the fun begins, as you can run bisq through xpra:</p>
+<pre><code class="wiki-source-code" id="source-code-15">xpra start :100 --bind-tcp=0.0.0.0:9876 --html=on --start=/home/bisq/myapps/bisq/bisq-desktop</code></pre>
+<p>Then, from the browser on your local machine, go to <code class="wiki-source-code" id="source-code-16">remoteserverip:9876</code></p>
+<p>It will load into a GUI, where you should see your Bisq app barely showing in the bottom right corner; if that happens, click on the "images/windows" icon in the top floating menu, you should see a list of Bisq windows; press the "maximize" icon to show the windows on your screen, and then act accordingly. The same menu action might be needed when popups are shown, as in order to interact with buttons in said popups you sometimes have to manually focus on the popup via the floating menu.</p>
+<p>When you have to restart Bisq for any reason (for example to refresh tor files, to resync SPV or DAO state) you have to run, on the remote machine:</p>
+<pre><code class="wiki-source-code" id="source-code-17">
+xpra stop :100 # to stop the running xpra instance
+xpra stop :100 # once more, to REALLY stop the running xpra instance (sometimes it won't work with just one call, especially when restarting Bisq)
+xpra start :100 --bind-tcp=0.0.0.0:9876 --html=on --start=/home/bisq/myapps/bisq/bisq-desktop # to restart Bisq through xpra
+</code></pre>
+<p>This command will make you wait 20s as a timeout to fully close any existing xpra sessions, after which the application will be launched. You should make the above lines into an executable script, so you can just launch that and have it (re)start Bisq:</p>
+<pre><code class="wiki-source-code" id="source-code-18">
+cd /home/bisq
+nano bisqxpra
+# add the above lines in the file and then save with Ctrl-X and press Y
+chmod +x bisqxpra
+./bisqxpra #launch Bisq
+</code></pre>
+<span class="wiki-legacy-anchor" id="Tips" aria-hidden="true"></span><h2 id="tips"> Tips </h2>
+<p>When you want to restart Bisq, you could just execute the above script, but it would terminate Bisq in a potentially breaking way, so it's best to first log into the web interface, close Bisq using the window close button, and only then start the script.</p>
+<p>Want to use a custom data folder, just like you maybe used a custom application folder? Add the relevant parameter to the Bisq command:</p>
+<pre><code class="wiki-source-code" id="source-code-19">
+# make sure you leave the quotes in, to enclose the command to start as a single entity
+xpra start :100 --bind-tcp=0.0.0.0:9876 --html=on --start="/home/bisq/myapps/bisq/bisq-desktop --appData=/home/bisq/myapps/bisq-data"
+</code></pre>
+<p>Want to add password authentication, so the Bisq instance isn't accessible to just anyone finding its port on the local network?</p>
+<pre><code class="wiki-source-code" id="source-code-20">
+# replace password123 with your password, no need for advanced security as anyone able to access your remote server to see this, will have also access to Bisq anyway
+xpra start :100 --bind-tcp=0.0.0.0:9876,auth=password:value=password123 --html=on --start="/home/bisq/myapps/bisq/bisq-desktop --appData=/home/bisq/myapps/bisq-data"
+</code></pre>
+</div>
