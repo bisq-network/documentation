@@ -3,9 +3,10 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 // Receipts for human-approved wording changes to restored articles. Each
-// receipt records the exact text it replaced, so the fidelity gate can rebuild
-// the preserved original from the edited file and keep checking it byte for
-// byte. See CONTRIBUTING.md ("Accepted editorial changes").
+// receipt records the exact text it replaced (Markdown, or HTML in an article not
+// converted yet), so the fidelity gate can rebuild the file it was based on from
+// the edited file, back to the converted Markdown or the preserved original, and
+// keep checking it byte for byte. See CONTRIBUTING.md ("Accepted editorial changes").
 //
 // migration/accepted-edits.json holds the settings: how many approvals a receipt
 // needs and who may give them. Each receipt is its own file in
@@ -267,6 +268,43 @@ export function undoAcceptedEdit(text, receipt) {
     throw new Error(`${pr} recorded changes do not rebuild the file it was based on (got sha256 ${base.slice(0, 12)}…, expected ${receipt.based_on_file_sha256.slice(0, 12)}…)`);
   }
   return restored;
+}
+
+/**
+ * Apply one receipt to the file it was based on: the inverse of undoAcceptedEdit.
+ * Check the base is exactly what the receipt was based on, put every recorded
+ * accepted text in place of its original (line and column refer to the accepted
+ * file, as in undoAcceptedEdit), and check the result is exactly the accepted file.
+ * The fidelity gate uses it to rebuild an accepted HTML edit that was later
+ * converted to Markdown. Throws a message naming the pull request on mismatch.
+ */
+export function applyAcceptedEdit(base, receipt) {
+  const pr = pullRequestLabel(receipt.pull_request);
+  if (hash(base) !== receipt.based_on_file_sha256) {
+    throw new Error(`${pr} receipt is based on sha256 ${receipt.based_on_file_sha256.slice(0, 12)}…, not on this file (sha256 ${hash(base).slice(0, 12)}…)`);
+  }
+  let accepted = "";
+  let position = 0;
+  let line = 1;
+  let column = 1;
+  const advance = (text) => {
+    accepted += text;
+    for (const character of text) {
+      if (character === "\n") { line += 1; column = 1; } else column += character.length;
+    }
+  };
+  receipt.changes.forEach((change, index) => {
+    while ((line < change.line || (line === change.line && column < change.column)) && position < base.length) advance(base[position++]);
+    if (line !== change.line || column !== change.column) throw new Error(`${pr} change ${index + 1} points outside the file or out of order (line ${change.line}, column ${change.column})`);
+    if (!base.startsWith(change.original, position)) throw new Error(`${pr} change ${index + 1} does not match the file it was based on at line ${change.line}, column ${change.column}`);
+    advance(change.accepted);
+    position += change.original.length;
+  });
+  advance(base.slice(position));
+  if (hash(accepted) !== receipt.accepted_file_sha256) {
+    throw new Error(`${pr} recorded changes do not build the accepted file (got sha256 ${hash(accepted).slice(0, 12)}…, expected ${receipt.accepted_file_sha256.slice(0, 12)}…)`);
+  }
+  return accepted;
 }
 
 const tokens = (value) => value.match(/<[^>]*>|&[#\w]+;|\w+|\s+|[^\w\s<&]+|[<&]/g) ?? [];
