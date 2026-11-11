@@ -5,12 +5,17 @@ import { immutableChanges, immutableMaterialsMessage, nulSeparated } from "./lib
 // The check job, on pull requests: fail when the pull request changes a preserved
 // restoration material (see scripts/lib/immutable-materials.mjs) compared with its
 // base. Renames count as a removal plus an addition, so moving a file is caught.
+// A material the base does not have yet (the pull request that introduces it and adds
+// it to the list) does not count; from then on it never changes.
 //
 //   node scripts/check-immutable-materials.mjs [<base> [<head>]]   (default HEAD^1 HEAD)
 const [base = "HEAD^1", head = "HEAD"] = process.argv.slice(2);
 try {
-  const paths = nulSeparated(execFileSync("git", ["diff", "--name-only", "--no-renames", "-z", base, head, "--"], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 }));
-  const changed = immutableChanges(paths).map(oneLine);
+  const git = (args) => execFileSync("git", args, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+  const paths = nulSeparated(git(["diff", "--name-only", "--no-renames", "-z", base, head, "--"]));
+  // A material the base does not have at all is being introduced, not changed.
+  const inBase = (entry) => nulSeparated(git(["ls-tree", "-r", "--name-only", "-z", base, "--", entry.replace(/\/$/, "")])).length > 0;
+  const changed = immutableChanges(paths, inBase).map(oneLine);
   if (changed.length) {
     const [first, ...rest] = immutableMaterialsMessage(changed);
     console.log(annotation("error", { title: "Preserved restoration materials changed" }, first));

@@ -3,17 +3,28 @@
 // in the restoration manifest would otherwise pass every offline check. The
 // check job compares each pull request with its base (scripts/check-immutable-materials.mjs).
 // A deliberate new intake needs its own pull request that also changes this list.
+// migration/restored-articles/ holds the restored HTML articles as they were before
+// their conversion to Markdown; every article's chain starts there.
 export const immutableMaterials = [
   "migration/restoration-fidelity.json",
   "migration/additional-articles.json",
+  "migration/restored-articles/",
   "public/wiki-source/",
   "public/media/",
   "review/ai-edited/",
 ];
 
-/** Paths (repository-relative, as git prints them) that touch an immutable material. */
-export function immutableChanges(paths) {
-  return paths.filter((path) => immutableMaterials.some((entry) => (entry.endsWith("/") ? path.startsWith(entry) || path === entry.slice(0, -1) : path === entry)));
+const touches = (entry, path) => (entry.endsWith("/") ? path.startsWith(entry) || path === entry.slice(0, -1) : path === entry);
+
+/**
+ * Paths (repository-relative, as git prints them) that touch an immutable material.
+ * inBase(entry) tells whether the base has the material at all: a material the base
+ * does not have yet is being added (the pull request that adds it to the list), so
+ * its paths do not count. Without inBase every material counts as present.
+ */
+export function immutableChanges(paths, inBase = () => true) {
+  const present = new Map(immutableMaterials.map((entry) => [entry, inBase(entry)]));
+  return paths.filter((path) => immutableMaterials.some((entry) => present.get(entry) && touches(entry, path)));
 }
 
 /** Split `git diff --name-only -z` output into paths. */
@@ -24,7 +35,7 @@ export function immutableMaterialsMessage(changed) {
   return [
     `This pull request changes ${changed.length === 1 ? "a preserved restoration material" : `${changed.length} preserved restoration materials`}. These never change in a pull request:`,
     ...changed.map((path) => `- ${path}`),
-    "These are the originals the fidelity gate checks against: the restoration manifest, the additional-article records, raw wiki sources, media and the AI-edited snapshots.",
+    "These are the originals the fidelity gate checks against: the restoration manifest, the additional-article records, the restored articles as they were before their Markdown conversion, raw wiki sources, media and the AI-edited snapshots.",
     "Accepted wording goes through a receipt in migration/accepted-edits/ (CONTRIBUTING.md#accepted-editorial-changes).",
     "A deliberate new intake needs its own pull request that also changes this guard (scripts/lib/immutable-materials.mjs).",
   ];
