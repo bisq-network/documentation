@@ -24,7 +24,7 @@ From a user\'s perspective, the process is rather seamless. No special payment a
 As long as the offer maker has enough of what they want to trade in their wallet (either BTC or BSQ), the offer will be live and visible on the network. If the relevant wallet balance ever goes below the amount required to complete the swap, the swap offer automatically deactivates.
 
 - if a user creates a swap offer to sell 1000 BSQ, the offer will remain live as long as their BSQ wallet has more than 1000 BSQ
-- if a user creates a swap offer to buy 0.5 BTC, the offer will remain live as long as their Bisq BTC wallet has more than 0.5 BTC
+- if a user creates a swap offer to buy 0.5 BTC, they need sufficient verified BSQ in their Bisq BSQ wallet to cover the trade and applicable buyer fee
 
 Offers can still be activated or deactivated manually in <code class="wiki-source-code" id="source-code-1">Portfolio</code> > <code class="wiki-source-code" id="source-code-2">My Open Offers</code> as usual.
 
