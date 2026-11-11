@@ -1,11 +1,19 @@
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 // Receipts for human-approved wording changes to restored articles. Each
-// receipt records the exact text it replaced, so the fidelity gate can rebuild
-// the preserved original from the edited file and keep checking it byte for
-// byte. See CONTRIBUTING.md ("Accepted editorial changes").
+// receipt records the exact text it replaced (Markdown, or HTML in an article not
+// converted yet), so the fidelity gate can rebuild the file it was based on from
+// the edited file, back to the converted Markdown or the preserved original, and
+// keep checking it byte for byte. See CONTRIBUTING.md ("Accepted editorial changes").
+//
+// migration/accepted-edits.json holds the settings: how many approvals a receipt
+// needs and who may give them. Each receipt is its own file in
+// migration/accepted-edits/, named <slug>.pr-<number>.json, so pull requests
+// that add receipts for different articles never conflict.
 export const acceptedEditsPath = "migration/accepted-edits.json";
+export const receiptsDir = "migration/accepted-edits";
 
 const hash = (value) => createHash("sha256").update(value).digest("hex");
 const sha256 = /^[a-f0-9]{64}$/;
@@ -16,9 +24,14 @@ const pullRequestUrl = /^https:\/\/github\.com\/(?:hiciefte\/bisq-docs|bisq-netw
 const endorsement = /\b(?:verified|official|approved|endorsed|certified|guaranteed)\b/i;
 const calendarDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value) && new Date(`${value}T00:00:00Z`).toISOString().slice(0, 10) === value;
 const figureId = /^source-image-\d+$/;
+const lockedKey = /^(?:source-code-\d+|(?:pre|table|gap):(?:top|#\S+):\d+)$/;
+const codePoint = /^U\+(?:[0-9A-F]{4,5}|10[0-9A-F]{4})$/;
 
 /** "PR #46" for messages and page labels. */
 export const pullRequestLabel = (url) => `PR #${url.split("/").pop()}`;
+
+/** Where the receipt for this article and pull request lives. */
+export const receiptPath = (item) => `${receiptsDir}/${item?.slug}.pr-${String(item?.pull_request ?? "").split("/").pop()}.json`;
 
 function itemProblems(item, { slugs, notes }) {
   const problems = [];
@@ -48,6 +61,12 @@ function itemProblems(item, { slugs, notes }) {
   need(Array.isArray(item.evidence) && item.evidence.every((url) => /^https:\/\/\S+$/.test(url)), "evidence must be a list of https links");
   const images = item.changed_image_alt_text ?? [];
   need(Array.isArray(images) && images.every((id) => figureId.test(id)), "changed_image_alt_text must list figure ids such as source-image-1");
+  const captions = item.changed_figure_captions ?? [];
+  need(Array.isArray(captions) && captions.every((id) => figureId.test(id)), "changed_figure_captions must list figure ids such as source-image-1");
+  const locked = item.changed_locked_content ?? [];
+  need(Array.isArray(locked) && locked.every((key) => lockedKey.test(key)), "changed_locked_content must list code blocks, tables and gap markers such as source-code-3, table:#limits:1 or gap:top:2");
+  const invisible = item.added_invisible_characters ?? [];
+  need(Array.isArray(invisible) && invisible.every((character) => codePoint.test(character)), "added_invisible_characters must list code points such as U+200B");
   const changes = Array.isArray(item.changes) ? item.changes : [];
   need(changes.length > 0, "changes must list the replaced text");
   for (const change of changes) {
@@ -57,39 +76,182 @@ function itemProblems(item, { slugs, notes }) {
   return problems;
 }
 
+/** The reviewers listed in the settings: [{ login, role }]. Throws when the list is unusable. */
+export function parseReviewers(reviewers) {
+  if (!Array.isArray(reviewers) || !reviewers.length) throw new Error("reviewers must list at least one { login, role }");
+  for (const reviewer of reviewers) {
+    if (!githubLogin.test(reviewer?.login ?? "")) throw new Error(`reviewer login ${JSON.stringify(reviewer?.login)} must be a plain GitHub login (no @)`);
+    if (typeof reviewer?.role !== "string" || !reviewer.role.trim()) throw new Error(`reviewer ${reviewer.login} has no role`);
+  }
+  const logins = reviewers.map((reviewer) => reviewer.login.toLowerCase());
+  if (new Set(logins).size !== logins.length) throw new Error("a reviewer is listed twice");
+  return reviewers;
+}
+
 /**
- * Validate the receipts file. Returns the required approval count, valid
- * receipts grouped per article in file order, and one problem string per
- * invalid receipt. An invalid receipt is never used.
+ * Order one article's receipts so each is based on the file the previous one
+ * accepted. When they do not form one chain, fall back to date and pull
+ * request order; the fidelity gate then reports the receipt that does not fit.
  */
-export function parseAcceptedEdits(data, { slugs, notes }) {
-  if (data?.schema_version !== 1) throw new Error("unsupported accepted-edits schema (expected schema_version 1)");
-  const required = data.required_approvals;
+function chained(items) {
+  const accepted = new Set(items.map((item) => item.accepted_file_sha256));
+  const starts = items.filter((item) => !accepted.has(item.based_on_file_sha256));
+  if (starts.length === 1) {
+    const order = [starts[0]];
+    for (;;) {
+      const next = items.filter((item) => item.based_on_file_sha256 === order.at(-1).accepted_file_sha256);
+      if (next.length !== 1 || order.includes(next[0])) break;
+      order.push(next[0]);
+    }
+    if (order.length === items.length) return order;
+  }
+  const number = (item) => Number(item.pull_request.split("/").pop());
+  return [...items].sort((a, b) => a.accepted_on.localeCompare(b.accepted_on) || number(a) - number(b));
+}
+
+/**
+ * Validate the settings and receipt files ([{ path, text }]). Returns the
+ * required approval count, the reviewers, valid receipts grouped per article in
+ * chain order (oldest first), and one problem string per invalid receipt file.
+ * An invalid receipt is never used. Settings problems throw.
+ */
+export function parseAcceptedEdits(settings, files, { slugs, notes }) {
+  if (settings?.schema_version !== 2) throw new Error("unsupported accepted-edits settings (expected schema_version 2)");
+  if ("items" in settings) throw new Error(`receipts are files in ${receiptsDir}/, one per article and pull request, not items in the settings`);
+  const required = settings.required_approvals;
   if (!Number.isSafeInteger(required) || required < 1) throw new Error("required_approvals must be a whole number of at least 1");
-  if (!Array.isArray(data.items)) throw new Error("items must be a list");
+  const reviewers = parseReviewers(settings.reviewers);
+  const noteIds = notes.map((note) => note.id);
+  const duplicate = noteIds.find((id, index) => noteIds.indexOf(id) !== index);
+  if (duplicate !== undefined) throw new Error(`migration/source-review-notes.json has more than one note with the ID ${JSON.stringify(duplicate)}; note IDs are unique`);
   const noteMap = new Map(notes.map((note) => [note.id, note]));
-  const bySlug = new Map();
+  const valid = [];
   const problems = [];
-  const seen = new Set();
-  data.items.forEach((item, index) => {
-    const label = `receipt ${index + 1} (${item?.slug ?? "no slug"}, ${item?.pull_request ? pullRequestLabel(item.pull_request) : "no pull request"})`;
-    const found = itemProblems(item ?? {}, { slugs, notes: noteMap });
-    const key = `${item?.slug}\0${item?.pull_request}`;
-    if (seen.has(key)) found.push("duplicate receipt for the same article and pull request");
-    seen.add(key);
-    const approvals = Array.isArray(item?.approvals) ? item.approvals.length : 0;
+  for (const { path, text } of [...files].sort((a, b) => a.path.localeCompare(b.path))) {
+    let item;
+    try { item = JSON.parse(text); } catch { problems.push(`${path}: is not valid JSON`); continue; }
+    if (!item || typeof item !== "object" || Array.isArray(item)) { problems.push(`${path}: must hold one receipt object`); continue; }
+    const found = itemProblems(item, { slugs, notes: noteMap });
+    if (path !== receiptPath(item)) found.push(`the file name must be ${receiptPath(item).slice(receiptsDir.length + 1)}: the article slug and the pull request number`);
+    const approvals = Array.isArray(item.approvals) ? item.approvals.length : 0;
     if (approvals < required) found.push(`${approvals} recorded approval${approvals === 1 ? "" : "s"}; required_approvals is ${required}`);
-    if (found.length) { problems.push(`${label}: ${found.join("; ")}`); return; }
-    bySlug.set(item.slug, [...(bySlug.get(item.slug) ?? []), item]);
-  });
-  return { required, bySlug, problems };
+    if (found.length) { problems.push(`${path}: ${found.join("; ")}`); continue; }
+    valid.push(item);
+  }
+  const bySlug = new Map();
+  for (const item of valid) bySlug.set(item.slug, [...(bySlug.get(item.slug) ?? []), item]);
+  for (const [slug, items] of bySlug) bySlug.set(slug, chained(items));
+  return { required, reviewers, bySlug, problems };
+}
+
+/** Repository-relative paths of the receipt files below root, sorted. */
+export function receiptFilesIn(root = ".") {
+  const dir = resolve(root, receiptsDir);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir, { withFileTypes: true }).filter((entry) => entry.isFile()).map((entry) => `${receiptsDir}/${entry.name}`).sort();
+}
+
+/** The settings and receipt files of the checkout at root: { settings, files: [{ path, text }] }. */
+export function readAcceptedEdits(root = ".") {
+  return {
+    settings: JSON.parse(readFileSync(resolve(root, acceptedEditsPath), "utf8")),
+    files: receiptFilesIn(root).map((path) => ({ path, text: readFileSync(resolve(root, path), "utf8") })),
+  };
 }
 
 /** Read and validate the committed receipts (used by the site to label edited articles). */
-export function loadAcceptedEdits(read = (path) => readFileSync(path, "utf8")) {
+export function loadAcceptedEdits(root = ".") {
+  const read = (path) => readFileSync(resolve(root, path), "utf8");
   const articles = JSON.parse(read("migration/articles.json")).items;
   const notes = JSON.parse(read("migration/source-review-notes.json")).items;
-  return parseAcceptedEdits(JSON.parse(read(acceptedEditsPath)), { slugs: new Set(articles.map((article) => article.slug)), notes });
+  const { settings, files } = readAcceptedEdits(root);
+  return parseAcceptedEdits(settings, files, { slugs: new Set(articles.map((article) => article.slug)), notes });
+}
+
+const endorsementFree = (summary) => {
+  const line = String(summary ?? "").replace(/\s+/g, " ").trim().slice(0, 200);
+  return line && !endorsement.test(line) ? line : "Wording change; see the pull request.";
+};
+
+/**
+ * A receipt for the edit from base to accepted text. Used by
+ * scripts/record-accepted-edit.mjs and by the receipts job's "Add receipt"
+ * links; the gate never trusts it and verifies every recorded change.
+ */
+export function draftReceipt({ slug, pullRequest, author, summary, base, accepted, approvals = [], acceptedOn = new Date().toISOString().slice(0, 10), noteIds = [], evidence = [], changedImageAltText = [], changedFigureCaptions = [], changedLockedContent = [], addedInvisibleCharacters = [] }) {
+  return {
+    slug,
+    pull_request: pullRequest,
+    summary: endorsementFree(summary),
+    author,
+    based_on_file_sha256: hash(base),
+    accepted_file_sha256: hash(accepted),
+    accepted_on: acceptedOn,
+    approvals,
+    note_ids: noteIds,
+    evidence,
+    changed_image_alt_text: changedImageAltText,
+    changed_figure_captions: changedFigureCaptions,
+    changed_locked_content: changedLockedContent,
+    added_invisible_characters: addedInvisibleCharacters,
+    changes: describeEdit(base, accepted),
+  };
+}
+
+/** A receipt file's text. */
+export const receiptText = (item) => `${JSON.stringify(item, null, 2)}\n`;
+
+/**
+ * GitHub's new-file page on the pull request's branch, prefilled with the
+ * receipt. Undefined when the link would be longer than browsers and GitHub
+ * reliably accept; the receipt is then printed for copying instead.
+ */
+export function addReceiptLink({ server = "https://github.com", repository, branch, item, maxLength = 8000 }) {
+  // Also encode the characters encodeURIComponent keeps, so the URL cannot end a
+  // Markdown link early in the job summary.
+  const encode = (value) => encodeURIComponent(value).replace(/[!'()*]/g, (character) => `%${character.charCodeAt(0).toString(16).toUpperCase()}`);
+  const ref = String(branch).split("/").map(encode).join("/");
+  const url = `${server}/${repository}/new/${ref}?filename=${encode(receiptPath(item))}&value=${encode(receiptText(item))}`;
+  return url.length <= maxLength ? url : undefined;
+}
+
+/**
+ * Draft receipts for the articles a pull request changes without one: per
+ * article, one draft for each listed reviewer who may approve it (everyone but
+ * the pull request author), each with its "Add receipt" link. event is the
+ * workflow event; readBase and readHead return an article's base and proposed
+ * text by repository-relative path.
+ */
+export function receiptDrafts({ event, repository, server = "https://github.com", reviewers, awaiting, readBase, readHead, acceptedOn }) {
+  const pr = event?.pull_request;
+  if (!pr) return [];
+  const author = String(pr.user?.login ?? "");
+  const eligible = reviewers.filter((reviewer) => reviewer.login.toLowerCase() !== author.toLowerCase());
+  return awaiting.map((article) => {
+    const base = readBase(article.path);
+    const accepted = readHead(article.path);
+    return {
+      slug: article.slug,
+      drafts: eligible.map((reviewer) => {
+        const item = draftReceipt({
+          slug: article.slug,
+          pullRequest: `https://github.com/${repository}/pull/${pr.number}`,
+          author,
+          summary: pr.title,
+          base,
+          accepted,
+          approvals: [{ login: reviewer.login, role: reviewer.role }],
+          acceptedOn,
+          changedImageAltText: article.changedImageAltText ?? [],
+          changedFigureCaptions: article.changedFigureCaptions ?? [],
+          changedLockedContent: article.changedLockedContent ?? [],
+          addedInvisibleCharacters: article.addedInvisibleCharacters ?? [],
+        });
+        const url = pr.head?.ref ? addReceiptLink({ server, repository: pr.head.repo?.full_name ?? repository, branch: pr.head.ref, item }) : undefined;
+        return { reviewer: reviewer.login, item, url };
+      }),
+    };
+  });
 }
 
 /**
@@ -111,6 +273,11 @@ export function undoAcceptedEdit(text, receipt) {
     const start = lineStarts[change.line - 1] + change.column - 1;
     if (change.line > lineStarts.length || start > lineEnd) throw new Error(`${pr} change ${index + 1} points outside the file (line ${change.line}, column ${change.column})`);
     if (text.slice(start, start + change.accepted.length) !== change.accepted) throw new Error(`${pr} change ${index + 1} does not match the file at line ${change.line}, column ${change.column}`);
+    // A change that ends inside a character reference the following text completes
+    // ("&#x200" before "B") would hide what the reference stands for.
+    if (/&#?[0-9a-zA-Z]*$/.test(change.accepted) && /^[0-9a-zA-Z;]/.test(text.slice(start + change.accepted.length))) {
+      throw new Error(`${pr} change ${index + 1} ends in a character reference that the text after it continues; end the change after the whole reference`);
+    }
     return { ...change, start };
   });
   located.forEach((change, index) => {
@@ -123,6 +290,43 @@ export function undoAcceptedEdit(text, receipt) {
     throw new Error(`${pr} recorded changes do not rebuild the file it was based on (got sha256 ${base.slice(0, 12)}…, expected ${receipt.based_on_file_sha256.slice(0, 12)}…)`);
   }
   return restored;
+}
+
+/**
+ * Apply one receipt to the file it was based on: the inverse of undoAcceptedEdit.
+ * Check the base is exactly what the receipt was based on, put every recorded
+ * accepted text in place of its original (line and column refer to the accepted
+ * file, as in undoAcceptedEdit), and check the result is exactly the accepted file.
+ * The fidelity gate uses it to rebuild an accepted HTML edit that was later
+ * converted to Markdown. Throws a message naming the pull request on mismatch.
+ */
+export function applyAcceptedEdit(base, receipt) {
+  const pr = pullRequestLabel(receipt.pull_request);
+  if (hash(base) !== receipt.based_on_file_sha256) {
+    throw new Error(`${pr} receipt is based on sha256 ${receipt.based_on_file_sha256.slice(0, 12)}…, not on this file (sha256 ${hash(base).slice(0, 12)}…)`);
+  }
+  let accepted = "";
+  let position = 0;
+  let line = 1;
+  let column = 1;
+  const advance = (text) => {
+    accepted += text;
+    for (const character of text) {
+      if (character === "\n") { line += 1; column = 1; } else column += character.length;
+    }
+  };
+  receipt.changes.forEach((change, index) => {
+    while ((line < change.line || (line === change.line && column < change.column)) && position < base.length) advance(base[position++]);
+    if (line !== change.line || column !== change.column) throw new Error(`${pr} change ${index + 1} points outside the file or out of order (line ${change.line}, column ${change.column})`);
+    if (!base.startsWith(change.original, position)) throw new Error(`${pr} change ${index + 1} does not match the file it was based on at line ${change.line}, column ${change.column}`);
+    advance(change.accepted);
+    position += change.original.length;
+  });
+  advance(base.slice(position));
+  if (hash(accepted) !== receipt.accepted_file_sha256) {
+    throw new Error(`${pr} recorded changes do not build the accepted file (got sha256 ${hash(accepted).slice(0, 12)}…, expected ${receipt.accepted_file_sha256.slice(0, 12)}…)`);
+  }
+  return accepted;
 }
 
 const tokens = (value) => value.match(/<[^>]*>|&[#\w]+;|\w+|\s+|[^\w\s<&]+|[<&]/g) ?? [];
