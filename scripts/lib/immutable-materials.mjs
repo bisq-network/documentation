@@ -5,10 +5,15 @@
 // A deliberate new intake needs its own pull request that also changes this list.
 // migration/restored-articles/ holds the restored HTML articles as they were before
 // their conversion to Markdown; every article's chain starts there.
+// migration/markdown-format.json records which Markdown each article was converted
+// to. Changing it would let a pull request present an edited article as a fresh
+// conversion, which needs no receipt; a further conversion needs its own pull request
+// that also changes this list.
 export const immutableMaterials = [
   "migration/restoration-fidelity.json",
   "migration/additional-articles.json",
   "migration/restored-articles/",
+  "migration/markdown-format.json",
   "public/wiki-source/",
   "public/media/",
   "review/ai-edited/",
@@ -35,7 +40,7 @@ export function immutableMaterialsMessage(changed) {
   return [
     `This pull request changes ${changed.length === 1 ? "a preserved restoration material" : `${changed.length} preserved restoration materials`}. These never change in a pull request:`,
     ...changed.map((path) => `- ${path}`),
-    "These are the originals the fidelity gate checks against: the restoration manifest, the additional-article records, the restored articles as they were before their Markdown conversion, raw wiki sources, media and the AI-edited snapshots.",
+    "These are the originals the fidelity gate checks against: the restoration manifest, the additional-article records, the restored articles as they were before their Markdown conversion and the record of that conversion, raw wiki sources, media and the AI-edited snapshots.",
     "Accepted wording goes through a receipt in migration/accepted-edits/ (CONTRIBUTING.md#accepted-editorial-changes).",
     "A deliberate new intake needs its own pull request that also changes this guard (scripts/lib/immutable-materials.mjs).",
   ];

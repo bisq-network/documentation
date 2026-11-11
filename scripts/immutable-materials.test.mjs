@@ -14,14 +14,15 @@ test("changes to preserved restoration materials are found", () => {
     "public/media",
     "migration/restored-articles/foss.md",
     "migration/restored-articles",
+    "migration/markdown-format.json",
   ];
   assert.deepEqual(immutableChanges(protectedPaths), protectedPaths);
 });
 
 test("a material the base does not have yet may be added; once there, it never changes", () => {
-  const added = ["migration/restored-articles/foss.md", "migration/restored-articles/teams.md", "public/wiki-source/foss.wiki.txt"];
-  const newDirectory = (entry) => entry !== "migration/restored-articles/";
-  assert.deepEqual(immutableChanges(added, newDirectory), ["public/wiki-source/foss.wiki.txt"]);
+  const added = ["migration/restored-articles/foss.md", "migration/restored-articles/teams.md", "migration/markdown-format.json", "public/wiki-source/foss.wiki.txt"];
+  const newMaterials = (entry) => !["migration/restored-articles/", "migration/markdown-format.json"].includes(entry);
+  assert.deepEqual(immutableChanges(added, newMaterials), ["public/wiki-source/foss.wiki.txt"]);
   assert.deepEqual(immutableChanges(added, () => true), added);
 });
 
@@ -31,7 +32,7 @@ test("wording proposals, receipts, formatting records and look-alike paths are n
     "migration/accepted-edits.json",
     "migration/accepted-edits/foss.pr-1.json",
     "migration/source-formatting.json",
-    "migration/markdown-format.json",
+    "migration/markdown-format.json.orig",
     "migration/restored-articles-notes.md",
     "migration/source-review-notes.json",
     "migration/restoration-fidelity.json.orig",
