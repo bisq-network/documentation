@@ -6,4 +6,50 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details open><summary>On this page</summary><ul><li><a href="#issue">Issue</a></li><li><a href="#team">Team</a></li><li><a href="#duties">Duties</a></li><li><a href="#rights">Rights</a></li><li><a href="#bonding">Bonding</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p>The <strong>Proposals Maintainer</strong> reviews and triages issues in the <a href="https://github.com/bisq-network/proposals" rel="noopener noreferrer">proposals repository</a>.</p>&#10;<p>See <a href="../proposals/">Proposals</a> for a more complete description of the proposals process.</p>&#10;<span class="wiki-legacy-anchor" id="Issue" aria-hidden="true"></span><h2 id="issue"> Issue </h2>&#10;<a href="https://github.com/bisq-network/roles/issues/30" rel="noopener noreferrer">https://github.com/bisq-network/roles/issues/30</a>&#10;<span class="wiki-legacy-anchor" id="Team" aria-hidden="true"></span><h2 id="team"> Team </h2>&#10;<a href="https://github.com/orgs/bisq-network/teams/proposals-maintainers" rel="noopener noreferrer">@bisq-network/proposals-maintainers</a>&#10;<span class="wiki-legacy-anchor" id="Duties" aria-hidden="true"></span><h2 id="duties"> Duties </h2>&#10;<ul>&#10;<li>Enforce the <a href="../proposals/#processes"> proposals process</a>, triaging issues as appropriate</li>&#10;</ul>&#10;<ul>&#10;<li>Keep wiki pages about proposals processes and roles up-to-date</li>&#10;<li>Write a monthly report on the <a href="https://github.com/bisq-network/roles/issues/30" rel="noopener noreferrer">role issue</a></li>&#10;</ul>&#10;<span class="wiki-legacy-anchor" id="Rights" aria-hidden="true"></span><h2 id="rights"> Rights </h2>&#10;<ul>&#10;<li>Write access to the <a href="https://github.com/bisq-network/proposals" rel="noopener noreferrer">bisq-network/proposals</a> repository</li>&#10;</ul>&#10;<span class="wiki-legacy-anchor" id="Bonding" aria-hidden="true"></span><h2 id="bonding"> Bonding </h2>&#10;<p>Not required.</p>&#10;</div>
+<div class="wiki-recovered-article" lang="en">
+
+The **Proposals Maintainer** reviews and triages issues in the [proposals repository](https://github.com/bisq-network/proposals).
+
+See [Proposals](../proposals/) for a more complete description of the proposals process.
+
+<span class="wiki-legacy-anchor" id="Issue" aria-hidden="true">
+</span>
+
+## Issue {#issue}
+
+<a href="https://github.com/bisq-network/roles/issues/30" rel="noopener noreferrer">
+https://github.com/bisq-network/roles/issues/30</a>
+
+<span class="wiki-legacy-anchor" id="Team" aria-hidden="true">
+</span>
+
+## Team {#team}
+
+<a href="https://github.com/orgs/bisq-network/teams/proposals-maintainers" rel="noopener noreferrer">
+@bisq-network/proposals-maintainers</a>
+
+<span class="wiki-legacy-anchor" id="Duties" aria-hidden="true">
+</span>
+
+## Duties {#duties}
+
+- Enforce the [ proposals process](../proposals/#processes), triaging issues as appropriate
+
+* Keep wiki pages about proposals processes and roles up-to-date
+* Write a monthly report on the [role issue](https://github.com/bisq-network/roles/issues/30)
+
+<span class="wiki-legacy-anchor" id="Rights" aria-hidden="true">
+</span>
+
+## Rights {#rights}
+
+- Write access to the [bisq-network/proposals](https://github.com/bisq-network/proposals) repository
+
+<span class="wiki-legacy-anchor" id="Bonding" aria-hidden="true">
+</span>
+
+## Bonding {#bonding}
+
+Not required.
+
+</div>
