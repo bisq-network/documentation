@@ -22,9 +22,9 @@ Now you can trade. To sell BSQ follow these simple steps:
 
 6\. BSQ/BTC swap is now complete. Wait for blockchain confirmation.
 
-7\. Check that you have received BSQ in your wallet.
+7\. Check that you have received BTC in your wallet.
 
-BSQ/BTC swaps are **Atomic Swaps**. This means that they are either completed or not. They cannot be stuck or incomplete. They have no counterparty risk and require no **trusted third party** to be involved.
+BSQ/BTC swaps are **Atomic Swaps**. Both assets are exchanged in the same Bitcoin transaction, so one side cannot settle on its own. Broadcasting can fail and confirmation can be delayed; wait for the transaction\'s confirmation and check the received asset. The exchange does not require a trusted third party.
 
 - For more short guides see [Howto](../howto/). You can also find support on **[Matrix](https://bisq.chat)**.
 
