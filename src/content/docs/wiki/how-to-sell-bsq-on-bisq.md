@@ -4,17 +4,28 @@ slug: "wiki/how-to-sell-bsq-on-bisq"
 tableOfContents: false
 ---
 
-<div class="wiki-recovered-article" lang="en"><p>First download, install Bisq and create a backup (copy seed words - see <a href="../how-to-back-up-your-bisq-wallet-seed/">How to back up your Bisq wallet seed</a>).</p>
-<p>Now you can trade. To sell BSQ follow these simple steps:</p>
-<p>1. On <strong>Market</strong> tab select BSQ/BTC</p>
-<p>2. Click on <strong>SELL BSQ</strong></p>
-<p>3. Select an offer and click on <strong>TAKE OFFER</strong></p>
-<p>4. Review offer details including amount, price. Then click on <strong>TAKE OFFER TO BUY BTC</strong>.</p>
-<p>5. Click on <strong>CONFIRM TAKE OFFER</strong>.</p>
-<p>6. BSQ/BTC swap is now complete. Wait for blockchain confirmation.</p>
-<p>7. Check that you have received BTC in your wallet.</p>
-<p>BSQ/BTC swaps are <strong>Atomic Swaps</strong>. Both assets are exchanged in the same Bitcoin transaction, so one side cannot settle on its own. Broadcasting can fail and confirmation can be delayed; wait for the transaction's confirmation and check the received asset. The exchange does not require a trusted third party.</p>
-<ul>
-<li>For more short guides see <a href="../howto/">Howto</a>. You can also find support on <strong><a href="https://bisq.chat" rel="noopener noreferrer">Matrix</a></strong>.</li>
-</ul>
+<div class="wiki-recovered-article" lang="en">
+
+First download, install Bisq and create a backup (copy seed words - see [How to back up your Bisq wallet seed](../how-to-back-up-your-bisq-wallet-seed/)).
+
+Now you can trade. To sell BSQ follow these simple steps:
+
+1\. On **Market** tab select BSQ/BTC
+
+2\. Click on **SELL BSQ**
+
+3\. Select an offer and click on **TAKE OFFER**
+
+4\. Review offer details including amount, price. Then click on **TAKE OFFER TO BUY BTC**.
+
+5\. Click on **CONFIRM TAKE OFFER**.
+
+6\. BSQ/BTC swap is now complete. Wait for blockchain confirmation.
+
+7\. Check that you have received BTC in your wallet.
+
+BSQ/BTC swaps are **Atomic Swaps**. Both assets are exchanged in the same Bitcoin transaction, so one side cannot settle on its own. Broadcasting can fail and confirmation can be delayed; wait for the transaction\'s confirmation and check the received asset. The exchange does not require a trusted third party.
+
+- For more short guides see [Howto](../howto/). You can also find support on **[Matrix](https://bisq.chat)**.
+
 </div>

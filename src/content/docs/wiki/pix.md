@@ -6,64 +6,154 @@ tableOfContents: false
 
 <nav data-pagefind-ignore class="wiki-source-toc" aria-label="Article sections"><details><summary>On this page</summary><ul><li><a href="#what-countries-are-available-for-pix">What countries are available for Pix?</a></li><li><a href="#what-currencies-are-available-for-pix">What currencies are available for Pix?</a></li><li><a href="#what-is-the-maximum-trading-duration-for-pix">What is the maximum trading duration for Pix?</a></li><li><a href="#what-is-the-maximum-btc-limit-for-an-pix-trade">What is the maximum BTC limit for an Pix trade?</a></li><li><a href="#is-pix-a-payment-method-that-can-be-signed">Is Pix a payment method that can be signed?</a></li><li><a href="#how-do-i-set-up-a-pix-account">How do I set up a Pix account?</a></li><li><a href="#how-do-i-add-pix-as-a-payment-method-in-bisq">How do I add Pix as a payment method in Bisq?</a></li><li><a href="#how-do-i-buy-btc-with-my-pix-account">How do I buy BTC with my Pix account?</a></li><li><a href="#how-do-i-sell-btc-with-my-pix-account">How do I sell BTC with my Pix account?</a></li><li><a href="#are-there-any-limits-for-me-to-be-aware-of-when-using-my-pix-account">Are there any limits for me to be aware of when using my Pix account?</a></li><li><a href="#are-there-any-fees-for-me-to-be-aware-of-when-using-my-pix-account">Are there any fees for me to be aware of when using my Pix account?</a></li><li><a href="#how-does-dispute-resolution-when-trading-with-pix">How does dispute resolution when trading with Pix?</a></li></ul></details></nav>
 
-<div class="wiki-recovered-article" lang="en"><p><strong>Pix</strong> is a payment method added in Bisq <a href="https://github.com/bisq-network/bisq/pull/5741" rel="noopener noreferrer">v1.7.5</a></p>
-<p>Pix is a new method of transferring BRL available in Brazil established by the Brazilian Central Bank. The recipient only needs to share a phone number, e-mail or Social Security Number. The advantage over the National Bank Transfer payment method is that the PIX works 24 hours a day, 7 days a week and the transfer takes place in a few minutes.</p>
-<span class="wiki-legacy-anchor" id="What_countries_are_available_for_Pix?" aria-hidden="true"></span><h2 id="what-countries-are-available-for-pix"> What countries are available for Pix? </h2>
-<p>Pix is only available in Brazil.</p>
-<span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Pix?" aria-hidden="true"></span><h2 id="what-currencies-are-available-for-pix"> What currencies are available for Pix? </h2>
-<p>Pix only supports BRL.</p>
-<span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_Pix?" aria-hidden="true"></span><h2 id="what-is-the-maximum-trading-duration-for-pix"> What is the maximum trading duration for Pix? </h2>
-<p>The maximum trade time is 1 day. Generally Pix transfers will be completed within a few minutes.</p>
-<span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_Pix_trade?" aria-hidden="true"></span><h2 id="what-is-the-maximum-btc-limit-for-an-pix-trade"> What is the maximum BTC limit for an Pix trade? </h2>
-<p><span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span>.</p>
-<span class="wiki-legacy-anchor" id="Is_Pix_a_payment_method_that_can_be_signed?" aria-hidden="true"></span><h2 id="is-pix-a-payment-method-that-can-be-signed"> Is Pix a payment method that can be signed? </h2>
-<p>No, Pix accounts do not require signing.</p>
-<span class="wiki-legacy-anchor" id="How_do_I_set_up_a_Pix_account?" aria-hidden="true"></span><h2 id="how-do-i-set-up-a-pix-account"> How do I set up a Pix account? </h2>
-<p>Can be used with most Brazilian bank accounts.</p>
-<span class="wiki-legacy-anchor" id="How_do_I_add_Pix_as_a_payment_method_in_Bisq?" aria-hidden="true"></span><h2 id="how-do-i-add-pix-as-a-payment-method-in-bisq"> How do I add Pix as a payment method in Bisq? </h2>
-<p>It is easy to add your Pix <a href="../creating-a-payment-account/">acount</a> to Bisq.</p>
-<ol>
-<li>Go to the top menu in Bisq and select Account.</li>
-<li>Then select National Currency Accounts.</li>
-<li>Click add new account</li>
-<li>Select Pix</li>
-<li>Complete the details.</li>
-<li>Choose to use a custom account name this helps makes it easier for you to manage multiple payment methods in Bisq (this will be visible only to you, for example: Pix - BRL - Fulano de Tal)</li>
-<li>Click save new account</li>
-</ol>
-<p>If you have more than one Pix account you wish to add to Bisq you can create different accounts for each.</p>
-<p>Make sure all the details are correct when you add.</p>
-<aside class="wiki-admonition" role="note"><p><strong>Warning</strong></p><p>Please make sure to include your chosen Pix Key. There are four types of keys: CPF (Natural Persons Register) or CNPJ (National Registry of Legal Entities), e-mail address, telephone number or a random key generated by the system called a universally unique identifier (UUID). A different key must be used for each Pix account your have. Individuals can create up to five keys for each account they own.</p>
-<p>When trading on Bisq, BTC Buyers should use their Pix Keys as the payment description so that it is easy for the BTC Sellers to identify the payment as coming from themselves.</p>
+<div class="wiki-recovered-article" lang="en">
+
+**Pix** is a payment method added in Bisq [v1.7.5](https://github.com/bisq-network/bisq/pull/5741)
+
+Pix is a new method of transferring BRL available in Brazil established by the Brazilian Central Bank. The recipient only needs to share a phone number, e-mail or Social Security Number. The advantage over the National Bank Transfer payment method is that the PIX works 24 hours a day, 7 days a week and the transfer takes place in a few minutes.
+
+<span class="wiki-legacy-anchor" id="What_countries_are_available_for_Pix?" aria-hidden="true">
+</span>
+
+## What countries are available for Pix? {#what-countries-are-available-for-pix}
+
+Pix is only available in Brazil.
+
+<span class="wiki-legacy-anchor" id="What_currencies_are_available_for_Pix?" aria-hidden="true">
+</span>
+
+## What currencies are available for Pix? {#what-currencies-are-available-for-pix}
+
+Pix only supports BRL.
+
+<span class="wiki-legacy-anchor" id="What_is_the_maximum_trading_duration_for_Pix?" aria-hidden="true">
+</span>
+
+## What is the maximum trading duration for Pix? {#what-is-the-maximum-trading-duration-for-pix}
+
+The maximum trade time is 1 day. Generally Pix transfers will be completed within a few minutes.
+
+<span class="wiki-legacy-anchor" id="What_is_the_maximum_BTC_limit_for_an_Pix_trade?" aria-hidden="true">
+</span>
+
+## What is the maximum BTC limit for an Pix trade? {#what-is-the-maximum-btc-limit-for-an-pix-trade}
+
+<span class="wiki-template-gap" role="note"><strong>[Unresolved template: MaxTradeSizeBisq1]</strong> <code>{{MaxTradeSizeBisq1}}</code></span>.
+
+<span class="wiki-legacy-anchor" id="Is_Pix_a_payment_method_that_can_be_signed?" aria-hidden="true">
+</span>
+
+## Is Pix a payment method that can be signed? {#is-pix-a-payment-method-that-can-be-signed}
+
+No, Pix accounts do not require signing.
+
+<span class="wiki-legacy-anchor" id="How_do_I_set_up_a_Pix_account?" aria-hidden="true">
+</span>
+
+## How do I set up a Pix account? {#how-do-i-set-up-a-pix-account}
+
+Can be used with most Brazilian bank accounts.
+
+<span class="wiki-legacy-anchor" id="How_do_I_add_Pix_as_a_payment_method_in_Bisq?" aria-hidden="true">
+</span>
+
+## How do I add Pix as a payment method in Bisq? {#how-do-i-add-pix-as-a-payment-method-in-bisq}
+
+It is easy to add your Pix [acount](../creating-a-payment-account/) to Bisq.
+
+1. Go to the top menu in Bisq and select Account.
+2. Then select National Currency Accounts.
+3. Click add new account
+4. Select Pix
+5. Complete the details.
+6. Choose to use a custom account name this helps makes it easier for you to manage multiple payment methods in Bisq (this will be visible only to you, for example: Pix - BRL - Fulano de Tal)
+7. Click save new account
+
+If you have more than one Pix account you wish to add to Bisq you can create different accounts for each.
+
+Make sure all the details are correct when you add.
+
+<aside class="wiki-admonition" role="note">
+
+**Warning**
+
+Please make sure to include your chosen Pix Key. There are four types of keys: CPF (Natural Persons Register) or CNPJ (National Registry of Legal Entities), e-mail address, telephone number or a random key generated by the system called a universally unique identifier (UUID). A different key must be used for each Pix account your have. Individuals can create up to five keys for each account they own.
+
+When trading on Bisq, BTC Buyers should use their Pix Keys as the payment description so that it is easy for the BTC Sellers to identify the payment as coming from themselves.
+
 </aside>
-<span class="wiki-legacy-anchor" id="How_do_I_buy_BTC_with_my_Pix_account?" aria-hidden="true"></span><h2 id="how-do-i-buy-btc-with-my-pix-account"> How do I buy BTC with my Pix account? </h2>
-<p>You can buy BTC with Pix on Bisq in 2 waysː</p>
-<ol>
-<li>Make an offer to buy BTC on the BRL market.</li>
-<li>Take an offer to buy BTC on the BRL market.</li>
-</ol>
-<p>When the offer is confirmed Bisq will provide you with the BTC Sellers Pix details for you to complete the payment. You should send payment immediately and confirm you have done so in Bisq by clicking 'payment started'.</p>
-<p>If you have the option to include a payment reference please use your Pix Key. Otherwise just leave it blank and share your Pix Key in trader chat.</p>
-<p>Once the BTC Seller receives your payment they will confirm in Bisq and your security deposit and your purchased trade amount will be available in your wallet.</p>
-<aside class="wiki-admonition" role="note"><p><strong>Warning</strong></p><p>Please send payment only the Pix Key provided in the BTC Seller's Bisq account.</p>
-<p>Please use your Pix Key as the payment reference so that it is easy for the BTC Seller to identify the payment as coming from yourself.</p>
+
+<span class="wiki-legacy-anchor" id="How_do_I_buy_BTC_with_my_Pix_account?" aria-hidden="true">
+</span>
+
+## How do I buy BTC with my Pix account? {#how-do-i-buy-btc-with-my-pix-account}
+
+You can buy BTC with Pix on Bisq in 2 waysː
+
+1. Make an offer to buy BTC on the BRL market.
+2. Take an offer to buy BTC on the BRL market.
+
+When the offer is confirmed Bisq will provide you with the BTC Sellers Pix details for you to complete the payment. You should send payment immediately and confirm you have done so in Bisq by clicking \'payment started\'.
+
+If you have the option to include a payment reference please use your Pix Key. Otherwise just leave it blank and share your Pix Key in trader chat.
+
+Once the BTC Seller receives your payment they will confirm in Bisq and your security deposit and your purchased trade amount will be available in your wallet.
+
+<aside class="wiki-admonition" role="note">
+
+**Warning**
+
+Please send payment only the Pix Key provided in the BTC Seller\'s Bisq account.
+
+Please use your Pix Key as the payment reference so that it is easy for the BTC Seller to identify the payment as coming from yourself.
+
 </aside>
-<span class="wiki-legacy-anchor" id="How_do_I_sell_BTC_with_my_Pix_account?" aria-hidden="true"></span><h2 id="how-do-i-sell-btc-with-my-pix-account"> How do I sell BTC with my Pix account? </h2>
-<p>You can sell BTC with Pix on Bisq in 2 waysː</p>
-<ol>
-<li>Make an offer to sell BTC on the BRL market.</li>
-<li>Take an offer to sell BTC on the BRL market.</li>
-</ol>
-<p>When the offer is confirmed Bisq will provide with the BTC Buyer with your Pix details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking 'payment started'.</p>
-<p>Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.</p>
-<aside class="wiki-admonition" role="note"><p><strong>Warning</strong></p><p>Please checked that the payment received description matches the Pix Key provided in the BTC Buyer's Bisq account.</p>
+
+<span class="wiki-legacy-anchor" id="How_do_I_sell_BTC_with_my_Pix_account?" aria-hidden="true">
+</span>
+
+## How do I sell BTC with my Pix account? {#how-do-i-sell-btc-with-my-pix-account}
+
+You can sell BTC with Pix on Bisq in 2 waysː
+
+1. Make an offer to sell BTC on the BRL market.
+2. Take an offer to sell BTC on the BRL market.
+
+When the offer is confirmed Bisq will provide with the BTC Buyer with your Pix details for you to complete the payment. They should send payment at their first opportunity and confirm they have done so in Bisq by clicking \'payment started\'.
+
+Once you receive payment from the BTC Buyer you should confirm payment has been received in Bisq. One you have done this the BTC Buyer will receive their funds and you will receive your security deposit back.
+
+<aside class="wiki-admonition" role="note">
+
+**Warning**
+
+Please checked that the payment received description matches the Pix Key provided in the BTC Buyer\'s Bisq account.
+
 </aside>
-<span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_Pix_account?" aria-hidden="true"></span><h2 id="are-there-any-limits-for-me-to-be-aware-of-when-using-my-pix-account"> Are there any limits for me to be aware of when using my Pix account? </h2>
-<p>None.</p>
-<span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_Pix_account?" aria-hidden="true"></span><h2 id="are-there-any-fees-for-me-to-be-aware-of-when-using-my-pix-account"> Are there any fees for me to be aware of when using my Pix account? </h2>
-<p>It is generally free to send and receive Pix payments.</p>
-<span class="wiki-legacy-anchor" id="How_does_dispute_resolution_when_trading_with_Pix?" aria-hidden="true"></span><h2 id="how-does-dispute-resolution-when-trading-with-pix"> How does dispute resolution when trading with Pix? </h2>
-<p>If a dispute occurs the mediator may ask the buyer to send them information showing that they made the payment of the correct amount to the BTC Seller within the correct time frame.</p>
-<p>The mediator may ask the seller to send them information to prove their account details are correct, or in the case of the BTC Buyer making a payment late, or of the wrong amount.</p>
-<p>For more information see <span class="wiki-link-gap">dispute resolution <small>[unrecovered article: dispute resolution]</small></span>.</p>
+
+<span class="wiki-legacy-anchor" id="Are_there_any_limits_for_me_to_be_aware_of_when_using_my_Pix_account?" aria-hidden="true">
+</span>
+
+## Are there any limits for me to be aware of when using my Pix account? {#are-there-any-limits-for-me-to-be-aware-of-when-using-my-pix-account}
+
+None.
+
+<span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_Pix_account?" aria-hidden="true">
+</span>
+
+## Are there any fees for me to be aware of when using my Pix account? {#are-there-any-fees-for-me-to-be-aware-of-when-using-my-pix-account}
+
+It is generally free to send and receive Pix payments.
+
+<span class="wiki-legacy-anchor" id="How_does_dispute_resolution_when_trading_with_Pix?" aria-hidden="true">
+</span>
+
+## How does dispute resolution when trading with Pix? {#how-does-dispute-resolution-when-trading-with-pix}
+
+If a dispute occurs the mediator may ask the buyer to send them information showing that they made the payment of the correct amount to the BTC Seller within the correct time frame.
+
+The mediator may ask the seller to send them information to prove their account details are correct, or in the case of the BTC Buyer making a payment late, or of the wrong amount.
+
+For more information see <span class="wiki-link-gap">dispute resolution <small>[unrecovered article: dispute resolution]</small></span>.
+
 </div>
