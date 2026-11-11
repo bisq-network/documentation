@@ -8,7 +8,9 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-<p>Bisq is known to be a resource-hungry application, so some users may want to <strong>reduce memory usage</strong>.</p>
+Bisq is known to be a resource-hungry application, so some users may want to **reduce memory usage**.
+
+<p><code>-XX:MaxRAM</code> is an input to Java heap-sizing ergonomics, not a hard cap on the whole process's resident memory. Back up <code>Bisq.cfg</code> before editing; lowering memory settings can cause allocation failures, so restore the previous setting if startup or synchronization fails.</p>
 <span class="wiki-template-gap" role="note"><strong>[Unresolved template: Run_with_Java_options]</strong> <code>{{Run_with_Java_options|&lt;nowiki&gt;-XX:MaxRAM=4g&lt;/nowiki&gt;|Reduce Bisq's memory usage by setting a ceiling of 4GB}}</code></span>
 
 <span class="wiki-legacy-anchor" id="Persistent_setting_and_Windows_work-around" aria-hidden="true">
