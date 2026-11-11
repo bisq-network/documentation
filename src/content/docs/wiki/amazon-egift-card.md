@@ -86,7 +86,7 @@ Amazon eGift Cards are available in the following regions:
 
 | Country | Currency | Website |
 | --- | --- | --- |
-| Australia | AUS | [https://www.amazon.com.au](https://www.amazon.com.au) |
+| Australia | AUD | [https://www.amazon.com.au](https://www.amazon.com.au) |
 | Canada | CAD | [https://www.amazon.ca](https://www.amazon.ca) |
 | Europe | EUR | Multiple websites (.fr, .de, etc) |
 | United Kingdom | GBP | [https://www.amazon.co.uk](https://www.amazon.co.uk) |
