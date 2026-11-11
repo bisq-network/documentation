@@ -22,7 +22,8 @@ export function renderArchivedTemplates(html, base = "/", sourceSlug = "") {
   let unresolved = 0;
   const prefix = base.replace(/\/$/, "");
   const seen = new Map();
-  const content = html.replace(/<span class="wiki-template-gap" role="note"><strong>\[Unresolved template: ([^<]+)\]<\/strong> <code>([\s\S]*?)<\/code><\/span>/g, (original, name, encodedInvocation) => {
+  // The invocation is text only, so a match never reaches into another element.
+  const content = html.replace(/<span class="wiki-template-gap" role="note"><strong>\[Unresolved template: ([^<]+)\]<\/strong> <code>([^<]*)<\/code><\/span>/g, (original, name, encodedInvocation) => {
     const invocation = decode(encodedInvocation);
     const item = derived.get(invocation);
     if (!item || !item.articles.includes(sourceSlug)) { unresolved++; return original; }
