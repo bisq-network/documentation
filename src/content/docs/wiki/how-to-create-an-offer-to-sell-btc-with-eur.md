@@ -28,7 +28,7 @@ Creating an offer to sell BTC is a slower way to sell than simply taking an exis
 
 8\. When your offer is taken you will be notified. Wait for a blockchain confirmation for the trade contract to be confirmed.
 
-9\. Wait for the buyer to make the fiat payment. Confirm that you have received your EUR.
+9\. Wait for the buyer to make the fiat payment. Check your own bank/payment-provider account for the EUR receipt, amount and matching sender details. A screenshot or payment-started notification is not proof; resolve mismatches through mediation before confirming.
 
 10\. Confirm payment received and release BTC to buyer.
 
