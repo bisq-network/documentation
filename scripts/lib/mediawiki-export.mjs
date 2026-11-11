@@ -90,6 +90,7 @@ export async function* readMediaWikiExport(path, options = {}) {
     let buffer = "";
     let siteinfoDone = false;
     let sawRoot = false;
+    let scanFrom = 0;
     const notAnExport = () => new Error(`${path} is not a MediaWiki XML export (no <mediawiki> element). Decompress a .gz or .bz2 file first.`);
     for await (const chunk of createReadStream(path, { encoding: "utf8", highWaterMark: 1 << 20 })) {
         buffer += chunk;
@@ -107,10 +108,15 @@ export async function* readMediaWikiExport(path, options = {}) {
         }
         let start;
         while ((start = buffer.indexOf("<page>")) >= 0) {
-            const end = buffer.indexOf("</page>", start);
-            if (end < 0) break;
+            // A long page arrives over many chunks: search only the text not searched yet.
+            const end = buffer.indexOf("</page>", Math.max(start, scanFrom));
+            if (end < 0) {
+                scanFrom = Math.max(start, buffer.length - 6);
+                break;
+            }
             yield { page: parsePage(buffer.slice(start + 6, end), options) };
             buffer = buffer.slice(end + 7);
+            scanFrom = 0;
         }
         if (!buffer.includes("<page>") && buffer.length > 1 << 16) buffer = buffer.slice(-256);
     }
