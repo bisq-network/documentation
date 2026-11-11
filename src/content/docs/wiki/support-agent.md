@@ -128,7 +128,7 @@ Required data to request support from developers:
 - Add a short description in a plain text file of the problem/bug. Use BTC buyer/BTC seller if you refer to any trader. Ask user when the issue happened so its easier to find the issue in the logs.
 - Ask them if they have done anything non-standard or had past issues.
 - Add all available trade tx IDs of both traders as plain text to the report.
-- Get a screenshot of the trade details window (click on trade ID). Tell users to only blur out the payment account details but not the tx IDs or other data. There is no relevant privacy issue with exposing trade ID, tx IDs or onion address.
+- Get a screenshot of the trade details window (click on trade ID). Tell users to only blur out the payment account details but not the tx IDs or other data. Trade IDs, transaction IDs and onion addresses can reveal or link sensitive activity. Share only the details needed, through an agreed private channel with a verified recipient.
 - Add a screenshot from the mediators dispute details window. The contract as json data is not required initially and only needed if the dev requests it. The payment account data in the json file should be removed before handing over to a dev to protect traders privacy.
 - Get all log files from both users (at Account/Backup there is a button for opening the data dir) - its up to 11 files.
 - Put all logs from one user into a directory named buyer and seller
