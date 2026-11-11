@@ -39,7 +39,7 @@ Bitcoin transactions can either be confirmed, or not, so the deposit transaction
 
 A common strategy to accelerate a Bitcoin transaction is called Child Pays For Parent (CPFP), and consists of spending one of the outputs (child) of an unconfirmed transaction (parent) at a high fee, so those miners who want to collect said high fee, will necessarily have to confirm both child and parent transactions in the same block (and that\'s why child pays for parent).
 
-Calculating the fee you need to pay for the child, so the parent fee is bumped to the desired value, requires knowing the total size of all involved transactions, and absolute fees that are already on the table, but for practicality, let us say that if you want to double the effective fee rate of the parent, you need to use a fee that is 3 to 4 times more than the parent\'s original fee, and increasing this even more will further speed up the confirmation.
+Calculate the child fee from the total virtual size of the child and its unconfirmed ancestors, and their existing absolute fees: required child fee = target package fee rate × total package virtual size − existing ancestor fees. A fixed multiplier of the parent\'s fee is not reliable, and a higher fee does not guarantee confirmation; the transaction must also meet node and miner policy.
 
 CPFP can only be done by the owner of the unconfirmed UTXO that will act as a child, so when a deposit tx is stuck in mempool after Bisq wallet was funded at a low fee, these are the possible cases:
 
@@ -78,6 +78,6 @@ If you find yourself in one of the scenarios where you can apply the aforementio
 
 ## Fee-bumping a DPT {#fee-bumping-a-dpt}
 
-Same considerations apply to delayed payout transactions needed to start [arbitration](../arbitration/), but in this case it is always possible to [CPFP a DPT](../delayed-payout-transaction-pending-in-mempool-and-cpfp/).
+Same considerations apply to delayed payout transactions needed to start [arbitration](../arbitration/), but only a Burning Men recipient willing and able to spend a suitable, still-unspent output can [CPFP a DPT](../delayed-payout-transaction-pending-in-mempool-and-cpfp/).
 
 </div>
