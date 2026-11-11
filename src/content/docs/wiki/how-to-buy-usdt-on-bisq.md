@@ -4,4 +4,28 @@ slug: "wiki/how-to-buy-usdt-on-bisq"
 tableOfContents: false
 ---
 
-<div class="wiki-recovered-article" lang="en"><p>First download, install Bisq and create a backup (copy seed words - see <a href="../how-to-back-up-your-bisq-wallet-seed/">How to back up your Bisq wallet seed</a>).</p>&#10;<p>Make sure you have a USDT payment account set up. For example see <span class="wiki-link-gap">Set up a USDT payment account <small>[unrecovered article: Set up a USDT payment account]</small></span>.</p>&#10;<p>1. On <strong>Market</strong> tab select USDT-E -Tether USD (ERC20)</p>&#10;<p>2. Click on <strong>BUY USDT</strong>.</p>&#10;<p>3. Select an offer and click on <strong>TAKE OFFER</strong>.</p>&#10;<p>4. Review offer details including amount, price. Then click on <strong>NEXT STEP</strong>.</p>&#10;<p>5. Fund your trade (from Bisq wallet or external wallet).</p>&#10;<p>6. Click on <strong>CONFIRM TAKE OFFER</strong>.</p>&#10;<p>7. After 1 blockchain confirmation (~10 minutes) the seller will be prompted to initiate payment by sending USDT to your address.</p>&#10;<p>8. When you have received your USDT, click on "<strong>CONFIRM PAYMENT RECEIVED</strong>" to complete the trade.</p>&#10;<ul>&#10;<li>For more short guides see <a href="../howto/">Howto</a>. You can also find support on <strong><a href="https://bisq.chat" rel="noopener noreferrer">Matrix</a></strong>.</li>&#10;</ul>&#10;</div>
+<div class="wiki-recovered-article" lang="en">
+
+First download, install Bisq and create a backup (copy seed words - see [How to back up your Bisq wallet seed](../how-to-back-up-your-bisq-wallet-seed/)).
+
+Make sure you have a USDT payment account set up. For example see <span class="wiki-link-gap">Set up a USDT payment account <small>[unrecovered article: Set up a USDT payment account]</small></span>.
+
+1\. On **Market** tab select USDT-E -Tether USD (ERC20)
+
+2\. Click on **BUY USDT**.
+
+3\. Select an offer and click on **TAKE OFFER**.
+
+4\. Review offer details including amount, price. Then click on **NEXT STEP**.
+
+5\. Fund your trade (from Bisq wallet or external wallet).
+
+6\. Click on **CONFIRM TAKE OFFER**.
+
+7\. After 1 blockchain confirmation (\~10 minutes) the seller will be prompted to initiate payment by sending USDT to your address.
+
+8\. When you have received your USDT, click on \"**CONFIRM PAYMENT RECEIVED**\" to complete the trade.
+
+- For more short guides see [Howto](../howto/). You can also find support on **[Matrix](https://bisq.chat)**.
+
+</div>

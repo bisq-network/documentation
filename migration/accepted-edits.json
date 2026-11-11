@@ -1,6 +1,9 @@
 {
-  "schema_version": 1,
-  "description": "Receipts for human-approved wording changes to restored articles. Each item records one pull request's change to one article: the exact file it was based on, the accepted file, the replaced text, and who approved it. The fidelity check rebuilds the preserved original from these records. See CONTRIBUTING.md (Accepted editorial changes).",
-  "required_approvals": 2,
-  "items": []
+  "schema_version": 2,
+  "description": "Settings for receipts of human-approved wording changes to restored articles. Each receipt is its own file in migration/accepted-edits/, named <slug>.pr-<number>.json: the exact file it was based on, the accepted file, the replaced text, and who approved it. The fidelity check rebuilds the preserved original from these receipts. A receipt needs required_approvals approvals from the reviewers below, other than the author; the receipts check takes the reviewers from the pull request's base. See CONTRIBUTING.md (Accepted editorial changes).",
+  "required_approvals": 1,
+  "reviewers": [
+    { "login": "suddenwhipvapor", "role": "documentation reviewer" },
+    { "login": "pazza83", "role": "documentation reviewer" }
+  ]
 }
