@@ -45,7 +45,7 @@ We posit that a 60-day-old payment account should be safe (it seems highly unlik
 
 Cheating this mechanism would be difficult because a scammer cannot know a stolen account\'s information before stealing the account.
 
-Consequently, we use following trade limits:
+The original 2017 design used the following account-age schedule. In Bisq 1 v1.10.11, the current implementation instead applies signing-age restrictions to BTC buying with risk-sensitive methods; crypto trades, selling and methods outside that classification use the applicable method maximum:
 
 - Account age is 0-30 days: 25% of the payment method\'s maximum (e.g. 0.125 BTC if maximum is 0.5 BTC)
 - Account age is 30-60 days: 50% of the payment method\'s maximum (e.g. 0.25 BTC if maximum is 0.5 BTC)
