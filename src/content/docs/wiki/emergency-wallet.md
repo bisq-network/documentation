@@ -38,6 +38,6 @@ This tool allows you to send all funds to a BTC or BSQ address. It should be use
 
 ## Restore wallet from seed {#restore-wallet-from-seed}
 
-If the emergency wallet tool produces a transaction that fails to broadcast (you can see that at *Funds > Transactions*) you can import private keys to a [new Bisq instance](../switching-to-a-new-data-directory/) at *Accounts > Wallet Seed - Restore wallet from seed*. Importing seeds to an external wallet should be used only if this method fails, and is extremely recommended to report it to support.
+If the emergency wallet tool produces a transaction that fails to broadcast (you can see that at *Funds > Transactions*) you can restore your seed words and wallet date to a [new Bisq instance](../switching-to-a-new-data-directory/) at *Accounts > Wallet Seed - Restore wallet from seed*. Importing seeds to an external wallet should be used only if this method fails, and is extremely recommended to report it to support.
 
 </div>
