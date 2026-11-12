@@ -38,15 +38,15 @@ Seller\'s wanting to sell bitcoin on Bisq Easy should look to obtain a reputatio
 
 To make it easier for user\'s to compare the reputation scores of different traders, Bisq displays reputation scores as stars (0-5 stars).
 
-To achieve this users\' total reputation scores are compared to other scores in the network and ranked and normalized to a value between 0 and 1.
+In Bisq 2 v2.1.15, stars use fixed score bands rather than normalizing the user\'s score against other users.
 
-The user with the highest ranking will have a value of 5 stars. The user with the lowest ranking will have a value of 0 stars.
+A score of at least 100,000 gives 5 stars; a score below 1,200 gives 0 stars in v2.1.15. Intermediate scores use the fixed bands implemented by ReputationService.
 
-The user profiles only stay for 2 weeks in the network in case a user is not active. Thus their associated reputation will disappear with their profile if being inactive for 2 weeks. This has an impact on the relative reputation score of all other users. For instance if the user with the highest reputation is inactive and gets removed from the network the next user with the highest reputation will become the highest ranked with 5 star. Once a inactive user becomes active again their reputation score will be taken into account in the relative ranking.
+The source described profiles disappearing after roughly two weeks of inactivity. In Bisq 2 v2.1.15, UserProfile declares a 15-day record TTL; that metadata alone does not guarantee a precise user-online or removal time. Changes to the observed profile set can affect relative rank, but do not cause another score to inherit the departed profile\'s star value: stars use fixed score bands.
 
-One could phrase it as: The reputation score star system is the relative ranking compared to the reputation of the active users in the network.
+Stars represent fixed score bands; the separate ranking compares scores in the network.
 
-<figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/4a74e12672e9e100563425b1b93eb5454b96cd63d8dfabbf5c52728b5bac4263.png"><img alt="Bisq converts a seller's reputation score into am easy to view star system. This makes it easy for buyers to see at a glance which are the most reputable sellers. The sellers with the highest reputation have 5 stars and the sellers with the lowest reputation will have 0 stars." decoding="async" height="300" loading="lazy" src="../../media/wiki/4a74e12672e9e100563425b1b93eb5454b96cd63d8dfabbf5c52728b5bac4263.png" width="815"></a><figcaption>Bisq converts a seller's reputation score into am easy to view star system. This makes it easy for buyers to see at a glance which are the most reputable sellers. The sellers with the highest reputation have 5 stars and the sellers with the lowest reputation will have 0 stars.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
+<figure class="wiki-source-image" id="source-image-1"><a href="../../media/wiki/4a74e12672e9e100563425b1b93eb5454b96cd63d8dfabbf5c52728b5bac4263.png"><img alt="Historical star display. In Bisq 2 v2.1.15, fixed score thresholds determine stars; the separate ranking compares sellers with other scored profiles." decoding="async" height="300" loading="lazy" src="../../media/wiki/4a74e12672e9e100563425b1b93eb5454b96cd63d8dfabbf5c52728b5bac4263.png" width="815"></a><figcaption>Historical star display. In Bisq 2 v2.1.15, fixed score thresholds determine stars; the separate ranking compares sellers with other scored profiles.<br><small>Historical full-size recovered source. <a href="../../recovered-media/">Provenance catalogue</a>.</small></figcaption></figure>
 
 \
 \
@@ -92,7 +92,7 @@ The total score is calculated as sum of the individual reputation sources/events
 - Users can burn or bond BSQ repeatedly.
 - Users can import signed accounts or aged accounts to replace previous gained reputation scores.
 
-Also the representation of the reputation as stars next to the user profile will also change over time in respect of the score of other users profile IDs.
+The relative ranking can change when other profile scores change; stars change when the profile\'s own score crosses a fixed band.
 
 It is expected that there will be some competition between sellers to achieve higher reputation scores to get more trades from bitcoin buyers interested in trading with account with the most reputation.
 
