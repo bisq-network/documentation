@@ -669,3 +669,4 @@ body { font-size: var(--bd-fs-ui); }
 .prominent-check-title { display: flex; align-items: center; gap: var(--bd-space-2); color: var(--bd-note-ink); }
 .prominent-check-title strong { color: var(--sl-color-text); }
 .prominent-check-source { color: var(--sl-color-gray-2); }
+.about-facts .about-checks-kind { color: var(--sl-color-gray-3); font-size: var(--bd-fs-xs); }
