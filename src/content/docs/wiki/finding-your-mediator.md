@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-Here is a list of current Bisq mediators and their onion addresses, as well as how you can find the mediator for a specific Bisq trade.
+For open trades, you should be able to get in touch with your mediator through Bisq mediation chat itself. This page also explains how you can find the mediator for a specific Bisq trade, and lists Bisq mediators and their onion addresses as the wiki recorded them.
 
 If you need to find your arbitrator see [here](../finding-your-arbitrator/).
 
@@ -71,6 +71,8 @@ The mediator for a Bisq Easy trade can be found by going to the \"My Open Trades
 </span>
 
 ## Matrix and onion addresses {#matrix-and-onion-addresses}
+
+As of rev 4155 · 30 Jun 2026. Role holders change: before you write to anyone listed here, check that they are the mediator assigned to your trade in Bisq, or see the [Mediator role](https://github.com/bisq-network/roles/issues/83) in the Bisq roles repository.
 
 <table>
 <thead>
