@@ -1,0 +1,16 @@
+{
+  "_about": "Ceilings for npm run design-check (scripts/design-check.mjs). A metric above its ceiling fails the check. Lower a ceiling when a change improves the number; never raise one to let a change pass. Measured on main f409318, 13 Nov 2026.",
+  "axeViolations": 20,
+  "articlesFirstSentenceBelowFold": 32,
+  "columnPositions1440": 2,
+  "columnPositions1920": 2,
+  "columnJump1440": 114,
+  "columnJump1920": 174,
+  "maxFontSizesKeyPage": 16,
+  "maxFontSizesArticle": 16,
+  "homeLayoutShift": 0.078,
+  "scriptKilobytesBeforeSearchHome": 35.4,
+  "scriptKilobytesBeforeSearchArticle": 32.7,
+  "unresolvedLinkMarkers": 67,
+  "unsupportedMarkupPages": 3
+}
