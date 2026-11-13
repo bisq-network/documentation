@@ -1,0 +1,88 @@
+---
+// The payment methods hub: what applies to every method first, then a tile per method from A to
+// Z. The whole list is server-rendered, so every article in the topic is a plain link without
+// JavaScript; the filter and the Bisq 1 chip are a small enhancement on top.
+import navigation from "../data/navigation.json";
+import { collectGuides, loadIntegration, sections } from "../../scripts/lib/documentation.mjs";
+import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const section = sections.find((item) => item.directory === "payments")!;
+const guides = new Map(collectGuides().map((guide) => [guide.slug, guide]));
+const originals = new Map(loadIntegration().map((article) => [article.slug, article]));
+const slugOf = (route: string) => route.replace(/^\/wiki\/|\/$/g, "");
+const guide = (slug: string) => {
+  const found = guides.get(slug);
+  if (!found || found.directory !== "payments") throw new Error(`Payment methods hub: ${slug} is not a payment methods article`);
+  return found;
+};
+const hub = navigation.paymentsHub;
+const startHere = hub.startHere.map((item) => ({ ...item, guide: guide(item.slug) }));
+const languages = navigation.languageVersions.find((group) => group.pages.some((page) => page.slug === "payment-methods"))!;
+const fold = navigation.folded.find((group) => group.slugs.includes("sepa-p551"))!;
+const methodSlugs = section.subgroups!.find((subgroup: { label: string }) => subgroup.label === "Methods A to Z")!.articles.map((article: { route: string }) => slugOf(article.route));
+const setup = hub.setupGuides as Record<string, string>;
+const tiles = methodSlugs
+  .filter((slug: string) => !fold.slugs.slice(1).includes(slug))
+  .map((slug: string) => {
+    const pages = fold.slugs[0] === slug ? fold.slugs.map(guide) : [guide(slug)];
+    const products = productEvidence(originals.get(slug)).map((product: { label: string }) => product.label);
+    return { slug, title: pages[0].title, pages, products, setup: setup[slug] ? guide(setup[slug]) : undefined };
+  })
+  .sort((a: { title: string }, b: { title: string }) => a.title.localeCompare(b.title, "en", { sensitivity: "base" }));
+const letterOf = (title: string) => title[0].toUpperCase();
+const letters = [...new Set(tiles.map((tile: { title: string }) => letterOf(tile.title)))];
+const bisq1 = tiles.filter((tile: { products: string[] }) => tile.products.includes("Bisq 1")).length;
+// Every article in the topic appears on this page exactly once.
+const shown = new Set([...startHere.map((item) => item.slug), ...languages.pages.map((page) => page.slug), ...tiles.flatMap((tile: { pages: { slug: string }[]; setup?: { slug: string } }) => [...tile.pages.map((page) => page.slug), ...(tile.setup ? [tile.setup.slug] : [])])]);
+const missing = section.articles.map((article: { route: string }) => slugOf(article.route)).filter((slug: string) => !shown.has(slug));
+if (missing.length) throw new Error(`Payment methods hub leaves out: ${missing.join(", ")}`);
+---
+<div class="pm-hub not-content" data-pm-hub>
+  <section aria-labelledby="pm-start">
+    <h2 id="pm-start" class="sr-only">Start here</h2>
+    <ul class="pm-start">{startHere.map((item) => <li><a href={`${base}${item.guide.route}`}><small>{item.kicker}</small><strong>{item.guide.title}</strong><span>{item.blurb}</span></a></li>)}</ul>
+    <p class="pm-overview">{languages.pages.map((page, index) => <>{index > 0 && <span aria-hidden="true"> · </span>}<a href={`${base}/wiki/${page.slug}/`} lang={page.lang} hreflang={page.lang}>{index === 0 ? "Payment methods overview" : page.label}</a></>)}</p>
+  </section>
+  <section aria-labelledby="pm-methods">
+    <h2 id="pm-methods">Methods A to Z</h2>
+    <div class="pm-tools" data-pm-tools>
+      <label for="pm-filter">Filter methods</label>
+      <input id="pm-filter" type="search" autocomplete="off" placeholder="Zelle, SEPA, Revolut…" />
+      <button type="button" aria-pressed="false" data-pm-product="Bisq 1">Names Bisq 1 · {bisq1}</button>
+      <p class="pm-count" role="status" aria-live="polite" data-pm-count>All {tiles.length} methods</p>
+    </div>
+    <nav class="pm-letters" aria-label="Methods by first letter">{letters.map((letter) => <a href={`#pm-letter-${letter.toLowerCase()}`}>{letter}</a>)}</nav>
+    <ul class="pm-tiles">{tiles.map((tile, index) => <li id={index === 0 || letterOf(tiles[index - 1].title) !== letterOf(tile.title) ? `pm-letter-${letterOf(tile.title).toLowerCase()}` : undefined} data-pm-tile data-name={[...tile.pages.map((page) => page.title), tile.setup?.title ?? ""].join(" ").toLowerCase()} data-products={tile.products.join("|")}>
+      <a class="pm-tile-title" href={`${base}${tile.pages[0].route}`}>{tile.title}</a>
+      {tile.products.map((product) => <span class="docs-chip product"><span class="dot" aria-hidden="true"></span>{product}</span>)}
+      {tile.pages.length > 1 && <span class="pm-more">{tile.pages.length} pages: {tile.pages.slice(1).map((page) => <a href={`${base}${page.route}`}>{page.title}</a>)}</span>}
+      {tile.setup && <a class="pm-setup" href={`${base}${tile.setup.route}`}>Setup guide<span class="sr-only">: {tile.setup.title}</span></a>}
+    </li>)}</ul>
+    <p class="pm-empty" data-pm-empty hidden>No method matches. <a href={`${base}/browse/all/`}>Browse all articles</a></p>
+  </section>
+</div>
+<script>
+  const hub = document.querySelector<HTMLElement>("[data-pm-hub]");
+  if (hub) {
+    const input = hub.querySelector<HTMLInputElement>("#pm-filter")!;
+    const chip = hub.querySelector<HTMLButtonElement>("[data-pm-product]")!;
+    const tiles = [...hub.querySelectorAll<HTMLElement>("[data-pm-tile]")];
+    const count = hub.querySelector<HTMLElement>("[data-pm-count]")!;
+    const fold = (text: string) => text.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
+    const update = () => {
+      const query = fold(input.value.trim());
+      const product = chip.getAttribute("aria-pressed") === "true" ? chip.dataset.pmProduct! : "";
+      let shown = 0;
+      for (const tile of tiles) {
+        tile.hidden = !(fold(tile.dataset.name ?? "").includes(query) && (!product || (tile.dataset.products ?? "").split("|").includes(product)));
+        if (!tile.hidden) shown += 1;
+      }
+      count.textContent = shown === tiles.length ? `All ${tiles.length} methods` : `${shown} of ${tiles.length} methods`;
+      hub.querySelector<HTMLElement>("[data-pm-empty]")!.hidden = shown > 0;
+    };
+    input.addEventListener("input", update);
+    chip.addEventListener("click", () => { chip.setAttribute("aria-pressed", String(chip.getAttribute("aria-pressed") !== "true")); update(); });
+    hub.dataset.pmReady = "";
+  }
+</script>

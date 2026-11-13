@@ -4,9 +4,20 @@
     {
       "_about": "Shown as an Also in switch above each page (src/components/SourceHistory.astro), in place of the wiki's unsupported <languages/> marker. The /en and /es versions leave the sidebar; the switch and the browse page reach them.",
       "pages": [
-        { "slug": "payment-methods", "label": "Main page" },
-        { "slug": "payment-methods-en", "label": "English", "lang": "en" },
-        { "slug": "payment-methods-es", "label": "Español", "lang": "es" }
+        {
+          "slug": "payment-methods",
+          "label": "Main page"
+        },
+        {
+          "slug": "payment-methods-en",
+          "label": "English",
+          "lang": "en"
+        },
+        {
+          "slug": "payment-methods-es",
+          "label": "Español",
+          "lang": "es"
+        }
       ]
     }
   ],
@@ -15,7 +26,39 @@
       "_about": "Two wiki pages with nearly the same title, listed once in the sidebar as a group.",
       "label": "SEPA",
       "badge": "2 pages",
-      "slugs": ["sepa-p551", "sepa-p550"]
+      "slugs": [
+        "sepa-p551",
+        "sepa-p550"
+      ]
     }
-  ]
+  ],
+  "paymentsHub": {
+    "_about": "The payment methods hub (src/components/PaymentMethodsHub.astro) on /browse/payments/ and /browse/payment-methods/. Start here lists what applies to every method; the short lines are page labels, not article text. Setup guides show on their method's tile.",
+    "startHere": [
+      {
+        "slug": "account-limits",
+        "kicker": "Start here",
+        "blurb": "Trade limits and account signing"
+      },
+      {
+        "slug": "creating-a-payment-account",
+        "kicker": "Set up",
+        "blurb": "An account for each method you use"
+      },
+      {
+        "slug": "issues-with-fiat-payments",
+        "kicker": "Problems",
+        "blurb": "When a fiat payment goes wrong"
+      },
+      {
+        "slug": "payment-account-age-witness",
+        "kicker": "Background",
+        "blurb": "How account age is proven"
+      }
+    ],
+    "setupGuides": {
+      "revolut": "set-up-a-revolut-payment-account",
+      "sepa-p551": "set-up-a-sepa-payment-account"
+    }
+  }
 }
