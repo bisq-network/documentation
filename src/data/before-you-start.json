@@ -1,0 +1,14 @@
+{
+  "_about": "Before you start callouts (src/components/SourceHistory.astro). Each entry shows, above an article's first paragraph, up to three sentences copied verbatim from one migration check in migration/source-review-notes.json that lists the article. scripts/lib/before-you-start.mjs fails the build when a sentence is not an exact part of the note's text. Support maintainers choose the entries; status says whether they have.",
+  "entries": [
+    {
+      "article": "restoring-your-wallet-from-seed",
+      "note": "seed-restore-preconditions",
+      "sentences": [
+        "Bisq 1 v1.10.11 warns to finish trades, close open offers and empty the existing wallet before restoring an older wallet.",
+        "Its UI warns that restoring an encrypted wallet removes encryption and requires a new password afterward, and explains the role of the original wallet creation date."
+      ],
+      "status": "proposed"
+    }
+  ]
+}

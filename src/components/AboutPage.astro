@@ -1,0 +1,43 @@
+---
+// The body of the "About this page" card: where the wording comes from, the migration
+// checks with their full text behind "Show checks", and links to the source and to the
+// correction form. TableOfContents.astro shows it in the right rail from 72rem up;
+// PageTitle.astro shows it as a closed row under the title below that.
+import notes from "../../migration/source-review-notes.json";
+import { loadIntegration } from "../../scripts/lib/documentation.mjs";
+import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
+
+const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "");
+const article = loadIntegration().find((item) => item.route === `/${id}/`);
+const checks = article ? notes.items.filter((note) => note.source_slugs.includes(article.slug)) : [];
+const needsReview = checks.filter((note) => note.status === "needs-maintainer-review").length;
+const edits = article ? acceptedEditsFor(article.slug) : [];
+const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(value));
+const lastChecked = checks.map((note) => note.checked_at).sort().at(-1);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const pageUrl = article && Astro.site ? new URL(`${base}${article.route}`, Astro.site).href : undefined;
+const report = `https://github.com/bisq-network/documentation/issues/new?template=article-review.yml${pageUrl ? `&article=${encodeURIComponent(pageUrl)}` : ""}`;
+---
+{article && <div class="about-page-body">
+  <dl class="about-facts">
+    <div>
+      <dt>{edits.length ? "Edited after restoration" : "Original wiki wording"}</dt>
+      <dd><span class="revision-stamp">rev {article.revision_id} · {article.revision_timestamp ? date(article.revision_timestamp) : "date not recorded"}</span>{edits.length > 0 && <> · {edits.map((edit, index) => <>{index > 0 && ", "}<a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></>)}</>}</dd>
+    </div>
+    {checks.length > 0 && <div>
+      <dt>{checks.length} migration {checks.length === 1 ? "check" : "checks"}</dt>
+      <dd>Checked {date(lastChecked!)}{needsReview > 0 && <> · <span class="docs-chip review">{needsReview} needs maintainer review</span></>}</dd>
+    </div>}
+  </dl>
+  {checks.length > 0 && <details class="about-checks">
+    <summary><svg class="disclosure-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>Show checks</summary>
+    <p class="about-checks-intro">Added during migration, not part of the original. Each check identifies a specific difference or review need; none is a review of the whole procedure.</p>
+    {checks.map((note) => <section class="about-check">
+      <p class="about-check-title"><strong>{note.title}</strong> <span class:list={["docs-chip", { review: note.status === "needs-maintainer-review" }]}>{note.status === "needs-maintainer-review" ? "Needs maintainer review" : "Checked against pinned source"}</span></p>
+      <p>{note.body}</p>
+      <p class="about-check-date">Checked {date(note.checked_at)}</p>
+      <ul>{note.sources.map((source) => <li><a href={source.url}>{source.label}</a></li>)}</ul>
+    </section>)}
+  </details>}
+  <p class="about-links"><a href="#docs-source-history">Source and history</a><a href={report}>Report a correction</a></p>
+</div>}
