@@ -37,4 +37,6 @@ Backing up a Bisq wallet\'s seed words only ensures that you will always have ac
 <span class="wiki-legacy-anchor" id="Wallet_derivation_paths" aria-hidden="true">
 </span><h2 id="wallet-derivation-paths"> Wallet derivation paths </h2>&#10;<span class="wiki-template-gap" role="note"><strong>[Unresolved template: Wallet derivation paths]</strong> <code>{{Wallet derivation paths}}</code></span>
 
+In Bisq 1 v1.10.11, the BSQ path above is not the only one: BSQ native SegWit (P2WPKH) addresses use `m/44'/142'/1'`, and `m/44'/142'/0'` is the legacy BSQ path. That version creates new wallets with SegWit keychains and adds them to older legacy wallets, so these paths are not a complete recipe for restoring a Bisq wallet in other software. Other wallets show BSQ as ordinary bitcoin, and spending it there will probably lose the BSQ.
+
 </div>
