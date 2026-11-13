@@ -566,3 +566,18 @@ body { font-size: var(--bd-fs-ui); }
   .home-try > * { flex: none; }
   .home-hero { padding-bottom: var(--bd-space-5); }
 }
+/* Wiki residue (round 2 design review, PR 7). The enhancements in src/scripts/article-experience.ts
+   leave the checked server HTML as it is. */
+.wiki-recovered-article [hidden] { display: none !important; }
+.sl-markdown-content .wiki-link-gap.lost-link { border: 0; background: none; color: inherit; text-decoration: underline dotted; text-decoration-color: var(--bd-gap-line); text-underline-offset: 0.2em; }
+.lost-link-button { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; margin-inline-start: var(--bd-space-1); padding: 0; border: 1px solid var(--bd-gap-line); border-radius: var(--bd-radius-full); background: var(--bd-raised); color: var(--bd-gap-ink); vertical-align: middle; cursor: pointer; }
+.lost-link-button:hover { border-color: var(--bd-gap-ink); }
+.lost-link-tip { margin-inline-start: var(--bd-space-1); color: var(--bd-gap-ink); font-size: var(--bd-fs-sm); }
+.column-source-mark { margin-inline-start: var(--bd-space-1); color: var(--sl-color-gray-2); }
+.column-source-note { margin-top: calc(-1 * var(--bd-space-2)); color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); }
+.language-switch { display: flex; flex-wrap: wrap; align-items: center; gap: var(--bd-space-2); max-width: 34rem; margin: 0 0 var(--bd-space-5); font-size: var(--bd-fs-sm); color: var(--sl-color-gray-2); }
+.language-switch ul { display: flex; flex-wrap: wrap; gap: var(--bd-space-2); margin: 0; padding: 0; list-style: none; }
+.language-switch li + li::before { content: "·"; content: "·" / ""; margin-inline-end: var(--bd-space-2); color: var(--sl-color-gray-3); }
+.language-switch a { color: var(--sl-color-text-accent); font-weight: 500; text-underline-offset: 0.15em; }
+/* Long single-word titles (error names) wrap in the sidebar. */
+.sidebar-content a { overflow-wrap: anywhere; }

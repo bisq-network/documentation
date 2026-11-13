@@ -4,6 +4,7 @@ import Default from "@astrojs/starlight/components/MarkdownContent.astro";
 import { collectGuides, sections, loadIntegration } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import { beforeYouStartFor } from "../../scripts/lib/before-you-start.mjs";
+import navigation from "../data/navigation.json";
 import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
 import { articlePageContent } from "../../scripts/lib/article-page.mjs";
 
@@ -13,6 +14,8 @@ const article = loadIntegration().find((item) => item.target === route);
 // Up to three sentences from a migration check, chosen in src/data/before-you-start.json; the
 // build fails if one is not an exact part of the check's text (scripts/lib/before-you-start.mjs).
 const callout = article ? beforeYouStartFor(article.slug) : undefined;
+// Language versions of the same wiki page (src/data/navigation.json): an Also in switch.
+const languages = article ? navigation.languageVersions.find((group) => group.pages.some((page) => page.slug === article.slug)) : undefined;
 const guide = article ? collectGuides().find((item) => item.slug === article.slug) : undefined;
 const topic = sections.find((section) => section.directory === guide?.directory)?.label;
 const products = article ? productEvidence(article) : [];
@@ -26,6 +29,10 @@ const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric
 const images = page.media.images;
 const edits = article ? acceptedEditsFor(article.slug) : [];
 ---
+{languages && <nav class="language-switch" aria-label="Language versions" data-pagefind-ignore>
+  <span>Also in</span>
+  <ul>{languages.pages.filter((page) => page.slug !== article!.slug).map((page) => <li><a href={`${base}/wiki/${page.slug}/`} lang={page.lang} hreflang={page.lang}>{page.label}</a></li>)}</ul>
+</nav>}
 {callout && <aside class="before-you-start" aria-labelledby="docs-before-you-start" data-pagefind-ignore>
   <h2 id="docs-before-you-start"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20z"></path><path d="M12 10v4"></path><path d="M12 17h.01"></path></svg>Before you start</h2>
   <ul>{callout.sentences.map((sentence) => <li>{sentence}</li>)}</ul>
