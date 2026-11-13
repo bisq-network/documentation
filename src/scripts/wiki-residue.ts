@@ -44,21 +44,25 @@ export function enhanceResidue(article: HTMLElement) {
 
   const marks = ["†", "‡", "§", "¶"];
   article.querySelectorAll<HTMLTableElement>("table").forEach((table) => {
-    const columns = new Map<number, HTMLAnchorElement[]>();
-    for (const row of table.rows) {
-      [...row.cells].forEach((cell, index) => {
-        const links = cell.querySelectorAll<HTMLAnchorElement>(".wiki-template-expanded > sup > a");
-        if (links.length === 1) columns.set(index, [...(columns.get(index) ?? []), links[0]]);
-      });
-    }
+    // Only plain grids: with merged cells, a cell's column is not its position in the row.
+    if (table.querySelector("[rowspan]:not([rowspan='1']), [colspan]:not([colspan='1'])")) return;
+    const body = [...table.rows].filter((row) => [...row.cells].some((cell) => cell.tagName === "TD"));
+    const width = Math.max(0, ...body.map((row) => row.cells.length));
     const notes: HTMLElement[] = [];
-    for (const [index, links] of [...columns].sort((a, b) => a[0] - b[0])) {
-      const href = links[0].getAttribute("href");
-      if (links.length < 2 || links.some((link) => link.getAttribute("href") !== href) || notes.length >= marks.length) continue;
+    for (let index = 0; index < width; index++) {
+      // Every value in the column must cite exactly one source, the same one; a column with an
+      // uncited value keeps its links, so the note never claims more than the table shows.
+      const links = body.map((row) => {
+        const found = row.cells[index]?.querySelectorAll<HTMLAnchorElement>(".wiki-template-expanded > sup > a");
+        return found?.length === 1 ? found[0] : undefined;
+      });
+      if (links.length < 2 || links.some((link) => !link) || notes.length >= marks.length) continue;
+      const href = links[0]!.getAttribute("href");
+      if (links.some((link) => link!.getAttribute("href") !== href)) continue;
       const header = [...table.rows].find((row) => row.cells[index]?.tagName === "TH")?.cells[index];
       if (!header) continue;
       const mark = marks[notes.length];
-      links.forEach((link) => { link.closest("sup")!.hidden = true; });
+      links.forEach((link) => { link!.closest("sup")!.hidden = true; });
       const sup = document.createElement("sup");
       sup.className = "column-source-mark";
       sup.textContent = mark;
@@ -66,7 +70,9 @@ export function enhanceResidue(article: HTMLElement) {
       header.append(sup);
       const note = document.createElement("span");
       note.append(`${mark} Every value in the column “${header.textContent?.replace(mark, "").trim()}” links to the same `);
-      const source = links[0].cloneNode(true) as HTMLAnchorElement;
+      const source = links[0]!.cloneNode(true) as HTMLAnchorElement;
+      const name = source.getAttribute("aria-label");
+      if (name && !name.toLowerCase().includes((source.textContent ?? "").trim().toLowerCase())) source.setAttribute("aria-label", `${source.textContent?.trim()}: ${name}`);
       note.append(source, ".");
       notes.push(note);
     }

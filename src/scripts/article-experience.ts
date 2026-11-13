@@ -36,6 +36,11 @@ if (article) {
   toast.setAttribute("aria-live", "polite");
   toast.hidden = true;
   document.body.append(toast);
+  // Success is shown on the button itself ("Copied", src/styles/custom.css) and announced here.
+  const status = document.createElement("p");
+  status.className = "sr-only";
+  status.setAttribute("role", "status");
+  document.body.append(status);
   let toastTimeout: ReturnType<typeof setTimeout>;
   const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href ?? location.href;
 
@@ -49,16 +54,14 @@ if (article) {
     url.hash = "";
     clearTimeout(toastTimeout);
     toast.replaceChildren();
-    toast.hidden = false;
+    toast.hidden = true;
     try {
       await navigator.clipboard.writeText(url.href);
-      const message = document.createElement("strong");
-      message.textContent = `Copied link to “${title}”`;
-      const link = document.createElement("span");
-      link.textContent = url.href;
-      toast.append(message, link);
-      toastTimeout = setTimeout(() => { toast.hidden = true; }, 3200);
+      trigger.dataset.state = "copied";
+      status.textContent = `Copied link to “${title}”`;
+      toastTimeout = setTimeout(() => { delete trigger.dataset.state; status.textContent = ""; }, 1600);
     } catch {
+      toast.hidden = false;
       const label = document.createElement("label");
       label.textContent = `Copy link to “${title}”`;
       const input = document.createElement("input");

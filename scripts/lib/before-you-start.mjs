@@ -1,11 +1,19 @@
 // Before you start callouts: src/data/before-you-start.json names, per article, up to three
-// sentences from one migration check (migration/source-review-notes.json). Each sentence
-// must be an exact part of the note's text, so a callout never says more than the check
-// did; anything else fails the build (src/components/SourceHistory.astro loads this).
+// sentences from one migration check (migration/source-review-notes.json). Each must be a whole
+// sentence of the check, word for word, so a callout never says more or less than the check did,
+// and a check that still needs maintainer review cannot be used; anything else fails the build
+// (src/components/SourceHistory.astro loads this).
 import { readFileSync } from "node:fs";
 
 export const maxSentences = 3;
 const statuses = ["proposed", "accepted"];
+
+/**
+ * The sentences of a note's text: split after ".", "!" or "?" followed by a space and a capital
+ * letter, a quote or a bracket. A callout sentence must be one of them, whole, so no cut can drop a
+ * negation or a qualifier.
+ */
+export const noteSentences = (body) => body.split(/(?<=[.!?])\s+(?=["“(\p{Lu}])/u).map((sentence) => sentence.trim()).filter(Boolean);
 
 /**
  * Problems with the entries, given the notes ({ items }) and the article slugs.
@@ -28,6 +36,8 @@ export function beforeYouStartProblems(data, notes, slugs) {
     const note = byId.get(entry?.note);
     if (!note) { problems.push(`${name}: ${JSON.stringify(entry?.note)} is not a migration check id`); return; }
     if (!note.source_slugs.includes(entry.article)) problems.push(`${name}: the check ${note.id} does not list this article`);
+    if (note.status === "needs-maintainer-review") problems.push(`${name}: the check ${note.id} still needs maintainer review, so it cannot be shown as a Before you start callout`);
+    const whole = new Set(noteSentences(note.body));
     const sentences = entry.sentences;
     if (!Array.isArray(sentences) || sentences.length < 1 || sentences.length > maxSentences) {
       problems.push(`${name}: between 1 and ${maxSentences} sentences`);
@@ -35,7 +45,7 @@ export function beforeYouStartProblems(data, notes, slugs) {
     }
     sentences.forEach((sentence, number) => {
       if (typeof sentence !== "string" || !sentence.trim()) problems.push(`${name}: sentence ${number + 1} is empty`);
-      else if (!note.body.includes(sentence)) problems.push(`${name}: sentence ${number + 1} is not an exact part of the text of ${note.id}: ${JSON.stringify(sentence)}`);
+      else if (!whole.has(sentence)) problems.push(`${name}: sentence ${number + 1} is not a whole sentence of ${note.id}, word for word: ${JSON.stringify(sentence)}`);
     });
     if (new Set(sentences).size !== sentences.length) problems.push(`${name}: a sentence is listed twice`);
   });

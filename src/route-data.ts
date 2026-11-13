@@ -1,6 +1,7 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 import articles from "../migration/articles.json";
 import additional from "../migration/additional-articles.json";
+import { articleDescription } from "../scripts/lib/article-description.mjs";
 
 type TocItem = { depth: number; slug: string; text: string; children: TocItem[] };
 const originals = new Map([...articles.items, ...additional.items].map((article) => [`wiki/${article.slug}`, article]));
@@ -16,16 +17,26 @@ export const onRequest = defineRouteMiddleware(({ locals }) => {
   // The home page's heading (the title in src/content/docs/index.mdx stays as it is).
   // Pending confirmation of the wording by the design review.
   if (id === "" || id === "index") {
-    const old = entry.data.title;
     entry.data.title = "What do you need help with?";
     // Starlight has already built the <title> and Open Graph title from the old one.
     for (const item of route.head) {
-      if (item.tag === "title" && typeof item.content === "string") item.content = item.content.replace(old, entry.data.title);
-      if (item.tag === "meta" && item.attrs?.property === "og:title") item.attrs.content = entry.data.title;
+      // The site title is just "Documentation", so the home page's tab and link previews name Bisq.
+      if (item.tag === "title") item.content = "What do you need help with? | Bisq documentation";
+      if (item.tag === "meta" && item.attrs?.property === "og:title") item.attrs.content = "Bisq documentation: What do you need help with?";
     }
   }
   const article = originals.get(id);
   if (!article) return;
+  // A description for search engines and link previews: the article's first sentence, at most
+  // 155 characters, taken from the article at build time (scripts/lib/article-description.mjs).
+  // Articles that already set one (the additional historical sources) keep theirs.
+  if (!entry.data.description) {
+    const description = articleDescription(entry.body ?? "");
+    if (description) {
+      entry.data.description = description;
+      route.head.push({ tag: "meta", attrs: { name: "description", content: description } }, { tag: "meta", attrs: { property: "og:description", content: description } });
+    }
+  }
   // Every article gets a contents list, even without headings, so Starlight always reserves
   // the right rail and the reading column starts at the same place on every article.
   // src/components/TableOfContents.astro and MobileTableOfContents.astro list only headings.
