@@ -1,6 +1,7 @@
 import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 import articles from "../migration/articles.json";
 import additional from "../migration/additional-articles.json";
+import { articleDescription } from "../scripts/lib/article-description.mjs";
 
 type TocItem = { depth: number; slug: string; text: string; children: TocItem[] };
 const originals = new Map([...articles.items, ...additional.items].map((article) => [`wiki/${article.slug}`, article]));
@@ -26,6 +27,16 @@ export const onRequest = defineRouteMiddleware(({ locals }) => {
   }
   const article = originals.get(id);
   if (!article) return;
+  // A description for search engines and link previews: the article's first sentence, at most
+  // 155 characters, taken from the article at build time (scripts/lib/article-description.mjs).
+  // Articles that already set one (the additional historical sources) keep theirs.
+  if (!entry.data.description) {
+    const description = articleDescription(entry.body ?? "");
+    if (description) {
+      entry.data.description = description;
+      route.head.push({ tag: "meta", attrs: { name: "description", content: description } }, { tag: "meta", attrs: { property: "og:description", content: description } });
+    }
+  }
   // Every article gets a contents list, even without headings, so Starlight always reserves
   // the right rail and the reading column starts at the same place on every article.
   // src/components/TableOfContents.astro and MobileTableOfContents.astro list only headings.
