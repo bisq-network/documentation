@@ -1,0 +1,13 @@
+{
+  "plugins": ["stylelint-declaration-strict-value"],
+  "rules": {
+    "scale-unlimited/declaration-strict-value": [
+      ["/color$/", "font-size", "border-radius", "box-shadow", "/^margin/", "/^padding/", "/gap$/"],
+      {
+        "ignoreValues": ["0", "auto", "inherit", "initial", "unset", "currentColor", "currentcolor", "transparent", "none"],
+        "expandShorthand": true,
+        "message": "Use a token for ${property} (src/styles/custom.css :root defines --bd-fs-*, --bd-space-*, --bd-radius-*, --bd-shadow-* and the colours), not ${value}"
+      }
+    ]
+  }
+}
