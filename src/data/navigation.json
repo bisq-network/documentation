@@ -1,0 +1,21 @@
+{
+  "_about": "Display-only navigation changes (astro.config.mjs builds the sidebar from migration/nav-groups.json, which stays as it is). Article titles, routes and anchors do not change; every article stays in Browse all documentation, in search and at its address.",
+  "languageVersions": [
+    {
+      "_about": "Shown as an Also in switch above each page (src/components/SourceHistory.astro), in place of the wiki's unsupported <languages/> marker. The /en and /es versions leave the sidebar; the switch and the browse page reach them.",
+      "pages": [
+        { "slug": "payment-methods", "label": "Main page" },
+        { "slug": "payment-methods-en", "label": "English", "lang": "en" },
+        { "slug": "payment-methods-es", "label": "Español", "lang": "es" }
+      ]
+    }
+  ],
+  "folded": [
+    {
+      "_about": "Two wiki pages with nearly the same title, listed once in the sidebar as a group.",
+      "label": "SEPA",
+      "badge": "2 pages",
+      "slugs": ["sepa-p551", "sepa-p550"]
+    }
+  ]
+}

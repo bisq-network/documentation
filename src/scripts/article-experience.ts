@@ -1,3 +1,5 @@
+import { enhanceResidue } from "./wiki-residue";
+
 const article = document.querySelector<HTMLElement>(".wiki-recovered-article");
 
 if (article) {
@@ -211,3 +213,6 @@ if (article) {
     });
   });
 }
+
+// Recovery markers inside the article read as text (src/scripts/wiki-residue.ts).
+if (article?.querySelector(".wiki-link-gap, .wiki-markup-gap, .wiki-template-expanded")) enhanceResidue(article);
