@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import { collectGuides, sections } from "./scripts/lib/documentation.mjs";
@@ -27,6 +28,14 @@ const repository = process.env.DOCS_REPOSITORY || process.env.GITHUB_REPOSITORY 
 export default defineConfig({
   site,
   base,
+  vite: {
+    resolve: {
+      // Starlight's search loads @pagefind/default-ui when the page is idle; this stand-in loads it
+      // only when someone starts to search (src/scripts/pagefind-ui-on-open.ts). Only the bare
+      // package name is replaced, so the stand-in can still import the real file.
+      alias: [{ find: /^@pagefind\/default-ui$/, replacement: fileURLToPath(new URL("./src/scripts/pagefind-ui-on-open.ts", import.meta.url)) }],
+    },
+  },
   integrations: [
     starlight({
       // src/pages/404.astro is the 404 page; stop Starlight registering a second /404 route.

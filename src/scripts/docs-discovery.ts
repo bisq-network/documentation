@@ -15,7 +15,8 @@ async function openDocsSearch(query: string) {
   if (fill()) return;
   const observer = new MutationObserver(() => { if (fill()) observer.disconnect(); });
   observer.observe(document.querySelector("site-search")!, { childList: true, subtree: true });
-  setTimeout(() => observer.disconnect(), 5000);
+  // The search interface loads when search first opens (src/scripts/pagefind-ui-on-open.ts).
+  setTimeout(() => observer.disconnect(), 20000);
 }
 
 document.querySelectorAll<HTMLElement>("[data-search-controls], [data-docs-search]").forEach((element) => {

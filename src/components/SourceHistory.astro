@@ -1,6 +1,7 @@
 ---
 import SavedWikiLink from "./SavedWikiLink.astro";
 import PaymentMethodsHub from "./PaymentMethodsHub.astro";
+import ArticleScripts from "./ArticleScripts.astro";
 import Default from "@astrojs/starlight/components/MarkdownContent.astro";
 import { collectGuides, sections, loadIntegration } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
@@ -64,4 +65,4 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
   <p><a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
 </section>}
 {article && <script type="application/json" id="article-media-data" set:html={JSON.stringify(images.map((image) => ({ id: image.element_id, status: image.status, width: image.width, height: image.height }))).replace(/</g, "\\u003c")} />}
-<script src="../scripts/article-experience.ts"></script>
+{article && <ArticleScripts />}
