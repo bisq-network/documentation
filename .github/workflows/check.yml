@@ -48,6 +48,8 @@ jobs:
         run: node scripts/check-immutable-materials.mjs 'HEAD^1' HEAD
       - run: npm ci
       - run: npm test
+      # Colours, font sizes, radii, shadows and spacing in src/styles/ use the tokens (.stylelintrc.json).
+      - run: npm run lint:css
       # npm run build (and pages.yml) fail on any wording edit without a receipt.
       # Here such an edit fails only if it breaks something a receipt would still
       # require; otherwise it is listed as awaiting a receipt and the receipts job
