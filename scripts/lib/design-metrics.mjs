@@ -1,5 +1,8 @@
-// Pure helpers for scripts/design-check.mjs: they take what the browser measured and
-// turn it into the numbers the report shows and the budget compares.
+// Helpers for scripts/design-check.mjs: they take what the browser measured and turn
+// it into the numbers the report shows and the budget compares, and say which file
+// the local server may serve.
+import { existsSync, readFileSync } from "node:fs";
+import { isAbsolute, relative, resolve, sep } from "node:path";
 
 /**
  * Cumulative layout shift as browsers report it: shifts without recent input,
@@ -52,3 +55,25 @@ export function overBudget(metrics, budget) {
 
 /** Kilobytes with one decimal, as the report prints them. */
 export const kilobytes = (bytes) => Math.round(bytes / 102.4) / 10;
+
+/**
+ * The file under root that a URL path below the base serves, or null when the path
+ * leaves root (after decoding, so "..%2f" counts) or cannot be decoded. A sibling
+ * folder that only shares root's name as a prefix ("dist-private") is outside.
+ */
+export function servedPath(root, pathBelowBase) {
+  let decoded;
+  try { decoded = decodeURIComponent(pathBelowBase); } catch { return null; }
+  if (decoded.includes("\0")) return null;
+  const file = resolve(root, `./${decoded}`);
+  const inside = relative(root, file);
+  return inside !== ".." && !inside.startsWith(`..${sep}`) && !isAbsolute(inside) ? file : null;
+}
+
+/** The budget in path; fails when the file is missing or is not a JSON object. */
+export function readBudget(path) {
+  if (!existsSync(path)) throw new Error(`the budget file ${path} is missing`);
+  const budget = JSON.parse(readFileSync(path, "utf8"));
+  if (!budget || typeof budget !== "object" || Array.isArray(budget)) throw new Error(`${path} is not a JSON object of ceilings`);
+  return budget;
+}

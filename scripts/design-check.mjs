@@ -28,7 +28,7 @@ import { parseArgs } from "node:util";
 import { gzipSync } from "node:zlib";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright";
-import { cumulativeLayoutShift, groupValues, kilobytes, overBudget, spread } from "./lib/design-metrics.mjs";
+import { cumulativeLayoutShift, groupValues, kilobytes, overBudget, readBudget, servedPath, spread } from "./lib/design-metrics.mjs";
 
 const { values: options } = parseArgs({
   options: {
@@ -41,6 +41,8 @@ const { values: options } = parseArgs({
 const dist = resolve(process.env.DOCS_DIST || "dist");
 const base = "/documentation/";
 const out = resolve(options.out);
+let budget;
+try { budget = readBudget(options.budget); } catch (error) { fail(error.message); }
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 const viewports = { desktop: { width: 1440, height: 900 }, phone: { width: 390, height: 844 } };
 const themes = ["light", "dark"];
@@ -76,8 +78,8 @@ const server = createServer((request, response) => {
     createReadStream(file).pipe(response);
   };
   if (!url.pathname.startsWith(base)) { response.writeHead(302, { location: base }); response.end(); return; }
-  const file = join(dist, decodeURIComponent(url.pathname.slice(base.length)));
-  if (!file.startsWith(dist)) { response.writeHead(400); response.end(); return; }
+  const file = servedPath(dist, url.pathname.slice(base.length));
+  if (!file) { response.writeHead(400); response.end(); return; }
   if (existsSync(file) && statSync(file).isDirectory()) {
     if (!url.pathname.endsWith("/")) { response.writeHead(301, { location: `${url.pathname}/` }); response.end(); return; }
     if (existsSync(join(file, "index.html"))) { send(join(file, "index.html")); return; }
@@ -193,7 +195,8 @@ async function sweep(viewport, measure) {
   await Promise.all(Array.from({ length: 6 }, async () => {
     const page = await context.newPage();
     for (let article = queue.shift(); article; article = queue.shift()) {
-      await page.goto(pageUrl(article.path), { waitUntil: "load" });
+      const response = await page.goto(pageUrl(article.path), { waitUntil: "load" });
+      if (!response?.ok()) throw new Error(`${article.path} answered ${response?.status() ?? "nothing"}; every article must load`);
       await page.evaluate(() => document.fonts.ready);
       measure(article, await page.evaluate(measurePage));
     }
@@ -243,14 +246,18 @@ await sweep({ width: 1920, height: 1080 }, (article, measured) => { report.artic
 for (const [name, path] of [["home", ""], ["article", "wiki/restoring-your-wallet-from-seed/"]]) {
   const context = await newContext("desktop", "light");
   const page = await context.newPage();
-  const scripts = [];
-  page.on("response", async (response) => {
+  const reads = [];
+  page.on("response", (response) => {
     if (response.request().resourceType() !== "script") return;
-    const body = await response.body().catch(() => Buffer.alloc(0));
-    scripts.push({ url: new URL(response.url()).pathname.replace(base, "/"), bytes: body.length, gzip: gzipSync(body).length });
+    const url = new URL(response.url()).pathname.replace(base, "/");
+    reads.push(response.body().then(
+      (body) => ({ url, bytes: body.length, gzip: gzipSync(body).length }),
+      (error) => { throw new Error(`could not read script ${url}: ${error.message}`); },
+    ));
   });
   await open(page, path);
   await page.waitForTimeout(1500);
+  const scripts = await Promise.all(reads);
   scripts.sort((a, b) => b.gzip - a.gzip);
   report.scripts[name] = { gzip: scripts.reduce((sum, script) => sum + script.gzip, 0), files: scripts };
   await context.close();
@@ -291,7 +298,6 @@ report.summary = {
   unresolvedLinkArticles: unresolved.length,
   unsupportedMarkupArticles: unsupported.map((record) => record.slug),
 };
-const budget = existsSync(options.budget) ? JSON.parse(readFileSync(options.budget, "utf8")) : {};
 const over = overBudget(report.metrics, budget);
 const before = options.baseline ? JSON.parse(readFileSync(options.baseline, "utf8")).metrics : undefined;
 

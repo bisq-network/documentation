@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { cumulativeLayoutShift, groupValues, kilobytes, overBudget, spread } from "./lib/design-metrics.mjs";
+import { cumulativeLayoutShift, groupValues, kilobytes, overBudget, readBudget, servedPath, spread } from "./lib/design-metrics.mjs";
 
 test("layout shift is the largest session window", () => {
   assert.equal(cumulativeLayoutShift([]), 0);
@@ -29,4 +29,33 @@ test("a metric above its ceiling, or missing, is over budget", () => {
 
 test("kilobytes keep one decimal", () => {
   assert.equal(kilobytes(27238), 26.6);
+});
+
+test("the server serves only files inside its root", async () => {
+  const { join, sep } = await import("node:path");
+  const root = join(sep, "repo", "dist");
+  assert.equal(servedPath(root, "wiki/teams/"), join(root, "wiki", "teams"));
+  assert.equal(servedPath(root, ""), root);
+  // Encoded dots that stay inside the root are fine.
+  assert.equal(servedPath(root, "wiki/%2e%2e/index.html"), join(root, "index.html"));
+  // A sibling folder that shares the root's name as a prefix, plain or encoded.
+  assert.equal(servedPath(root, "../dist-private/token.txt"), null);
+  assert.equal(servedPath(root, "..%2fdist-private%2ftoken.txt"), null);
+  assert.equal(servedPath(root, "%2e%2e/%2e%2e/etc/passwd"), null);
+  assert.equal(servedPath(root, "a%00b"), null);
+  assert.equal(servedPath(root, "%E0%A4%A"), null);
+  // A name that only starts with two dots stays inside.
+  assert.equal(servedPath(root, "..notes.txt"), join(root, "..notes.txt"));
+});
+
+test("a missing or malformed budget fails instead of passing everything", async () => {
+  const { mkdtempSync, writeFileSync } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const { join } = await import("node:path");
+  const dir = mkdtempSync(join(tmpdir(), "design-budget-"));
+  assert.throws(() => readBudget(join(dir, "missing.json")), /missing/);
+  writeFileSync(join(dir, "list.json"), "[1, 2]");
+  assert.throws(() => readBudget(join(dir, "list.json")), /not a JSON object/);
+  writeFileSync(join(dir, "ok.json"), '{ "axeViolations": 0 }');
+  assert.deepEqual(readBudget(join(dir, "ok.json")), { axeViolations: 0 });
 });
