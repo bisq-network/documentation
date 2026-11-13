@@ -195,9 +195,9 @@ async function sweep(viewport, measure) {
   await Promise.all(Array.from({ length: 6 }, async () => {
     const page = await context.newPage();
     for (let article = queue.shift(); article; article = queue.shift()) {
-      const response = await page.goto(pageUrl(article.path), { waitUntil: "load" });
+      // Wait as for the key pages: article scripts wrap tables, code and images after load.
+      const response = await open(page, article.path);
       if (!response?.ok()) throw new Error(`${article.path} answered ${response?.status() ?? "nothing"}; every article must load`);
-      await page.evaluate(() => document.fonts.ready);
       measure(article, await page.evaluate(measurePage));
     }
     await page.close();

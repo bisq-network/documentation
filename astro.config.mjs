@@ -27,6 +27,10 @@ export default defineConfig({
         PageTitle: "./src/components/PageTitle.astro",
         Search: "./src/components/Search.astro",
         MarkdownContent: "./src/components/SourceHistory.astro",
+        TableOfContents: "./src/components/TableOfContents.astro",
+        MobileTableOfContents: "./src/components/MobileTableOfContents.astro",
+        SocialIcons: "./src/components/SocialIcons.astro",
+        ThemeSelect: "./src/components/ThemeSelect.astro",
       },
       social: [{ icon: "github", label: "GitHub", href: `https://github.com/${repository}` }],
       sidebar: [

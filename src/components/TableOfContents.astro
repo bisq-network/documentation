@@ -1,0 +1,8 @@
+---
+import Default from "@astrojs/starlight/components/TableOfContents.astro";
+
+// Every article has a contents list (src/route-data.ts) so the right rail is always there;
+// it lists sections only when the page has headings.
+const { headings } = Astro.locals.starlightRoute;
+---
+{headings.length > 0 && <Default />}

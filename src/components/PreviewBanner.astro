@@ -2,7 +2,6 @@
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 <aside class="community-preview" data-pagefind-ignore aria-label="About this preview">
-  <strong>Work in progress</strong><span aria-hidden="true">·</span>
-  <span>This documentation is being reviewed and may contain outdated information.</span><span aria-hidden="true">·</span>
-  <a href={`${base}/review/`}>Review status</a>
+  <p class="preview-wide"><strong>Work in progress</strong><span>This documentation is being reviewed and may contain outdated information.</span><a href={`${base}/review/`}>Review status</a></p>
+  <p class="preview-narrow"><strong>Under review</strong><span>may be outdated</span><a href={`${base}/review/`} aria-label="Review status">Status</a></p>
 </aside>
