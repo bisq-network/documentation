@@ -1,0 +1,7 @@
+---
+import Default from "@astrojs/starlight/components/MobileTableOfContents.astro";
+
+// On phones the "On this page" bar shows only on pages with headings (see TableOfContents.astro).
+const { headings } = Astro.locals.starlightRoute;
+---
+{headings.length > 0 && <Default />}

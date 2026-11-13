@@ -1,0 +1,64 @@
+---
+import { Icon } from "@astrojs/starlight/components";
+
+// One icon button instead of Starlight's theme menu: each press moves to the next theme
+// (auto, then the opposite of the system's, then the system's, then auto again). It keeps Starlight's storage key and its icon template
+// (ThemeProvider.astro), so the stored choice applies before the page paints.
+---
+<starlight-theme-select class="theme-toggle">
+  <button type="button" data-theme-toggle title="Color theme: auto">
+    <Icon name="laptop" class="label-icon" />
+    <span class="sr-only" data-theme-label>Color theme: auto</span>
+  </button>
+</starlight-theme-select>
+
+{/* Inlined so the icon and name match the stored theme before the first paint. */}
+<script is:inline>
+  StarlightThemeProvider.updatePickers();
+  (() => {
+    let theme = "auto";
+    try { theme = localStorage.getItem("starlight-theme") || "auto"; } catch {}
+    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+      button.title = `Color theme: ${theme}`;
+      button.querySelector("[data-theme-label]").textContent = `Color theme: ${theme}`;
+    });
+  })();
+</script>
+
+<script>
+  type Theme = "auto" | "dark" | "light";
+  const storageKey = "starlight-theme";
+  const parseTheme = (theme: unknown): Theme => (theme === "dark" || theme === "light" ? theme : "auto");
+  const loadTheme = (): Theme => { try { return parseTheme(localStorage.getItem(storageKey)); } catch { return "auto"; } };
+  // The theme in use; kept here as well, so the button keeps working when storage cannot be written.
+  let current: Theme = loadTheme();
+  const preferred = (): Theme => (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+
+  /** Apply a theme to the page, the icon and the button's name, and store it as Starlight does. */
+  function applyTheme(theme: Theme) {
+    current = theme;
+    StarlightThemeProvider.updatePickers(theme);
+    document.documentElement.dataset.theme = theme === "auto" ? preferred() : theme;
+    try { localStorage.setItem(storageKey, theme === "auto" ? "" : theme); } catch { /* storage blocked: the theme lasts for this page */ }
+    document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
+      button.title = `Color theme: ${theme}`;
+      button.querySelector("[data-theme-label]")!.textContent = `Color theme: ${theme}`;
+    });
+  }
+
+  matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => { if (current === "auto") applyTheme("auto"); });
+
+  class ThemeToggle extends HTMLElement {
+    constructor() {
+      super();
+      applyTheme(current);
+      this.querySelector("button")?.addEventListener("click", () => {
+        // Each press changes what the page looks like until the last, which returns to auto:
+        // auto, then the theme the system does not use, then the one it uses, then auto.
+        const system = preferred();
+        applyTheme(current === "auto" ? (system === "light" ? "dark" : "light") : current === system ? "auto" : system);
+      });
+    }
+  }
+  customElements.define("starlight-theme-select", ThemeToggle);
+</script>

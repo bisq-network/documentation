@@ -14,7 +14,10 @@ export const onRequest = defineRouteMiddleware(({ locals }) => {
     entry.data.pagefind = false;
   }
   const article = originals.get(id);
-  if (!article?.headings.length) return;
+  if (!article) return;
+  // Every article gets a contents list, even without headings, so Starlight always reserves
+  // the right rail and the reading column starts at the same place on every article.
+  // src/components/TableOfContents.astro and MobileTableOfContents.astro list only headings.
   const items: TocItem[] = [{ depth: 2, slug: "_top", text: locals.t("tableOfContents.overview"), children: [] }];
   const parents: TocItem[] = [];
   for (const heading of article.headings) {

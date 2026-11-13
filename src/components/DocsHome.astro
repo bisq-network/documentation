@@ -17,8 +17,8 @@ const tasks = [
 <div class="docs-home">
   <div class="home-search">
     <p class="home-lede">Find help with installing Bisq, trading, payment methods, wallet recovery, the DAO and contributing.</p>
-    <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog" hidden><span aria-hidden="true">⌕</span><span>Search articles, sections, people…</span><kbd>⌘ / Ctrl K</kbd></button>
-    <div class="home-try" data-pagefind-ignore data-search-controls hidden><span>Try</span>{["Last resort restore", "Zelle", "verify signature", "mediator"].map((query) => <button type="button" data-docs-search={query}>{query}</button>)}</div>
+    <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog"><span aria-hidden="true">⌕</span><span>Search articles, sections, people…</span><kbd>⌘ / Ctrl K</kbd></button>
+    <div class="home-try" data-pagefind-ignore data-search-controls><span>Try</span>{["Last resort restore", "Zelle", "verify signature", "mediator"].map((query) => <button type="button" data-docs-search={query}>{query}</button>)}</div>
     <noscript><p><a href={`${base}/browse/all/`}>Browse all article titles</a></p></noscript>
   </div>
   <section aria-labelledby="which-bisq">
