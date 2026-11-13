@@ -159,8 +159,9 @@ a.sl-link-button.primary:hover { background: var(--bd-accent-hover); border-colo
 .community-preview a { color: var(--sl-color-text); text-underline-offset: 0.15em; }
 /* One line at every width: the full sentence where it fits, a short form below. The separators are
    generated, so a line never starts or ends with one. */
-.community-preview p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.community-preview p > * + *::before { content: "·"; content: "·" / ""; display: inline-block; margin-inline: 0.5rem; color: var(--sl-color-gray-3); font-weight: 400; text-decoration: none; }
+/* The padding keeps the focus ring of the link inside the clipped line. */
+.community-preview p { margin: -4px 0; padding-block: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.community-preview p > :not(:last-child)::after { content: "·"; content: "·" / ""; display: inline-block; margin-inline: 0.5rem; color: var(--sl-color-gray-3); font-weight: 400; }
 .community-preview .preview-wide { display: none; }
 @container (min-width: 44rem) {
   .community-preview .preview-wide { display: block; }
@@ -429,7 +430,9 @@ h1 { line-height: 1.15; }
    column starts at the same x on every article. Starlight's own rules use the left sidebar's width. */
 @media (min-width: 72rem) {
   :root { --bd-rail-width: 15rem; }
-  :root[data-has-toc] { --__toc-width: var(--bd-rail-width); }
+  /* Starlight's header subtracts this width three times (rail plus twice the nav padding), so a third of
+     that sum keeps the header search above the reading column at every width. */
+  :root[data-has-toc] { --__toc-width: calc((var(--bd-rail-width) + 2 * var(--sl-nav-pad-x)) / 3); }
   .right-sidebar-container {
     width: max(var(--bd-rail-width), calc(var(--bd-rail-width) + (100% - var(--sl-content-width) - var(--bd-rail-width)) / 2));
   }
@@ -445,6 +448,8 @@ h1 { line-height: 1.15; }
 .header-link:hover { color: var(--sl-color-text); text-decoration: underline; text-underline-offset: 0.15em; }
 .header-download { display: inline-flex; align-items: center; min-height: 2.25rem; padding: 0 0.75rem; border: 1px solid var(--bd-control-line); border-radius: var(--bd-radius-md); color: var(--sl-color-text); font-weight: 500; }
 .header-download:hover { background: var(--sl-color-bg-sidebar); text-decoration: none; }
+/* Narrow headers keep the download link; the website link stays in the mobile menu. */
+@media (max-width: 60rem) { .right-group .header-link:not(.header-download) { display: none; } }
 /* Theme: one icon button (src/components/ThemeSelect.astro). */
 .theme-toggle button { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 1px solid transparent; border-radius: var(--bd-radius-md); background: transparent; color: var(--sl-color-gray-2); cursor: pointer; }
 .theme-toggle button:hover { border-color: var(--sl-color-hairline); color: var(--sl-color-text); }

@@ -30,10 +30,13 @@ import { Icon } from "@astrojs/starlight/components";
   const storageKey = "starlight-theme";
   const parseTheme = (theme: unknown): Theme => (theme === "dark" || theme === "light" ? theme : "auto");
   const loadTheme = (): Theme => { try { return parseTheme(localStorage.getItem(storageKey)); } catch { return "auto"; } };
+  // The theme in use; kept here as well, so the button keeps working when storage cannot be written.
+  let current: Theme = loadTheme();
   const preferred = (): Theme => (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
 
   /** Apply a theme to the page, the icon and the button's name, and store it as Starlight does. */
   function applyTheme(theme: Theme) {
+    current = theme;
     StarlightThemeProvider.updatePickers(theme);
     document.documentElement.dataset.theme = theme === "auto" ? preferred() : theme;
     try { localStorage.setItem(storageKey, theme === "auto" ? "" : theme); } catch { /* storage blocked: the theme lasts for this page */ }
@@ -43,16 +46,15 @@ import { Icon } from "@astrojs/starlight/components";
     });
   }
 
-  matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => { if (loadTheme() === "auto") applyTheme("auto"); });
+  matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => { if (current === "auto") applyTheme("auto"); });
 
   class ThemeToggle extends HTMLElement {
     constructor() {
       super();
-      applyTheme(loadTheme());
+      applyTheme(current);
       this.querySelector("button")?.addEventListener("click", () => {
         // Each press changes what the page looks like until the last, which returns to auto:
         // auto, then the theme the system does not use, then the one it uses, then auto.
-        const current = loadTheme();
         const system = preferred();
         applyTheme(current === "auto" ? (system === "light" ? "dark" : "light") : current === system ? "auto" : system);
       });
