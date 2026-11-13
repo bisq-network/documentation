@@ -86,9 +86,8 @@ A project owner:
 
 ### Stakeholders and users {#stakeholders-and-users}
 
-DAO [stakeholders](../stakeholder/) and Bisq users are responsible for providing approval feedback on project proposals.
-
-\<span id=\"Committee\">
+<p>DAO <a href="../stakeholder/">stakeholders</a> and Bisq users are responsible for providing approval feedback on project proposals.</p>
+<span id="Committee" class="wiki-legacy-anchor" aria-hidden="true"></span>
 
 <span class="wiki-legacy-anchor" id="Project_management_committee" aria-hidden="true">
 </span>
