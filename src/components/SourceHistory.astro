@@ -1,5 +1,6 @@
 ---
 import SavedWikiLink from "./SavedWikiLink.astro";
+import PaymentMethodsHub from "./PaymentMethodsHub.astro";
 import Default from "@astrojs/starlight/components/MarkdownContent.astro";
 import { collectGuides, sections, loadIntegration } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
@@ -44,6 +45,7 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
 </>}
 <Default><Fragment set:html={page.content} /></Default>
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
+{["browse/payments", "browse/payment-methods"].includes(id) && <PaymentMethodsHub />}
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>
   <p>{edits.length
