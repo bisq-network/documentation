@@ -116,7 +116,8 @@ async function open(page, path) {
 
 /** Open the search dialog and search; resolves once results (or the no-result message) show. */
 async function openSearch(page, query) {
-  await page.locator("site-search button[data-open-modal]").first().click();
+  // The header button, or the home page's own search field where the header one is hidden.
+  await page.locator("site-search button[data-open-modal]:visible, .home-search-field:visible").first().click();
   const input = page.locator(".pagefind-ui__search-input");
   await input.waitFor({ state: "visible", timeout: 15000 });
   await input.fill(query);

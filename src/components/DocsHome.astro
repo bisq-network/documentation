@@ -1,47 +1,76 @@
 ---
 import SavedWikiLink from "./SavedWikiLink.astro";
 import { collectGuides, sections } from "../../scripts/lib/documentation.mjs";
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const guides = collectGuides();
-const tasks = [
+/** A task row: what the reader wants to do, and the article it opens (named on the row). */
+const task = ([label, slug]: [string, string]) => {
+  const guide = guides.find((item) => item.slug === slug);
+  if (!guide) throw new Error(`Home page task "${label}" points at a missing article: ${slug}`);
+  return { label, guide };
+};
+const urgent = ([
+  ["Contact the mediator for a trade", "finding-your-mediator"],
+  ["Recover data when Bisq won’t start", "last-resort-restore"],
+  ["A deposit transaction is stuck", "deposit-transaction-pending-in-mempool-and-cpfp"],
+  ["Restore funds from seed words", "restoring-your-wallet-from-seed"],
+  ["Fix connection problems", "troubleshooting-network-issues"],
+] as [string, string][]).map(task);
+const setup = ([
   ["Install Bisq and verify the download", "downloading-and-installing"],
   ["Start trading with Bisq Easy", "bisq-easy"],
   ["Choose and set up a payment method", "payment-methods"],
-  ["Contact the mediator for a trade", "finding-your-mediator"],
   ["Back up your wallet seed", "backing-up-your-wallet-seed"],
-  ["Recover data when Bisq won’t start", "last-resort-restore"],
-  ["Fix connection problems", "troubleshooting-network-issues"],
-  ["Start contributing to Bisq", "contributor-checklist"],
-].map(([label, slug]) => ({ label, guide: guides.find((guide) => guide.slug === slug)! }));
+] as [string, string][]).map(task);
+const total = sections.reduce((sum, section) => sum + section.count, 0);
+// Inline stroke icons, one per topic (24 × 24, drawn with currentColor).
+const icons: Record<string, string> = {
+  start: "M5 21V4M5 4h12l-2.5 4L17 12H5",
+  trade: "M4 8h14l-3.5-3.5M20 16H6l3.5 3.5",
+  payments: "M3 6h18v12H3zM3 10h18M7 15h4",
+  wallet: "M4 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a1 1 0 0 1-1-1zM4 7l11-3v3M16 13.5h.01",
+  disputes: "M12 4v16M8 20h8M5 8h14M5 8l-2.5 6a3 3 0 0 0 5 0zM19 8l-2.5 6a3 3 0 0 0 5 0z",
+  troubleshooting: "M14.5 6.5a4 4 0 0 0-5.3 5.3L4 17l3 3 5.2-5.2a4 4 0 0 0 5.3-5.3L15 12l-3-3z",
+  setup: "M4 7h10M18 7h2M4 17h4M12 17h8M14 4v6M8 14v6",
+  dao: "M3 9l9-5 9 5M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18",
+  contribute: "M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20a6 6 0 0 1 12 0M17 8v6M14 11h6",
+  reference: "M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h10",
+};
 ---
-<div class="docs-home">
-  <div class="home-search">
-    <p class="home-lede">Find help with installing Bisq, trading, payment methods, wallet recovery, the DAO and contributing.</p>
-    <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog"><span aria-hidden="true">⌕</span><span>Search articles, sections, people…</span><kbd>⌘ / Ctrl K</kbd></button>
+<div class="docs-home not-content">
+  <section class="home-hero" aria-label="Search">
+    <p class="home-lede">Guides for Bisq 1 and Bisq 2, restored from the community wiki and under review.</p>
+    <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>Search articles, sections, people…</span><kbd>Ctrl K</kbd></button>
     <div class="home-try" data-pagefind-ignore data-search-controls><span>Try</span>{["Last resort restore", "Zelle", "verify signature", "mediator"].map((query) => <button type="button" data-docs-search={query}>{query}</button>)}</div>
     <noscript><p><a href={`${base}/browse/all/`}>Browse all article titles</a></p></noscript>
+  </section>
+  <div class="home-start">
+    <section class="home-card home-urgent" aria-labelledby="home-urgent">
+      <h2 id="home-urgent">Something is wrong right now</h2>
+      <ul class="home-task-list">{urgent.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span>{label}</span><small>{guide.title}</small></a></li>)}</ul>
+    </section>
+    <section class="home-card" aria-labelledby="home-setup">
+      <h2 id="home-setup">Set up and trade</h2>
+      <ul class="home-task-list">{setup.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span>{label}</span><small>{guide.title}</small></a></li>)}</ul>
+    </section>
+    <section class="home-card" aria-labelledby="home-products">
+      <h2 id="home-products">Which Bisq do you use?</h2>
+      <a class="home-door" href={`${base}/wiki/bisq-2/`}><strong>Bisq 2</strong><span>“Bisq 2 is the successor to the original Bisq (Bisq v1).”</span><small>From the article Bisq 2</small></a>
+      <a class="home-door" href={`${base}/wiki/bisq-1/`}><strong>Bisq 1</strong><span>The original Bisq desktop application, called “Bisq v1” in the Bisq 2 article.</span><small>About Bisq 1</small></a>
+    </section>
   </div>
-  <section aria-labelledby="which-bisq">
-    <h2 id="which-bisq">Which Bisq is this about?</h2>
-    <p class="section-intro">Product labels show what the article names in its title, section headings or migration grouping.</p>
-    <div class="home-products">
-      <article><h3>Bisq 2</h3><blockquote>“Bisq 2 is the successor to the original Bisq (Bisq v1).”<cite>From the article Bisq 2</cite></blockquote><a href={`${base}/wiki/bisq-2/`}>Read about Bisq 2</a></article>
-      <article><h3>Bisq Easy</h3><blockquote>“Bisq Easy is a trade protocol for Bisq 2, designed to facilitate the acquisition of bitcoin with zero trade fees and without the requirement of a security deposit.”<cite>From the article Bisq Easy</cite></blockquote><a href={`${base}/wiki/bisq-easy/`}>Read about Bisq Easy</a></article>
-      <article><h3>Bisq 1</h3><blockquote>The original Bisq desktop application, called “Bisq v1” in the Bisq 2 article.</blockquote><a href={`${base}/wiki/bisq-1/`}>Read about Bisq 1</a></article>
-    </div>
+  <section class="home-topics-section" aria-labelledby="home-topics">
+    <div class="home-section-head"><h2 id="home-topics">Browse by topic</h2><a href={`${base}/browse/all/`}>All {total} articles</a></div>
+    <ul class="home-topic-tiles">{sections.map((section) => <li><a href={`${base}/browse/${section.directory}/`}>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons[section.directory]}></path></svg>
+      <strong>{section.label}</strong><span>{section.intro}</span><em><span class="sr-only">, </span>{section.count} <span class="sr-only">articles</span></em>
+    </a></li>)}</ul>
   </section>
-  <section aria-labelledby="common-tasks">
-    <h2 id="common-tasks">Common tasks</h2>
-    <ul class="home-tasks">{tasks.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span>{label}</span><small>{guide.title} · {sections.find((section) => section.directory === guide.directory)?.label}</small><span class="task-arrow" aria-hidden="true">→</span></a></li>)}</ul>
+  <section class="home-help" aria-labelledby="home-help">
+    <h2 id="home-help">Old links and help</h2>
+    <p><a href={`${base}/review/`}>How to contribute a review</a> · <a href={`${base}/recovery-status/`}>Source recovery details</a> · <a href={`${base}/recovered-media/`}>Recovered media catalogue</a></p>
+    <SavedWikiLink id="home" />
   </section>
-  <section aria-labelledby="browse-by-topic">
-    <h2 id="browse-by-topic">Browse by topic</h2>
-    <p class="section-intro"><a href={`${base}/browse/all/`}>Browse all articles</a> or choose a topic below.</p>
-    <div class="home-topics">{sections.map((section) => <a href={`${base}/browse/${section.directory}/`}><strong>{section.label}</strong><span>{section.intro}</span><em>{section.count}</em></a>)}</div>
-  </section>
-  <section aria-labelledby="about-preview" class="home-about">
-    <div><h2 id="about-preview">Help improve the documentation</h2><p><a href={`${base}/review/`}>How to contribute a review</a> · <a href={`${base}/recovery-status/`}>Source recovery details</a> · <a href={`${base}/recovered-media/`}>Recovered media catalogue</a></p></div>
-  </section>
-  <SavedWikiLink id="home" />
 </div>
 <script src="../scripts/docs-discovery.ts"></script>

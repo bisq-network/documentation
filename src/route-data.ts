@@ -13,6 +13,17 @@ export const onRequest = defineRouteMiddleware(({ locals }) => {
   if (id.startsWith("browse/") || ["browse", "recovered-media", "recovery-status", "review", "categories/teams"].includes(id)) {
     entry.data.pagefind = false;
   }
+  // The home page's heading (the title in src/content/docs/index.mdx stays as it is).
+  // Pending confirmation of the wording by the design review.
+  if (id === "" || id === "index") {
+    const old = entry.data.title;
+    entry.data.title = "What do you need help with?";
+    // Starlight has already built the <title> and Open Graph title from the old one.
+    for (const item of route.head) {
+      if (item.tag === "title" && typeof item.content === "string") item.content = item.content.replace(old, entry.data.title);
+      if (item.tag === "meta" && item.attrs?.property === "og:title") item.attrs.content = entry.data.title;
+    }
+  }
   const article = originals.get(id);
   if (!article) return;
   // Every article gets a contents list, even without headings, so Starlight always reserves
