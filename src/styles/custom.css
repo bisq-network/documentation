@@ -660,3 +660,12 @@ body { font-size: var(--bd-fs-ui); }
   @starting-style { opacity: 0; transform: translateY(var(--bd-space-1)); }
 }
 :is(.docs-icon-button, .docs-search-copy)[data-state="failed"]::after { content: "Copy failed"; content: "Copy failed" / ""; }
+/* Prominent migration checks (src/components/SourceHistory.astro): shown in full above the article
+   until a Before you start entry replaces them. */
+.prominent-checks { display: grid; gap: var(--bd-space-3); max-width: 34rem; margin: 0 0 var(--bd-space-5); }
+.prominent-checks section { padding: var(--bd-space-3) var(--bd-space-4); border: 1px solid var(--bd-note-line); border-radius: var(--bd-radius-lg); background: var(--bd-note-bg); }
+.prominent-checks p { margin: 0; font-size: var(--bd-fs-sm); line-height: var(--bd-lh-sm); }
+.prominent-checks p + p { margin-top: var(--bd-space-2); }
+.prominent-check-title { display: flex; align-items: center; gap: var(--bd-space-2); color: var(--bd-note-ink); }
+.prominent-check-title strong { color: var(--sl-color-text); }
+.prominent-check-source { color: var(--sl-color-gray-2); }
