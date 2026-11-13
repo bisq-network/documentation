@@ -35,6 +35,12 @@ function load() {
     document.querySelectorAll<HTMLElement>("site-search").forEach(enhanceSearchResults);
     for (const options of waiting.splice(0)) build(PagefindUI, options);
     return PagefindUI;
+  }, (error) => {
+    // For example a tab opened before a new deployment asks for a file that no longer exists:
+    // forget the attempt, so the next try starts again instead of failing silently forever.
+    loading = undefined;
+    console.error("Search could not load", error);
+    throw error;
   });
   return loading;
 }
@@ -46,13 +52,16 @@ function onIntent(event: Event) {
   } else if (!(event.target instanceof Element) || !event.target.closest("site-search, [data-docs-search]")) {
     return;
   }
-  void load();
+  void load().catch(() => {});
 }
 for (const type of triggers) document.addEventListener(type, onIntent, { capture: true, passive: true });
 
 export class PagefindUI {
   constructor(options: Options) {
-    if (loading) void loading.then((Real) => build(Real, options));
-    else waiting.push(options);
+    if (loading) { void loading.then((Real) => build(Real, options), () => { waiting.push(options); }); return; }
+    waiting.push(options);
+    // Someone opened the dialog before this file arrived: no further trigger may come, so load now.
+    const element = options.element ? document.querySelector(options.element) : null;
+    if (element?.closest("dialog")?.open) void load().catch(() => {});
   }
 }

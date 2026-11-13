@@ -7,8 +7,12 @@ const maxLength = 155;
 /** Plain text of one Markdown paragraph from a restored article. */
 export function plainText(markdown) {
   return markdown
-    // Recovery markers: keep a lost link's words, drop unsupported-markup notes.
-    .replace(/<span class="wiki-markup-gap"[^>]*>[\s\S]*?<\/span>/g, "")
+    .replace(/(?:<|&lt;)!--[\s\S]*?--(?:>|&gt;)/g, "")
+    // A Markdown hard break (backslash at the end of a line) is a space here.
+    .replace(/\\\n/g, " ")
+    // Recovery markers: keep a lost link's words, drop unsupported-markup and template notes.
+    .replace(/<span class="wiki-(?:markup|template)-gap"[^>]*>[\s\S]*?<\/span>/g, "")
+    .replace(/\[Unresolved template:[^\]]*\]/g, "")
     .replace(/<small>\[(?:unrecovered article|unresolved link|section not recovered)[^\]]*\]<\/small>/g, "")
     .replace(/<sup>[\s\S]*?<\/sup>/g, "")
     .replace(/<[^>]+>/g, "")
@@ -16,6 +20,9 @@ export function plainText(markdown) {
     .replace(/\\(.)/g, "$1")
     .replace(/[*_`]+/g, "")
     .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&#39;/g, "'")
+    // Bare addresses read badly in a description: drop them, with their brackets.
+    .replace(/\s*\(https?:\/\/[^)\s]*\)/g, "")
+    .replace(/\s*https?:\/\/\S+/g, "")
     .replace(/\s+/g, " ")
     .trim();
 }

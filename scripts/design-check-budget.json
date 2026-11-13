@@ -9,8 +9,8 @@
   "maxFontSizesKeyPage": 7,
   "maxFontSizesArticle": 7,
   "homeLayoutShift": 0.02,
-  "scriptKilobytesBeforeSearchHome": 7.4,
-  "scriptKilobytesBeforeSearchArticle": 7.9,
+  "scriptKilobytesBeforeSearchHome": 7.5,
+  "scriptKilobytesBeforeSearchArticle": 8.1,
   "unresolvedLinkMarkers": 0,
   "unsupportedMarkupPages": 0
 }

@@ -79,6 +79,8 @@ if (missing.length) throw new Error(`Payment methods hub leaves out: ${missing.j
         if (!tile.hidden) shown += 1;
       }
       count.textContent = shown === tiles.length ? `All ${tiles.length} methods` : `${shown} of ${tiles.length} methods`;
+      // A letter link points at the first tile of its letter, which a filter can hide.
+      hub.querySelector<HTMLElement>(".pm-letters")!.hidden = shown !== tiles.length;
       hub.querySelector<HTMLElement>("[data-pm-empty]")!.hidden = shown > 0;
     };
     input.addEventListener("input", update);

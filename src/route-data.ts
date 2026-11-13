@@ -17,12 +17,12 @@ export const onRequest = defineRouteMiddleware(({ locals }) => {
   // The home page's heading (the title in src/content/docs/index.mdx stays as it is).
   // Pending confirmation of the wording by the design review.
   if (id === "" || id === "index") {
-    const old = entry.data.title;
     entry.data.title = "What do you need help with?";
     // Starlight has already built the <title> and Open Graph title from the old one.
     for (const item of route.head) {
-      if (item.tag === "title" && typeof item.content === "string") item.content = item.content.replace(old, entry.data.title);
-      if (item.tag === "meta" && item.attrs?.property === "og:title") item.attrs.content = entry.data.title;
+      // The site title is just "Documentation", so the home page's tab and link previews name Bisq.
+      if (item.tag === "title") item.content = "What do you need help with? | Bisq documentation";
+      if (item.tag === "meta" && item.attrs?.property === "og:title") item.attrs.content = "Bisq documentation: What do you need help with?";
     }
   }
   const article = originals.get(id);
