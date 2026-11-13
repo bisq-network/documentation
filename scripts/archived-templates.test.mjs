@@ -43,6 +43,27 @@ test("historical scalar values come directly from archived definitions", async (
   }
 });
 
+test("archived Bisq 1 trade-limit values stay unchanged and are labelled historical", async () => {
+  const { default: rendered } = await import("../migration/template-renderings-20261014.json", { with: { type: "json" } });
+  const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const items = rendered.items.filter((item) => ["MaxTradeSizeBisq1", "MaxTradeSizeAltcoin"].includes(item.name));
+  assert.deepEqual(items.map((item) => item.html), ["0.0624 BTC", "0.50 BTC"]);
+  // Templates are rendered on the rendered article, as the site does.
+  const renderedArticle = (slug) => {
+    const path = `src/content/docs/wiki/${slug}.md`;
+    return renderArticle(readFileSync(path, "utf8"), path);
+  };
+  for (const item of items) {
+    const labelled = new RegExp(`${escapeRegExp(item.html)}<sup><a [^>]*>2026 source</a></sup> <small class="wiki-template-historical-value">\\(historical wiki value; <a href="#migration-note-archived-bisq1-trade-limit-macros">check the limit shown in Bisq 1</a>\\)</small>`, "g");
+    for (const slug of new Set(item.articles)) {
+      const result = renderArchivedTemplates(await renderedArticle(slug), "/bisq-docs/", slug);
+      assert.equal((result.content.match(labelled) || []).length, item.articles.filter((entry) => entry === slug).length, slug);
+    }
+  }
+  const limits = renderArchivedTemplates(await renderedArticle("account-limits"), "/", "account-limits");
+  assert.doesNotMatch(limits.content, /wiki-template-historical-value/);
+});
+
 test("parameterized command rendering keeps ordinary spaces and literal options", async () => {
   const { default: rendered } = await import("../migration/template-renderings-20261014.json", { with: { type: "json" } });
   const item = rendered.items.find((entry) => entry.invocation.includes("--dumpDelayedPayoutTxs=true"));
