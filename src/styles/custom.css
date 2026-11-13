@@ -183,14 +183,6 @@ a.sl-link-button.primary:hover { background: var(--bd-accent-hover); border-colo
 .source-history ul { padding-inline-start: 1.4rem; }
 .source-history li { margin-block: 0.5rem; overflow-wrap: anywhere; }
 
-.source-context { margin-bottom: 1.5rem; padding: 0.85rem 1rem; border: 1px solid var(--sl-color-gray-5); border-radius: 0.2rem; font-size: 0.9rem; }
-.source-context p { margin-block: 0.5rem; }
-.source-checks { margin-top: 0.75rem; }
-.source-checks summary { cursor: pointer; font-weight: 600; }
-.source-checks section { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--sl-color-gray-5); }
-.source-checks h2 { font-size: 1.05rem; }
-.source-checks ul { padding-inline-start: 1.4rem; }
-.source-check-date { color: var(--sl-color-gray-2); font-size: 0.85rem; }
 .wiki-recovered-article table th, .wiki-recovered-article table td { min-width: 8rem; }
 
 /* Reading measure and controls from the approved documentation brief. */
@@ -209,7 +201,7 @@ h1 { font-size: var(--sl-text-h1); font-weight: 500; }
 .sl-markdown-content:not(:has(.wiki-recovered-article)) > :is(p, ul, ol, dl, blockquote) { max-width: 34rem; }
 .sl-markdown-content:not(:has(.wiki-recovered-article)) > p { text-wrap: pretty; }
 .wiki-recovered-article figure img { width: auto; max-width: 100%; }
-.source-context a, .source-history a { color: var(--sl-color-text-accent); text-underline-offset: 0.15em; }
+.source-history a, .about-page-body a { color: var(--sl-color-text-accent); text-underline-offset: 0.15em; }
 .sidebar-content a[aria-current="page"] {
   position: relative;
   color: var(--sl-color-text);
@@ -281,7 +273,7 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 .article-crumbs li + li::before { content: "/"; color: var(--sl-color-gray-3); margin-inline-end: 0.5rem; }
 .article-crumbs a { color: var(--sl-color-gray-2); text-decoration: none; }
 .article-crumbs a:hover { color: var(--sl-color-text-accent); text-decoration: underline; }
-.article-meta, .product-labels, .article-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
+.article-meta, .product-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
 .article-meta { font-size: 0.875rem; color: var(--sl-color-gray-3); }
 .product-labels { gap: 0.25rem; }
 .revision-stamp { font: 0.78125rem var(--sl-font-mono); color: var(--sl-color-gray-2); }
@@ -289,12 +281,9 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 .docs-chip.product { border-color: transparent; background: var(--sl-color-accent-low); color: var(--sl-color-text); font-weight: 500; }
 .docs-chip.product .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sl-color-accent); }
 .docs-chip.review { border-color: var(--bd-warn-line); background: var(--bd-warn-bg); color: var(--bd-warn-ink); }
-.article-actions { margin-top: 1rem; }
 .docs-button { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 2.75rem; padding: 0.4rem 0.75rem; border: 1px solid var(--bd-control-line); border-radius: var(--bd-radius-md); background: var(--bd-raised); color: var(--sl-color-text); text-decoration: none; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
 .docs-button[hidden] { display: none; }
 .docs-button:hover { background: var(--sl-color-bg-sidebar); border-color: var(--sl-color-gray-2); }
-.docs-button.ghost { background: transparent; border-color: transparent; color: var(--sl-color-gray-2); }
-.docs-button.ghost:hover { background: var(--sl-color-bg-sidebar); color: var(--sl-color-text); }
 
 /* Article furniture enhances the original server-rendered HTML in place. */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -391,13 +380,7 @@ body:has(starlight-toc, mobile-starlight-toc) nav.wiki-source-toc { display: non
 /* Provenance stays separate from the recovered author content. */
 .community-preview { background: var(--sl-color-bg-sidebar); border-color: var(--sl-color-hairline-light); font-size: 0.78125rem; }
 .community-preview strong { color: var(--sl-color-text); font-weight: 600; }
-.source-context { max-width: 34rem; background: var(--bd-raised); border-color: var(--sl-color-hairline-light); border-radius: var(--bd-radius-md); }
-.source-checks { margin-top: 0; }
-.source-checks summary .docs-chip { margin-inline-start: 0.5rem; }
 .source-note-origin { color: var(--sl-color-gray-3); font-size: 0.78125rem; font-weight: 400; }
-.source-checks summary .source-note-origin { display: block; margin-top: 0.35rem; }
-.source-checks section { border-color: var(--sl-color-hairline-light); }
-.source-checks section h2 { margin-bottom: 0.5rem; }
 .source-history { max-width: 54rem; margin-top: 4rem; padding: 1.5rem 0 0; border: 0; border-top: 1px solid var(--sl-color-hairline); border-radius: 0; }
 .source-history h2 { margin: 0 0 0.75rem; font-size: 1.125rem; font-weight: 600; }
 .source-history p { max-width: 65ch; color: var(--sl-color-gray-2); font-size: 0.875rem; }
@@ -457,3 +440,44 @@ h1 { line-height: 1.15; }
 /* Without scripts the theme button and the home search controls cannot work, so they are not shown;
    with scripts they are there from the first paint and nothing moves when the scripts arrive. */
 @media (scripting: none) { .theme-toggle, .docs-home .home-search-field, .docs-home .home-try { display: none !important; } }
+
+/* Answer first (round 2 design review, PR 2): About this page and Before you start. */
+.article-crumbs { margin-bottom: 0.5rem; }
+.article-crumbs ol { margin: 0; }
+.docs-icon-button { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 1px solid var(--sl-color-hairline-light); border-radius: var(--bd-radius-md); background: var(--bd-raised); color: var(--sl-color-text); cursor: pointer; }
+.docs-icon-button[hidden] { display: none; }
+.docs-icon-button:hover { border-color: var(--bd-control-line); background: var(--sl-color-bg-sidebar); }
+.article-meta .docs-icon-button { margin-inline-start: auto; }
+/* The card: in the rail from 72rem up, a closed row under the title below that. */
+.about-page-rail { margin-top: 1.5rem; padding: 1rem; border: 1px solid var(--sl-color-hairline-light); border-radius: var(--bd-radius-lg); background: var(--bd-raised); }
+.right-sidebar-panel .about-page-rail h2 { margin: 0 0 0.75rem; }
+.about-page-body { font-size: 0.875rem; line-height: 1.5; color: var(--sl-color-text); }
+.about-facts { display: grid; gap: 0.75rem; margin: 0; }
+.about-facts dt { font-weight: 600; }
+.about-facts dd { margin: 0.125rem 0 0; color: var(--sl-color-gray-2); overflow-wrap: anywhere; }
+.about-facts .docs-chip { margin-top: 0.25rem; }
+.about-checks { margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px solid var(--sl-color-hairline-light); }
+.about-checks > summary { display: flex; align-items: center; gap: 0.25rem; min-height: 2.75rem; cursor: pointer; color: var(--sl-color-text-accent); font-weight: 500; }
+.about-checks-intro, .about-check-date { color: var(--sl-color-gray-3); font-size: 0.8125rem; }
+.about-check { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--sl-color-hairline-light); }
+.about-check p { margin: 0 0 0.5rem; }
+.about-check-title .docs-chip { margin-top: 0.25rem; }
+.about-check ul { margin: 0; padding-inline-start: 1.1rem; }
+.about-page-body .about-links { display: grid; gap: 0.25rem; margin: 0.75rem 0 0; padding-top: 0.75rem; border-top: 1px solid var(--sl-color-hairline-light); }
+.right-sidebar-panel .about-page-body a { display: inline; font-size: inherit; color: var(--sl-color-text-accent); text-decoration: underline; text-underline-offset: 0.15em; }
+.right-sidebar-panel .about-page-body .about-links a { display: flex; align-items: center; min-height: 2.75rem; }
+.about-page-row { margin-top: 0.75rem; border-block: 1px solid var(--sl-color-hairline-light); }
+.about-page-row > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; min-height: 2.75rem; cursor: pointer; font-size: 0.875rem; font-weight: 600; }
+.about-page-row-count { color: var(--sl-color-gray-2); font-weight: 400; }
+.about-page-row > .about-page-body { padding-bottom: 0.75rem; }
+.about-page-row .about-links a { display: flex; align-items: center; min-height: 2.75rem; }
+@media (min-width: 72rem) { .about-page-row { display: none; } }
+/* Before you start: sentences from a migration check, in the warning colours, above the article. */
+.before-you-start { max-width: 34rem; margin: 0 0 1.5rem; padding: 1rem 1.25rem; border: 1px solid var(--bd-warn-line); border-radius: var(--bd-radius-lg); background: var(--bd-warn-bg); }
+.before-you-start h2 { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.5rem; color: var(--bd-warn-ink); font-size: 1rem; font-weight: 600; line-height: 1.3; }
+.before-you-start ul { margin: 0; padding-inline-start: 1.25rem; color: var(--sl-color-text); font-size: 1rem; line-height: 1.6; }
+.before-you-start li + li { margin-top: 0.375rem; }
+.before-you-start-source { margin: 0.625rem 0 0; color: var(--bd-warn-ink); font-size: 0.8125rem; }
+.disclosure-icon { flex: none; transition: transform var(--bd-motion); }
+details[open] > summary > .disclosure-icon { transform: rotate(90deg); }
+:is(.about-checks, .about-page-row) > summary::-webkit-details-marker { display: none; }
