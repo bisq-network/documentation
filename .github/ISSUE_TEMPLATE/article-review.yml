@@ -6,7 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        One article and one finding per issue. Do not include wallet seeds, private keys,
+        One article and one finding per issue.
+
+        **Issues are public and stay visible.** Never include wallet seeds, private keys,
         payment details or private trade conversations.
   - type: input
     id: article
@@ -32,9 +34,8 @@ body:
     id: version
     attributes:
       label: Version checked
+      description: If you checked in the application, the version it shows.
       placeholder: "Version number shown in the application"
-    validations:
-      required: true
   - type: dropdown
     id: finding
     attributes:
@@ -49,21 +50,12 @@ body:
   - type: textarea
     id: details
     attributes:
-      label: What is wrong, and suggested wording
-      description: Quote the current sentence and give the wording you would use. Leave empty if the article is still correct.
+      label: What you found
+      description: For a correction, quote the current sentence and give the wording you would use. If the article is still correct, say what you checked.
+    validations:
+      required: true
   - type: textarea
     id: evidence
     attributes:
       label: Evidence
-      description: How you checked it, for example the screen in the application, release notes or a source link. Say whether you looked at the application, the code, or both. Crop screenshots so they show no balances, addresses, trade or offer IDs, or onion addresses.
-    validations:
-      required: true
-  - type: checkboxes
-    id: care
-    attributes:
-      label: Before submitting
-      options:
-        - label: I did not perform a funded trade or an irreversible operation only to check this article.
-          required: true
-        - label: This issue contains no seeds, keys, payment details or private conversations.
-          required: true
+      description: How you know, for example a screen in the application, release notes or a source link. Say whether you looked at the application, the code, or both. Crop screenshots so they show no balances, addresses, trade or offer IDs, or onion addresses. Don't make a funded trade or an irreversible change, such as restoring a wallet, just to check an article.
