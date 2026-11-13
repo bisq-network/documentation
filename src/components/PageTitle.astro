@@ -20,9 +20,10 @@ const revisionDate = article?.revision_timestamp ? new Intl.DateTimeFormat("en-G
       <ol><li><a href={`${base}/`}>Docs</a></li>{section && <li><a href={`${base}/browse/${section.directory}/`}>{section.label}</a></li>}</ol>
     </nav>
     <div class="article-meta">
-      <span class="product-labels">
-        {products.length ? products.map((product) => <span class="docs-chip product" title={product.basis}><span class="dot" aria-hidden="true"></span>{product.label}</span>) : <span class="docs-chip unstated" title="No product is named in the title, section headings or migration grouping">Product not stated</span>}
-      </span>
+      {/* A chip only where the article names a product; no chip is shown without that evidence. */}
+      {products.length > 0 && <span class="product-labels">
+        {products.map((product) => <span class="docs-chip product" title={product.basis}><span class="dot" aria-hidden="true"></span>{product.label}</span>)}
+      </span>}
       {edits.length ? <span>Edited after restoration: {edits.map((edit, index) => <>{index > 0 && ", "}<a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></>)}</span> : <span>Original wiki wording</span>}
       <span class="revision-stamp">rev {article.revision_id} · {revisionDate}</span>
     </div>
