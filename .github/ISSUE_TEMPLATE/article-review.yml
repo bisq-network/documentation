@@ -50,8 +50,10 @@ body:
   - type: textarea
     id: details
     attributes:
-      label: What is wrong, and suggested wording
-      description: Quote the current sentence and give the wording you would use. Leave empty if the article is still correct.
+      label: What you found
+      description: For a correction, quote the current sentence and give the wording you would use. If the article is still correct, say what you checked.
+    validations:
+      required: true
   - type: textarea
     id: evidence
     attributes:
