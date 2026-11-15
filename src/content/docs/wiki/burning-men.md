@@ -58,7 +58,7 @@ When doing their compensation request, a contributor should fill the \"Burningma
 It is highly recommended to use an external wallet like electrum or sparrow, which are able to handle many UTXOs and can connect to a signing device for cold storage.
 
 To burn BSQ for the BSQ burning man role the current contributor will see their assigned name \'contributor_name\' in the [Burningmen Protocol UI](../burning-men/#burning-men-protocol-ui). They can then choose to burn an amount of BSQ and press burn.\
-Since *Issuance share* is capped depending on how many BTC were earned in the last 2 years (decaying linearly) it\'s important to make sure that the amount of BTC to burn will not exceed the cap. It would be prudent to begin with small amounts and never exceed the lower amount in the *burn target* column.
+Since *Issuance share* is capped depending on how many BTC were earned in the last 2 years (decaying linearly) it\'s important to make sure that the amount of BSQ to burn will not exceed the cap. It would be prudent to begin with small amounts and never exceed the lower amount in the *burn target* column.
 
 <span class="wiki-legacy-anchor" id="Receivers_of_the_genesis_distribution" aria-hidden="true">
 </span>
