@@ -154,7 +154,7 @@ Please be aware there is a minimum trade amount of Rs. 200,000 that can be sent 
 
 Minimum amount per transaction is Rs.200,000.
 
-Maximum of 1,000,000 INR can be sent per day.
+RBI specifies a 200,000 INR RTGS minimum and no system-wide maximum. Your bank can impose channel/account limits, so verify the daily allowance rather than assuming a universal 1,000,000 INR cap.
 
 <span class="wiki-legacy-anchor" id="Are_there_any_fees_for_me_to_be_aware_of_when_using_my_RTGS_account?" aria-hidden="true">
 </span>
