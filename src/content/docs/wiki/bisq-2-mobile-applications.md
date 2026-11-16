@@ -59,7 +59,7 @@ The mobile app acts as a remote interface, allowing you to monitor and manage yo
 
 Features:
 
-- Pairing via QR code
+- Pairing via QR code. The official mobile README identifies the pairing QR/token as a trade-control credential: keep it private and do not expose the pairing UI/API to an untrusted or public network.
 - Real-time market data
 - Push notifications
 - Private P2P messaging
@@ -71,7 +71,7 @@ Pros:
 - Available on both Android and iOS
 - Low resource and battery usage
 - Seamless access to the same data across devices when self-hosted
-- No need for mobile backups (data is stored on the backend node)
+- Trade data is stored on the backend node, which still needs its own protected application backup; a thin client does not remove that requirement.
 - Mobile app can be closed without affecting node operation
 
 Cons:
