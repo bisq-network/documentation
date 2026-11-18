@@ -1,5 +1,10 @@
 import { normalizeFragment, resolveLegacyDestination } from "../../scripts/lib/legacy-routes.mjs";
 
+/** Whether an origin is the original wiki's domain, where this site is now served. */
+function isWikiOrigin(value) {
+    try { return ["bisq.wiki", "www.bisq.wiki"].includes(new URL(value).hostname.toLowerCase()); } catch { return false; }
+}
+
 /** Decode a URL component while retaining malformed escape sequences for lookup. */
 function decode(value) {
     try { return decodeURIComponent(value); } catch { return value; }
@@ -45,6 +50,12 @@ export function parseSavedWikiLink(value, { base = "", origin, siteOrigin = orig
             : previousBases.find(within) ?? (sameSite ? current : undefined);
         if (prefix === undefined) return null;
         if (prefix && within(prefix)) path = path.slice(prefix.length);
+    } else if ([origin, siteOrigin].some(isWikiOrigin)) {
+        // This site is served at the wiki's own domain, so a path pasted on its own
+        // ("/documentation/wiki/...") resolves against bisq.wiki. Under a previous base
+        // path it is an earlier address of this site, not an original wiki title.
+        const prefix = previousSites.map((site) => site.base.replace(/\/$/, "")).find((value) => value && within(value));
+        if (prefix) path = path.slice(prefix.length);
     }
     path = path.replace(/\/index\.html?$/i, "/");
     if (/^\/index\.php$/i.test(path)) {

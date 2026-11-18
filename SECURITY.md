@@ -1,7 +1,7 @@
 # Security Policy
 
 This repository holds the Bisq documentation site (an Astro/Starlight site
-published at https://bisq-network.github.io/documentation/), its build scripts,
+published at https://bisq.wiki/), its build scripts,
 and its GitHub Actions workflows. It does not contain the Bisq software itself.
 Where to report depends on which of the two is affected.
 
