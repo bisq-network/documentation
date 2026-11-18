@@ -15,7 +15,7 @@ body:
     attributes:
       label: Article link
       description: Use the section link button next to a heading to link the exact section.
-      placeholder: https://bisq-network.github.io/documentation/wiki/last-resort-restore/#import-raw-data-from-backup
+      placeholder: https://bisq.wiki/wiki/last-resort-restore/#import-raw-data-from-backup
     validations:
       required: true
   - type: dropdown

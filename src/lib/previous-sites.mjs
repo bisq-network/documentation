@@ -5,4 +5,5 @@
  */
 export const PREVIOUS_SITES = Object.freeze([
     Object.freeze({ origin: "https://hiciefte.github.io", base: "/bisq-docs" }),
+    Object.freeze({ origin: "https://bisq-network.github.io", base: "/documentation" }),
 ]);

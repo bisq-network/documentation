@@ -159,11 +159,13 @@ At least `required_approvals` distinct approvers must pass, using the base's val
 
 ## Run the checks locally
 
-For anything beyond a single wording edit, run `npm ci`, `npm test`, and `npm run build`; check affected pages, images and links at desktop and narrow widths. Also check the project base path:
+For anything beyond a single wording edit, run `npm ci`, `npm test`, and `npm run build`; check affected pages, images and links at desktop and narrow widths. Also check that the site works under a base path, as a fork's GitHub Pages preview would serve it:
 
 ```sh
 DOCS_SITE=https://bisq-network.github.io DOCS_BASE=/documentation/ npm run build
 ```
+
+The live site at bisq.wiki is served from the root; `DOCS_SITE=https://bisq.wiki npm run build` builds exactly that.
 
 `npm run build` fails on a wording change until its receipt is added; on a pull request, `check` and `receipts` report it as awaiting a receipt instead. The deployment workflow is manual. Building or submitting a pull request does not publish the site.
 
