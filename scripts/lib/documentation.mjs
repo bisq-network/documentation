@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { additionalArticles } from "./additional-articles.mjs";
+import { newArticlesManifest, verifyNewArticles } from "./new-articles.mjs";
 
 const navigation = JSON.parse(readFileSync("migration/nav-groups.json", "utf8"));
 const expectedGroupCounts = [10, 29, 45, 22, 14, 13, 13, 20, 34, 9];
@@ -26,6 +27,16 @@ for (const article of additionalArticles) {
   section.count += 1;
 }
 
+// Articles written after the recovery (src/data/new-articles.json) follow, at the end of their
+// section. They have no source records, so loadIntegration() leaves them out.
+const recoveredSlugs = new Set([...JSON.parse(readFileSync("migration/articles.json", "utf8")).items, ...additionalArticles].map((article) => article.slug));
+export const newArticles = verifyNewArticles(newArticlesManifest.items, { recoveredSlugs, sections });
+for (const article of newArticles) {
+  const section = sections.find((group) => group.directory === article.directory);
+  if (sections.some((group) => group.articles.some((item) => item.title === article.title || item.route === article.route))) throw new Error(`Duplicate new article: ${article.title}`);
+  section.articles.push({ title: article.title, route: article.route });
+  section.count += 1;
+}
 
 const placementByTitle = new Map();
 for (const section of sections) {
@@ -43,7 +54,7 @@ for (const section of sections) {
     }
   }
 }
-if (placementByTitle.size !== 209 + additionalArticles.length) throw new Error("Expected all original and additional navigation titles exactly once.");
+if (placementByTitle.size !== 209 + additionalArticles.length + newArticles.length) throw new Error("Expected all original, additional and new navigation titles exactly once.");
 
 /** Load original and separately verified additional article metadata. */
 export function loadIntegration() {
@@ -71,7 +82,7 @@ export function loadIntegration() {
  * an article. Navigation order is retained separately for sidebar rendering.
  */
 export function collectGuides() {
-  const articles = loadIntegration();
+  const articles = [...loadIntegration(), ...newArticles];
   const guides = articles.map((article) => {
     const placement = placementByTitle.get(article.title);
     if (!placement || placement.route !== article.route) {

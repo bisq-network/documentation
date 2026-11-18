@@ -58,6 +58,16 @@ Preserve prerequisites and warnings, identify old interfaces in images, and do n
 
 Changes outside the articles (layout, scripts, workflows, these guides) are ordinary pull requests without the label: CodeRabbit reviews them, a maintainer reviews and merges them, and they need no receipt. A change under `migration/` also needs a documentation reviewer's approval. Like every pull request they must pass `check` and `receipts`; [run the checks locally](#run-the-checks-locally) first.
 
+### Add a new article
+
+A new article is one that was not in the old wiki, for example a guide to a feature added since. It lives next to the recovered articles:
+
+1. Write it as `src/content/docs/wiki/<name>.md`: a `title` and a `description` between the two `---` at the top, a `{#id}` after each heading, and the text between `<div class="wiki-recovered-article" lang="en">` and `</div>`, as in [Stablecoin payment methods](src/content/docs/wiki/stablecoin-payment-methods.md). Link to other articles with `../<name>/`.
+2. List it in [`src/data/new-articles.json`](src/data/new-articles.json) with its `slug` (the `<name>`), `title`, sidebar section (`directory`, for example `trade`) and the date it is added (`added`). The build fails for an article file that is not listed, and for a listed article whose file or title does not match.
+3. Open a pull request without the `wording-proposal` label. It needs no receipt: a documentation reviewer approves it in the pull request, as every change under `src/content/docs/wiki/`.
+
+The page says it is a new article, not from the original wiki, and when it was added. A new article has no old wiki address; the recovered articles keep theirs.
+
 ## Accepted editorial changes
 
 A wording change to a restored article can merge only with a receipt that a documentation reviewer approved. A receipt is a file in `migration/accepted-edits/`, named `<slug>.pr-<number>.json`; it records the exact text the change replaced. `migration/accepted-edits.json` lists the reviewers (suddenwhipvapor and pazza83) and how many must approve (one). The author's own approval never counts, so a change by one reviewer is approved by the other, and a change by anyone else by either of them. Receipts let the site show readers which text changed after restoration and who accepted it, and they make the build refuse any wording change nobody accepted.

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { additionalArticles, verifyAdditionalArticles } from "./lib/additional-articles.mjs";
-import { collectGuides, loadIntegration, sections } from "./lib/documentation.mjs";
+import { collectGuides, loadIntegration, newArticles, sections } from "./lib/documentation.mjs";
 
 test("additional historical sources retain raw, rendered and media receipts", () => {
   assert.equal(verifyAdditionalArticles().length, 3);
@@ -12,14 +12,16 @@ test("additional historical sources retain raw, rendered and media receipts", ()
   }
 });
 
-test("original articles and additions appear once in navigation and discovery", () => {
+test("original articles, additions and new articles appear once in navigation and discovery", () => {
   const original = JSON.parse(readFileSync("migration/articles.json", "utf8")).items;
   const all = loadIntegration();
   assert.equal(original.length, 209);
   assert.equal(all.length, 212);
   assert.equal(new Set(all.map((item) => item.route)).size, 212);
-  assert.equal(collectGuides().length, 212);
-  assert.equal(sections.reduce((sum, group) => sum + group.count, 0), 212);
+  // New articles have no source records: in navigation, not in the recovered articles.
+  assert.equal(collectGuides().length, 212 + newArticles.length);
+  assert.equal(sections.reduce((sum, group) => sum + group.count, 0), 212 + newArticles.length);
   for (const item of original) assert.equal(all.find((a) => a.title === item.title).wikitext_sha256, item.wikitext_sha256);
-  for (const item of additionalArticles) assert.equal(collectGuides().filter((guide) => guide.slug === item.slug).length, 1);
+  for (const item of [...additionalArticles, ...newArticles]) assert.equal(collectGuides().filter((guide) => guide.slug === item.slug).length, 1);
+  for (const item of newArticles) assert.equal(all.some((article) => article.slug === item.slug), false);
 });

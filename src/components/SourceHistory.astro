@@ -3,7 +3,7 @@ import SavedWikiLink from "./SavedWikiLink.astro";
 import PaymentMethodsHub from "./PaymentMethodsHub.astro";
 import ArticleScripts from "./ArticleScripts.astro";
 import Default from "@astrojs/starlight/components/MarkdownContent.astro";
-import { collectGuides, sections, loadIntegration } from "../../scripts/lib/documentation.mjs";
+import { collectGuides, sections, loadIntegration, newArticles } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import { beforeYouStartFor } from "../../scripts/lib/before-you-start.mjs";
 import notes from "../../migration/source-review-notes.json";
@@ -14,6 +14,8 @@ import { articlePageContent } from "../../scripts/lib/article-page.mjs";
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
 const route = id ? `/${id}/` : "/";
 const article = loadIntegration().find((item) => item.target === route);
+const newArticle = article ? undefined : newArticles.find((item) => item.route === route);
+const newTopic = sections.find((section) => section.directory === newArticle?.directory)?.label;
 // Up to three sentences from a migration check, chosen in src/data/before-you-start.json; the
 // build fails if one is not an exact part of the check's text (scripts/lib/before-you-start.mjs).
 const callout = article ? beforeYouStartFor(article.slug) : undefined;
@@ -57,6 +59,13 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
 </>}
 <Default><Fragment set:html={page.content} /></Default>
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
+{newArticle && <>
+  {newTopic && <span hidden data-pagefind-ignore data-pagefind-filter={`topic:${newTopic}`}></span>}
+  <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
+    <h2 id="docs-source-history">About this article</h2>
+    <p>This article was written for this site and added on {date(`${newArticle.added}T00:00:00Z`)}. It is not from the original Bisq wiki. A documentation reviewer approves every change to it. <a href={`https://github.com/bisq-network/documentation/commits/main/${newArticle.file}`}>History of this article</a></p>
+  </section>
+</>}
 {["browse/payments", "browse/payment-methods"].includes(id) && <PaymentMethodsHub />}
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>
@@ -76,4 +85,4 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
   <p><a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
 </section>}
 {article && <script type="application/json" id="article-media-data" set:html={JSON.stringify(images.map((image) => ({ id: image.element_id, status: image.status, width: image.width, height: image.height }))).replace(/</g, "\\u003c")} />}
-{article && <ArticleScripts />}
+{(article || newArticle) && <ArticleScripts />}

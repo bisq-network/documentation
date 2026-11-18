@@ -1,4 +1,5 @@
 import { verifyAdditionalArticles } from "./lib/additional-articles.mjs";
+import { newArticles } from "./lib/documentation.mjs";
 import { acceptedEditsPath, applyAcceptedEdit, describeEdit, parseAcceptedEdits, pullRequestLabel, receiptFilesIn, receiptsDir, undoAcceptedEdit } from "./lib/accepted-edits.mjs";
 import { articlePageContent } from "./lib/article-page.mjs";
 import { articlePath, formatDifference, markdownFormatPath, parseMarkdownFormat, preservedArticlePath, preservedArticlesDir } from "./lib/markdown-format.mjs";
@@ -645,7 +646,9 @@ export async function verify(overrides = new Map(), { readBase } = {}) {
     conversions = parseMarkdownFormat(JSON.parse((await read(markdownFormatPath)).toString()), slugs);
   });
   const additions = verifyAdditionalArticles();
-  const expectedFiles = [...manifest.items.map((item) => articlePath(item.slug)), ...additions.map((item) => item.file)].sort();
+  // New articles (src/data/new-articles.json) have no source to check; their pull requests need a
+  // documentation reviewer's approval like every change under src/content/docs/wiki/.
+  const expectedFiles = [...manifest.items.map((item) => articlePath(item.slug)), ...additions.map((item) => item.file), ...newArticles.map((item) => item.file)].sort();
   await check("src/content/docs/wiki", async () => assert.deepEqual(await filesBelow("src/content/docs/wiki"), expectedFiles, "missing or unexpected source article files"));
   const preservedFiles = manifest.items.map((item) => preservedArticlePath(item.slug)).sort();
   await check(preservedArticlesDir, async () => assert.deepEqual(await filesBelow(preservedArticlesDir), preservedFiles, "missing or unexpected preserved restored articles"));

@@ -1,13 +1,16 @@
 ---
 import Default from "@astrojs/starlight/components/PageTitle.astro";
 import AboutPage from "./AboutPage.astro";
-import { collectGuides, loadIntegration, sections } from "../../scripts/lib/documentation.mjs";
+import { collectGuides, loadIntegration, newArticles, sections } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
 import notes from "../../migration/source-review-notes.json";
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "");
 const article = loadIntegration().find((item) => item.route === `/${id}/`);
+// An article written after the recovery (src/data/new-articles.json) has no source revision.
+const newArticle = article ? undefined : newArticles.find((item) => item.route === `/${id}/`);
+const newSection = sections.find((item) => item.directory === newArticle?.directory);
 const guide = article ? collectGuides().find((item) => item.slug === article.slug) : undefined;
 const section = sections.find((item) => item.directory === guide?.directory);
 const products = article ? productEvidence(article) : [];
@@ -35,5 +38,16 @@ const revisionDate = article?.revision_timestamp ? new Intl.DateTimeFormat("en-G
       <summary><svg class="disclosure-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg><span class="about-page-row-title">About this page</span>{checks > 0 && <span class="about-page-row-count">{checks} migration {checks === 1 ? "check" : "checks"}</span>}</summary>
       <AboutPage />
     </details>
+  </div>
+</> : newArticle ? <>
+  <nav class="article-crumbs" aria-label="Breadcrumb" data-pagefind-ignore>
+    <ol><li><a href={`${base}/`}>Docs</a></li>{newSection && <li><a href={`${base}/browse/${newSection.directory}/`}>{newSection.label}</a></li>}</ol>
+  </nav>
+  <h1 id="_top">{newArticle.title}</h1>
+  <div class="article-title-context" data-pagefind-ignore>
+    <div class="article-meta">
+      <span>New article, not from the original wiki</span>
+      <span class="revision-stamp">added {new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${newArticle.added}T00:00:00Z`))}</span>
+    </div>
   </div>
 </> : <Default />}
