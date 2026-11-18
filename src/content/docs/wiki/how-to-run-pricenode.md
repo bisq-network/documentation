@@ -59,7 +59,7 @@ The recommended method for Debian-based systems like Ubuntu is the automated ins
 
 ### Method 1: Installation Script (Recommended for Debian/Ubuntu) {#method-1-installation-script-recommended-for-debian-ubuntu}
 
-This script automates the installation of dependencies, building the software, configuring the Tor hidden service, and setting up the pricenode to run as a system service.
+This script automates the installation of dependencies, building the software, configuring the Tor hidden service, and setting up the pricenode to run as a system service. Before running it, review the exact script and its system changes. At upstream commit c1576ab976b2403b7858c84e6396962ad84ba467, the installer installs OpenJDK 11 while the Gradle build specifies Java 21; resolve this discrepancy with maintainers before deployment.
 
 1. Ensure \`curl\` and \`sudo\` are available: \`sudo apt update && sudo apt install curl\`
 2. Run the installer script:
