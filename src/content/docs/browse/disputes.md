@@ -1,6 +1,7 @@
 ---
 title: "Disputes and support"
 description: "Mediation, arbitration and reimbursements"
+tableOfContents: false
 ---
 
 Mediation, arbitration and reimbursements. **14 articles.**
