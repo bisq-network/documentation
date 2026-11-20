@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-**Updating BSQ fees** takes place every cycle to keep the BSQ [trading fees](../trading-fees/) at a 50% discount to BTC trading fees.
+**Updating BSQ fees** takes place every cycle to keep the BSQ [trading fees](../trading-fees/) at a 25% discount to BTC trading fees.
 
 The [Compensation Maintainer](../compensation-maintainer/) takes the following steps to update BSQ trading fees.
 
@@ -20,7 +20,7 @@ The [Compensation Maintainer](../compensation-maintainer/) takes the following s
 Three days before the end of proposal phase, the [Compensation Maintainer](../compensation-maintainer/) shall:
 
 - Calculate BSQ trading fee discount [on this spreadsheet](https://cryptpad.fr/sheet/#/2/sheet/view/khBDMTPxN9GkLPNYaLtyWFDmdXTnDygFeYZ--qngS1o/) using the 30-day weighted average USD/BSQ price and live USD/BTC price at the time.
-  - If existing BSQ discount is under 40% or over 60%, calculate new BSQ trading fees to restore a 50% discount.
+  - If existing BSQ discount is under 15% or over 35%, calculate new BSQ trading fees to restore a 25% discount.
   - Update spreadsheet with new proposed fees. If there is no need for an update, leave the \"New Fees\" section blank.
 
 <span class="wiki-legacy-anchor" id="Submit_DAO_parameter_proposals" aria-hidden="true">
