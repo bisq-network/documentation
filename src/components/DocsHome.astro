@@ -3,29 +3,12 @@ import Icon from "./Icon.astro";
 import type * as lucide from "../icons/lucide.mjs";
 type IconName = keyof typeof lucide;
 import SavedWikiLink from "./SavedWikiLink.astro";
-import { collectGuides, sections } from "../../scripts/lib/documentation.mjs";
+import { sections } from "../../scripts/lib/documentation.mjs";
+import { setupTasks, tryQueries, urgentTasks } from "../data/shortcuts.mjs";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const guides = collectGuides();
-/** A task row: what the reader wants to do, and the article it opens (named on the row). */
-const task = ([label, slug]: [string, string]) => {
-  const guide = guides.find((item) => item.slug === slug);
-  if (!guide) throw new Error(`Home page task "${label}" points at a missing article: ${slug}`);
-  return { label, guide };
-};
-const urgent = ([
-  ["Contact the mediator for a trade", "finding-your-mediator"],
-  ["Recover data when Bisq won’t start", "last-resort-restore"],
-  ["A deposit transaction is stuck", "deposit-transaction-pending-in-mempool-and-cpfp"],
-  ["Restore funds from seed words", "restoring-your-wallet-from-seed"],
-  ["Fix connection problems", "troubleshooting-network-issues"],
-] as [string, string][]).map(task);
-const setup = ([
-  ["Install Bisq and verify the download", "downloading-and-installing"],
-  ["Start trading with Bisq Easy", "bisq-easy"],
-  ["Choose and set up a payment method", "payment-methods"],
-  ["Back up your wallet seed", "backing-up-your-wallet-seed"],
-] as [string, string][]).map(task);
+const urgent = urgentTasks();
+const setup = setupTasks();
 const total = sections.reduce((sum, section) => sum + section.count, 0);
 // One icon per topic, from the site's icon set (src/icons/lucide.mjs).
 const icons: Record<string, IconName> = {
@@ -45,7 +28,7 @@ const icons: Record<string, IconName> = {
   <section class="home-hero" aria-label="Search">
     <p class="home-lede">Guides for Bisq 1 and Bisq 2, restored from the community wiki and under review.</p>
     <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog"><Icon name="search" size={20} /><span>Search articles, sections, people…</span><kbd>Ctrl K</kbd></button>
-    <div class="home-try" data-pagefind-ignore data-search-controls><span>Try</span>{["Last resort restore", "Zelle", "verify signature", "mediator"].map((query) => <button type="button" data-docs-search={query}>{query}</button>)}</div>
+    <div class="home-try" data-pagefind-ignore data-search-controls><span>Try</span>{tryQueries.map((query) => <button type="button" data-docs-search={query}>{query}</button>)}</div>
     <noscript><p><a href={`${base}/browse/all/`}>Browse all article titles</a></p></noscript>
   </section>
   <div class="home-start">
