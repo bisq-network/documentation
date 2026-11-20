@@ -1,4 +1,4 @@
-import { enhanceResidue } from "./wiki-residue";
+import { enhanceResidue, lightness, looksLikeProse, repairArticle } from "./wiki-residue";
 
 const article = document.querySelector<HTMLElement>(".wiki-recovered-article");
 
@@ -89,13 +89,31 @@ if (article) {
 }
 
 if (article) {
+  // Wiki residue that only needs a different layout (src/scripts/wiki-residue.ts).
+  repairArticle(article);
+
   article.querySelectorAll<HTMLTableElement>("table").forEach((table, index) => {
+    const rows = [...table.rows];
+    // Rows without any content add an empty band.
+    rows.forEach((row) => { row.hidden = ![...row.cells].some((cell) => cell.textContent?.trim() || cell.querySelector("img")); });
+    // A one-row table that only puts text beside a screenshot is layout, not data.
+    if (rows.length === 1 && !table.querySelector("th") && table.querySelector("img")) {
+      table.classList.add("table-layout");
+      table.setAttribute("role", "presentation");
+      return;
+    }
     const wrap = document.createElement("div");
     wrap.className = "table-wrap";
     wrap.setAttribute("role", "region");
     wrap.tabIndex = 0;
     const headers = [...table.querySelectorAll("th")].slice(0, 3).map((cell) => cell.textContent?.trim()).filter(Boolean);
     wrap.setAttribute("aria-label", `Table ${index + 1}${headers.length ? `: ${headers.join(", ")}` : ""}`);
+    // A long table scrolls inside its box and keeps its header row in view.
+    const head = rows[0];
+    if (rows.length > 13 && head && [...head.cells].every((cell) => cell.tagName === "TH")) {
+      wrap.classList.add("table-long");
+      head.classList.add("table-head");
+    }
     table.replaceWith(wrap);
     wrap.append(table);
     const hint = document.createElement("p");
@@ -103,13 +121,22 @@ if (article) {
     hint.setAttribute("data-pagefind-ignore", "");
     hint.textContent = "Scroll the table sideways for more columns";
     hint.hidden = true;
-    wrap.after(hint);
+    wrap.before(hint);
     const updateHint = () => { hint.hidden = wrap.scrollWidth <= wrap.clientWidth + 1; };
     new ResizeObserver(updateHint).observe(wrap);
     updateHint();
   });
 
   article.querySelectorAll<HTMLPreElement>("pre").forEach((pre) => {
+    // Paragraphs of sentences kept in a preformatted block read as text, without the code frame;
+    // a short message or prompt (program output) stays code.
+    if (!pre.closest(".wiki-table-source") && looksLikeProse(pre.textContent ?? "", 3)) {
+      pre.classList.add("wiki-prose-pre");
+      const text = pre.querySelector("code") ?? pre;
+      if (text.firstChild?.nodeType === Node.TEXT_NODE) text.firstChild.textContent = text.firstChild.textContent!.trimStart();
+      if (text.lastChild?.nodeType === Node.TEXT_NODE) text.lastChild.textContent = text.lastChild.textContent!.trimEnd();
+      return;
+    }
     pre.tabIndex = 0;
     pre.setAttribute("aria-label", "Code block");
     if (pre.closest(".wiki-table-source")) return;
@@ -189,7 +216,12 @@ if (article) {
     image.src = link.href;
     viewer.querySelector<HTMLAnchorElement>("[data-image-original]")!.href = link.href;
     viewer.querySelector(".image-viewer-stage")!.classList.add("fit");
-    viewer.querySelector("[data-image-size]")!.textContent = "Actual size";
+    const size = viewer.querySelector<HTMLButtonElement>("[data-image-size]")!;
+    size.textContent = "Actual size";
+    // Hidden until the image shows, so it never has focus when it hides; it shows only when the
+    // fitted image is smaller than the file.
+    size.hidden = true;
+    const showSize = () => { size.hidden = !image.naturalWidth || (image.width >= image.naturalWidth && image.height >= image.naturalHeight); };
     const status = record?.status === "original" ? "Full-size recovered file" : "Recovered thumbnail or partial file";
     /** Prefer recorded dimensions, falling back to the loaded file's natural size. */
     const showDimensions = () => {
@@ -197,16 +229,32 @@ if (article) {
       const height = record?.height || image.naturalHeight;
       viewer!.querySelector("[data-image-status]")!.textContent = `${status}${width && height ? ` · ${width} × ${height} px` : ""} · Historical screenshot; current software may differ`;
     };
-    image.onload = showDimensions;
+    image.onload = () => { showDimensions(); showSize(); };
     showDimensions();
     viewer.addEventListener("close", () => link.focus(), { once: true });
     viewer.showModal();
+    if (image.complete) showSize();
+  };
+
+  // Light screenshots are dimmed a little in the dark theme (src/styles/article.css): a small copy of
+  // the image is measured once it has loaded (the files are on this site).
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 24;
+  const pixels = canvas.getContext("2d", { willReadFrequently: true });
+  const markLight = (image: HTMLImageElement) => {
+    try {
+      pixels!.clearRect(0, 0, 24, 24);
+      pixels!.drawImage(image, 0, 0, 24, 24);
+      if (lightness(pixels!.getImageData(0, 0, 24, 24).data) >= 0.7) image.classList.add("wiki-light-image");
+    } catch { /* not decodable or not readable: leave as is */ }
   };
 
   article.querySelectorAll<HTMLElement>("figure.wiki-source-image").forEach((figure) => {
     const link = figure.querySelector<HTMLAnchorElement>("a");
     const image = link?.querySelector<HTMLImageElement>("img");
     if (!link || !image) return;
+    if (image.complete) markLight(image);
+    else image.addEventListener("load", () => markLight(image), { once: true });
     link.classList.add("image-zoom");
     link.setAttribute("aria-label", `Inspect image: ${image.alt || "figure"}`);
     link.addEventListener("click", (event) => {

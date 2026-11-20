@@ -195,12 +195,12 @@ a.sl-link-button.primary:hover { background: var(--bd-accent-hover); border-colo
 /* Keep historical previews compact; links open the original file. */
 .sl-markdown-content img { max-width: 100%; height: auto; }
 .sl-markdown-content:has(#full-size-historical-files) img,
-.sl-markdown-content details figure img { max-height: 15rem; width: auto; object-fit: contain; }
+.sl-markdown-content details figure img { max-height: 15rem; width: auto; height: auto; height: min(15rem, attr(height px)); object-fit: contain; }
 .sl-markdown-content table { display: block; max-width: 100%; overflow-x: auto; }
 .sl-markdown-content figure { margin: var(--bd-space-5) 0; }
 .sl-markdown-content figcaption { font-size: var(--bd-fs-sm); color: var(--sl-color-gray-2); }
 
-.sl-markdown-content code { overflow-wrap: anywhere; word-break: break-word; }
+.sl-markdown-content code { overflow-wrap: break-word; word-break: normal; }
 
 /* Recovered article provenance and conversion gaps remain visible in both themes. */
 .sl-markdown-content .wiki-recovery-status,
@@ -278,7 +278,7 @@ h1 { font-size: var(--sl-text-h1); font-weight: 600; }
    Starlight wraps headings in div.sl-heading-wrapper, so only paragraphs, lists and quotes are direct children here. */
 .sl-markdown-content:not(:has(.wiki-recovered-article)) > :is(p, ul, ol, dl, blockquote) { max-width: 34rem; }
 .sl-markdown-content:not(:has(.wiki-recovered-article)) > p { text-wrap: pretty; }
-.wiki-recovered-article figure img { width: auto; max-width: 100%; }
+.wiki-recovered-article figure img { max-width: 100%; height: auto; }
 .source-history a, .about-page-body a { color: var(--sl-color-text-accent); text-underline-offset: 0.15em; }
 .sidebar-content a[aria-current="page"] {
   position: relative;
