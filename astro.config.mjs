@@ -54,6 +54,8 @@ export default defineConfig({
         MobileTableOfContents: "./src/components/MobileTableOfContents.astro",
         SocialIcons: "./src/components/SocialIcons.astro",
         ThemeSelect: "./src/components/ThemeSelect.astro",
+        ThemeProvider: "./src/components/ThemeProvider.astro",
+        MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
       },
       social: [{ icon: "github", label: "GitHub", href: `https://github.com/${repository}` }],
       sidebar: [

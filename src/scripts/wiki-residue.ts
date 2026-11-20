@@ -1,3 +1,5 @@
+import { icon } from "../icons/icon.mjs";
+import { unlink } from "../icons/lucide.mjs";
 /*
  * Recovery markers inside the article, made readable after the page loads. The server HTML, which
  * the fidelity gate checks, stays as it is; without scripts the markers show as before.
@@ -28,7 +30,7 @@ export function enhanceResidue(article: HTMLElement) {
     button.setAttribute("aria-expanded", "false");
     button.setAttribute("aria-controls", tip.id);
     button.title = "The original wiki link here could not be restored";
-    button.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 15l-1.5 1.5a3.5 3.5 0 0 1-5-5L4 10M15 9l1.5-1.5a3.5 3.5 0 0 1 5 5L20 14M8 4v2M4 8h2M16 20v-2M20 16h-2"></path></svg>';
+    button.innerHTML = icon(unlink, { size: 14 });
     button.addEventListener("click", () => {
       tip.hidden = !tip.hidden;
       button.setAttribute("aria-expanded", String(!tip.hidden));

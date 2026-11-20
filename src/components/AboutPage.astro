@@ -1,4 +1,5 @@
 ---
+import Icon from "./Icon.astro";
 // The body of the "About this page" card: where the wording comes from, the migration
 // checks with their full text behind "Show checks", and links to the source and to the
 // correction form. TableOfContents.astro shows it in the right rail from 72rem up;
@@ -32,7 +33,7 @@ const report = `https://github.com/bisq-network/documentation/issues/new?templat
     </div>}
   </dl>
   {checks.length > 0 && <details class="about-checks">
-    <summary><svg class="disclosure-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>Show checks</summary>
+    <summary><Icon name="chevronRight" size={16} class="disclosure-icon" />Show checks</summary>
     <p class="about-checks-intro">Added during migration, not part of the original. Each check identifies a specific difference or review need; none is a review of the whole procedure.</p>
     {checks.map((note) => <section class="about-check">
       <p class="about-check-title"><strong>{note.title}</strong> <span class:list={["docs-chip", { review: note.status === "needs-maintainer-review" }]}>{note.status === "needs-maintainer-review" ? "Needs maintainer review" : "Checked against pinned source"}</span></p>

@@ -1,0 +1,41 @@
+---
+// Starlight's ThemeProvider (@astrojs/starlight/components/ThemeProvider.astro, Starlight 0.42.10)
+// with the theme icons from the site's icon set. The script is Starlight's, unchanged: it sets the
+// theme before the first paint and swaps the switch's icon (ThemeSelect.astro) for the stored theme.
+import Icon from "./Icon.astro";
+---
+
+{/* This is intentionally inlined to avoid FOUC. */}
+<script is:inline>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script>
+
+<template id="theme-icons">
+	<Icon name="sun" size={20} class="light" />
+	<Icon name="moon" size={20} class="dark" />
+	<Icon name="laptop" size={20} class="auto" />
+</template>
