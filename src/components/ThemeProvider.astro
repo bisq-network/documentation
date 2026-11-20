@@ -1,15 +1,18 @@
 ---
 // Starlight's ThemeProvider (@astrojs/starlight/components/ThemeProvider.astro, Starlight 0.42.10)
-// with the theme icons from the site's icon set. The script is Starlight's, unchanged: it sets the
-// theme before the first paint and swaps the switch's icon (ThemeSelect.astro) for the stored theme.
+// with the theme icons from the site's icon set. The script is Starlight's, except that it survives
+// blocked browser storage: it sets the theme before the first paint and swaps the switch's icon
+// (ThemeSelect.astro) for the stored theme.
 import Icon from "./Icon.astro";
 ---
 
 {/* This is intentionally inlined to avoid FOUC. */}
 <script is:inline>
 	window.StarlightThemeProvider = (() => {
-		const storedTheme =
-			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		// Starlight reads the stored theme without a try; reading storage throws where a browser
+		// blocks it, which left the theme switch broken. A blocked store counts as no stored theme.
+		let storedTheme = null;
+		try { storedTheme = localStorage.getItem('starlight-theme'); } catch {}
 		const theme =
 			storedTheme ||
 			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');

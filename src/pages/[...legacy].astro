@@ -1,10 +1,14 @@
 ---
 import { getCollection, render } from "astro:content";
+import Icon from "../components/Icon.astro";
 import { loadIntegration } from "../../scripts/lib/documentation.mjs";
 import { buildPublicLegacyRoutes } from "../../scripts/lib/legacy-routes.mjs";
 import { buildRecoveredAliasRoutes, validateRecoveredAliases } from "../../scripts/lib/recovered-link-aliases.mjs";
 import { recoveredCategoryRoutes } from "../../scripts/lib/recovered-categories.mjs";
 import { loadEditedRouteAliases } from "../../scripts/lib/edited-route-aliases.mjs";
+import { earlierGuide, guideSections, legacyHeadScript, themeTokenCss, titleSections } from "../lib/legacy-page.mjs";
+import siteCss from "../styles/custom.css?raw";
+import logo from "../assets/bisq-logo.svg?url";
 
 export async function getStaticPaths() {
   const docs = await getCollection("docs");
@@ -21,61 +25,113 @@ export async function getStaticPaths() {
     if (paths.has(alias.path)) throw new Error(`Duplicate alias: ${alias.path}`);
     paths.add(alias.path);
   }
-  return aliases.map((entry) => ({ params: { legacy: entry.path }, props: entry }));
+  // What the page shows: the earlier guide's own title and headings, or the old title with each saved
+  // section once, named by the heading it leads to (src/lib/legacy-page.mjs).
+  return aliases.map((entry) => {
+    const guide = entry.choices?.length ? earlierGuide(entry.path) : null;
+    const page = guide
+      ? { title: guide.title, sections: guideSections(entry.fragmentChoices, guide.headings) }
+      : { title: entry.title, sections: titleSections(entry, headings) };
+    return { params: { legacy: entry.path }, props: { ...entry, page } };
+  });
 }
 
-const { title, target, fragments, anchors, choices = [], fragmentChoices = [], autoRedirect = true, strictFragments = false } = Astro.props;
+const { target, fragments, choices = [], autoRedirect = true, strictFragments = false, page } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const href = `${base}${target}`;
 const canonical = Astro.site ? new URL(href, Astro.site).href : href;
 const configuration = JSON.stringify({ base, target, fragments, autoRedirect, strictFragments }).replace(/</g, "\\u003c");
+const earlier = choices.length > 0;
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    {/* First, before anything paints: the reader's theme, then the redirect (src/lib/legacy-page.mjs). */}
+    <script type="application/json" id="legacy-destination" set:html={configuration} />
+    <script is:inline set:html={legacyHeadScript()} />
     <meta name="robots" content="noindex,follow" />
+    <title>{page.title} | Bisq documentation</title>
     <link rel="icon" type="image/x-icon" href={`${base}/favicon.ico`} />
     {autoRedirect && <link rel="canonical" href={canonical} />}
-    <title>{title} | Bisq documentation</title>
-    <style>
-      body { font: 1.05rem/1.7 system-ui, sans-serif; max-width: 48rem; margin: 3rem auto; padding: 0 1.25rem; color: #1c2820; background: #f9fbf9; }
-      a { color: #176a30; } h1 { line-height: 1.2; }
-    </style>
+    <style is:inline set:html={themeTokenCss(siteCss)} />
   </head>
   <body data-pagefind-ignore>
+    <header class="legacy-header">
+      <a href={`${base}/`}><img src={logo} width="98" height="34" alt="Bisq" /><span>Documentation</span></a>
+    </header>
     <main>
-      <p><a href={`${base}/`}>Bisq documentation</a></p>
-      <h1>{title}</h1>
-      {choices.length > 0 ? <>
+      <p class="legacy-kicker">{earlier ? "Earlier guide" : "Old wiki link"}</p>
+      <h1>{page.title}</h1>
+      {earlier ? <>
         <p>This earlier edited guide has been replaced by the recovered original documentation.</p>
         {choices.length > 1 && <p>It combined several source articles. Choose the relevant original:</p>}
-        <ul>{choices.map((choice) => <li><a href={`${base}${choice.target}`}>{choice.title}</a></li>)}</ul>
+        <ul class="legacy-list">{choices.map((choice) => <li><a href={`${base}${choice.target}`}><span>{choice.title}</span><Icon name="arrowRight" size={18} /></a></li>)}</ul>
         {choices.length > 1 && <p><a href={href}>Browse all articles</a></p>}
-        {fragmentChoices.length > 0 && <details open>
-          <summary>Find a saved guide section</summary>
-          <ul>{fragmentChoices.map((section) => <li id={section.id}>{section.id.replaceAll("-", " ")}: {section.targets.map((choice, index) => <>{index > 0 && ", "}<a href={`${base}${choice.target}`}>{choice.title}</a></>)}</li>)}</ul>
+        {page.sections.length > 0 && <details open>
+          <summary><Icon name="chevronRight" size={16} />Find a saved guide section</summary>
+          <ul class="legacy-list legacy-sections">{page.sections.map((section) => <li id={section.ids[0]} class="legacy-section">
+            <span>{section.ids.slice(1).map((id) => <span id={id} />)}{section.label}</span>
+            {section.targets.length > 0 && <small>In {section.targets.map((choice, index) => <>{index > 0 && ", "}<a href={`${base}${choice.target}`}>{choice.title}</a></>)}</small>}
+          </li>)}</ul>
         </details>}
       </> : <>
         <p>This topic is now part of the original documentation.</p>
-        <p><a id="continue-to-guide" href={href}>Continue to the original article</a></p>
-        <details open><summary>Find a saved section</summary>
-          <ul>{anchors.map((id) => <li id={id}><a href={`${base}${fragments[id] || target}`}>{id.replaceAll("_", " ")}</a></li>)}</ul>
-        </details>
+        <p><a id="continue-to-guide" class="legacy-primary" href={href}>Continue to the original article<Icon name="arrowRight" size={18} /></a></p>
+        {page.sections.length > 0 && <details open>
+          <summary><Icon name="chevronRight" size={16} />Find a saved section</summary>
+          <ul class="legacy-list legacy-sections">{page.sections.map((section) => <li id={section.ids[0]}>
+            {section.ids.slice(1).map((id) => <span id={id} />)}
+            <a href={`${base}${section.href}`}><span>{section.label}</span><Icon name="arrowRight" size={18} /></a>
+          </li>)}</ul>
+        </details>}
       </>}
     </main>
-    <script type="application/json" id="legacy-destination" set:html={configuration} />
-    <script>
-      import { resolveLegacyDestination } from "../../scripts/lib/legacy-routes.mjs";
-      const element = document.getElementById("legacy-destination");
-      if (element?.textContent) {
-        const next = resolveLegacyDestination(JSON.parse(element.textContent), window.location.hash);
-        if (next) {
-          document.getElementById("continue-to-guide")?.setAttribute("href", next);
-          window.location.replace(next);
-        }
-      }
-    </script>
   </body>
 </html>
+<style is:global>
+  /* A light page of its own (no Starlight layout): the site's fonts, and its colours and sizes from
+     the tokens above. */
+  @font-face { font-family: "IBM Plex Sans"; src: url("../assets/fonts/ibm-plex-sans-regular.woff2") format("woff2"); font-style: normal; font-weight: 400; font-display: swap; }
+  @font-face { font-family: "IBM Plex Sans"; src: url("../assets/fonts/ibm-plex-sans-500.woff2") format("woff2"); font-style: normal; font-weight: 500; font-display: swap; }
+  @font-face { font-family: "IBM Plex Sans"; src: url("../assets/fonts/ibm-plex-sans-600.woff2") format("woff2"); font-style: normal; font-weight: 600; font-display: swap; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--sl-color-bg); color: var(--sl-color-text); font-family: var(--sl-font); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { margin: 0; font-size: var(--bd-fs-ui); line-height: var(--bd-lh-sm); }
+  /* Leaving for the destination: nothing shows but the background, in the reader's theme. */
+  :root[data-redirecting] body { visibility: hidden; }
+  a { color: var(--sl-color-text-accent); text-underline-offset: 0.15em; }
+  :focus-visible { outline: 2px solid var(--sl-color-text-accent); outline-offset: 2px; }
+  svg { flex: none; }
+  .legacy-header { border-bottom: 1px solid var(--sl-color-hairline-light); padding: var(--bd-space-2) var(--bd-space-5); }
+  .legacy-header a { display: inline-flex; align-items: center; gap: var(--bd-space-3); min-height: 2.75rem; color: var(--sl-color-gray-2); font-weight: 500; text-decoration: none; }
+  .legacy-header img { display: block; width: 6rem; height: auto; }
+  main { max-width: 40rem; margin: 0 auto; padding: var(--bd-space-7) var(--bd-space-5) var(--bd-space-8); }
+  main p { max-width: 34rem; margin: 0 0 var(--bd-space-4); font-size: var(--bd-fs-body); line-height: var(--bd-lh-body); text-wrap: pretty; }
+  main .legacy-kicker { margin-bottom: var(--bd-space-2); color: var(--sl-color-gray-2); font-size: var(--bd-fs-xs); font-weight: 600; letter-spacing: 0.06em; line-height: var(--bd-lh-sm); text-transform: uppercase; }
+  h1 { margin: 0 0 var(--bd-space-4); font-size: var(--bd-fs-h1); font-weight: 500; letter-spacing: -0.025em; line-height: var(--bd-lh-h1); text-wrap: balance; overflow-wrap: anywhere; }
+  .legacy-primary { display: inline-flex; align-items: center; gap: var(--bd-space-2); min-height: 2.75rem; padding: var(--bd-space-2) var(--bd-space-4); border-radius: var(--bd-radius-md); background: var(--sl-color-accent); color: var(--bd-on-accent); font-size: var(--bd-fs-ui); font-weight: 600; text-decoration: none; }
+  .legacy-primary:hover { background: var(--bd-accent-hover); }
+  .legacy-list { margin: 0 0 var(--bd-space-5); padding: 0; list-style: none; border-top: 1px solid var(--sl-color-hairline-light); }
+  .legacy-list li { border-bottom: 1px solid var(--sl-color-hairline-light); scroll-margin-top: var(--bd-space-6); }
+  .legacy-list li > a { display: flex; align-items: center; justify-content: space-between; gap: var(--bd-space-3); min-height: 2.75rem; padding: var(--bd-space-3) var(--bd-space-2); color: var(--sl-color-text); font-weight: 500; text-decoration: none; }
+  .legacy-list li > a > svg { color: var(--sl-color-gray-3); }
+  .legacy-list li > a:hover > span { text-decoration: underline; }
+  .legacy-section { display: grid; gap: var(--bd-space-1); padding: var(--bd-space-3) var(--bd-space-2); }
+  .legacy-section > span { font-weight: 500; }
+  .legacy-section small { color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); }
+  /* Without scripts a saved #section scrolls to its entry; mark it. */
+  .legacy-list li:is(:target, :has(> :target)) { background: var(--sl-color-accent-low); }
+  details { margin-top: var(--bd-space-6); }
+  summary { display: flex; align-items: center; gap: var(--bd-space-2); min-height: 2.75rem; margin-bottom: var(--bd-space-2); color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); font-weight: 600; list-style: none; cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+  summary > svg { transition: transform var(--bd-dur-fast) var(--bd-ease-standard); }
+  details[open] > summary > svg { transform: rotate(90deg); }
+  @media (max-width: 40rem) {
+    .legacy-header { padding-inline: var(--bd-space-4); }
+    main { padding: var(--bd-space-6) var(--bd-space-4) var(--bd-space-7); }
+  }
+  @media (prefers-reduced-motion: reduce) { summary > svg { transition: none; } }
+</style>
