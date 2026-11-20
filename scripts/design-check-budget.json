@@ -1,5 +1,5 @@
 {
-  "_about": "Ceilings for npm run design-check (scripts/design-check.mjs). A metric above its ceiling fails the check. Lower a ceiling when a change improves the number. Raise one only for a deliberate trade-off that the pull request names and explains, never just to let a change pass. Measured on main f409318, 13 Nov 2026.",
+  "_about": "Ceilings for npm run design-check (scripts/design-check.mjs). A metric above its ceiling fails the check. Lower a ceiling when a change improves the number. Raise one only for a deliberate trade-off that the pull request names and explains, never just to let a change pass. Measured on main f409318, 13 Nov 2026. Design review round 3 (20 Nov 2026): home script 7.5 → 7.3 (search loads no icon code); article script 8.1 → 9.4, a deliberate trade-off for the 13 rendering repairs every article runs after load (the article HTML must stay unchanged, so they cannot be done on the server); the pull request explains it.",
   "axeViolations": 0,
   "articlesFirstSentenceBelowFold": 2,
   "columnPositions1440": 1,
@@ -9,8 +9,8 @@
   "maxFontSizesKeyPage": 7,
   "maxFontSizesArticle": 7,
   "homeLayoutShift": 0.02,
-  "scriptKilobytesBeforeSearchHome": 7.5,
-  "scriptKilobytesBeforeSearchArticle": 8.1,
+  "scriptKilobytesBeforeSearchHome": 7.3,
+  "scriptKilobytesBeforeSearchArticle": 9.4,
   "unresolvedLinkMarkers": 0,
   "unsupportedMarkupPages": 0
 }
