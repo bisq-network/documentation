@@ -91,3 +91,10 @@
 @media (max-width: 30rem) {
   .contribute-actions a.contribute-action { flex: 1 1 100%; }
 }
+
+/* In the article's title row: the label shows from 40rem; on phones the button is a 44 px icon
+   button next to the copy-link button, so the row stays one line. */
+@media (max-width: 40rem) {
+  .article-meta .suggest-edit-button { width: 2.75rem; padding: 0; }
+  .article-meta .suggest-edit-label { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}

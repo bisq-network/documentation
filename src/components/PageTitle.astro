@@ -2,6 +2,7 @@
 import Icon from "./Icon.astro";
 import Default from "@astrojs/starlight/components/PageTitle.astro";
 import AboutPage from "./AboutPage.astro";
+import SuggestEdit from "./SuggestEdit.astro";
 import { collectGuides, loadIntegration, sections } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
@@ -34,6 +35,7 @@ const revisionDate = article?.revision_timestamp ? new Intl.DateTimeFormat("en-G
       </p>
       <div class="article-meta-actions">
         <button type="button" class="docs-icon-button" data-copy-page hidden aria-label="Copy link to this page" title="Copy link to this page"><Icon name="link" size={18} /></button>
+        <SuggestEdit />
       </div>
     </div>
     {/* Below 72rem the migration checks are a closed row here; from 72rem they are a card in the
