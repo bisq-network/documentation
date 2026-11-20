@@ -157,7 +157,7 @@ The classic protocol requires 4 on-chain transactions (3 paid by taker, 1 by mak
 - Be an offer **[maker](../how-to-be-a-market-maker-on-bisq/)** rather than a taker (fewer transactions to pay for).
 - Trade when network **[mining fees](../mining-fees/) are lower**.
 - Make offers for **larger BTC amounts** (fees are fixed per transaction, less impactful on larger trades).
-- **Pay [trading fees](../trading-fees/) with BSQ** for an approximate 50% discount.
+- **Pay [trading fees](../trading-fees/) with BSQ** for an approximate 25% discount.
 
 <span class="wiki-legacy-anchor" id="Why_require_a_security_deposit_in_BTC?" aria-hidden="true">
 </span>
@@ -231,7 +231,7 @@ No. While convenient for holding trading funds (BTC, BSQ) and security deposits,
 
 #### Do I have to use the BSQ token? {#do-i-have-to-use-the-bsq-token}
 
-No, using [BSQ](../introduction-to-the-dao/) is optional. You can pay [Trading fees](../trading-fees/) in BTC. However, using BSQ provides a significant discount (around 50%) on trading fees and directly supports Bisq contributors through the [DAO](../introduction-to-the-dao/) mechanism.
+No, using [BSQ](../introduction-to-the-dao/) is optional. You can pay [Trading fees](../trading-fees/) in BTC. However, using BSQ provides a significant discount (around 25%) on trading fees and directly supports Bisq contributors through the [DAO](../introduction-to-the-dao/) mechanism.
 
 <span class="wiki-legacy-anchor" id="Will_my_bank_know_I&#x27;m_trading_bitcoin?" aria-hidden="true">
 </span>
@@ -452,7 +452,7 @@ It primarily handles funding and strategy: 1. **Funding:** [Trading fees](../tra
 
 #### What do I need to know about the DAO as a trader? {#what-do-i-need-to-know-about-the-dao-as-a-trader}
 
-Participation is **optional**. You don\'t need BSQ or DAO interaction to trade. However, using BSQ to pay [Trading fees](../trading-fees/) gives you a significant discount (\~50%) and directly funds project contributors. When you buy BSQ, you typically buy it from a contributor; when you pay fees with BSQ, it\'s \'burned\' (destroyed). [See more on this cycle here](../introduction-to-the-dao/#overview).
+Participation is **optional**. You don\'t need BSQ or DAO interaction to trade. However, using BSQ to pay [Trading fees](../trading-fees/) gives you a significant discount (\~25%) and directly funds project contributors. When you buy BSQ, you typically buy it from a contributor; when you pay fees with BSQ, it\'s \'burned\' (destroyed). [See more on this cycle here](../introduction-to-the-dao/#overview).
 
 <span class="wiki-legacy-anchor" id="Is_BSQ_just_for_fundraising?_What&#x27;s_its_issuance?" aria-hidden="true">
 </span>
