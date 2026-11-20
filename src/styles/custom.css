@@ -650,21 +650,7 @@ body { font-size: var(--bd-fs-ui); }
 .pagefind-ui__result-nested .docs-search-copy:hover { border-color: var(--bd-control-line); color: var(--sl-color-text); }
 .pagefind-ui__result-nested .docs-search-copy[data-state="copied"] { color: var(--sl-color-text-accent); }
 @media (hover: none) { .pagefind-ui__result-nested .docs-search-copy { opacity: 1; } }
-/* Product and topic filters: a row of chips above the results instead of accordions beside them. */
-#starlight__search .pagefind-ui__drawer { flex-direction: column; gap: var(--bd-space-3); }
-#starlight__search .pagefind-ui__filter-panel { flex: none; width: 100%; max-width: none; margin: 0; padding: 0; }
-#starlight__search .pagefind-ui__filter-block { margin: 0; padding: 0; border: 0; }
-#starlight__search .pagefind-ui__filter-block + .pagefind-ui__filter-block { margin-top: var(--bd-space-2); }
-#starlight__search .pagefind-ui__filter-name { display: inline-flex; align-items: center; min-width: 4.5rem; min-height: 1.5rem; margin: 0; padding: 0; color: var(--sl-color-gray-2); font-weight: 600; cursor: pointer; }
-#starlight__search .pagefind-ui__filter-name::after { content: none; }
-#starlight__search .pagefind-ui__filter-name::-webkit-details-marker { display: none; }
-#starlight__search .pagefind-ui__filter-group { display: flex; flex-flow: row wrap; gap: var(--bd-space-2); margin: 0; padding: 0; border: 0; vertical-align: top; }
-#starlight__search .pagefind-ui__filter-value { position: relative; margin: 0; padding: 0; }
-#starlight__search .pagefind-ui__filter-checkbox { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
-#starlight__search .pagefind-ui__filter-value::before { content: none; }
-#starlight__search .pagefind-ui__filter-label { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 var(--bd-space-3); border: 1px solid var(--sl-color-hairline); border-radius: var(--bd-radius-full); background: var(--bd-raised); color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); }
-#starlight__search .pagefind-ui__filter-checkbox:checked + .pagefind-ui__filter-label { border-color: var(--sl-color-text); background: var(--sl-color-text); color: var(--sl-color-bg); }
-#starlight__search .pagefind-ui__filter-checkbox:focus-visible + .pagefind-ui__filter-label { outline: 2px solid var(--sl-color-text-accent); outline-offset: 2px; }
+/* Product and topic filters: src/styles/search.css. */
 /* Motion (round 2 design review, PR 10): only transform and opacity move, at most --bd-dur-base here;
    under reduced motion the rule at the top of this file shows the final state at once. */
 @media (prefers-reduced-motion: no-preference) {
