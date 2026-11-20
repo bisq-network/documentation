@@ -67,7 +67,7 @@
 .docs-search-recent-head { display: flex; align-items: center; justify-content: space-between; gap: var(--bd-space-2); }
 .docs-search-recent h2 { margin: 0; color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); font-weight: 600; line-height: var(--bd-lh-sm); }
 .docs-search-recent-head button { min-width: 2.75rem; min-height: 2.75rem; padding: 0 var(--bd-space-2); border: 0; background: none; color: var(--sl-color-text-accent); font-size: var(--bd-fs-sm); text-decoration: underline; text-underline-offset: 0.15em; cursor: pointer; }
-.docs-search-recent .home-task-list { margin: 0; border-top: 1px solid var(--sl-color-hairline-light); }
+.docs-search-recent .home-rows { margin: 0; border-top: 1px solid var(--sl-color-hairline-light); }
 
 /* Nothing found: the query, what to change, and the suggestions instead of empty filters. */
 .docs-search-empty { display: grid; gap: var(--bd-space-2); padding: var(--bd-space-3) 0 var(--bd-space-2); }
@@ -89,7 +89,7 @@
 .docs-button.not-found-search { gap: var(--bd-space-2); padding-inline: var(--bd-space-4); border-color: var(--sl-color-accent); background: var(--sl-color-accent); color: var(--bd-on-accent); font-size: var(--bd-fs-ui); font-weight: 600; }
 .docs-button.not-found-search:hover { border-color: var(--bd-accent-hover); background: var(--bd-accent-hover); }
 .not-found-urgent h2 { margin: 0; color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); font-weight: 600; letter-spacing: 0.06em; line-height: var(--bd-lh-sm); text-transform: uppercase; }
-.not-found-urgent .home-task-list { border-top: 1px solid var(--sl-color-hairline-light); }
+.not-found-urgent .home-rows { border-top: 1px solid var(--sl-color-hairline-light); }
 .not-found-saved { padding-top: var(--bd-space-4); border-top: 1px solid var(--sl-color-hairline-light); }
 .not-found-saved summary { display: inline-flex; align-items: center; gap: var(--bd-space-2); min-height: 2.75rem; font-weight: 500; text-decoration: underline; list-style: none; cursor: pointer; }
 .not-found-saved summary::-webkit-details-marker { display: none; }

@@ -79,11 +79,11 @@ export function enhanceSearchResults(search: HTMLElement) {
     clear.setAttribute("aria-label", "Clear recently read");
     const head = element("div", "", "docs-search-recent-head");
     head.append(title, clear);
-    const list = element("ul", "", "home-task-list");
+    const list = element("ul", "", "home-rows");
     for (const page of recent) {
       const link = element("a");
       link.href = page.path;
-      link.append(element("span", page.title));
+      link.append(element("span", page.title, "home-row-label"));
       const item = element("li");
       item.append(link);
       list.append(item);

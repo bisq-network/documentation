@@ -24,7 +24,7 @@ const urgent = urgentTasks();
     </div>
     <section class="not-found-urgent" aria-labelledby="not-found-urgent">
       <h2 id="not-found-urgent">Something is wrong right now</h2>
-      <ul class="home-task-list">{urgent.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span>{label}</span><small>{guide.title}</small></a></li>)}</ul>
+      <ul class="home-rows">{urgent.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span class="home-row-text"><span class="home-row-label">{label}</span><small>{guide.title}</small></span><Icon name="chevronRight" size={16} /></a></li>)}</ul>
     </section>
     <details class="not-found-saved">
       <summary>Have a link from the old wiki?</summary>
