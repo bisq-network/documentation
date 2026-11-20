@@ -43,7 +43,7 @@ export default defineConfig({
       title: "Documentation",
       favicon: "/favicon.ico",
       logo: { src: "./src/assets/bisq-logo.svg", alt: "Bisq" },
-      customCss: ["./src/styles/custom.css", "./src/styles/home-nav.css"],
+      customCss: ["./src/styles/custom.css", "./src/styles/home-nav.css", "./src/styles/contribute.css"],
       routeMiddleware: "./src/route-data.ts",
       components: {
         Banner: "./src/components/PreviewBanner.astro",

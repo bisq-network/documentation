@@ -1,0 +1,93 @@
+/* Contributing: "Suggest an edit" and its menu (src/components/SuggestEdit.astro), "Suggest a fix"
+   next to selected article text (src/scripts/suggest-edit.ts) and the actions on the contribute
+   page (src/content/docs/review.md). Tokens from custom.css. */
+
+.suggest-edit { display: inline-flex; }
+.suggest-edit-button > svg { flex: none; }
+
+/* A popover: the browser shows and hides it; the script sets top, left or right and max-width. */
+.suggest-edit-menu {
+  position: absolute;
+  inset: auto;
+  width: 20rem;
+  margin: 0;
+  padding: var(--bd-space-2);
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: var(--bd-radius-lg);
+  background: var(--bd-raised);
+  color: var(--sl-color-text);
+  box-shadow: var(--bd-shadow-overlay);
+  font-size: var(--bd-fs-sm);
+  line-height: var(--bd-lh-sm);
+}
+.suggest-edit-menu:popover-open { display: grid; gap: var(--bd-space-1); }
+.suggest-edit-menu a {
+  display: grid;
+  gap: var(--bd-space-1);
+  min-height: 2.75rem;
+  padding: var(--bd-space-2) var(--bd-space-3);
+  border-radius: var(--bd-radius-md);
+  color: var(--sl-color-text);
+  text-decoration: none;
+}
+.suggest-edit-menu a:hover { background: var(--sl-color-bg-sidebar); }
+.suggest-edit-menu strong { font-size: var(--bd-fs-ui); font-weight: 600; }
+.suggest-edit-menu span { color: var(--sl-color-gray-2); }
+.suggest-edit-menu p {
+  margin: 0;
+  padding: var(--bd-space-2) var(--bd-space-3) var(--bd-space-1);
+  border-top: 1px solid var(--sl-color-hairline-light);
+  color: var(--sl-color-gray-2);
+  font-size: var(--bd-fs-xs);
+  line-height: var(--bd-lh-xs);
+}
+
+/* Fixed next to the selection, above the article and below the header; never moves the page. */
+.suggest-fix {
+  position: fixed;
+  z-index: 9;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--bd-space-4);
+  border-radius: var(--bd-radius-full);
+  background: var(--sl-color-text);
+  color: var(--sl-color-bg);
+  box-shadow: var(--bd-shadow-overlay);
+  font-size: var(--bd-fs-sm);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+}
+.suggest-fix[hidden] { display: none; }
+.suggest-fix:hover { background: var(--sl-color-gray-2); color: var(--sl-color-bg); }
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(.suggest-edit-menu:popover-open, .suggest-fix:not([hidden])) {
+    transition: opacity var(--bd-dur-fast) var(--bd-ease-enter), transform var(--bd-dur-fast) var(--bd-ease-enter);
+    @starting-style { opacity: 0; transform: translateY(var(--bd-space-1)); }
+  }
+}
+
+/* The contribute page's two actions and the guide link (not-content: Starlight's link styles stay off). */
+.sl-markdown-content .contribute-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--bd-space-3) var(--bd-space-4); margin-block: var(--bd-space-5); }
+.contribute-actions a { color: var(--sl-color-text-accent); font-size: var(--bd-fs-ui); text-underline-offset: 0.15em; }
+.contribute-actions a.contribute-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: var(--bd-space-2) var(--bd-space-4);
+  border-radius: var(--bd-radius-md);
+  background: var(--sl-color-accent);
+  color: var(--bd-on-accent);
+  font-weight: 500;
+  text-decoration: none;
+}
+.contribute-actions a.contribute-action:hover { background: var(--bd-accent-hover); }
+.contribute-actions a:not(.contribute-action) { display: inline-flex; align-items: center; min-height: 2.75rem; }
+@media (max-width: 30rem) {
+  .contribute-actions a.contribute-action { flex: 1 1 100%; }
+}
