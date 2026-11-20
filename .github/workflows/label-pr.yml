@@ -1,0 +1,55 @@
+name: Label pull requests
+
+# Labels a pull request by the articles it changes, so nobody has to: `wording-proposal` when it
+# changes an existing file in src/content/docs/wiki/ (wording that needs a reviewer's receipt),
+# `new-article` when it adds a file there. CodeRabbit skips labelled pull requests (.coderabbit.yaml).
+# Labels are only added, never removed.
+#
+# Why pull_request_target is safe here: it runs this file as it is on main, with a token that may
+# label pull requests from forks, and without waiting for a maintainer to approve a first-time
+# contributor's run. Nothing from the pull request runs: there is no checkout, and the script only
+# reads the names and status of the changed files from the API and adds labels. Never add a checkout
+# of the pull request, or a step that runs, builds or reads its files, to this workflow.
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: label-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const pull = context.payload.pull_request;
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pull.number,
+              per_page: 100,
+            });
+            const isArticle = (path) => /^src\/content\/docs\/wiki\/[^/]+$/.test(path ?? "");
+            const wanted = new Set();
+            for (const file of files) {
+              if (file.status === "removed") continue;
+              // A renamed file was the article at previous_filename; an added or copied file is new.
+              const before = ["added", "copied"].includes(file.status) ? undefined : file.previous_filename ?? file.filename;
+              if (isArticle(before)) wanted.add("wording-proposal");
+              else if (isArticle(file.filename)) wanted.add("new-article");
+            }
+            const present = new Set(pull.labels.map((label) => label.name));
+            const labels = [...wanted].filter((name) => !present.has(name));
+            if (!labels.length) {
+              core.info(wanted.size ? `Already labelled: ${[...wanted].join(", ")}` : "No article added or changed; no label.");
+              return;
+            }
+            await github.rest.issues.addLabels({ owner: context.repo.owner, repo: context.repo.repo, issue_number: pull.number, labels });
+            core.info(`Added: ${labels.join(", ")}`);

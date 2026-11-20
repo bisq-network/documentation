@@ -1,0 +1,55 @@
+name: Propose a new article
+description: Suggest an article the wiki never had, with who it helps and an outline or draft.
+title: "New article: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One article per issue. A documentation reviewer reads the proposal; if it fits, the article is
+        written in a pull request, by you or by a reviewer from your outline.
+
+        **Issues are public and stay visible.** Never include wallet seeds, private keys,
+        payment details or private trade conversations.
+  - type: input
+    id: article-title
+    attributes:
+      label: Article title
+      description: What the article would be called in the sidebar.
+      placeholder: "Stablecoin payment methods"
+    validations:
+      required: true
+  - type: dropdown
+    id: section
+    attributes:
+      label: Section
+      description: Where in the sidebar it belongs.
+      options:
+        - Get started
+        - Trading
+        - Payment methods
+        - Wallet, backup and recovery
+        - Disputes and support
+        - Troubleshooting
+        - Advanced setup
+        - DAO and BSQ
+        - Contributing
+        - Reference
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: Who it helps and why it's needed
+      description: Who would read it, what they are trying to do, and why the existing articles don't cover it. Link any article it overlaps with.
+    validations:
+      required: true
+  - type: textarea
+    id: outline
+    attributes:
+      label: Outline or draft
+      description: The headings and the main points under each, or a full draft in plain text. No Markdown needed.
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Release notes, the application's code or screens, or other primary material the article would rest on, with the product and version. Crop screenshots so they show no balances, addresses, trade or offer IDs, or onion addresses.

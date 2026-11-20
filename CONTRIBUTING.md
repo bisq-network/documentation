@@ -1,50 +1,62 @@
 # Contributing to the Bisq documentation
 
-This site reproduces the Bisq wiki as it was recovered in October 2026. It is a community preview, not official Bisq approval, and an article's age and preservation do not establish that it is still accurate. Corrections are welcome: anyone can report a problem or propose new wording, a documentation reviewer accepts each wording change, and a maintainer publishes it.
+This site reproduces the Bisq wiki as it was recovered in October 2026. It is a community preview, not official Bisq approval, and an article's age and preservation do not establish that it is still accurate. Corrections are welcome: anyone can report a problem or propose new wording, a documentation reviewer accepts each wording change, and merging it publishes it.
 
 ## How a change reaches the site
 
-1. **Propose.** Someone [reports a problem](#report-a-problem) in an issue, or [edits an article](#edit-an-article-in-the-browser) on GitHub and opens a pull request.
-2. **Check.** GitHub runs two checks on the pull request. `check` confirms that the change keeps everything a wording change must keep; `receipts` stays red until a reviewer accepts the change.
-3. **Review.** A documentation reviewer reads the change and settles the final wording with its author.
-4. **Accept.** The reviewer [adds a receipt and approves](#review-and-accept-a-change). Both checks turn green.
-5. **Merge.** A maintainer [merges](#merge-and-publish) the pull request.
-6. **Publish.** A maintainer runs the deployment. Merging alone publishes nothing. GitHub lets a wording change reach `main` only with both checks green and a reviewer's approval, and the deployment builds only `main`. That build fails on any wording change that has no receipt.
+1. **Propose.** On an article, **Suggest an edit** offers two ways: [describe the fix](#describe-the-fix) in an issue, or [edit it yourself](#edit-it-yourself) in GitHub's editor and open a pull request. An article the wiki never had starts as a [proposal](#propose-a-new-article).
+2. **Label.** GitHub labels the pull request by itself: `wording-proposal` when it changes an article, `new-article` when it adds one.
+3. **Check.** GitHub runs two checks on the pull request. `check` confirms that the change keeps everything a wording change must keep; `receipts` stays red until a reviewer accepts the change.
+4. **Review.** A documentation reviewer reads the change and settles the final wording with its author.
+5. **Accept.** The reviewer [adds a receipt and approves](#review-and-accept-a-change). Both checks turn green.
+6. **Merge.** A maintainer [merges](#merge-and-publish) the pull request.
+7. **Publish.** Merging publishes: the deployment workflow runs on every change to `main`, tests and builds the site again, and deploys it within a few minutes. GitHub lets a wording change reach `main` only with both checks green and a reviewer's approval, and that build fails on any wording change that has no receipt.
 
 | Who | Does what |
 | --- | --- |
-| Anyone with a GitHub account | Reports problems and proposes wording changes. |
+| Anyone with a GitHub account | Reports problems, proposes wording changes and new articles. |
 | Documentation reviewers: [suddenwhipvapor](https://github.com/suddenwhipvapor) and [pazza83](https://github.com/pazza83) (team `documentation-reviewers`) | Review and accept wording changes to the articles. Nobody accepts their own change, so a change by one reviewer is accepted by the other. |
-| Maintainers (the repository's administrators) | Label proposals, start the checks for first-time contributors, merge and publish. |
+| Maintainers (the repository's administrators) | Start the checks for first-time contributors, review changes to the site, and merge. |
 
 ## Propose a change
 
-### Report a problem
+Every article has a **Suggest an edit** button with two choices. Both open GitHub, where you need an account. Issues and pull requests are public and stay visible: never include wallet seeds, private keys, payment details or private trade conversations.
 
-If you would rather not edit an article yourself, use the [Review an article](https://github.com/bisq-network/documentation/issues/new?template=article-review.yml) issue form. Link the section (the link button next to each heading gives its address), say which product and version you checked, quote the current sentence and suggest your wording. A reviewer or maintainer can turn the report into a pull request.
+### Describe the fix
 
-### Edit an article in the browser
+**Suggest an edit → Describe the fix** opens the [Review an article](https://github.com/bisq-network/documentation/issues/new?template=article-review.yml) issue form with the article's address filled in, pointing at the section you are reading. Select the sentence first, and the form quotes it under "What you found", followed by "Suggested wording:" for yours. Selecting text in an article also shows **Suggest a fix** next to it, which does the same in one step. After selecting by touch it stays hidden, because the phone's own selection menu sits in that place; use the button there.
 
-1. **Open the article's file.** An article's address on the site ends in `/wiki/<name>/`, and its file is `src/content/docs/wiki/<name>.md`. This address opens the file in GitHub's editor: `https://github.com/bisq-network/documentation/edit/main/src/content/docs/wiki/<name>.md`, for example [the Wallet article](https://github.com/bisq-network/documentation/edit/main/src/content/docs/wiki/wallet.md). On the file's page, the pencil (**Edit this file**) does the same. If you cannot write to the repository, GitHub first offers to fork it: accept.
-   This works for every article except the three additional historical ones (Emergency Multisig payout tool, Bitcointalk Moderator, 在中国运行Bisq), which receipts do not cover. For those, use the issue form.
-2. **Change only the wording.** Text, links, bold and italic, paragraphs and list items can change. Leave the rest as it is: the lines between the two `---` at the top, the "On this page" list, each heading with its `{#id}`, the `<span class="wiki-legacy-anchor" …>` lines and the HTML of figures. The restored text writes apostrophes as `\'`; leave those, and type a plain `'` in new text. Tables, code blocks, image descriptions and captions can change as well, but the reviewer accepts each of them explicitly. A new section, image or article is more than a wording change: open an issue about it first. **Preview** shows the result.
+Choose the product you checked, write your wording, say how you know (a screen in the application, release notes, the code), and click **Create**. No Markdown is needed. A reviewer or maintainer turns the report into a pull request that names it.
+
+Without the button, open the form directly and link the section yourself: the link button next to each heading gives its address.
+
+### Edit it yourself
+
+1. **Open the article's file.** **Suggest an edit → Edit it myself** opens it in GitHub's editor. If you cannot write to the repository, GitHub first offers to fork it: accept. (The article at `/wiki/<name>/` is the file `src/content/docs/wiki/<name>.md`, and `https://github.com/bisq-network/documentation/edit/main/src/content/docs/wiki/<name>.md` opens it, for example [the Wallet article](https://github.com/bisq-network/documentation/edit/main/src/content/docs/wiki/wallet.md).)
+   The three additional historical articles (Emergency Multisig payout tool, Bitcointalk Moderator, 在中国运行Bisq) offer only **Describe the fix**: receipts do not cover them.
+2. **Change only the wording.** Text, links, bold and italic, paragraphs and list items can change. Leave the rest as it is: the lines between the two `---` at the top, the "On this page" list, each heading with its `{#id}`, the `<span class="wiki-legacy-anchor" …>` lines and the HTML of figures. The restored text writes apostrophes as `\'`; leave those, and type a plain `'` in new text. Tables, code blocks, image descriptions and captions can change as well, but the reviewer accepts each of them explicitly. A new section or image is more than a wording change: open an issue about it first, and [propose a new article](#propose-a-new-article) with its own form. **Preview** shows the result.
 3. **Propose it.** Click **Commit changes…**. Reviewers and maintainers see "You can't commit to main because it is a protected branch": keep **Create a new branch for this commit and start a pull request** with GitHub's branch name (`<login>-patch-<n>`). Everyone else commits to their fork. Click **Propose changes**.
 4. **Open the pull request.** On the next page, click **Create pull request** and fill in the template:
    - **Title:** describe the change plainly, for example "Wallet: link the seed backup article". The title becomes the summary line the article page shows once the change is accepted. A title with "verified", "official", "approved", "endorsed", "certified" or "guaranteed" is shown as "Wording change; see the pull request." instead.
    - **Description:** why the change is needed, the product and version, and the source you checked (release notes, the application's code or screens).
-   - **Label:** `wording-proposal`, under **Labels** in the sidebar. Only reviewers and maintainers can set labels; a maintainer adds it for everyone else. CodeRabbit skips labelled pull requests and leaves the wording to the reviewers.
 
-   Then click **Create pull request**.
+   Then click **Create pull request**. You don't need to set a label: GitHub adds `wording-proposal` within a minute (workflow **Label pull requests**). CodeRabbit skips pull requests with that label and leaves the wording to the reviewers.
 
 Keep one article, or a few closely related ones, per pull request.
 
+### Propose a new article
+
+An article the old wiki never had starts with the [Propose a new article](https://github.com/bisq-network/documentation/issues/new?template=new-article.yml) issue form, also linked from the site's [Help improve this documentation](https://bisq.wiki/review/) page: the title, the sidebar section it belongs in, who it helps and why it is needed, an outline or draft in plain text, and the sources it rests on. A documentation reviewer reads the proposal and says whether it fits. The article is then written in a pull request, by you or by a reviewer from your outline. A pull request that adds a file to `src/content/docs/wiki/` gets the `new-article` label by itself, and a documentation reviewer approves it there. The site lists such articles once it supports articles written after the recovery (pull request #205); until then a proposal waits in its issue.
+
 ### After you open the pull request
 
+- Within a minute GitHub labels it: `wording-proposal` for a changed article, `new-article` for an added one. The label is added even before the checks run.
 - On your first pull request to this repository, the checks start once a maintainer approves them.
 - `check` should turn green. If it fails, open **Details**: the log names what changed besides the wording. Fix it with another edit (in **Files changed**, the file's **⋯** menu, **Edit file**), or ask in the pull request.
 - `receipts` turns red and lists the article as awaiting a receipt. That is expected until a reviewer accepts the change.
 - GitHub asks both documentation reviewers for a review.
 - Every further commit runs both checks again.
+- Once a reviewer has accepted the change and a maintainer has merged it, it is live on bisq.wiki within a few minutes, and the article names the change with a link to your pull request.
 
 ### What makes a good proposal
 
@@ -56,7 +68,7 @@ Preserve prerequisites and warnings, identify old interfaces in images, and do n
 
 ### Change the site or tooling
 
-Changes outside the articles (layout, scripts, workflows, these guides) are ordinary pull requests without the label: CodeRabbit reviews them, a maintainer reviews and merges them, and they need no receipt. A change under `migration/` also needs a documentation reviewer's approval. Like every pull request they must pass `check` and `receipts`; [run the checks locally](#run-the-checks-locally) first.
+Changes outside the articles (layout, scripts, workflows, these guides) are ordinary pull requests and get no label: CodeRabbit reviews them, a maintainer reviews and merges them, and they need no receipt. A change under `migration/` also needs a documentation reviewer's approval. Like every pull request they must pass `check` and `receipts`; [run the checks locally](#run-the-checks-locally) first. Merging publishes them like any other change.
 
 ## Accepted editorial changes
 
@@ -78,9 +90,9 @@ If a change should not be made, say why and submit the review with **Request cha
 For the maintainers.
 
 1. **Merge** once `check` and `receipts` are green and a documentation reviewer has approved. GitHub enforces all three and allows only merge commits.
-2. **Merge changes to the same article one at a time.** GitHub does not run the checks again when `main` moves. If another pull request that changes the same article has merged since this one's checks ran, merging this one as well would break the build on `main`, because both receipts start from the same text. Bring the branch up to date first (merge `main` into it): `check` then fails on the outdated receipt, and the reviewer deletes it, adds a fresh one and approves again.
-3. **Publish** with **Actions → Build and deploy documentation → Run workflow** on `main`; the `github-pages` environment accepts no other branch. The workflow tests and builds the site again before it deploys. One run publishes everything merged so far.
-4. **Check the live article.** It shows the new wording, and its "Source and history" section lists the accepted change under "Edited after restoration", with the date, summary and pull request.
+2. **Merge changes to the same article one at a time.** GitHub does not run the checks again when `main` moves. If another pull request that changes the same article has merged since this one's checks ran, merging this one as well would break the build on `main`, because both receipts start from the same text, and nothing would be published until that is fixed. Bring the branch up to date first (merge `main` into it): `check` then fails on the outdated receipt, and the reviewer deletes it, adds a fresh one and approves again.
+3. **Publishing follows by itself.** Every merge to `main` starts **Build and deploy documentation** (`.github/workflows/pages.yml`), which tests and builds `main` again and deploys it to the `github-pages` environment, which accepts no other branch. A run that is in progress finishes; of the runs waiting behind it, only the newest is kept, so a series of merges ends with the last one published. If the build fails, the site keeps the previous version. Run the workflow by hand (**Actions → Build and deploy documentation → Run workflow** on `main`) only to publish again without a merge, for example after changing the site address, or to retry a run that failed for a reason outside the repository.
+4. **Check the live article** a few minutes later. It shows the new wording, and its "Source and history" section lists the accepted change under "Edited after restoration", with the date, summary and pull request.
 
 [PUBLISHING.md](PUBLISHING.md) has the deployment checklist.
 
@@ -167,7 +179,7 @@ DOCS_SITE=https://bisq-network.github.io DOCS_BASE=/documentation/ npm run build
 
 The live site at bisq.wiki is served from the root; `DOCS_SITE=https://bisq.wiki npm run build` builds exactly that.
 
-`npm run build` fails on a wording change until its receipt is added; on a pull request, `check` and `receipts` report it as awaiting a receipt instead. The deployment workflow is manual. Building or submitting a pull request does not publish the site.
+`npm run build` fails on a wording change until its receipt is added; on a pull request, `check` and `receipts` report it as awaiting a receipt instead. Building locally or opening a pull request publishes nothing; a merge to `main` does.
 
 For a change to how the site looks, run `npm run design-check` after that build. It serves `dist/` at `/documentation/` and measures it in Chromium: accessibility problems axe finds (WCAG 2.2 AA) on the key pages and the search dialog, in light and dark, at 1440×900 and 390×844; how far down each article's first sentence starts on a phone; where the reading column starts; how many font sizes a page uses; layout shift on the home page; script loaded before search opens; and visible recovery markers. It writes `report.md`, `report.json` and screenshots to `tmp/design-check/` (ignored by git) and fails when a number is above its ceiling in `scripts/design-check-budget.json`. Lower a ceiling when a change improves a number. Raise one only for a deliberate trade-off that the pull request names and explains, never just to let a change pass. Compare with an earlier run with `npm run design-check -- --baseline <its report.json>`. The first time, install the browser with `npx playwright install chromium`.
 
@@ -183,7 +195,7 @@ It finds the XML export and the `images/` folder, unpacks archives into a tempor
 
 ## Wording-only review batches
 
-Keep initial proposals small and article-by-article, retaining titles, structure, facts and procedural order. Open them as **ready for review** with the `wording-proposal` label: the documentation reviewers review the wording, and CodeRabbit skips labelled pull requests. Keep the PR against the restored baseline so reviewers see the actual wording diff. The earlier AI edition can inform the comparison, but is not a replacement to apply wholesale.
+Keep initial proposals small and article-by-article, retaining titles, structure, facts and procedural order. Open them as **ready for review**; the `wording-proposal` label is added automatically. When you open one from the command line, add the label right away (`gh pr create --label wording-proposal`), so it is there before CodeRabbit looks: the documentation reviewers review the wording, and CodeRabbit skips labelled pull requests. Keep the PR against the restored baseline so reviewers see the actual wording diff. The earlier AI edition can inform the comparison, but is not a replacement to apply wholesale.
 
 The restoration fidelity gate intentionally rejects changes to article wording unless a reviewed receipt covers them (see [Accepted editorial changes](#accepted-editorial-changes)). On a pull request this shows as two checks: `check` stays green while the edit keeps everything a receipt would still require, and `receipts` fails, listing each article awaiting a receipt, until a reviewer adds the receipt and approves. That `receipts` failure is expected while the wording is under review. Do not refresh the original hashes to hide the difference.
 
