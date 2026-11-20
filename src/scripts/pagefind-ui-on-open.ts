@@ -7,9 +7,9 @@
 type Options = { element?: string; [key: string]: unknown };
 type RealUI = new (options: Options) => unknown;
 
-// Product and topic filters show as a row of chips (styled in src/styles/custom.css), so their
-// groups start open.
-const extra = { openFilters: ["product", "topic"] };
+// Product and topic filters show as rows of chips (styled in src/styles/search.css). Results come
+// first: Product starts open and Topic closed, and a value with no results is not shown.
+const extra = { openFilters: ["product"], showEmptyFilters: false };
 const waiting: Options[] = [];
 let loading: Promise<RealUI> | undefined;
 

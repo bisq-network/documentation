@@ -1,8 +1,57 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import Icon from "../components/Icon.astro";
 import SavedWikiLink from "../components/SavedWikiLink.astro";
+import { urgentTasks } from "../data/shortcuts.mjs";
+
+// Old wiki titles (/Arbitration/) and earlier preview paths have pages of their own
+// (src/pages/[...legacy].astro), so this page is for every other address. One next step first:
+// search for the words in the address. Styles: src/styles/search.css.
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const urgent = urgentTasks();
 ---
 <StarlightPage frontmatter={{ title: "Page not found", tableOfContents: false, pagefind: false, prev: false, next: false }}>
-  <p>The link may be from the old wiki or an earlier preview.</p>
-  <SavedWikiLink id="not-found" />
+  <div class="not-found not-content">
+    <div class="not-found-intro">
+      <p>There is no page at this address.</p>
+      <p class="not-found-address" data-not-found-address hidden><code></code></p>
+    </div>
+    <div class="not-found-actions">
+      <button class="docs-button not-found-search" type="button" data-docs-search="" data-not-found-search aria-haspopup="dialog" hidden>
+        <Icon name="search" size={18} /><span data-not-found-words>Search the documentation</span>
+      </button>
+      <a href={`${base}/browse/all/`}>Browse all article titles</a>
+    </div>
+    <section class="not-found-urgent" aria-labelledby="not-found-urgent">
+      <h2 id="not-found-urgent">Something is wrong right now</h2>
+      <ul class="home-rows">{urgent.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span class="home-row-text"><span class="home-row-label">{label}</span><small>{guide.title}</small></span><Icon name="chevronRight" size={16} /></a></li>)}</ul>
+    </section>
+    <details class="not-found-saved">
+      <summary>Have a link from the old wiki?</summary>
+      <SavedWikiLink id="not-found" />
+    </details>
+  </div>
 </StarlightPage>
+<script>
+  // docs-discovery.ts opens the search dialog with a button's data-docs-search words and shows the
+  // buttons that need scripts; the address and its words are known only in the browser.
+  import "../scripts/docs-discovery.ts";
+  import { searchWordsFromAddress } from "../lib/not-found.mjs";
+
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const words = searchWordsFromAddress(location.pathname, location.search, { base });
+  const button = document.querySelector<HTMLButtonElement>("[data-not-found-search]");
+  const label = button?.querySelector("[data-not-found-words]");
+  if (button && label && words) {
+    button.dataset.docsSearch = words;
+    label.textContent = `Search for “${words}”`;
+  }
+  const address = document.querySelector<HTMLElement>("[data-not-found-address]");
+  const code = address?.querySelector("code");
+  if (address && code) {
+    let path = location.pathname;
+    try { path = decodeURI(path); } catch { /* Show the address as it was written. */ }
+    code.textContent = `${location.host}${path}${location.search}`;
+    address.hidden = false;
+  }
+</script>

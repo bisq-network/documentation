@@ -1,4 +1,5 @@
 ---
+import Icon from "./Icon.astro";
 import SavedWikiLink from "./SavedWikiLink.astro";
 import PaymentMethodsHub from "./PaymentMethodsHub.astro";
 import ArticleScripts from "./ArticleScripts.astro";
@@ -30,6 +31,14 @@ const products = article ? productEvidence(article) : [];
 const page = articlePageContent(await Astro.slots.render("default"), id, import.meta.env.BASE_URL);
 const { links, templates } = page;
 const unresolvedSections = page.sections.unresolved;
+// Recovery gaps as a short list: only the kinds the article has, each with its own plural.
+const count = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+const gaps = [
+  templates.restored > 0 && count(templates.restored, "restored historical template", "restored historical templates"),
+  templates.unresolved > 0 && count(templates.unresolved, "unresolved template", "unresolved templates"),
+  links.unresolved > 0 && count(links.unresolved, "unresolved article link", "unresolved article links"),
+  unresolvedSections > 0 && count(unresolvedSections, "unresolved section", "unresolved sections"),
+].filter(Boolean);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(value));
 const images = page.media.images;
@@ -39,16 +48,20 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
   <span>Also in</span>
   <ul>{languages.pages.filter((page) => page.slug !== article!.slug).map((page) => <li><a href={`${base}/wiki/${page.slug}/`} lang={page.lang} hreflang={page.lang}>{page.label}</a></li>)}</ul>
 </nav>}
-{callout && <aside class="before-you-start" aria-labelledby="docs-before-you-start" data-pagefind-ignore>
-  <h2 id="docs-before-you-start"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20z"></path><path d="M12 10v4"></path><path d="M12 17h.01"></path></svg>Before you start</h2>
+{/* Notes the site added during the migration share one neutral style, so they never look like
+    the wiki's own warning and note boxes; the icon alone carries the colour. */}
+{callout && <aside class="before-you-start site-note warn" aria-labelledby="docs-before-you-start" data-pagefind-ignore>
+  <p class="site-note-tag"><Icon name="triangleAlert" size={16} /><span>Migration check · {date(callout.note.checked_at)} · not reviewed by a maintainer</span></p>
+  <h2 id="docs-before-you-start">Before you start</h2>
   <ul>{callout.sentences.map((sentence) => <li>{sentence}</li>)}</ul>
-  <p class="before-you-start-source">From the migration check “{callout.note.title}”, {date(callout.note.checked_at)}. Automated source comparison, not reviewed by a maintainer.</p>
+  <p class="site-note-source">From the check “{callout.note.title}”, an automated comparison with the source code. Not part of the original wiki text.</p>
 </aside>}
 {prominent.length > 0 && <aside class="prominent-checks" aria-label="Important migration checks" data-pagefind-ignore>
-  {prominent.map((note) => <section>
-    <p class="prominent-check-title"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg><strong>{note.title}</strong></p>
+  {prominent.map((note) => <section class="site-note">
+    <p class="site-note-tag"><Icon name="info" size={16} /><span>Migration check · {date(note.checked_at)} · not reviewed by a maintainer</span></p>
+    <p class="prominent-check-title"><strong>{note.title}</strong></p>
     <p>{note.body}</p>
-    <p class="prominent-check-source">Automated source comparison, {date(note.checked_at)}, not reviewed by a maintainer and not part of the original wiki text. Sources: About this page.</p>
+    <p class="site-note-source">An automated comparison with the source code, not part of the original wiki text. Sources: About this page.</p>
   </section>)}
 </aside>}
 {article && <>
@@ -71,7 +84,7 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
     {edits.length > 0 && <><dt>Edited after restoration</dt><dd><ul class="source-edits">{edits.map((edit) => <li>{date(edit.accepted_on)} · {edit.summary} · <a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></li>)}</ul></dd></>}
     <dt>Source files</dt><dd><a href={`${base}${article.source_download}`}>Original wikitext</a> · <a href={`${base}${article.source_metadata}`}>Revision metadata</a></dd>
     {images.length > 0 && <><dt>Image references</dt><dd>{images.filter((image) => image.asset_path).length} recovered, {images.filter((image) => !image.asset_path).length} missing{images.some((image) => image.status === "partial") && ` (${images.filter((image) => image.status === "partial").length} recovered as thumbnails or partial files)`} · <a href={`${base}/recovered-media/`}>Media catalogue</a></dd></>}
-    <dt>Recovery gaps</dt><dd>{templates.restored} restored historical template occurrences · {templates.unresolved} unresolved templates · {links.unresolved} unresolved article links · {unresolvedSections} unresolved sections</dd>
+    <dt>Recovery gaps</dt><dd>{gaps.length ? gaps.join(" · ") : "None"}</dd>
   </dl>
   <p><a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
 </section>}

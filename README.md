@@ -21,11 +21,11 @@ The static site is built in `dist/`. The ordinary build uses the checked-in arti
 - All recovered wiki title paths and 98 earlier guide paths have compatibility pages. A page representing multiple originals offers a choice of sources. Keep section mappings and base-path behavior intact when changing routes.
 - All 123 inventoried images have full-size historical files, appearing in 133 inline occurrences. The initial mapping remains preserved; 26 replacements and an additional linked image come from the 14 October 2026 archive and are documented in `recovery-evidence/` and the [media catalogue](src/content/docs/recovered-media.md). Old screenshots can differ from current software.
 
-Run `npm test` and `npm run build` after changes. Source preservation checks do not establish that the recovered instructions are current. See [CONTRIBUTING.md](CONTRIBUTING.md) and [CONTENT-SOURCES.md](CONTENT-SOURCES.md) before proposing edits.
+Run `npm test` and `npm run build` after changes. Source preservation checks do not establish that the recovered instructions are current. See [CONTRIBUTING.md](CONTRIBUTING.md) and [CONTENT-SOURCES.md](CONTENT-SOURCES.md) before proposing edits. To report a correction or propose an article, use **Suggest an edit** on any article or the site's [Help improve this documentation](https://bisq.wiki/review/) page.
 
 ## GitHub Pages
 
-The community preview is published at [bisq.wiki](https://bisq.wiki/), so links to the original wiki keep working; [bisq-network.github.io/documentation](https://bisq-network.github.io/documentation/) redirects there. Check the Actions deployment result for the actual published revision. The included workflow is manual. To build what the site serves:
+The community preview is published at [bisq.wiki](https://bisq.wiki/), so links to the original wiki keep working; [bisq-network.github.io/documentation](https://bisq-network.github.io/documentation/) redirects there. Check the Actions deployment result for the actual published revision. The included workflow publishes `main` after every merge and can also be run by hand. To build what the site serves:
 
 ```sh
 DOCS_SITE=https://bisq.wiki npm run build

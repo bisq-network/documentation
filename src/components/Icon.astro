@@ -1,0 +1,17 @@
+---
+// One icon from the site's set (src/icons/lucide.mjs), drawn by src/icons/icon.mjs.
+// Decorative unless `label` is given.
+import * as lucide from "../icons/lucide.mjs";
+import { icon } from "../icons/icon.mjs";
+
+interface Props {
+  name: keyof typeof lucide;
+  size?: number;
+  label?: string;
+  class?: string;
+}
+const { name, size = 20, label, class: className } = Astro.props;
+const body = lucide[name];
+if (!body) throw new Error(`Unknown icon: ${String(name)}`);
+---
+<Fragment set:html={icon(body, { size, label, className })} />

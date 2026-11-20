@@ -1,0 +1,27 @@
+---
+// The end of every page: Starlight's edit link and last-updated date when the site turns them on
+// (it does not today), "More in <section>" on articles (./Pagination.astro), then a quiet site
+// footer. Starlight's "Built with Starlight" credit is off in the config, as before.
+import config from "virtual:starlight/user-config";
+import EditLink from "virtual:starlight/components/EditLink";
+import LastUpdated from "virtual:starlight/components/LastUpdated";
+import Pagination from "virtual:starlight/components/Pagination";
+
+const route = Astro.locals.starlightRoute;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+// The header's GitHub link (astro.config.mjs), so both follow a repository transfer.
+const github = config.social?.find((link: { icon: string }) => link.icon === "github")?.href;
+---
+<footer class="docs-page-end" data-pagefind-ignore>
+  {(route.editUrl || route.lastUpdated) && <div class="docs-page-meta"><EditLink /><LastUpdated /></div>}
+  <Pagination />
+  <div class="docs-site-footer">
+    <p><span>Recovered Bisq wiki</span> · <span>snapshot of Oct 2026</span> · <span>community preview</span></p>
+    <ul>
+      <li><a href={`${base}/recovery-status/`}>Recovery status</a></li>
+      <li><a href={`${base}/review/`}>Contribute</a></li>
+      {github && <li><a href={github}>GitHub</a></li>}
+      <li><a href="https://bisq.network/">bisq.network</a></li>
+    </ul>
+  </div>
+</footer>

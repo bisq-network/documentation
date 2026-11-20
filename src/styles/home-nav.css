@@ -1,0 +1,109 @@
+/* Home page, end of page and site footer (round 3 design review: F6, F8, F14, F16, F20).
+   Neutral surfaces and hairline rows instead of cards and shadows; green only for links, selection
+   and focus. The home page is .not-content, so Starlight's Markdown spacing stays out of it. */
+
+/* Home: one hero. Starlight rules off the content panel from the title panel; on the home page the
+   title, lede and search are one block, so the rule and the second panel's top padding go. */
+.main-pane:has(.docs-home) .content-panel + .content-panel { border-top: 0; padding-top: 0; }
+.docs-home { container: docs-home / inline-size; }
+.docs-home h2 { margin: 0; font-size: var(--bd-fs-h3); font-weight: 600; line-height: var(--bd-lh-h3); }
+.home-hero { padding-bottom: var(--bd-space-7); }
+.home-hero .home-lede { margin: 0 0 var(--bd-space-5); }
+.home-search-field > svg { flex: none; }
+/* The shortcut hint looks like the header search button's (Starlight's Search.astro); the script next
+   to it shows ⌘ K on Apple platforms and Ctrl K elsewhere. */
+.home-search-field > kbd { display: inline-flex; flex: none; align-items: center; gap: var(--bd-space-1); padding-inline: calc(1.5 * var(--bd-space-1)); border-radius: var(--bd-radius-sm); background: var(--sl-color-gray-6); color: var(--sl-color-gray-2); font-family: var(--sl-font); font-size: var(--bd-fs-xs); line-height: 1.75; }
+.home-search-field > kbd > kbd { font: inherit; }
+/* The hero holds the search, so the header's search button is hidden on the home page only; the dialog
+   and the keyboard shortcut still work. */
+:root:has(.docs-home) .header site-search > button[data-open-modal] { visibility: hidden; }
+
+/* Urgent help first, at full width; set-up tasks and the product choice side by side below it from
+   tablet width up. Every list is a set of hairline rows. */
+.home-start { display: grid; gap: var(--bd-space-7) var(--bd-space-6); }
+.home-urgent h2 { display: flex; align-items: center; gap: var(--bd-space-2); }
+.home-urgent h2 > svg { flex: none; color: var(--bd-warn-ink); }
+.home-setup h2, .home-products h2 { font-size: var(--bd-fs-body); }
+.home-rows, .home-topic-list { margin: var(--bd-space-3) 0 0; padding: 0; list-style: none; }
+.home-rows { border-bottom: 1px solid var(--sl-color-hairline-light); }
+.home-rows li, .home-topic-list li { margin: 0; border-top: 1px solid var(--sl-color-hairline-light); }
+.home-rows a, .home-topic-list a { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--bd-space-3); min-height: 2.75rem; padding-block: var(--bd-space-3); color: var(--sl-color-text); text-decoration: none; }
+.home-row-text { display: grid; gap: var(--bd-space-1); min-width: 0; }
+.home-row-label { font-weight: 500; }
+.home-row-quote { color: var(--sl-color-gray-2); }
+.home-row-text small { color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); line-height: var(--bd-lh-sm); }
+.home-rows a > svg { color: var(--sl-color-gray-3); }
+.home-urgent .home-row-label { font-size: var(--bd-fs-body); }
+.home-urgent .home-rows a { padding-block: var(--bd-space-4); }
+
+/* Topics: two columns from tablet width up, so the ten topics fill five full rows. */
+.home-topics-section, .home-help { margin-top: var(--bd-space-8); }
+.home-section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--bd-space-2) var(--bd-space-4); }
+.home-section-head a, .home-help a { color: var(--sl-color-text-accent); text-underline-offset: 0.15em; }
+.home-topic-list { display: grid; column-gap: var(--bd-space-6); }
+.home-topic-list li:last-child { border-bottom: 1px solid var(--sl-color-hairline-light); }
+.home-topic-list a { grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; }
+.home-topic-list a > svg { margin-top: var(--bd-space-1); color: var(--sl-color-gray-2); }
+.home-topic-list .home-row-label { font-weight: 600; }
+/* The count sits on the topic name's baseline. */
+.home-topic-list .home-row-text, .home-topic-count { align-self: baseline; }
+.home-topic-count { color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); font-variant-numeric: tabular-nums; }
+.home-help h2 { margin-bottom: var(--bd-space-2); }
+.home-help p { color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); }
+
+@container docs-home (min-width: 36rem) {
+  .home-start { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-urgent { grid-column: 1 / -1; }
+  .home-topic-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-topic-list li:nth-last-child(2) { border-bottom: 1px solid var(--sl-color-hairline-light); }
+}
+/* Wide enough for an urgent task and its article on one line. */
+@container docs-home (min-width: 44rem) {
+  .home-urgent .home-row-text { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: var(--bd-space-4); }
+  .home-urgent .home-row-text small { text-align: end; }
+}
+@media (max-width: 40rem) {
+  .home-search-field > kbd { display: none; }
+  .home-try { flex-wrap: nowrap; overflow-x: auto; padding-block: var(--bd-space-1); }
+  .home-try > * { flex: none; }
+  .home-hero { padding-bottom: var(--bd-space-6); }
+  .home-start { gap: var(--bd-space-6); }
+  .home-topics-section, .home-help { margin-top: var(--bd-space-7); }
+}
+
+/* End of an article: "More in <section>" (src/components/Pagination.astro), hairline rows on the
+   prose measure. */
+.docs-page-end { display: grid; gap: var(--bd-space-7); margin-top: var(--bd-space-7); }
+.docs-page-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--bd-space-3) var(--bd-space-7); color: var(--sl-color-gray-3); font-size: var(--bd-fs-sm); }
+.more-in-section { max-width: 34rem; }
+.more-in-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--bd-space-1) var(--bd-space-4); }
+.more-in-section h2 { margin: 0; font-size: var(--bd-fs-body); font-weight: 600; line-height: var(--bd-lh-h3); }
+.more-in-head a { color: var(--sl-color-text-accent); font-size: var(--bd-fs-sm); text-underline-offset: 0.15em; }
+/* The links beside a heading are 44 px targets, like the rows. */
+:is(.home-section-head, .more-in-head) a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.more-in-section ul { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--sl-color-hairline-light); }
+.more-in-section li { margin: 0; border-top: 1px solid var(--sl-color-hairline-light); }
+.more-in-section li a { display: flex; align-items: center; justify-content: space-between; gap: var(--bd-space-3); min-height: 2.75rem; padding-block: var(--bd-space-2); color: var(--sl-color-text); font-size: var(--bd-fs-ui); text-decoration: none; overflow-wrap: anywhere; }
+.more-in-section li a > svg { flex: none; color: var(--sl-color-gray-3); }
+
+/* Site footer on every page: one quiet line of provenance and links. */
+.docs-site-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--bd-space-5); padding-top: var(--bd-space-4); border-top: 1px solid var(--sl-color-hairline-light); color: var(--sl-color-gray-3); font-size: var(--bd-fs-sm); }
+.docs-site-footer p { margin: 0; }
+.docs-site-footer p > span { white-space: nowrap; }
+.docs-site-footer ul { display: flex; flex-wrap: wrap; gap: 0 var(--bd-space-5); margin: 0; padding: 0; list-style: none; }
+.docs-site-footer li { margin: 0; }
+@media (max-width: 40rem) { .docs-site-footer ul { column-gap: var(--bd-space-4); } }
+.docs-site-footer a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--sl-color-gray-2); text-decoration: underline; text-decoration-color: var(--sl-color-hairline); text-underline-offset: 0.2em; }
+
+/* Rows answer hover (on devices that hover) and presses. Only transform moves, within the motion
+   ceiling; reduced motion keeps it still. */
+@media (hover: hover) {
+  :is(.home-rows, .home-topic-list) a:hover .home-row-label, .more-in-section li a:hover > span { text-decoration: underline; text-underline-offset: 0.15em; }
+  :is(.home-rows, .more-in-section li) a:hover > svg { color: var(--sl-color-text); }
+  .docs-site-footer a:hover { color: var(--sl-color-text); text-decoration-color: currentColor; }
+}
+:is(.home-rows, .home-topic-list, .more-in-section ul) a:active { background: var(--sl-color-bg-sidebar); }
+@media (prefers-reduced-motion: no-preference) {
+  :is(.home-rows, .more-in-section li) a > svg { transition: transform var(--bd-dur-fast) var(--bd-ease-standard); }
+  @media (hover: hover) { :is(.home-rows, .more-in-section li) a:hover > svg { transform: translateX(var(--bd-space-1)); } }
+}

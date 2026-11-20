@@ -1,5 +1,5 @@
 ---
-import { Icon } from "@astrojs/starlight/components";
+import Icon from "./Icon.astro";
 
 // One icon button instead of Starlight's theme menu: each press moves to the next theme
 // (auto, then the opposite of the system's, then the system's, then auto again). It keeps Starlight's storage key and its icon template
@@ -7,7 +7,7 @@ import { Icon } from "@astrojs/starlight/components";
 ---
 <starlight-theme-select class="theme-toggle">
   <button type="button" data-theme-toggle title="Color theme: auto">
-    <Icon name="laptop" class="label-icon" />
+    <Icon name="laptop" size={20} class="label-icon" />
     <span class="sr-only" data-theme-label>Color theme: auto</span>
   </button>
 </starlight-theme-select>

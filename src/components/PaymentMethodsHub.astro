@@ -49,13 +49,13 @@ if (missing.length) throw new Error(`Payment methods hub leaves out: ${missing.j
     <div class="pm-tools" data-pm-tools>
       <label for="pm-filter">Filter methods</label>
       <input id="pm-filter" type="search" autocomplete="off" placeholder="Zelle, SEPA, Revolut…" />
-      <button type="button" aria-pressed="false" data-pm-product="Bisq 1">Names Bisq 1 · {bisq1}</button>
+      <button type="button" aria-pressed="false" data-pm-product="Bisq 1">Names Bisq 1 <span class="bd-count">{bisq1}</span></button>
       <p class="pm-count" role="status" aria-live="polite" data-pm-count>All {tiles.length} methods</p>
     </div>
     <nav class="pm-letters" aria-label="Methods by first letter">{letters.map((letter) => <a href={`#pm-letter-${letter.toLowerCase()}`}>{letter}</a>)}</nav>
     <ul class="pm-tiles">{tiles.map((tile, index) => <li id={index === 0 || letterOf(tiles[index - 1].title) !== letterOf(tile.title) ? `pm-letter-${letterOf(tile.title).toLowerCase()}` : undefined} data-pm-tile data-name={[...tile.pages.map((page) => page.title), tile.setup?.title ?? ""].join(" ").toLowerCase()} data-products={tile.products.join("|")}>
       <a class="pm-tile-title" href={`${base}${tile.pages[0].route}`}>{tile.title}</a>
-      {tile.products.map((product) => <span class="docs-chip product"><span class="dot" aria-hidden="true"></span>{product}</span>)}
+      {tile.products.map((product) => <span class="docs-chip product">{product}</span>)}
       {tile.pages.length > 1 && <span class="pm-more">{tile.pages.length} pages: {tile.pages.slice(1).map((page) => <a href={`${base}${page.route}`}>{page.title}</a>)}</span>}
       {tile.setup && <a class="pm-setup" href={`${base}${tile.setup.route}`}>Setup guide<span class="sr-only">: {tile.setup.title}</span></a>}
     </li>)}</ul>
