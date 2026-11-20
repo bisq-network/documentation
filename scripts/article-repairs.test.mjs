@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { breakPoints, lightness, looksLikeProse, ownNumbers } from "../src/scripts/wiki-residue.ts";
+import { breakPoints, lightness, looksLikeProse, ownNumbers } from "../src/scripts/article-repairs-helpers.mjs";
 
 const nbsp = (text) => text.replaceAll(" ", "\u00a0");
 

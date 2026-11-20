@@ -60,6 +60,10 @@ test("a quote is one line of about 1,000 characters at most and notifies nobody"
   // Chat handles and issue numbers in an article are not GitHub mentions or references.
   assert.equal(quoteOf("Contact @pazza83 or @refund-agent2 (see #12)."), "Contact `@pazza83` or `@refund-agent2` (see `#12`).");
   assert.equal(quoteOf("@bisq-network/support"), "`@bisq-network`/support");
+  // A backtick in the quote can't pair with ours and leave a handle outside every code span.
+  assert.equal(quoteOf("`prefix @alice suffix`"), "\\`prefix `@alice` suffix\\`");
+  assert.equal(quoteOf("`@alice`"), "\\``@alice`\\`");
+  assert.equal(quoteOf("C:\\path"), "C:\\\\path");
   assert.equal(quoteOf("mail support@bisq.network or see https://medium.com/@bisq and page#3"), "mail support@bisq.network or see https://medium.com/@bisq and page#3");
 });
 

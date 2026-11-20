@@ -11,7 +11,7 @@ Changes reach `main` only through pull requests: `main` accepts no direct push, 
 ## Deploy the website
 
 1. In **Settings → Pages**, **GitHub Actions** is the publishing source (set once).
-2. Every push to `main`, which means every merged pull request, runs **Build and deploy documentation** (`.github/workflows/pages.yml`). It tests and builds `main` again and deploys it; the `github-pages` environment accepts deployments from `main` only. A deployment in progress finishes; of the runs waiting behind it only the newest is kept, so the last merge is what ends up published. If the build fails, the site keeps its previous version.
+2. Every push to `main`, which means every merged pull request, runs **Build and deploy documentation** (`.github/workflows/pages.yml`). It tests and builds `main` again and deploys it; the `github-pages` environment accepts deployments from `main` only. Runs go one at a time, and each builds `main` as it is when the run starts, not the commit that started it, so the last run publishes the newest `main` whatever order the runs start in. If the build fails, the site keeps its previous version.
 3. To publish again without a merge, for example after changing the site address below or to retry a run that failed for a reason outside the repository, open **Actions → Build and deploy documentation → Run workflow** and run it on `main`.
 4. Check the build and deployment results. Verify the live homepage, search, restored article and image, an old wiki-title link, and a multi-source guide compatibility page.
 

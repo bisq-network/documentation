@@ -1,4 +1,5 @@
-import { enhanceResidue, lightness, looksLikeProse, repairArticle } from "./wiki-residue";
+import { enhanceResidue, repairArticle } from "./wiki-residue";
+import { lightness, looksLikeProse } from "./article-repairs-helpers.mjs";
 
 const article = document.querySelector<HTMLElement>(".wiki-recovered-article");
 
@@ -186,6 +187,8 @@ if (article) {
   type ImageRecord = { id: string; status?: string; width?: number; height?: number };
   const metadata: ImageRecord[] = JSON.parse(document.getElementById("article-media-data")?.textContent || "[]");
   let viewer: HTMLDialogElement | undefined;
+  // Shows or hides "Actual size" for the image now open; rerun when the viewer changes size.
+  let refreshSize = () => {};
   /**
    * Reuse a modal viewer for the linked recovered file, resetting zoom and its
    * historical recovery metadata on each open. Native dialog dismissal restores
@@ -203,6 +206,8 @@ if (article) {
         const fit = viewer!.querySelector(".image-viewer-stage")!.classList.toggle("fit");
         (event.currentTarget as HTMLButtonElement).textContent = fit ? "Actual size" : "Fit to window";
       });
+      // A window that narrows after opening shrinks the fitted image, so the button may be needed then.
+      new ResizeObserver(() => refreshSize()).observe(viewer.querySelector(".image-viewer-stage")!);
       viewer.addEventListener("click", (event) => {
         if (event.target !== viewer) return;
         const bounds = viewer!.getBoundingClientRect();
@@ -221,7 +226,10 @@ if (article) {
     // Hidden until the image shows, so it never has focus when it hides; it shows only when the
     // fitted image is smaller than the file.
     size.hidden = true;
-    const showSize = () => { size.hidden = !image.naturalWidth || (image.width >= image.naturalWidth && image.height >= image.naturalHeight); };
+    const stage = viewer.querySelector(".image-viewer-stage")!;
+    // At actual size the button stays, to go back; fitted, it shows only when the image is shown smaller than the file.
+    const showSize = () => { size.hidden = stage.classList.contains("fit") && (!image.naturalWidth || (image.width >= image.naturalWidth && image.height >= image.naturalHeight)); };
+    refreshSize = showSize;
     const status = record?.status === "original" ? "Full-size recovered file" : "Recovered thumbnail or partial file";
     /** Prefer recorded dimensions, falling back to the loaded file's natural size. */
     const showDimensions = () => {

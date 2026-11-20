@@ -10,6 +10,8 @@
  * - Source links whose visible text ("2026 source") is missing from their accessible name get it.
  * repairArticle() (run on every article) handles the layout residue: see its comments.
  */
+import { breakPoints, lightness, looksLikeProse, ownNumbers } from "./article-repairs-helpers.mjs";
+
 export function enhanceResidue(article: HTMLElement) {
   let lost = 0;
   article.querySelectorAll<HTMLElement>(".wiki-link-gap").forEach((gap) => {
@@ -96,58 +98,6 @@ export function enhanceResidue(article: HTMLElement) {
     const label = link.getAttribute("aria-label") ?? "";
     if (visible && !label.toLowerCase().includes(visible.toLowerCase())) link.setAttribute("aria-label", `${visible}: ${label}`);
   });
-}
-
-// A line that reads as code: starts like a comment, prompt, path or block, or holds code punctuation
-// or a shell comment.
-const CODE_LINE = /^[#/$[{}]|[{}=|<>]|;$|--\S|\s#\s/;
-// A plain word, with the punctuation prose puts around words.
-const WORD = /^[("'“*]?[A-Za-z][a-z'’-]*[.,;:!?)"'”]*$/;
-
-/**
- * True when the text reads as sentences: mostly plain words, no line that looks like code, and at
- * least `sentences` sentence ends (commands such as "sudo apt update" have none).
- */
-export function looksLikeProse(text: string, sentences = 1): boolean {
-  const lines = text.replace(/\u00a0/g, " ").split("\n").map((line) => line.trim()).filter(Boolean);
-  if (lines.some((line) => CODE_LINE.test(line))) return false;
-  const tokens = lines.join(" ").split(/\s+/);
-  const words = tokens.filter((token) => WORD.test(token)).length;
-  const ends = tokens.filter((token) => /[.!?]["'”)]*$/.test(token)).length;
-  return words >= 6 && words >= 0.6 * tokens.length && ends >= sentences;
-}
-
-/**
- * Offsets where a long URL, path or token (20 or more characters without a space) may wrap: after
- * "/", "=", "&" or "(", and before ".", "?", "#", "-", "_", "~" or "%" that follows a letter or digit.
- * Never at a token's first or last character, so a URL's closing full stop stays with it.
- */
-export function breakPoints(text: string): number[] {
-  const points: number[] = [];
-  for (const match of text.matchAll(/\S{20,}/g)) {
-    const token = match[0];
-    for (let index = 1; index < token.length - 1; index++) {
-      const before = token[index - 1];
-      const after = /[/=&(]/.test(before) ? !/[/=&(]/.test(token[index]) : /[.?#_~%-]/.test(token[index]) && /\w/.test(before);
-      if (after) points.push(match.index! + index);
-    }
-  }
-  return points;
-}
-
-/** True when every item of a numbered list already starts with its own number ("1. ", "2. "…). */
-export function ownNumbers(items: string[], start = 1): boolean {
-  return items.length > 0 && items.every((text, index) => new RegExp(`^${start + index}[.)]\\s`).test(text.trim()));
-}
-
-/**
- * Average lightness (0 to 1) of RGBA pixels; transparent pixels count as dark, since the page shows
- * through them. Light screenshots of the wiki score 0.7 and more, dark interfaces below 0.5.
- */
-export function lightness(data: ArrayLike<number>): number {
-  let sum = 0;
-  for (let at = 0; at < data.length; at += 4) sum += (0.2126 * data[at] + 0.7152 * data[at + 1] + 0.0722 * data[at + 2]) * data[at + 3];
-  return data.length ? sum / (data.length / 4) / 255 / 255 : 0;
 }
 
 const NBSP = /\u00a0/g;

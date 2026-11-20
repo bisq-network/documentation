@@ -23,8 +23,9 @@ test("the label workflow runs no code from the pull request", () => {
   const file = workflow("label-pr.yml");
   assert.deepEqual(Object.keys(file.on), ["pull_request_target"]);
   assert.deepEqual(file.on.pull_request_target.types, ["opened", "reopened", "synchronize"]);
-  assert.deepEqual(file.permissions, { contents: "read", "pull-requests": "write" });
-  for (const job of Object.values(file.jobs)) assert.equal(job.permissions, undefined, "no job widens the permissions");
+  assert.deepEqual(file.permissions, { contents: "read" }, "read-only by default");
+  assert.deepEqual(Object.keys(file.jobs), ["label"]);
+  assert.deepEqual(file.jobs.label.permissions, { contents: "read", "pull-requests": "write" }, "only the label job writes, and only to pull requests");
   for (const step of steps(file)) {
     assert.equal(step.run, undefined, "no shell step");
     assert.doesNotMatch(step.uses ?? "", /checkout/, "no checkout");
@@ -65,6 +66,8 @@ test("merging to main publishes the site; a manual run still does", () => {
   assert.deepEqual(file.permissions, { contents: "read" });
   assert.deepEqual(file.jobs.deploy.permissions, { pages: "write", "id-token": "write" }, "only the deploy job can publish");
   assert.equal(file.jobs.deploy.environment.name, "github-pages");
+  const checkout = file.jobs.build.steps.find((step) => /actions\/checkout@/.test(step.uses ?? ""));
+  assert.equal(checkout.with.ref, "main", "every run builds the newest main, whatever order runs start in");
   assert.equal(file.concurrency["cancel-in-progress"], false, "a running deployment finishes");
   assert.match(file.jobs.build.if, /github\.repository == 'bisq-network\/documentation'/);
   const run = steps(file).map((step) => step.run).filter(Boolean);

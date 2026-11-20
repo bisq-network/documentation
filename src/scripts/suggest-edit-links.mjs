@@ -37,7 +37,9 @@ export function editUrl(path) {
 /**
  * Selected text as one line for the issue: whitespace collapsed, at most `limit` characters
  * (cut at a word where one is near, then "…"), and @names and #numbers in backticks, so quoting an
- * article that names a chat handle does not notify a GitHub user or link an issue.
+ * article that names a chat handle does not notify a GitHub user or link an issue. Backticks and
+ * backslashes already in the text are escaped first: otherwise a backtick in the quote could pair with
+ * one of ours and leave a handle outside any code span.
  */
 export function quoteOf(text, limit = QUOTE_LIMIT) {
   const characters = Array.from(String(text ?? "").replace(/\s+/g, " ").trim());
@@ -47,7 +49,7 @@ export function quoteOf(text, limit = QUOTE_LIMIT) {
     const space = cut.lastIndexOf(" ");
     line = `${(space > cut.length * 0.8 ? cut.slice(0, space) : cut).trimEnd()}…`;
   }
-  return line.replace(/(^|[^\w`/.])(@[a-z\d][\w-]*|#\d+\b)/gi, "$1`$2`");
+  return line.replace(/[\\`]/g, "\\$&").replace(/(^|[^\w/.])(@[a-z\d][\w-]*|#\d+\b)/gi, "$1`$2`");
 }
 
 /** The details field: the quote as a Markdown quote, then the start of the reader's wording. */
