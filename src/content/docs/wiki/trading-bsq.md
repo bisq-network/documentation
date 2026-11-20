@@ -17,7 +17,7 @@ tableOfContents: false
 
 There are two main reasons users acquire and use [BSQ](../bsq/):
 
-- **For Traders:** Using BSQ to pay trading fees provides a significant discount (target is \~50%, re-calibrated each DAO cycle (approximately monthly) - see [Updating BSQ trading fees](../updating-bsq-trading-fees/)) compared to paying fees in BTC. See [Paying trading fees with BSQ](../paying-trading-fees-with-bsq/).
+- **For Traders:** Using BSQ to pay trading fees provides a significant discount (target is \~25%, re-calibrated each DAO cycle (approximately monthly) - see [Updating BSQ trading fees](../updating-bsq-trading-fees/)) compared to paying fees in BTC. See [Paying trading fees with BSQ](../paying-trading-fees-with-bsq/).
 - **For Contributors:** BSQ is required to [make proposals and vote](../participating-in-a-dao-voting-cycle/) in the Bisq DAO. Contributors also receive compensation for their work in BSQ, which they might then sell on the Bisq market for BTC. See [Introduction to the DAO](../introduction-to-the-dao/).
 
 <span class="wiki-legacy-anchor" id="How_to_Obtain_BSQ_(Recommended_Method:_Swaps)" aria-hidden="true">
