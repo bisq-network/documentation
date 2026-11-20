@@ -1,5 +1,13 @@
 # Intake of the full wiki backup
 
+**Done on 20 November 2026.** The wiki operator provided a MySQL database dump of 19 October 2026.
+`scripts/sql-dump-to-xml.sh` turned it into an XML export (583 pages, 3,806 revisions) and
+`npm run compare-backup` found every restored article identical to its latest revision, except the
+historical Emergency Multisig payout tool, which the backup does not contain. No article was newer,
+no page was missing from the site, all 63 redirects agreed, and the 18 templates were the revisions
+the site renders. `src/data/backup-check.json` records the result. The steps below stay for any
+later backup.
+
 The restored site holds one revision per article from an 18 October 2026
 snapshot. The full backup adds the revision history, pages the snapshot missed,
 templates, full-size images and the complete list of editors. This runbook turns

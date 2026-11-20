@@ -22,6 +22,6 @@ Find articles by topic or name, or use the [complete title index](all/).
 
 Exported wiki paths such as `/Finding_your_mediator` and `/Last_resort_restore` open the corresponding original articles. Links to the previous edited guides lead to the relevant originals or a list of their source articles.
 
-## Editorial review
+## Contribute
 
-Proposed wording changes are reviewed separately. See [review status](../review/) for the comparison material and remaining recovery gaps.
+See [Help improve this documentation](../review/) to report a correction or propose a new article.
