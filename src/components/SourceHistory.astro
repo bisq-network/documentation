@@ -8,6 +8,7 @@ import { collectGuides, sections, loadIntegration } from "../../scripts/lib/docu
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import { beforeYouStartFor } from "../../scripts/lib/before-you-start.mjs";
 import notes from "../../migration/source-review-notes.json";
+import backupCheck from "../data/backup-check.json";
 import navigation from "../data/navigation.json";
 import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
 import { articlePageContent } from "../../scripts/lib/article-page.mjs";
@@ -43,6 +44,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(value));
 const images = page.media.images;
 const edits = article ? acceptedEditsFor(article.slug) : [];
+const inBackup = article ? backupCheck.matches.includes(article.slug) : false;
 ---
 {languages && <nav class="language-switch" aria-label="Language versions" data-pagefind-ignore>
   <span>Also in</span>
@@ -75,18 +77,20 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
   <h2 id="docs-source-history">Source and history</h2>
   <p>{edits.length
     ? `This article keeps its recovered headings and available images. Some wording was changed after restoration in the pull request${edits.length === 1 ? "" : "s"} listed below; the original wikitext keeps the earlier wording.`
-    : "This article keeps its recovered wording, headings, step order and available images."} Formatting and links are adapted for this site. {article.recovery_note || "The snapshot does not guarantee that every instruction is current."}</p>
+    : "This article keeps its recovered wording, headings, step order and available images."} Formatting and links are adapted for this site. {article.recovery_note || (inBackup ? "The restored revision is identical to the latest revision in the wiki's full backup of 19 October 2026." : "")}</p>
   <dl>
     <dt>Original page</dt><dd><a href={article.original_url}>{article.title}</a></dd>
     <dt>Revision</dt><dd><a href={article.original_revision_url}>{article.revision_id}</a> · {date(article.revision_timestamp)}</dd>
     <dt>Last recorded editor</dt><dd>{article.available_attribution?.username || "Not recorded"} <span class="source-note-origin">(not a complete author list)</span></dd>
     <dt>Snapshot</dt><dd>{article.snapshot_label || "18 October 2026"}</dd>
+    {/* src/data/backup-check.json: the restored revision checked against the wiki's full backup. */}
+    <dt>Full wiki backup</dt><dd>{inBackup ? "Matches the latest revision (19 October 2026 backup, checked 20 November 2026)" : "Not in the 19 October 2026 backup; recovered from another source"}</dd>
     {edits.length > 0 && <><dt>Edited after restoration</dt><dd><ul class="source-edits">{edits.map((edit) => <li>{date(edit.accepted_on)} · {edit.summary} · <a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></li>)}</ul></dd></>}
     <dt>Source files</dt><dd><a href={`${base}${article.source_download}`}>Original wikitext</a> · <a href={`${base}${article.source_metadata}`}>Revision metadata</a></dd>
     {images.length > 0 && <><dt>Image references</dt><dd>{images.filter((image) => image.asset_path).length} recovered, {images.filter((image) => !image.asset_path).length} missing{images.some((image) => image.status === "partial") && ` (${images.filter((image) => image.status === "partial").length} recovered as thumbnails or partial files)`} · <a href={`${base}/recovered-media/`}>Media catalogue</a></dd></>}
     <dt>Recovery gaps</dt><dd>{gaps.length ? gaps.join(" · ") : "None"}</dd>
   </dl>
-  <p><a href={`${base}/recovery-status/`}>Recovery scope and remaining source gaps</a></p>
+  <p><a href={`${base}/recovery-status/`}>How the wiki was recovered and checked</a></p>
 </section>}
 {article && <script type="application/json" id="article-media-data" set:html={JSON.stringify(images.map((image) => ({ id: image.element_id, status: image.status, width: image.width, height: image.height }))).replace(/</g, "\\u003c")} />}
 {article && <ArticleScripts />}

@@ -1,6 +1,6 @@
 # Bisq documentation
 
-A community preview of the restored Bisq wiki. The main site contains recovered articles covering Bisq 1, Bisq 2, payment methods, the DAO and contributing. The snapshot completed on 18 October 2026; its contents have not been certified as current. Maintainer review, complete attribution and content/media reuse terms remain open. See [review status](src/content/docs/review.md) and [source recovery](src/content/docs/recovery-status.md).
+The restored Bisq wiki: its articles on Bisq 1, Bisq 2, payment methods, the DAO and contributing, restored from an 18 October 2026 snapshot and checked against the wiki's full backup of 19 October 2026, in which every one of the 209 original articles is identical to its latest revision. Publishing the complete editor lists and settling the content and media reuse terms remain open. See [source recovery](src/content/docs/recovery-status.md) and [how to contribute](src/content/docs/review.md).
 
 ## Run locally
 
@@ -25,7 +25,7 @@ Run `npm test` and `npm run build` after changes. Source preservation checks do 
 
 ## GitHub Pages
 
-The community preview is published at [bisq.wiki](https://bisq.wiki/), so links to the original wiki keep working; [bisq-network.github.io/documentation](https://bisq-network.github.io/documentation/) redirects there. Check the Actions deployment result for the actual published revision. The included workflow publishes `main` after every merge and can also be run by hand. To build what the site serves:
+The site is published at [bisq.wiki](https://bisq.wiki/), so links to the original wiki keep working; [bisq-network.github.io/documentation](https://bisq-network.github.io/documentation/) redirects there. Check the Actions deployment result for the actual published revision. The included workflow publishes `main` after every merge and can also be run by hand. To build what the site serves:
 
 ```sh
 DOCS_SITE=https://bisq.wiki npm run build

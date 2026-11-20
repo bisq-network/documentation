@@ -230,24 +230,6 @@ a.sl-link-button.primary:hover { background: var(--bd-accent-hover); border-colo
 .sl-markdown-content .wiki-source-markup { overflow-wrap: anywhere; }
 .sl-markdown-content pre { max-width: 100%; overflow-x: auto; }
 
-.community-preview {
-  container-type: inline-size;
-  padding: var(--bd-space-2) var(--sl-content-pad-x);
-  font-size: var(--bd-fs-xs);
-  color: var(--sl-color-gray-2);
-  border-bottom: 1px solid var(--sl-color-hairline);
-}
-.community-preview a { color: var(--sl-color-text); text-underline-offset: 0.15em; }
-/* One line at every width: the full sentence where it fits, a short form below. The separators are
-   generated, so a line never starts or ends with one. */
-/* The padding keeps the focus ring of the link inside the clipped line. */
-.community-preview p { margin: calc(-1 * var(--bd-space-1)) 0; padding-block: var(--bd-space-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.community-preview p > :not(:last-child)::after { content: "·"; content: "·" / ""; display: inline-block; margin-inline: var(--bd-space-2); color: var(--sl-color-gray-3); font-weight: 400; }
-.community-preview .preview-wide { display: none; }
-@container (min-width: 44rem) {
-  .community-preview .preview-wide { display: block; }
-  .community-preview .preview-narrow { display: none; }
-}
 .related-guide {
   max-width: var(--sl-content-width);
   margin: 0 auto var(--bd-space-5);
@@ -442,8 +424,6 @@ svg.caret { --bd-glyph: var(--bd-icon-chevron-right); }
 @media (max-width: 40rem) { .article-directory .directory-list { columns: 1; } .directory-list li { flex-wrap: wrap; } .directory-chiprow { flex-wrap: nowrap; overflow-x: auto; padding-block: var(--bd-space-1); } .directory-chiprow > * { flex: none; } }
 
 /* Provenance stays separate from the recovered author content. */
-.community-preview { background: var(--sl-color-bg-sidebar); border-color: var(--sl-color-hairline-light); font-size: var(--bd-fs-xs); }
-.community-preview strong { color: var(--sl-color-text); font-weight: 600; }
 .source-note-origin { color: var(--sl-color-gray-3); font-size: var(--bd-fs-xs); font-weight: 400; }
 .source-history { max-width: 54rem; margin-top: var(--bd-space-8); padding: var(--bd-space-5) 0 0; border: 0; border-top: 1px solid var(--sl-color-hairline); border-radius: 0; }
 .source-history h2 { margin: 0 0 var(--bd-space-3); font-size: var(--bd-fs-h3); font-weight: 600; }
@@ -670,10 +650,8 @@ body { font-size: var(--bd-fs-ui); }
 }
 /* Lines outside the article keep a readable length. */
 :is(.article-directory > p, .source-history p, .source-history dd, .pm-overview, .directory-count) { max-width: 65ch; }
-/* Phones: the preview notice shows on the first page of a visit only (the flag is set in <head>,
-   astro.config.mjs), and the article starts closer to the top. */
+/* Phones: the article starts closer to the top. */
 @media (max-width: 50rem) {
-  :root[data-preview-seen] .community-preview { display: none; }
   :root:has(.article-crumbs) .main-pane .content-panel:first-child { padding-top: var(--bd-space-4); }
   :root:has(.article-crumbs) .main-pane .content-panel + .content-panel { padding-top: var(--bd-space-4); }
 }

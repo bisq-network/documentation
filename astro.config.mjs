@@ -46,7 +46,6 @@ export default defineConfig({
       customCss: ["./src/styles/custom.css", "./src/styles/article.css", "./src/styles/home-nav.css", "./src/styles/contribute.css", "./src/styles/search.css"],
       routeMiddleware: "./src/route-data.ts",
       components: {
-        Banner: "./src/components/PreviewBanner.astro",
         PageTitle: "./src/components/PageTitle.astro",
         Search: "./src/components/Search.astro",
         MarkdownContent: "./src/components/SourceHistory.astro",
@@ -65,8 +64,6 @@ export default defineConfig({
         // The browser's toolbar colour follows the page background in each system theme.
         { tag: "meta", attrs: { name: "theme-color", media: "(prefers-color-scheme: light)", content: "#fbfcfb" } },
         { tag: "meta", attrs: { name: "theme-color", media: "(prefers-color-scheme: dark)", content: "#121513" } },
-        // Phones show the preview notice on the first page of a visit only (src/styles/custom.css).
-        { tag: "script", content: "try{if(sessionStorage.getItem('bd-preview-seen'))document.documentElement.dataset.previewSeen='';sessionStorage.setItem('bd-preview-seen','1')}catch{}" },
       ],
       sidebar: [
         { label: "Overview", link: "/" },
@@ -84,7 +81,7 @@ export default defineConfig({
         })).filter((section) => section.items.length),
         // The All articles page, which is where the sidebar's browse link leads (and shows as current).
         { label: "Browse all documentation", link: "/browse/all/" },
-        { label: "Review status", link: "/review/" },
+        { label: "Contribute", link: "/review/" },
       ],
     }),
     // After Starlight, so these rules see its heading wrappers (src/markdown/wiki-markdown.mjs).

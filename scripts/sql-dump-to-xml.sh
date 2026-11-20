@@ -92,7 +92,9 @@ done
 client -e "CREATE DATABASE IF NOT EXISTS \`$database\`" </dev/null
 # --one-database skips every statement for other databases, including MariaDB's own
 # user tables in an --all-databases dump; --sandbox refuses shell and file commands.
-{ $unpack "$dump" || echo $? > "$work/unpack.status"; } | client --one-database "$database"
+# lib/strip-mysql-only.sed drops MySQL's replication bookkeeping (GTID_PURGED), which
+# MariaDB rejects and which is not part of the wiki.
+{ $unpack "$dump" || echo $? > "$work/unpack.status"; } | sed -f "$repo/scripts/lib/strip-mysql-only.sed" | client --one-database "$database"
 [ ! -s "$work/unpack.status" ] || fail "Reading $dump failed; nothing was exported." 1
 
 if [ $# -lt 4 ]; then
