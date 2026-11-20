@@ -1,0 +1,83 @@
+/* Article repairs (round 3 design review). Display-only fixes for wiki residue inside restored
+   articles. The server HTML stays as checked; classes and attributes used here are added after
+   load by src/scripts/article-experience.ts and src/scripts/wiki-residue.ts, so without scripts
+   the articles look as before. Loaded after custom.css (astro.config.mjs). */
+
+/* Preformatted wiki text (a paragraph of code lines): one block of lines that wraps at spaces. */
+.wiki-recovered-article p.wiki-pre-lines {
+  padding: var(--bd-space-3) var(--bd-space-4);
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: var(--bd-radius-md);
+  background: var(--sl-color-bg-inline-code);
+  font-family: var(--__sl-font-mono);
+  font-size: var(--bd-fs-sm);
+  line-height: 1.6;
+}
+.wiki-recovered-article > p.wiki-pre-lines { max-width: 54rem; }
+.wiki-recovered-article .wiki-pre-lines code { margin: 0; padding: 0; border: 0; background: none; font: inherit; white-space: pre-wrap; }
+.wiki-recovered-article .wiki-pre-lines code code { white-space: inherit; }
+/* Preformatted prose (words joined by no-break spaces), and code wrapped around heading text, read as
+   the text around them; an inline code inside keeps its own look. */
+.wiki-recovered-article code.wiki-pre-prose,
+.wiki-recovered-article .sl-heading-wrapper > :first-child > p > code {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+}
+/* A paragraph inside a heading: part of the heading line, without the gap below it. */
+.wiki-recovered-article .sl-heading-wrapper > :first-child > p { display: inline; margin: 0; }
+.wiki-recovered-article .sl-heading-wrapper:has(> :first-child > p:last-child) > .sl-anchor-link { margin-top: 0; }
+/* <big> in running text: body size, semibold. */
+.wiki-recovered-article big { font-size: inherit; font-weight: 600; }
+/* Prose kept in a preformatted block: text, not code. */
+.wiki-recovered-article pre.wiki-prose-pre {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+.wiki-recovered-article > pre.wiki-prose-pre { max-width: 34rem; }
+.wiki-recovered-article pre.wiki-prose-pre code { font: inherit; white-space: inherit; }
+
+/* Lists: an item that already starts with its own number shows no second one. A list whose only
+   item sits inside a link ("See the individual <ol><a><li>Roles</li></a></ol> below", Ops team and
+   Support agent) is part of a sentence: the sentence, the list and the text after it share one line;
+   the block before keeps the usual gap above that line. */
+.wiki-recovered-article ol.wiki-own-numbers { list-style: none; }
+.wiki-recovered-article :is(p:has(+ ol > a > li), ol:has(> a > li)) { display: inline; margin: 0; padding: 0; }
+.wiki-recovered-article ol > a > li { display: inline; margin: 0; }
+.wiki-recovered-article :has(+ p + ol > a > li) { margin-bottom: var(--sl-content-gap-y); }
+
+/* Light screenshots are dimmed a little in the dark theme; dark ones stay as they are. */
+:root[data-theme="dark"] .wiki-recovered-article img.wiki-light-image { filter: brightness(0.82) contrast(1.06); }
+
+/* Tables. The sideways-scroll hint sits right above its table, with an arrow. */
+.wiki-recovered-article .table-hint { display: flex; align-items: center; gap: var(--bd-space-1); margin-top: var(--bd-space-5); }
+.wiki-recovered-article .table-hint::after { content: ""; flex: none; width: 1rem; height: 1rem; background: currentColor; mask: var(--bd-icon-arrow-right) center / contain no-repeat; }
+.wiki-recovered-article .table-hint:not([hidden]) + .table-wrap { margin-top: var(--bd-space-2); }
+/* The caption starts at the left and is never wider than the box, so it wraps instead of being cut,
+   and it stays in view while the table scrolls sideways. */
+.wiki-recovered-article .table-wrap { container-type: inline-size; }
+.wiki-recovered-article caption { position: sticky; inset-inline-start: 0; box-sizing: border-box; max-width: 100cqi; padding: var(--bd-space-2) var(--bd-space-3); text-align: start; font-weight: 600; }
+/* Long tables scroll inside their box, so the header row can stay in view. */
+.wiki-recovered-article .table-wrap.table-long { max-height: min(75dvh, 48rem); }
+.wiki-recovered-article .table-long table { border-collapse: separate; border-spacing: 0; }
+.wiki-recovered-article .table-long .table-head > * { position: sticky; top: 0; z-index: 1; }
+/* A one-row table that only lays text beside a screenshot: text, then the screenshot at full width. */
+.wiki-recovered-article table.table-layout,
+.wiki-recovered-article .table-layout :is(tbody, tr, td) { display: block; overflow: visible; }
+.wiki-recovered-article .table-layout td { min-width: 0; padding: 0; border: 0; }
+.wiki-recovered-article .table-layout tr:hover td { background: none; }
+.wiki-recovered-article .table-layout td + td { margin-top: var(--sl-content-gap-y); }
+.wiki-recovered-article .table-layout td > :not(figure) { max-width: 34rem; }
+
+/* Notes and warnings on phones: the icon moves into the label row, so the text uses the full width. */
+@media (max-width: 40rem) {
+  .sl-markdown-content .wiki-admonition:is(.adm-note, .adm-warning) { padding-inline-start: var(--bd-space-4); }
+  .wiki-admonition:is(.adm-note, .adm-warning)::before { inset-inline-start: var(--bd-space-4); }
+  .wiki-admonition:is(.adm-note, .adm-warning) > :first-child { padding-inline-start: calc(1.15rem + var(--bd-space-2)); }
+}
