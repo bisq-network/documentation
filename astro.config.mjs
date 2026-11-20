@@ -43,7 +43,7 @@ export default defineConfig({
       title: "Documentation",
       favicon: "/favicon.ico",
       logo: { src: "./src/assets/bisq-logo.svg", alt: "Bisq" },
-      customCss: ["./src/styles/custom.css"],
+      customCss: ["./src/styles/custom.css", "./src/styles/home-nav.css"],
       routeMiddleware: "./src/route-data.ts",
       components: {
         Banner: "./src/components/PreviewBanner.astro",
@@ -56,6 +56,8 @@ export default defineConfig({
         ThemeSelect: "./src/components/ThemeSelect.astro",
         ThemeProvider: "./src/components/ThemeProvider.astro",
         MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
+        Footer: "./src/components/Footer.astro",
+        Pagination: "./src/components/Pagination.astro",
       },
       social: [{ icon: "github", label: "GitHub", href: `https://github.com/${repository}` }],
       sidebar: [
@@ -72,7 +74,8 @@ export default defineConfig({
             : sidebarItems(guides.filter((guide) => guide.directory === section.directory)
               .sort((a, b) => a.navigationOrder - b.navigationOrder)),
         })).filter((section) => section.items.length),
-        { label: "Browse all documentation", link: "/browse/" },
+        // The All articles page, which is where the sidebar's browse link leads (and shows as current).
+        { label: "Browse all documentation", link: "/browse/all/" },
         { label: "Review status", link: "/review/" },
       ],
     }),

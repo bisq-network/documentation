@@ -1,6 +1,7 @@
 ---
 title: "Bisq 1"
 description: "Original wiki articles with Bisq 1 migration grouping."
+tableOfContents: false
 ---
 
 This saved browse address lists articles with Bisq 1 migration grouping. Grouping can refer to historical material; it does not certify current product applicability. Use the [task-based directory](../) to browse by what you need to do.

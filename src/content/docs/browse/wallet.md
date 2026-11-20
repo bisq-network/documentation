@@ -1,6 +1,7 @@
 ---
 title: "Wallet, backup and recovery"
 description: "Seeds, data directories and restores"
+tableOfContents: false
 ---
 
 Seeds, data directories and restores. **23 articles.**

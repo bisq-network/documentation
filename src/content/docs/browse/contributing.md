@@ -1,6 +1,7 @@
 ---
 title: "Contributing"
 description: "Roles, teams and project processes"
+tableOfContents: false
 ---
 
 This topic is now listed under [Contributing](../contribute/).

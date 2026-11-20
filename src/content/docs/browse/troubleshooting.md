@@ -1,6 +1,7 @@
 ---
 title: "Troubleshooting"
 description: "Errors, stuck transactions and performance"
+tableOfContents: false
 ---
 
 Errors, stuck transactions and performance. **13 articles.**

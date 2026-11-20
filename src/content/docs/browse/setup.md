@@ -1,6 +1,7 @@
 ---
 title: "Advanced setup"
 description: "Nodes, Tails, Qubes, command line and mobile"
+tableOfContents: false
 ---
 
 Nodes, Tails, Qubes, command line and mobile. **14 articles.**

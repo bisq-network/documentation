@@ -10,6 +10,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const urgent = urgentTasks();
 const setup = setupTasks();
 const total = sections.reduce((sum, section) => sum + section.count, 0);
+// Which Bisq: one row per product, each with the words that describe it and where they come from.
+const products = [
+  { route: "/wiki/bisq-2/", label: "Bisq 2", text: "“Bisq 2 is the successor to the original Bisq (Bisq v1).”", source: "From the article Bisq 2" },
+  { route: "/wiki/bisq-1/", label: "Bisq 1", text: "The original Bisq desktop application, called “Bisq v1” in the Bisq 2 article.", source: "About Bisq 1" },
+];
 // One icon per topic, from the site's icon set (src/icons/lucide.mjs).
 const icons: Record<string, IconName> = {
   start: "flag",
@@ -27,30 +32,45 @@ const icons: Record<string, IconName> = {
 <div class="docs-home not-content">
   <section class="home-hero" aria-label="Search">
     <p class="home-lede">Guides for Bisq 1 and Bisq 2, restored from the community wiki and under review.</p>
-    <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog"><Icon name="search" size={20} /><span>Search articles, sections, people…</span><kbd>Ctrl K</kbd></button>
+    <button class="home-search-field" type="button" data-docs-search="" aria-haspopup="dialog" aria-keyshortcuts="Control+K"><Icon name="search" size={20} /><span>Search articles, sections, people…</span><kbd hidden><kbd>Ctrl</kbd><kbd>K</kbd></kbd></button>
+    <script is:inline>
+      // The shortcut hint names the reader's key, as the header search button does: ⌘ K on Apple
+      // platforms, Ctrl K elsewhere (Starlight's Search.astro reads navigator.platform the same way).
+      // It runs here, before the first paint, so the hint never changes after it shows.
+      (() => {
+        const field = document.currentScript?.previousElementSibling;
+        const hint = field?.querySelector(":scope > kbd");
+        if (!hint) return;
+        if (/(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+          hint.firstElementChild.textContent = "⌘";
+          field.setAttribute("aria-keyshortcuts", "Meta+K");
+        }
+        hint.hidden = false;
+      })();
+    </script>
     <div class="home-try" data-pagefind-ignore data-search-controls><span>Try</span>{tryQueries.map((query) => <button type="button" data-docs-search={query}>{query}</button>)}</div>
     <noscript><p><a href={`${base}/browse/all/`}>Browse all article titles</a></p></noscript>
   </section>
   <div class="home-start">
-    <section class="home-card home-urgent" aria-labelledby="home-urgent">
-      <h2 id="home-urgent">Something is wrong right now</h2>
-      <ul class="home-task-list">{urgent.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span>{label}</span><small>{guide.title}</small></a></li>)}</ul>
+    <section class="home-urgent" aria-labelledby="home-urgent">
+      <h2 id="home-urgent"><Icon name="triangleAlert" size={20} />Something is wrong right now</h2>
+      <ul class="home-rows">{urgent.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span class="home-row-text"><span class="home-row-label">{label}</span><small>{guide.title}</small></span><Icon name="chevronRight" size={16} /></a></li>)}</ul>
     </section>
-    <section class="home-card" aria-labelledby="home-setup">
+    <section class="home-setup" aria-labelledby="home-setup">
       <h2 id="home-setup">Set up and trade</h2>
-      <ul class="home-task-list">{setup.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span>{label}</span><small>{guide.title}</small></a></li>)}</ul>
+      <ul class="home-rows">{setup.map(({ label, guide }) => <li><a href={`${base}${guide.route}`}><span class="home-row-text"><span class="home-row-label">{label}</span><small>{guide.title}</small></span><Icon name="chevronRight" size={16} /></a></li>)}</ul>
     </section>
-    <section class="home-card" aria-labelledby="home-products">
+    <section class="home-products" aria-labelledby="home-products">
       <h2 id="home-products">Which Bisq do you use?</h2>
-      <a class="home-door" href={`${base}/wiki/bisq-2/`}><strong>Bisq 2</strong><span>“Bisq 2 is the successor to the original Bisq (Bisq v1).”</span><small>From the article Bisq 2</small></a>
-      <a class="home-door" href={`${base}/wiki/bisq-1/`}><strong>Bisq 1</strong><span>The original Bisq desktop application, called “Bisq v1” in the Bisq 2 article.</span><small>About Bisq 1</small></a>
+      <ul class="home-rows">{products.map((product) => <li><a href={`${base}${product.route}`}><span class="home-row-text"><span class="home-row-label">{product.label}</span><span class="home-row-quote">{product.text}</span><small>{product.source}</small></span><Icon name="chevronRight" size={16} /></a></li>)}</ul>
     </section>
   </div>
   <section class="home-topics-section" aria-labelledby="home-topics">
     <div class="home-section-head"><h2 id="home-topics">Browse by topic</h2><a href={`${base}/browse/all/`}>All {total} articles</a></div>
-    <ul class="home-topic-tiles">{sections.map((section) => <li><a href={`${base}/browse/${section.directory}/`}>
-      <Icon name={icons[section.directory]} size={22} />
-      <strong>{section.label}</strong><span>{section.intro}</span><em><span class="sr-only">, </span>{section.count} <span class="sr-only">articles</span></em>
+    <ul class="home-topic-list">{sections.map((section) => <li><a href={`${base}/browse/${section.directory}/`}>
+      <Icon name={icons[section.directory]} size={20} />
+      <span class="home-row-text"><span class="home-row-label">{section.label}</span><small>{section.intro}</small></span>
+      <span class="home-topic-count"><span class="sr-only">, </span>{section.count}<span class="sr-only"> articles</span></span>
     </a></li>)}</ul>
   </section>
   <section class="home-help" aria-labelledby="home-help">
