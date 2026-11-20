@@ -54,6 +54,8 @@ If you navigate to the tab called Funds in the Bisq wallet you will notice that 
 </ul>
 <span class="wiki-template-gap" role="note"><strong>[Unresolved template: Wallet_derivation_paths]</strong> <code>{{Wallet_derivation_paths}}</code></span>
 
+In Bisq 1 v1.10.11, the BSQ path above is not the only one: BSQ native SegWit (P2WPKH) addresses use `m/44'/142'/1'`, and `m/44'/142'/0'` is the legacy BSQ path. That version creates new wallets with SegWit keychains and adds them to older legacy wallets, so these paths are not a complete recipe for restoring a Bisq wallet in other software. Other wallets show BSQ as ordinary bitcoin, and spending it there will probably lose the BSQ.
+
 [Watch keys](../watch-keys/) can be used to see balance from an external wallet.
 
 <span class="wiki-legacy-anchor" id="SPV_file" aria-hidden="true">
