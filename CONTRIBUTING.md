@@ -1,6 +1,6 @@
 # Contributing to the Bisq documentation
 
-This site reproduces the Bisq wiki as it was recovered in October 2026. It is a community preview, not official Bisq approval, and an article's age and preservation do not establish that it is still accurate. Corrections are welcome: anyone can report a problem or propose new wording, a documentation reviewer accepts each wording change, and merging it publishes it.
+This site reproduces the Bisq wiki as it was recovered in October 2026 and checked against the wiki's full backup of 19 October 2026. Articles keep the wiki's last wording, so some describe older releases. Corrections are welcome: anyone can report a problem or propose new wording, a documentation reviewer accepts each wording change, and merging it publishes it.
 
 ## How a change reaches the site
 
@@ -202,6 +202,8 @@ npm run compare-backup -- ~/Downloads/bisq-wiki-backup.tar.gz --open
 ```
 
 It finds the XML export and the `images/` folder, unpacks archives into a temporary folder outside the repository and removes it afterwards, then writes `report.html` to `tmp/wiki-backup-intake/` (ignored by git), with `REPORT.md`, `report.json` and `newer-revisions.jsonl`. The report shows each article the backup changed, word by word; the gaps in our articles the backup can fill; the articles and images we do not have; and redirects and templates. It holds public wiki data only: anonymous editors are counted, never listed. A database dump is never opened; if the backup has nothing else, the command explains how to export the pages, for example with `sh scripts/sql-dump-to-xml.sh` and Docker. If the backup holds several different XML exports, the command lists them and asks you to choose one with `--xml <name>`; `--images <name>` picks between images folders. Unpacking stops at 20 GB; raise that with `--max-unpacked 40G` only for a backup that really is larger. Never commit the report or any part of the backup. [INTAKE.md](INTAKE.md) describes how to act on the results.
+
+The wiki operator's full backup of 19 October 2026 was compared on 20 November 2026: every original article was identical to its latest revision there, and the backup had no page the site lacks. [Source recovery](https://bisq.wiki/recovery-status/) has the details; `src/data/backup-check.json` records the result per article.
 
 ## Wording-only review batches
 

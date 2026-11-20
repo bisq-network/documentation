@@ -1,8 +1,8 @@
-# Publish the community preview
+# Publish the documentation
 
-The public preview is published at [bisq.wiki](https://bisq.wiki/) from [bisq-network/documentation](https://github.com/bisq-network/documentation). GitHub Actions builds and deploys `main` after every merge; check the workflow result and live pages to establish what is deployed.
+The site is published at [bisq.wiki](https://bisq.wiki/) from [bisq-network/documentation](https://github.com/bisq-network/documentation). GitHub Actions builds and deploys `main` after every merge; check the workflow result and live pages to establish what is deployed.
 
-Before publication, review the exact changes, source preservation checks, licensing and attribution status, and the community-preview notice. The restored snapshot is not a certification of current instructions. Review the checked-in source and the [contributor guidance](CONTRIBUTING.md); publishing a restoration does not establish official Bisq endorsement.
+Before publication, review the exact changes, the source preservation checks and the licensing and attribution status, against the checked-in source and the [contributor guidance](CONTRIBUTING.md).
 
 ## Publish source updates
 

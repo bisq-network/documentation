@@ -266,3 +266,25 @@ test("a .sql name decides before the content, and a long page is read across chu
   const report = await reconcile({ xml: exportFile(roundTrip([page("Long page", "99700", [revision("99701", "2026-01-01T00:00:00Z", text)])])) });
   assert.equal(report.new_pages.find((item) => item.title === "Long page").bytes, Buffer.byteLength(text));
 });
+
+test("9. MySQL's replication bookkeeping is dropped before the dump reaches MariaDB", () => {
+  // MySQL 5.7 writes it on one line, MySQL 8 may spread it over several; the wiki data around it stays.
+  const dump = [
+    "SET @@SESSION.SQL_LOG_BIN= 0;",
+    "SET @@GLOBAL.GTID_PURGED='3a1b4886-9e96-11ea-9ca8-000c29775c14:1-133685022';",
+    "INSERT INTO `wikipage` VALUES (1,0,'Main_Page');",
+    "SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '3a1b4886-9e96-11ea-9ca8-000c29775c14:1-5,",
+    "9b2c1e40-0000-11ea-9ca8-000c29775c14:1-7';",
+    "INSERT INTO `wikitext` VALUES (1,'SET @@GLOBAL.GTID_PURGED in text stays');",
+    "",
+  ].join("\n");
+  const result = spawnSync("sed", ["-f", "scripts/lib/strip-mysql-only.sed"], { input: dump, encoding: "utf8" });
+  assert.equal(result.status, 0);
+  assert.equal(result.stdout, [
+    "SET @@SESSION.SQL_LOG_BIN= 0;",
+    "INSERT INTO `wikipage` VALUES (1,0,'Main_Page');",
+    "INSERT INTO `wikitext` VALUES (1,'SET @@GLOBAL.GTID_PURGED in text stays');",
+    "",
+  ].join("\n"));
+  assert.match(readFileSync("scripts/sql-dump-to-xml.sh", "utf8"), /\| sed -f "\$repo\/scripts\/lib\/strip-mysql-only\.sed" \| client --one-database/);
+});
