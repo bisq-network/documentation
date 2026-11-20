@@ -8,7 +8,7 @@ tableOfContents: false
 
 <div class="wiki-recovered-article" lang="en">
 
-**Paying trade fees with BSQ** enables traders to get a 50% discount on trading fees while compensating Bisq contributors.
+**Paying trade fees with BSQ** enables traders to get a discount of about 25% on trading fees while compensating Bisq contributors.
 
 This article explains how to get BSQ and use it to pay for trading fees.
 
@@ -76,7 +76,7 @@ Pick the option you like better and complete the trade!
 
 **Note**
 
-[Using BSQ to pay trading fees](../trading-fees/) is about 50% cheaper then using plan bitcoin, and it also helps pay contributors for their work!
+[Using BSQ to pay trading fees](../trading-fees/) is about 25% cheaper then using plan bitcoin, and it also helps pay contributors for their work!
 
 </aside>
 
