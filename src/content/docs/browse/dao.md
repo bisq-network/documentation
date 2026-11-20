@@ -1,6 +1,7 @@
 ---
 title: "DAO and BSQ"
 description: "BSQ, governance and compensation"
+tableOfContents: false
 ---
 
 BSQ, governance and compensation. **20 articles.**

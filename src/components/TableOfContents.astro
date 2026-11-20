@@ -2,15 +2,18 @@
 import Default from "@astrojs/starlight/components/TableOfContents.astro";
 import AboutPage from "./AboutPage.astro";
 import { loadIntegration } from "../../scripts/lib/documentation.mjs";
+import notes from "../../migration/source-review-notes.json";
 
 // Every article has a contents list (src/route-data.ts) so the right rail is always there;
 // it lists sections only when the page has headings, and holds the About this page card.
 const { headings, entry } = Astro.locals.starlightRoute;
 const id = entry.id.replace(/\.(md|mdx)$/, "");
-const article = loadIntegration().some((item) => item.route === `/${id}/`);
+const article = loadIntegration().find((item) => item.route === `/${id}/`);
+// The card holds the article's migration checks; without checks there is no card.
+const hasChecks = article ? notes.items.some((note) => note.source_slugs.includes(article.slug)) : false;
 ---
 {headings.length > 0 && <Default />}
-{article && <section class="about-page about-page-rail" aria-labelledby="docs-about-page-rail" data-pagefind-ignore>
+{hasChecks && <section class="about-page about-page-rail" aria-labelledby="docs-about-page-rail" data-pagefind-ignore>
   <h2 id="docs-about-page-rail">About this page</h2>
   <AboutPage />
 </section>}

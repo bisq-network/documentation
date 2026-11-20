@@ -1,0 +1,59 @@
+---
+// Starlight's menu button (@astrojs/starlight/components/MobileMenuToggle.astro, Starlight 0.42.10)
+// as a flat 44 px icon button like the theme switch, with the site's menu and close icons, instead of
+// a floating 32 px disc. Starlight's page-scroll rules for the open menu are kept unchanged.
+import Icon from "./Icon.astro";
+---
+
+<button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden">
+	<Icon name="menu" size={22} class="open-menu" />
+	<Icon name="x" size={22} class="close-menu" />
+	<span class="sr-only">{Astro.locals.t("menuButton.accessibleLabel")}</span>
+</button>
+
+<style>
+	@layer starlight.core {
+		button {
+			position: fixed;
+			top: calc((var(--sl-nav-height) - var(--sl-menu-button-size)) / 2);
+			inset-inline-end: var(--sl-nav-pad-x);
+			z-index: var(--sl-z-index-navbar);
+			align-items: center;
+			justify-content: center;
+			border: 0;
+			border-radius: var(--bd-radius-md);
+			width: var(--sl-menu-button-size);
+			height: var(--sl-menu-button-size);
+			padding: 0;
+			background: transparent;
+			color: var(--sl-color-white);
+			cursor: pointer;
+		}
+
+		button:has(~ :popover-open) {
+			background: var(--sl-color-gray-6);
+		}
+
+		button:has(~ :popover-open) .open-menu {
+			display: none;
+		}
+
+		button:not(:has(~ :popover-open)) .close-menu {
+			display: none;
+		}
+	}
+</style>
+
+<style is:global>
+	@layer starlight.core {
+		body:has(#starlight__sidebar:popover-open) {
+			overflow: hidden;
+		}
+
+		@media (min-width: 50rem) {
+			body:has(#starlight__sidebar:popover-open) {
+				overflow: auto;
+			}
+		}
+	}
+</style>

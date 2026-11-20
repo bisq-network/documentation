@@ -1,6 +1,7 @@
 ---
 title: "Trading"
 description: "Offers, fees, deposits and reputation"
+tableOfContents: false
 ---
 
 Offers, fees, deposits and reputation. **30 articles.**

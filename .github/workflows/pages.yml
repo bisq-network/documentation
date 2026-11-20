@@ -1,26 +1,36 @@
 name: Build and deploy documentation
 
-# Manual only. Running this workflow deploys to GitHub Pages.
+# Publishes main to GitHub Pages after every merge, and when run by hand (Actions → Run workflow, for
+# a re-deploy after changing the site address). Changes reach main only through pull requests that
+# passed `check` and `receipts`; the build here checks again and fails on any unaccepted wording.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
+# One deployment at a time. GitHub does not promise that waiting runs start in the order of their
+# merges, so each run builds main as it is when the run starts (checkout below), not the commit that
+# triggered it: whichever run comes last publishes the newest main.
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
   build:
+    # A fork that enables Actions does not publish on push; a manual run there still can (a preview).
+    if: github.event_name == 'workflow_dispatch' || github.repository == 'bisq-network/documentation'
     runs-on: ubuntu-latest
     env:
       DOCS_SITE: ${{ vars.DOCS_SITE || format('https://{0}.github.io', github.repository_owner) }}
       DOCS_BASE: ${{ vars.DOCS_BASE || (github.event.repository.name == format('{0}.github.io', github.repository_owner) && '/' || format('/{0}/', github.event.repository.name)) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
@@ -37,8 +47,13 @@ jobs:
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: dist
+  # Only this job can publish: the build runs npm ci and the site's scripts without these rights.
+  # The github-pages environment accepts deployments from main only.
   deploy:
     needs: build
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -1,6 +1,7 @@
 ---
 title: "Get started"
 description: "Products, installation and first steps"
+tableOfContents: false
 ---
 
 Products, installation and first steps. **10 articles.**

@@ -1,0 +1,107 @@
+/* Search dialog and page not found (round 3 design review, F1 and F12). Scripts:
+   src/scripts/search-results.ts and src/scripts/pagefind-ui-on-open.ts; the page: src/pages/404.astro.
+   The old-link pages stand alone and style themselves (src/pages/[...legacy].astro). */
+
+/* Results first. Filters take at most two rows above the results: Product starts open, Topic closed,
+   and each group's name sits beside its chips. Values without results are left out
+   (pagefind-ui-on-open.ts), so a group with none, and with no results the whole panel, does not show. */
+#starlight__search {
+  --docs-filter-name-width: 6.25rem;
+}
+#starlight__search .pagefind-ui__drawer { flex-direction: column; gap: var(--bd-space-2); margin-top: var(--bd-space-3); }
+#starlight__search .pagefind-ui__filter-panel { flex: none; gap: var(--bd-space-1); width: 100%; min-width: 0; max-width: none; margin: 0; padding: 0; }
+#starlight__search :is(.pagefind-ui__filter-panel, .pagefind-ui__filter-block):not(:has(.pagefind-ui__filter-value)) { display: none; }
+#starlight__search .pagefind-ui__filter-block { position: relative; width: 100%; min-height: 2.75rem; margin: 0; padding: 0 0 0 var(--docs-filter-name-width); border: 0; }
+#starlight__search .pagefind-ui__filter-name { position: absolute; inset-block-start: 0; inset-inline-start: 0; display: flex; align-items: center; gap: var(--bd-space-1); width: calc(var(--docs-filter-name-width) - var(--bd-space-2)); height: 2.75rem; margin: 0; padding: 0; color: var(--sl-color-gray-2); font-weight: 600; cursor: pointer; }
+#starlight__search .pagefind-ui__filter-name:hover { color: var(--sl-color-text); }
+#starlight__search .pagefind-ui__filter-name::-webkit-details-marker { display: none; }
+#starlight__search .pagefind-ui__filter-name::after {
+  content: "";
+  position: static;
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  background: currentColor;
+  mask: var(--bd-icon-chevron-right) center / contain no-repeat;
+  -webkit-mask: var(--bd-icon-chevron-right) center / contain no-repeat;
+  transform: none;
+  transition: transform var(--bd-dur-fast) var(--bd-ease-standard);
+}
+#starlight__search .pagefind-ui__filter-block[open] > .pagefind-ui__filter-name::after { transform: rotate(90deg); }
+#starlight__search .pagefind-ui__filter-group { display: flex; flex-flow: row wrap; gap: var(--bd-space-2); min-width: 0; margin: 0; padding: 0; border: 0; }
+#starlight__search .pagefind-ui__filter-value { position: relative; flex: none; margin: 0; padding: 0; }
+#starlight__search .pagefind-ui__filter-checkbox { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+#starlight__search .pagefind-ui__filter-value::before { content: none; }
+#starlight__search .pagefind-ui__filter-label { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 var(--bd-space-3); border: 1px solid var(--sl-color-hairline); border-radius: var(--bd-radius-full); background: var(--bd-raised); color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); white-space: nowrap; }
+#starlight__search .pagefind-ui__filter-checkbox:checked + .pagefind-ui__filter-label { border-color: var(--sl-color-text); background: var(--sl-color-text); color: var(--sl-color-bg); }
+#starlight__search .pagefind-ui__filter-checkbox:focus-visible + .pagefind-ui__filter-label { outline: 2px solid var(--sl-color-text-accent); outline-offset: 2px; }
+/* Pagefind keeps its clear button in the tab order while the field is empty, only transparent; take it
+   out until there is something to clear, so the first Tab never lands on an invisible control. */
+#starlight__search .pagefind-ui__search-clear.pagefind-ui__suppressed { visibility: hidden; }
+/* The count line sits close to the first result. */
+#starlight__search .pagefind-ui__results-area { margin-top: 0; }
+#starlight__search .pagefind-ui__message { height: auto; padding: var(--bd-space-2) 0; font-weight: 600; }
+/* Phones: each open group is one row of chips that scrolls sideways; the padding keeps focus rings
+   inside the scrolling row. */
+@media (max-width: 50rem) {
+  #starlight__search .pagefind-ui__filter-group { flex-wrap: nowrap; margin: calc(-1 * var(--bd-space-1)) 0; padding: var(--bd-space-1); overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+}
+
+/* Copy link on each section result (src/scripts/search-results.ts): the link icon from the site's set. */
+.pagefind-ui__result-nested .docs-search-copy::before {
+  content: "";
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  background: currentColor;
+  mask: var(--bd-icon-link) center / contain no-repeat;
+  -webkit-mask: var(--bd-icon-link) center / contain no-repeat;
+}
+
+/* Before typing: the home page's suggestions and "Recently read". Typing replaces them with results;
+   clearing the field brings them back. */
+.docs-search-start { display: grid; gap: var(--bd-space-4); margin-top: var(--bd-space-4); }
+.search-container:has(.pagefind-ui__search-input:not(:placeholder-shown)) > .docs-search-start { display: none; }
+.docs-search-try.home-try { margin: 0; }
+.docs-search-recent-head { display: flex; align-items: center; justify-content: space-between; gap: var(--bd-space-2); }
+.docs-search-recent h2 { margin: 0; color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); font-weight: 600; line-height: var(--bd-lh-sm); }
+.docs-search-recent-head button { min-width: 2.75rem; min-height: 2.75rem; padding: 0 var(--bd-space-2); border: 0; background: none; color: var(--sl-color-text-accent); font-size: var(--bd-fs-sm); text-decoration: underline; text-underline-offset: 0.15em; cursor: pointer; }
+.docs-search-recent .home-rows { margin: 0; border-top: 1px solid var(--sl-color-hairline-light); }
+
+/* Nothing found: the query, what to change, and the suggestions instead of empty filters. */
+.docs-search-empty { display: grid; gap: var(--bd-space-2); padding: var(--bd-space-3) 0 var(--bd-space-2); }
+.docs-search-empty h2 { margin: 0; color: var(--sl-color-text); font-size: var(--bd-fs-body); font-weight: 600; line-height: var(--bd-lh-sm); overflow-wrap: anywhere; }
+.docs-search-empty p { margin: 0; color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); line-height: var(--bd-lh-sm); }
+.docs-search-empty .home-try { margin: var(--bd-space-2) 0; }
+.docs-search-empty a { color: var(--sl-color-text-accent); text-decoration: underline; text-underline-offset: 0.15em; }
+
+/* Page not found: one next step first (search for the words in the address), then the urgent tasks,
+   then the saved-link box for old wiki links. */
+.not-found { display: grid; gap: var(--bd-space-6); max-width: 40rem; }
+.not-found-intro { display: grid; gap: var(--bd-space-2); }
+.not-found p { margin: 0; }
+.not-found-address { width: fit-content; max-width: 100%; padding: var(--bd-space-2) var(--bd-space-3); border-radius: var(--bd-radius-sm); background: var(--sl-color-bg-inline-code); color: var(--sl-color-gray-2); font-family: var(--__sl-font-mono); font-size: var(--bd-fs-sm); line-height: var(--bd-lh-sm); overflow-wrap: anywhere; }
+.not-found-address[hidden] { display: none; }
+.not-found-address code { padding: 0; background: none; color: inherit; font: inherit; }
+.not-found-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--bd-space-3) var(--bd-space-5); }
+.not-found-actions a, .not-found-saved summary { color: var(--sl-color-text-accent); text-underline-offset: 0.15em; }
+.docs-button.not-found-search { gap: var(--bd-space-2); padding-inline: var(--bd-space-4); border-color: var(--sl-color-accent); background: var(--sl-color-accent); color: var(--bd-on-accent); font-size: var(--bd-fs-ui); font-weight: 600; }
+.docs-button.not-found-search:hover { border-color: var(--bd-accent-hover); background: var(--bd-accent-hover); }
+.not-found-urgent h2 { margin: 0; color: var(--sl-color-gray-2); font-size: var(--bd-fs-sm); font-weight: 600; letter-spacing: 0.06em; line-height: var(--bd-lh-sm); text-transform: uppercase; }
+.not-found-urgent .home-rows { border-top: 1px solid var(--sl-color-hairline-light); }
+.not-found-saved { padding-top: var(--bd-space-4); border-top: 1px solid var(--sl-color-hairline-light); }
+.not-found-saved summary { display: inline-flex; align-items: center; gap: var(--bd-space-2); min-height: 2.75rem; font-weight: 500; text-decoration: underline; list-style: none; cursor: pointer; }
+.not-found-saved summary::-webkit-details-marker { display: none; }
+.not-found-saved summary::before {
+  content: "";
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  background: currentColor;
+  mask: var(--bd-icon-chevron-right) center / contain no-repeat;
+  -webkit-mask: var(--bd-icon-chevron-right) center / contain no-repeat;
+  transition: transform var(--bd-dur-fast) var(--bd-ease-standard);
+}
+.not-found-saved[open] summary::before { transform: rotate(90deg); }
+.not-found-saved .saved-wiki-link { margin-block: var(--bd-space-3) 0; }

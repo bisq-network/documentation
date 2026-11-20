@@ -1,0 +1,19 @@
+---
+// The end of an article: "More in <section>", up to four other articles from the same sidebar
+// section, its neighbours in sidebar order (scripts/lib/more-in-section.mjs), in place of
+// Starlight's previous and next cards. Every article shows the same structure; other pages show
+// nothing here, because Starlight's cards were all it showed on them.
+import Icon from "./Icon.astro";
+import { moreInSection } from "../../scripts/lib/more-in-section.mjs";
+
+const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "");
+const more = id.startsWith("wiki/") ? moreInSection(id.slice("wiki/".length)) : undefined;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+{more && <nav class="more-in-section print:hidden" aria-labelledby="docs-more-in-section">
+  <div class="more-in-head">
+    <h2 id="docs-more-in-section">More in {more.section.label}</h2>
+    <a href={`${base}/browse/${more.section.directory}/`}>All {more.section.count} articles<span class="sr-only"> in {more.section.label}</span></a>
+  </div>
+  <ul>{more.articles.map((article) => <li><a href={`${base}${article.route}`}><span>{article.title}</span><Icon name="chevronRight" size={16} /></a></li>)}</ul>
+</nav>}

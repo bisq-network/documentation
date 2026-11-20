@@ -1,13 +1,38 @@
 ---
 import Default from "@astrojs/starlight/components/Search.astro";
+import { tryQueries } from "../data/shortcuts.mjs";
+import { RECENT_KEY, RECENT_STORED } from "../lib/recently-read.mjs";
 ---
 <Default {...Astro.props} />
-<script>
-  // Starlight's search button has a visible shortcut hint; its accessible name says the same, so
-  // the name contains what the button shows (WCAG 2.5.3). The rest of the site's search additions
-  // load with the search interface (src/scripts/pagefind-ui-on-open.ts).
-  document.querySelectorAll<HTMLButtonElement>("site-search button[data-open-modal]").forEach((button) => {
-    const keys = [...button.querySelectorAll(":scope > kbd > kbd")].map((key) => key.textContent?.trim()).filter(Boolean).join(" ");
+{/* The home page's search suggestions, for the search dialog before typing and when nothing matches.
+    src/scripts/search-results.ts copies them in when the search interface loads; the rest of the
+    site's search additions load with it (src/scripts/pagefind-ui-on-open.ts). */}
+<template id="docs-search-try">
+  <div class="home-try docs-search-try" role="group" aria-label="Search suggestions"><span>Try</span>{tryQueries.map((query) => <button type="button" data-search-try={query}>{query}</button>)}</div>
+</template>
+{/* Inline, right after Starlight's own script that shows Ctrl K or ⌘ K, so the button's name is right
+    before the first paint and no script file loads before search opens. Astro does not minify inline
+    scripts, so the notes are here:
+    - The search button shows its shortcut; its accessible name says the same, so the name contains
+      what the button shows (WCAG 2.5.3).
+    - "Recently read" in the search dialog: once an article page has loaded, it adds itself to a short
+      list in this browser's storage (src/lib/recently-read.mjs). Nothing is sent anywhere; without
+      storage (private window, blocked) the list stays empty. */}
+<script is:inline define:vars={{ key: RECENT_KEY, stored: RECENT_STORED }}>
+  document.querySelectorAll("site-search button[data-open-modal]").forEach((button) => {
+    const keys = [...button.querySelectorAll(":scope > kbd > kbd")].map((item) => item.textContent.trim()).filter(Boolean).join(" ");
     if (keys) button.setAttribute("aria-label", `Search ${keys}`);
   });
+  if (/\/wiki\/[a-z0-9-]+\/$/.test(location.pathname)) {
+    const remember = () => {
+      try {
+        const title = document.querySelector("h1")?.textContent.trim();
+        if (!title) return;
+        const saved = JSON.parse(localStorage.getItem(key) || "[]");
+        const others = Array.isArray(saved) ? saved.filter((item) => item && item.path !== location.pathname) : [];
+        localStorage.setItem(key, JSON.stringify([{ path: location.pathname, title }, ...others].slice(0, stored)));
+      } catch {}
+    };
+    addEventListener("load", () => { if ("requestIdleCallback" in window) requestIdleCallback(remember); else setTimeout(remember, 200); });
+  }
 </script>

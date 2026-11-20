@@ -1,18 +1,19 @@
 # Publish the community preview
 
-The public preview is published at [bisq.wiki](https://bisq.wiki/) from [bisq-network/documentation](https://github.com/bisq-network/documentation). GitHub Actions builds `main`; check the workflow result and live pages to establish what is deployed.
+The public preview is published at [bisq.wiki](https://bisq.wiki/) from [bisq-network/documentation](https://github.com/bisq-network/documentation). GitHub Actions builds and deploys `main` after every merge; check the workflow result and live pages to establish what is deployed.
 
 Before publication, review the exact changes, source preservation checks, licensing and attribution status, and the community-preview notice. The restored snapshot is not a certification of current instructions. Review the checked-in source and the [contributor guidance](CONTRIBUTING.md); publishing a restoration does not establish official Bisq endorsement.
 
 ## Publish source updates
 
-Changes reach `main` only through pull requests: `main` accepts no direct push, and a pull request merges only with green `check` and `receipts` checks, as a merge commit, and, when it changes an article or `migration/`, with a documentation reviewer's approval. [CONTRIBUTING.md](CONTRIBUTING.md#how-a-change-reaches-the-site) describes each step. Merging makes the change public in the repository but does not deploy it.
+Changes reach `main` only through pull requests: `main` accepts no direct push, and a pull request merges only with green `check` and `receipts` checks, as a merge commit, and, when it changes an article or `migration/`, with a documentation reviewer's approval. [CONTRIBUTING.md](CONTRIBUTING.md#how-a-change-reaches-the-site) describes each step. Merging also deploys the change: whatever reaches `main` is published.
 
 ## Deploy the website
 
-1. In **Settings → Pages**, select **GitHub Actions** as the publishing source.
-2. Open **Actions → Build and deploy documentation → Run workflow** and run it on `main` when authorized. The `github-pages` environment accepts deployments from `main` only.
-3. Check the build and deployment results. Verify the live homepage, search, restored article and image, an old wiki-title link, and a multi-source guide compatibility page.
+1. In **Settings → Pages**, **GitHub Actions** is the publishing source (set once).
+2. Every push to `main`, which means every merged pull request, runs **Build and deploy documentation** (`.github/workflows/pages.yml`). It tests and builds `main` again and deploys it; the `github-pages` environment accepts deployments from `main` only. Runs go one at a time, and each builds `main` as it is when the run starts, not the commit that started it, so the last run publishes the newest `main` whatever order the runs start in. If the build fails, the site keeps its previous version.
+3. To publish again without a merge, for example after changing the site address below or to retry a run that failed for a reason outside the repository, open **Actions → Build and deploy documentation → Run workflow** and run it on `main`.
+4. Check the build and deployment results. Verify the live homepage, search, restored article and image, an old wiki-title link, and a multi-source guide compatibility page.
 
 ## Site address
 
@@ -22,6 +23,6 @@ The site is served at `https://bisq.wiki/`, the original wiki's domain, so saved
 - The custom domain `bisq.wiki` under **Settings → Pages**, with **Enforce HTTPS**. The domain is verified for the bisq-network organization, so no other account can claim it. GitHub redirects `bisq-network.github.io/documentation/` links to the same path on bisq.wiki.
 - The domain's DNS, held outside this repository, points `bisq.wiki` at GitHub Pages.
 
-Set the custom domain only while the DNS points at GitHub Pages; otherwise GitHub sends visitors to an address that does not answer. After changing any of these, run the deployment workflow and check old wiki links on the live site.
+Set the custom domain only while the DNS points at GitHub Pages; otherwise GitHub sends visitors to an address that does not answer. After changing any of these, run the deployment workflow by hand and check old wiki links on the live site.
 
 References: [GitHub Pages custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [manual workflow execution](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow).

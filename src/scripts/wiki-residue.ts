@@ -1,34 +1,42 @@
 /*
- * Recovery markers inside the article, made readable after the page loads. The server HTML, which
- * the fidelity gate checks, stays as it is; without scripts the markers show as before.
+ * Recovery markers and wiki residue inside the article, made readable after the page loads. The
+ * server HTML, which the fidelity gate checks, stays as it is; without scripts the article shows as
+ * before. Only how the text is laid out changes, never its words.
  * - A lost link ("label [unresolved link: Target]") reads as its words with a dotted underline and a
- *   small button that says the original link could not be restored and names its target.
+ *   small button that says the original link could not be restored and names its target; a link to a
+ *   section that was not recovered ("[section not recovered: Name]") gets the same button.
  * - Where a page has an Also in switch, the wiki's unsupported <languages/> marker is hidden.
  * - A table column whose every value links to the same historical source gets one marked note.
  * - Source links whose visible text ("2026 source") is missing from their accessible name get it.
+ * repairArticle() (run on every article) handles the layout residue: see its comments.
  */
+import { breakPoints, lightness, looksLikeProse, ownNumbers } from "./article-repairs-helpers.mjs";
+
 export function enhanceResidue(article: HTMLElement) {
   let lost = 0;
-  article.querySelectorAll<HTMLElement>("span.wiki-link-gap").forEach((gap) => {
-    const marker = gap.querySelector<HTMLElement>(":scope > small");
-    const match = /^\[unresolved link: (.+)\]$/.exec(marker?.textContent?.trim() ?? "");
-    if (!marker || !match) return;
+  article.querySelectorAll<HTMLElement>(".wiki-link-gap").forEach((gap) => {
+    const marker = gap.matches("small") ? gap : gap.querySelector<HTMLElement>(":scope > small");
+    const text = marker?.textContent?.trim() ?? "";
+    const link = /^\[unresolved link: (.+)\]$/.exec(text);
+    const section = /^\[section not recovered: (.+)\]$/.exec(text);
+    if (!marker || !(link || section)) return;
     lost += 1;
     marker.hidden = true;
-    gap.classList.add("lost-link");
+    if (link) gap.classList.add("lost-link");
+    const label = link ? "The original wiki link here could not be restored" : "The section this link pointed to could not be recovered";
     const tip = document.createElement("span");
     tip.id = `docs-lost-link-${lost}`;
     tip.className = "lost-link-tip";
     tip.hidden = true;
-    tip.textContent = `The original wiki link here could not be restored. It pointed to “${match[1]}”.`;
+    tip.textContent = link ? `${label}. It pointed to “${link[1]}”.` : `The section “${section![1]}” that this link pointed to could not be recovered.`;
     const button = document.createElement("button");
     button.type = "button";
     button.className = "lost-link-button";
-    button.setAttribute("aria-label", "The original wiki link here could not be restored");
+    button.setAttribute("aria-label", label);
     button.setAttribute("aria-expanded", "false");
     button.setAttribute("aria-controls", tip.id);
-    button.title = "The original wiki link here could not be restored";
-    button.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 15l-1.5 1.5a3.5 3.5 0 0 1-5-5L4 10M15 9l1.5-1.5a3.5 3.5 0 0 1 5 5L20 14M8 4v2M4 8h2M16 20v-2M20 16h-2"></path></svg>';
+    button.title = label;
+    // The icon is drawn by custom.css (--bd-icon-unlink), so article pages load no icon code.
     button.addEventListener("click", () => {
       tip.hidden = !tip.hidden;
       button.setAttribute("aria-expanded", String(!tip.hidden));
@@ -81,9 +89,8 @@ export function enhanceResidue(article: HTMLElement) {
     paragraph.className = "column-source-note";
     paragraph.setAttribute("data-pagefind-ignore", "");
     notes.forEach((note, index) => { if (index) paragraph.append(document.createElement("br")); paragraph.append(note); });
-    const wrap = table.closest(".table-wrap") ?? table;
-    const after = wrap.nextElementSibling?.classList.contains("table-hint") ? wrap.nextElementSibling : wrap;
-    after.after(paragraph);
+    // The scroll hint sits before the table (src/scripts/article-experience.ts), so the note follows it.
+    (table.closest(".table-wrap") ?? table).after(paragraph);
   });
 
   article.querySelectorAll<HTMLAnchorElement>(".wiki-template-expanded > sup > a[aria-label]").forEach((link) => {
@@ -91,4 +98,95 @@ export function enhanceResidue(article: HTMLElement) {
     const label = link.getAttribute("aria-label") ?? "";
     if (visible && !label.toLowerCase().includes(visible.toLowerCase())) link.setAttribute("aria-label", `${visible}: ${label}`);
   });
+}
+
+const NBSP = /\u00a0/g;
+/** No-break spaces become spaces in the element's text (outside nested code when `own` is set). */
+function spaces(root: Element, own: boolean) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    if (!own || node.parentElement!.closest("code") === root) node.textContent = node.textContent!.replace(NBSP, " ");
+  }
+}
+const isCode = (node: Node) => node.nodeName === "CODE";
+const blank = (node: Node) => node.nodeType === Node.TEXT_NODE && !node.textContent!.trim();
+// Code, a line break, or bold or italic around code only.
+const codeOnly = (node: Node) => isCode(node) || node.nodeName === "BR"
+  || (/^(STRONG|B|EM|I)$/.test(node.nodeName) && [...node.childNodes].every((child) => isCode(child) || blank(child)) && !!(node as Element).querySelector("code"));
+// Something a reader sees: text, or an element with text or an image.
+const shows = (node: Node) => node.nodeType === Node.TEXT_NODE ? !blank(node)
+  : node.nodeName !== "BR" && (!!node.textContent!.trim() || node.nodeName === "IMG" || !!(node as Element).querySelector("img"));
+
+/**
+ * Layout residue from the wiki conversion, repaired after load:
+ * - Paragraphs that hold only line breaks are hidden, and line breaks before the first or after the
+ *   last visible content of a paragraph or list item.
+ * - Preformatted wiki text, a paragraph of code and line breaks only, becomes one block of lines
+ *   that wraps at spaces; when it is prose, or code wrapped around a heading's text, the code reads
+ *   as the text around it. Their words were joined by no-break spaces, which become spaces.
+ * - A numbered list whose items start with their own numbers shows no second number (a list whose
+ *   items sit in links joins its sentence in src/styles/article.css).
+ * - HTML comment text inside a link's text is hidden.
+ * - Long URLs, paths and tokens in code and in links that show a URL may wrap after "/" and the like.
+ */
+export function repairArticle(article: HTMLElement) {
+  article.querySelectorAll<HTMLElement>("p, li").forEach((block) => {
+    if (block.tagName === "P" && !block.textContent!.trim() && [...block.children].every((child) => child.tagName === "BR")) {
+      block.hidden = true;
+      return;
+    }
+    const nodes = [...block.childNodes];
+    for (const order of [nodes, [...nodes].reverse()]) {
+      for (const node of order) {
+        if (shows(node)) break;
+        if (node.nodeName === "BR") (node as HTMLElement).hidden = true;
+      }
+    }
+  });
+
+  article.querySelectorAll("p").forEach((paragraph) => {
+    const nodes = [...paragraph.childNodes].filter((node) => !blank(node));
+    if (!nodes.some((node) => node.nodeName !== "BR") || !nodes.every(codeOnly)) return;
+    const text = nodes.map((node) => node.nodeName === "BR" ? "\n" : node.textContent).join("");
+    if (paragraph.closest("h1, h2, h3, h4, h5, h6") || looksLikeProse(text)) {
+      paragraph.querySelectorAll(":scope > code, :scope > :not(code) > code").forEach((code) => {
+        code.classList.add("wiki-pre-prose");
+        spaces(code, true);
+      });
+    } else {
+      paragraph.classList.add("wiki-pre-lines");
+      spaces(paragraph, false);
+    }
+  });
+  article.querySelectorAll("code").forEach((code) => {
+    if (code.closest("pre, .wiki-pre-lines, .wiki-pre-prose") || (code.textContent!.match(NBSP) ?? []).length < 3 || !looksLikeProse(code.textContent!)) return;
+    code.classList.add("wiki-pre-prose");
+    spaces(code, true);
+  });
+
+  article.querySelectorAll<HTMLOListElement>("ol").forEach((list) => {
+    if (ownNumbers([...list.children].map((item) => item.textContent!), list.start)) list.classList.add("wiki-own-numbers");
+  });
+
+  article.querySelectorAll("a").forEach((link) => {
+    for (const node of [...link.childNodes]) {
+      const comment = node.nodeType === Node.TEXT_NODE ? /<!--[\s\S]*?-->/.exec(node.textContent!) : null;
+      if (!comment) continue;
+      const text = (node as Text).splitText(comment.index);
+      text.splitText(comment[0].length);
+      const hidden = document.createElement("span");
+      hidden.hidden = true;
+      text.replaceWith(hidden);
+      hidden.append(text);
+    }
+  });
+
+  const long: Text[] = [];
+  const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode() as Text | null; node; node = walker.nextNode() as Text | null) {
+    const parent = node.parentElement!;
+    if (node.data.length < 20 || parent.closest("pre, [hidden]")) continue;
+    if (parent.closest("code") || /^(https?:|www\.)/.test(parent.closest("a")?.textContent?.trim() ?? "")) long.push(node);
+  }
+  long.forEach((node) => breakPoints(node.data).reverse().forEach((at) => node.splitText(at).before(document.createElement("wbr"))));
 }

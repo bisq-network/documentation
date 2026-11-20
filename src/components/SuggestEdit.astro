@@ -1,0 +1,44 @@
+---
+// "Suggest an edit" on an article page: a button that opens a small menu with two ways to propose a
+// change on GitHub. "Describe the fix" opens the correction form prefilled with the page's address
+// (src/scripts/suggest-edit.ts adds the section and any selected text when the menu opens);
+// "Edit it myself" opens the article's file in GitHub's editor. The additional historical articles
+// (migration/additional-articles.json) offer only the form: receipts do not cover them.
+//
+// Renders nothing outside articles (src/content/docs/wiki/), so it can sit in a component every
+// page uses. Its script also shows "Suggest a fix" next to text selected in the article; it is the
+// same on every article page. Styles: src/styles/contribute.css.
+//
+// Props:
+//   id     ID of the menu, "suggest-edit-menu" by default; give a second copy on a page its own.
+//   class  Classes added to the outer element, for placing it.
+import Icon from "./Icon.astro";
+import additional from "../../migration/additional-articles.json";
+import { articleFile, editUrl, reportUrl } from "../scripts/suggest-edit-links.mjs";
+
+interface Props {
+  id?: string;
+  class?: string;
+}
+const { id = "suggest-edit-menu", class: className } = Astro.props;
+const file = articleFile(Astro.locals.starlightRoute.entry.filePath);
+const historical = Boolean(file && additional.items.some((item) => item.slug === file.slug));
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+// Without a configured site (a local build), the script uses the address the page is read at.
+const page = file && Astro.site ? new URL(`${base}/wiki/${file.slug}/`, Astro.site).href : undefined;
+---
+{file && <div class:list={["suggest-edit", className]} data-suggest-edit data-page={page} data-pagefind-ignore>
+  <button type="button" class="docs-button suggest-edit-button" popovertarget={id}><Icon name="squarePen" size={16} /><span class="suggest-edit-label">Suggest an edit</span></button>
+  <div id={id} class="suggest-edit-menu" popover>
+    <a href={reportUrl({ page })} data-suggest-describe>
+      <strong>Describe the fix</strong>
+      <span>Say what is wrong; a reviewer writes the change.</span>
+    </a>
+    {!historical && <a href={editUrl(file.path)}>
+      <strong>Edit it myself</strong>
+      <span>Change the text in GitHub's editor.</span>
+    </a>}
+    <p>{historical ? "This historical article stays as recovered; a reviewer makes any change. It opens GitHub and needs a GitHub account." : "Both open GitHub and need a GitHub account."}</p>
+  </div>
+  <script src="../scripts/suggest-edit.ts"></script>
+</div>}

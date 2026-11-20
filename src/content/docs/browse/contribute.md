@@ -1,6 +1,7 @@
 ---
 title: "Contributing"
 description: "Roles, teams and project processes"
+tableOfContents: false
 ---
 
 Roles, teams and project processes. **35 articles.**

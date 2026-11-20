@@ -1,6 +1,7 @@
 ---
 title: "Reference"
 description: "Background articles and wiki history"
+tableOfContents: false
 ---
 
 Background articles and wiki history. **9 articles.**

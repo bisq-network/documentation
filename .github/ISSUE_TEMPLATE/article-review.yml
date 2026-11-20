@@ -14,7 +14,7 @@ body:
     id: article
     attributes:
       label: Article link
-      description: Use the section link button next to a heading to link the exact section.
+      description: Filled in when you come from Suggest an edit or Suggest a fix on the article. Otherwise, copy the link next to a heading to point at the exact section.
       placeholder: https://bisq.wiki/wiki/last-resort-restore/#import-raw-data-from-backup
     validations:
       required: true
@@ -51,7 +51,7 @@ body:
     id: details
     attributes:
       label: What you found
-      description: For a correction, quote the current sentence and give the wording you would use. If the article is still correct, say what you checked.
+      description: For a correction, quote the current sentence and give the wording you would use (text you selected on the article is already quoted). If the article is still correct, say what you checked.
     validations:
       required: true
   - type: textarea
