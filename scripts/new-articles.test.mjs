@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { frontmatterTitle, verifyNewArticles } from "./lib/new-articles.mjs";
+import { frontmatterTitle, markdownHeadings, verifyNewArticles } from "./lib/new-articles.mjs";
 import { collectGuides, newArticles, sections } from "./lib/documentation.mjs";
+import { productEvidence } from "./lib/product-evidence.mjs";
 
 const recoveredSlugs = new Set(["zelle", "sepa"]);
 const files = new Map([["src/content/docs/wiki/a-guide.md", '---\ntitle: "A guide"\n---\n\nText.\n']]);
@@ -10,7 +11,21 @@ const item = { slug: "a-guide", title: "A guide", directory: "trade", added: "20
 const verify = (items) => verifyNewArticles(items, options);
 
 test("a listed new article gets its file and route", () => {
-  assert.deepEqual(verify([item]), [{ ...item, file: "src/content/docs/wiki/a-guide.md", route: "/wiki/a-guide/" }]);
+  assert.deepEqual(verify([item]), [{ ...item, file: "src/content/docs/wiki/a-guide.md", route: "/wiki/a-guide/", headings: [] }]);
+});
+
+test("headings are read from Markdown, without IDs and outside code blocks", () => {
+  const text = "---\ntitle: T\n---\n\n## Using it on Bisq 1 {#using-it}\n\n```\n## Not a heading\n```\n\n~~~~\n```\n# Still code\n~~~~\n\n### Closed ###\n#NoSpace\n";
+  assert.deepEqual(markdownHeadings(text), [{ text: "Using it on Bisq 1" }, { text: "Closed" }]);
+});
+
+test("new articles get product labels from their title and headings", () => {
+  const product = (headings) => productEvidence({ title: "A guide", headings: headings.map((text) => ({ text })) });
+  assert.deepEqual(product(["Trading on Bisq 1"]), [{ label: "Bisq 1", basis: "Named in section headings" }]);
+  assert.deepEqual(product(["Risks"]), []);
+  for (const article of newArticles) assert.ok(Array.isArray(article.headings) && article.headings.length > 0, `${article.slug} has headings`);
+  const stablecoins = newArticles.find((article) => article.slug === "stablecoin-payment-methods");
+  if (stablecoins) assert.deepEqual(productEvidence(stablecoins).map((entry) => entry.label), ["Bisq 1"]);
 });
 
 test("new articles are checked against their files and the sidebar", () => {

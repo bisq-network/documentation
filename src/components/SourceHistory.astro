@@ -26,7 +26,7 @@ const prominent = article ? notes.items.filter((note) => note.display_priority =
 const languages = article ? navigation.languageVersions.find((group) => group.pages.some((page) => page.slug === article.slug)) : undefined;
 const guide = article ? collectGuides().find((item) => item.slug === article.slug) : undefined;
 const topic = sections.find((section) => section.directory === guide?.directory)?.label;
-const products = article ? productEvidence(article) : [];
+const products = article ? productEvidence(article) : newArticle ? productEvidence(newArticle) : [];
 // The page shows the rendered article after the string replacements in
 // scripts/lib/article-page.mjs; the fidelity gate checks the same result.
 const page = articlePageContent(await Astro.slots.render("default"), id, import.meta.env.BASE_URL);
@@ -61,6 +61,7 @@ const edits = article ? acceptedEditsFor(article.slug) : [];
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
 {newArticle && <>
   {newTopic && <span hidden data-pagefind-ignore data-pagefind-filter={`topic:${newTopic}`}></span>}
+  {(products.length ? products : [{ label: "Product not stated" }]).map((product) => <span hidden data-pagefind-ignore data-pagefind-filter={`product:${product.label}`}></span>)}
   <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
     <h2 id="docs-source-history">About this article</h2>
     <p>This article was written for this site and added on {date(`${newArticle.added}T00:00:00Z`)}. It is not from the original Bisq wiki. A documentation reviewer approves every change to it. <a href={`https://github.com/bisq-network/documentation/commits/main/${newArticle.file}`}>History of this article</a></p>

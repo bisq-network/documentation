@@ -18,7 +18,26 @@ export function frontmatterTitle(text) {
 }
 
 /**
- * Check the list of new articles and return each with its file and route.
+ * The text of each Markdown heading (`## Text {#id}`), outside fenced code blocks, as
+ * `{ text }` items like the recovered articles' headings, so productEvidence() reads both alike.
+ */
+export function markdownHeadings(text) {
+  const headings = [];
+  let fence;
+  for (const line of text.split("\n")) {
+    const marker = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1];
+    if (marker && (!fence || (marker[0] === fence[0] && marker.length >= fence.length))) {
+      fence = fence ? undefined : marker;
+      continue;
+    }
+    const heading = fence ? undefined : /^ {0,3}#{1,6}[ \t]+(.*?)(?:[ \t]+\{#[^}]*\})?(?:[ \t]+#+)?[ \t]*$/.exec(line)?.[1];
+    if (heading) headings.push({ text: heading });
+  }
+  return headings;
+}
+
+/**
+ * Check the list of new articles and return each with its file, route and headings.
  * recoveredSlugs are the recovered and additional articles; sections the sidebar sections.
  */
 export function verifyNewArticles(items, { recoveredSlugs, sections, read = (path) => readFileSync(path, "utf8"), exists = existsSync }) {
@@ -38,7 +57,8 @@ export function verifyNewArticles(items, { recoveredSlugs, sections, read = (pat
     assert(typeof added === "string" && datePattern.test(added) && !Number.isNaN(Date.parse(`${added}T00:00:00Z`)), `new article ${slug}: added must be a date (YYYY-MM-DD)`);
     const file = `src/content/docs/wiki/${slug}.md`;
     assert(exists(file), `new article ${slug}: ${file} is missing`);
-    assert.equal(frontmatterTitle(read(file)), title, `new article ${slug}: the title differs from the front matter of ${file}`);
-    return { slug, title, directory, added, file, route: `/wiki/${slug}/` };
+    const text = read(file);
+    assert.equal(frontmatterTitle(text), title, `new article ${slug}: the title differs from the front matter of ${file}`);
+    return { slug, title, directory, added, file, route: `/wiki/${slug}/`, headings: markdownHeadings(text) };
   });
 }
