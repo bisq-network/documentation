@@ -4,7 +4,7 @@ import SavedWikiLink from "./SavedWikiLink.astro";
 import PaymentMethodsHub from "./PaymentMethodsHub.astro";
 import ArticleScripts from "./ArticleScripts.astro";
 import Default from "@astrojs/starlight/components/MarkdownContent.astro";
-import { collectGuides, sections, loadIntegration } from "../../scripts/lib/documentation.mjs";
+import { collectGuides, sections, loadIntegration, newArticles } from "../../scripts/lib/documentation.mjs";
 import { productEvidence } from "../../scripts/lib/product-evidence.mjs";
 import { beforeYouStartFor } from "../../scripts/lib/before-you-start.mjs";
 import notes from "../../migration/source-review-notes.json";
@@ -16,6 +16,8 @@ import { articlePageContent } from "../../scripts/lib/article-page.mjs";
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "").replace(/(?:^|\/)index$/, "");
 const route = id ? `/${id}/` : "/";
 const article = loadIntegration().find((item) => item.target === route);
+const newArticle = article ? undefined : newArticles.find((item) => item.route === route);
+const newTopic = sections.find((section) => section.directory === newArticle?.directory)?.label;
 // Up to three sentences from a migration check, chosen in src/data/before-you-start.json; the
 // build fails if one is not an exact part of the check's text (scripts/lib/before-you-start.mjs).
 const callout = article ? beforeYouStartFor(article.slug) : undefined;
@@ -26,7 +28,7 @@ const prominent = article ? notes.items.filter((note) => note.display_priority =
 const languages = article ? navigation.languageVersions.find((group) => group.pages.some((page) => page.slug === article.slug)) : undefined;
 const guide = article ? collectGuides().find((item) => item.slug === article.slug) : undefined;
 const topic = sections.find((section) => section.directory === guide?.directory)?.label;
-const products = article ? productEvidence(article) : [];
+const products = article ? productEvidence(article) : newArticle ? productEvidence(newArticle) : [];
 // The page shows the rendered article after the string replacements in
 // scripts/lib/article-page.mjs; the fidelity gate checks the same result.
 const page = articlePageContent(await Astro.slots.render("default"), id, import.meta.env.BASE_URL);
@@ -72,6 +74,14 @@ const inBackup = article ? backupCheck.matches.includes(article.slug) : false;
 </>}
 <Default><Fragment set:html={page.content} /></Default>
 {["browse", "browse/all"].includes(id) && <SavedWikiLink id="browse" />}
+{newArticle && <>
+  {newTopic && <span hidden data-pagefind-ignore data-pagefind-filter={`topic:${newTopic}`}></span>}
+  {(products.length ? products : [{ label: "Product not stated" }]).map((product) => <span hidden data-pagefind-ignore data-pagefind-filter={`product:${product.label}`}></span>)}
+  <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
+    <h2 id="docs-source-history">About this article</h2>
+    <p>This article was written for this site and added on {date(`${newArticle.added}T00:00:00Z`)}. It is not from the original Bisq wiki. A documentation reviewer approves every change to it. <a href={`https://github.com/bisq-network/documentation/commits/main/${newArticle.file}`}>History of this article</a></p>
+  </section>
+</>}
 {["browse/payments", "browse/payment-methods"].includes(id) && <PaymentMethodsHub />}
 {article && <section class="source-history" data-pagefind-ignore aria-labelledby="docs-source-history">
   <h2 id="docs-source-history">Source and history</h2>
@@ -93,4 +103,4 @@ const inBackup = article ? backupCheck.matches.includes(article.slug) : false;
   <p><a href={`${base}/recovery-status/`}>How the wiki was recovered and checked</a></p>
 </section>}
 {article && <script type="application/json" id="article-media-data" set:html={JSON.stringify(images.map((image) => ({ id: image.element_id, status: image.status, width: image.width, height: image.height }))).replace(/</g, "\\u003c")} />}
-{article && <ArticleScripts />}
+{(article || newArticle) && <ArticleScripts />}

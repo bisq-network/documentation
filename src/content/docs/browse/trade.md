@@ -4,7 +4,7 @@ description: "Offers, fees, deposits and reputation"
 tableOfContents: false
 ---
 
-Offers, fees, deposits and reputation. **29 articles.**
+Offers, fees, deposits and reputation. **30 articles.**
 
 - [Atomic swap](../../wiki/atomic-swap/)
 - [Bisq Price Indices](../../wiki/bisq-price-indices/)
@@ -35,5 +35,6 @@ Offers, fees, deposits and reputation. **29 articles.**
 - [Trading Monero](../../wiki/trading-monero/)
 - [Trading costs](../../wiki/trading-costs/)
 - [Trading fees](../../wiki/trading-fees/)
+- [Stablecoin payment methods](../../wiki/stablecoin-payment-methods/)
 
 [Browse all articles](../all/)

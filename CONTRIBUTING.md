@@ -46,7 +46,7 @@ Keep one article, or a few closely related ones, per pull request.
 
 ### Propose a new article
 
-An article the old wiki never had starts with the [Propose a new article](https://github.com/bisq-network/documentation/issues/new?template=new-article.yml) issue form, also linked from the site's [Help improve this documentation](https://bisq.wiki/review/) page: the title, the sidebar section it belongs in, who it helps and why it is needed, an outline or draft in plain text, and the sources it rests on. A documentation reviewer reads the proposal and says whether it fits. The article is then written in a pull request, by you or by a reviewer from your outline. A pull request that adds a file to `src/content/docs/wiki/` gets the `new-article` label by itself, and a documentation reviewer approves it there. The site lists such articles once it supports articles written after the recovery (pull request #205); until then a proposal waits in its issue.
+An article the old wiki never had starts with the [Propose a new article](https://github.com/bisq-network/documentation/issues/new?template=new-article.yml) issue form, also linked from the site's [Help improve this documentation](https://bisq.wiki/review/) page: the title, the sidebar section it belongs in, who it helps and why it is needed, an outline or draft in plain text, and the sources it rests on. A documentation reviewer reads the proposal and says whether it fits. The article is then written in a pull request, by you or by a reviewer from your outline. A pull request that adds a file to `src/content/docs/wiki/` gets the `new-article` label by itself, and a documentation reviewer approves it there. How to write and list it: [Add a new article](#add-a-new-article).
 
 ### After you open the pull request
 
@@ -69,6 +69,16 @@ Preserve prerequisites and warnings, identify old interfaces in images, and do n
 ### Change the site or tooling
 
 Changes outside the articles (layout, scripts, workflows, these guides) are ordinary pull requests and get no label: CodeRabbit reviews them, a maintainer reviews and merges them, and they need no receipt. A change under `migration/` also needs a documentation reviewer's approval. Like every pull request they must pass `check` and `receipts`; [run the checks locally](#run-the-checks-locally) first. Merging publishes them like any other change.
+
+### Add a new article
+
+A new article is one that was not in the old wiki, for example a guide to a feature added since. It lives next to the recovered articles:
+
+1. Write it as `src/content/docs/wiki/<name>.md`: a `title` and a `description` between the two `---` at the top, a `{#id}` after each heading, and the text between `<div class="wiki-recovered-article" lang="en">` and `</div>`, as in [Stablecoin payment methods](src/content/docs/wiki/stablecoin-payment-methods.md). Link to other articles with `../<name>/`.
+2. List it in [`src/data/new-articles.json`](src/data/new-articles.json) with its `slug` (the `<name>`), `title`, sidebar section (`directory`, for example `trade`) and the date it is added (`added`). The build fails for an article file that is not listed, and for a listed article whose file or title does not match.
+3. Open a pull request. GitHub labels it `new-article` by itself. It needs no receipt: a documentation reviewer approves it in the pull request, as every change under `src/content/docs/wiki/`.
+
+The page says it is a new article, not from the original wiki, and when it was added. A new article has no old wiki address; the recovered articles keep theirs.
 
 ## Accepted editorial changes
 

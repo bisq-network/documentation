@@ -1,0 +1,6 @@
+{
+  "_about": "Articles written for this site after the wiki recovery, listed in src/content/docs/wiki/<slug>.md at /wiki/<slug>/. They have no source in the old wiki, so the source checks, receipts and old addresses of the recovered articles do not apply to them; a documentation reviewer approves each change in its pull request, as for every file in src/content/docs/wiki/. Each item: slug, title (the same as the article's front matter), directory (a sidebar section from migration/nav-groups.json without subgroups) and added (the date it was added, YYYY-MM-DD). Each article sits in the same article container as the recovered ones (<div class=\"wiki-recovered-article\" lang=\"en\">), which the page checks expect. scripts/lib/new-articles.mjs checks this list.",
+  "items": [
+    { "slug": "stablecoin-payment-methods", "title": "Stablecoin payment methods", "directory": "trade", "added": "2026-11-18" }
+  ]
+}

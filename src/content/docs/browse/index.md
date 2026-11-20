@@ -8,7 +8,7 @@ Find articles by topic or name, or use the [complete title index](all/).
 ## Browse by subject
 
 - [Get started](start/) (10): Products, installation and first steps
-- [Trading](trade/) (29): Offers, fees, deposits and reputation
+- [Trading](trade/) (30): Offers, fees, deposits and reputation
 - [Payment methods](payments/) (45): Payment accounts, limits and method guides
 - [Wallet, backup and recovery](wallet/) (23): Seeds, data directories and restores
 - [Disputes and support](disputes/) (14): Mediation, arbitration and reimbursements
