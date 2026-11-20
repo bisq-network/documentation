@@ -43,3 +43,14 @@ test("every icon comes from the icon set", () => {
   const dataUris = [...css.matchAll(/url\("data:image\/svg\+xml/g)].length;
   assert.equal(dataUris, Object.keys(CSS_ICONS).length, "custom.css has data-URI SVGs outside the --bd-icon-* properties");
 });
+
+test("scripts import icons under an Icon name, so a local variable can't shadow them", () => {
+  // search-results.ts once drew a URL instead of the link icon: its local `link` hid the import.
+  for (const file of files("src/scripts")) {
+    for (const match of readFileSync(file, "utf8").matchAll(/import \{([^}]*)\} from "[^"]*icons\/lucide\.mjs"/g)) {
+      for (const name of match[1].split(",").map((part) => part.trim()).filter(Boolean)) {
+        assert.match(name, /^\w+ as \w+Icon$/, `${file} imports ${name} without an Icon alias`);
+      }
+    }
+  }
+});

@@ -33,6 +33,7 @@ export const CSS_ICONS = {
   x: ["x", 16],
   "file-text": ["fileText", 16],
   link: ["link", 16],
+  unlink: ["unlink", 14],
   "arrow-left": ["arrowLeft", 20],
   "arrow-right": ["arrowRight", 20],
 };

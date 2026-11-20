@@ -1,5 +1,5 @@
 import { icon } from "../icons/icon.mjs";
-import { link } from "../icons/lucide.mjs";
+import { link as linkIcon } from "../icons/lucide.mjs";
 // What the site adds to Starlight's search once the search interface exists: a label for the
 // input, a notice when no result contains a query word, announced result counts, and a copy-link
 // button per section result. src/scripts/pagefind-ui-on-open.ts loads this with the interface.
@@ -74,7 +74,7 @@ export function enhanceSearchResults(search: HTMLElement) {
       button.type = "button";
       button.className = "docs-search-copy";
       button.title = "Copy link";
-      button.innerHTML = icon(link, { size: 16 });
+      button.innerHTML = icon(linkIcon, { size: 16 });
       const name = `Copy link to section: ${link.textContent?.trim()}`;
       button.setAttribute("aria-label", name);
       button.addEventListener("click", async () => {

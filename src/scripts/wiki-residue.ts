@@ -1,5 +1,3 @@
-import { icon } from "../icons/icon.mjs";
-import { unlink } from "../icons/lucide.mjs";
 /*
  * Recovery markers inside the article, made readable after the page loads. The server HTML, which
  * the fidelity gate checks, stays as it is; without scripts the markers show as before.
@@ -30,7 +28,7 @@ export function enhanceResidue(article: HTMLElement) {
     button.setAttribute("aria-expanded", "false");
     button.setAttribute("aria-controls", tip.id);
     button.title = "The original wiki link here could not be restored";
-    button.innerHTML = icon(unlink, { size: 14 });
+    // The icon is drawn by custom.css (--bd-icon-unlink), so article pages load no icon code.
     button.addEventListener("click", () => {
       tip.hidden = !tip.hidden;
       button.setAttribute("aria-expanded", String(!tip.hidden));
