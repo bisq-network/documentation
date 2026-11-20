@@ -56,8 +56,16 @@ export default defineConfig({
         ThemeSelect: "./src/components/ThemeSelect.astro",
         ThemeProvider: "./src/components/ThemeProvider.astro",
         MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
+        TwoColumnContent: "./src/components/TwoColumnContent.astro",
       },
       social: [{ icon: "github", label: "GitHub", href: `https://github.com/${repository}` }],
+      head: [
+        // The browser's toolbar colour follows the page background in each system theme.
+        { tag: "meta", attrs: { name: "theme-color", media: "(prefers-color-scheme: light)", content: "#fbfcfb" } },
+        { tag: "meta", attrs: { name: "theme-color", media: "(prefers-color-scheme: dark)", content: "#121513" } },
+        // Phones show the preview notice on the first page of a visit only (src/styles/custom.css).
+        { tag: "script", content: "try{if(sessionStorage.getItem('bd-preview-seen'))document.documentElement.dataset.previewSeen='';sessionStorage.setItem('bd-preview-seen','1')}catch{}" },
+      ],
       sidebar: [
         { label: "Overview", link: "/" },
         ...sections.map((section) => ({

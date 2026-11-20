@@ -14,6 +14,12 @@ export const onRequest = defineRouteMiddleware(({ locals }) => {
   if (id.startsWith("browse/") || ["browse", "recovered-media", "recovery-status", "review", "categories/teams"].includes(id)) {
     entry.data.pagefind = false;
   }
+  // The header shows the Bisq logo next to the site title "Documentation"; a browser tab or a link
+  // preview has no logo, so there every page names Bisq: "<page> | Bisq documentation".
+  for (const item of route.head) {
+    if (item.tag === "title" && typeof item.content === "string") item.content = item.content.replace(/ \| Documentation$/, " | Bisq documentation");
+    if (item.tag === "meta" && item.attrs?.property === "og:site_name") item.attrs.content = "Bisq documentation";
+  }
   // The home page's heading (the title in src/content/docs/index.mdx stays as it is).
   // Pending confirmation of the wording by the design review.
   if (id === "" || id === "index") {

@@ -1,18 +1,17 @@
 ---
 import Icon from "./Icon.astro";
-// The body of the "About this page" card: where the wording comes from, the migration
-// checks with their full text behind "Show checks", and links to the source and to the
-// correction form. TableOfContents.astro shows it in the right rail from 72rem up;
-// PageTitle.astro shows it as a closed row under the title below that.
+// The body of the "About this page" card: the migration checks with their full text behind
+// "Show checks", and links to the source and to the correction form. Where the wording comes
+// from is in the title's meta line, so it isn't repeated here. TableOfContents.astro shows the
+// card in the right rail from 72rem up; PageTitle.astro shows it as a closed row under the title
+// below that; both only for articles with checks.
 import notes from "../../migration/source-review-notes.json";
 import { loadIntegration } from "../../scripts/lib/documentation.mjs";
-import { acceptedEditsFor, pullRequestLabel } from "../../scripts/lib/accepted-edits.mjs";
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.(md|mdx)$/, "");
 const article = loadIntegration().find((item) => item.route === `/${id}/`);
 const checks = article ? notes.items.filter((note) => note.source_slugs.includes(article.slug)) : [];
 const needsReview = checks.filter((note) => note.status === "needs-maintainer-review").length;
-const edits = article ? acceptedEditsFor(article.slug) : [];
 const date = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(value));
 const lastChecked = checks.map((note) => note.checked_at).sort().at(-1);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -21,10 +20,6 @@ const report = `https://github.com/bisq-network/documentation/issues/new?templat
 ---
 {article && <div class="about-page-body">
   <dl class="about-facts">
-    <div>
-      <dt>{edits.length ? "Edited after restoration" : "Original wiki wording"}</dt>
-      <dd><span class="revision-stamp">rev {article.revision_id} · {article.revision_timestamp ? date(article.revision_timestamp) : "date not recorded"}</span>{edits.length > 0 && <> · {edits.map((edit, index) => <>{index > 0 && ", "}<a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></>)}</>}</dd>
-    </div>
     {checks.length > 0 && <div>
       <dt>{checks.length} migration {checks.length === 1 ? "check" : "checks"}</dt>
       <dd>Checked {date(lastChecked!)}{needsReview > 0 && <> · <span class="docs-chip review">{needsReview} needs maintainer review</span></>}</dd>

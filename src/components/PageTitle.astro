@@ -22,19 +22,25 @@ const revisionDate = article?.revision_timestamp ? new Intl.DateTimeFormat("en-G
     <ol><li><a href={`${base}/`}>Docs</a></li>{section && <li><a href={`${base}/browse/${section.directory}/`}>{section.label}</a></li>}</ol>
   </nav>
   <h1 id="_top" lang={article.source_language || undefined}>{article.title}</h1>
+  {/* The title block lines up with the reading column: where the wording comes from on the left,
+      the page's actions on the right. */}
   <div class="article-title-context" data-pagefind-ignore>
     <div class="article-meta">
-      {/* A chip only where the article names a product; no chip is shown without that evidence. */}
-      {products.length > 0 && <span class="product-labels">
-        {products.map((product) => <span class="docs-chip product" title={product.basis}><span class="dot" aria-hidden="true"></span>{product.label}</span>)}
-      </span>}
-      {edits.length ? <span>Edited after restoration: {edits.map((edit, index) => <>{index > 0 && ", "}<a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></>)}</span> : <span>Original wiki wording</span>}
-      <span class="revision-stamp">rev {article.revision_id} · {revisionDate}</span>
-      <button type="button" class="docs-icon-button" data-copy-page hidden aria-label="Copy link to this page" title="Copy link to this page"><Icon name="link" size={18} /></button>
+      <p class="article-meta-info">
+        {/* A chip only where the article names a product; no chip is shown without that evidence. */}
+        {products.map((product) => <span class="docs-chip product" title={product.basis}>{product.label}</span>)}
+        {edits.length ? <span>Edited after restoration: {edits.map((edit, index) => <>{index > 0 && ", "}<a href={edit.pull_request}>{pullRequestLabel(edit.pull_request)}</a></>)}</span> : <span>Original wiki wording</span>}
+        <span class="revision-stamp">rev {article.revision_id} · {revisionDate}</span>
+      </p>
+      <div class="article-meta-actions">
+        <button type="button" class="docs-icon-button" data-copy-page hidden aria-label="Copy link to this page" title="Copy link to this page"><Icon name="link" size={18} /></button>
+      </div>
     </div>
-    <details class="about-page about-page-row">
-      <summary><Icon name="chevronRight" size={16} class="disclosure-icon" /><span class="about-page-row-title">About this page</span>{checks > 0 && <span class="about-page-row-count">{checks} migration {checks === 1 ? "check" : "checks"}</span>}</summary>
+    {/* Below 72rem the migration checks are a closed row here; from 72rem they are a card in the
+        right rail (TableOfContents.astro). Articles without checks have neither. */}
+    {checks > 0 && <details class="about-page about-page-row">
+      <summary><Icon name="chevronRight" size={16} class="disclosure-icon" /><span class="about-page-row-title">About this page</span><span class="about-page-row-count">{checks} migration {checks === 1 ? "check" : "checks"}</span></summary>
       <AboutPage />
-    </details>
+    </details>}
   </div>
 </> : <Default />}
